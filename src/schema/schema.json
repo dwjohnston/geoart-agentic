@@ -158,36 +158,84 @@
       }
     },
     "controlNode": {
-      "type": "object",
       "description": "User-facing input node — pure value source with no inputs",
-      "additionalProperties": false,
-      "required": ["id", "type", "params"],
-      "properties": {
-        "id": { "type": "string" },
-        "type": {
-          "type": "string",
-          "enum": ["slider", "colorPicker", "dropdown", "toggle"]
-        },
-        "params": {
+      "oneOf": [
+        {
           "type": "object",
+          "description": "Numeric slider",
           "additionalProperties": false,
+          "required": ["id", "type", "params"],
           "properties": {
-            "label":   { "$ref": "#/definitions/stringParam" },
-            "min":     { "$ref": "#/definitions/numberParam" },
-            "max":     { "$ref": "#/definitions/numberParam" },
-            "options": { "$ref": "#/definitions/stringArrayParam" },
-            "value": {
-              "description": "Current user-set value; type depends on the node type",
-              "oneOf": [
-                { "$ref": "#/definitions/numberParam" },
-                { "$ref": "#/definitions/colorParam" },
-                { "$ref": "#/definitions/stringParam" },
-                { "$ref": "#/definitions/booleanParam" }
-              ]
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["slider"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": { "$ref": "#/definitions/stringParam" },
+                "min":   { "$ref": "#/definitions/numberParam" },
+                "max":   { "$ref": "#/definitions/numberParam" },
+                "value": { "$ref": "#/definitions/numberParam" }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Color picker",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "properties": {
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["colorPicker"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": { "$ref": "#/definitions/stringParam" },
+                "value": { "$ref": "#/definitions/colorParam" }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "String dropdown / enum selector",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "properties": {
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["dropdown"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label":   { "$ref": "#/definitions/stringParam" },
+                "options": { "$ref": "#/definitions/stringArrayParam" },
+                "value":   { "$ref": "#/definitions/stringParam" }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Boolean toggle — emits a trigger when on",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "properties": {
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["toggle"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": { "$ref": "#/definitions/stringParam" },
+                "value": { "$ref": "#/definitions/booleanParam" }
+              }
             }
           }
         }
-      }
+      ]
     },
     "computeNode": {
       "type": "object",
