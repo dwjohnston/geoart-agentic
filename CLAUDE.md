@@ -1,12 +1,17 @@
 # Geometric Art Engine
 
-# Code Style
+## Code Style
 - Use ES modules (import/export) syntax, not CommonJS (require)
 
-# Workflow
+## Workflow
  - Run typecheck, tests, lint when you are done making a series of code changes. 
  - Prefer running single tests, and not the whole test suite, for performance 
 
+## Spelling 
+
+Always use British English, with the except of the following words: 
+
+- color 
 
 A dataflow graph engine for generative, algorithmic art. The user builds algorithms
 by connecting nodes together. The graph is evaluated every animation frame.
