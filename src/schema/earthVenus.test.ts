@@ -7,7 +7,28 @@ test('earth venus example algorithm validates against schema', () => {
   const earthVenus: GeoArtGraph = {
     version: '0.1',
     control: {
-      nodes: [],
+      nodes: [
+        {
+          id: 'earthSpeedSlider',
+          type: 'slider',
+          params: {
+            label: { v: 'Earth Speed' },
+            min: { v: 0 },
+            max: { v: 1 },
+            value: { v: 0.2 },
+          },
+        },
+        {
+          id: 'venusSpeedSlider',
+          type: 'slider',
+          params: {
+            label: { v: 'Venus Speed' },
+            min: { v: 0 },
+            max: { v: 1 },
+            value: { v: 0.33 },
+          },
+        },
+      ],
     },
     compute: {
       nodes: [
@@ -17,7 +38,7 @@ test('earth venus example algorithm validates against schema', () => {
           type: 'orbit',
           params: {
             radius: { v: 0.6 },
-            speed: { v: 0.2 },
+            // speed omitted — driven by earthSpeedSlider edge
           },
         },
         {
@@ -25,11 +46,16 @@ test('earth venus example algorithm validates against schema', () => {
           type: 'orbit',
           params: {
             radius: { v: 0.3 },
-            speed: { v: 0.33 },
+            // speed omitted — driven by venusSpeedSlider edge
           },
         },
       ],
-      edges: [],
+      edges: [
+        // earthSpeedSlider → earthOrbit.speed (port 2)
+        { fromNode: 'earthSpeedSlider', fromPort: 0, toNode: 'earthOrbit', toPort: 2 },
+        // venusSpeedSlider → venusOrbit.speed (port 2)
+        { fromNode: 'venusSpeedSlider', fromPort: 0, toNode: 'venusOrbit', toPort: 2 },
+      ],
     },
     render: {
       nodes: [
