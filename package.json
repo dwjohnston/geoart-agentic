@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "generate:schema-types": "mkdir -p src/schema/_generated && json2ts -i src/schema/schema.json -o src/schema/_generated/schema-types.d.ts"
   },
   "dependencies": {
     "react": "^19.2.4",
@@ -28,6 +29,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
+    "json-schema-to-typescript": "^15.0.4",
     "playwright": "^1.59.1",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.0",

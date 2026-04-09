@@ -1,8 +1,9 @@
 import { expect, test } from 'vitest'
+import type { GeoArtGraph } from './_generated/schema-types'
 
-test('earth venus example algorithm is defined', () => {
-  // Minimal example graph object; future tests can validate against the schema.
-  const earthVenus = {
+test('earth venus example algorithm matches schema type', () => {
+  // Minimal example graph object that should conform to the generated GeoArtGraph type.
+  const earthVenus: GeoArtGraph = {
     version: '0.1',
     control: {
       nodes: [],
