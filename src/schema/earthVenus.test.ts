@@ -1,7 +1,8 @@
 import { expect, test } from 'vitest'
 import type { GeoArtGraph } from './_generated/schema-types'
+import { validateGeoArtGraph } from './validateGeoArtGraph'
 
-test('earth venus example algorithm matches schema type', () => {
+test('earth venus example algorithm validates against schema', () => {
   // Minimal example graph object that should conform to the generated GeoArtGraph type.
   const earthVenus: GeoArtGraph = {
     version: '0.1',
@@ -48,6 +49,17 @@ test('earth venus example algorithm matches schema type', () => {
     },
   }
 
-  expect(earthVenus).toBeDefined()
+  expect(validateGeoArtGraph(earthVenus)).toBe(true)
+
+  // Deliberately broken: schema requires `render` and `version` must be a string.
+  const notMatching: unknown = {
+    version: 0.1,
+    control: { nodes: [] },
+    compute: { nodes: [], edges: [] },
+    // render is missing
+  }
+
+  expect(() => validateGeoArtGraph(notMatching)).not.toThrow()
+  expect(validateGeoArtGraph(notMatching)).toBe(false)
 })
 
