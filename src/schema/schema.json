@@ -1,0 +1,250 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GeoArt Graph",
+  "description": "Serialised dataflow graph for the Geometric Art Engine",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "control", "compute", "render"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "major.minor — increment minor for backward-compatible additions, major for breaking changes",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodes"],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/controlNode" }
+        }
+      }
+    },
+    "compute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodes", "edges"],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/computeNode" }
+        },
+        "edges": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/edge" }
+        }
+      }
+    },
+    "render": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodes", "edges"],
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/renderNode" }
+        },
+        "edges": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/edge" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "numberParam": {
+      "type": "object",
+      "description": "A numeric parameter value envelope",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": { "type": "number" },
+        "locked": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    "stringParam": {
+      "type": "object",
+      "description": "A string or enum parameter value envelope",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": { "type": "string" },
+        "locked": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    "booleanParam": {
+      "type": "object",
+      "description": "A boolean parameter value envelope",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": { "type": "boolean" },
+        "locked": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    "colorValue": {
+      "type": "object",
+      "description": "RGBA colour with each component in 0–1",
+      "additionalProperties": false,
+      "required": ["r", "g", "b", "a"],
+      "properties": {
+        "r": { "type": "number", "minimum": 0, "maximum": 1 },
+        "g": { "type": "number", "minimum": 0, "maximum": 1 },
+        "b": { "type": "number", "minimum": 0, "maximum": 1 },
+        "a": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "colorParam": {
+      "type": "object",
+      "description": "A colour parameter value envelope",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": { "$ref": "#/definitions/colorValue" },
+        "locked": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    "pointValue": {
+      "type": "object",
+      "description": "A 2-D point in normalised space (-1 to 1 per axis)",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" }
+      }
+    },
+    "pointParam": {
+      "type": "object",
+      "description": "A 2-D point parameter value envelope",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": { "$ref": "#/definitions/pointValue" },
+        "locked": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    "stringArrayParam": {
+      "type": "object",
+      "description": "An array-of-strings parameter value envelope (used for dropdown options)",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "locked": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "description": "Directed connection from one node's output port to another node's input port",
+      "additionalProperties": false,
+      "required": ["fromNode", "fromPort", "toNode", "toPort"],
+      "properties": {
+        "fromNode": { "type": "string" },
+        "fromPort": { "type": "integer", "minimum": 0 },
+        "toNode": { "type": "string" },
+        "toPort": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "controlNode": {
+      "type": "object",
+      "description": "User-facing input node — pure value source with no inputs",
+      "additionalProperties": false,
+      "required": ["id", "type", "params"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["slider", "colorPicker", "dropdown", "toggle"]
+        },
+        "params": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label":   { "$ref": "#/definitions/stringParam" },
+            "min":     { "$ref": "#/definitions/numberParam" },
+            "max":     { "$ref": "#/definitions/numberParam" },
+            "options": { "$ref": "#/definitions/stringArrayParam" },
+            "value": {
+              "description": "Current user-set value; type depends on the node type",
+              "oneOf": [
+                { "$ref": "#/definitions/numberParam" },
+                { "$ref": "#/definitions/colorParam" },
+                { "$ref": "#/definitions/stringParam" },
+                { "$ref": "#/definitions/booleanParam" }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "computeNode": {
+      "type": "object",
+      "description": "Pure math node — no canvas, no DOM, no side effects",
+      "additionalProperties": false,
+      "required": ["id", "type", "params"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["time", "wave", "orbit", "scale"]
+        },
+        "params": {
+          "type": "object",
+          "description": "Static fallback values for unconnected input ports. Params for connected ports are omitted.",
+          "additionalProperties": false,
+          "properties": {
+            "waveType":  { "$ref": "#/definitions/stringParam" },
+            "frequency": { "$ref": "#/definitions/numberParam" },
+            "phase":     { "$ref": "#/definitions/numberParam" },
+            "radius":    { "$ref": "#/definitions/numberParam" },
+            "speed":     { "$ref": "#/definitions/numberParam" },
+            "inMin":     { "$ref": "#/definitions/numberParam" },
+            "inMax":     { "$ref": "#/definitions/numberParam" },
+            "outMin":    { "$ref": "#/definitions/numberParam" },
+            "outMax":    { "$ref": "#/definitions/numberParam" }
+          }
+        }
+      }
+    },
+    "renderNode": {
+      "type": "object",
+      "description": "Drawing node — canvas access lives here and nowhere else",
+      "additionalProperties": false,
+      "required": ["id", "type", "params"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["timedLine", "dot", "circle", "trail"]
+        },
+        "params": {
+          "type": "object",
+          "description": "Static fallback values for unconnected input ports. Params for connected ports are omitted.",
+          "additionalProperties": false,
+          "properties": {
+            "intervalMs": { "$ref": "#/definitions/numberParam" },
+            "width":      { "$ref": "#/definitions/numberParam" },
+            "radius":     { "$ref": "#/definitions/numberParam" },
+            "maxAge":     { "$ref": "#/definitions/numberParam" },
+            "pointA":     { "$ref": "#/definitions/pointParam" },
+            "pointB":     { "$ref": "#/definitions/pointParam" },
+            "point":      { "$ref": "#/definitions/pointParam" },
+            "color":      { "$ref": "#/definitions/colorParam" }
+          }
+        }
+      }
+    }
+  }
+}

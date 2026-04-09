@@ -1,0 +1,96 @@
+# Geometric Art Engine
+
+# Code Style
+- Use ES modules (import/export) syntax, not CommonJS (require)
+
+# Workflow
+ - Run typecheck, tests, lint when you are done making a series of code changes. 
+ - Prefer running single tests, and not the whole test suite, for performance 
+
+
+A dataflow graph engine for generative, algorithmic art. The user builds algorithms
+by connecting nodes together. The graph is evaluated every animation frame.
+
+## Architecture Overview
+
+The system has three strictly separated layers. Data flows in one direction only:
+
+```
+Control → Compute → Render
+```
+
+- **Control** — user-facing inputs (sliders, colour pickers). Pure value sources, no logic.
+- **Compute** — pure math nodes (wave, orbit, scale). No canvas access, no UI knowledge.
+- **Render** — drawing nodes (line, trail, circle). Consume compute outputs, write to canvas.
+
+An edge may cross layer boundaries only in the permitted direction. A render node
+may never feed back into compute. Enforce this at graph compile time.
+
+See `src/compute/CLAUDE.md`, `src/render/CLAUDE.md`, `src/control/CLAUDE.md` for
+layer-specific rules.
+
+## Key Concepts
+
+**Every input port on every node is modulatable.** If a port has no incoming edge,
+it falls back to the node's static param. This is handled by the graph evaluator —
+individual node implementations never need to think about it.
+
+**Time is an explicit node**, not implicit context. The `TimeNode` outputs elapsed
+seconds. Wire it to any port that needs to vary over time.
+
+**Nodes are stateless pure functions** wherever possible. Nodes that need state
+(e.g. accumulating drawn points) use `ctx.getState / ctx.setState` — see
+`src/graph/EvalContext.ts`.
+
+**The graph is compiled once, evaluated every frame.** Topological sort happens at
+compile time. The hot path (per-frame evaluation) is a flat loop over pre-sorted nodes.
+
+## Adding a New Node Type
+
+1. Implement the node in the appropriate layer directory.
+2. Register it in that layer's `registry.ts`.
+3. Add its type string to the JSON schema enum in `src/schema/schema.json`.
+4. Add it to the layer's `CLAUDE.md` node catalogue.
+
+Do not skip step 3 — the schema is the source of truth for valid node types.
+
+## Value Types
+
+```typescript
+type Value =
+  | { kind: 'number'; v: number }
+  | { kind: 'point';  v: { x: number; y: number } }
+  | { kind: 'color';  v: { r: number; g: number; b: number; a: number } }
+  | { kind: 'trigger'; fired: boolean }
+```
+
+All values in the `number` domain are normalised to `-1 to 1` at the compute layer.
+Scaling to canvas coordinates or useful ranges is the job of a `ScaleNode`, not the
+consuming node.
+
+## Serialisation
+
+Graphs are serialised as JSON and validated against `src/schema/schema.json` (JSON Schema
+draft-07). The schema uses `additionalProperties: false` throughout — unknown keys
+are a hard error, not silently ignored. When adding new node types or params, update
+the schema first, then implement.
+
+Params that are overridden by an incoming edge are stripped from the serialised output.
+Do not write params for connected ports.
+
+## Performance Rules
+
+- Never traverse the graph at eval time. Use the compiled `sortedNodes` array.
+- Mark nodes as `isTimeDependant: true` only if they genuinely read `ctx.time`.
+- Constant nodes and pure transforms (scale, add) must never re-evaluate if their
+  inputs have not changed. Check `isDirty` before evaluating.
+- Render nodes run on their own schedule (`intervalMs`), not every frame. Do not
+  call canvas methods from compute nodes.
+
+## What Not To Do
+
+- Do not add canvas or DOM access to any compute node.
+- Do not add graph traversal logic to any node implementation.
+- Do not hardcode time into a node — wire a `TimeNode` instead.
+- Do not add a `kind` field to serialised params — the registry already knows the type.
+- Do not create edges that flow backwards (render → compute, compute → control).
