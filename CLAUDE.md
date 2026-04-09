@@ -2,6 +2,8 @@
 
 ## Code Style
 - Use ES modules (import/export) syntax, not CommonJS (require)
+- Do not use the `interface` keyword. 
+- Do not use the TypeScript `enum` keyword. 
 
 ## Workflow
  - Run typecheck, tests, lint when you are done making a series of code changes. 
