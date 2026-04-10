@@ -102,6 +102,30 @@ describe("earth venus example algorithm validates against schema", () => {
 		expect(validateGeoArtGraph(notMatching)).toBe(false);
 	});
 
+	test("compute nodes have params specific to their type", () => {
+		const graph: GeoArtGraph = {
+			version: "0.1",
+			control: { nodes: [] },
+			compute: {
+				nodes: [
+					{
+						id: "wave1",
+						type: "wave",
+						params: {
+							frequency: { v: 1 },
+							// @ts-expect-error - Deliberately broken: radius is an orbit param, not a wave param
+							radius: { v: 0.5 },
+						},
+					},
+				],
+				edges: [],
+			},
+			render: { nodes: [], edges: [] },
+		};
+
+		expect(validateGeoArtGraph(graph)).toBe(false);
+	});
+
 	test("controls nodes have params specific to their type", () => {
 		const graph: GeoArtGraph = {
 			version: "0.1",

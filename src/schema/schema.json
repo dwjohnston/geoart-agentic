@@ -238,33 +238,81 @@
       ]
     },
     "computeNode": {
-      "type": "object",
       "description": "Pure math node — no canvas, no DOM, no side effects",
-      "additionalProperties": false,
-      "required": ["id", "type", "params"],
-      "properties": {
-        "id": { "type": "string" },
-        "type": {
-          "type": "string",
-          "enum": ["time", "wave", "orbit", "scale"]
-        },
-        "params": {
+      "oneOf": [
+        {
           "type": "object",
-          "description": "Static fallback values for unconnected input ports. Params for connected ports are omitted.",
+          "description": "Emits elapsed time in seconds",
           "additionalProperties": false,
+          "required": ["id", "type", "params"],
           "properties": {
-            "waveType":  { "$ref": "#/definitions/stringParam" },
-            "frequency": { "$ref": "#/definitions/numberParam" },
-            "phase":     { "$ref": "#/definitions/numberParam" },
-            "radius":    { "$ref": "#/definitions/numberParam" },
-            "speed":     { "$ref": "#/definitions/numberParam" },
-            "inMin":     { "$ref": "#/definitions/numberParam" },
-            "inMax":     { "$ref": "#/definitions/numberParam" },
-            "outMin":    { "$ref": "#/definitions/numberParam" },
-            "outMax":    { "$ref": "#/definitions/numberParam" }
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["time"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {}
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Oscillation generator — sine, saw, or square wave",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "properties": {
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["wave"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "waveType":  { "$ref": "#/definitions/stringParam" },
+                "frequency": { "$ref": "#/definitions/numberParam" },
+                "phase":     { "$ref": "#/definitions/numberParam" }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Circular motion — outputs an x/y point",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "properties": {
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["orbit"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "radius": { "$ref": "#/definitions/numberParam" },
+                "speed":  { "$ref": "#/definitions/numberParam" }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Maps an input range to an output range",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "properties": {
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["scale"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inMin":  { "$ref": "#/definitions/numberParam" },
+                "inMax":  { "$ref": "#/definitions/numberParam" },
+                "outMin": { "$ref": "#/definitions/numberParam" },
+                "outMax": { "$ref": "#/definitions/numberParam" }
+              }
+            }
           }
         }
-      }
+      ]
     },
     "renderNode": {
       "type": "object",
