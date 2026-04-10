@@ -46,12 +46,18 @@ const timedLineNode: RenderNodeDef = {
 
 ## Node Catalogue
 
-| type        | canvas  | inputs                        | notes                              |
-|-------------|---------|-------------------------------|------------------------------------|
-| `timedLine` | trail   | pointA, pointB, color, width  | draws a line between two points    |
-| `dot`       | trail   | point, color, radius          | draws a filled circle              |
-| `circle`    | orbit   | point, color, radius          | redrawn every frame (orbit aid)    |
-| `trail`     | trail   | point, color, radius, maxAge  | fading dot trail                   |
+**Do not maintain a catalogue here.** The schema is the source of truth.
+
+Before implementing any render node — or checking what nodes already exist —
+read the schema:
+
+```
+src/schema/schema.json → definitions.renderNode.properties.type.enum
+```
+
+Each string in that enum is a node type that must have a corresponding
+implementation in this directory. Cross-reference with `src/render/registry.ts`
+to find which are implemented and which are missing.
 
 ## Adding a New Render Node
 
@@ -60,7 +66,6 @@ const timedLineNode: RenderNodeDef = {
   representing canvas coordinates. Canvas scaling is handled by the evaluator
   before inputs reach the node.
 - Register in `src/render/registry.ts`.
-- Add to the catalogue above.
 - Add the type string to the `renderNode.type` enum in `src/schema/schema.json`.
 
 ## Coordinate System

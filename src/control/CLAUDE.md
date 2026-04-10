@@ -37,12 +37,18 @@ Amount" slider set to 20 emits 20, not 0.4.
 
 ## Node Catalogue
 
-| type          | output  | params                              | notes                          |
-|---------------|---------|-------------------------------------|--------------------------------|
-| `slider`      | number  | label, min, max, value              |                                |
-| `colorPicker` | color   | label, value                        |                                |
-| `dropdown`    | string  | label, options, value               | for enum selection             |
-| `toggle`      | trigger | label, value                        | emits trigger when on          |
+**Do not maintain a catalogue here.** The schema is the source of truth.
+
+Before implementing any control node — or checking what nodes already exist —
+read the schema:
+
+```
+src/schema/schema.json → definitions.controlNode.properties.type.enum
+```
+
+Each string in that enum is a node type that must have a corresponding
+implementation in this directory. Cross-reference with `src/control/registry.ts`
+to find which are implemented and which are missing.
 
 ## Edges from Control Nodes
 
@@ -62,7 +68,6 @@ The edges originating from control nodes are expressed in the `compute.edges` or
 - No inputs.
 - No side effects.
 - Register in `src/control/registry.ts`.
-- Add to the catalogue above.
 - Add the type string to the `controlNode.type` enum in `src/schema/schema.json`.
 
 ## UI Rendering
