@@ -9,6 +9,13 @@
 - Use ES modules (import/export) syntax, not CommonJS (require)
 - Do not use the `interface` keyword. 
 - Do not use the TypeScript `enum` keyword. 
+- When a variable describes a duration value, include the duration unit in the variable name. eg. `intervalMs`, not `interval`. 
+
+## Planning 
+
+PLAN.md files go into the `project` folder. 
+
+When a given plan is complete, move it into `project/archived` where they should start with an ISO date string followed by a concise description. 
 
 ## Workflow
  - Run typecheck, tests, lint when you are done making a series of code changes. 
@@ -19,6 +26,7 @@
 Always use British English, with the except of the following words: 
 
 - color 
+- center
 
 A dataflow graph engine for generative, algorithmic art. The user builds algorithms
 by connecting nodes together. The graph is evaluated every animation frame.
