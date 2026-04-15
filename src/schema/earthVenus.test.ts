@@ -75,7 +75,6 @@ describe("earth venus example algorithm validates against schema", () => {
 						type: "timedLine",
 						params: {
 							intervalMs: { v: 16 },
-							width: { v: 1 },
 							pointA: { v: { x: 0, y: 0 } },
 							pointB: { v: { x: 0, y: 0 } },
 							color: { v: { r: 1, g: 1, b: 1, a: 1 } },
@@ -146,6 +145,30 @@ describe("earth venus example algorithm validates against schema", () => {
 			},
 			compute: { nodes: [], edges: [] },
 			render: { nodes: [], edges: [] },
+		};
+
+		expect(validateGeoArtGraph(graph)).toBe(false);
+	});
+
+	test("render nodes have params specific to their type", () => {
+		const graph: GeoArtGraph = {
+			version: "0.1",
+			control: { nodes: [] },
+			compute: { nodes: [], edges: [] },
+			render: {
+				nodes: [
+					{
+						id: "circle1",
+						type: "circle",
+						params: {
+							center: { v: { x: 0, y: 0 } },
+							// @ts-expect-error - Deliberately broken: pointA/pointB are timedLine params, not circle params
+							pointA: { v: { x: 0, y: 0 } },
+						},
+					},
+				],
+				edges: [],
+			},
 		};
 
 		expect(validateGeoArtGraph(graph)).toBe(false);
