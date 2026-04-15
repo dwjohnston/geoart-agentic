@@ -45,4 +45,17 @@ describe('evaluateOrbit', () => {
     const dist = Math.sqrt(result.x ** 2 + result.y ** 2);
     expect(dist).toBeCloseTo(1);
   });
+
+  it('center offset shifts the output position', () => {
+    const result = evaluateOrbit(0.5, 1, 0, 0.3, 0.2);
+    expect(result.x).toBeCloseTo(0.8);  // 0.3 + 0.5
+    expect(result.y).toBeCloseTo(0.2);  // 0.2 + 0
+  });
+
+  it('center defaults to origin when omitted', () => {
+    const withCenter = evaluateOrbit(0.5, 1, 0.25, 0, 0);
+    const withoutCenter = evaluateOrbit(0.5, 1, 0.25);
+    expect(withCenter.x).toBeCloseTo(withoutCenter.x);
+    expect(withCenter.y).toBeCloseTo(withoutCenter.y);
+  });
 });

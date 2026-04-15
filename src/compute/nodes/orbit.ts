@@ -13,10 +13,12 @@ export function evaluateOrbit(
   radius: number,
   speed: number,
   t: number,
+  cx = 0,
+  cy = 0,
 ): { x: number; y: number } {
   const angle = speed * t * 2 * Math.PI;
   return {
-    x: radius * Math.cos(angle),
-    y: radius * Math.sin(angle),
+    x: cx + radius * Math.cos(angle),
+    y: cy + radius * Math.sin(angle),
   };
 }

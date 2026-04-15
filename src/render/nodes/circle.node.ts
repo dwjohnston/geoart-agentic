@@ -9,9 +9,9 @@ export const circleNodeDef: RenderNodeDef = {
   // Port 3: color      — fill colour
   inputs: [
     { name: 'intervalMs', type: 'number', default: { kind: 'number', v: 0 } },
-    { name: 'center',     type: 'point',  default: { kind: 'point',  v: { x: 0, y: 0 } } },
-    { name: 'radius',     type: 'number', default: { kind: 'number', v: 0.02 } },
-    { name: 'color',      type: 'color',  default: { kind: 'color',  v: { r: 1, g: 1, b: 1, a: 1 } } },
+    { name: 'center', type: 'point', default: { kind: 'point', v: { x: 0, y: 0 } } },
+    { name: 'radius', type: 'number', default: { kind: 'number', v: 0.02 } },
+    { name: 'color', type: 'color', default: { kind: 'color', v: { r: 1, g: 1, b: 1, a: 1 } } },
   ],
   outputs: [],
   evaluate(inputs: Value[], ctx: RenderEvalContext): void {
@@ -25,9 +25,10 @@ export const circleNodeDef: RenderNodeDef = {
     const { r, g, b, a } = colour.v;
     const canvas = ctx.canvas;
 
-    canvas.fillStyle = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
+    canvas.strokeStyle = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
+    canvas.lineWidth = 2
     canvas.beginPath();
     canvas.arc(center.v.x, center.v.y, pixelRadius, 0, Math.PI * 2);
-    canvas.fill();
+    canvas.stroke();
   },
 };

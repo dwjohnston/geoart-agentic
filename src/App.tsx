@@ -3,7 +3,7 @@ import { compile } from './graph/compiler';
 import { tick } from './graph/evaluator';
 import type { CompiledGraph } from './graph/compiler';
 import type { EvalContext } from './graph/EvalContext';
-import { earthVenusGraph } from './graphs/earthVenus';
+import { threeOrbitsGraph } from './graphs/threeOrbits';
 import { SliderControl } from './control/ui/SliderControl';
 import type { ControlNode } from './schema/_generated/schema-types';
 
@@ -24,7 +24,7 @@ function App() {
   // Slider values are stored in React state so the UI re-renders when they change.
   const [sliderValues, setSliderValues] = useState<Record<string, number>>(() => {
     const initial: Record<string, number> = {};
-    for (const node of earthVenusGraph.control.nodes) {
+    for (const node of threeOrbitsGraph.control.nodes) {
       if (node.type === 'slider') {
         initial[node.id] = node.params.value?.v ?? 0;
       }
@@ -34,7 +34,7 @@ function App() {
 
   // Compile on mount — once only.
   useEffect(() => {
-    compiledRef.current = compile(earthVenusGraph);
+    compiledRef.current = compile(threeOrbitsGraph);
   }, []);
 
   // RAF loop — start after canvases are ready.
@@ -126,7 +126,7 @@ function App() {
     trailCanvasRef.current?.getContext('2d')?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
   }
 
-  const sliderNodes = earthVenusGraph.control.nodes.filter(
+  const sliderNodes = threeOrbitsGraph.control.nodes.filter(
     (n): n is SliderNode => n.type === 'slider',
   );
 
@@ -183,7 +183,7 @@ function App() {
           color: '#ccc',
         }}
       >
-        <h2 style={{ margin: 0, fontSize: 16, color: '#eee' }}>Earth–Venus Spirograph</h2>
+        <h2 style={{ margin: 0, fontSize: 16, color: '#eee' }}>Three Orbits</h2>
         {sliderNodesWithValues.map(node => (
           <SliderControl
             key={node.id}

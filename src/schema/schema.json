@@ -300,7 +300,8 @@
               "additionalProperties": false,
               "properties": {
                 "radius": { "$ref": "#/definitions/numberParam" },
-                "speed":  { "$ref": "#/definitions/numberParam" }
+                "speed":  { "$ref": "#/definitions/numberParam" },
+                "center": { "$ref": "#/definitions/pointParam" }
               }
             }
           }
