@@ -7,12 +7,9 @@ import type { GeoArtGraph } from '../schema/_generated/schema-types';
 // Orbit C circles planet B.
 // The trail of planet C accumulates the spirograph pattern.
 // Speed and radius of each orbit are slider-controlled.
-//
-// Orbit node ports:  0=time, 1=radius, 2=speed, 3=center  →  output 0=point
-// Circle ports:      0=intervalMs, 1=center, 2=radius, 3=color
 
 export const threeOrbitsGraph: GeoArtGraph = {
-	version: '0.1',
+	version: '1.0',
 	control: {
 		nodes: [
 			{
@@ -83,54 +80,46 @@ export const threeOrbitsGraph: GeoArtGraph = {
 			{
 				id: 'orbitA',
 				type: 'orbit',
-				params: {},
-				// time=port0, radius=port1←aRadiusSlider, speed=port2←aSpeedSlider
-				// center=port3 not wired → defaults to origin
+				params: {
+					time:   { ref: 'time.time' },
+					radius: { ref: 'aRadiusSlider.value' },
+					speed:  { ref: 'aSpeedSlider.value' },
+					// center defaults to origin
+				},
 			},
 			{
 				id: 'orbitB',
 				type: 'orbit',
-				params: {},
-				// time=port0, radius=port1←bRadiusSlider, speed=port2←bSpeedSlider
-				// center=port3←orbitA
+				params: {
+					time:   { ref: 'time.time' },
+					radius: { ref: 'bRadiusSlider.value' },
+					speed:  { ref: 'bSpeedSlider.value' },
+					center: { ref: 'orbitA.point' },
+				},
 			},
 			{
 				id: 'orbitC',
 				type: 'orbit',
-				params: {},
-				// time=port0, radius=port1←cRadiusSlider, speed=port2←cSpeedSlider
-				// center=port3←orbitB
+				params: {
+					time:   { ref: 'time.time' },
+					radius: { ref: 'cRadiusSlider.value' },
+					speed:  { ref: 'cSpeedSlider.value' },
+					center: { ref: 'orbitB.point' },
+				},
 			},
-		],
-		edges: [
-			// Time into all three orbits
-			{ fromNode: 'time', fromPort: 0, toNode: 'orbitA', toPort: 0 },
-			{ fromNode: 'time', fromPort: 0, toNode: 'orbitB', toPort: 0 },
-			{ fromNode: 'time', fromPort: 0, toNode: 'orbitC', toPort: 0 },
-			// Sliders into orbit radii
-			{ fromNode: 'aRadiusSlider', fromPort: 0, toNode: 'orbitA', toPort: 1 },
-			{ fromNode: 'bRadiusSlider', fromPort: 0, toNode: 'orbitB', toPort: 1 },
-			{ fromNode: 'cRadiusSlider', fromPort: 0, toNode: 'orbitC', toPort: 1 },
-			// Sliders into orbit speeds
-			{ fromNode: 'aSpeedSlider', fromPort: 0, toNode: 'orbitA', toPort: 2 },
-			{ fromNode: 'bSpeedSlider', fromPort: 0, toNode: 'orbitB', toPort: 2 },
-			{ fromNode: 'cSpeedSlider', fromPort: 0, toNode: 'orbitC', toPort: 2 },
-			// Chain: A's position is B's centre; B's position is C's centre
-			{ fromNode: 'orbitA', fromPort: 0, toNode: 'orbitB', toPort: 3 },
-			{ fromNode: 'orbitB', fromPort: 0, toNode: 'orbitC', toPort: 3 },
 		],
 	},
 	render: {
 		nodes: [
-
 			{
 				id: 'lineA',
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
-					intervalMs: { v: 10 }
-					// intervalMs, pointA, pointB driven by edges
+					intervalMs: { v: 10 },
+					color:      { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					pointA:     { ref: 'orbitA.point' },
+					pointB:     { ref: 'orbitB.point' },
 				},
 			},
 			{
@@ -138,10 +127,10 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					color: { v: { r: 0.4, g: 1, b: 0.6, a: 1 } },
-					intervalMs: { v: 10 }
-
-					// intervalMs, pointA, pointB driven by edges
+					intervalMs: { v: 10 },
+					color:      { v: { r: 0.4, g: 1, b: 0.6, a: 1 } },
+					pointA:     { ref: 'orbitA.point' },
+					pointB:     { ref: 'orbitC.point' },
 				},
 			},
 			{
@@ -149,20 +138,21 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					color: { v: { r: 1, g: 0.8, b: 0.3, a: 1 } },
-					intervalMs: { v: 10 }
-
-					// intervalMs, pointA, pointB driven by edges
+					intervalMs: { v: 10 },
+					color:      { v: { r: 1, g: 0.8, b: 0.3, a: 1 } },
+					pointA:     { ref: 'orbitB.point' },
+					pointB:     { ref: 'orbitC.point' },
 				},
 			},
-
 			// Live position dots — redrawn each frame
 			{
 				id: 'drawOrbitA',
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					center: { ref: 'orbitA.point' },
+					radius: { ref: 'aRadiusSlider.value' },
+					color:  { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
 				},
 			},
 			{
@@ -170,7 +160,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					center: { ref: 'orbitB.point' },
+					radius: { ref: 'bRadiusSlider.value' },
+					color:  { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
 				},
 			},
 			{
@@ -178,7 +170,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					center: { ref: 'orbitC.point' },
+					radius: { ref: 'cRadiusSlider.value' },
+					color:  { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
 				},
 			},
 			{
@@ -186,8 +180,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
+					center: { ref: 'orbitA.point' },
 					radius: { v: 0.02 },
-					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					color:  { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
 				},
 			},
 			{
@@ -195,8 +190,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
+					center: { ref: 'orbitB.point' },
 					radius: { v: 0.016 },
-					color: { v: { r: 0.4, g: 1, b: 0.6, a: 1 } },
+					color:  { v: { r: 0.4, g: 1, b: 0.6, a: 1 } },
 				},
 			},
 			{
@@ -204,36 +200,11 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
+					center: { ref: 'orbitC.point' },
 					radius: { v: 0.012 },
-					color: { v: { r: 1, g: 0.8, b: 0.3, a: 1 } },
+					color:  { v: { r: 1, g: 0.8, b: 0.3, a: 1 } },
 				},
 			},
-		],
-		edges: [
-
-			// Wire planet positions into live dots
-			{ fromNode: 'orbitA', fromPort: 0, toNode: 'dotA', toPort: 1 },
-			{ fromNode: 'orbitB', fromPort: 0, toNode: 'dotB', toPort: 1 },
-			{ fromNode: 'orbitC', fromPort: 0, toNode: 'dotC', toPort: 1 },
-			{ fromNode: 'orbitA', fromPort: 0, toNode: 'drawOrbitA', toPort: 1 },
-			{ fromNode: 'orbitB', fromPort: 0, toNode: 'drawOrbitB', toPort: 1 },
-			{ fromNode: 'orbitC', fromPort: 0, toNode: 'drawOrbitC', toPort: 1 },
-			{ fromNode: 'aRadiusSlider', fromPort: 0, toNode: 'drawOrbitA', toPort: 2 },
-			{ fromNode: 'bRadiusSlider', fromPort: 0, toNode: 'drawOrbitB', toPort: 2 },
-			{ fromNode: 'cRadiusSlider', fromPort: 0, toNode: 'drawOrbitC', toPort: 2 },
-
-
-			{ fromNode: 'orbitA', fromPort: 0, toNode: 'lineA', toPort: 1 },
-			{ fromNode: 'orbitB', fromPort: 0, toNode: 'lineA', toPort: 2 },
-
-
-			{ fromNode: 'orbitA', fromPort: 0, toNode: 'lineB', toPort: 1 },
-			{ fromNode: 'orbitC', fromPort: 0, toNode: 'lineB', toPort: 2 },
-
-
-			{ fromNode: 'orbitB', fromPort: 0, toNode: 'lineC', toPort: 1 },
-			{ fromNode: 'orbitC', fromPort: 0, toNode: 'lineC', toPort: 2 },
-
 		],
 	},
 };

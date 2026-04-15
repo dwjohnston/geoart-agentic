@@ -1,4 +1,4 @@
-import type { GeoArtGraph, Edge } from '../schema/_generated/schema-types';
+import type { GeoArtGraph } from '../schema/_generated/schema-types';
 import type { Value } from './types';
 import type { NodeDef } from '../compute/types';
 import type { RenderNodeDef } from '../render/types';
@@ -12,6 +12,17 @@ type Layer = 'control' | 'compute' | 'render';
 
 /** Union of all node definition shapes. */
 type AnyNodeDef = NodeDef | RenderNodeDef | ControlNodeDef;
+
+/**
+ * Internal edge representation — produced by the compiler from inline param refs
+ * and used by the evaluator for fast input resolution.
+ */
+type Edge = {
+  fromNode: string;
+  fromPort: number;
+  toNode: string;
+  toPort: number;
+};
 
 /**
  * A single compiled node entry — pairs a definition with its static params
@@ -39,7 +50,7 @@ export type CompiledGraph = {
   /** Node IDs in topological order (sources first). */
   sortedNodes: string[];
   nodes: Map<string, CompiledNode>;
-  /** All edges from both compute.edges and render.edges, flattened. */
+  /** Internal edges derived from inline param refs. */
   edges: Edge[];
   states: Map<string, NodeState>;
 };
@@ -90,14 +101,18 @@ function paramToValue(v: unknown): Value {
 
 /**
  * Convert all params from a serialised node into the internal Value map.
- * Keys whose values cannot be mapped (e.g. string/boolean params) are
- * silently skipped — the evaluator falls back to the port default for those.
+ * Params with a `ref` key (dynamic references) are skipped — they will be
+ * resolved via edges at eval time. Keys whose values cannot be mapped (e.g.
+ * string/boolean params) are also silently skipped — the evaluator falls back
+ * to the port default for those.
  */
 function buildParams(rawParams: Record<string, unknown>): Record<string, Value> {
   const out: Record<string, Value> = {};
   for (const [key, val] of Object.entries(rawParams)) {
     if (val === null || val === undefined) continue;
-    const envelope = val as { v: unknown };
+    const envelope = val as { v?: unknown; ref?: unknown };
+    // Skip ref params — they're handled by edge resolution.
+    if ('ref' in envelope) continue;
     // Skip array and boolean values — they aren't representable as Value.
     if (Array.isArray(envelope.v) || typeof envelope.v === 'boolean') continue;
     try {
@@ -176,11 +191,14 @@ const layerOrder: Record<Layer, number> = { control: 0, compute: 1, render: 2 };
  *
  * Throws a descriptive error for any of:
  * - Unknown node type strings
+ * - Param refs that point to non-existent nodes or ports
  * - Edges that violate layer ordering (render → compute, etc.)
  * - Cycles in the graph
  */
 export function compile(graph: GeoArtGraph): CompiledGraph {
   const nodes = new Map<string, CompiledNode>();
+  // Raw (unparsed) params per node — needed for ref scanning below.
+  const rawParamsByNodeId = new Map<string, Record<string, unknown>>();
 
   // ------------------------------------------------------------------
   // 1. Register control nodes
@@ -191,6 +209,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
       throw new Error(`Unknown control node type: "${node.type}" (id: "${node.id}")`);
     }
     const rawParams = (node.params ?? {}) as Record<string, unknown>;
+    rawParamsByNodeId.set(node.id, rawParams);
     nodes.set(node.id, {
       def,
       layer: 'control',
@@ -207,6 +226,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
       throw new Error(`Unknown compute node type: "${node.type}" (id: "${node.id}")`);
     }
     const rawParams = (node.params ?? {}) as Record<string, unknown>;
+    rawParamsByNodeId.set(node.id, rawParams);
     nodes.set(node.id, {
       def,
       layer: 'compute',
@@ -223,6 +243,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
       throw new Error(`Unknown render node type: "${node.type}" (id: "${node.id}")`);
     }
     const rawParams = (node.params ?? {}) as Record<string, unknown>;
+    rawParamsByNodeId.set(node.id, rawParams);
     nodes.set(node.id, {
       def,
       layer: 'render',
@@ -232,36 +253,74 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
   }
 
   // ------------------------------------------------------------------
-  // 4. Collect all edges into one flat array
+  // 4. Scan params for {ref: "nodeId.portName"} and build internal edges
   // ------------------------------------------------------------------
-  const allEdges: Edge[] = [...graph.compute.edges, ...graph.render.edges];
+  const allEdges: Edge[] = [];
+
+  for (const [toNodeId, compiledNode] of nodes.entries()) {
+    const { def } = compiledNode;
+    // Control nodes have no inputs — skip.
+    const inputs = ((def as NodeDef).inputs ?? (def as RenderNodeDef).inputs) as
+      | import('../compute/types').PortDef[]
+      | undefined;
+    if (!inputs) continue;
+
+    const rawParams = rawParamsByNodeId.get(toNodeId) ?? {};
+
+    for (let toPort = 0; toPort < inputs.length; toPort++) {
+      const portName = inputs[toPort].name;
+      const rawParam = rawParams[portName];
+
+      if (rawParam === null || rawParam === undefined) continue;
+      if (typeof rawParam !== 'object') continue;
+      if (!('ref' in rawParam)) continue;
+
+      const ref = (rawParam as { ref: string }).ref;
+      const dotIndex = ref.indexOf('.');
+      if (dotIndex === -1) {
+        throw new Error(
+          `Invalid ref "${ref}" on "${toNodeId}.${portName}": expected format "nodeId.portName"`,
+        );
+      }
+      const fromNodeId = ref.slice(0, dotIndex);
+      const fromPortName = ref.slice(dotIndex + 1);
+
+      const fromCompiledNode = nodes.get(fromNodeId);
+      if (!fromCompiledNode) {
+        throw new Error(
+          `Ref "${ref}" on "${toNodeId}.${portName}": unknown source node "${fromNodeId}"`,
+        );
+      }
+
+      const fromDef = fromCompiledNode.def as NodeDef | ControlNodeDef | RenderNodeDef;
+      const fromOutputs = fromDef.outputs ?? [];
+      const fromPort = fromOutputs.findIndex((p) => p.name === fromPortName);
+      if (fromPort === -1) {
+        throw new Error(
+          `Ref "${ref}" on "${toNodeId}.${portName}": ` +
+            `node "${fromNodeId}" has no output port named "${fromPortName}"`,
+        );
+      }
+
+      allEdges.push({ fromNode: fromNodeId, fromPort, toNode: toNodeId, toPort });
+    }
+  }
 
   // ------------------------------------------------------------------
   // 5. Validate layer direction on edges
   // ------------------------------------------------------------------
   for (const edge of allEdges) {
-    const fromNode = nodes.get(edge.fromNode);
-    const toNode = nodes.get(edge.toNode);
-
-    if (!fromNode) {
-      throw new Error(
-        `Edge references unknown source node "${edge.fromNode}"`,
-      );
-    }
-    if (!toNode) {
-      throw new Error(
-        `Edge references unknown target node "${edge.toNode}"`,
-      );
-    }
+    const fromNode = nodes.get(edge.fromNode)!;
+    const toNode = nodes.get(edge.toNode)!;
 
     const fromOrder = layerOrder[fromNode.layer];
     const toOrder = layerOrder[toNode.layer];
 
     if (fromOrder > toOrder) {
       throw new Error(
-        `Illegal backwards edge: ${edge.fromNode} (${fromNode.layer}) → ` +
+        `Illegal backwards ref: ${edge.fromNode} (${fromNode.layer}) → ` +
           `${edge.toNode} (${toNode.layer}). ` +
-          `Edges may only flow control → compute → render.`,
+          `Data may only flow control → compute → render.`,
       );
     }
   }

@@ -9,9 +9,9 @@ This is the only place in the codebase that imports from all three layers.
 **Compile** happens once when a graph is loaded or modified:
 
 1. Validate all node type strings against the registry.
-2. Validate all edge port indices against node definitions.
-3. Validate edge type compatibility (number → number, point → point, etc.).
-4. Validate layer direction — reject any edge that flows backwards
+2. Scan each node's params for `{ ref: "nodeId.portName" }` values.
+3. Validate that each ref points to a real node and a real output port name.
+4. Validate layer direction — reject any ref that flows backwards
    (render → compute, render → control, compute → control).
 5. Topological sort the full node list (control + compute + render together).
 6. Store the sorted ID array as `CompiledGraph.sortedNodes`.
@@ -52,7 +52,9 @@ function tick(compiled: CompiledGraph, t: number) {
 
 ## Input Resolution
 
-For each input port on a node, `resolveInput` is called before `evaluate`:
+For each input port on a node, `resolveInput` is called before `evaluate`. The
+compiler has already converted all `{ ref: ... }` params to internal `Edge` objects,
+so the evaluator just looks those up:
 
 ```typescript
 function resolveInput(compiled, nodeId, portIndex, cache): Value {
@@ -95,10 +97,10 @@ injects the correct scope — nodes do not need to pass their own ID.
 ## Serialisation
 
 `deserialise(json: string): CompiledGraph` — parse, validate schema, compile.
-`serialise(compiled: CompiledGraph): string` — strip connected params, emit JSON.
+`serialise(compiled: CompiledGraph): string` — emit JSON.
 
-The serialiser must strip any param key whose port has an incoming edge. See root
-`CLAUDE.md` for the rationale.
+Params that are driven by refs remain as `{ ref: "nodeId.portName" }` in the
+serialised output — no stripping required.
 
 ## Render Node Scheduling
 
@@ -113,8 +115,8 @@ if (node.def.layer === 'render') {
 }
 ```
 
-The `intervalMs` param on a render node may itself be driven by an edge — resolve
-it before the interval check.
+The `intervalMs` param on a render node may itself be a ref — the compiler
+converts it to an edge, so the evaluator resolves it via the normal input path.
 
 ## What Not To Do
 

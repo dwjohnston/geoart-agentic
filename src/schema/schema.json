@@ -25,67 +25,87 @@
     "compute": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["nodes", "edges"],
+      "required": ["nodes"],
       "properties": {
         "nodes": {
           "type": "array",
           "items": { "$ref": "#/definitions/computeNode" }
-        },
-        "edges": {
-          "type": "array",
-          "items": { "$ref": "#/definitions/edge" }
         }
       }
     },
     "render": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["nodes", "edges"],
+      "required": ["nodes"],
       "properties": {
         "nodes": {
           "type": "array",
           "items": { "$ref": "#/definitions/renderNode" }
-        },
-        "edges": {
-          "type": "array",
-          "items": { "$ref": "#/definitions/edge" }
         }
       }
     }
   },
   "definitions": {
-    "numberParam": {
+    "refParam": {
       "type": "object",
-      "description": "A numeric parameter value envelope",
+      "description": "A reference to another node's named output port, in the form 'nodeId.portName'",
       "additionalProperties": false,
-      "required": ["v"],
+      "required": ["ref"],
       "properties": {
-        "v": { "type": "number" },
-        "locked": { "type": "boolean" },
-        "comment": { "type": "string" }
+        "ref": {
+          "type": "string",
+          "description": "Reference in the form 'nodeId.portName'",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*\\.[a-zA-Z][a-zA-Z0-9_-]*$"
+        }
       }
+    },
+    "numberParam": {
+      "description": "A numeric parameter — static value or reference to another node's output",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": { "type": "number" },
+            "locked": { "type": "boolean" },
+            "comment": { "type": "string" }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
     },
     "stringParam": {
-      "type": "object",
-      "description": "A string or enum parameter value envelope",
-      "additionalProperties": false,
-      "required": ["v"],
-      "properties": {
-        "v": { "type": "string" },
-        "locked": { "type": "boolean" },
-        "comment": { "type": "string" }
-      }
+      "description": "A string or enum parameter — static value or reference to another node's output",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": { "type": "string" },
+            "locked": { "type": "boolean" },
+            "comment": { "type": "string" }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
     },
     "booleanParam": {
-      "type": "object",
-      "description": "A boolean parameter value envelope",
-      "additionalProperties": false,
-      "required": ["v"],
-      "properties": {
-        "v": { "type": "boolean" },
-        "locked": { "type": "boolean" },
-        "comment": { "type": "string" }
-      }
+      "description": "A boolean parameter — static value or reference to another node's output",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": { "type": "boolean" },
+            "locked": { "type": "boolean" },
+            "comment": { "type": "string" }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
     },
     "colorValue": {
       "type": "object",
@@ -100,15 +120,20 @@
       }
     },
     "colorParam": {
-      "type": "object",
-      "description": "A colour parameter value envelope",
-      "additionalProperties": false,
-      "required": ["v"],
-      "properties": {
-        "v": { "$ref": "#/definitions/colorValue" },
-        "locked": { "type": "boolean" },
-        "comment": { "type": "string" }
-      }
+      "description": "A colour parameter — static value or reference to another node's output",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": { "$ref": "#/definitions/colorValue" },
+            "locked": { "type": "boolean" },
+            "comment": { "type": "string" }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
     },
     "pointValue": {
       "type": "object",
@@ -121,15 +146,20 @@
       }
     },
     "pointParam": {
-      "type": "object",
-      "description": "A 2-D point parameter value envelope",
-      "additionalProperties": false,
-      "required": ["v"],
-      "properties": {
-        "v": { "$ref": "#/definitions/pointValue" },
-        "locked": { "type": "boolean" },
-        "comment": { "type": "string" }
-      }
+      "description": "A 2-D point parameter — static value or reference to another node's output",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": { "$ref": "#/definitions/pointValue" },
+            "locked": { "type": "boolean" },
+            "comment": { "type": "string" }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
     },
     "stringArrayParam": {
       "type": "object",
@@ -156,18 +186,6 @@
           "enum": ["paint", "live"],
           "description": "paint = accumulates on trail canvas; live = cleared-each-frame orbit canvas"
         }
-      }
-    },
-    "edge": {
-      "type": "object",
-      "description": "Directed connection from one node's output port to another node's input port",
-      "additionalProperties": false,
-      "required": ["fromNode", "fromPort", "toNode", "toPort"],
-      "properties": {
-        "fromNode": { "type": "string" },
-        "fromPort": { "type": "integer", "minimum": 0 },
-        "toNode": { "type": "string" },
-        "toPort": { "type": "integer", "minimum": 0 }
       }
     },
     "controlNode": {
@@ -280,6 +298,7 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
+                "time":      { "$ref": "#/definitions/numberParam" },
                 "waveType":  { "$ref": "#/definitions/stringParam" },
                 "frequency": { "$ref": "#/definitions/numberParam" },
                 "phase":     { "$ref": "#/definitions/numberParam" }
@@ -299,6 +318,7 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
+                "time":   { "$ref": "#/definitions/numberParam" },
                 "radius": { "$ref": "#/definitions/numberParam" },
                 "speed":  { "$ref": "#/definitions/numberParam" },
                 "center": { "$ref": "#/definitions/pointParam" }

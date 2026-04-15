@@ -48,21 +48,8 @@ function makeCtx(time: number, deltaTime = 16): EvalContext {
 // Earth-Venus graph fixture
 // ---------------------------------------------------------------------------
 
-/**
- * Wired version of the Earth-Venus example graph.
- *
- * Compute edges:
- *   time → earthOrbit.time  (port 0)
- *   time → venusOrbit.time  (port 0)
- *   earthSpeedSlider → earthOrbit.speed (port 2)
- *   venusSpeedSlider → venusOrbit.speed (port 2)
- *
- * Render edges (timedLine ports: 0=intervalMs, 1=pointA, 2=pointB, 3=color):
- *   earthOrbit → line.pointA (port 1)
- *   venusOrbit → line.pointB (port 2)
- */
 const earthVenus: GeoArtGraph = {
-  version: '0.1',
+  version: '1.0',
   control: {
     nodes: [
       {
@@ -93,19 +80,21 @@ const earthVenus: GeoArtGraph = {
       {
         id: 'earthOrbit',
         type: 'orbit',
-        params: { radius: { v: 0.6 } },
+        params: {
+          time:   { ref: 'time.time' },
+          radius: { v: 0.6 },
+          speed:  { ref: 'earthSpeedSlider.value' },
+        },
       },
       {
         id: 'venusOrbit',
         type: 'orbit',
-        params: { radius: { v: 0.3 } },
+        params: {
+          time:   { ref: 'time.time' },
+          radius: { v: 0.3 },
+          speed:  { ref: 'venusSpeedSlider.value' },
+        },
       },
-    ],
-    edges: [
-      { fromNode: 'time',            fromPort: 0, toNode: 'earthOrbit',  toPort: 0 },
-      { fromNode: 'time',            fromPort: 0, toNode: 'venusOrbit',   toPort: 0 },
-      { fromNode: 'earthSpeedSlider', fromPort: 0, toNode: 'earthOrbit',  toPort: 2 },
-      { fromNode: 'venusSpeedSlider', fromPort: 0, toNode: 'venusOrbit',  toPort: 2 },
     ],
   },
   render: {
@@ -117,12 +106,10 @@ const earthVenus: GeoArtGraph = {
         params: {
           intervalMs: { v: 16 },
           color:      { v: { r: 1, g: 1, b: 1, a: 1 } },
+          pointA:     { ref: 'earthOrbit.point' },
+          pointB:     { ref: 'venusOrbit.point' },
         },
       },
-    ],
-    edges: [
-      { fromNode: 'earthOrbit', fromPort: 0, toNode: 'line', toPort: 1 },
-      { fromNode: 'venusOrbit', fromPort: 0, toNode: 'line', toPort: 2 },
     ],
   },
 };
@@ -205,27 +192,45 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
     expect(() => compile(badGraph)).toThrow(/Unknown compute node type/);
   });
 
-  test('compile() throws for backwards edge (render → compute)', () => {
+  test('compile() throws for ref to unknown node', () => {
     const badGraph: GeoArtGraph = {
-      version: '0.1',
+      version: '1.0',
       control: { nodes: [] },
       compute: {
-        nodes: [{ id: 'time', type: 'time', params: {} }],
-        edges: [],
-      },
-      render: {
         nodes: [
+          { id: 'time', type: 'time', params: {} },
           {
-            id: 'line',
-            type: 'timedLine',
-            renderConfig: { layer: 'paint' },
-            params: { intervalMs: { v: 16 }, color: { v: { r: 1, g: 1, b: 1, a: 1 } } },
+            id: 'orbit1',
+            type: 'orbit',
+            params: {
+              time: { ref: 'nonexistent.time' },
+            },
           },
         ],
-        // Backwards: render node → compute node
-        edges: [{ fromNode: 'line', fromPort: 0, toNode: 'time', toPort: 0 }],
       },
+      render: { nodes: [] },
     };
-    expect(() => compile(badGraph)).toThrow(/backwards edge|Illegal/i);
+    expect(() => compile(badGraph)).toThrow(/unknown source node/i);
+  });
+
+  test('compile() throws for ref to unknown port', () => {
+    const badGraph: GeoArtGraph = {
+      version: '1.0',
+      control: { nodes: [] },
+      compute: {
+        nodes: [
+          { id: 'time', type: 'time', params: {} },
+          {
+            id: 'orbit1',
+            type: 'orbit',
+            params: {
+              time: { ref: 'time.badPortName' },
+            },
+          },
+        ],
+      },
+      render: { nodes: [] },
+    };
+    expect(() => compile(badGraph)).toThrow(/no output port named/i);
   });
 });

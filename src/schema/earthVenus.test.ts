@@ -4,9 +4,8 @@ import { validateGeoArtGraph } from "./validateGeoArtGraph";
 
 describe("earth venus example algorithm validates against schema", () => {
 	test("valid graph", () => {
-		// Minimal example graph object that should conform to the generated GeoArtGraph type.
 		const earthVenus: GeoArtGraph = {
-			version: "0.1",
+			version: "1.0",
 			control: {
 				nodes: [
 					{
@@ -38,33 +37,19 @@ describe("earth venus example algorithm validates against schema", () => {
 						id: "earthOrbit",
 						type: "orbit",
 						params: {
+							time:   { ref: "time.time" },
 							radius: { v: 0.6 },
-							// speed omitted — driven by earthSpeedSlider edge
+							speed:  { ref: "earthSpeedSlider.value" },
 						},
 					},
 					{
 						id: "venusOrbit",
 						type: "orbit",
 						params: {
+							time:   { ref: "time.time" },
 							radius: { v: 0.3 },
-							// speed omitted — driven by venusSpeedSlider edge
+							speed:  { ref: "venusSpeedSlider.value" },
 						},
-					},
-				],
-				edges: [
-					// earthSpeedSlider → earthOrbit.speed (port 2)
-					{
-						fromNode: "earthSpeedSlider",
-						fromPort: 0,
-						toNode: "earthOrbit",
-						toPort: 2,
-					},
-					// venusSpeedSlider → venusOrbit.speed (port 2)
-					{
-						fromNode: "venusSpeedSlider",
-						fromPort: 0,
-						toNode: "venusOrbit",
-						toPort: 2,
 					},
 				],
 			},
@@ -76,13 +61,12 @@ describe("earth venus example algorithm validates against schema", () => {
 						renderConfig: { layer: "paint" },
 						params: {
 							intervalMs: { v: 16 },
-							pointA: { v: { x: 0, y: 0 } },
-							pointB: { v: { x: 0, y: 0 } },
-							color: { v: { r: 1, g: 1, b: 1, a: 1 } },
+							pointA:     { ref: "earthOrbit.point" },
+							pointB:     { ref: "venusOrbit.point" },
+							color:      { v: { r: 1, g: 1, b: 1, a: 1 } },
 						},
 					},
 				],
-				edges: [],
 			},
 		};
 
@@ -90,11 +74,11 @@ describe("earth venus example algorithm validates against schema", () => {
 	});
 
 	test("invalid graph", () => {
-		// @ts-expect-error - Deliberately broken: schema requires `render` and `version` must be a string.
+		// @ts-expect-error - Deliberately broken: render is missing.
 		const notMatching: GeoArtGraph = {
 			version: "0.1",
 			control: { nodes: [] },
-			compute: { nodes: [], edges: [] },
+			compute: { nodes: [] },
 			// render is missing
 		};
 
@@ -104,7 +88,7 @@ describe("earth venus example algorithm validates against schema", () => {
 
 	test("compute nodes have params specific to their type", () => {
 		const graph: GeoArtGraph = {
-			version: "0.1",
+			version: "1.0",
 			control: { nodes: [] },
 			compute: {
 				nodes: [
@@ -118,9 +102,8 @@ describe("earth venus example algorithm validates against schema", () => {
 						},
 					},
 				],
-				edges: [],
 			},
-			render: { nodes: [], edges: [] },
+			render: { nodes: [] },
 		};
 
 		expect(validateGeoArtGraph(graph)).toBe(false);
@@ -128,7 +111,7 @@ describe("earth venus example algorithm validates against schema", () => {
 
 	test("controls nodes have params specific to their type", () => {
 		const graph: GeoArtGraph = {
-			version: "0.1",
+			version: "1.0",
 			control: {
 				nodes: [
 					{
@@ -144,8 +127,8 @@ describe("earth venus example algorithm validates against schema", () => {
 					},
 				],
 			},
-			compute: { nodes: [], edges: [] },
-			render: { nodes: [], edges: [] },
+			compute: { nodes: [] },
+			render: { nodes: [] },
 		};
 
 		expect(validateGeoArtGraph(graph)).toBe(false);
@@ -153,9 +136,9 @@ describe("earth venus example algorithm validates against schema", () => {
 
 	test("render nodes have params specific to their type", () => {
 		const graph: GeoArtGraph = {
-			version: "0.1",
+			version: "1.0",
 			control: { nodes: [] },
-			compute: { nodes: [], edges: [] },
+			compute: { nodes: [] },
 			render: {
 				nodes: [
 					{
@@ -169,7 +152,6 @@ describe("earth venus example algorithm validates against schema", () => {
 						},
 					},
 				],
-				edges: [],
 			},
 		};
 

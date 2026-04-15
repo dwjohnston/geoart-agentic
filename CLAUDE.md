@@ -43,7 +43,7 @@ Control → Compute → Render
 - **Compute** — pure math nodes (wave, orbit, scale). No canvas access, no UI knowledge.
 - **Render** — drawing nodes (line, trail, circle). Consume compute outputs, write to canvas.
 
-An edge may cross layer boundaries only in the permitted direction. A render node
+A ref may cross layer boundaries only in the permitted direction. A render node
 may never feed back into compute. Enforce this at graph compile time.
 
 See `src/compute/CLAUDE.md`, `src/render/CLAUDE.md`, `src/control/CLAUDE.md` for
@@ -51,9 +51,10 @@ layer-specific rules.
 
 ## Key Concepts
 
-**Every input port on every node is modulatable.** If a port has no incoming edge,
-it falls back to the node's static param. This is handled by the graph evaluator —
-individual node implementations never need to think about it.
+**Every input port on every node is modulatable.** A param can be a static value
+`{ v: 0.5 }` or a reference to another node's output `{ ref: "nodeId.portName" }`.
+If a port has no param at all, it falls back to the port's default. This is handled
+by the graph evaluator — individual node implementations never need to think about it.
 
 **Time is an explicit node**, not implicit context. The `TimeNode` outputs elapsed
 seconds. Wire it to any port that needs to vary over time.
@@ -95,8 +96,9 @@ draft-07). The schema uses `additionalProperties: false` throughout — unknown 
 are a hard error, not silently ignored. When adding new node types or params, update
 the schema first, then implement.
 
-Params that are overridden by an incoming edge are stripped from the serialised output.
-Do not write params for connected ports.
+Connections between nodes are expressed as inline param refs:
+`{ "ref": "nodeId.portName" }` — where `portName` is the name of an output port
+on the source node. There is no separate edges array.
 
 ## Performance Rules
 
@@ -113,4 +115,4 @@ Do not write params for connected ports.
 - Do not add graph traversal logic to any node implementation.
 - Do not hardcode time into a node — wire a `TimeNode` instead.
 - Do not add a `kind` field to serialised params — the registry already knows the type.
-- Do not create edges that flow backwards (render → compute, compute → control).
+- Do not create refs that flow backwards (render → compute, compute → control).

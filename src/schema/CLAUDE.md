@@ -20,31 +20,37 @@ load, not on use.
 schema. Do not remove it. It ensures that stale or mistyped keys are caught at
 load time rather than silently ignored at runtime.
 
-**Params are optional at the schema level.** A param that is absent means its
-port has an incoming edge — the serialiser strips connected params. The schema
+**Params are optional at the schema level.** A param that is absent means the
+port will fall back to its port default (defined in the node's `PortDef`). The schema
 reflects this by not `require`-ing individual params.
 
-**Edges reference nodes by string ID and port by integer index.** The schema
-cannot validate that referenced node IDs exist or that port indices are in range
+**Params with `ref` values are how nodes receive inputs from other nodes.** The schema
+cannot validate that referenced node IDs exist or that port names are valid
 — that is the compiler's job.
 
 ## Param Shape
 
-All params use the `{ "v": <value> }` envelope:
+Every param is either a **static value** or a **reference** to another node's output port.
 
+Static value — uses the `{ "v": <value> }` envelope:
 ```json
 { "v": 0.3 }
 { "v": "sine" }
 { "v": { "r": 1, "g": 1, "b": 0.5, "a": 1 } }
 ```
 
-Never write `{ "kind": "number", "v": 0.3 }` — the `kind` field is redundant,
-the registry already knows the type. The schema enforces this by not including
-`kind` in the param definitions.
+Reference — uses `{ "ref": "nodeId.portName" }`:
+```json
+{ "ref": "time.time" }
+{ "ref": "earthOrbit.point" }
+{ "ref": "speedSlider.value" }
+```
 
-Optional fields on the param envelope (`locked`, `comment`) are permitted by the
-schema and should be preserved through serialise/deserialise round-trips even if
-the application does not currently use them.
+The `portName` is the **output** port name on the source node (from its `outputs` array in the node definition). A param with a `ref` key must not also have a `v` key — the schema enforces this via `oneOf`.
+
+Never write `{ "kind": "number", "v": 0.3 }` — the `kind` field is redundant.
+
+Optional fields on the static-value envelope (`locked`, `comment`) are permitted and should be preserved through serialise/deserialise round-trips.
 
 ## Layer Direction Rule
 
@@ -69,10 +75,9 @@ to load.
   "version": "1.0",
   "control": { "nodes": [] },
   "compute": {
-    "nodes": [{ "id": "time", "type": "time", "params": {} }],
-    "edges": []
+    "nodes": [{ "id": "time", "type": "time", "params": {} }]
   },
-  "render": { "nodes": [], "edges": [] }
+  "render": { "nodes": [] }
 }
 ```
 
