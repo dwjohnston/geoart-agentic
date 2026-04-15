@@ -174,7 +174,15 @@ function evaluateNode(
     ctx.canvas.height,
   );
 
-  renderDef.evaluate(scaledInputs, { canvas: ctx.canvas });
+  // Select the target canvas based on renderConfig.layer.
+  const renderLayer = compiledNode.renderConfig?.layer ?? 'paint';
+  const targetCanvas = renderLayer === 'live' ? ctx.canvas.orbit : ctx.canvas.trail;
+
+  renderDef.evaluate(scaledInputs, {
+    canvas: targetCanvas,
+    width: ctx.canvas.width,
+    height: ctx.canvas.height,
+  });
 
   // Render nodes have no outputs.
   return [];

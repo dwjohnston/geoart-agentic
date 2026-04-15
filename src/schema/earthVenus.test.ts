@@ -73,6 +73,7 @@ describe("earth venus example algorithm validates against schema", () => {
 					{
 						id: "line",
 						type: "timedLine",
+						renderConfig: { layer: "paint" },
 						params: {
 							intervalMs: { v: 16 },
 							pointA: { v: { x: 0, y: 0 } },
@@ -160,6 +161,7 @@ describe("earth venus example algorithm validates against schema", () => {
 					{
 						id: "circle1",
 						type: "circle",
+						renderConfig: { layer: "live" },
 						params: {
 							center: { v: { x: 0, y: 0 } },
 							// @ts-expect-error - Deliberately broken: pointA/pointB are timedLine params, not circle params

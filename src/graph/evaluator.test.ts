@@ -14,7 +14,10 @@ function makeCanvasMock(): CanvasRenderingContext2D {
     moveTo:      vi.fn(),
     lineTo:      vi.fn(),
     stroke:      vi.fn(),
+    arc:         vi.fn(),
+    fill:        vi.fn(),
     strokeStyle: '',
+    fillStyle:   '',
     lineWidth:   1,
   } as unknown as CanvasRenderingContext2D;
 }
@@ -110,6 +113,7 @@ const earthVenus: GeoArtGraph = {
       {
         id: 'line',
         type: 'timedLine',
+        renderConfig: { layer: 'paint' },
         params: {
           intervalMs: { v: 16 },
           color:      { v: { r: 1, g: 1, b: 1, a: 1 } },
@@ -214,6 +218,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
           {
             id: 'line',
             type: 'timedLine',
+            renderConfig: { layer: 'paint' },
             params: { intervalMs: { v: 16 }, color: { v: { r: 1, g: 1, b: 1, a: 1 } } },
           },
         ],

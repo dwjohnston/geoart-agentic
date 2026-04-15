@@ -22,6 +22,8 @@ type CompiledNode = {
   layer: Layer;
   /** Static params from the serialised graph, keyed by param name. */
   params: Record<string, Value>;
+  /** Which canvas layer to draw to — only set for render nodes. */
+  renderConfig?: { layer: 'paint' | 'live' };
 };
 
 /** Per-node mutable evaluation state, reset/updated on each tick. */
@@ -225,6 +227,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
       def,
       layer: 'render',
       params: buildParams(rawParams),
+      renderConfig: { layer: node.renderConfig.layer },
     });
   }
 

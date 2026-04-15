@@ -3,7 +3,6 @@ import type { Value, PointValue, ColorValue } from '../../graph/types';
 
 export const timedLineNodeDef: RenderNodeDef = {
   type: 'timedLine',
-  canvas: 'trail',
   // Port 0: intervalMs — firing rate in ms
   // Port 1: pointA     — start point
   // Port 2: pointB     — end point
@@ -21,14 +20,14 @@ export const timedLineNodeDef: RenderNodeDef = {
     const colour = inputs[3] as ColorValue;
 
     const { r, g, b, a } = colour.v;
-    const trail = ctx.canvas.trail;
+    const canvas = ctx.canvas;
 
-    trail.strokeStyle = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
-    trail.lineWidth = 1;
+    canvas.strokeStyle = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
+    canvas.lineWidth = 1;
 
-    trail.beginPath();
-    trail.moveTo(pointA.v.x, pointA.v.y);
-    trail.lineTo(pointB.v.x, pointB.v.y);
-    trail.stroke();
+    canvas.beginPath();
+    canvas.moveTo(pointA.v.x, pointA.v.y);
+    canvas.lineTo(pointB.v.x, pointB.v.y);
+    canvas.stroke();
   },
 };

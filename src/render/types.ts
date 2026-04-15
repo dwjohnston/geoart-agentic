@@ -7,17 +7,14 @@ export type PortDef = {
 };
 
 export type RenderEvalContext = {
-  canvas: {
-    orbit: CanvasRenderingContext2D;
-    trail: CanvasRenderingContext2D;
-    width: number;
-    height: number;
-  };
+  /** Pre-selected canvas for this node — chosen by the evaluator from renderConfig.layer. */
+  canvas: CanvasRenderingContext2D;
+  width: number;
+  height: number;
 };
 
 export type RenderNodeDef = {
   type: string;
-  canvas: 'orbit' | 'trail';
   inputs: PortDef[];
   outputs: PortDef[];
   evaluate(inputs: Value[], ctx: RenderEvalContext): void;
