@@ -102,7 +102,8 @@ function App() {
   }, []);
 
   // When a slider changes, update the compiled graph's param so the evaluator
-  // picks it up on the next tick.
+  // picks it up on the next tick, and clear the trail canvas so the drawing
+  // restarts from the new configuration.
   function handleSliderChange(nodeId: string, value: number) {
     setSliderValues(prev => ({ ...prev, [nodeId]: value }));
 
@@ -120,6 +121,9 @@ function App() {
     if (state) {
       state.isDirty = true;
     }
+
+    // Clear the trail canvas so accumulated paint restarts from the new config.
+    trailCanvasRef.current?.getContext('2d')?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
   }
 
   const sliderNodes = earthVenusGraph.control.nodes.filter(
