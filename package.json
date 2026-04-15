@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "pretest": "npm run generate:schema-types",
     "test": "vitest",
+    "test:headless": "vitest --browser.headless",
     "generate:schema-types": "mkdir -p src/schema/_generated && json2ts -i src/schema/schema.json -o src/schema/_generated/schema-types.d.ts"
   },
   "dependencies": {

@@ -6,10 +6,25 @@ import { playwright } from "@vitest/browser-playwright";
 export default defineConfig({
 	plugins: [react()],
 	test: {
-		browser: {
-			enabled: true,
-			instances: [{ browser: "chromium" }],
-			provider: playwright(),
-		},
+		projects: [
+			{
+				plugins: [react()],
+				test: {
+					name: "browser",
+					include: ["**/*.test.tsx"],
+					browser: {
+						enabled: true,
+						instances: [{ browser: "chromium" }],
+						provider: playwright(),
+					},
+				},
+			},
+			{
+				test: {
+					name: "unit",
+					include: ["**/*.test.ts"],
+				},
+			},
+		],
 	},
 });
