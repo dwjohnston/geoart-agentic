@@ -1,121 +1,195 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useEffect, useRef, useState } from 'react';
+import { compile } from './graph/compiler';
+import { tick } from './graph/evaluator';
+import type { CompiledGraph } from './graph/compiler';
+import type { EvalContext } from './graph/EvalContext';
+import { earthVenusGraph } from './graphs/earthVenus';
+import { SliderControl } from './control/ui/SliderControl';
+import type { ControlNode } from './schema/_generated/schema-types';
+
+// Extract slider nodes from the control layer.
+type SliderNode = Extract<ControlNode, { type: 'slider' }>;
+
+const CANVAS_SIZE = 800;
 
 function App() {
-  const [count, setCount] = useState(0)
+  const orbitCanvasRef = useRef<HTMLCanvasElement>(null);
+  const trailCanvasRef = useRef<HTMLCanvasElement>(null);
+  const compiledRef = useRef<CompiledGraph | null>(null);
+  const stateMapRef = useRef<Map<string, unknown>>(new Map());
+  const startTimeRef = useRef<number | null>(null);
+  const rafIdRef = useRef<number | null>(null);
+  const prevTimeRef = useRef<number>(0);
+
+  // Slider values are stored in React state so the UI re-renders when they change.
+  const [sliderValues, setSliderValues] = useState<Record<string, number>>(() => {
+    const initial: Record<string, number> = {};
+    for (const node of earthVenusGraph.control.nodes) {
+      if (node.type === 'slider') {
+        initial[node.id] = node.params.value?.v ?? 0;
+      }
+    }
+    return initial;
+  });
+
+  // Compile on mount — once only.
+  useEffect(() => {
+    compiledRef.current = compile(earthVenusGraph);
+  }, []);
+
+  // RAF loop — start after canvases are ready.
+  useEffect(() => {
+    const orbitCanvas = orbitCanvasRef.current;
+    const trailCanvas = trailCanvasRef.current;
+    if (!orbitCanvas || !trailCanvas) return;
+
+    const orbitCtx = orbitCanvas.getContext('2d');
+    const trailCtx = trailCanvas.getContext('2d');
+    if (!orbitCtx || !trailCtx) return;
+
+    let cancelled = false;
+
+    function frame(wallMs: number) {
+      if (cancelled) return;
+
+      if (startTimeRef.current === null) {
+        startTimeRef.current = wallMs;
+      }
+
+      const elapsed = wallMs - startTimeRef.current;
+      const deltaTime = elapsed - prevTimeRef.current;
+      prevTimeRef.current = elapsed;
+
+      const compiled = compiledRef.current;
+      if (compiled) {
+        // Clear only the orbit canvas each frame. Trail canvas accumulates.
+        orbitCtx!.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+
+        const stateMap = stateMapRef.current;
+
+        const ctx: EvalContext = {
+          time: elapsed,
+          deltaTime,
+          canvas: {
+            orbit: orbitCtx!,
+            trail: trailCtx!,
+            width: CANVAS_SIZE,
+            height: CANVAS_SIZE,
+          },
+          getState<T>(): T {
+            return stateMap.get('__current__') as T;
+          },
+          setState<T>(s: T): void {
+            stateMap.set('__current__', s);
+          },
+        };
+
+        tick(compiled, elapsed, ctx);
+      }
+
+      rafIdRef.current = requestAnimationFrame(frame);
+    }
+
+    rafIdRef.current = requestAnimationFrame(frame);
+
+    return () => {
+      cancelled = true;
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
+    };
+  }, []);
+
+  // When a slider changes, update the compiled graph's param so the evaluator
+  // picks it up on the next tick.
+  function handleSliderChange(nodeId: string, value: number) {
+    setSliderValues(prev => ({ ...prev, [nodeId]: value }));
+
+    const compiled = compiledRef.current;
+    if (!compiled) return;
+
+    const compiledNode = compiled.nodes.get(nodeId);
+    if (!compiledNode) return;
+
+    // Mutate the static param in-place so the evaluator reads the updated value.
+    compiledNode.params['value'] = { kind: 'number', v: value };
+
+    // Mark the node dirty so downstream nodes re-evaluate next tick.
+    const state = compiled.states.get(nodeId);
+    if (state) {
+      state.isDirty = true;
+    }
+  }
+
+  const sliderNodes = earthVenusGraph.control.nodes.filter(
+    (n): n is SliderNode => n.type === 'slider',
+  );
+
+  // Build slider nodes with current React state values so the UI reflects
+  // the live value.
+  const sliderNodesWithValues: SliderNode[] = sliderNodes.map(n => ({
+    ...n,
+    params: {
+      ...n.params,
+      value: { v: sliderValues[n.id] ?? n.params.value?.v ?? 0 },
+    },
+  }));
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 24, padding: 24 }}>
+      {/* Canvas stack */}
+      <div
+        style={{
+          position: 'relative',
+          width: CANVAS_SIZE,
+          height: CANVAS_SIZE,
+          flexShrink: 0,
+          background: '#0a0a0f',
+          borderRadius: 8,
+          overflow: 'hidden',
+        }}
+      >
+        {/* Trail canvas — bottom layer, never cleared */}
+        <canvas
+          ref={trailCanvasRef}
+          width={CANVAS_SIZE}
+          height={CANVAS_SIZE}
+          style={{ position: 'absolute', top: 0, left: 0 }}
+        />
+        {/* Orbit canvas — top layer, cleared every frame */}
+        <canvas
+          ref={orbitCanvasRef}
+          width={CANVAS_SIZE}
+          height={CANVAS_SIZE}
+          style={{ position: 'absolute', top: 0, left: 0 }}
+        />
+      </div>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      {/* Controls panel */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+          minWidth: 220,
+          padding: 16,
+          background: '#111118',
+          borderRadius: 8,
+          color: '#ccc',
+        }}
+      >
+        <h2 style={{ margin: 0, fontSize: 16, color: '#eee' }}>Earth–Venus Spirograph</h2>
+        {sliderNodesWithValues.map(node => (
+          <SliderControl
+            key={node.id}
+            node={node}
+            onChange={handleSliderChange}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
