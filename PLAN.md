@@ -10,6 +10,7 @@ A slider controls each body's orbital speed.
 
 ### Phase 1 — Compute nodes
 **Status:** Complete `325d61b`
+**Duration:** ~2 min 10 sec
 
 Implement `time` and `orbit` pure math nodes and the compute registry.
 
@@ -22,48 +23,58 @@ Files:
 ---
 
 ### Phase 2 — Render node
-**Status:** Not started
+**Status:** Complete `9f1720c`
+**Duration:** ~46 sec
 
 Implement the `timedLine` render node and the render registry.
 
-Files to create:
-- `src/render/nodes/timedLine.ts` + `timedLine.node.ts`
+Files:
+- `src/render/types.ts`
+- `src/render/nodes/timedLine.node.ts`
 - `src/render/registry.ts`
 
 ---
 
 ### Phase 3 — Graph compiler + evaluator
-**Status:** Not started
+**Status:** Complete `7257dff`
+**Duration:** ~3 min 15 sec
 
 Build the compile step (parse JSON → `CompiledGraph`, topo-sort) and the tick loop (per-frame evaluation).
 
-Files to create:
+Files:
 - `src/graph/EvalContext.ts`
 - `src/graph/compiler.ts`
 - `src/graph/evaluator.ts`
-
-Verified by an integration test that loads the Earth-Venus graph and runs a few ticks.
+- `src/graph/evaluator.test.ts`
 
 ---
 
 ### Phase 4 — Earth-Venus graph descriptor
-**Status:** Not started
+**Status:** Complete `857d3cd`
+**Duration:** ~1 min (written directly, no subagent)
 
-A typed `GeoArtGraph` constant in a `.ts` file, importable by the app shell.
+Typed `GeoArtGraph` constant importable by the app shell.
 
-File to create:
+Files:
 - `src/graphs/earthVenus.ts`
-
-Verified by `validateGeoArtGraph(earthVenus)` returning true.
 
 ---
 
 ### Phase 5 — App shell
-**Status:** Not started
+**Status:** Complete `dea016b`
+**Duration:** ~4 min
 
-Replace the Vite placeholder in `src/App.tsx` with:
-- Two `<canvas>` elements (orbit + trail)
-- A `useEffect` RAF loop wired to the evaluator tick
-- `SliderControl` components for the two speed sliders
+| Activity | Time |
+|---|---|
+| Reading 11 source files | ~1.5 min |
+| Writing `App.tsx` | ~1.5 min |
+| Typecheck + tests | ~1 min |
 
-Verified by running the dev server and visually confirming lines accumulate on screen.
+Files read by agent: `App.tsx`, `EvalContext.ts`, `compiler.ts`, `evaluator.ts`, `earthVenus.ts`, `SliderControl.tsx`, `SliderControl.test.tsx`, `validateGeoArtGraph.ts`, `render/CLAUDE.md`, `App.css`, `schema-types.d.ts`
+
+Commands run: `bun tsc --noEmit`, `bun run test:headless --run`
+
+Files modified:
+- `src/App.tsx` — two stacked canvases, RAF loop, slider panel
+
+Result: 25 tests passing, typecheck clean.
