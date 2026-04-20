@@ -59,51 +59,68 @@
         }
       }
     },
+    "staticNumberParam": {
+      "type": "object",
+      "description": "A numeric parameter — static value only, no ref (used in control nodes)",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": { "type": "number" },
+        "locked": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    "staticStringParam": {
+      "type": "object",
+      "description": "A string parameter — static value only, no ref (used in control nodes)",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": { "type": "string" },
+        "locked": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    "staticBooleanParam": {
+      "type": "object",
+      "description": "A boolean parameter — static value only, no ref (used in control nodes)",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": { "type": "boolean" },
+        "locked": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    "staticColorParam": {
+      "type": "object",
+      "description": "A colour parameter — static value only, no ref (used in control nodes)",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": { "$ref": "#/definitions/colorValue" },
+        "locked": { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
     "numberParam": {
       "description": "A numeric parameter — static value or reference to another node's output",
       "oneOf": [
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["v"],
-          "properties": {
-            "v": { "type": "number" },
-            "locked": { "type": "boolean" },
-            "comment": { "type": "string" }
-          }
-        },
+        { "$ref": "#/definitions/staticNumberParam" },
         { "$ref": "#/definitions/refParam" }
       ]
     },
     "stringParam": {
       "description": "A string or enum parameter — static value or reference to another node's output",
       "oneOf": [
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["v"],
-          "properties": {
-            "v": { "type": "string" },
-            "locked": { "type": "boolean" },
-            "comment": { "type": "string" }
-          }
-        },
+        { "$ref": "#/definitions/staticStringParam" },
         { "$ref": "#/definitions/refParam" }
       ]
     },
     "booleanParam": {
       "description": "A boolean parameter — static value or reference to another node's output",
       "oneOf": [
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["v"],
-          "properties": {
-            "v": { "type": "boolean" },
-            "locked": { "type": "boolean" },
-            "comment": { "type": "string" }
-          }
-        },
+        { "$ref": "#/definitions/staticBooleanParam" },
         { "$ref": "#/definitions/refParam" }
       ]
     },
@@ -122,16 +139,7 @@
     "colorParam": {
       "description": "A colour parameter — static value or reference to another node's output",
       "oneOf": [
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["v"],
-          "properties": {
-            "v": { "$ref": "#/definitions/colorValue" },
-            "locked": { "type": "boolean" },
-            "comment": { "type": "string" }
-          }
-        },
+        { "$ref": "#/definitions/staticColorParam" },
         { "$ref": "#/definitions/refParam" }
       ]
     },
@@ -203,10 +211,10 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "label": { "$ref": "#/definitions/stringParam" },
-                "min":   { "$ref": "#/definitions/numberParam" },
-                "max":   { "$ref": "#/definitions/numberParam" },
-                "value": { "$ref": "#/definitions/numberParam" }
+                "label": { "$ref": "#/definitions/staticStringParam" },
+                "min":   { "$ref": "#/definitions/staticNumberParam" },
+                "max":   { "$ref": "#/definitions/staticNumberParam" },
+                "value": { "$ref": "#/definitions/staticNumberParam" }
               }
             }
           }
@@ -223,8 +231,8 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "label": { "$ref": "#/definitions/stringParam" },
-                "value": { "$ref": "#/definitions/colorParam" }
+                "label": { "$ref": "#/definitions/staticStringParam" },
+                "value": { "$ref": "#/definitions/staticColorParam" }
               }
             }
           }
@@ -241,9 +249,9 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "label":   { "$ref": "#/definitions/stringParam" },
+                "label":   { "$ref": "#/definitions/staticStringParam" },
                 "options": { "$ref": "#/definitions/stringArrayParam" },
-                "value":   { "$ref": "#/definitions/stringParam" }
+                "value":   { "$ref": "#/definitions/staticStringParam" }
               }
             }
           }
@@ -260,8 +268,8 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "label": { "$ref": "#/definitions/stringParam" },
-                "value": { "$ref": "#/definitions/booleanParam" }
+                "label": { "$ref": "#/definitions/staticStringParam" },
+                "value": { "$ref": "#/definitions/staticBooleanParam" }
               }
             }
           }
