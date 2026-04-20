@@ -11,6 +11,11 @@
       "description": "major.minor — increment minor for backward-compatible additions, major for breaking changes",
       "pattern": "^\\d+\\.\\d+$"
     },
+    "speed": {
+      "type": "number",
+      "description": "Global playback speed multiplier. Default 1.0. Does not affect the final picture, only how fast it is drawn.",
+      "minimum": 0.1
+    },
     "control": {
       "type": "object",
       "additionalProperties": false,

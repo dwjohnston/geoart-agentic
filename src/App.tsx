@@ -20,6 +20,10 @@ function App() {
   const startTimeRef = useRef<number | null>(null);
   const rafIdRef = useRef<number | null>(null);
   const prevTimeRef = useRef<number>(0);
+  const scaledElapsedRef = useRef<number>(0);
+  const speedRef = useRef<number>(threeOrbitsGraph.speed ?? 1.0);
+
+  const [speed, setSpeed] = useState<number>(threeOrbitsGraph.speed ?? 1.0);
 
   // Slider values are stored in React state so the UI re-renders when they change.
   const [sliderValues, setSliderValues] = useState<Record<string, number>>(() => {
@@ -56,9 +60,12 @@ function App() {
         startTimeRef.current = wallMs;
       }
 
-      const elapsed = wallMs - startTimeRef.current;
-      const deltaTime = elapsed - prevTimeRef.current;
-      prevTimeRef.current = elapsed;
+      const wallElapsed = wallMs - startTimeRef.current;
+      const deltaTime = wallElapsed - prevTimeRef.current;
+      prevTimeRef.current = wallElapsed;
+
+      scaledElapsedRef.current += deltaTime * speedRef.current;
+      const scaledElapsed = scaledElapsedRef.current;
 
       const compiled = compiledRef.current;
       if (compiled) {
@@ -68,7 +75,7 @@ function App() {
         const stateMap = stateMapRef.current;
 
         const ctx: EvalContext = {
-          time: elapsed,
+          time: scaledElapsed,
           deltaTime,
           canvas: {
             orbit: orbitCtx!,
@@ -84,7 +91,7 @@ function App() {
           },
         };
 
-        tick(compiled, elapsed, ctx);
+        tick(compiled, scaledElapsed, ctx);
       }
 
       rafIdRef.current = requestAnimationFrame(frame);
@@ -124,6 +131,11 @@ function App() {
 
     // Clear the trail canvas so accumulated paint restarts from the new config.
     trailCanvasRef.current?.getContext('2d')?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  }
+
+  function handleSpeedChange(value: number) {
+    setSpeed(value);
+    speedRef.current = value;
   }
 
   const sliderNodes = threeOrbitsGraph.control.nodes.filter(
@@ -184,6 +196,18 @@ function App() {
         }}
       >
         <h2 style={{ margin: 0, fontSize: 16, color: '#eee' }}>Three Orbits</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <label style={{ fontSize: 13, color: '#aaa' }}>Speed: {speed.toFixed(2)}x</label>
+          <input
+            type="range"
+            min={0.125}
+            max={8}
+            step={0.125}
+            value={speed}
+            onChange={e => handleSpeedChange(parseFloat(e.target.value))}
+            style={{ width: '100%' }}
+          />
+        </div>
         {sliderNodesWithValues.map(node => (
           <SliderControl
             key={node.id}
