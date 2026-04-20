@@ -12,6 +12,56 @@ export const threeOrbitsGraph: GeoArtGraph = {
 	version: '1.0',
 	control: {
 		nodes: [
+
+
+			{
+				id: "aColor",
+				type: "colorPicker",
+				params: {
+					label: { v: "Orbit A Color" },
+					value: {
+						"v": {
+							"r": 255,
+							"g": 0,
+							"b": 0,
+							"a": 0.5
+						}
+					}
+
+				}
+			},
+			{
+				id: "bColor",
+				type: "colorPicker",
+				params: {
+					label: { v: "Orbit B Color" },
+					value: {
+						"v": {
+							"r": 255,
+							"g": 255,
+							"b": 0,
+							"a": 0.5
+						}
+					}
+
+				}
+			},
+			{
+				id: "cColor",
+				type: "colorPicker",
+				params: {
+					label: { v: "Orbit C Color" },
+					value: {
+						"v": {
+							"r": 255,
+							"g": 0,
+							"b": 255,
+							"a": 0.5
+						}
+					}
+
+				}
+			},
 			{
 				id: 'aSpeedSlider',
 				type: 'slider',
@@ -165,7 +215,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitA.point' },
 					radius: { ref: 'aRadiusSlider.value' },
-					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					color: { ref: 'aColor.value' },
 				},
 			},
 			{
@@ -175,7 +225,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitB.point' },
 					radius: { ref: 'bRadiusSlider.value' },
-					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					color: { ref: 'bColor.value' },
 				},
 			},
 			{
@@ -185,7 +235,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitC.point' },
 					radius: { ref: 'cRadiusSlider.value' },
-					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					color: { ref: 'cColor.value' },
 				},
 			},
 			{

@@ -5,10 +5,12 @@ import type { CompiledGraph } from './graph/compiler';
 import type { EvalContext } from './graph/EvalContext';
 import { threeOrbitsGraph } from './graphs/threeOrbits';
 import { SliderControl } from './control/ui/SliderControl';
+import { ColorPickerControl } from './control/ui/ColorPickerControl';
 import type { ControlNode } from './schema/_generated/schema-types';
 
-// Extract slider nodes from the control layer.
 type SliderNode = Extract<ControlNode, { type: 'slider' }>;
+type ColorPickerNode = Extract<ControlNode, { type: 'colorPicker' }>;
+type ColorValue = { r: number; g: number; b: number; a: number };
 
 const CANVAS_SIZE = 800;
 
@@ -31,6 +33,17 @@ function App() {
     for (const node of threeOrbitsGraph.control.nodes) {
       if (node.type === 'slider') {
         initial[node.id] = node.params.value?.v ?? 0;
+      }
+    }
+    return initial;
+  });
+
+  // Color picker values are stored in React state so the UI re-renders when they change.
+  const [colorValues, setColorValues] = useState<Record<string, ColorValue>>(() => {
+    const initial: Record<string, ColorValue> = {};
+    for (const node of threeOrbitsGraph.control.nodes) {
+      if (node.type === 'colorPicker') {
+        initial[node.id] = node.params.value?.v ?? { r: 1, g: 1, b: 1, a: 1 };
       }
     }
     return initial;
@@ -133,6 +146,25 @@ function App() {
     trailCanvasRef.current?.getContext('2d')?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
   }
 
+  function handleColorPickerChange(nodeId: string, value: ColorValue) {
+    setColorValues(prev => ({ ...prev, [nodeId]: value }));
+
+    const compiled = compiledRef.current;
+    if (!compiled) return;
+
+    const compiledNode = compiled.nodes.get(nodeId);
+    if (!compiledNode) return;
+
+    compiledNode.params['value'] = { kind: 'color', v: value };
+
+    const state = compiled.states.get(nodeId);
+    if (state) {
+      state.isDirty = true;
+    }
+
+    trailCanvasRef.current?.getContext('2d')?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  }
+
   function handleSpeedChange(value: number) {
     setSpeed(value);
     speedRef.current = value;
@@ -149,6 +181,18 @@ function App() {
     params: {
       ...n.params,
       value: { v: sliderValues[n.id] ?? n.params.value?.v ?? 0 },
+    },
+  }));
+
+  const colorPickerNodes = threeOrbitsGraph.control.nodes.filter(
+    (n): n is ColorPickerNode => n.type === 'colorPicker',
+  );
+
+  const colorPickerNodesWithValues: ColorPickerNode[] = colorPickerNodes.map(n => ({
+    ...n,
+    params: {
+      ...n.params,
+      value: { v: colorValues[n.id] ?? n.params.value?.v ?? { r: 1, g: 1, b: 1, a: 1 } },
     },
   }));
 
@@ -213,6 +257,13 @@ function App() {
             key={node.id}
             node={node}
             onChange={handleSliderChange}
+          />
+        ))}
+        {colorPickerNodesWithValues.map(node => (
+          <ColorPickerControl
+            key={node.id}
+            node={node}
+            onChange={handleColorPickerChange}
           />
         ))}
       </div>
