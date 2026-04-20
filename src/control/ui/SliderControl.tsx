@@ -15,13 +15,12 @@ function decimalPlacesForStep(step: number): number {
 
 export function SliderControl({ node, onChange }: Props) {
   const { params } = node;
-  const label = params.label!.v ?? '';
+  const label = params.label?.v ?? '';
   const min = params.min?.v ?? 0;
   const max = params.max?.v ?? 1;
   const step = params.step?.v ?? 1;
   const value = params.value?.v ?? 0;
 
-  console.log(step)
 
   const decimals = decimalPlacesForStep(step);
   const displayValue = value.toFixed(decimals);
