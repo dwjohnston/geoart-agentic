@@ -18,7 +18,10 @@ PLAN.md files go into the `project` folder.
 When a given plan is complete, move it into `project/archived` where they should start with an ISO date string followed by a concise description. 
 
 ## Workflow
- - Run typecheck, tests, lint when you are done making a series of code changes. 
+ - Run the following commands after making a series of changes to check that everything is ok: 
+   - `bun test:headless`
+   - `bun lint`
+   - `bun typecheck` 
  - Prefer running single tests, and not the whole test suite, for performance 
 
 ## Spelling 
