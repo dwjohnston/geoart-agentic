@@ -7,6 +7,7 @@ export const sliderNodeDef: ControlNodeDef = {
     label: { type: 'string' },
     min:   { type: 'number' },
     max:   { type: 'number' },
+    step:  { type: 'number' },
     value: { type: 'number' },
   },
   evaluate(params) {

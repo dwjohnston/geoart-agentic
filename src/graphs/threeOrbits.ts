@@ -20,7 +20,10 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					min: { v: 0 },
 					max: { v: 3 },
 					value: { v: 0.4 },
+					step: { v: 0.01 }
+
 				},
+
 			},
 			{
 				id: 'aRadiusSlider',
@@ -30,6 +33,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					min: { v: 0 },
 					max: { v: 0.9 },
 					value: { v: 0.5 },
+					step: { v: 0.01 }
+
 				},
 			},
 			{
@@ -40,6 +45,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					min: { v: 0 },
 					max: { v: 5 },
 					value: { v: 1.2 },
+					step: { v: 0.01 }
+
 				},
 			},
 			{
@@ -50,6 +57,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					min: { v: 0 },
 					max: { v: 0.5 },
 					value: { v: 0.25 },
+					step: { v: 0.01 }
+
 				},
 			},
 			{
@@ -60,6 +69,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					min: { v: 0 },
 					max: { v: 8 },
 					value: { v: 3.0 },
+					step: { v: 0.01 }
+
 				},
 			},
 			{
@@ -70,6 +81,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					min: { v: 0 },
 					max: { v: 0.3 },
 					value: { v: 0.1 },
+					step: { v: 0.01 }
+
 				},
 			},
 		],
@@ -81,9 +94,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				id: 'orbitA',
 				type: 'orbit',
 				params: {
-					time:   { ref: 'time.time' },
+					time: { ref: 'time.time' },
 					radius: { ref: 'aRadiusSlider.value' },
-					speed:  { ref: 'aSpeedSlider.value' },
+					speed: { ref: 'aSpeedSlider.value' },
 					// center defaults to origin
 				},
 			},
@@ -91,9 +104,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				id: 'orbitB',
 				type: 'orbit',
 				params: {
-					time:   { ref: 'time.time' },
+					time: { ref: 'time.time' },
 					radius: { ref: 'bRadiusSlider.value' },
-					speed:  { ref: 'bSpeedSlider.value' },
+					speed: { ref: 'bSpeedSlider.value' },
 					center: { ref: 'orbitA.point' },
 				},
 			},
@@ -101,9 +114,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				id: 'orbitC',
 				type: 'orbit',
 				params: {
-					time:   { ref: 'time.time' },
+					time: { ref: 'time.time' },
 					radius: { ref: 'cRadiusSlider.value' },
-					speed:  { ref: 'cSpeedSlider.value' },
+					speed: { ref: 'cSpeedSlider.value' },
 					center: { ref: 'orbitB.point' },
 				},
 			},
@@ -117,9 +130,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				renderConfig: { layer: 'paint' },
 				params: {
 					intervalMs: { v: 10 },
-					color:      { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
-					pointA:     { ref: 'orbitA.point' },
-					pointB:     { ref: 'orbitB.point' },
+					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					pointA: { ref: 'orbitA.point' },
+					pointB: { ref: 'orbitB.point' },
 				},
 			},
 			{
@@ -128,9 +141,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				renderConfig: { layer: 'paint' },
 				params: {
 					intervalMs: { v: 10 },
-					color:      { v: { r: 0.4, g: 1, b: 0.6, a: 1 } },
-					pointA:     { ref: 'orbitA.point' },
-					pointB:     { ref: 'orbitC.point' },
+					color: { v: { r: 0.4, g: 1, b: 0.6, a: 1 } },
+					pointA: { ref: 'orbitA.point' },
+					pointB: { ref: 'orbitC.point' },
 				},
 			},
 			{
@@ -139,9 +152,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				renderConfig: { layer: 'paint' },
 				params: {
 					intervalMs: { v: 10 },
-					color:      { v: { r: 1, g: 0.8, b: 0.3, a: 1 } },
-					pointA:     { ref: 'orbitB.point' },
-					pointB:     { ref: 'orbitC.point' },
+					color: { v: { r: 1, g: 0.8, b: 0.3, a: 1 } },
+					pointA: { ref: 'orbitB.point' },
+					pointB: { ref: 'orbitC.point' },
 				},
 			},
 			// Live position dots — redrawn each frame
@@ -152,7 +165,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitA.point' },
 					radius: { ref: 'aRadiusSlider.value' },
-					color:  { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
 				},
 			},
 			{
@@ -162,7 +175,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitB.point' },
 					radius: { ref: 'bRadiusSlider.value' },
-					color:  { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
 				},
 			},
 			{
@@ -172,7 +185,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitC.point' },
 					radius: { ref: 'cRadiusSlider.value' },
-					color:  { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
 				},
 			},
 			{
@@ -182,7 +195,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitA.point' },
 					radius: { v: 0.02 },
-					color:  { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
 				},
 			},
 			{
@@ -192,7 +205,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitB.point' },
 					radius: { v: 0.016 },
-					color:  { v: { r: 0.4, g: 1, b: 0.6, a: 1 } },
+					color: { v: { r: 0.4, g: 1, b: 0.6, a: 1 } },
 				},
 			},
 			{
@@ -202,7 +215,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitC.point' },
 					radius: { v: 0.012 },
-					color:  { v: { r: 1, g: 0.8, b: 0.3, a: 1 } },
+					color: { v: { r: 1, g: 0.8, b: 0.3, a: 1 } },
 				},
 			},
 		],

@@ -7,12 +7,24 @@ type Props = {
   onChange: (nodeId: string, value: number) => void;
 };
 
+function decimalPlacesForStep(step: number): number {
+  const str = step.toString();
+  const dot = str.indexOf('.');
+  return dot === -1 ? 0 : str.length - dot - 1;
+}
+
 export function SliderControl({ node, onChange }: Props) {
   const { params } = node;
-  const label = params.label?.v ?? '';
-  const min   = params.min?.v   ?? 0;
-  const max   = params.max?.v   ?? 1;
+  const label = params.label!.v ?? '';
+  const min = params.min?.v ?? 0;
+  const max = params.max?.v ?? 1;
+  const step = params.step?.v ?? 1;
   const value = params.value?.v ?? 0;
+
+  console.log(step)
+
+  const decimals = decimalPlacesForStep(step);
+  const displayValue = value.toFixed(decimals);
 
   return (
     <div className="slider-control">
@@ -22,11 +34,11 @@ export function SliderControl({ node, onChange }: Props) {
         type="range"
         min={min}
         max={max}
-        step="any"
+        step={step}
         value={value}
         onChange={e => onChange(node.id, e.target.valueAsNumber)}
       />
-      <output htmlFor={node.id}>{value}</output>
+      <output htmlFor={node.id}>{displayValue}</output>
     </div>
   );
 }

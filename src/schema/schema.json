@@ -214,7 +214,8 @@
                 "label": { "$ref": "#/definitions/staticStringParam" },
                 "min":   { "$ref": "#/definitions/staticNumberParam" },
                 "max":   { "$ref": "#/definitions/staticNumberParam" },
-                "value": { "$ref": "#/definitions/staticNumberParam" }
+                "value": { "$ref": "#/definitions/staticNumberParam" },
+                "step":  {"$ref": "#/definitions/staticNumberParam"}
               }
             }
           }

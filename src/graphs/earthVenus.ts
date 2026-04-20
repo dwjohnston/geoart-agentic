@@ -19,6 +19,7 @@ export const earthVenusGraph: GeoArtGraph = {
 					min: { v: 0 },
 					max: { v: 1 },
 					value: { v: 0.2 },
+					step: { v: 0.01 }
 				},
 			},
 			{
@@ -29,6 +30,8 @@ export const earthVenusGraph: GeoArtGraph = {
 					min: { v: 0 },
 					max: { v: 1 },
 					value: { v: 0.2 },
+					step: { v: 0.01 }
+
 				},
 			},
 			{
@@ -39,6 +42,8 @@ export const earthVenusGraph: GeoArtGraph = {
 					min: { v: 0 },
 					max: { v: 1 },
 					value: { v: 0.323 },
+					step: { v: 0.01 }
+
 				},
 			},
 			{
@@ -49,6 +54,8 @@ export const earthVenusGraph: GeoArtGraph = {
 					min: { v: 0 },
 					max: { v: 1 },
 					value: { v: 0.323 },
+					step: { v: 0.01 }
+
 				},
 			},
 		],
@@ -60,18 +67,18 @@ export const earthVenusGraph: GeoArtGraph = {
 				id: 'earthOrbit',
 				type: 'orbit',
 				params: {
-					time:   { ref: 'time.time' },
+					time: { ref: 'time.time' },
 					radius: { ref: 'earthDistanceSlider.value' },
-					speed:  { ref: 'earthSpeedSlider.value' },
+					speed: { ref: 'earthSpeedSlider.value' },
 				},
 			},
 			{
 				id: 'venusOrbit',
 				type: 'orbit',
 				params: {
-					time:   { ref: 'time.time' },
+					time: { ref: 'time.time' },
 					radius: { ref: 'venusDistanceSlider.value' },
-					speed:  { ref: 'venusSpeedSlider.value' },
+					speed: { ref: 'venusSpeedSlider.value' },
 				},
 			},
 		],
@@ -84,7 +91,7 @@ export const earthVenusGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					color:  { v: { r: 0.8, g: 0.6, b: 1, a: 0.6 } },
+					color: { v: { r: 0.8, g: 0.6, b: 1, a: 0.6 } },
 					pointA: { ref: 'earthOrbit.point' },
 					pointB: { ref: 'venusOrbit.point' },
 				},
@@ -96,9 +103,9 @@ export const earthVenusGraph: GeoArtGraph = {
 				renderConfig: { layer: 'paint' },
 				params: {
 					intervalMs: { v: 16 },
-					center:     { ref: 'earthOrbit.point' },
-					radius:     { v: 0.015 },
-					color:      { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
+					center: { ref: 'earthOrbit.point' },
+					radius: { v: 0.015 },
+					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
 				},
 			},
 			{
@@ -107,9 +114,9 @@ export const earthVenusGraph: GeoArtGraph = {
 				renderConfig: { layer: 'paint' },
 				params: {
 					intervalMs: { v: 16 },
-					center:     { ref: 'venusOrbit.point' },
-					radius:     { v: 0.015 },
-					color:      { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
+					center: { ref: 'venusOrbit.point' },
+					radius: { v: 0.015 },
+					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
 				},
 			},
 			// Current-position dots — redrawn each frame on the live layer
@@ -120,7 +127,7 @@ export const earthVenusGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'earthOrbit.point' },
 					radius: { v: 0.02 },
-					color:  { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
 				},
 			},
 			{
@@ -130,7 +137,7 @@ export const earthVenusGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'venusOrbit.point' },
 					radius: { v: 0.02 },
-					color:  { v: { r: 1, g: 0.8, b: 0.2, a: 1 } },
+					color: { v: { r: 1, g: 0.8, b: 0.2, a: 1 } },
 				},
 			},
 		],

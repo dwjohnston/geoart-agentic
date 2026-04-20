@@ -43,4 +43,31 @@ describe('SliderControl', () => {
     expect(Number(slider.max)).toBe(1);
     expect(Number(slider.value)).toBe(0);
   });
+
+  test('uses step param on the input element', () => {
+    const node: SliderNode = { ...baseNode, params: { ...baseNode.params, step: { v: 0.5 } } };
+    const { container } = render(<SliderControl node={node} onChange={() => {}} />);
+    const slider = within(container).getByRole('slider') as HTMLInputElement;
+    expect(Number(slider.step)).toBe(0.5);
+  });
+
+  test('displays value rounded to step decimal places', () => {
+    const node: SliderNode = {
+      ...baseNode,
+      params: { ...baseNode.params, step: { v: 0.1 }, value: { v: 3.14159 } },
+    };
+    const { container } = render(<SliderControl node={node} onChange={() => {}} />);
+    const output = container.querySelector('output') as HTMLOutputElement;
+    expect(output.textContent).toBe('3.1');
+  });
+
+  test('displays integer value when step is whole number', () => {
+    const node: SliderNode = {
+      ...baseNode,
+      params: { ...baseNode.params, step: { v: 1 }, value: { v: 3.7 } },
+    };
+    const { container } = render(<SliderControl node={node} onChange={() => {}} />);
+    const output = container.querySelector('output') as HTMLOutputElement;
+    expect(output.textContent).toBe('4');
+  });
 });
