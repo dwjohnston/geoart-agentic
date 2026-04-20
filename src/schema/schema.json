@@ -174,6 +174,36 @@
         { "$ref": "#/definitions/refParam" }
       ]
     },
+    "colorPointValue": {
+      "type": "object",
+      "description": "A 2-D point in normalised space (-1 to 1 per axis) combined with an RGBA colour",
+      "additionalProperties": false,
+      "required": ["x", "y", "r", "g", "b", "a"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "r": { "type": "number", "minimum": 0, "maximum": 1 },
+        "g": { "type": "number", "minimum": 0, "maximum": 1 },
+        "b": { "type": "number", "minimum": 0, "maximum": 1 },
+        "a": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "colorPointParam": {
+      "description": "A coloured point parameter — static value or reference to another node's output",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": { "$ref": "#/definitions/colorPointValue" },
+            "locked": { "type": "boolean" },
+            "comment": { "type": "string" }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
+    },
     "stringArrayParam": {
       "type": "object",
       "description": "An array-of-strings parameter value envelope (used for dropdown options)",
@@ -359,6 +389,24 @@
               }
             }
           }
+        },
+        {
+          "type": "object",
+          "description": "Packs a point and colour into a single coloured-point value",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "properties": {
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["colorPoint"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "point": { "$ref": "#/definitions/pointParam" },
+                "color": { "$ref": "#/definitions/colorParam" }
+              }
+            }
+          }
         }
       ]
     },
@@ -367,7 +415,7 @@
       "oneOf": [
         {
           "type": "object",
-          "description": "Draws a line between two points on an interval",
+          "description": "Draws a gradient line between two coloured points on an interval",
           "additionalProperties": false,
           "required": ["id", "type", "renderConfig", "params"],
           "properties": {
@@ -378,10 +426,9 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "intervalMs": { "$ref": "#/definitions/numberParam" },
-                "pointA":     { "$ref": "#/definitions/pointParam" },
-                "pointB":     { "$ref": "#/definitions/pointParam" },
-                "color":      { "$ref": "#/definitions/colorParam" }
+                "intervalMs":   { "$ref": "#/definitions/numberParam" },
+                "colorPointA":  { "$ref": "#/definitions/colorPointParam" },
+                "colorPointB":  { "$ref": "#/definitions/colorPointParam" }
               }
             }
           }

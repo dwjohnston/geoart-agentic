@@ -81,6 +81,19 @@ function paramToValue(v: unknown): Value {
   }
   if (typeof inner === 'object' && inner !== null) {
     const obj = inner as Record<string, unknown>;
+    if ('x' in obj && 'y' in obj && 'r' in obj && 'g' in obj && 'b' in obj && 'a' in obj) {
+      return {
+        kind: 'colorPoint',
+        v: {
+          x: obj['x'] as number,
+          y: obj['y'] as number,
+          r: obj['r'] as number,
+          g: obj['g'] as number,
+          b: obj['b'] as number,
+          a: obj['a'] as number,
+        },
+      };
+    }
     if ('r' in obj && 'g' in obj && 'b' in obj && 'a' in obj) {
       return {
         kind: 'color',

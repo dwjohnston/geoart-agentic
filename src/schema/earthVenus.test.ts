@@ -51,6 +51,22 @@ describe("earth venus example algorithm validates against schema", () => {
 							speed:  { ref: "venusSpeedSlider.value" },
 						},
 					},
+					{
+						id: "earthColorPoint",
+						type: "colorPoint",
+						params: {
+							point: { ref: "earthOrbit.point" },
+							color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+						},
+					},
+					{
+						id: "venusColorPoint",
+						type: "colorPoint",
+						params: {
+							point: { ref: "venusOrbit.point" },
+							color: { v: { r: 1, g: 0.8, b: 0.2, a: 1 } },
+						},
+					},
 				],
 			},
 			render: {
@@ -60,10 +76,9 @@ describe("earth venus example algorithm validates against schema", () => {
 						type: "timedLine",
 						renderConfig: { layer: "paint" },
 						params: {
-							intervalMs: { v: 16 },
-							pointA:     { ref: "earthOrbit.point" },
-							pointB:     { ref: "venusOrbit.point" },
-							color:      { v: { r: 1, g: 1, b: 1, a: 1 } },
+							intervalMs:  { v: 16 },
+							colorPointA: { ref: "earthColorPoint.colorPoint" },
+							colorPointB: { ref: "venusColorPoint.colorPoint" },
 						},
 					},
 				],

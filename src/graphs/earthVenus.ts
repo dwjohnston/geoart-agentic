@@ -81,6 +81,22 @@ export const earthVenusGraph: GeoArtGraph = {
 					speed: { ref: 'venusSpeedSlider.value' },
 				},
 			},
+			{
+				id: 'earthColorPoint',
+				type: 'colorPoint',
+				params: {
+					point: { ref: 'earthOrbit.point' },
+					color: { v: { r: 0.3, g: 0.7, b: 1, a: 0.8 } },
+				},
+			},
+			{
+				id: 'venusColorPoint',
+				type: 'colorPoint',
+				params: {
+					point: { ref: 'venusOrbit.point' },
+					color: { v: { r: 1, g: 0.8, b: 0.2, a: 0.8 } },
+				},
+			},
 		],
 	},
 	render: {
@@ -91,9 +107,8 @@ export const earthVenusGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					color: { v: { r: 0.8, g: 0.6, b: 1, a: 0.6 } },
-					pointA: { ref: 'earthOrbit.point' },
-					pointB: { ref: 'venusOrbit.point' },
+					colorPointA: { ref: 'earthColorPoint.colorPoint' },
+					colorPointB: { ref: 'venusColorPoint.colorPoint' },
 				},
 			},
 			// Grey orbital trails — accumulate on the paint layer

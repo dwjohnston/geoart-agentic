@@ -21,7 +21,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					label: { v: "Orbit A Color" },
 					value: {
 						"v": {
-							"r": 255,
+							"r": 1,
 							"g": 0,
 							"b": 0,
 							"a": 0.5
@@ -37,8 +37,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					label: { v: "Orbit B Color" },
 					value: {
 						"v": {
-							"r": 255,
-							"g": 255,
+							"r": 1,
+							"g": 1,
 							"b": 0,
 							"a": 0.5
 						}
@@ -53,9 +53,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					label: { v: "Orbit C Color" },
 					value: {
 						"v": {
-							"r": 255,
+							"r": 1,
 							"g": 0,
-							"b": 255,
+							"b": 1,
 							"a": 0.5
 						}
 					}
@@ -170,6 +170,30 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					center: { ref: 'orbitB.point' },
 				},
 			},
+			{
+				id: 'cpA',
+				type: 'colorPoint',
+				params: {
+					point: { ref: 'orbitA.point' },
+					color: { ref: "aColor.value" }
+				},
+			},
+			{
+				id: 'cpB',
+				type: 'colorPoint',
+				params: {
+					point: { ref: 'orbitB.point' },
+					color: { ref: "bColor.value" }
+				},
+			},
+			{
+				id: 'cpC',
+				type: 'colorPoint',
+				params: {
+					point: { ref: 'orbitC.point' },
+					color: { ref: "cColor.value" }
+				},
+			},
 		],
 	},
 	render: {
@@ -180,9 +204,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				renderConfig: { layer: 'paint' },
 				params: {
 					intervalMs: { v: 10 },
-					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
-					pointA: { ref: 'orbitA.point' },
-					pointB: { ref: 'orbitB.point' },
+					colorPointA: { ref: 'cpA.colorPoint' },
+					colorPointB: { ref: 'cpB.colorPoint' },
 				},
 			},
 			{
@@ -191,9 +214,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				renderConfig: { layer: 'paint' },
 				params: {
 					intervalMs: { v: 10 },
-					color: { v: { r: 0.4, g: 1, b: 0.6, a: 1 } },
-					pointA: { ref: 'orbitA.point' },
-					pointB: { ref: 'orbitC.point' },
+					colorPointA: { ref: 'cpA.colorPoint' },
+					colorPointB: { ref: 'cpC.colorPoint' },
 				},
 			},
 			{
@@ -202,9 +224,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				renderConfig: { layer: 'paint' },
 				params: {
 					intervalMs: { v: 10 },
-					color: { v: { r: 1, g: 0.8, b: 0.3, a: 1 } },
-					pointA: { ref: 'orbitB.point' },
-					pointB: { ref: 'orbitC.point' },
+					colorPointA: { ref: 'cpB.colorPoint' },
+					colorPointB: { ref: 'cpC.colorPoint' },
 				},
 			},
 			// Live position dots — redrawn each frame

@@ -2,7 +2,7 @@ import type { Value } from '../graph/types';
 
 export type PortDef = {
   name: string;
-  type: 'number' | 'string' | 'boolean' | 'color' | 'point' | 'enum';
+  type: 'number' | 'string' | 'boolean' | 'color' | 'point' | 'colorPoint' | 'enum';
   default?: Value | { v: string };
   options?: string[];
 };

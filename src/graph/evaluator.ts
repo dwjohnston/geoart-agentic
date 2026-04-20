@@ -1,4 +1,4 @@
-import type { Value, PointValue } from './types';
+import type { Value, PointValue, ColorPointValue } from './types';
 import type { CompiledGraph } from './compiler';
 import type { EvalContext } from './EvalContext';
 import type { NodeDef } from '../compute/types';
@@ -98,6 +98,13 @@ function scalePointInputs(inputs: Value[], width: number, height: number): Value
         kind: 'point',
         v: normalisedToCanvas(val.v, width, height),
       } satisfies PointValue;
+    }
+    if (val.kind === 'colorPoint') {
+      const scaled = normalisedToCanvas({ x: val.v.x, y: val.v.y }, width, height);
+      return {
+        kind: 'colorPoint',
+        v: { ...val.v, x: scaled.x, y: scaled.y },
+      } satisfies ColorPointValue;
     }
     return val;
   });

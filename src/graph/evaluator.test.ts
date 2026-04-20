@@ -8,17 +8,22 @@ import type { EvalContext } from './EvalContext';
 // Canvas mock factory
 // ---------------------------------------------------------------------------
 
+function makeGradientMock() {
+  return { addColorStop: vi.fn() };
+}
+
 function makeCanvasMock(): CanvasRenderingContext2D {
   return {
-    beginPath:   vi.fn(),
-    moveTo:      vi.fn(),
-    lineTo:      vi.fn(),
-    stroke:      vi.fn(),
-    arc:         vi.fn(),
-    fill:        vi.fn(),
-    strokeStyle: '',
-    fillStyle:   '',
-    lineWidth:   1,
+    beginPath:            vi.fn(),
+    moveTo:               vi.fn(),
+    lineTo:               vi.fn(),
+    stroke:               vi.fn(),
+    arc:                  vi.fn(),
+    fill:                 vi.fn(),
+    createLinearGradient: vi.fn(() => makeGradientMock()),
+    strokeStyle:          '',
+    fillStyle:            '',
+    lineWidth:            1,
   } as unknown as CanvasRenderingContext2D;
 }
 
@@ -95,6 +100,22 @@ const earthVenus: GeoArtGraph = {
           speed:  { ref: 'venusSpeedSlider.value' },
         },
       },
+      {
+        id: 'earthColorPoint',
+        type: 'colorPoint',
+        params: {
+          point: { ref: 'earthOrbit.point' },
+          color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+        },
+      },
+      {
+        id: 'venusColorPoint',
+        type: 'colorPoint',
+        params: {
+          point: { ref: 'venusOrbit.point' },
+          color: { v: { r: 1, g: 0.8, b: 0.2, a: 1 } },
+        },
+      },
     ],
   },
   render: {
@@ -104,10 +125,9 @@ const earthVenus: GeoArtGraph = {
         type: 'timedLine',
         renderConfig: { layer: 'paint' },
         params: {
-          intervalMs: { v: 16 },
-          color:      { v: { r: 1, g: 1, b: 1, a: 1 } },
-          pointA:     { ref: 'earthOrbit.point' },
-          pointB:     { ref: 'venusOrbit.point' },
+          intervalMs:  { v: 16 },
+          colorPointA: { ref: 'earthColorPoint.colorPoint' },
+          colorPointB: { ref: 'venusColorPoint.colorPoint' },
         },
       },
     ],
@@ -131,6 +151,8 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
       'time',
       'earthOrbit',
       'venusOrbit',
+      'earthColorPoint',
+      'venusColorPoint',
       'line',
     ];
     expect(compiled.sortedNodes).toHaveLength(allIds.length);
