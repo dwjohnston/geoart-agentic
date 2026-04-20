@@ -3,7 +3,7 @@ import { compile } from './graph/compiler';
 import { tick } from './graph/evaluator';
 import type { CompiledGraph } from './graph/compiler';
 import type { EvalContext } from './graph/EvalContext';
-import { threeOrbitsGraph } from './graphs/threeOrbits';
+import { GRAPHS, DEFAULT_GRAPH_ID, getGraph } from './graphs/index';
 import { SliderControl } from './control/ui/SliderControl';
 import { ColorPickerControl } from './control/ui/ColorPickerControl';
 import type { ControlNode } from './schema/_generated/schema-types';
@@ -14,6 +14,26 @@ type ColorValue = { r: number; g: number; b: number; a: number };
 
 const CANVAS_SIZE = 800;
 
+function initSliderValues(controlNodes: ControlNode[]): Record<string, number> {
+  const initial: Record<string, number> = {};
+  for (const node of controlNodes) {
+    if (node.type === 'slider') {
+      initial[node.id] = node.params.value?.v ?? 0;
+    }
+  }
+  return initial;
+}
+
+function initColorValues(controlNodes: ControlNode[]): Record<string, ColorValue> {
+  const initial: Record<string, ColorValue> = {};
+  for (const node of controlNodes) {
+    if (node.type === 'colorPicker') {
+      initial[node.id] = node.params.value?.v ?? { r: 1, g: 1, b: 1, a: 1 };
+    }
+  }
+  return initial;
+}
+
 function App() {
   const orbitCanvasRef = useRef<HTMLCanvasElement>(null);
   const trailCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -23,38 +43,41 @@ function App() {
   const rafIdRef = useRef<number | null>(null);
   const prevTimeRef = useRef<number>(0);
   const scaledElapsedRef = useRef<number>(0);
-  const speedRef = useRef<number>(threeOrbitsGraph.speed ?? 1.0);
+  const speedRef = useRef<number>(1.0);
 
-  const [speed, setSpeed] = useState<number>(threeOrbitsGraph.speed ?? 1.0);
+  const [selectedGraphId, setSelectedGraphId] = useState<string>(DEFAULT_GRAPH_ID);
+  const [speed, setSpeed] = useState<number>(1.0);
+  const [sliderValues, setSliderValues] = useState<Record<string, number>>(() =>
+    initSliderValues(getGraph(DEFAULT_GRAPH_ID).graph.control.nodes),
+  );
+  const [colorValues, setColorValues] = useState<Record<string, ColorValue>>(() =>
+    initColorValues(getGraph(DEFAULT_GRAPH_ID).graph.control.nodes),
+  );
 
-  // Slider values are stored in React state so the UI re-renders when they change.
-  const [sliderValues, setSliderValues] = useState<Record<string, number>>(() => {
-    const initial: Record<string, number> = {};
-    for (const node of threeOrbitsGraph.control.nodes) {
-      if (node.type === 'slider') {
-        initial[node.id] = node.params.value?.v ?? 0;
-      }
-    }
-    return initial;
-  });
+  const currentGraph = getGraph(selectedGraphId).graph;
 
-  // Color picker values are stored in React state so the UI re-renders when they change.
-  const [colorValues, setColorValues] = useState<Record<string, ColorValue>>(() => {
-    const initial: Record<string, ColorValue> = {};
-    for (const node of threeOrbitsGraph.control.nodes) {
-      if (node.type === 'colorPicker') {
-        initial[node.id] = node.params.value?.v ?? { r: 1, g: 1, b: 1, a: 1 };
-      }
-    }
-    return initial;
-  });
-
-  // Compile on mount — once only.
+  // When the selected graph changes, clear canvases, reset timing, and recompile.
+  // State resets (speed, sliders, colors) are handled in handleGraphChange to
+  // avoid calling setState synchronously inside an effect.
   useEffect(() => {
-    compiledRef.current = compile(threeOrbitsGraph);
-  }, []);
+    const { graph } = getGraph(selectedGraphId);
 
-  // RAF loop — start after canvases are ready.
+    // Reset animation timing so the new graph starts from t=0.
+    startTimeRef.current = null;
+    prevTimeRef.current = 0;
+    scaledElapsedRef.current = 0;
+    stateMapRef.current = new Map();
+
+    // Clear both canvases.
+    const orbitCtx = orbitCanvasRef.current?.getContext('2d');
+    const trailCtx = trailCanvasRef.current?.getContext('2d');
+    orbitCtx?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    trailCtx?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+
+    compiledRef.current = compile(graph);
+  }, [selectedGraphId]);
+
+  // RAF loop — starts once after canvases mount, runs for the lifetime of the app.
   useEffect(() => {
     const orbitCanvas = orbitCanvasRef.current;
     const trailCanvas = trailCanvasRef.current;
@@ -82,7 +105,6 @@ function App() {
 
       const compiled = compiledRef.current;
       if (compiled) {
-        // Clear only the orbit canvas each frame. Trail canvas accumulates.
         orbitCtx!.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
         const stateMap = stateMapRef.current;
@@ -121,9 +143,6 @@ function App() {
     };
   }, []);
 
-  // When a slider changes, update the compiled graph's param so the evaluator
-  // picks it up on the next tick, and clear the trail canvas so the drawing
-  // restarts from the new configuration.
   function handleSliderChange(nodeId: string, value: number) {
     setSliderValues(prev => ({ ...prev, [nodeId]: value }));
 
@@ -133,16 +152,13 @@ function App() {
     const compiledNode = compiled.nodes.get(nodeId);
     if (!compiledNode) return;
 
-    // Mutate the static param in-place so the evaluator reads the updated value.
     compiledNode.params['value'] = { kind: 'number', v: value };
 
-    // Mark the node dirty so downstream nodes re-evaluate next tick.
     const state = compiled.states.get(nodeId);
     if (state) {
       state.isDirty = true;
     }
 
-    // Clear the trail canvas so accumulated paint restarts from the new config.
     trailCanvasRef.current?.getContext('2d')?.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
   }
 
@@ -170,12 +186,21 @@ function App() {
     speedRef.current = value;
   }
 
-  const sliderNodes = threeOrbitsGraph.control.nodes.filter(
+  function handleGraphChange(id: string) {
+    const { graph } = getGraph(id);
+    const graphSpeed = graph.speed ?? 1.0;
+
+    setSelectedGraphId(id);
+    setSpeed(graphSpeed);
+    speedRef.current = graphSpeed;
+    setSliderValues(initSliderValues(graph.control.nodes));
+    setColorValues(initColorValues(graph.control.nodes));
+  }
+
+  const sliderNodes = currentGraph.control.nodes.filter(
     (n): n is SliderNode => n.type === 'slider',
   );
 
-  // Build slider nodes with current React state values so the UI reflects
-  // the live value.
   const sliderNodesWithValues: SliderNode[] = sliderNodes.map(n => ({
     ...n,
     params: {
@@ -184,7 +209,7 @@ function App() {
     },
   }));
 
-  const colorPickerNodes = threeOrbitsGraph.control.nodes.filter(
+  const colorPickerNodes = currentGraph.control.nodes.filter(
     (n): n is ColorPickerNode => n.type === 'colorPicker',
   );
 
@@ -195,6 +220,8 @@ function App() {
       value: { v: colorValues[n.id] ?? n.params.value?.v ?? { r: 1, g: 1, b: 1, a: 1 } },
     },
   }));
+
+  const currentEntry = getGraph(selectedGraphId);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 24, padding: 24 }}>
@@ -239,7 +266,32 @@ function App() {
           color: '#ccc',
         }}
       >
-        <h2 style={{ margin: 0, fontSize: 16, color: '#eee' }}>Three Orbits</h2>
+        {/* Graph selector */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <label style={{ fontSize: 13, color: '#aaa' }}>Graph</label>
+          <select
+            value={selectedGraphId}
+            onChange={e => handleGraphChange(e.target.value)}
+            style={{
+              background: '#1a1a26',
+              color: '#eee',
+              border: '1px solid #333',
+              borderRadius: 4,
+              padding: '4px 8px',
+              fontSize: 14,
+              cursor: 'pointer',
+            }}
+          >
+            {GRAPHS.map(entry => (
+              <option key={entry.id} value={entry.id}>
+                {entry.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <h2 style={{ margin: 0, fontSize: 16, color: '#eee' }}>{currentEntry.name}</h2>
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           <label style={{ fontSize: 13, color: '#aaa' }}>Speed: {speed.toFixed(2)}x</label>
           <input
@@ -252,6 +304,7 @@ function App() {
             style={{ width: '100%' }}
           />
         </div>
+
         {sliderNodesWithValues.map(node => (
           <SliderControl
             key={node.id}
