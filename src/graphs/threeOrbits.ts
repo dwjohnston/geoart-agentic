@@ -135,6 +135,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 
 				},
 			},
+
+
 		],
 	},
 	compute: {
