@@ -1,6 +1,6 @@
 import { SliderControl } from '../nodes/control/ui/SliderControl';
 import { ColorPickerControl } from '../nodes/control/ui/ColorPickerControl';
-import type { ControlRegistration } from './GraphEngine';
+import type { ControlRegistration } from '../graphEngine/graphEngine';
 
 type Props = {
   registrations: ControlRegistration[];
