@@ -1,5 +1,5 @@
 import { compile } from '../graph/compiler';
-import { tick } from '../graph/evaluator';
+import { tick as evaluatorTick } from '../graph/evaluator';
 import type { CompiledGraph } from '../graph/compiler';
 import type { EvalContext } from '../graph/EvalContext';
 import type { GeoArtGraph, ControlNode } from '../schema/_generated/schema-types';
@@ -26,8 +26,7 @@ export type ControlRegistration = SliderRegistration | ColorPickerRegistration;
 export type GraphEngine = {
   load: (graph: GeoArtGraph) => ControlRegistration[];
   setSpeed: (value: number) => void;
-  start: () => void;
-  stop: () => void;
+  tick: (wallMs: number) => void;
 };
 
 export function createGraphEngine(
@@ -40,9 +39,8 @@ export function createGraphEngine(
   let prevTime = 0;
   let scaledElapsed = 0;
   let speed = 1.0;
-  let rafId: number | null = null;
 
-  function frame(wallMs: number): void {
+  function tick(wallMs: number): void {
     if (startTime === null) startTime = wallMs;
 
     const wallElapsed = wallMs - startTime;
@@ -61,10 +59,8 @@ export function createGraphEngine(
         setState(): void {},
       };
 
-      tick(compiled, scaledElapsed, ctx);
+      evaluatorTick(compiled, scaledElapsed, ctx);
     }
-
-    rafId = requestAnimationFrame(frame);
   }
 
   function mutateControl(nodeId: string, value: { kind: 'number'; v: number } | { kind: 'color'; v: ColorValue }): void {
@@ -99,12 +95,6 @@ export function createGraphEngine(
   return {
     load,
     setSpeed: value => { speed = value; },
-    start: () => { rafId = requestAnimationFrame(frame); },
-    stop: () => {
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-    },
+    tick,
   };
 }

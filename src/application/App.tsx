@@ -32,9 +32,15 @@ function App() {
     const { graph } = getGraph(DEFAULT_GRAPH_ID);
     engine.setSpeed(graph.speed ?? 1.0);
     setRegistrations(engine.load(graph));
-    engine.start();
 
-    return () => engine.stop();
+    let rafId: number;
+    const frame = (wallMs: number) => {
+      engine.tick(wallMs);
+      rafId = requestAnimationFrame(frame);
+    };
+    rafId = requestAnimationFrame(frame);
+
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   function handleGraphChange(id: string) {
