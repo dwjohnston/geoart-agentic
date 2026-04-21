@@ -1,4 +1,4 @@
-import type { Value } from '../graph/types';
+import type { Value } from '../../graph/types';
 
 export type PortDef = {
   name: string;

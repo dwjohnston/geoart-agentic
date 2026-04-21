@@ -136,7 +136,6 @@ function evaluateNode(
   compiled: CompiledGraph,
   nodeId: string,
   cache: Map<string, Value[]>,
-  t: number,
   ctx: EvalContext,
 ): Value[] {
   const compiledNode = compiled.nodes.get(nodeId)!;
@@ -285,7 +284,7 @@ export function tick(compiled: CompiledGraph, t: number, ctx: EvalContext): void
       continue;
     }
 
-    const output = evaluateNode(compiled, nodeId, cache, t, ctx);
+    const output = evaluateNode(compiled, nodeId, cache, ctx);
     state.lastOutput = output;
     state.isDirty = false;
     cache.set(nodeId, output);

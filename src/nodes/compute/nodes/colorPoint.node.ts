@@ -1,5 +1,5 @@
 import type { NodeDef } from '../types';
-import type { PointValue, ColorValue } from '../../graph/types';
+import type { PointValue, ColorValue } from '../../../graph/types';
 
 export const colorPointNodeDef: NodeDef = {
   type: 'colorPoint',

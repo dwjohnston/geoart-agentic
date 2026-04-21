@@ -1,5 +1,5 @@
 import type { NodeDef } from '../types';
-import type { NumberValue, PointValue } from '../../graph/types';
+import type { NumberValue, PointValue } from '../../../graph/types';
 import { evaluateOrbit } from './orbit';
 
 // Orbit node ports:  0=time, 1=radius, 2=speed, 3=center  →  output 0=point

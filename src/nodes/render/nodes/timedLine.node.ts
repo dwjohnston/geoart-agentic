@@ -1,5 +1,5 @@
 import type { RenderNodeDef, RenderEvalContext } from '../types';
-import type { Value, ColorPointValue } from '../../graph/types';
+import type { Value, ColorPointValue } from '../../../graph/types';
 
 export const timedLineNodeDef: RenderNodeDef = {
   type: 'timedLine',

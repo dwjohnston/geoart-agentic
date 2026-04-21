@@ -1,5 +1,5 @@
 import type { RenderNodeDef, RenderEvalContext } from '../types';
-import type { Value, PointValue, NumberValue, ColorValue } from '../../graph/types';
+import type { Value, PointValue, NumberValue, ColorValue } from '../../../graph/types';
 
 export const circleNodeDef: RenderNodeDef = {
   type: 'circle',

@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import { render, cleanup, within, fireEvent } from '@testing-library/react';
 import { SliderControl } from './SliderControl';
-import type { ControlNode } from '../../schema/_generated/schema-types';
+import type { ControlNode } from '../../../schema/_generated/schema-types';
 
 type SliderNode = Extract<ControlNode, { type: 'slider' }>;
 

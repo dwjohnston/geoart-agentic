@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import { render, cleanup, within, fireEvent } from '@testing-library/react';
 import { ColorPickerControl } from './ColorPickerControl';
-import type { ControlNode } from '../../schema/_generated/schema-types';
+import type { ControlNode } from '../../../schema/_generated/schema-types';
 
 type ColorPickerNode = Extract<ControlNode, { type: 'colorPicker' }>;
 
