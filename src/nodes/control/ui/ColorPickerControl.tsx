@@ -1,4 +1,5 @@
-import type { ControlNode } from '../../schema/_generated/schema-types';
+import { useState } from 'react';
+import type { ControlNode } from '../../../schema/_generated/schema-types';
 
 type ColorPickerNode = Extract<ControlNode, { type: 'colorPicker' }>;
 
@@ -26,9 +27,7 @@ function fromHex(hex: string, alpha: number): ColorValue {
 export function ColorPickerControl({ node, onChange }: Props) {
   const { params } = node;
   const label = params.label?.v ?? '';
-  const value = params.value?.v ?? { r: 1, g: 1, b: 1, a: 1 };
-
-  const hex = toHex(value);
+  const [value, setValue] = useState(params.value?.v ?? { r: 1, g: 1, b: 1, a: 1 });
 
   return (
     <div className="color-picker-control">
@@ -36,8 +35,12 @@ export function ColorPickerControl({ node, onChange }: Props) {
       <input
         id={node.id}
         type="color"
-        value={hex}
-        onChange={e => onChange(node.id, fromHex(e.target.value, value.a))}
+        value={toHex(value)}
+        onChange={e => {
+          const v = fromHex(e.target.value, value.a);
+          setValue(v);
+          onChange(node.id, v);
+        }}
       />
     </div>
   );

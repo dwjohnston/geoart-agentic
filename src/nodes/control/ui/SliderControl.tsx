@@ -1,4 +1,5 @@
-import type { ControlNode } from '../../schema/_generated/schema-types';
+import { useState } from 'react';
+import type { ControlNode } from '../../../schema/_generated/schema-types';
 
 type SliderNode = Extract<ControlNode, { type: 'slider' }>;
 
@@ -19,11 +20,9 @@ export function SliderControl({ node, onChange }: Props) {
   const min = params.min?.v ?? 0;
   const max = params.max?.v ?? 1;
   const step = params.step?.v ?? 1;
-  const value = params.value?.v ?? 0;
-
+  const [value, setValue] = useState(params.value?.v ?? 0);
 
   const decimals = decimalPlacesForStep(step);
-  const displayValue = value.toFixed(decimals);
 
   return (
     <div className="slider-control">
@@ -35,9 +34,13 @@ export function SliderControl({ node, onChange }: Props) {
         max={max}
         step={step}
         value={value}
-        onChange={e => onChange(node.id, e.target.valueAsNumber)}
+        onChange={e => {
+          const v = e.target.valueAsNumber;
+          setValue(v);
+          onChange(node.id, v);
+        }}
       />
-      <output htmlFor={node.id}>{displayValue}</output>
+      <output htmlFor={node.id}>{value.toFixed(decimals)}</output>
     </div>
   );
 }

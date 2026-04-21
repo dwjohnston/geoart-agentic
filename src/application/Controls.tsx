@@ -1,25 +1,20 @@
 import { SliderControl } from '../nodes/control/ui/SliderControl';
 import { ColorPickerControl } from '../nodes/control/ui/ColorPickerControl';
-import type { ControlNode } from '../schema/_generated/schema-types';
-
-export type SliderNode = Extract<ControlNode, { type: 'slider' }>;
-export type ColorPickerNode = Extract<ControlNode, { type: 'colorPicker' }>;
-export type ColorValue = { r: number; g: number; b: number; a: number };
+import type { ControlRegistration } from './GraphEngine';
 
 type Props = {
-  nodes: ControlNode[];
-  onValueChange: (nodeId: string, value: number | ColorValue) => void;
+  registrations: ControlRegistration[];
 };
 
-export function Controls({ nodes, onValueChange }: Props) {
+export function Controls({ registrations }: Props) {
   return (
     <>
-      {nodes.map(node => {
-        if (node.type === 'slider') {
-          return <SliderControl key={node.id} node={node} onChange={(id, v) => onValueChange(id, v)} />;
+      {registrations.map(reg => {
+        if (reg.type === 'slider') {
+          return <SliderControl key={reg.node.id} node={reg.node} onChange={(_, v) => reg.setValue(v)} />;
         }
-        if (node.type === 'colorPicker') {
-          return <ColorPickerControl key={node.id} node={node} onChange={(id, v) => onValueChange(id, v)} />;
+        if (reg.type === 'colorPicker') {
+          return <ColorPickerControl key={reg.node.id} node={reg.node} onChange={(_, v) => reg.setValue(v)} />;
         }
         return null;
       })}
