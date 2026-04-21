@@ -8,6 +8,7 @@ export type ColorValue = { r: number; g: number; b: number; a: number };
 
 type SliderNode = Extract<ControlNode, { type: 'slider' }>;
 type ColorPickerNode = Extract<ControlNode, { type: 'colorPicker' }>;
+type DropdownNode = Extract<ControlNode, { type: 'dropdown' }>;
 
 export type SliderRegistration = {
   type: 'slider';
@@ -21,7 +22,13 @@ export type ColorPickerRegistration = {
   setValue: (value: ColorValue) => void;
 };
 
-export type ControlRegistration = SliderRegistration | ColorPickerRegistration;
+export type DropdownRegistration = {
+  type: 'dropdown';
+  node: DropdownNode;
+  setValue: (value: string) => void;
+};
+
+export type ControlRegistration = SliderRegistration | ColorPickerRegistration | DropdownRegistration;
 
 export type GraphEngine = {
   load: (graph: GeoArtGraph) => ControlRegistration[];
@@ -63,7 +70,7 @@ export function createGraphEngine(
     }
   }
 
-  function mutateControl(nodeId: string, value: { kind: 'number'; v: number } | { kind: 'color'; v: ColorValue }): void {
+  function mutateControl(nodeId: string, value: { kind: 'number'; v: number } | { kind: 'color'; v: ColorValue } | { kind: 'string'; v: string }): void {
     if (!compiled) return;
     const compiledNode = compiled.nodes.get(nodeId);
     if (!compiledNode) return;
@@ -87,6 +94,9 @@ export function createGraphEngine(
       }
       if (node.type === 'colorPicker') {
         return [{ type: 'colorPicker' as const, node: node as ColorPickerNode, setValue: (v: ColorValue) => mutateControl(node.id, { kind: 'color', v }) }];
+      }
+      if (node.type === 'dropdown') {
+        return [{ type: 'dropdown' as const, node: node as DropdownNode, setValue: (v: string) => mutateControl(node.id, { kind: 'string', v }) }];
       }
       return [];
     });

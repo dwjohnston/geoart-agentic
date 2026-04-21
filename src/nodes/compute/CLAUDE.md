@@ -68,6 +68,10 @@ propagation — a false positive forces unnecessary re-evaluation; a false negat
 causes stale outputs. When in doubt, check whether removing the TimeNode input
 would make the output constant.
 
+## Trigonometry 
+
+Any time an angle value is provided as a paramater,  (eg for passing into a sine function) the value should be expressed as a value 0-1, where 1 represents 360 degrees. Of course, values outside of 0-1 should be allowed, they will wrap around. 
+
 ## Node Catalogue
 
 **Do not maintain a catalogue here.** The schema is the source of truth.

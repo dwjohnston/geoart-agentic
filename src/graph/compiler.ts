@@ -73,11 +73,7 @@ function paramToValue(v: unknown): Value {
     return { kind: 'number', v: inner };
   }
   if (typeof inner === 'string') {
-    // Treat as enum/string — store as number NaN placeholder; compute nodes
-    // that accept enum values cast to string themselves.
-    // Actually, string params don't map to Value — they are consumed differently.
-    // For now return a number with NaN so callers that don't use it won't crash.
-    return { kind: 'number', v: Number.NaN };
+    return { kind: 'string', v: inner };
   }
   if (typeof inner === 'object' && inner !== null) {
     const obj = inner as Record<string, unknown>;

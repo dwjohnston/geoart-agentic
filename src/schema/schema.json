@@ -122,6 +122,25 @@
         { "$ref": "#/definitions/refParam" }
       ]
     },
+    "waveTypeEnumParam": {
+      "description": "Wave shape selector — sine, square, saw, inverse-saw, or triangle",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": {
+              "type": "string",
+              "enum": ["sine", "square", "saw", "inverse-saw", "triangle"]
+            },
+            "locked":  { "type": "boolean" },
+            "comment": { "type": "string" }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
+    },
     "booleanParam": {
       "description": "A boolean parameter — static value or reference to another node's output",
       "oneOf": [
@@ -332,7 +351,7 @@
         },
         {
           "type": "object",
-          "description": "Oscillation generator — sine, saw, or square wave",
+          "description": "Oscillation generator — sine, square, saw, inverse-saw, or triangle wave",
           "additionalProperties": false,
           "required": ["id", "type", "params"],
           "properties": {
@@ -343,8 +362,9 @@
               "additionalProperties": false,
               "properties": {
                 "time":      { "$ref": "#/definitions/numberParam" },
-                "waveType":  { "$ref": "#/definitions/stringParam" },
+                "waveType":  { "$ref": "#/definitions/waveTypeEnumParam" },
                 "frequency": { "$ref": "#/definitions/numberParam" },
+                "amplitude": { "$ref": "#/definitions/numberParam" },
                 "phase":     { "$ref": "#/definitions/numberParam" }
               }
             }

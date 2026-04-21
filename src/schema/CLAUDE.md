@@ -52,6 +52,46 @@ Never write `{ "kind": "number", "v": 0.3 }` — the `kind` field is redundant.
 
 Optional fields on the static-value envelope (`locked`, `comment`) are permitted and should be preserved through serialise/deserialise round-trips.
 
+## Enum Params
+
+When a param accepts a fixed set of string values, define a **named param type** in
+`definitions` — do not use `stringParam` and rely on runtime validation.
+
+**Naming convention:** `<nodeName><paramName>EnumParam`, e.g. `waveTypeEnumParam`.
+
+**Structure:** The static branch constrains `v` using JSON Schema's `enum` keyword;
+the ref branch allows a `dropdown` control node to drive the value at runtime.
+
+```json
+"waveTypeEnumParam": {
+  "description": "Wave shape selector — sine, square, saw, inverse-saw, or triangle",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": ["sine", "square", "saw", "inverse-saw", "triangle"]
+        },
+        "locked":  { "type": "boolean" },
+        "comment": { "type": "string" }
+      }
+    },
+    { "$ref": "#/definitions/refParam" }
+  ]
+}
+```
+
+The node param then references it:
+```json
+"waveType": { "$ref": "#/definitions/waveTypeEnumParam" }
+```
+
+Never use a bare `stringParam` for a port that only accepts a known set of values —
+the schema would silently accept any string and the error would only surface at runtime.
+
 ## Layer Direction Rule
 
 The schema does not encode the layer direction constraint — that is validated by

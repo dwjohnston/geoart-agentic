@@ -1,5 +1,6 @@
 import { SliderControl } from '../nodes/control/ui/SliderControl';
 import { ColorPickerControl } from '../nodes/control/ui/ColorPickerControl';
+import { DropdownControl } from '../nodes/control/ui/DropdownControl';
 import type { ControlRegistration } from '../graphEngine/graphEngine';
 
 type Props = {
@@ -15,6 +16,9 @@ export function Controls({ registrations }: Props) {
         }
         if (reg.type === 'colorPicker') {
           return <ColorPickerControl key={reg.node.id} node={reg.node} onChange={(_, v) => reg.setValue(v)} />;
+        }
+        if (reg.type === 'dropdown') {
+          return <DropdownControl key={reg.node.id} node={reg.node} onChange={(_, v) => reg.setValue(v)} />;
         }
         return null;
       })}
