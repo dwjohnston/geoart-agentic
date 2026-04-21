@@ -1,9 +1,9 @@
 import type { Value, PointValue, ColorPointValue } from './types';
 import type { CompiledGraph } from './compiler';
 import type { EvalContext } from './EvalContext';
-import type { NodeDef } from '../compute/types';
-import type { RenderNodeDef } from '../render/types';
-import type { ControlNodeDef } from '../control/types';
+import type { NodeDef } from '../nodes/compute/types';
+import type { RenderNodeDef } from '../nodes/render/types';
+import type { ControlNodeDef } from '../nodes/control/types';
 
 // ---------------------------------------------------------------------------
 // resolveInput
@@ -32,8 +32,8 @@ export function resolveInput(
     if (!fromOutput) {
       throw new Error(
         `resolveInput: no cached output for node "${edge.fromNode}" ` +
-          `(needed by "${nodeId}" port ${portIndex}). ` +
-          `This indicates a topological sort failure.`,
+        `(needed by "${nodeId}" port ${portIndex}). ` +
+        `This indicates a topological sort failure.`,
       );
     }
     return fromOutput[edge.fromPort];
@@ -63,7 +63,7 @@ export function resolveInput(
 
   throw new Error(
     `resolveInput: no value for port "${portDef.name}" (index ${portIndex}) ` +
-      `on node "${nodeId}" — no edge, no static param, and no default.`,
+    `on node "${nodeId}" — no edge, no static param, and no default.`,
   );
 }
 
@@ -213,7 +213,7 @@ type NodeStateWithExtra = {
 function buildScopedCtx(
   ctx: EvalContext,
   nodeState: ReturnType<Map<string, NodeStateWithExtra>['get']> & object,
-): import('../compute/types').EvalContext {
+): import('../nodes/compute/types').EvalContext {
   const state = nodeState as NodeStateWithExtra;
   return {
     time: ctx.time,
@@ -244,7 +244,7 @@ export function tick(compiled: CompiledGraph, t: number, ctx: EvalContext): void
   // 1. Mark time-dependant compute nodes dirty.
   for (const nodeId of compiled.sortedNodes) {
     const node = compiled.nodes.get(nodeId)!;
-    const def = node.def as Partial<import('../compute/types').NodeDef>;
+    const def = node.def as Partial<import('../nodes/compute/types').NodeDef>;
     if (def.isTimeDependant) {
       compiled.states.get(nodeId)!.isDirty = true;
     }

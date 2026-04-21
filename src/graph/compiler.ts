@@ -1,11 +1,11 @@
 import type { GeoArtGraph } from '../schema/_generated/schema-types';
 import type { Value } from './types';
-import type { NodeDef } from '../compute/types';
-import type { RenderNodeDef } from '../render/types';
-import type { ControlNodeDef } from '../control/types';
-import { computeRegistry } from '../compute/registry';
-import { renderRegistry } from '../render/registry';
-import { controlRegistry } from '../control/registry';
+import type { NodeDef } from '../nodes/compute/types';
+import type { RenderNodeDef } from '../nodes/render/types';
+import type { ControlNodeDef } from '../nodes/control/types';
+import { computeRegistry } from '../nodes/compute/registry';
+import { renderRegistry } from '../nodes/render/registry';
+import { controlRegistry } from '../nodes/control/registry';
 
 /** Layer tag used to enforce direction constraints at compile time. */
 type Layer = 'control' | 'compute' | 'render';
@@ -182,7 +182,7 @@ function topologicalSort(nodeIds: string[], edges: Edge[]): string[] {
   if (sorted.length !== nodeIds.length) {
     throw new Error(
       `Graph contains a cycle — could not sort all nodes. ` +
-        `Sorted ${sorted.length} of ${nodeIds.length}.`,
+      `Sorted ${sorted.length} of ${nodeIds.length}.`,
     );
   }
 
@@ -274,7 +274,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
     const { def } = compiledNode;
     // Control nodes have no inputs — skip.
     const inputs = ((def as NodeDef).inputs ?? (def as RenderNodeDef).inputs) as
-      | import('../compute/types').PortDef[]
+      | import('../nodes/compute/types').PortDef[]
       | undefined;
     if (!inputs) continue;
 
@@ -311,7 +311,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
       if (fromPort === -1) {
         throw new Error(
           `Ref "${ref}" on "${toNodeId}.${portName}": ` +
-            `node "${fromNodeId}" has no output port named "${fromPortName}"`,
+          `node "${fromNodeId}" has no output port named "${fromPortName}"`,
         );
       }
 
@@ -332,8 +332,8 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
     if (fromOrder > toOrder) {
       throw new Error(
         `Illegal backwards ref: ${edge.fromNode} (${fromNode.layer}) → ` +
-          `${edge.toNode} (${toNode.layer}). ` +
-          `Data may only flow control → compute → render.`,
+        `${edge.toNode} (${toNode.layer}). ` +
+        `Data may only flow control → compute → render.`,
       );
     }
   }

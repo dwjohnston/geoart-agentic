@@ -1,10 +1,10 @@
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
-import type { NodeDef } from '../../compute/types';
-import type { ControlNodeDef } from '../../control/types';
-import type { RenderNodeDef } from '../../render/types';
-import { computeRegistry } from '../../compute/registry';
-import { controlRegistry } from '../../control/registry';
-import { renderRegistry } from '../../render/registry';
+import type { NodeDef } from '../../nodes/compute/types';
+import type { ControlNodeDef } from '../../nodes/control/types';
+import type { RenderNodeDef } from '../../nodes/render/types';
+import { computeRegistry } from '../../nodes/compute/registry';
+import { controlRegistry } from '../../nodes/control/registry';
+import { renderRegistry } from '../../nodes/render/registry';
 
 export type RawEdge = {
   fromNodeId: string;

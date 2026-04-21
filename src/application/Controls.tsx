@@ -1,5 +1,5 @@
-import { SliderControl } from '../control/ui/SliderControl';
-import { ColorPickerControl } from '../control/ui/ColorPickerControl';
+import { SliderControl } from '../nodes/control/ui/SliderControl';
+import { ColorPickerControl } from '../nodes/control/ui/ColorPickerControl';
 import type { ControlNode } from '../schema/_generated/schema-types';
 
 export type SliderNode = Extract<ControlNode, { type: 'slider' }>;
