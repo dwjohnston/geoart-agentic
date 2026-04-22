@@ -223,6 +223,25 @@
         { "$ref": "#/definitions/refParam" }
       ]
     },
+    "colorPointArrayParam": {
+      "description": "An array of coloured points parameter — static value or reference to another node's output",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/colorPointValue" }
+            },
+            "locked": { "type": "boolean" },
+            "comment": { "type": "string" }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
+    },
     "stringArrayParam": {
       "type": "object",
       "description": "An array-of-strings parameter value envelope (used for dropdown options)",
@@ -372,7 +391,7 @@
         },
         {
           "type": "object",
-          "description": "Circular motion — outputs an x/y point",
+          "description": "Circular motion — outputs a single point (backwards-compat) and an array of evenly-spaced coloured points",
           "additionalProperties": false,
           "required": ["id", "type", "params"],
           "properties": {
@@ -382,10 +401,12 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "time":   { "$ref": "#/definitions/numberParam" },
-                "radius": { "$ref": "#/definitions/numberParam" },
-                "speed":  { "$ref": "#/definitions/numberParam" },
-                "center": { "$ref": "#/definitions/pointParam" }
+                "time":      { "$ref": "#/definitions/numberParam" },
+                "radius":    { "$ref": "#/definitions/numberParam" },
+                "speed":     { "$ref": "#/definitions/numberParam" },
+                "center":    { "$ref": "#/definitions/pointParam" },
+                "numPoints": { "$ref": "#/definitions/numberParam" },
+                "phase":     { "$ref": "#/definitions/numberParam" }
               }
             }
           }

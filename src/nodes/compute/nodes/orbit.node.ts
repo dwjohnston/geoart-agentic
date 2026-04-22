@@ -1,26 +1,40 @@
 import type { NodeDef } from '../types';
-import type { NumberValue, PointValue } from '../../../graph/types';
-import { evaluateOrbit } from './orbit';
+import type { NumberValue, PointValue, ColorPointArrayValue } from '../../../graph/types';
+import { evaluateOrbitPoints } from './orbit';
 
-// Orbit node ports:  0=time, 1=radius, 2=speed, 3=center  →  output 0=point
+// Orbit node ports: 0=time, 1=radius, 2=speed, 3=center, 4=numPoints, 5=phase
+//   → output 0=point  (point — first orbit position, backwards-compat)
+//   → output 1=points (colorPointArray — all evenly-spaced positions with white colour)
 export const orbitNodeDef: NodeDef = {
   type: 'orbit',
   isTimeDependant: true,
   inputs: [
-    { name: 'time',   type: 'number' },
+    { name: 'time', type: 'number' },
     { name: 'radius', type: 'number', default: { kind: 'number', v: 0.5 } },
-    { name: 'speed',  type: 'number', default: { kind: 'number', v: 1.0 } },
-    { name: 'center', type: 'point',  default: { kind: 'point',  v: { x: 0, y: 0 } } },
+    { name: 'speed', type: 'number', default: { kind: 'number', v: 1.0 } },
+    { name: 'center', type: 'point', default: { kind: 'point', v: { x: 0, y: 0 } } },
+    { name: 'numPoints', type: 'number', default: { kind: 'number', v: 1 } },
+    { name: 'phase', type: 'number', default: { kind: 'number', v: 0 } },
   ],
   outputs: [
     { name: 'point', type: 'point' },
+    { name: 'points', type: 'colorPointArray' },
   ],
   evaluate(inputs) {
-    const t      = (inputs[0] as NumberValue).v;
+    const t = (inputs[0] as NumberValue).v;
     const radius = (inputs[1] as NumberValue).v;
-    const speed  = (inputs[2] as NumberValue).v;
+    const speed = (inputs[2] as NumberValue).v;
     const center = (inputs[3] as PointValue).v;
-    const { x, y } = evaluateOrbit(radius, speed, t, center.x, center.y);
-    return [{ kind: 'point', v: { x, y } }];
+    const numPoints = Math.max(1, Math.round((inputs[4] as NumberValue).v));
+    const phase = (inputs[5] as NumberValue).v;
+
+    const rawPoints = evaluateOrbitPoints(radius, speed, t, numPoints, phase, center.x, center.y);
+
+    const colorPoints = rawPoints.map(p => ({ x: p.x, y: p.y, r: 1, g: 1, b: 1, a: 1 }));
+
+    return [
+      { kind: 'point', v: rawPoints[0] },
+      { kind: 'colorPointArray', v: colorPoints } as ColorPointArrayValue,
+    ];
   },
 };
