@@ -448,6 +448,25 @@
               }
             }
           }
+        },
+        {
+          "type": "object",
+          "description": "Generates evenly-spaced colour points along a line between two colour points",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "properties": {
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["pointsOnALine"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "pointA":         { "$ref": "#/definitions/colorPointParam" },
+                "pointB":         { "$ref": "#/definitions/colorPointParam" },
+                "numberOfPoints": { "$ref": "#/definitions/numberParam" }
+              }
+            }
+          }
         }
       ]
     },

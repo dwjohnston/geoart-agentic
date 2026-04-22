@@ -63,7 +63,7 @@ I really want some kind of benchmark/performance testing.
                     - This might be doable - you could have different modes for determining how do deal with a multi dimiensional array: 
                         - flat - just flatten them and do the same thing to each one
                         - Do a different think per grouping
-                        - cycle - flatten them, and then do treat them diffently per 
+                        - cycle - flatten them, and then do treat them diffently per treatment option we have. (for example, for a link, we have a from 3d array with 27 points, and a to node which is a single array of 3 points)
 
 
 

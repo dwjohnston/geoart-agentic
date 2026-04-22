@@ -75,6 +75,16 @@ function paramToValue(v: unknown): Value {
   if (typeof inner === 'string') {
     return { kind: 'string', v: inner };
   }
+  if (Array.isArray(inner)) {
+    const items = inner as Array<Record<string, unknown>>;
+    if (items.every(item => 'x' in item && 'y' in item && 'r' in item && 'g' in item && 'b' in item && 'a' in item)) {
+      return {
+        kind: 'colorPointArray',
+        v: items as Array<{ x: number; y: number; r: number; g: number; b: number; a: number }>,
+      };
+    }
+    throw new Error(`Cannot convert array param to internal Value: ${JSON.stringify(v)}`);
+  }
   if (typeof inner === 'object' && inner !== null) {
     const obj = inner as Record<string, unknown>;
     if ('x' in obj && 'y' in obj && 'r' in obj && 'g' in obj && 'b' in obj && 'a' in obj) {
@@ -122,8 +132,8 @@ function buildParams(rawParams: Record<string, unknown>): Record<string, Value> 
     const envelope = val as { v?: unknown; ref?: unknown };
     // Skip ref params — they're handled by edge resolution.
     if ('ref' in envelope) continue;
-    // Skip array and boolean values — they aren't representable as Value.
-    if (Array.isArray(envelope.v) || typeof envelope.v === 'boolean') continue;
+    // Skip boolean values — they aren't representable as Value.
+    if (typeof envelope.v === 'boolean') continue;
     try {
       out[key] = paramToValue(val);
     } catch {
