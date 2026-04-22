@@ -533,6 +533,26 @@
               }
             }
           }
+        },
+        {
+          "type": "object",
+          "description": "Draws gradient lines between corresponding points of two coloured-point arrays on an interval",
+          "additionalProperties": false,
+          "required": ["id", "type", "renderConfig", "params"],
+          "properties": {
+            "id":           { "type": "string" },
+            "type":         { "type": "string", "enum": ["correspondingLines"] },
+            "renderConfig": { "$ref": "#/definitions/renderConfig" },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "intervalMs":   { "$ref": "#/definitions/numberParam" },
+                "topPoints":    { "$ref": "#/definitions/colorPointArrayParam" },
+                "bottomPoints": { "$ref": "#/definitions/colorPointArrayParam" }
+              }
+            }
+          }
         }
       ]
     }
