@@ -9,15 +9,15 @@
 - Git hooks
     - Ban modification of fixture files 
 
+## Quality of Life
+
+- Add a tick count debug somewhere
+- Tidy up those controls
 
 
 ## Strategy 
 
 - Versioning strategy for updating the schema 
-
-
-
-
 
 
 ## Code Architecture
@@ -27,10 +27,14 @@
 
 ## AI
 
-- Do the workflow thing
-- Probably delete a lot of the Claude.md files and build them up with just what's needed.
+- ~~Do the workflow thing~~
+- ~~Probably delete a lot of the Claude.md files and build them up with just what's needed.~~
+
+- Put in: the timing thing. 
 
 
+- Have a kind of cron job to run schema agent regularly? 
+- Update the guest book instructions to be an iso date time string, with local timestamp. 
 
 
 ## Testing 
@@ -71,6 +75,8 @@ I really want some kind of benchmark/performance testing.
 
 - The nodes in the schema need better identification of names. 
     - Does that exist. Yes: `title` apparently. 
+- Assess the documentation of the schema
+
 
 
 

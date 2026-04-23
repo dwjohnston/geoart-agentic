@@ -17,5 +17,7 @@ Your task is to keep the AI related .md files tidy and up to date.
 
 - Check that things are named correctly. Sometimes I copy paste something and forget to change the title in the frontmatter for example. 
 - Check that path names are up to date.
+- Monitor chats between the human and AI and use this to suggest improvments to AI. Make these suggestions during Phase 5 of the workflow.
+
 
 

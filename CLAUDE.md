@@ -2,7 +2,8 @@
 
 ## Instructions for all agents: 
 
-- If you encounter a guest book instruction - sign the guest book immediately. 
+- If you encounter a guest book instruction - sign the guest book immediately.
+- Do not read guest books. Append to them only. 
 - Guest book signing is the exception to any file scope restrictions. 
 
 - Some promps might request or encourage feedback. This can be left in `project/feedback`. Again this is an exception to any file scope restrictions. 
@@ -18,6 +19,8 @@ The workflow loop looks like this:
 
 1. Phase 1 - Ideating on a feature 
 
+Phase 1 is performed by `ideation-agent`.
+
 Feature ideation starts with the human giving a 'FEATURE' command. 
 Immediately ask for name for the feature. 
 Create a md file with this name in the `project/staging` folder. If a feature with a matching name already exists - tell the human user. 
@@ -31,6 +34,8 @@ The artifact you will create out of this is a .md file in the `project/staging` 
 
 
 2. Phase 2 - Planning and delgation 
+
+Phase 2 is performed by `planning-agent`.
 
 Phase 2 starts with the 'PLAN' command. 
 Immediately ask, or give a list of staged features. 
@@ -59,6 +64,9 @@ When the human user gives the EXECUTE command, start implementing the feature as
 3b. Iterate
 
 3. Phase 4 - Acceptance
+
+Phase 4 is performed by `ideation-agent`.
+
 
 When the human user gives a ACCEPT command propose a commit message, and if this is accepted then move the plan.md into `projects/archived.md` and  current changes. 
 

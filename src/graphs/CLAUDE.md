@@ -31,3 +31,7 @@ draw = temp layer
 - Same goes for drawing any other entities (eg. points on a line)
 
 - There should be a control to change link rate. 
+
+- Sensible default values should be in the ball park of  for LFOs - amplitude 0-0.2, frequency 0.001 -1.
+- Frequency min value should not be 0, this doesn't make sense. 
+ 
