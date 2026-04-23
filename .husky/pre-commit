@@ -1,3 +1,4 @@
-bun test:headless
-bun typecheck
-bun lint
+bunx concurrently \
+  "bun test:headless" \
+  "bun typecheck" \
+  "bun lint"

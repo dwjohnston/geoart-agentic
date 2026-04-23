@@ -13,6 +13,7 @@
 
 - Add a tick count debug somewhere
 - Tidy up those controls
+- ~~Run the commit hooks simultaneously~~
 
 
 ## Strategy 
