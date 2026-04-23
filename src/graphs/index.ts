@@ -4,6 +4,7 @@ import { earth3VenusGraph } from './earth3Venus';
 import type { GeoArtGraph } from '../schema/_generated/schema-types';
 import { monaLisaGraph } from './monaLisa';
 import { wavingLinesGraph } from './wavingLines';
+import { lfoPlanetsGraph } from './lfoPlanets';
 
 export type GraphEntry = {
   id: string;
@@ -17,6 +18,7 @@ export const GRAPHS: GraphEntry[] = [
   { id: 'monaLisa', name: "Mona Lisa", graph: monaLisaGraph },
   { id: 'earth3Venus', name: 'Earth 3 Venus', graph: earth3VenusGraph },
   { id: 'wavingLines', name: 'Waving Lines', graph: wavingLinesGraph },
+  { id: 'lfoPlanets', name: 'LFO Planets', graph: lfoPlanetsGraph },
 ];
 
 export const DEFAULT_GRAPH_ID = GRAPHS[0].id;

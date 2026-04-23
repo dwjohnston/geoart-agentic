@@ -7,10 +7,10 @@ function frac(x: number): number {
 /**
  * Evaluates a wave oscillator at time t.
  * @param waveType - Shape of the wave
- * @param frequency - Cycles per second (Hz)
+ * @param frequency - Cycles per 60 ticks (i.e. 1.0 = one cycle per second at 60fps)
  * @param amplitude - Output range multiplier (default 1 → output is -1..1)
  * @param phase - Phase offset in 0..1 units (0.5 = 180°)
- * @param t - Elapsed time in seconds
+ * @param t - Tick count since algorithm started
  */
 export function evaluateWave(
   waveType: WaveType,
@@ -19,7 +19,7 @@ export function evaluateWave(
   phase: number,
   t: number,
 ): number {
-  const pos = frequency * t + phase;
+  const pos = (frequency / 60) * t + phase;
   let raw: number;
 
   switch (waveType) {

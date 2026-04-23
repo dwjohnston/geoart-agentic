@@ -447,6 +447,23 @@
               }
             }
           }
+        },
+        {
+          "description": "Adds two numbers — outputs sum = a + b",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "properties": {
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["add"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "a": { "$ref": "#/definitions/numberParam" },
+                "b": { "$ref": "#/definitions/numberParam" }
+              }
+            }
+          }
         }
       ]
     },

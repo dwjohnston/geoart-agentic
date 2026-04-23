@@ -30,3 +30,4 @@ draw = temp layer
 - When drawing orbits always draw a circle for the orbit path and the node itself. The orbit should be grey. The node should match the color of the colorpoint being provided, if it exists, otherwise grey.
 - Same goes for drawing any other entities (eg. points on a line)
 
+- There should be a control to change link rate. 
