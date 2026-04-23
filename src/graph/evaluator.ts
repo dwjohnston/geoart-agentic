@@ -1,4 +1,4 @@
-import type { Value, PointValue, ColorPointValue } from './types';
+import type { Value, PointValue, ColorPointValue, ColorPointArrayValue } from './types';
 import type { CompiledGraph } from './compiler';
 import type { EvalContext } from './EvalContext';
 import type { NodeDef } from '../nodes/compute/types';
@@ -105,6 +105,15 @@ function scalePointInputs(inputs: Value[], width: number, height: number): Value
         kind: 'colorPoint',
         v: { ...val.v, x: scaled.x, y: scaled.y },
       } satisfies ColorPointValue;
+    }
+    if (val.kind === 'colorPointArray') {
+      return {
+        kind: 'colorPointArray',
+        v: val.v.map(p => {
+          const scaled = normalisedToCanvas({ x: p.x, y: p.y }, width, height);
+          return { ...p, x: scaled.x, y: scaled.y };
+        }),
+      } satisfies ColorPointArrayValue;
     }
     return val;
   });
@@ -257,29 +266,37 @@ export function tick(compiled: CompiledGraph, t: number, ctx: EvalContext): void
     const state = compiled.states.get(nodeId)!;
     const node = compiled.nodes.get(nodeId)!;
 
-    // For render nodes: check if enough time has elapsed since last fire.
+    // For render nodes: decide whether to fire this frame.
     if (node.layer === 'render') {
-      // intervalMs is port 0 on every render node. Resolve it now (using the
-      // cache already populated by upstream compute nodes).
-      let intervalMs = 100; // sensible default
-      try {
-        const intervalVal = resolveInput(compiled, nodeId, 0, cache);
-        if (intervalVal.kind === 'number') {
-          intervalMs = intervalVal.v;
-        }
-      } catch {
-        // Port 0 may not exist on all render nodes — use default.
-      }
+      const isLive = node.renderConfig?.layer === 'live';
 
-      if (t - state.lastFiredAt < intervalMs) {
-        // Not yet time to fire — still populate cache with last output (empty).
-        cache.set(nodeId, state.lastOutput);
-        continue;
+      if (isLive) {
+        // Live-layer canvas is cleared every frame — always redraw, no interval.
+        state.lastFiredAt = t;
+      } else {
+        // Paint-layer: rate-limit via intervalMs.
+        let intervalMs = 100; // sensible default
+        try {
+          const intervalVal = resolveInput(compiled, nodeId, 0, cache);
+          if (intervalVal.kind === 'number') {
+            intervalMs = intervalVal.v;
+          }
+        } catch {
+          // Port 0 may not exist on all render nodes — use default.
+        }
+
+        if (t - state.lastFiredAt < intervalMs) {
+          cache.set(nodeId, state.lastOutput);
+          continue;
+        }
+        state.lastFiredAt = t;
       }
-      state.lastFiredAt = t;
     }
 
-    if (!state.isDirty) {
+    // Live-layer render nodes always run (canvas was cleared this frame).
+    // Paint-layer render nodes and compute/control nodes skip if not dirty.
+    const isLiveRender = node.layer === 'render' && node.renderConfig?.layer === 'live';
+    if (!state.isDirty && !isLiveRender) {
       cache.set(nodeId, state.lastOutput);
       continue;
     }

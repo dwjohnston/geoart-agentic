@@ -476,6 +476,26 @@
         },
         {
           "type": "object",
+          "description": "Draws gradient lines from each point in one array to the corresponding point in another array, on an interval",
+          "additionalProperties": false,
+          "required": ["id", "type", "renderConfig", "params"],
+          "properties": {
+            "id":           { "type": "string" },
+            "type":         { "type": "string", "enum": ["timedLineArray"] },
+            "renderConfig": { "$ref": "#/definitions/renderConfig" },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "intervalMs":    { "$ref": "#/definitions/numberParam" },
+                "colorPointsA":  { "$ref": "#/definitions/colorPointArrayParam" },
+                "colorPointsB":  { "$ref": "#/definitions/colorPointArrayParam" }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
           "description": "Draws a circle at a point",
           "additionalProperties": false,
           "required": ["id", "type", "renderConfig", "params"],
