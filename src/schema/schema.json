@@ -429,6 +429,24 @@
               }
             }
           }
+        },
+        {
+          "type": "object",
+          "description": "Multiplies two numbers — outputs product = a * b",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "properties": {
+            "id":   { "type": "string" },
+            "type": { "type": "string", "enum": ["multiplier"] },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "a": { "$ref": "#/definitions/numberParam" },
+                "b": { "$ref": "#/definitions/numberParam" }
+              }
+            }
+          }
         }
       ]
     },
