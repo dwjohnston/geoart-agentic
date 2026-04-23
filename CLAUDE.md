@@ -75,6 +75,13 @@ Exception: You can always sign a guestbook if requested.
 
 You can however answer questions in the chat prompt.
 
+### Escape hatch - QUICK
+
+Sometimes the above workflow is a bit cumbersome. If the human prefixes a statement with QUICK then treat this as a one time task. 
+
+If in the middle of a phase, clarify if things should be parked first. 
+
+And the end of a QUICK task then request acceptance, and then propose a commit message. 
 
 ## Tooling 
 
