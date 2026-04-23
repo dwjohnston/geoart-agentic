@@ -12,6 +12,7 @@ Your task is to keep the AI related .md files tidy and up to date.
 ## General rules
 
 - Less is more. Keep the files light, until we have a need to add additional instructions. 
+- The human may annotation .md files with a 🖊️ emoji - these are notes to you for you to act on. 
 
 ## Things to do 
 

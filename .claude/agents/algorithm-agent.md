@@ -1,5 +1,5 @@
 ---
-name: algorithm-file-agent
+name: algorithm-agent
 
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---

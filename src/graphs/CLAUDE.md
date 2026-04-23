@@ -6,11 +6,14 @@ If you are reading this please sign the guest book.
 The guest book is located at `./guestBook.txt` (relative to this file). 
 If it does not already exist, please create it. 
 
+Your magic phrase is: meridian
+
 Sign the guest book with: 
 
-- An ISO date string
+- An ISO8601 formatted datetime string - eg `2026-04-24T14:30:00+10:00`
 - Your agent name
 - A _very brief_ comment about what you are working on 
+- The magic word
 
 
 ## Terminology 
@@ -19,19 +22,18 @@ paint = permenant layer
 draw = temp layer
 
 
-## Guidelines for creating algorithms 
 
-- If there is a speed property it should be allowed to go negative - run in reverse
-- The canvas has a height and width of 1. This means that the maximum radius of a circle for example, should be 0.5
+## Guidelines for creating algorithms
 
-- For painting lines between points, every 10th frame is a good amount. 
-- The default colour for painting should be about 50% opacity. 
-
-- When drawing orbits always draw a circle for the orbit path and the node itself. The orbit should be grey. The node should match the color of the colorpoint being provided, if it exists, otherwise grey.
-- Same goes for drawing any other entities (eg. points on a line)
-
-- There should be a control to change link rate. 
-
-- Sensible default values should be in the ball park of  for LFOs - amplitude 0-0.2, frequency 0.001 -1.
-- Frequency min value should not be 0, this doesn't make sense. 
+| Guideline | Detail |
+|---|---|
+| Speed property | Allow negative values (runs in reverse) |
+| Canvas dimensions | Height and width are both `1`. Max circle radius = `0.5` |
+| Painting lines | Every 10th frame is a good interval |
+| Default paint colour | ~50% opacity |
+| Orbits | Draw a circle for the orbit path (grey) and the node itself (match colorpoint if provided, else grey) |
+| Other entities | Same rule as orbits — draw the entity marker (e.g. point on a line) |
+| Link rate | Always include a control to change it |
+| LFO defaults | Amplitude `0`–`0.2`, frequency `0.001`–`1` |
+| Frequency minimum | Must not be `0` (meaningless) |
  
