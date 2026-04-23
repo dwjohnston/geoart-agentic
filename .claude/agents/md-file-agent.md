@@ -13,3 +13,9 @@ Your task is to keep the AI related .md files tidy and up to date.
 
 - Less is more. Keep the files light, until we have a need to add additional instructions. 
 
+## Things to do 
+
+- Check that things are named correctly. Sometimes I copy paste something and forget to change the title in the frontmatter for example. 
+- Check that path names are up to date.
+
+

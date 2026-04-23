@@ -1,5 +1,5 @@
 ---
-name: schema-file-agent
+name: algorithm-file-agent
 
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
