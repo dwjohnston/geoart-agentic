@@ -8,7 +8,6 @@
 
 - Use Bun
 
-
 ## Code Style
 - Use ES modules (import/export) syntax, not CommonJS (require)
 - Do not use the `interface` keyword. 

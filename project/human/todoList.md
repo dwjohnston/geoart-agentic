@@ -46,6 +46,27 @@ I really want some kind of benchmark/performance testing.
 
  - I think the ColorPoint primitive wants to have a velocity (velocity can encompass direction) as a primitive. 
 
+
+## Nodes
+
+- Deprecate timedLine - all drawers should be between arrays of points. 
+- Deprecate orbits - all point makers should give arrays of points. 
+    - But do they also have an array of points as a center? I suppose they can!
+    - Nah... I feel like the problem with that would be:
+        - Let's say you have a single orbit (A), it has three nodes on it. 
+        - Now we have another orbit (B), and its center reference is the points of A - so one node, but actually three orbits. 
+        - B has a value of 3 nodes - so actually ends up being 9 points. 
+        - Now, if we are going to link all of those to the same place(s), this is fine, but its conceivable that we want to do one group of three to X, one group of three to Y and so forth. 
+            - _maybe_ you could do a thing where the output positions of a orbit are actually a 2d array - and then the linker, it can actually accept a a single point, or an array of points, or an array of array of points... But where does it end? 
+                - For example, take orbit B its output be the center of Orbit C, now we have a 3d array of positions. 
+                - So really a linker needs to be able to deal with arrays of any dimensionality. 
+                    - This might be doable - you could have different modes for determining how do deal with a multi dimiensional array: 
+                        - flat - just flatten them and do the same thing to each one
+                        - Do a different think per grouping
+                        - cycle - flatten them, and then do treat them diffently per 
+
+
+
 ## Schema 
 
 - The nodes in the schema need better identification of names. 

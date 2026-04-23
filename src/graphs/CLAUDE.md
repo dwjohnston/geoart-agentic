@@ -22,7 +22,9 @@ draw = temp layer
 ## Guidelines for creating algorithms 
 
 - If there is a speed property it should be allowed to go negative - run in reverse
+- The canvas has a height and width of 1. This means that the maximum radius of a circle for example, should be 0.5
 
+- The default colour for painting should be about 50% opacity. 
 
 - When drawing orbits always draw a circle for the orbit path and the node itself. The orbit should be grey. The node should match the color of the colorpoint being provided, if it exists, other grey.
 
