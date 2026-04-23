@@ -10,7 +10,7 @@ import type { GeoArtGraph } from '../schema/_generated/schema-types';
 // Warm sfumato palette: burnt sienna, raw umber, ivory.
 
 export const monaLisaGraph: GeoArtGraph = {
-    version: '1.0',
+    version: '2.0',
     control: {
         nodes: [
             {
@@ -329,7 +329,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalMs: { v: 8 },
+                    intervalTicks: { v: 1 },
                     colorPointA: { ref: 'cpHair.colorPoint' },
                     colorPointB: { ref: 'cpHairFill.colorPoint' },
                 },
@@ -341,7 +341,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalMs: { v: 8 },
+                    intervalTicks: { v: 1 },
                     colorPointA: { ref: 'cpFace.colorPoint' },
                     colorPointB: { ref: 'cpFaceFill.colorPoint' },
                 },
@@ -351,7 +351,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalMs: { v: 8 },
+                    intervalTicks: { v: 1 },
                     colorPointA: { ref: 'cpFaceFill.colorPoint' },
                     colorPointB: { ref: 'cpFaceInner.colorPoint' },
                 },
@@ -363,7 +363,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalMs: { v: 12 },
+                    intervalTicks: { v: 1 },
                     colorPointA: { ref: 'cpShoulder.colorPoint' },
                     colorPointB: { ref: 'cpFace.colorPoint' },
                 },
@@ -375,7 +375,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalMs: { v: 10 },
+                    intervalTicks: { v: 1 },
                     colorPointA: { ref: 'cpNose.colorPoint' },
                     colorPointB: { ref: 'cpFaceInner.colorPoint' },
                 },
@@ -387,7 +387,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalMs: { v: 6 },
+                    intervalTicks: { v: 1 },
                     colorPointA: { ref: 'cpLeftEye.colorPoint' },
                     colorPointB: { ref: 'cpLeftBrow.colorPoint' },
                 },
@@ -397,7 +397,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalMs: { v: 6 },
+                    intervalTicks: { v: 1 },
                     colorPointA: { ref: 'cpRightEye.colorPoint' },
                     colorPointB: { ref: 'cpRightBrow.colorPoint' },
                 },
@@ -411,7 +411,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalMs: { v: 6 },
+                    intervalTicks: { v: 1 },
                     colorPointA: { ref: 'cpMouthLeft.colorPoint' },
                     colorPointB: { ref: 'cpMouthRight.colorPoint' },
                 },

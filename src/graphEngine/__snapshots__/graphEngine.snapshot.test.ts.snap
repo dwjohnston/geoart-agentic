@@ -39,8 +39,8 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 1`] = `
   },
   {
     "args": [
-      520,
-      400,
+      519.9997368106456,
+      399.7486727714537,
       8,
       0,
       6.283185307179586,
@@ -80,8 +80,8 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 1`] = `
   },
   {
     "args": [
-      519.990525304458,
-      398.4920752139977,
+      519.9989472437366,
+      399.49734664535157,
       8,
       0,
       6.283185307179586,
@@ -121,8 +121,8 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 1`] = `
   },
   {
     "args": [
-      519.962102713996,
-      396.9843885467995,
+      519.9976313027364,
+      399.2460227241329,
       8,
       0,
       6.283185307179586,
@@ -167,8 +167,8 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 2`] = `
   },
   {
     "args": [
-      520,
-      400,
+      519.9997368106456,
+      399.7486727714537,
       6,
       0,
       6.283185307179586,
@@ -198,8 +198,39 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 2`] = `
   },
   {
     "args": [
-      519.962102713996,
-      396.9843885467995,
+      519.9989472437366,
+      399.49734664535157,
+      6,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "set",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "set",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      519.9976313027364,
+      399.2460227241329,
       6,
       0,
       6.283185307179586,

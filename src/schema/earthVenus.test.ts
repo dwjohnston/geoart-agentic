@@ -5,7 +5,7 @@ import { validateGeoArtGraph } from "./validateGeoArtGraph";
 describe("earth venus example algorithm validates against schema", () => {
 	test("valid graph", () => {
 		const earthVenus: GeoArtGraph = {
-			version: "1.0",
+			version: "2.0",
 			control: {
 				nodes: [
 					{
@@ -76,7 +76,7 @@ describe("earth venus example algorithm validates against schema", () => {
 						type: "timedLine",
 						renderConfig: { layer: "paint" },
 						params: {
-							intervalMs:  { v: 16 },
+							intervalTicks:  { v: 16 },
 							colorPointA: { ref: "earthColorPoint.colorPoint" },
 							colorPointB: { ref: "venusColorPoint.colorPoint" },
 						},
@@ -103,7 +103,7 @@ describe("earth venus example algorithm validates against schema", () => {
 
 	test("compute nodes have params specific to their type", () => {
 		const graph: GeoArtGraph = {
-			version: "1.0",
+			version: "2.0",
 			control: { nodes: [] },
 			compute: {
 				nodes: [
@@ -126,7 +126,7 @@ describe("earth venus example algorithm validates against schema", () => {
 
 	test("controls nodes have params specific to their type", () => {
 		const graph: GeoArtGraph = {
-			version: "1.0",
+			version: "2.0",
 			control: {
 				nodes: [
 					{
@@ -151,7 +151,7 @@ describe("earth venus example algorithm validates against schema", () => {
 
 	test("render nodes have params specific to their type", () => {
 		const graph: GeoArtGraph = {
-			version: "1.0",
+			version: "2.0",
 			control: { nodes: [] },
 			compute: { nodes: [] },
 			render: {

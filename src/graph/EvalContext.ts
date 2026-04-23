@@ -4,10 +4,8 @@
  * nodes do not need to pass their own ID.
  */
 export type EvalContext = {
-  /** Milliseconds since graph start. */
-  time: number;
-  /** Milliseconds since last frame. */
-  deltaTime: number;
+  /** Tick count since graph start. */
+  tickCount: number;
   canvas: {
     orbit: CanvasRenderingContext2D;
     trail: CanvasRenderingContext2D;

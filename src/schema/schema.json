@@ -13,8 +13,8 @@
     },
     "speed": {
       "type": "number",
-      "description": "Global playback speed multiplier. Default 1.0. Does not affect the final picture, only how fast it is drawn.",
-      "minimum": 0.1
+      "description": "Global playback speed. Values >= 1 run that many ticks per frame. Values < 1 must be unit fractions (1/2, 1/3, …) — one tick every n frames. Default 1.",
+      "minimum": 0.125
     },
     "control": {
       "type": "object",
@@ -355,7 +355,7 @@
       "oneOf": [
         {
           "type": "object",
-          "description": "Emits elapsed time in seconds",
+          "description": "Emits the current tick count",
           "additionalProperties": false,
           "required": ["id", "type", "params"],
           "properties": {
@@ -467,7 +467,7 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "intervalMs":   { "$ref": "#/definitions/numberParam" },
+                "intervalTicks":   { "$ref": "#/definitions/numberParam" },
                 "colorPointA":  { "$ref": "#/definitions/colorPointParam" },
                 "colorPointB":  { "$ref": "#/definitions/colorPointParam" }
               }
@@ -487,7 +487,7 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "intervalMs":    { "$ref": "#/definitions/numberParam" },
+                "intervalTicks":    { "$ref": "#/definitions/numberParam" },
                 "colorPointsA":  { "$ref": "#/definitions/colorPointArrayParam" },
                 "colorPointsB":  { "$ref": "#/definitions/colorPointArrayParam" }
               }
@@ -507,7 +507,7 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "intervalMs": { "$ref": "#/definitions/numberParam" },
+                "intervalTicks": { "$ref": "#/definitions/numberParam" },
                 "center":     { "$ref": "#/definitions/pointParam" },
                 "radius":     { "$ref": "#/definitions/numberParam" },
                 "color":      { "$ref": "#/definitions/colorParam" }

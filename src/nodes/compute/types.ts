@@ -8,8 +8,7 @@ export type PortDef = {
 };
 
 export type EvalContext = {
-  time: number;      // ms since graph start
-  deltaTime: number; // ms since last frame
+  tickCount: number;
   getState<T>(): T;
   setState<T>(s: T): void;
 };

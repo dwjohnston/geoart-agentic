@@ -181,7 +181,7 @@ function evaluateNode(
     resolveInput(compiled, nodeId, i, cache),
   );
 
-  // intervalMs is port 0 — used for scheduling (already checked before this call).
+  // intervalTicks is port 0 — used for scheduling (already checked before this call).
   // Scale all point inputs from normalised space to canvas pixels.
   const scaledInputs = scalePointInputs(
     rawInputs,
@@ -224,8 +224,7 @@ function buildScopedCtx(
 ): import('../nodes/compute/types').EvalContext {
   const state = nodeState as NodeStateWithExtra;
   return {
-    time: ctx.time,
-    deltaTime: ctx.deltaTime,
+    tickCount: ctx.tickCount,
     getState<T>(): T {
       return state._nodeLocalState as T;
     },
@@ -243,7 +242,7 @@ function buildScopedCtx(
  * Evaluate the compiled graph for a single animation frame.
  *
  * @param compiled - The compiled graph (mutated in-place: states updated).
- * @param t        - Elapsed time in milliseconds since graph start.
+ * @param t        - Tick count since graph start.
  * @param ctx      - Frame context including canvas references.
  */
 export function tick(compiled: CompiledGraph, t: number, ctx: EvalContext): void {
@@ -274,18 +273,18 @@ export function tick(compiled: CompiledGraph, t: number, ctx: EvalContext): void
         // Live-layer canvas is cleared every frame — always redraw, no interval.
         state.lastFiredAt = t;
       } else {
-        // Paint-layer: rate-limit via intervalMs.
-        let intervalMs = 100; // sensible default
+        // Paint-layer: rate-limit via intervalTicks.
+        let intervalTicks = 6; // sensible default
         try {
           const intervalVal = resolveInput(compiled, nodeId, 0, cache);
           if (intervalVal.kind === 'number') {
-            intervalMs = intervalVal.v;
+            intervalTicks = intervalVal.v;
           }
         } catch {
           // Port 0 may not exist on all render nodes — use default.
         }
 
-        if (t - state.lastFiredAt < intervalMs) {
+        if (t - state.lastFiredAt < intervalTicks) {
           cache.set(nodeId, state.lastOutput);
           continue;
         }

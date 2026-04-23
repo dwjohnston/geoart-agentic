@@ -3,13 +3,13 @@ import type { Value, ColorPointArrayValue } from '../../../graph/types';
 
 export const timedLineArrayNodeDef: RenderNodeDef = {
   type: 'timedLineArray',
-  // Port 0: intervalMs      — firing rate in ms
+  // Port 0: intervalTicks      — ticks between draws
   // Port 1: colorPointsA    — array of start points
   // Port 2: colorPointsB    — array of end points
   // For each index i, draws a gradient line from colorPointsA[i] to colorPointsB[i].
   // Stops when the shorter array is exhausted.
   inputs: [
-    { name: 'intervalMs',   type: 'number',          default: { kind: 'number', v: 100 } },
+    { name: 'intervalTicks',   type: 'number',          default: { kind: 'number', v: 6 } },
     { name: 'colorPointsA', type: 'colorPointArray',  default: { kind: 'colorPointArray', v: [] } },
     { name: 'colorPointsB', type: 'colorPointArray',  default: { kind: 'colorPointArray', v: [] } },
   ],

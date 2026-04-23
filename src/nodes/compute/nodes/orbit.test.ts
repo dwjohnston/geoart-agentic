@@ -1,6 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { evaluateOrbit, evaluateOrbitPoints } from './orbit';
 
+// speed=1 → 1 orbit per 600 ticks. Tick values for clean positions:
+//   t=0    → angle=0       (rightmost point)
+//   t=150  → angle=π/2    (quarter turn, top)
+//   t=300  → angle=π      (half turn, leftmost)
+//   t=600  → angle=2π     (full turn, back to start)
+
 describe('evaluateOrbit', () => {
   it('at t=0, x equals radius and y equals 0', () => {
     const result = evaluateOrbit(0.5, 1, 0);
@@ -8,34 +14,33 @@ describe('evaluateOrbit', () => {
     expect(result.y).toBeCloseTo(0);
   });
 
-  it('at t=0.25 (quarter turn), x is ~0 and y equals radius', () => {
-    // speed=1, t=0.25 → angle = 0.25 * 2π = π/2
-    const result = evaluateOrbit(0.5, 1, 0.25);
+  it('at t=150 (quarter turn), x is ~0 and y equals radius', () => {
+    const result = evaluateOrbit(0.5, 1, 150);
     expect(result.x).toBeCloseTo(0);
     expect(result.y).toBeCloseTo(0.5);
   });
 
-  it('at t=0.5 (half turn), x equals -radius and y is ~0', () => {
-    const result = evaluateOrbit(0.5, 1, 0.5);
+  it('at t=300 (half turn), x equals -radius and y is ~0', () => {
+    const result = evaluateOrbit(0.5, 1, 300);
     expect(result.x).toBeCloseTo(-0.5);
     expect(result.y).toBeCloseTo(0);
   });
 
-  it('at t=1 (full turn), returns to starting position', () => {
-    const result = evaluateOrbit(0.5, 1, 1);
+  it('at t=600 (full turn), returns to starting position', () => {
+    const result = evaluateOrbit(0.5, 1, 600);
     expect(result.x).toBeCloseTo(0.5);
     expect(result.y).toBeCloseTo(0);
   });
 
   it('speed doubles the angular velocity', () => {
-    // speed=2, t=0.25 → angle = 2 * 0.25 * 2π = π → half turn
-    const result = evaluateOrbit(0.5, 2, 0.25);
+    // speed=2, t=150 → angle = 2 * (150/600) * 2π = π → half turn
+    const result = evaluateOrbit(0.5, 2, 150);
     expect(result.x).toBeCloseTo(-0.5);
     expect(result.y).toBeCloseTo(0);
   });
 
   it('radius=0 always returns the origin', () => {
-    const result = evaluateOrbit(0, 1, 0.3);
+    const result = evaluateOrbit(0, 1, 100);
     expect(result.x).toBeCloseTo(0);
     expect(result.y).toBeCloseTo(0);
   });
@@ -53,8 +58,8 @@ describe('evaluateOrbit', () => {
   });
 
   it('center defaults to origin when omitted', () => {
-    const withCenter = evaluateOrbit(0.5, 1, 0.25, 0, 0);
-    const withoutCenter = evaluateOrbit(0.5, 1, 0.25);
+    const withCenter = evaluateOrbit(0.5, 1, 150, 0, 0);
+    const withoutCenter = evaluateOrbit(0.5, 1, 150);
     expect(withCenter.x).toBeCloseTo(withoutCenter.x);
     expect(withCenter.y).toBeCloseTo(withoutCenter.y);
   });
@@ -113,10 +118,10 @@ describe('evaluateOrbitPoints', () => {
 
   it('respects time parameter', () => {
     const t0 = evaluateOrbitPoints(0.5, 1, 0, 1, 0);
-    const t025 = evaluateOrbitPoints(0.5, 1, 0.25, 1, 0);
+    const t150 = evaluateOrbitPoints(0.5, 1, 150, 1, 0);
     expect(t0[0].x).toBeCloseTo(0.5);
-    expect(t025[0].x).toBeCloseTo(0, 5);
-    expect(t025[0].y).toBeCloseTo(0.5);
+    expect(t150[0].x).toBeCloseTo(0, 5);
+    expect(t150[0].y).toBeCloseTo(0.5);
   });
 
   it('centre offset applies to all points', () => {

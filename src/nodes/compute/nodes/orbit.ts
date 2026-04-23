@@ -4,9 +4,10 @@
  * Computes a point on a circle given radius, speed, and elapsed time.
  *
  * Formula:
- *   x = radius * cos(speed * t * 2π + phase)
- *   y = radius * sin(speed * t * 2π + phase)
+ *   x = radius * cos(speed * (t / 600) * 2π + phase)
+ *   y = radius * sin(speed * (t / 600) * 2π + phase)
  *
+ * speed=1 → one complete orbit per 600 ticks (~10 s at 60 fps).
  * Output is in -1..1 when radius is in 0..1 (normalised).
  */
 export function evaluateOrbit(
@@ -18,7 +19,7 @@ export function evaluateOrbit(
   phase = 0,
 ): { x: number; y: number } {
   const phaseRadians = phase * 2 * Math.PI;
-  const angle = speed * t * 2 * Math.PI + phaseRadians;
+  const angle = speed * (t / 600) * 2 * Math.PI + phaseRadians;
   return {
     x: cx + radius * Math.cos(angle),
     y: cy + radius * Math.sin(angle),
@@ -41,7 +42,7 @@ export function evaluateOrbitPoints(
   cy = 0,
 ): Array<{ x: number; y: number }> {
   const phaseRadians = phase * 2 * Math.PI;
-  const baseAngle = speed * t * 2 * Math.PI + phaseRadians;
+  const baseAngle = speed * (t / 600) * 2 * Math.PI + phaseRadians;
   const spacing = (2 * Math.PI) / Math.max(1, numPoints);
 
   const points: Array<{ x: number; y: number }> = [];

@@ -13,9 +13,9 @@ describe('GraphEngine snapshot', () => {
     const engine = createGraphEngine(orbitCtx, trailCtx, CANVAS_SIZE);
     engine.load(testGraph);
 
-    engine.tick(0);
-    engine.tick(10);
-    engine.tick(20);
+    engine.tick();
+    engine.tick();
+    engine.tick();
 
     expect(orbitCtx.getCalls()).toMatchSnapshot();
     expect(trailCtx.getCalls()).toMatchSnapshot();

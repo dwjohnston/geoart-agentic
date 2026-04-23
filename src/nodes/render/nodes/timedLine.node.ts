@@ -3,11 +3,11 @@ import type { Value, ColorPointValue } from '../../../graph/types';
 
 export const timedLineNodeDef: RenderNodeDef = {
   type: 'timedLine',
-  // Port 0: intervalMs   — firing rate in ms
+  // Port 0: intervalTicks   — ticks between draws
   // Port 1: colorPointA  — start coloured point (position + colour)
   // Port 2: colorPointB  — end coloured point (position + colour)
   inputs: [
-    { name: 'intervalMs',  type: 'number',     default: { kind: 'number',     v: 100 } },
+    { name: 'intervalTicks',  type: 'number',     default: { kind: 'number',     v: 6 } },
     { name: 'colorPointA', type: 'colorPoint', default: { kind: 'colorPoint', v: { x: -0.5, y: 0, r: 1, g: 1, b: 1, a: 1 } } },
     { name: 'colorPointB', type: 'colorPoint', default: { kind: 'colorPoint', v: { x:  0.5, y: 0, r: 1, g: 1, b: 1, a: 1 } } },
   ],

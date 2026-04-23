@@ -3,12 +3,12 @@ import type { Value, PointValue, NumberValue, ColorValue } from '../../../graph/
 
 export const circleNodeDef: RenderNodeDef = {
   type: 'circle',
-  // Port 0: intervalMs — firing rate in ms (0 = every frame)
+  // Port 0: intervalTicks — ticks between draws (0 = every tick)
   // Port 1: center     — centre point of the circle
   // Port 2: radius     — radius as a fraction of half the canvas width
   // Port 3: color      — fill colour
   inputs: [
-    { name: 'intervalMs', type: 'number', default: { kind: 'number', v: 0 } },
+    { name: 'intervalTicks', type: 'number', default: { kind: 'number', v: 0 } },
     { name: 'center', type: 'point', default: { kind: 'point', v: { x: 0, y: 0 } } },
     { name: 'radius', type: 'number', default: { kind: 'number', v: 0.02 } },
     { name: 'color', type: 'color', default: { kind: 'color', v: { r: 1, g: 1, b: 1, a: 1 } } },

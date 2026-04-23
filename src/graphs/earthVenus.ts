@@ -8,7 +8,7 @@ import type { GeoArtGraph } from '../schema/_generated/schema-types';
 // path. Coloured dots on the live layer show each planet's current position.
 
 export const earthVenusGraph: GeoArtGraph = {
-	version: '1.0',
+	version: '2.0',
 	control: {
 		nodes: [
 			{
@@ -117,7 +117,7 @@ export const earthVenusGraph: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'paint' },
 				params: {
-					intervalMs: { v: 16 },
+					intervalTicks: { v: 1 },
 					center: { ref: 'earthOrbit.point' },
 					radius: { v: 0.015 },
 					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
@@ -128,7 +128,7 @@ export const earthVenusGraph: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'paint' },
 				params: {
-					intervalMs: { v: 16 },
+					intervalTicks: { v: 1 },
 					center: { ref: 'venusOrbit.point' },
 					radius: { v: 0.015 },
 					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },

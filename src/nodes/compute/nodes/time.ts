@@ -1,8 +1,7 @@
 /**
  * Pure math for the time node.
  *
- * Returns elapsed time in seconds. This is the one exception to the -1..1
- * output range rule — time is unbounded raw seconds.
+ * Returns the tick count unchanged. Unbounded — does not follow the -1..1 rule.
  */
 export function evaluateTime(t: number): number {
   return t;

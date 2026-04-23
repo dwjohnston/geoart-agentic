@@ -33,7 +33,7 @@ export type ControlRegistration = SliderRegistration | ColorPickerRegistration |
 export type GraphEngine = {
   load: (graph: GeoArtGraph) => ControlRegistration[];
   setSpeed: (value: number) => void;
-  tick: (wallMs: number) => void;
+  tick: () => void;
 };
 
 export function createGraphEngine(
@@ -42,31 +42,37 @@ export function createGraphEngine(
   canvasSize: number,
 ): GraphEngine {
   let compiled: CompiledGraph | null = null;
-  let startTime: number | null = null;
-  let prevTime = 0;
-  let scaledElapsed = 0;
-  let speed = 1.0;
+  let tickCount = 0;
+  let frameCount = 0;
+  let speed = 1;
 
-  function tick(wallMs: number): void {
-    if (startTime === null) startTime = wallMs;
+  function runTick(): void {
+    if (!compiled) return;
+    tickCount++;
+    orbitCtx.clearRect(0, 0, canvasSize, canvasSize);
+    const ctx: EvalContext = {
+      tickCount,
+      canvas: { orbit: orbitCtx, trail: trailCtx, width: canvasSize, height: canvasSize },
+      getState<T>(): T { return undefined as unknown as T; },
+      setState(): void {},
+    };
+    evaluatorTick(compiled, tickCount, ctx);
+  }
 
-    const wallElapsed = wallMs - startTime;
-    const deltaTime = wallElapsed - prevTime;
-    prevTime = wallElapsed;
-    scaledElapsed += deltaTime * speed;
+  function tick(): void {
+    frameCount++;
 
-    if (compiled) {
-      orbitCtx.clearRect(0, 0, canvasSize, canvasSize);
-
-      const ctx: EvalContext = {
-        time: scaledElapsed,
-        deltaTime,
-        canvas: { orbit: orbitCtx, trail: trailCtx, width: canvasSize, height: canvasSize },
-        getState<T>(): T { return undefined as unknown as T; },
-        setState(): void {},
-      };
-
-      evaluatorTick(compiled, scaledElapsed, ctx);
+    if (speed >= 1) {
+      const ticksThisFrame = Math.round(speed);
+      for (let i = 0; i < ticksThisFrame; i++) {
+        runTick();
+      }
+    } else {
+      // speed = 1/n — fire one tick every n frames
+      const skipFrames = Math.round(1 / speed);
+      if (frameCount % skipFrames === 0) {
+        runTick();
+      }
     }
   }
 
@@ -81,9 +87,8 @@ export function createGraphEngine(
   }
 
   function load(graph: GeoArtGraph): ControlRegistration[] {
-    startTime = null;
-    prevTime = 0;
-    scaledElapsed = 0;
+    tickCount = 0;
+    frameCount = 0;
     orbitCtx.clearRect(0, 0, canvasSize, canvasSize);
     trailCtx.clearRect(0, 0, canvasSize, canvasSize);
     compiled = compile(graph);

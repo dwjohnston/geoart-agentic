@@ -9,7 +9,7 @@ import type { GeoArtGraph } from '../schema/_generated/schema-types';
 // Speed and radius of each orbit are slider-controlled.
 
 export const threeOrbitsGraph: GeoArtGraph = {
-	version: '1.0',
+	version: '2.0',
 	control: {
 		nodes: [
 
@@ -205,7 +205,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					intervalMs: { v: 10 },
+					intervalTicks: { v: 1 },
 					colorPointA: { ref: 'cpA.colorPoint' },
 					colorPointB: { ref: 'cpB.colorPoint' },
 				},
@@ -215,7 +215,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					intervalMs: { v: 10 },
+					intervalTicks: { v: 1 },
 					colorPointA: { ref: 'cpA.colorPoint' },
 					colorPointB: { ref: 'cpC.colorPoint' },
 				},
@@ -225,7 +225,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					intervalMs: { v: 10 },
+					intervalTicks: { v: 1 },
 					colorPointA: { ref: 'cpB.colorPoint' },
 					colorPointB: { ref: 'cpC.colorPoint' },
 				},

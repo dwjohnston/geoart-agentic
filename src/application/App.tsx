@@ -34,8 +34,8 @@ function App() {
     setRegistrations(engine.load(graph));
 
     let rafId: number;
-    const frame = (wallMs: number) => {
-      engine.tick(wallMs);
+    const frame = () => {
+      engine.tick();
       rafId = requestAnimationFrame(frame);
     };
     rafId = requestAnimationFrame(frame);

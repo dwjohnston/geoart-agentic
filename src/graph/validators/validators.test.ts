@@ -78,7 +78,7 @@ const earthVenus: GeoArtGraph = {
         type: 'timedLine',
         renderConfig: { layer: 'paint' },
         params: {
-          intervalMs:  { v: 16 },
+          intervalTicks:  { v: 16 },
           colorPointA: { ref: 'earthColorPoint.colorPoint' },
           colorPointB: { ref: 'venusColorPoint.colorPoint' },
         },
@@ -329,7 +329,7 @@ describe('ORPHANED_NODE', () => {
             type: 'timedLine',
             renderConfig: { layer: 'paint' },
             params: {
-              intervalMs:  { v: 16 },
+              intervalTicks:  { v: 16 },
               colorPointA: { ref: 'time.time' },  // intentionally wrong type — only testing orphan
               colorPointB: { ref: 'time.time' },
             },
@@ -372,7 +372,7 @@ describe('ORPHANED_NODE', () => {
             type: 'timedLine',
             renderConfig: { layer: 'paint' },
             params: {
-              intervalMs:  { v: 16 },
+              intervalTicks:  { v: 16 },
               colorPointA: { ref: 'cp.colorPoint' },
               colorPointB: { ref: 'cp.colorPoint' },
             },

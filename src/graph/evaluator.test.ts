@@ -27,13 +27,10 @@ function makeCanvasMock(): CanvasRenderingContext2D {
   } as unknown as CanvasRenderingContext2D;
 }
 
-function makeCtx(time: number, deltaTime = 16): EvalContext {
+function makeCtx(tickCount: number): EvalContext {
   const stateStore = new Map<string, unknown>();
-  // The evaluator injects scoped getState/setState per-node, but the top-level
-  // ctx only needs to carry canvas and timing.
   return {
-    time,
-    deltaTime,
+    tickCount,
     canvas: {
       orbit: makeCanvasMock(),
       trail: makeCanvasMock(),
@@ -54,7 +51,7 @@ function makeCtx(time: number, deltaTime = 16): EvalContext {
 // ---------------------------------------------------------------------------
 
 const earthVenus: GeoArtGraph = {
-  version: '1.0',
+  version: '2.0',
   control: {
     nodes: [
       {
@@ -125,7 +122,7 @@ const earthVenus: GeoArtGraph = {
         type: 'timedLine',
         renderConfig: { layer: 'paint' },
         params: {
-          intervalMs:  { v: 16 },
+          intervalTicks: { v: 1 },
           colorPointA: { ref: 'earthColorPoint.colorPoint' },
           colorPointB: { ref: 'venusColorPoint.colorPoint' },
         },
@@ -189,15 +186,14 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
     expect(() => tick(compiled, 500, makeCtx(500))).not.toThrow();
   });
 
-  test('time node outputs approximately 1 at t=1000ms', () => {
+  test('time node outputs the tick count', () => {
     const compiled = compile(earthVenus);
-    const ctx = makeCtx(1000);
-    tick(compiled, 1000, ctx);
+    const ctx = makeCtx(42);
+    tick(compiled, 42, ctx);
     const timeOutput = compiled.states.get('time')!.lastOutput;
     expect(timeOutput).toHaveLength(1);
     expect(timeOutput[0].kind).toBe('number');
-    // time node converts ms → seconds: 1000ms → 1s
-    expect((timeOutput[0] as { kind: 'number'; v: number }).v).toBeCloseTo(1, 5);
+    expect((timeOutput[0] as { kind: 'number'; v: number }).v).toBe(42);
   });
 
   test('compile() throws for unknown node type', () => {
@@ -216,7 +212,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
   test('compile() throws for ref to unknown node', () => {
     const badGraph: GeoArtGraph = {
-      version: '1.0',
+      version: '2.0',
       control: { nodes: [] },
       compute: {
         nodes: [
@@ -237,7 +233,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
   test('compile() throws for ref to unknown port', () => {
     const badGraph: GeoArtGraph = {
-      version: '1.0',
+      version: '2.0',
       control: { nodes: [] },
       compute: {
         nodes: [
