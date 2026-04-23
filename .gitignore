@@ -25,3 +25,4 @@ dist-ssr
 src/schema/_generated/
 
 .vitest-attachments
+guestBook.txt

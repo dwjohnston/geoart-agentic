@@ -140,3 +140,10 @@ to load.
 
 This is the smallest graph that passes schema validation. Use it as a baseline
 in tests.
+
+
+## Node types 
+
+
+### Compute nodes
+
