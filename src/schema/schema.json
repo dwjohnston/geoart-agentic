@@ -329,24 +329,6 @@
               }
             }
           }
-        },
-        {
-          "type": "object",
-          "description": "Boolean toggle — emits a trigger when on",
-          "additionalProperties": false,
-          "required": ["id", "type", "params"],
-          "properties": {
-            "id":   { "type": "string" },
-            "type": { "type": "string", "enum": ["toggle"] },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": { "$ref": "#/definitions/staticStringParam" },
-                "value": { "$ref": "#/definitions/staticBooleanParam" }
-              }
-            }
-          }
         }
       ]
     },
@@ -407,26 +389,6 @@
                 "center":    { "$ref": "#/definitions/pointParam" },
                 "numPoints": { "$ref": "#/definitions/numberParam" },
                 "phase":     { "$ref": "#/definitions/numberParam" }
-              }
-            }
-          }
-        },
-        {
-          "type": "object",
-          "description": "Maps an input range to an output range",
-          "additionalProperties": false,
-          "required": ["id", "type", "params"],
-          "properties": {
-            "id":   { "type": "string" },
-            "type": { "type": "string", "enum": ["scale"] },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "inMin":  { "$ref": "#/definitions/numberParam" },
-                "inMax":  { "$ref": "#/definitions/numberParam" },
-                "outMin": { "$ref": "#/definitions/numberParam" },
-                "outMax": { "$ref": "#/definitions/numberParam" }
               }
             }
           }
@@ -530,26 +492,6 @@
                 "center":     { "$ref": "#/definitions/pointParam" },
                 "radius":     { "$ref": "#/definitions/numberParam" },
                 "color":      { "$ref": "#/definitions/colorParam" }
-              }
-            }
-          }
-        },
-        {
-          "type": "object",
-          "description": "Draws gradient lines between corresponding points of two coloured-point arrays on an interval",
-          "additionalProperties": false,
-          "required": ["id", "type", "renderConfig", "params"],
-          "properties": {
-            "id":           { "type": "string" },
-            "type":         { "type": "string", "enum": ["correspondingLines"] },
-            "renderConfig": { "$ref": "#/definitions/renderConfig" },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "intervalMs":   { "$ref": "#/definitions/numberParam" },
-                "topPoints":    { "$ref": "#/definitions/colorPointArrayParam" },
-                "bottomPoints": { "$ref": "#/definitions/colorPointArrayParam" }
               }
             }
           }
