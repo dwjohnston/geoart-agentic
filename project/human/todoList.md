@@ -2,7 +2,7 @@
 
 ## Tooling 
 
-- Change to oxlint 
+- Change to oxlint / biome? We need a formatter. 
 - Add lint rules: 
     - Ban !
 
