@@ -1,4 +1,1 @@
-bunx concurrently \
-  "bun test:headless" \
-  "bun typecheck" \
-  "bun lint"
+bun validate

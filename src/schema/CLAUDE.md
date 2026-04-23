@@ -28,10 +28,10 @@ When adding a new node type or param:
 2. Add any new param keys to the appropriate `params.properties` block.
 3. Then implement the node.
 
-A graph that fails schema validation must never reach the compiler. Validate on
-load, not on use.
 
 ## Key Constraints
+
+Make sure all properties have a `title` node. 
 
 **`additionalProperties: false` is intentional.** It is on every object in the
 schema. Do not remove it. It ensures that stale or mistyped keys are caught at

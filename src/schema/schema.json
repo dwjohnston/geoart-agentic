@@ -337,6 +337,7 @@
       "oneOf": [
         {
           "type": "object",
+          "title": "Tick Node",
           "description": "Emits the current tick count",
           "additionalProperties": false,
           "required": ["id", "type", "params"],
