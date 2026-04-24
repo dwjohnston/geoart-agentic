@@ -57,6 +57,8 @@ The output of this phase is the plan.md which contains:
 - A prompt for each sub agent for that task.
 - Initialising the .md file with a kind of status panel. 
 
+You do not need to repeat instructions that written in the CLAUDE.mds - the sub agents will already have these instructions. 
+
 If needed the AI that is creating the plan.md may need to spawn sub agents to 
 have them assist in the creation of prompts and the dependency graph. 
 

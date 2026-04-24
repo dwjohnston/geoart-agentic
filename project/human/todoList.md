@@ -6,6 +6,9 @@
 - Add lint rules: 
     - Ban !
 
+- Enforce file name conventions. 
+- Enforce node titles in schema. Just via test? 
+
 - Git hooks
     - Ban modification of fixture files 
 
@@ -26,12 +29,18 @@
 - Need to enforce what is allowed to import from where
 - There seems to be a bunch of logic, listings of port definitions duplicated into the individual node type sections. 
 
+- The graphEngine - registration logic doesn't need to be graphEngine.ts - that can probably be pulled out to the compute nodes. 
+
+
+
 ## AI
 
 - ~~Do the workflow thing~~
 - ~~Probably delete a lot of the Claude.md files and build them up with just what's needed.~~
 
 - Put in: the timing thing. 
+
+- Need to archive the staging .md files 
 
 
 - Have a kind of cron job to run schema agent regularly? 
@@ -74,7 +83,7 @@ I really want some kind of benchmark/performance testing.
 
 ## Schema 
 
-- The nodes in the schema need better identification of names. 
+- ~~The nodes in the schema need better identification of names.~~ 
     - Does that exist. Yes: `title` apparently. 
 - Assess the documentation of the schema
 
