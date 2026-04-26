@@ -329,7 +329,7 @@
       "description": "User-facing input node — pure value source with no inputs",
       "oneOf": [
         {
-          "title": "Slider",
+          "title": "Slider Control Node",
           "type": "object",
           "description": "Numeric slider",
           "additionalProperties": false,
@@ -351,7 +351,7 @@
           }
         },
         {
-          "title": "Color Picker",
+          "title": "Color Picker Control Node",
           "type": "object",
           "description": "Color picker",
           "additionalProperties": false,
@@ -370,7 +370,7 @@
           }
         },
         {
-          "title": "Dropdown",
+          "title": "Dropdown Control Node",
           "type": "object",
           "description": "String dropdown / enum selector",
           "additionalProperties": false,
@@ -396,7 +396,7 @@
       "description": "Pure math node — no canvas, no DOM, no side effects",
       "oneOf": [
         {
-          "title": "Tick Node",
+          "title": "Tick Compute Node",
           "type": "object",
           "description": "Emits the current tick count",
           "additionalProperties": false,
@@ -413,7 +413,7 @@
           }
         },
         {
-          "title": "Wave Node",
+          "title": "Wave Compute Node",
           "type": "object",
           "description": "Oscillation generator — sine, square, saw, inverse-saw, or triangle wave",
           "additionalProperties": false,
@@ -436,7 +436,7 @@
           }
         },
         {
-          "title": "Orbit Node",
+          "title": "Orbit Compute Node",
           "type": "object",
           "description": "Circular motion — outputs a single point (backwards-compat) and an array of evenly-spaced coloured points",
           "additionalProperties": false,
@@ -460,7 +460,7 @@
           }
         },
         {
-          "title": "Color Point Node",
+          "title": "Color Point Compute Node",
           "type": "object",
           "description": "Packs a point and colour into a single coloured-point value",
           "additionalProperties": false,
@@ -479,7 +479,7 @@
           }
         },
         {
-          "title": "Points On A Line Node",
+          "title": "Points On A Line Compute Node",
           "type": "object",
           "description": "Generates evenly-spaced colour points along a line between two colour points",
           "additionalProperties": false,
@@ -499,7 +499,7 @@
           }
         },
         {
-          "title": "Multiplier Node",
+          "title": "Multiplier Compute Node",
           "type": "object",
           "description": "Multiplies two numbers — outputs product = a * b",
           "additionalProperties": false,
@@ -518,7 +518,7 @@
           }
         },
         {
-          "title": "Add Node",
+          "title": "Add Compute Node",
           "type": "object",
           "description": "Adds two numbers — outputs sum = a + b",
           "additionalProperties": false,
@@ -543,7 +543,7 @@
       "description": "Drawing node — canvas access lives here and nowhere else",
       "oneOf": [
         {
-          "title": "Timed Line Node",
+          "title": "Timed Line Render Node",
           "type": "object",
           "description": "Draws a gradient line between two coloured points on an interval",
           "additionalProperties": false,
@@ -564,7 +564,7 @@
           }
         },
         {
-          "title": "Timed Line Array Node",
+          "title": "Timed Line Array Render Node",
           "type": "object",
           "description": "Draws gradient lines from each point in one array to the corresponding point in another array, on an interval",
           "additionalProperties": false,
@@ -585,7 +585,7 @@
           }
         },
         {
-          "title": "Circle Node",
+          "title": "Circle Render Node",
           "type": "object",
           "description": "Draws a circle at a point",
           "additionalProperties": false,
