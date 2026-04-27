@@ -1,72 +1,65 @@
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import { render, cleanup, within, fireEvent } from '@testing-library/react';
 import { SliderControl } from './SliderControl';
-import type { ControlNode } from '../../../schema/_generated/schema-types';
-
-type SliderNode = Extract<ControlNode, { type: 'slider' }>;
 
 afterEach(cleanup);
 
-const baseNode: SliderNode = {
+const baseProps = {
   id: 'speed',
-  type: 'slider',
-  params: {
-    label: { v: 'Speed' },
-    min:   { v: 0 },
-    max:   { v: 10 },
-    value: { v: 3 },
-  },
+  label: 'Speed',
+  min: 0,
+  max: 10,
+  step: 1,
+  initialValue: 3,
 };
 
 describe('SliderControl', () => {
   test('renders label and current value', () => {
-    const { container } = render(<SliderControl node={baseNode} onChange={() => {}} />);
+    const { container } = render(<SliderControl {...baseProps} onChange={() => {}} />);
     expect(within(container).getByText('Speed')).toBeDefined();
     expect(within(container).getByRole('slider')).toBeDefined();
   });
 
   test('calls onChange with new value when dragged', () => {
     const onChange = vi.fn();
-    const { container } = render(<SliderControl node={baseNode} onChange={onChange} />);
+    const { container } = render(<SliderControl {...baseProps} onChange={onChange} />);
 
     const slider = within(container).getByRole('slider') as HTMLInputElement;
     fireEvent.change(slider, { target: { value: '5' } });
 
-    expect(onChange).toHaveBeenCalledWith('speed', expect.any(Number));
+    expect(onChange).toHaveBeenCalledWith(expect.any(Number));
   });
 
-  test('falls back to defaults when params are absent', () => {
-    const node: SliderNode = { id: 'x', type: 'slider', params: {} };
-    const { container } = render(<SliderControl node={node} onChange={() => {}} />);
+  test('respects min, max, step props', () => {
+    const { container } = render(
+      <SliderControl id="x" label="" min={0} max={1} step={0.1} initialValue={0} onChange={() => {}} />
+    );
     const slider = within(container).getByRole('slider') as HTMLInputElement;
     expect(Number(slider.min)).toBe(0);
     expect(Number(slider.max)).toBe(1);
-    expect(Number(slider.value)).toBe(0);
+    expect(Number(slider.step)).toBe(0.1);
   });
 
-  test('uses step param on the input element', () => {
-    const node: SliderNode = { ...baseNode, params: { ...baseNode.params, step: { v: 0.5 } } };
-    const { container } = render(<SliderControl node={node} onChange={() => {}} />);
+  test('initialises with initialValue', () => {
+    const { container } = render(
+      <SliderControl id="x" label="" min={0} max={10} step={1} initialValue={7} onChange={() => {}} />
+    );
     const slider = within(container).getByRole('slider') as HTMLInputElement;
-    expect(Number(slider.step)).toBe(0.5);
+    expect(Number(slider.value)).toBe(7);
   });
 
   test('displays value rounded to step decimal places', () => {
-    const node: SliderNode = {
-      ...baseNode,
-      params: { ...baseNode.params, step: { v: 0.1 }, value: { v: 3.14159 } },
-    };
-    const { container } = render(<SliderControl node={node} onChange={() => {}} />);
+    const { container } = render(
+      <SliderControl id="x" label="" min={0} max={10} step={0.1} initialValue={3.14159} onChange={() => {}} />
+    );
     const output = container.querySelector('output') as HTMLOutputElement;
     expect(output.textContent).toBe('3.1');
   });
 
   test('displays integer value when step is whole number', () => {
-    const node: SliderNode = {
-      ...baseNode,
-      params: { ...baseNode.params, step: { v: 1 }, value: { v: 3.7 } },
-    };
-    const { container } = render(<SliderControl node={node} onChange={() => {}} />);
+    const { container } = render(
+      <SliderControl id="x" label="" min={0} max={10} step={1} initialValue={3.7} onChange={() => {}} />
+    );
     const output = container.querySelector('output') as HTMLOutputElement;
     expect(output.textContent).toBe('4');
   });

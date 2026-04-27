@@ -6,6 +6,13 @@ export type FakeContext = CanvasRenderingContext2D & {
   getCalls(): Call[];
 };
 
+
+/**
+ * This creates a fake CanvasRenderingContext2D object. 
+ * 
+ * We use this in tests instead of making calls to a real drawing context.
+ * @returns 
+ */
 export function createFakeContext(): FakeContext {
   const calls: Call[] = [];
 

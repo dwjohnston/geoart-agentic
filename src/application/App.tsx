@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { GRAPHS, DEFAULT_GRAPH_ID, getGraph } from '../graphs/index';
 import { createGraphEngine } from '../graphEngine/graphEngine';
-import type { GraphEngine, ControlRegistration } from '../graphEngine/graphEngine';
+import type { GraphEngine, GraphLoadPayload } from '../graphEngine/graphEngine';
 import { Canvas } from './Canvas';
 import { SidePanel } from './SidePanel';
 import { AlgorithmPicker } from './AlgorithmPicker';
@@ -16,10 +16,9 @@ function App() {
   const trailCanvasRef = useRef<HTMLCanvasElement>(null);
   const engineRef = useRef<GraphEngine | null>(null);
 
-  const [registrations, setRegistrations] = useState<ControlRegistration[]>([]);
+  const [payload, setPayload] = useState<GraphLoadPayload>({ renderControlNodes: () => null });
   const [speed, setSpeed] = useState(() => getGraph(DEFAULT_GRAPH_ID).graph.speed ?? 1.0);
 
-  // This value changes each time the graph is loaded, which forces the Controls component to remount and reset its internal state to match the new graph's control values.
   const [loadKey, setLoadKey] = useState(0);
 
   useEffect(() => {
@@ -31,7 +30,7 @@ function App() {
 
     const { graph } = getGraph(DEFAULT_GRAPH_ID);
     engine.setSpeed(graph.speed ?? 1.0);
-    setRegistrations(engine.load(graph));
+    setPayload(engine.load(graph));
 
     let rafId: number;
     const frame = () => {
@@ -50,7 +49,7 @@ function App() {
     const { graph } = getGraph(id);
     const graphSpeed = graph.speed ?? 1.0;
     engineRef.current.setSpeed(graphSpeed);
-    setRegistrations(engineRef.current.load(graph));
+    setPayload(engineRef.current.load(graph));
     setSpeed(graphSpeed);
     setLoadKey(k => k + 1);
   }
@@ -69,7 +68,7 @@ function App() {
       <SidePanel>
         <AlgorithmPicker graphs={GRAPHS} defaultId={DEFAULT_GRAPH_ID} onChange={handleGraphChange} />
         <SpeedControl speed={speed} onChange={handleSpeedChange} />
-        <Controls key={loadKey} registrations={registrations} />
+        <Controls key={loadKey} renderControlNodes={payload.renderControlNodes} />
       </SidePanel>
     </div>
   );

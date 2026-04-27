@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import type { ControlNode } from '../../../schema/_generated/schema-types';
-
-type SliderNode = Extract<ControlNode, { type: 'slider' }>;
 
 type Props = {
-  node: SliderNode;
-  onChange: (nodeId: string, value: number) => void;
+  id: string;
+  label: string;
+  min: number;
+  max: number;
+  step: number;
+  initialValue: number;
+  onChange: (value: number) => void;
 };
 
 function decimalPlacesForStep(step: number): number {
@@ -14,21 +16,15 @@ function decimalPlacesForStep(step: number): number {
   return dot === -1 ? 0 : str.length - dot - 1;
 }
 
-export function SliderControl({ node, onChange }: Props) {
-  const { params } = node;
-  const label = params.label?.v ?? '';
-  const min = params.min?.v ?? 0;
-  const max = params.max?.v ?? 1;
-  const step = params.step?.v ?? 1;
-  const [value, setValue] = useState(params.value?.v ?? 0);
-
+export function SliderControl({ id, label, min, max, step, initialValue, onChange }: Props) {
+  const [value, setValue] = useState(initialValue);
   const decimals = decimalPlacesForStep(step);
 
   return (
     <div className="slider-control">
-      <label htmlFor={node.id}>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <input
-        id={node.id}
+        id={id}
         type="range"
         min={min}
         max={max}
@@ -37,10 +33,10 @@ export function SliderControl({ node, onChange }: Props) {
         onChange={e => {
           const v = e.target.valueAsNumber;
           setValue(v);
-          onChange(node.id, v);
+          onChange(v);
         }}
       />
-      <output htmlFor={node.id}>{value.toFixed(decimals)}</output>
+      <output htmlFor={id}>{value.toFixed(decimals)}</output>
     </div>
   );
 }

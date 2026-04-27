@@ -1,29 +1,26 @@
 import { useState } from 'react';
-import type { ControlNode } from '../../../schema/_generated/schema-types';
-
-type DropdownNode = Extract<ControlNode, { type: 'dropdown' }>;
 
 type Props = {
-  node: DropdownNode;
-  onChange: (nodeId: string, value: string) => void;
+  id: string;
+  label: string;
+  options: string[];
+  initialValue: string;
+  onChange: (value: string) => void;
 };
 
-export function DropdownControl({ node, onChange }: Props) {
-  const { params } = node;
-  const label = params.label?.v ?? '';
-  const options = params.options?.v ?? [];
-  const [value, setValue] = useState(params.value?.v ?? options[0] ?? '');
+export function DropdownControl({ id, label, options, initialValue, onChange }: Props) {
+  const [value, setValue] = useState(initialValue);
 
   return (
     <div className="dropdown-control">
-      <label htmlFor={node.id}>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <select
-        id={node.id}
+        id={id}
         value={value}
         onChange={e => {
           const v = e.target.value;
           setValue(v);
-          onChange(node.id, v);
+          onChange(v);
         }}
       >
         {options.map(opt => (

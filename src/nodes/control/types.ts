@@ -1,4 +1,6 @@
+import type React from 'react';
 import type { Value } from '../../graph/types';
+import type { ControlNode } from '../../schema/_generated/schema-types';
 
 export type PortDef = {
   name: string;
@@ -8,9 +10,12 @@ export type PortDef = {
 /** Resolved params passed to evaluate — each entry carries the param's value envelope. */
 export type ResolvedParams = Record<string, { v: unknown }>;
 
+export type ControlSetter = (paramKey: string, value: Value) => void;
+
 export type ControlNodeDef = {
   type: string;
   outputs: PortDef[];
   params: Record<string, { type: string }>;
   evaluate(params: ResolvedParams): Value[];
+  renderControl(node: ControlNode, set: ControlSetter): React.ReactNode;
 };
