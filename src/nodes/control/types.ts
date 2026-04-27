@@ -7,15 +7,13 @@ export type PortDef = {
   type: 'number' | 'string' | 'boolean' | 'color' | 'point';
 };
 
-/** Resolved params passed to evaluate — each entry carries the param's value envelope. */
 export type ResolvedParams = Record<string, { v: unknown }>;
 
 export type ControlSetter = (paramKey: string, value: Value) => void;
 
-export type ControlNodeDef = {
-  type: string;
+export type ControlNodeDef<T extends ControlNode['type'] = ControlNode['type']> = {
+  type: T;
   outputs: PortDef[];
-  params: Record<string, { type: string }>;
   evaluate(params: ResolvedParams): Value[];
-  renderControl(node: ControlNode, set: ControlSetter): React.ReactNode;
+  renderControl(node: Extract<ControlNode, { type: T }>, set: ControlSetter): React.ReactNode;
 };

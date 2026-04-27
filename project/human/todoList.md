@@ -31,6 +31,7 @@
 
 - The graphEngine - registration logic doesn't need to be graphEngine.ts - that can probably be pulled out to the compute nodes. 
 
+- rename `graph` to `algorithm`
 
 
 ## AI

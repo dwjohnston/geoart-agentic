@@ -14,6 +14,7 @@
 ## General Instructions 
 
 - Be very concise in creating .md files, commit messages etc. 
+- If you ask a question and it doesn't get an answer - re ask the question.
 
 ## Workflow 
 
