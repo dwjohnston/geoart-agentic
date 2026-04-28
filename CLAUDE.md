@@ -50,8 +50,10 @@ This phase should not require reading project files. Delegation should be possib
 
 The purpose of this phase is to chop the feature into sub tasks and:
 
- - Create a dependency graph demonstrating which steps can be worked on in parallel and which depend on a previous
+- Create a dependency graph demonstrating which steps can be worked on in parallel and which depend on a previous
 - Assign each step to a sub agent.
+   - The available sub agents are listed in `.claude/agents` folder
+   - If an appropriate subagent does not exist, then inform the user and suggest creating or ask for guidance what to do next.  
 
 The output of this phase is the plan.md which contains: 
 - The dependency graph of the tasks to be done, and the sub agent to to do it. 
@@ -66,6 +68,10 @@ have them assist in the creation of prompts and the dependency graph.
 3. Phase 3 - Execution 
 
 When the human user gives the EXECUTE command, start implementing the feature as described in the corresponding `projects/execution` .md file. 
+
+IMPORTANT: Use the subagent pattern. Decompose the task into as many items as there are in the execution .md file's status panel. 
+
+IMPORTANT: Do not explore the codebase yourself before spawning subagents. The feature brief and execution plan contain sufficient context. Subagents will read what they need. Pre-reading duplicates their work and wastes context.
 
 3b. Iterate
 
@@ -114,13 +120,11 @@ And the end of a QUICK task then request acceptance, and then propose a commit m
 
 ## Spelling 
 
-Always use British English, with the except of the following words: 
+Always use British English, with the exception of the following words: 
 
 - color 
 - center
 
-A dataflow graph engine for generative, algorithmic art. The user builds algorithms
-by connecting nodes together. The graph is evaluated every animation frame.
 
 ## Architecture Overview
 
