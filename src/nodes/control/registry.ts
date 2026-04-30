@@ -2,6 +2,7 @@ import type { ControlNodeDef } from './types';
 import { sliderNodeDef } from './nodes/SliderNode';
 import { colorPickerNodeDef } from './nodes/ColorPickerNode';
 import { dropdownNodeDef } from './nodes/DropdownNode';
+import { lfoControlNodeDef } from './nodes/LfoControlNode';
 
 
 
@@ -10,4 +11,5 @@ export const controlRegistry = new Map<string, ControlNodeDef>([
   [sliderNodeDef.type, sliderNodeDef as ControlNodeDef],
   [colorPickerNodeDef.type, colorPickerNodeDef as ControlNodeDef],
   [dropdownNodeDef.type, dropdownNodeDef as ControlNodeDef],
+  [lfoControlNodeDef.type, lfoControlNodeDef as ControlNodeDef],
 ]);

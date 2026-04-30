@@ -257,6 +257,35 @@
               }
             }
           }
+        },
+        {
+          "title": "LFO Control Node",
+          "type": "object",
+          "description": "Bundles the four LFO parameters into one compact control — outputs baseValue, frequency, amplitude, and waveShape for wiring into a wave compute node",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "x-outputs": [
+            { "name": "baseValue",  "valueType": "numberValue" },
+            { "name": "frequency",  "valueType": "numberValue" },
+            { "name": "amplitude",  "valueType": "numberValue" },
+            { "name": "waveShape",  "valueType": "waveTypeValue" }
+          ],
+          "properties": {
+            "id":   { "title": "ID",   "type": "string" },
+            "type": { "title": "Type", "type": "string", "enum": ["lfo-control"] },
+            "params": {
+              "title": "Params",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "baseValue":        { "$ref": "value-kinds.schema.json#/definitions/numberValue" },
+                "frequency":        { "$ref": "value-kinds.schema.json#/definitions/numberValue" },
+                "amplitude":        { "$ref": "value-kinds.schema.json#/definitions/numberValue" },
+                "waveShape":        { "$ref": "value-kinds.schema.json#/definitions/waveTypeValue" },
+                "waveShapeOptions": { "$ref": "value-kinds.schema.json#/definitions/stringArrayValue" }
+              }
+            }
+          }
         }
       ]
     },
