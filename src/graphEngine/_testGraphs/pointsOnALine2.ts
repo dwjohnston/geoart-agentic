@@ -45,28 +45,28 @@ export const pointsOnALineTestGraph: GeoArtGraph = {
             // --- Pack orbit positions with colours ---
             {
                 id: 'cpTopLeft',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'tlOrbit.point' },
                 },
             },
             {
                 id: 'cpTopRight',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'trOrbit.point' },
                 },
             },
             {
                 id: 'cpBottomLeft',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'blOrbit.point' },
                 },
             },
             {
                 id: 'cpBottomRight',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'brOrbit.point' },
                 },

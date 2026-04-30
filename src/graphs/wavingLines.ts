@@ -154,7 +154,7 @@ export const wavingLinesGraph: GeoArtGraph = {
       // --- Pack orbit positions with colours ---
       {
         id: 'cpTopLeft',
-        type: 'colorPoint',
+        type: 'colorPointCompute',
         params: {
           point: { ref: 'tlOrbit.point' },
           color: { ref: 'leftColor.value' },
@@ -162,7 +162,7 @@ export const wavingLinesGraph: GeoArtGraph = {
       },
       {
         id: 'cpTopRight',
-        type: 'colorPoint',
+        type: 'colorPointCompute',
         params: {
           point: { ref: 'trOrbit.point' },
           color: { ref: 'rightColor.value' },
@@ -170,7 +170,7 @@ export const wavingLinesGraph: GeoArtGraph = {
       },
       {
         id: 'cpBottomLeft',
-        type: 'colorPoint',
+        type: 'colorPointCompute',
         params: {
           point: { ref: 'blOrbit.point' },
           color: { ref: 'leftColor.value' },
@@ -178,7 +178,7 @@ export const wavingLinesGraph: GeoArtGraph = {
       },
       {
         id: 'cpBottomRight',
-        type: 'colorPoint',
+        type: 'colorPointCompute',
         params: {
           point: { ref: 'brOrbit.point' },
           color: { ref: 'rightColor.value' },

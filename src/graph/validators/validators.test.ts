@@ -39,23 +39,23 @@ const earthVenus: GeoArtGraph = {
         id: 'earthOrbit',
         type: 'orbit',
         params: {
-          time:   { ref: 'time.time' },
+          time: { ref: 'time.time' },
           radius: { v: 0.6 },
-          speed:  { ref: 'earthSpeedSlider.value' },
+          speed: { ref: 'earthSpeedSlider.value' },
         },
       },
       {
         id: 'venusOrbit',
         type: 'orbit',
         params: {
-          time:   { ref: 'time.time' },
+          time: { ref: 'time.time' },
           radius: { v: 0.3 },
-          speed:  { ref: 'venusSpeedSlider.value' },
+          speed: { ref: 'venusSpeedSlider.value' },
         },
       },
       {
         id: 'earthColorPoint',
-        type: 'colorPoint',
+        type: 'colorPointCompute',
         params: {
           point: { ref: 'earthOrbit.point' },
           color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
@@ -63,7 +63,7 @@ const earthVenus: GeoArtGraph = {
       },
       {
         id: 'venusColorPoint',
-        type: 'colorPoint',
+        type: 'colorPointCompute',
         params: {
           point: { ref: 'venusOrbit.point' },
           color: { v: { r: 1, g: 0.8, b: 0.2, a: 1 } },
@@ -78,7 +78,7 @@ const earthVenus: GeoArtGraph = {
         type: 'timedLine',
         renderConfig: { layer: 'paint' },
         params: {
-          intervalTicks:  { v: 16 },
+          intervalTicks: { v: 16 },
           colorPointA: { ref: 'earthColorPoint.colorPoint' },
           colorPointB: { ref: 'venusColorPoint.colorPoint' },
         },
@@ -92,8 +92,9 @@ const earthVenus: GeoArtGraph = {
 // ---------------------------------------------------------------------------
 
 describe('validateGraphSemantics', () => {
-  test('earth-venus fixture is fully valid', () => {
+  test.only('earth-venus fixture is fully valid', () => {
     const result = validateGraphSemantics(earthVenus);
+    console.log(result)
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
   });
@@ -103,7 +104,7 @@ describe('validateGraphSemantics', () => {
       version: '1.0',
       control: { nodes: [] },
       compute: { nodes: [] },
-      render:  { nodes: [] },
+      render: { nodes: [] },
     };
     const result = validateGraphSemantics(graph);
     expect(result.valid).toBe(true);
@@ -193,7 +194,7 @@ describe('UNKNOWN_REF_NODE', () => {
         nodes: [
           {
             id: 'cp',
-            type: 'colorPoint',
+            type: 'colorPointCompute',
             params: { point: { ref: 'ghost.value' } },
           },
         ],
@@ -223,7 +224,7 @@ describe('UNKNOWN_REF_PORT', () => {
           { id: 'time', type: 'time', params: {} },
           {
             id: 'cp',
-            type: 'colorPoint',
+            type: 'colorPointCompute',
             // time has no "banana" output port
             params: { point: { ref: 'time.banana' } },
           },
@@ -254,7 +255,7 @@ describe('TYPE_MISMATCH', () => {
           { id: 'time', type: 'time', params: {} },
           {
             id: 'cp',
-            type: 'colorPoint',
+            type: 'colorPointCompute',
             // time.time outputs 'number'; colorPoint.point expects 'point'
             params: { point: { ref: 'time.time' } },
           },
@@ -329,7 +330,7 @@ describe('ORPHANED_NODE', () => {
             type: 'timedLine',
             renderConfig: { layer: 'paint' },
             params: {
-              intervalTicks:  { v: 16 },
+              intervalTicks: { v: 16 },
               colorPointA: { ref: 'time.time' },  // intentionally wrong type — only testing orphan
               colorPointB: { ref: 'time.time' },
             },
@@ -360,7 +361,7 @@ describe('ORPHANED_NODE', () => {
           },
           {
             id: 'cp',
-            type: 'colorPoint',
+            type: 'colorPointCompute',
             params: { point: { ref: 'orbit.point' } },
           },
         ],
@@ -372,7 +373,7 @@ describe('ORPHANED_NODE', () => {
             type: 'timedLine',
             renderConfig: { layer: 'paint' },
             params: {
-              intervalTicks:  { v: 16 },
+              intervalTicks: { v: 16 },
               colorPointA: { ref: 'cp.colorPoint' },
               colorPointB: { ref: 'cp.colorPoint' },
             },
@@ -395,7 +396,7 @@ describe('ORPHANED_NODE', () => {
       version: '1.0',
       control: { nodes: [] },
       compute: { nodes: [{ id: 'time', type: 'time', params: {} }] },
-      render:  { nodes: [] },
+      render: { nodes: [] },
     };
     const result = validateGraphSemantics(graph);
     expect(result.errors.filter(e => e.code === 'ORPHANED_NODE')).toHaveLength(0);

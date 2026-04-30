@@ -217,7 +217,7 @@ export const monaLisaGraph: GeoArtGraph = {
             // ── ColorPoint packing ───────────────────────────────────────
             {
                 id: 'cpFace',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'faceOrbit.point' },
                     color: { ref: 'skinColor.value' },
@@ -225,7 +225,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpFaceFill',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'faceFillOrbit.point' },
                     color: { ref: 'skinColor.value' },
@@ -233,7 +233,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpFaceInner',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'faceInnerOrbit.point' },
                     color: { ref: 'shadowColor.value' },
@@ -241,7 +241,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpLeftEye',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'leftEyeOrbit.point' },
                     color: { ref: 'eyeColor.value' },
@@ -249,7 +249,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpLeftBrow',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'leftEyeBrowOrbit.point' },
                     color: { ref: 'shadowColor.value' },
@@ -257,7 +257,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpRightEye',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'rightEyeOrbit.point' },
                     color: { ref: 'eyeColor.value' },
@@ -265,7 +265,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpRightBrow',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'rightEyeBrowOrbit.point' },
                     color: { ref: 'shadowColor.value' },
@@ -273,7 +273,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpMouthLeft',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'mouthLeftOrbit.point' },
                     color: { ref: 'smileColor.value' },
@@ -281,7 +281,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpMouthRight',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'mouthRightOrbit.point' },
                     color: { ref: 'smileColor.value' },
@@ -289,7 +289,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpNose',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'noseOrbit.point' },
                     color: { ref: 'shadowColor.value' },
@@ -297,7 +297,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpHair',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'hairOrbit.point' },
                     color: { ref: 'shadowColor.value' },
@@ -305,7 +305,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpHairFill',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'hairFillOrbit.point' },
                     color: { ref: 'shadowColor.value' },
@@ -313,7 +313,7 @@ export const monaLisaGraph: GeoArtGraph = {
             },
             {
                 id: 'cpShoulder',
-                type: 'colorPoint',
+                type: 'colorPointCompute',
                 params: {
                     point: { ref: 'shoulderOrbit.point' },
                     color: { ref: 'skinColor.value' },

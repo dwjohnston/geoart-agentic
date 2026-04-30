@@ -409,7 +409,7 @@
           }
         },
         {
-          "title": "Color Point Compute Node",
+          "title": "Color Point Compute Compute Node",
           "type": "object",
           "description": "Packs a point and colour into a single coloured-point value",
           "additionalProperties": false,
@@ -433,7 +433,7 @@
               "title": "Type",
               "type": "string",
               "enum": [
-                "colorPoint"
+                "colorPointCompute"
               ]
             },
             "params": {

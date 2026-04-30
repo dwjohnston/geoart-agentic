@@ -83,7 +83,7 @@ export const earthVenusGraph: GeoArtGraph = {
 			},
 			{
 				id: 'earthColorPoint',
-				type: 'colorPoint',
+				type: 'colorPointCompute',
 				params: {
 					point: { ref: 'earthOrbit.point' },
 					color: { v: { r: 0.3, g: 0.7, b: 1, a: 0.8 } },
@@ -91,7 +91,7 @@ export const earthVenusGraph: GeoArtGraph = {
 			},
 			{
 				id: 'venusColorPoint',
-				type: 'colorPoint',
+				type: 'colorPointCompute',
 				params: {
 					point: { ref: 'venusOrbit.point' },
 					color: { v: { r: 1, g: 0.8, b: 0.2, a: 0.8 } },

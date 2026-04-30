@@ -174,7 +174,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 			},
 			{
 				id: 'cpA',
-				type: 'colorPoint',
+				type: 'colorPointCompute',
 				params: {
 					point: { ref: 'orbitA.point' },
 					color: { ref: "aColor.value" }
@@ -182,7 +182,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 			},
 			{
 				id: 'cpB',
-				type: 'colorPoint',
+				type: 'colorPointCompute',
 				params: {
 					point: { ref: 'orbitB.point' },
 					color: { ref: "bColor.value" }
@@ -190,7 +190,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 			},
 			{
 				id: 'cpC',
-				type: 'colorPoint',
+				type: 'colorPointCompute',
 				params: {
 					point: { ref: 'orbitC.point' },
 					color: { ref: "cColor.value" }

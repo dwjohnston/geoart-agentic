@@ -6,7 +6,7 @@ export const orbitNodeDef = defineComputeNode("orbit", {
   defaults: {
     radius: { v: 0.5 },
     speed: { v: 0.5 },
-    center: { v: { x: 0.5, y: 0.5 } },
+    center: { v: { x: 0, y: 0 } },
     numPoints: { v: 1 },
     phase: { v: 0 },
     time: { v: 0 }
@@ -21,9 +21,9 @@ export const orbitNodeDef = defineComputeNode("orbit", {
 
     const rawPoints = evaluateOrbitPoints(radius, speed, t, numPoints, phase, center.x, center.y);
     const colorPoints = rawPoints.map(p => ({
-      color: { r: 1, g: 1, b: 1, a: 1 },
-      point: { x: p.x, y: p.y },
-      valueType: 'colorPoint' as const,
+
+      ...p,
+      ...{ r: 1, g: 1, b: 1, a: 1 }
     }));
 
     return {

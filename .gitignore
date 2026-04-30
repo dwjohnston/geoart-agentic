@@ -25,6 +25,7 @@ dist-ssr
 _generated/
 _testGenerated/
 docs/
+__screenshots__
 
 .vitest-attachments
 guestBook.txt

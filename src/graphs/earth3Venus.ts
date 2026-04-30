@@ -109,7 +109,7 @@ export const earth3VenusGraph: GeoArtGraph = {
       // Colour wrappers for the paint timedLine nodes
       {
         id: 'outerCp1',
-        type: 'colorPoint',
+        type: 'colorPointCompute',
         params: {
           point: { ref: 'outerOrbit1.point' },
           color: { v: OUTER_COLOR },
@@ -117,7 +117,7 @@ export const earth3VenusGraph: GeoArtGraph = {
       },
       {
         id: 'outerCp2',
-        type: 'colorPoint',
+        type: 'colorPointCompute',
         params: {
           point: { ref: 'outerOrbit2.point' },
           color: { v: OUTER_COLOR },
@@ -125,7 +125,7 @@ export const earth3VenusGraph: GeoArtGraph = {
       },
       {
         id: 'outerCp3',
-        type: 'colorPoint',
+        type: 'colorPointCompute',
         params: {
           point: { ref: 'outerOrbit3.point' },
           color: { v: OUTER_COLOR },
@@ -133,7 +133,7 @@ export const earth3VenusGraph: GeoArtGraph = {
       },
       {
         id: 'innerCp',
-        type: 'colorPoint',
+        type: 'colorPointCompute',
         params: {
           point: { ref: 'innerOrbit.point' },
           color: { v: INNER_COLOR },

@@ -2,7 +2,7 @@ import type { NodeDef } from '../types';
 import type { PointValue, ColorValue } from '../../../graph/types';
 
 export const colorPointNodeDef: NodeDef = {
-  type: 'colorPoint',
+  type: 'colorPointCompute',
   inputs: [
     { name: 'point', type: 'point', default: { kind: 'point', v: { x: 0, y: 0 } } },
     { name: 'color', type: 'color', default: { kind: 'color', v: { r: 1, g: 1, b: 1, a: 1 } } },

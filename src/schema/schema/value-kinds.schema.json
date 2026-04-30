@@ -133,24 +133,51 @@
         "v": {
           "type": "object",
           "required": [
-            "color",
-            "point"
+            "r",
+            "g",
+            "b",
+            "a",
+            "x",
+            "y"
           ],
           "properties": {
-            "color": {
-              "title": "Color",
-              "$ref": "#/definitions/colorValue"
+            "x": {
+              "title": "X",
+              "description": "Horizontal position in normalised space (-1 to 1)",
+              "type": "number"
             },
-            "point": {
-              "title": "Point",
-              "$ref": "#/definitions/pointValue"
+            "y": {
+              "title": "Y",
+              "description": "Vertical position in normalised space (-1 to 1)",
+              "type": "number"
             },
-            "valueType": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "colorPoint"
-              ]
+            "r": {
+              "title": "Red",
+              "description": "Red channel (0–1)",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "g": {
+              "title": "Green",
+              "description": "Green channel (0–1)",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "b": {
+              "title": "Blue",
+              "description": "Blue channel (0–1)",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "a": {
+              "title": "Alpha",
+              "description": "Alpha channel (0–1)",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
             }
           }
         }

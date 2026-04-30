@@ -288,7 +288,7 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 			},
 			{
 				id: 'earthCP',
-				type: 'colorPoint',
+				type: 'colorPointCompute',
 				params: {
 					point: { ref: 'earthOrbit.point' },
 					color: { ref: 'earthColor.value' },
@@ -296,7 +296,7 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 			},
 			{
 				id: 'venusCP',
-				type: 'colorPoint',
+				type: 'colorPointCompute',
 				params: {
 					point: { ref: 'venusOrbit.point' },
 					color: { ref: 'venusColor.value' },

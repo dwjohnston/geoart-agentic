@@ -48,32 +48,25 @@ describe("NodeInputsRecord", () => {
     assertType<NodeInputsRecord<"pointsOnALine">>({
         "pointA": {
             "v": {
-                "color": {
-                    r: 1,
-                    g: 1,
-                    b: 1,
-                    a: 1
-                },
-                point: {
-                    x: 1,
-                    y: 1,
-                },
-                "valueType": "colorPoint"
-            }
+                r: 1,
+                g: 1,
+                b: 1,
+                a: 1,
+                x: 1,
+                y: 1,
+            },
         },
+
         "pointB": {
             "v": {
-                "color": {
-                    r: 1,
-                    g: 1,
-                    b: 1,
-                    a: 1
-                },
-                point: {
-                    x: 1,
-                    y: 1,
-                },
-                "valueType": "colorPoint"
+                r: 1,
+                g: 1,
+                b: 1,
+                a: 1,
+                x: 1,
+                y: 1,
+
+
             }
         },
         "numberOfPoints": {
@@ -109,17 +102,12 @@ describe("NodeOutputsRecord", () => {
         assertType<NodeOutputsRecord<"pointsOnALine">>({
             "points": [
                 {
-                    "color": {
-                        r: 1,
-                        g: 1,
-                        b: 1,
-                        a: 1
-                    },
-                    point: {
-                        x: 1,
-                        y: 1,
-                    },
-                    "valueType": "colorPoint"
+                    r: 1,
+                    g: 1,
+                    b: 1,
+                    a: 1,
+                    x: 1,
+                    y: 1,
                 }
             ]
         })
