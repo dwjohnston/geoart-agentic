@@ -305,7 +305,6 @@ describe("validateSchemaStructure", () => {
 				},
 			};
 			const result = validateSchemaStructure(schemas);
-			console.log(result)
 			expect(result.valid).toBe(true);
 		});
 	});

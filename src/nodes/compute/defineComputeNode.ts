@@ -53,7 +53,6 @@ export function defineComputeNode<K extends DefineableComputeNodeKind>(
     inputs: inputEntries.map((entries) => {
 
       const [paramName, paramValueInformation] = entries;
-      console.log(paramName, def.defaults)
       return {
         name: paramName,
         //@ts-expect-error - ignore this for now

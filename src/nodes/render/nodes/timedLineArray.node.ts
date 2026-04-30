@@ -1,22 +1,14 @@
-import type { RenderNodeDef, RenderEvalContext } from '../types';
-import type { Value, ColorPointArrayValue } from '../../../graph/types';
+import { defineRenderNode } from '../defineRenderNode';
 
-export const timedLineArrayNodeDef: RenderNodeDef = {
-  type: 'timedLineArray',
-  // Port 0: intervalTicks      — ticks between draws
-  // Port 1: colorPointsA    — array of start points
-  // Port 2: colorPointsB    — array of end points
-  // For each index i, draws a gradient line from colorPointsA[i] to colorPointsB[i].
-  // Stops when the shorter array is exhausted.
-  inputs: [
-    { name: 'intervalTicks',   type: 'number',          default: { kind: 'number', v: 6 } },
-    { name: 'colorPointsA', type: 'colorPointArray',  default: { kind: 'colorPointArray', v: [] } },
-    { name: 'colorPointsB', type: 'colorPointArray',  default: { kind: 'colorPointArray', v: [] } },
-  ],
-  outputs: [],
-  evaluate(inputs: Value[], ctx: RenderEvalContext): void {
-    const arrayA = (inputs[1] as ColorPointArrayValue).v;
-    const arrayB = (inputs[2] as ColorPointArrayValue).v;
+export const timedLineArrayNodeDef = defineRenderNode('timedLineArray', {
+  defaults: {
+    intervalTicks: { v: 6 },
+    colorPointsA: { v: [] },
+    colorPointsB: { v: [] },
+  },
+  evaluate: (inputs, ctx) => {
+    const arrayA = inputs.colorPointsA.v;
+    const arrayB = inputs.colorPointsB.v;
     const count = Math.min(arrayA.length, arrayB.length);
 
     const canvas = ctx.canvas;
@@ -37,4 +29,4 @@ export const timedLineArrayNodeDef: RenderNodeDef = {
       canvas.stroke();
     }
   },
-};
+});

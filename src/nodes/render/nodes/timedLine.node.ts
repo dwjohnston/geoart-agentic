@@ -1,32 +1,25 @@
-import type { RenderNodeDef, RenderEvalContext } from '../types';
-import type { Value, ColorPointValue } from '../../../graph/types';
+import { defineRenderNode } from '../defineRenderNode';
 
-export const timedLineNodeDef: RenderNodeDef = {
-  type: 'timedLine',
-  // Port 0: intervalTicks   — ticks between draws
-  // Port 1: colorPointA  — start coloured point (position + colour)
-  // Port 2: colorPointB  — end coloured point (position + colour)
-  inputs: [
-    { name: 'intervalTicks',  type: 'number',     default: { kind: 'number',     v: 6 } },
-    { name: 'colorPointA', type: 'colorPoint', default: { kind: 'colorPoint', v: { x: -0.5, y: 0, r: 1, g: 1, b: 1, a: 1 } } },
-    { name: 'colorPointB', type: 'colorPoint', default: { kind: 'colorPoint', v: { x:  0.5, y: 0, r: 1, g: 1, b: 1, a: 1 } } },
-  ],
-  outputs: [],
-  evaluate(inputs: Value[], ctx: RenderEvalContext): void {
-    const cpA = inputs[1] as ColorPointValue;
-    const cpB = inputs[2] as ColorPointValue;
+export const timedLineNodeDef = defineRenderNode('timedLine', {
+  defaults: {
+    intervalTicks: { v: 6 },
+    colorPointA: { v: { x: -0.5, y: 0, r: 1, g: 1, b: 1, a: 1 } },
+    colorPointB: { v: { x:  0.5, y: 0, r: 1, g: 1, b: 1, a: 1 } },
+  },
+  evaluate: (inputs, ctx) => {
+    const { v: a } = inputs.colorPointA;
+    const { v: b } = inputs.colorPointB;
     const canvas = ctx.canvas;
 
-    const gradient = canvas.createLinearGradient(cpA.v.x, cpA.v.y, cpB.v.x, cpB.v.y);
-    gradient.addColorStop(0, `rgba(${cpA.v.r * 255}, ${cpA.v.g * 255}, ${cpA.v.b * 255}, ${cpA.v.a})`);
-    gradient.addColorStop(1, `rgba(${cpB.v.r * 255}, ${cpB.v.g * 255}, ${cpB.v.b * 255}, ${cpB.v.a})`);
+    const gradient = canvas.createLinearGradient(a.x, a.y, b.x, b.y);
+    gradient.addColorStop(0, `rgba(${a.r * 255}, ${a.g * 255}, ${a.b * 255}, ${a.a})`);
+    gradient.addColorStop(1, `rgba(${b.r * 255}, ${b.g * 255}, ${b.b * 255}, ${b.a})`);
 
     canvas.strokeStyle = gradient;
     canvas.lineWidth = 1;
-
     canvas.beginPath();
-    canvas.moveTo(cpA.v.x, cpA.v.y);
-    canvas.lineTo(cpB.v.x, cpB.v.y);
+    canvas.moveTo(a.x, a.y);
+    canvas.lineTo(b.x, b.y);
     canvas.stroke();
   },
-};
+});
