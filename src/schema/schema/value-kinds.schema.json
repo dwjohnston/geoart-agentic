@@ -1,0 +1,197 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GeoArt Value Kinds",
+  "description": "Single source of truth for what a value looks like at runtime",
+  "definitions": {
+    "numberValue": {
+      "title": "Number Value",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "number"
+        }
+      }
+    },
+    "stringValue": {
+      "title": "String Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string"
+        }
+      }
+    },
+    "stringArrayValue": {
+      "title": "String Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/stringValue"
+          }
+        }
+      }
+    },
+    "colorValue": {
+      "title": "Color Value",
+      "type": "object",
+      "description": "RGBA colour with each component in 0–1",
+      "additionalProperties": false,
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "object",
+          "required": [
+            "r",
+            "g",
+            "b",
+            "a"
+          ],
+          "properties": {
+            "r": {
+              "title": "Red",
+              "description": "Red channel (0–1)",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "g": {
+              "title": "Green",
+              "description": "Green channel (0–1)",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "b": {
+              "title": "Blue",
+              "description": "Blue channel (0–1)",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "a": {
+              "title": "Alpha",
+              "description": "Alpha channel (0–1)",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        }
+      }
+    },
+    "pointValue": {
+      "title": "Point Value",
+      "type": "object",
+      "description": "A 2-D point in normalised space (-1 to 1 per axis)",
+      "additionalProperties": false,
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "object",
+          "required": [
+            "x",
+            "y"
+          ],
+          "properties": {
+            "x": {
+              "title": "X",
+              "description": "Horizontal position in normalised space (-1 to 1)",
+              "type": "number"
+            },
+            "y": {
+              "title": "Y",
+              "description": "Vertical position in normalised space (-1 to 1)",
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "colorPointValue": {
+      "title": "Color Point Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "object",
+          "required": [
+            "color",
+            "point"
+          ],
+          "properties": {
+            "color": {
+              "title": "Color",
+              "$ref": "#/definitions/colorValue"
+            },
+            "point": {
+              "title": "Point",
+              "$ref": "#/definitions/pointValue"
+            },
+            "valueType": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "colorPoint"
+              ]
+            }
+          }
+        }
+      },
+      "description": "A 2-D point combined with an RGBA colour",
+      "additionalProperties": false
+    },
+    "colorPointArrayValue": {
+      "title": "Color Point Array Value",
+      "type": "object",
+      "description": "An array of coloured points",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/colorPointValue"
+          }
+        }
+      }
+    },
+    "waveTypeValue": {
+      "title": "Wave Type Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "sine",
+            "square",
+            "saw",
+            "reverse-saw",
+            "triange"
+          ]
+        }
+      }
+    }
+  }
+}

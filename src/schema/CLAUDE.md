@@ -94,9 +94,7 @@ the ref branch allows a `dropdown` control node to drive the value at runtime.
         "v": {
           "type": "string",
           "enum": ["sine", "square", "saw", "inverse-saw", "triangle"]
-        },
-        "locked":  { "type": "boolean" },
-        "comment": { "type": "string" }
+        }
       }
     },
     { "$ref": "#/definitions/refParam" }
@@ -158,3 +156,35 @@ Do not conflate tick count with elapsed seconds — they are only equivalent at 
 
 ### Compute nodes
 
+
+
+
+
+
+value-kinds.schema.json contains a registry of all the possible value types that can be passed via node ports. 
+
+They have this format: 
+
+```
+type ValueTypeDef = {
+  required: ["v"];
+    properties?: {
+      v: {
+        // Any valid JSON object type
+      }, 
+  }
+}
+
+type SchemaObject = {
+  definitions: Record<string, ValueTypeDef>; 
+}
+```
+
+From here we need to generate typings that look like this: 
+
+```
+export type V_numberValue = { kind: 'numberValue'; v: number };
+
+```
+
+Enums are a special case - if if the 

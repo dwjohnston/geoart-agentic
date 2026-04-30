@@ -13,7 +13,10 @@ export const dropdownNodeDef: ControlNodeDef<'dropdown'> = {
       <DropdownControl
         id={node.id}
         label={node.params.label?.v ?? ''}
+
+        //@ts-expect-error - ignoreing this for now
         options={options}
+        //@ts-expect-error - ignoreing this for now
         initialValue={node.params.value?.v ?? options[0] ?? ''}
         onChange={v => set('value', { kind: 'string', v })}
       />

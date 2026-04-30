@@ -1,12 +1,18 @@
 import Ajv, { type AnySchema } from "ajv";
-import schema from "./schema.json";
+import schema from "./schema/schema.json";
+import valueKindsSchema from "./schema/value-kinds.schema.json";
+import refableValueKindsSchema from "./schema/refable-value-kinds.schema.json";
 
 const ajv = new Ajv({
 	allErrors: true,
 	strict: false,
 });
 
-const validateFn = ajv.compile(schema as unknown as AnySchema);
+ajv.addSchema(valueKindsSchema as unknown as AnySchema, "value-kinds.schema.json");
+ajv.addSchema(refableValueKindsSchema as unknown as AnySchema, "refable-value-kinds.schema.json");
+ajv.addSchema(schema as unknown as AnySchema, "schema.json");
+
+const validateFn = ajv.getSchema("schema.json");
 
 /**
  * Validate a serialized GeoArt graph against `src/schema/schema.json`.

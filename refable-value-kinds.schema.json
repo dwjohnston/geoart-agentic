@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GeoArt Refable Value Kinds",
+  "description": "Param-level definitions: each value kind as either a static value or a ref to another node's output",
+  "definitions": {
+    "refParamOrRef": {
+      "title": "Ref Param Or Ref",
+      "oneOf": [
+        {
+          "$ref": "value-kinds.schema.json#/definitions/refParam"
+        },
+        {
+          "$ref": "schema.json#/definitions/refParam"
+        }
+      ]
+    },
+    "renderConfigOrRef": {
+      "title": "Render Layer Config Or Ref",
+      "oneOf": [
+        {
+          "$ref": "value-kinds.schema.json#/definitions/renderConfig"
+        },
+        {
+          "$ref": "schema.json#/definitions/refParam"
+        }
+      ]
+    },
+    "controlNodeOrRef": {
+      "title": "Control Node Or Ref",
+      "oneOf": [
+        {
+          "$ref": "value-kinds.schema.json#/definitions/controlNode"
+        },
+        {
+          "$ref": "schema.json#/definitions/refParam"
+        }
+      ]
+    },
+    "computeNodeOrRef": {
+      "title": "Compute Node Or Ref",
+      "oneOf": [
+        {
+          "$ref": "value-kinds.schema.json#/definitions/computeNode"
+        },
+        {
+          "$ref": "schema.json#/definitions/refParam"
+        }
+      ]
+    },
+    "renderNodeOrRef": {
+      "title": "Render Node Or Ref",
+      "oneOf": [
+        {
+          "$ref": "value-kinds.schema.json#/definitions/renderNode"
+        },
+        {
+          "$ref": "schema.json#/definitions/refParam"
+        }
+      ]
+    }
+  }
+}
