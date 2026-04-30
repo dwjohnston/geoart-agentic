@@ -18,8 +18,8 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'slider',
                 params: {
                     label: { v: 'Drawing Speed' },
-                    min: { v: 0.1 },
-                    max: { v: 3.0 },
+                    min: { v: -5 },
+                    max: { v: 5 },
                     value: { v: 0.6 },
                     step: { v: 0.01 },
                 },
@@ -54,6 +54,17 @@ export const monaLisaGraph: GeoArtGraph = {
                 params: {
                     label: { v: 'Smile Color' },
                     value: { v: { r: 0.55, g: 0.28, b: 0.20, a: 0.55 } },
+                },
+            },
+            {
+                id: 'linkRate',
+                type: 'slider',
+                params: {
+                    label: { v: 'Link Rate' },
+                    min: { v: 1 },
+                    max: { v: 30 },
+                    step: { v: 1 },
+                    value: { v: 1 },
                 },
             },
         ],
@@ -329,7 +340,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalTicks: { v: 1 },
+                    intervalTicks: { ref: 'linkRate.value' },
                     colorPointA: { ref: 'cpHair.colorPoint' },
                     colorPointB: { ref: 'cpHairFill.colorPoint' },
                 },
@@ -341,7 +352,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalTicks: { v: 1 },
+                    intervalTicks: { ref: 'linkRate.value' },
                     colorPointA: { ref: 'cpFace.colorPoint' },
                     colorPointB: { ref: 'cpFaceFill.colorPoint' },
                 },
@@ -351,7 +362,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalTicks: { v: 1 },
+                    intervalTicks: { ref: 'linkRate.value' },
                     colorPointA: { ref: 'cpFaceFill.colorPoint' },
                     colorPointB: { ref: 'cpFaceInner.colorPoint' },
                 },
@@ -363,7 +374,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalTicks: { v: 1 },
+                    intervalTicks: { ref: 'linkRate.value' },
                     colorPointA: { ref: 'cpShoulder.colorPoint' },
                     colorPointB: { ref: 'cpFace.colorPoint' },
                 },
@@ -375,7 +386,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalTicks: { v: 1 },
+                    intervalTicks: { ref: 'linkRate.value' },
                     colorPointA: { ref: 'cpNose.colorPoint' },
                     colorPointB: { ref: 'cpFaceInner.colorPoint' },
                 },
@@ -387,7 +398,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalTicks: { v: 1 },
+                    intervalTicks: { ref: 'linkRate.value' },
                     colorPointA: { ref: 'cpLeftEye.colorPoint' },
                     colorPointB: { ref: 'cpLeftBrow.colorPoint' },
                 },
@@ -397,7 +408,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalTicks: { v: 1 },
+                    intervalTicks: { ref: 'linkRate.value' },
                     colorPointA: { ref: 'cpRightEye.colorPoint' },
                     colorPointB: { ref: 'cpRightBrow.colorPoint' },
                 },
@@ -411,7 +422,7 @@ export const monaLisaGraph: GeoArtGraph = {
                 type: 'timedLine',
                 renderConfig: { layer: 'paint' },
                 params: {
-                    intervalTicks: { v: 1 },
+                    intervalTicks: { ref: 'linkRate.value' },
                     colorPointA: { ref: 'cpMouthLeft.colorPoint' },
                     colorPointB: { ref: 'cpMouthRight.colorPoint' },
                 },

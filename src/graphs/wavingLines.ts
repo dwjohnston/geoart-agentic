@@ -10,7 +10,7 @@ import type { GeoArtGraph } from '../schema/_generated/schema-types';
 // curtain of lines that waves as the orbits move.
 
 export const wavingLinesGraph: GeoArtGraph = {
-  version: '1.0',
+  version: '2.0',
   control: {
     nodes: [
       // --- Orbit speeds ---
@@ -19,7 +19,7 @@ export const wavingLinesGraph: GeoArtGraph = {
         type: 'slider',
         params: {
           label: { v: 'Top-Left Speed' },
-          min: { v: 0 }, max: { v: 3 }, value: { v: 0.3 }, step: { v: 0.01 },
+          min: { v: -5 }, max: { v: 5 }, value: { v: 0.3 }, step: { v: 0.01 },
         },
       },
       {
@@ -27,7 +27,7 @@ export const wavingLinesGraph: GeoArtGraph = {
         type: 'slider',
         params: {
           label: { v: 'Top-Right Speed' },
-          min: { v: 0 }, max: { v: 3 }, value: { v: 0.5 }, step: { v: 0.01 },
+          min: { v: -5 }, max: { v: 5 }, value: { v: 0.5 }, step: { v: 0.01 },
         },
       },
       {
@@ -35,7 +35,7 @@ export const wavingLinesGraph: GeoArtGraph = {
         type: 'slider',
         params: {
           label: { v: 'Bottom-Left Speed' },
-          min: { v: 0 }, max: { v: 3 }, value: { v: 0.7 }, step: { v: 0.01 },
+          min: { v: -5 }, max: { v: 5 }, value: { v: 0.7 }, step: { v: 0.01 },
         },
       },
       {
@@ -43,7 +43,7 @@ export const wavingLinesGraph: GeoArtGraph = {
         type: 'slider',
         params: {
           label: { v: 'Bottom-Right Speed' },
-          min: { v: 0 }, max: { v: 3 }, value: { v: 0.4 }, step: { v: 0.01 },
+          min: { v: -5 }, max: { v: 5 }, value: { v: 0.4 }, step: { v: 0.01 },
         },
       },
       // --- Orbit radii ---
@@ -86,6 +86,18 @@ export const wavingLinesGraph: GeoArtGraph = {
         params: {
           label: { v: 'Number of Lines' },
           min: { v: 1 }, max: { v: 20 }, value: { v: 8 }, step: { v: 1 },
+        },
+      },
+      // --- Link rate ---
+      {
+        id: 'linkRate',
+        type: 'slider',
+        params: {
+          label: { v: 'Link Rate' },
+          min: { v: 1 },
+          max: { v: 120 },
+          step: { v: 1 },
+          value: { v: 30 },
         },
       },
       // --- Colours ---
@@ -213,7 +225,7 @@ export const wavingLinesGraph: GeoArtGraph = {
         type: 'timedLineArray',
         renderConfig: { layer: 'paint' },
         params: {
-          intervalTicks: { v: 30 },
+          intervalTicks: { ref: 'linkRate.value' },
           colorPointsA: { ref: 'topLine.points' },
           colorPointsB: { ref: 'bottomLine.points' },
         },
@@ -223,7 +235,6 @@ export const wavingLinesGraph: GeoArtGraph = {
         type: 'timedLine',
         renderConfig: { layer: 'live' },
         params: {
-          intervalTicks: { v: 30 },
           colorPointA: { ref: 'cpTopLeft.colorPoint' },
           colorPointB: { ref: 'cpTopRight.colorPoint' },
         },
@@ -233,7 +244,6 @@ export const wavingLinesGraph: GeoArtGraph = {
         type: 'timedLine',
         renderConfig: { layer: 'live' },
         params: {
-          intervalTicks: { v: 30 },
           colorPointA: { ref: 'cpBottomLeft.colorPoint' },
           colorPointB: { ref: 'cpBottomRight.colorPoint' },
         },

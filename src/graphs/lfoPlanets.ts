@@ -50,8 +50,8 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 				type: 'slider',
 				params: {
 					label: { v: 'Earth Speed LFO Freq' },
-					min: { v: 0 },
-					max: { v: 5 },
+					min: { v: 0.001 },
+					max: { v: 1 },
 					step: { v: 0.01 },
 					value: { v: 0.3 },
 				},
@@ -62,9 +62,9 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 				params: {
 					label: { v: 'Earth Speed LFO Amp' },
 					min: { v: 0 },
-					max: { v: 3 },
+					max: { v: 1 },
 					step: { v: 0.01 },
-					value: { v: 0.5 },
+					value: { v: 0 },
 				},
 			},
 			{
@@ -83,8 +83,8 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 				type: 'slider',
 				params: {
 					label: { v: 'Earth Radius LFO Freq' },
-					min: { v: 0 },
-					max: { v: 5 },
+					min: { v: 0.001 },
+					max: { v: 1 },
 					step: { v: 0.01 },
 					value: { v: 0.1 },
 				},
@@ -95,9 +95,9 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 				params: {
 					label: { v: 'Earth Radius LFO Amp' },
 					min: { v: 0 },
-					max: { v: 2 },
+					max: { v: 1 },
 					step: { v: 0.01 },
-					value: { v: 1.0 },
+					value: { v: 0 },
 				},
 			},
 			{
@@ -124,8 +124,8 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 				type: 'slider',
 				params: {
 					label: { v: 'Venus Speed LFO Freq' },
-					min: { v: 0 },
-					max: { v: 5 },
+					min: { v: 0.001 },
+					max: { v: 1 },
 					step: { v: 0.01 },
 					value: { v: 0.47 },
 				},
@@ -136,9 +136,9 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 				params: {
 					label: { v: 'Venus Speed LFO Amp' },
 					min: { v: 0 },
-					max: { v: 3 },
+					max: { v: 1 },
 					step: { v: 0.01 },
-					value: { v: 0.8 },
+					value: { v: 0 },
 				},
 			},
 			{
@@ -157,8 +157,8 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 				type: 'slider',
 				params: {
 					label: { v: 'Venus Radius LFO Freq' },
-					min: { v: 0 },
-					max: { v: 5 },
+					min: { v: 0.001 },
+					max: { v: 1 },
 					step: { v: 0.01 },
 					value: { v: 0.17 },
 				},
@@ -169,9 +169,9 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 				params: {
 					label: { v: 'Venus Radius LFO Amp' },
 					min: { v: 0 },
-					max: { v: 2 },
+					max: { v: 1 },
 					step: { v: 0.01 },
-					value: { v: 1.0 },
+					value: { v: 0 },
 				},
 			},
 			{

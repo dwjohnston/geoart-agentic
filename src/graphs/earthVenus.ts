@@ -16,8 +16,8 @@ export const earthVenusGraph: GeoArtGraph = {
 				type: 'slider',
 				params: {
 					label: { v: 'Earth Speed' },
-					min: { v: 0 },
-					max: { v: 1 },
+					min: { v: -5 },
+					max: { v: 5 },
 					value: { v: 0.2 },
 					step: { v: 0.01 }
 				},
@@ -39,8 +39,8 @@ export const earthVenusGraph: GeoArtGraph = {
 				type: 'slider',
 				params: {
 					label: { v: 'Venus Speed' },
-					min: { v: 0 },
-					max: { v: 1 },
+					min: { v: -5 },
+					max: { v: 5 },
 					value: { v: 0.323 },
 					step: { v: 0.01 }
 
@@ -56,6 +56,17 @@ export const earthVenusGraph: GeoArtGraph = {
 					value: { v: 0.323 },
 					step: { v: 0.01 }
 
+				},
+			},
+			{
+				id: 'linkRate',
+				type: 'slider',
+				params: {
+					label: { v: 'Link Rate' },
+					min: { v: 1 },
+					max: { v: 120 },
+					step: { v: 1 },
+					value: { v: 10 },
 				},
 			},
 		],
@@ -107,33 +118,13 @@ export const earthVenusGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
+					intervalTicks: { ref: 'linkRate.value' },
 					colorPointA: { ref: 'earthColorPoint.colorPoint' },
 					colorPointB: { ref: 'venusColorPoint.colorPoint' },
 				},
 			},
-			// Grey orbital trails — accumulate on the paint layer
-			{
-				id: 'earthTrail',
-				type: 'circle',
-				renderConfig: { layer: 'paint' },
-				params: {
-					intervalTicks: { v: 1 },
-					center: { ref: 'earthOrbit.point' },
-					radius: { v: 0.015 },
-					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
-				},
-			},
-			{
-				id: 'venusTrail',
-				type: 'circle',
-				renderConfig: { layer: 'paint' },
-				params: {
-					intervalTicks: { v: 1 },
-					center: { ref: 'venusOrbit.point' },
-					radius: { v: 0.015 },
-					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
-				},
-			},
+
+
 			// Current-position dots — redrawn each frame on the live layer
 			{
 				id: 'earthDot',

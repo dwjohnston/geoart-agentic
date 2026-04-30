@@ -128,6 +128,7 @@ export const singleOrbitLfoGraph: GeoArtGraph = {
 					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
 				},
 			},
+
 			{
 				id: 'trail',
 				type: 'circle',

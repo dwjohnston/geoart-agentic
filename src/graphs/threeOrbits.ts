@@ -67,8 +67,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'slider',
 				params: {
 					label: { v: 'Orbit A Speed' },
-					min: { v: 0 },
-					max: { v: 3 },
+					min: { v: -5 },
+					max: { v: 5 },
 					value: { v: 0.4 },
 					step: { v: 0.01 }
 
@@ -92,7 +92,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'slider',
 				params: {
 					label: { v: 'Orbit B Speed' },
-					min: { v: 0 },
+					min: { v: -5 },
 					max: { v: 5 },
 					value: { v: 1.2 },
 					step: { v: 0.01 }
@@ -116,8 +116,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'slider',
 				params: {
 					label: { v: 'Orbit C Speed' },
-					min: { v: 0 },
-					max: { v: 8 },
+					min: { v: -5 },
+					max: { v: 5 },
 					value: { v: 3.0 },
 					step: { v: 0.01 }
 
@@ -133,6 +133,17 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					value: { v: 0.1 },
 					step: { v: 0.01 }
 
+				},
+			},
+			{
+				id: 'linkRate',
+				type: 'slider',
+				params: {
+					label: { v: 'Link Rate' },
+					min: { v: 1 },
+					max: { v: 120 },
+					step: { v: 1 },
+					value: { v: 10 },
 				},
 			},
 
@@ -205,7 +216,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					intervalTicks: { v: 1 },
+					intervalTicks: { ref: 'linkRate.value' },
 					colorPointA: { ref: 'cpA.colorPoint' },
 					colorPointB: { ref: 'cpB.colorPoint' },
 				},
@@ -215,7 +226,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					intervalTicks: { v: 1 },
+					intervalTicks: { ref: 'linkRate.value' },
 					colorPointA: { ref: 'cpA.colorPoint' },
 					colorPointB: { ref: 'cpC.colorPoint' },
 				},
@@ -225,7 +236,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'timedLine',
 				renderConfig: { layer: 'paint' },
 				params: {
-					intervalTicks: { v: 1 },
+					intervalTicks: { ref: 'linkRate.value' },
 					colorPointA: { ref: 'cpB.colorPoint' },
 					colorPointB: { ref: 'cpC.colorPoint' },
 				},
@@ -267,7 +278,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitA.point' },
 					radius: { v: 0.02 },
-					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+					color: { ref: 'aColor.value' },
 				},
 			},
 			{
@@ -277,7 +288,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitB.point' },
 					radius: { v: 0.016 },
-					color: { v: { r: 0.4, g: 1, b: 0.6, a: 1 } },
+					color: { ref: 'bColor.value' },
 				},
 			},
 			{
@@ -287,7 +298,7 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					center: { ref: 'orbitC.point' },
 					radius: { v: 0.012 },
-					color: { v: { r: 1, g: 0.8, b: 0.3, a: 1 } },
+					color: { ref: 'cColor.value' },
 				},
 			},
 		],

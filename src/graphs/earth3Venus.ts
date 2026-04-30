@@ -57,6 +57,17 @@ export const earth3VenusGraph: GeoArtGraph = {
           step: { v: 0.1 },
         },
       },
+      {
+        id: 'linkRate',
+        type: 'slider',
+        params: {
+          label: { v: 'Link Rate' },
+          min: { v: 1 },
+          max: { v: 120 },
+          step: { v: 1 },
+          value: { v: 10 },
+        },
+      },
     ],
   },
   compute: {
@@ -149,7 +160,7 @@ export const earth3VenusGraph: GeoArtGraph = {
         type: 'timedLine',
         renderConfig: { layer: 'paint' },
         params: {
-          intervalTicks: { v: 3 },
+          intervalTicks: { ref: 'linkRate.value' },
           colorPointA: { ref: 'outerCp1.colorPoint' },
           colorPointB: { ref: 'innerCp.colorPoint' },
         },
@@ -159,7 +170,7 @@ export const earth3VenusGraph: GeoArtGraph = {
         type: 'timedLine',
         renderConfig: { layer: 'paint' },
         params: {
-          intervalTicks: { v: 3 },
+          intervalTicks: { ref: 'linkRate.value' },
           colorPointA: { ref: 'outerCp2.colorPoint' },
           colorPointB: { ref: 'innerCp.colorPoint' },
         },
@@ -169,12 +180,11 @@ export const earth3VenusGraph: GeoArtGraph = {
         type: 'timedLine',
         renderConfig: { layer: 'paint' },
         params: {
-          intervalTicks: { v: 3 },
+          intervalTicks: { ref: 'linkRate.value' },
           colorPointA: { ref: 'outerCp3.colorPoint' },
           colorPointB: { ref: 'innerCp.colorPoint' },
         },
       },
-
       // ── Live layer: orbit rings (grey, radius tracks sliders) ─────────────
       {
         id: 'outerRing',
@@ -203,10 +213,9 @@ export const earth3VenusGraph: GeoArtGraph = {
         type: 'circle',
         renderConfig: { layer: 'live' },
         params: {
-          intervalTicks: { v: 0 },
           center: { ref: 'outerOrbit1.point' },
           radius: { v: DOT_RADIUS },
-          color: { v: OUTER_COLOR },
+          color: { v: { ...OUTER_COLOR, a: 1 } },
         },
       },
       {
@@ -214,10 +223,9 @@ export const earth3VenusGraph: GeoArtGraph = {
         type: 'circle',
         renderConfig: { layer: 'live' },
         params: {
-          intervalTicks: { v: 0 },
           center: { ref: 'outerOrbit2.point' },
           radius: { v: DOT_RADIUS },
-          color: { v: OUTER_COLOR },
+          color: { v: { ...OUTER_COLOR, a: 1 } },
         },
       },
       {
@@ -225,10 +233,9 @@ export const earth3VenusGraph: GeoArtGraph = {
         type: 'circle',
         renderConfig: { layer: 'live' },
         params: {
-          intervalTicks: { v: 0 },
           center: { ref: 'outerOrbit3.point' },
           radius: { v: DOT_RADIUS },
-          color: { v: OUTER_COLOR },
+          color: { v: { ...OUTER_COLOR, a: 1 } },
         },
       },
       {
@@ -236,10 +243,9 @@ export const earth3VenusGraph: GeoArtGraph = {
         type: 'circle',
         renderConfig: { layer: 'live' },
         params: {
-          intervalTicks: { v: 0 },
           center: { ref: 'innerOrbit.point' },
           radius: { v: DOT_RADIUS },
-          color: { v: INNER_COLOR },
+          color: { v: { ...INNER_COLOR, a: 1 } },
         },
       },
     ],

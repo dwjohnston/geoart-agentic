@@ -29,10 +29,10 @@ Marks that accumulate on the paint layer should use ~50% alpha (`a: 0.5`) so the
 
 For every orbiting body, draw two things:
 
-1. A small grey circle on the **paint layer** with `intervalTicks: 1` — traces the orbital path over time
-2. A coloured dot on the **live layer** (no `intervalTicks`) — shows the current position each frame
+1. A grey ring on the **live layer** — a circle centred on the orbit's centre point with radius matching the orbit radius. This shows the path the body *will* trace. Redrawn each frame so it always reflects the current orbit parameters.
+2. A coloured dot on the **live layer** (no `intervalTicks`) — shows the current position each frame.
 
-Use `{ r: 0.5, g: 0.5, b: 0.5, a: 0.5 }` for the trail. Match the dot colour to the body's `colorPoint` if one exists, otherwise grey.
+Use `{ r: 0.5, g: 0.5, b: 0.5, a: 0.5 }` for the ring. Match the dot colour to the body's `colorPoint` if one exists, otherwise grey.
 
 ## Timing units
 
