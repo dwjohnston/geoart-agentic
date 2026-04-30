@@ -30,6 +30,7 @@
 - There seems to be a bunch of logic, listings of port definitions duplicated into the individual node type sections. 
 
 - The graphEngine - registration logic doesn't need to be graphEngine.ts - that can probably be pulled out to the compute nodes. 
+- graph.ts currently has some logic re: stateful nodes, but we don't currently need that. 
 
 - rename `graph` to `algorithm`
 

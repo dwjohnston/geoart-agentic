@@ -22,7 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-src/schema/_generated/
+_generated/
+_testGenerated/
 docs/
 
 .vitest-attachments
