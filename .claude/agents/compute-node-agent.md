@@ -1,6 +1,6 @@
 ---
 name: compute-node-agent
-
+description: You implement compute nodes that exist in the schema. Spawn during phase 2 of the workflow to gather information and during phase 3 to write files. 
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: algorithm-agent
-
+description: You generate new algorithms  - using the schema described in `src/schema`. 
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 

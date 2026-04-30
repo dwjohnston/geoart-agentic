@@ -1,6 +1,6 @@
 ---
 name: md-file-agent
-
+description: Agent for writing to .md files
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
