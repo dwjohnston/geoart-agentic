@@ -1,35 +1,74 @@
-import type { NodeDef } from '../types';
-import type { Value, ColorPointValue, NumberValue, ColorPointArrayValue } from '../../../graph/types';
+import { defineComputeNode } from '../types';
 import { pointsOnALine } from './pointsOnALine';
 
-export const pointsOnALineNodeDef: NodeDef = {
-  type: 'pointsOnALine',
+export const pointsOnALineNodeDef = defineComputeNode("pointsOnALine", {
   isTimeDependant: false,
-  inputs: [
-    {
-      name: 'pointA',
-      type: 'colorPoint',
-      default: { kind: 'colorPoint', v: { x: 0, y: 0, r: 1, g: 1, b: 1, a: 1 } },
+  defaults: {
+    "pointA": {
+      "v": {
+        "color": {
+          r: 1,
+          g: 1,
+          b: 1,
+          a: 1
+        },
+        point: {
+          x: 1,
+          y: 1,
+        },
+        "valueType": "colorPoint" as const
+      } as const
     },
-    {
-      name: 'pointB',
-      type: 'colorPoint',
-      default: { kind: 'colorPoint', v: { x: 1, y: 0, r: 1, g: 1, b: 1, a: 1 } },
+    "pointB": {
+      "v": {
+        "color": {
+          r: 1,
+          g: 1,
+          b: 1,
+          a: 1
+        },
+        point: {
+          x: 1,
+          y: 1,
+        },
+        "valueType": "colorPoint" as const
+      } as const
     },
-    {
-      name: 'numberOfPoints',
-      type: 'number',
-      default: { kind: 'number', v: 5 },
-    },
-  ],
-  outputs: [
-    { name: 'points', type: 'colorPointArray' },
-  ],
-  evaluate(inputs: Value[]): Value[] {
-    const pointA = (inputs[0] as ColorPointValue).v;
-    const pointB = (inputs[1] as ColorPointValue).v;
-    const numberOfPoints = (inputs[2] as NumberValue).v;
-    const result = pointsOnALine(pointA, pointB, numberOfPoints);
-    return [{ kind: 'colorPointArray', v: result } satisfies ColorPointArrayValue];
+    "numberOfPoints": {
+      "v": 1
+    }
   },
-};
+  evaluate: (inputs) => {
+    const pointA = inputs.pointA.v;
+    const pointB = inputs.pointB.v;
+    const numberOfPoints = inputs.numberOfPoints.v;
+
+
+    const points = pointsOnALine({
+      ...pointA.color,
+      ...pointA.point
+    }, {
+      ...pointB.color,
+      ...pointB.point
+    }, numberOfPoints)
+    return {
+
+      points: points.map((v) => {
+        return {
+          color: {
+            r: v.r,
+            g: v.g,
+            b: v.b,
+            a: v.a
+          },
+          point: {
+            x: v.x,
+            y: v.y
+          },
+          valueType: "colorPoint" as const,
+        }
+      })
+    }
+
+  },
+});

@@ -29,8 +29,8 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 1`] = `
   },
   {
     "args": [
-      519.9997368106456,
-      399.7486727714537,
+      719.9997368106456,
+      199.7486727714537,
       8,
       0,
       6.283185307179586,
@@ -60,8 +60,8 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 1`] = `
   },
   {
     "args": [
-      519.9989472437366,
-      399.49734664535157,
+      719.9989472437366,
+      199.49734664535157,
       8,
       0,
       6.283185307179586,
@@ -91,8 +91,8 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 1`] = `
   },
   {
     "args": [
-      519.9976313027364,
-      399.2460227241329,
+      719.9976313027364,
+      199.24602272413293,
       8,
       0,
       6.283185307179586,
@@ -127,8 +127,8 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 2`] = `
   },
   {
     "args": [
-      519.9997368106456,
-      399.7486727714537,
+      719.9997368106456,
+      199.7486727714537,
       6,
       0,
       6.283185307179586,
@@ -148,8 +148,8 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 2`] = `
   },
   {
     "args": [
-      519.9989472437366,
-      399.49734664535157,
+      719.9989472437366,
+      199.49734664535157,
       6,
       0,
       6.283185307179586,
@@ -169,8 +169,8 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 2`] = `
   },
   {
     "args": [
-      519.9976313027364,
-      399.2460227241329,
+      719.9976313027364,
+      199.24602272413293,
       6,
       0,
       6.283185307179586,
@@ -809,10 +809,10 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      271.9996446945338,
-      199.77380570101673,
-      271.99806556619956,
-      599.4722171609188,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -820,7 +820,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       0,
-      "rgba(51, 153, 255, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -828,7 +828,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       1,
-      "rgba(51, 153, 255, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -840,16 +840,16 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      271.9996446945338,
-      199.77380570101673,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      271.99806556619956,
-      599.4722171609188,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -861,10 +861,10 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      329.1424116012882,
-      199.75226354431967,
-      329.1411088204913,
-      599.5045301361034,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -872,7 +872,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       0,
-      "rgba(80.14285714285714, 142.07142857142858, 244.07142857142858, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -880,7 +880,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       1,
-      "rgba(80.14285714285714, 142.07142857142858, 244.07142857142858, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -892,16 +892,16 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      329.1424116012882,
-      199.75226354431967,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      329.1411088204913,
-      599.5045301361034,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -913,10 +913,10 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      386.2851785080426,
-      199.7307213876227,
-      386.2841520747831,
-      599.5368431112879,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -924,7 +924,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       0,
-      "rgba(109.28571428571429, 131.14285714285714, 233.14285714285714, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -932,7 +932,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       1,
-      "rgba(109.28571428571429, 131.14285714285714, 233.14285714285714, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -944,16 +944,16 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      386.2851785080426,
-      199.7307213876227,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      386.2841520747831,
-      599.5368431112879,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -965,10 +965,10 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      443.427945414797,
-      199.70917923092574,
-      443.42719532907483,
-      599.5691560864726,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -976,7 +976,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       0,
-      "rgba(138.42857142857144, 120.21428571428571, 222.21428571428572, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -984,7 +984,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       1,
-      "rgba(138.42857142857144, 120.21428571428571, 222.21428571428572, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -996,16 +996,16 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      443.427945414797,
-      199.70917923092574,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      443.42719532907483,
-      599.5691560864726,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -1017,10 +1017,10 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      500.5707123215514,
-      199.6876370742287,
-      500.5702385833666,
-      599.6014690616572,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -1028,7 +1028,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       0,
-      "rgba(167.57142857142858, 109.28571428571429, 211.28571428571428, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -1036,7 +1036,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       1,
-      "rgba(167.57142857142858, 109.28571428571429, 211.28571428571428, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -1048,16 +1048,16 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      500.5707123215514,
-      199.6876370742287,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      500.5702385833666,
-      599.6014690616572,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -1069,10 +1069,10 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      557.7134792283059,
-      199.66609491753184,
-      557.7132818376584,
-      599.6337820368417,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -1080,7 +1080,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       0,
-      "rgba(196.71428571428575, 98.35714285714285, 200.35714285714286, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -1088,7 +1088,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       1,
-      "rgba(196.71428571428575, 98.35714285714285, 200.35714285714286, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -1100,16 +1100,16 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      557.7134792283059,
-      199.66609491753184,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      557.7132818376584,
-      599.6337820368417,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -1121,10 +1121,10 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      614.8562461350602,
-      199.64455276083476,
-      614.8563250919501,
-      599.6660950120264,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -1132,7 +1132,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       0,
-      "rgba(225.85714285714286, 87.42857142857143, 189.42857142857144, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -1140,7 +1140,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       1,
-      "rgba(225.85714285714286, 87.42857142857143, 189.42857142857144, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -1152,16 +1152,16 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      614.8562461350602,
-      199.64455276083476,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      614.8563250919501,
-      599.6660950120264,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -1173,10 +1173,10 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      671.9990130418147,
-      199.62301060413782,
-      671.9993683462419,
-      599.6984079872109,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -1184,7 +1184,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       0,
-      "rgba(255, 76.5, 178.5, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -1192,7 +1192,7 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   {
     "args": [
       1,
-      "rgba(255, 76.5, 178.5, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -1204,16 +1204,16 @@ exports[`GraphEngine snapshot > renders deterministically across ticks 4`] = `
   },
   {
     "args": [
-      671.9990130418147,
-      199.62301060413782,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      671.9993683462419,
-      599.6984079872109,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",

@@ -1,40 +1,34 @@
-import type { NodeDef } from '../types';
-import type { NumberValue, PointValue, ColorPointArrayValue } from '../../../graph/types';
+import { defineComputeNode } from '../types';
 import { evaluateOrbitPoints } from './orbit';
 
-// Orbit node ports: 0=time, 1=radius, 2=speed, 3=center, 4=numPoints, 5=phase
-//   → output 0=point  (point — first orbit position, backwards-compat)
-//   → output 1=points (colorPointArray — all evenly-spaced positions with white colour)
-export const orbitNodeDef: NodeDef = {
-  type: 'orbit',
+export const orbitNodeDef = defineComputeNode("orbit", {
   isTimeDependant: true,
-  inputs: [
-    { name: 'time', type: 'number' },
-    { name: 'radius', type: 'number', default: { kind: 'number', v: 0.5 } },
-    { name: 'speed', type: 'number', default: { kind: 'number', v: 1.0 } },
-    { name: 'center', type: 'point', default: { kind: 'point', v: { x: 0, y: 0 } } },
-    { name: 'numPoints', type: 'number', default: { kind: 'number', v: 1 } },
-    { name: 'phase', type: 'number', default: { kind: 'number', v: 0 } },
-  ],
-  outputs: [
-    { name: 'point', type: 'point' },
-    { name: 'points', type: 'colorPointArray' },
-  ],
-  evaluate(inputs) {
-    const t = (inputs[0] as NumberValue).v;
-    const radius = (inputs[1] as NumberValue).v;
-    const speed = (inputs[2] as NumberValue).v;
-    const center = (inputs[3] as PointValue).v;
-    const numPoints = Math.max(1, Math.round((inputs[4] as NumberValue).v));
-    const phase = (inputs[5] as NumberValue).v;
+  defaults: {
+    radius: { v: 0.5 },
+    speed: { v: 0.5 },
+    center: { v: { x: 0.5, y: 0.5 } },
+    numPoints: { v: 1 },
+    phase: { v: 0 },
+    time: { v: 0 }
+  },
+  evaluate: (inputs) => {
+    const t = inputs.time.v;
+    const radius = inputs.radius.v;
+    const speed = inputs.speed.v;
+    const center = inputs.center.v;
+    const numPoints = Math.max(1, Math.round(inputs.numPoints.v));
+    const phase = inputs.phase.v;
 
     const rawPoints = evaluateOrbitPoints(radius, speed, t, numPoints, phase, center.x, center.y);
+    const colorPoints = rawPoints.map(p => ({
+      color: { r: 1, g: 1, b: 1, a: 1 },
+      point: { x: p.x, y: p.y },
+      valueType: 'colorPoint' as const,
+    }));
 
-    const colorPoints = rawPoints.map(p => ({ x: p.x, y: p.y, r: 1, g: 1, b: 1, a: 1 }));
-
-    return [
-      { kind: 'point', v: rawPoints[0] },
-      { kind: 'colorPointArray', v: colorPoints } as ColorPointArrayValue,
-    ];
+    return {
+      point: rawPoints[0],
+      points: colorPoints,
+    };
   },
-};
+});

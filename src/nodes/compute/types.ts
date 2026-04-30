@@ -34,20 +34,27 @@ export function defineComputeNode<K extends DefineableComputeNodeKind>(
   kind: K,
   def: {
     isTimeDependant?: boolean;
+    defaults: NodeInputsRecord<K>,
     evaluate: (inputs: NodeInputsRecord<K>) => NodeOutputsRecord<K>;
   }
 ): NodeDef {
-  const inputEntries = Object.entries(nodeInputs[kind]) as [string, { valueType: string }][];
+  const inputEntries = Object.entries(nodeInputs[kind]) as [keyof NodeInputsRecord<K>, { valueType: string }][];
   const outputItems = nodeOutputMeta[kind] as readonly { name: string; valueType: string }[];
   const inputPortNames = inputEntries.map(([name]) => name);
 
   return {
     type: kind,
     isTimeDependant: def.isTimeDependant,
-    inputs: inputEntries.map(([name, port]) => ({
-      name,
-      type: valueTypeToPortType(port.valueType),
-    })),
+
+    //@ts-expect-error - ignore this for now
+    inputs: inputEntries.map(([name, port]) => {
+      console.log(name, def.defaults)
+      return {
+        name,
+        type: valueTypeToPortType(port.valueType),
+        default: def.defaults[name]
+      }
+    }),
     outputs: outputItems.map(({ name, valueType }) => ({
       name,
       type: valueTypeToPortType(valueType),

@@ -71,8 +71,8 @@ exports[`All production graphs > 'earth3Venus' runs without error 1`] = `
   },
   {
     "args": [
-      79.99835508096535,
-      49.68584647651263,
+      104.99835508096535,
+      24.68584647651262,
       0.75,
       0,
       6.283185307179586,
@@ -92,8 +92,8 @@ exports[`All production graphs > 'earth3Venus' runs without error 1`] = `
   },
   {
     "args": [
-      34.728757527488874,
-      24.177739189881684,
+      59.728757527488874,
+      -0.8222608101183138,
       0.75,
       0,
       6.283185307179586,
@@ -113,8 +113,8 @@ exports[`All production graphs > 'earth3Venus' runs without error 1`] = `
   },
   {
     "args": [
-      35.27288739154577,
-      76.13641433360567,
+      60.27288739154577,
+      51.13641433360567,
       0.75,
       0,
       6.283185307179586,
@@ -134,144 +134,8 @@ exports[`All production graphs > 'earth3Venus' runs without error 1`] = `
   },
   {
     "args": [
-      64.99564935972136,
-      49.638751774691436,
-      0.75,
-      0,
-      6.283185307179586,
-    ],
-    "kind": "method",
-    "name": "arc",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "stroke",
-  },
-  {
-    "args": [
-      0,
-      0,
-      100,
-      100,
-    ],
-    "kind": "method",
-    "name": "clearRect",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "beginPath",
-  },
-  {
-    "args": [
-      50,
-      50,
-      30,
-      0,
-      6.283185307179586,
-    ],
-    "kind": "method",
-    "name": "arc",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "stroke",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "beginPath",
-  },
-  {
-    "args": [
-      50,
-      50,
-      15,
-      0,
-      6.283185307179586,
-    ],
-    "kind": "method",
-    "name": "arc",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "stroke",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "beginPath",
-  },
-  {
-    "args": [
-      79.99342050424536,
-      49.371727403499285,
-      0.75,
-      0,
-      6.283185307179586,
-    ],
-    "kind": "method",
-    "name": "arc",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "stroke",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "beginPath",
-  },
-  {
-    "args": [
-      34.4591897188061,
-      24.33907219518481,
-      0.75,
-      0,
-      6.283185307179586,
-    ],
-    "kind": "method",
-    "name": "arc",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "stroke",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "beginPath",
-  },
-  {
-    "args": [
-      35.54738977694852,
-      76.2892004013159,
-      0.75,
-      0,
-      6.283185307179586,
-    ],
-    "kind": "method",
-    "name": "arc",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "stroke",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "beginPath",
-  },
-  {
-    "args": [
-      64.98259996262819,
-      49.27771310419349,
+      89.99564935972136,
+      24.638751774691436,
       0.75,
       0,
       6.283185307179586,
@@ -343,8 +207,8 @@ exports[`All production graphs > 'earth3Venus' runs without error 1`] = `
   },
   {
     "args": [
-      79.98519681097194,
-      49.05767722765615,
+      104.99342050424536,
+      24.37172740349929,
       0.75,
       0,
       6.283185307179586,
@@ -364,8 +228,8 @@ exports[`All production graphs > 'earth3Venus' runs without error 1`] = `
   },
   {
     "args": [
-      34.191326135099686,
-      24.50321921039408,
+      59.4591897188061,
+      -0.6609278048151923,
       0.75,
       0,
       6.283185307179586,
@@ -385,8 +249,8 @@ exports[`All production graphs > 'earth3Venus' runs without error 1`] = `
   },
   {
     "args": [
-      35.823477053928364,
-      76.43910356194976,
+      60.54738977694851,
+      51.289200401315895,
       0.75,
       0,
       6.283185307179586,
@@ -406,8 +270,144 @@ exports[`All production graphs > 'earth3Venus' runs without error 1`] = `
   },
   {
     "args": [
-      64.96085937848486,
-      48.917093421757095,
+      89.98259996262819,
+      24.277713104193488,
+      0.75,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      30,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      15,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      104.98519681097194,
+      24.05767722765615,
+      0.75,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      59.191326135099686,
+      -0.49678078960591066,
+      0.75,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      60.823477053928364,
+      51.439103561949764,
+      0.75,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      89.96085937848486,
+      23.917093421757095,
       0.75,
       0,
       6.283185307179586,
@@ -437,10 +437,10 @@ exports[`All production graphs > 'earth3Venus' runs without error 2`] = `
   },
   {
     "args": [
-      79.99835508096535,
-      49.68584647651263,
-      64.99564935972136,
-      49.638751774691436,
+      104.99835508096535,
+      24.68584647651262,
+      89.99564935972136,
+      24.638751774691436,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -468,16 +468,16 @@ exports[`All production graphs > 'earth3Venus' runs without error 2`] = `
   },
   {
     "args": [
-      79.99835508096535,
-      49.68584647651263,
+      104.99835508096535,
+      24.68584647651262,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      64.99564935972136,
-      49.638751774691436,
+      89.99564935972136,
+      24.638751774691436,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -489,10 +489,10 @@ exports[`All production graphs > 'earth3Venus' runs without error 2`] = `
   },
   {
     "args": [
-      34.728757527488874,
-      24.177739189881684,
-      64.99564935972136,
-      49.638751774691436,
+      59.728757527488874,
+      -0.8222608101183138,
+      89.99564935972136,
+      24.638751774691436,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -520,16 +520,16 @@ exports[`All production graphs > 'earth3Venus' runs without error 2`] = `
   },
   {
     "args": [
-      34.728757527488874,
-      24.177739189881684,
+      59.728757527488874,
+      -0.8222608101183138,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      64.99564935972136,
-      49.638751774691436,
+      89.99564935972136,
+      24.638751774691436,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -541,10 +541,10 @@ exports[`All production graphs > 'earth3Venus' runs without error 2`] = `
   },
   {
     "args": [
-      35.27288739154577,
-      76.13641433360567,
-      64.99564935972136,
-      49.638751774691436,
+      60.27288739154577,
+      51.13641433360567,
+      89.99564935972136,
+      24.638751774691436,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -572,16 +572,16 @@ exports[`All production graphs > 'earth3Venus' runs without error 2`] = `
   },
   {
     "args": [
-      35.27288739154577,
-      76.13641433360567,
+      60.27288739154577,
+      51.13641433360567,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      64.99564935972136,
-      49.638751774691436,
+      89.99564935972136,
+      24.638751774691436,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -623,8 +623,8 @@ exports[`All production graphs > 'earthVenus' runs without error 1`] = `
   },
   {
     "args": [
-      59.9999780675538,
-      49.97905606428781,
+      84.9999780675538,
+      24.979056064287807,
       1,
       0,
       6.283185307179586,
@@ -644,60 +644,8 @@ exports[`All production graphs > 'earthVenus' runs without error 1`] = `
   },
   {
     "args": [
-      66.14990761437578,
-      49.945373567503836,
-      1,
-      0,
-      6.283185307179586,
-    ],
-    "kind": "method",
-    "name": "arc",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "stroke",
-  },
-  {
-    "args": [
-      0,
-      0,
-      100,
-      100,
-    ],
-    "kind": "method",
-    "name": "clearRect",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "beginPath",
-  },
-  {
-    "args": [
-      59.99991227031137,
-      49.95811222044596,
-      1,
-      0,
-      6.283185307179586,
-    ],
-    "kind": "method",
-    "name": "arc",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "stroke",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "beginPath",
-  },
-  {
-    "args": [
-      66.1496304585601,
-      49.89074775998564,
+      91.14990761437578,
+      24.945373567503836,
       1,
       0,
       6.283185307179586,
@@ -727,8 +675,8 @@ exports[`All production graphs > 'earthVenus' runs without error 1`] = `
   },
   {
     "args": [
-      59.99980260856137,
-      49.93716856034441,
+      84.99991227031138,
+      24.958112220445962,
       1,
       0,
       6.283185307179586,
@@ -748,8 +696,60 @@ exports[`All production graphs > 'earthVenus' runs without error 1`] = `
   },
   {
     "args": [
-      66.14916853572387,
-      49.83612320241622,
+      91.1496304585601,
+      24.890747759985633,
+      1,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      84.99980260856137,
+      24.937168560344404,
+      1,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      91.14916853572387,
+      24.836123202416218,
       1,
       0,
       6.283185307179586,
@@ -784,8 +784,8 @@ exports[`All production graphs > 'earthVenus' runs without error 2`] = `
   },
   {
     "args": [
-      59.9999780675538,
-      49.97905606428781,
+      84.9999780675538,
+      24.979056064287807,
       0.75,
       0,
       6.283185307179586,
@@ -805,8 +805,8 @@ exports[`All production graphs > 'earthVenus' runs without error 2`] = `
   },
   {
     "args": [
-      66.14990761437578,
-      49.945373567503836,
+      91.14990761437578,
+      24.945373567503836,
       0.75,
       0,
       6.283185307179586,
@@ -821,10 +821,10 @@ exports[`All production graphs > 'earthVenus' runs without error 2`] = `
   },
   {
     "args": [
-      59.9999780675538,
-      49.97905606428781,
-      66.14990761437578,
-      49.945373567503836,
+      84.9999780675538,
+      24.979056064287807,
+      91.14990761437578,
+      24.945373567503836,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -852,16 +852,16 @@ exports[`All production graphs > 'earthVenus' runs without error 2`] = `
   },
   {
     "args": [
-      59.9999780675538,
-      49.97905606428781,
+      84.9999780675538,
+      24.979056064287807,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      66.14990761437578,
-      49.945373567503836,
+      91.14990761437578,
+      24.945373567503836,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -878,8 +878,8 @@ exports[`All production graphs > 'earthVenus' runs without error 2`] = `
   },
   {
     "args": [
-      59.99991227031137,
-      49.95811222044596,
+      84.99991227031138,
+      24.958112220445962,
       0.75,
       0,
       6.283185307179586,
@@ -899,8 +899,8 @@ exports[`All production graphs > 'earthVenus' runs without error 2`] = `
   },
   {
     "args": [
-      66.1496304585601,
-      49.89074775998564,
+      91.1496304585601,
+      24.890747759985633,
       0.75,
       0,
       6.283185307179586,
@@ -920,8 +920,8 @@ exports[`All production graphs > 'earthVenus' runs without error 2`] = `
   },
   {
     "args": [
-      59.99980260856137,
-      49.93716856034441,
+      84.99980260856137,
+      24.937168560344404,
       0.75,
       0,
       6.283185307179586,
@@ -941,8 +941,8 @@ exports[`All production graphs > 'earthVenus' runs without error 2`] = `
   },
   {
     "args": [
-      66.14916853572387,
-      49.83612320241622,
+      91.14916853572387,
+      24.836123202416218,
       0.75,
       0,
       6.283185307179586,
@@ -987,8 +987,8 @@ exports[`All production graphs > 'monaLisa' runs without error 1`] = `
   },
   {
     "args": [
-      68.9996249562666,
-      49.88062026465438,
+      93.9996249562666,
+      24.880620264654386,
       0.6,
       0,
       6.283185307179586,
@@ -1102,8 +1102,8 @@ exports[`All production graphs > 'monaLisa' runs without error 1`] = `
   },
   {
     "args": [
-      68.99849983987251,
-      49.761245242216305,
+      93.99849983987251,
+      24.7612452422163,
       0.6,
       0,
       6.283185307179586,
@@ -1217,8 +1217,8 @@ exports[`All production graphs > 'monaLisa' runs without error 1`] = `
   },
   {
     "args": [
-      68.99662469523537,
-      49.64187964540725,
+      93.99662469523537,
+      24.64187964540725,
       0.6,
       0,
       6.283185307179586,
@@ -1332,8 +1332,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
   },
   {
     "args": [
-      68.9996249562666,
-      49.88062026465438,
+      93.9996249562666,
+      24.880620264654386,
       63.99799043563714,
       47.262800160600904,
     ],
@@ -1363,8 +1363,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
   },
   {
     "args": [
-      68.9996249562666,
-      49.88062026465438,
+      93.9996249562666,
+      24.880620264654386,
     ],
     "kind": "method",
     "name": "moveTo",
@@ -1698,8 +1698,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
     "args": [
       75.99992059929232,
       67.43574402366853,
-      68.9996249562666,
-      49.88062026465438,
+      93.9996249562666,
+      24.880620264654386,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -1735,8 +1735,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
   },
   {
     "args": [
-      68.9996249562666,
-      49.88062026465438,
+      93.9996249562666,
+      24.880620264654386,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -1748,8 +1748,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
   },
   {
     "args": [
-      68.99849983987251,
-      49.761245242216305,
+      93.99849983987251,
+      24.7612452422163,
       63.991962319455574,
       47.025668416679544,
     ],
@@ -1779,8 +1779,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
   },
   {
     "args": [
-      68.99849983987251,
-      49.761245242216305,
+      93.99849983987251,
+      24.7612452422163,
     ],
     "kind": "method",
     "name": "moveTo",
@@ -2114,8 +2114,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
     "args": [
       75.99968239765428,
       67.3714884397963,
-      68.99849983987251,
-      49.761245242216305,
+      93.99849983987251,
+      24.7612452422163,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -2151,8 +2151,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
   },
   {
     "args": [
-      68.99849983987251,
-      49.761245242216305,
+      93.99849983987251,
+      24.7612452422163,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -2164,8 +2164,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
   },
   {
     "args": [
-      68.99662469523537,
-      49.64187964540725,
+      93.99662469523537,
+      24.64187964540725,
       63.98191738201064,
       46.78867284416476,
     ],
@@ -2195,8 +2195,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
   },
   {
     "args": [
-      68.99662469523537,
-      49.64187964540725,
+      93.99662469523537,
+      24.64187964540725,
     ],
     "kind": "method",
     "name": "moveTo",
@@ -2530,8 +2530,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
     "args": [
       75.99928539654073,
       67.30723364084011,
-      68.99662469523537,
-      49.64187964540725,
+      93.99662469523537,
+      24.64187964540725,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -2567,8 +2567,8 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
   },
   {
     "args": [
-      68.99662469523537,
-      49.64187964540725,
+      93.99662469523537,
+      24.64187964540725,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -2610,8 +2610,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      74.99978067577844,
-      49.89528055111491,
+      99.99978067577844,
+      24.895280551114894,
       25,
       0,
       6.283185307179586,
@@ -2631,8 +2631,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      74.99978067577844,
-      49.89528055111491,
+      99.99978067577844,
+      24.895280551114894,
       1,
       0,
       6.283185307179586,
@@ -2652,8 +2652,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      87.49879372832613,
-      49.738205052572994,
+      112.49879372832613,
+      24.738205052572994,
       12.5,
       0,
       6.283185307179586,
@@ -2673,8 +2673,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      87.49879372832613,
-      49.738205052572994,
+      112.49879372832613,
+      24.738205052572994,
       0.8,
       0,
       6.283185307179586,
@@ -2694,8 +2694,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      92.4963265301548,
-      49.581151257182356,
+      117.4963265301548,
+      24.58115125718234,
       5,
       0,
       6.283185307179586,
@@ -2715,8 +2715,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      92.4963265301548,
-      49.581151257182356,
+      117.4963265301548,
+      24.58115125718234,
       0.6,
       0,
       6.283185307179586,
@@ -2746,8 +2746,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      74.99912270696201,
-      49.79056293963073,
+      99.99912270696201,
+      24.790562939630732,
       25,
       0,
       6.283185307179586,
@@ -2767,8 +2767,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      74.99912270696201,
-      49.79056293963073,
+      99.99912270696201,
+      24.790562939630732,
       1,
       0,
       6.283185307179586,
@@ -2788,8 +2788,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      87.49517507300327,
-      49.476436746589016,
+      112.49517507300327,
+      24.476436746589016,
       12.5,
       0,
       6.283185307179586,
@@ -2809,8 +2809,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      87.49517507300327,
-      49.476436746589016,
+      112.49517507300327,
+      24.476436746589016,
       0.8,
       0,
       6.283185307179586,
@@ -2830,8 +2830,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      92.48530871514463,
-      49.162484148942454,
+      117.48530871514463,
+      24.162484148942443,
       5,
       0,
       6.283185307179586,
@@ -2851,8 +2851,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      92.48530871514463,
-      49.162484148942454,
+      117.48530871514463,
+      24.162484148942443,
       0.6,
       0,
       6.283185307179586,
@@ -2882,8 +2882,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      74.9980261050954,
-      49.685849002916186,
+      99.9980261050954,
+      24.685849002916182,
       25,
       0,
       6.283185307179586,
@@ -2903,8 +2903,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      74.9980261050954,
-      49.685849002916186,
+      99.9980261050954,
+      24.685849002916182,
       1,
       0,
       6.283185307179586,
@@ -2924,8 +2924,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      87.48914451310277,
-      49.214721719542,
+      112.48914451310277,
+      24.214721719542,
       12.5,
       0,
       6.283185307179586,
@@ -2945,8 +2945,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      87.48914451310277,
-      49.214721719542,
+      112.48914451310277,
+      24.214721719542,
       0.8,
       0,
       6.283185307179586,
@@ -2966,8 +2966,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      92.46695433611816,
-      48.74418015294943,
+      117.46695433611816,
+      23.744180152949433,
       5,
       0,
       6.283185307179586,
@@ -2987,8 +2987,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      92.46695433611816,
-      48.74418015294943,
+      117.46695433611816,
+      23.744180152949433,
       0.6,
       0,
       6.283185307179586,
@@ -3018,10 +3018,10 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.99978067577844,
-      49.89528055111491,
-      87.49879372832613,
-      49.738205052572994,
+      99.99978067577844,
+      24.895280551114894,
+      112.49879372832613,
+      24.738205052572994,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3049,16 +3049,16 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.99978067577844,
-      49.89528055111491,
+      99.99978067577844,
+      24.895280551114894,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      87.49879372832613,
-      49.738205052572994,
+      112.49879372832613,
+      24.738205052572994,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -3070,10 +3070,10 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.99978067577844,
-      49.89528055111491,
-      92.4963265301548,
-      49.581151257182356,
+      99.99978067577844,
+      24.895280551114894,
+      117.4963265301548,
+      24.58115125718234,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3101,16 +3101,16 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.99978067577844,
-      49.89528055111491,
+      99.99978067577844,
+      24.895280551114894,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      92.4963265301548,
-      49.581151257182356,
+      117.4963265301548,
+      24.58115125718234,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -3122,10 +3122,10 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      87.49879372832613,
-      49.738205052572994,
-      92.4963265301548,
-      49.581151257182356,
+      112.49879372832613,
+      24.738205052572994,
+      117.4963265301548,
+      24.58115125718234,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3153,16 +3153,16 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      87.49879372832613,
-      49.738205052572994,
+      112.49879372832613,
+      24.738205052572994,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      92.4963265301548,
-      49.581151257182356,
+      117.4963265301548,
+      24.58115125718234,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -3174,10 +3174,10 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.99912270696201,
-      49.79056293963073,
-      87.49517507300327,
-      49.476436746589016,
+      99.99912270696201,
+      24.790562939630732,
+      112.49517507300327,
+      24.476436746589016,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3205,16 +3205,16 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.99912270696201,
-      49.79056293963073,
+      99.99912270696201,
+      24.790562939630732,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      87.49517507300327,
-      49.476436746589016,
+      112.49517507300327,
+      24.476436746589016,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -3226,10 +3226,10 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.99912270696201,
-      49.79056293963073,
-      92.48530871514463,
-      49.162484148942454,
+      99.99912270696201,
+      24.790562939630732,
+      117.48530871514463,
+      24.162484148942443,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3257,16 +3257,16 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.99912270696201,
-      49.79056293963073,
+      99.99912270696201,
+      24.790562939630732,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      92.48530871514463,
-      49.162484148942454,
+      117.48530871514463,
+      24.162484148942443,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -3278,10 +3278,10 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      87.49517507300327,
-      49.476436746589016,
-      92.48530871514463,
-      49.162484148942454,
+      112.49517507300327,
+      24.476436746589016,
+      117.48530871514463,
+      24.162484148942443,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3309,16 +3309,16 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      87.49517507300327,
-      49.476436746589016,
+      112.49517507300327,
+      24.476436746589016,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      92.48530871514463,
-      49.162484148942454,
+      117.48530871514463,
+      24.162484148942443,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -3330,10 +3330,10 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.9980261050954,
-      49.685849002916186,
-      87.48914451310277,
-      49.214721719542,
+      99.9980261050954,
+      24.685849002916182,
+      112.48914451310277,
+      24.214721719542,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3361,16 +3361,16 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.9980261050954,
-      49.685849002916186,
+      99.9980261050954,
+      24.685849002916182,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      87.48914451310277,
-      49.214721719542,
+      112.48914451310277,
+      24.214721719542,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -3382,10 +3382,10 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.9980261050954,
-      49.685849002916186,
-      92.46695433611816,
-      48.74418015294943,
+      99.9980261050954,
+      24.685849002916182,
+      117.46695433611816,
+      23.744180152949433,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3413,16 +3413,16 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      74.9980261050954,
-      49.685849002916186,
+      99.9980261050954,
+      24.685849002916182,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      92.46695433611816,
-      48.74418015294943,
+      117.46695433611816,
+      23.744180152949433,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -3434,10 +3434,10 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      87.48914451310277,
-      49.214721719542,
-      92.46695433611816,
-      48.74418015294943,
+      112.48914451310277,
+      24.214721719542,
+      117.46695433611816,
+      23.744180152949433,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3465,16 +3465,16 @@ exports[`All production graphs > 'threeOrbits' runs without error 2`] = `
   },
   {
     "args": [
-      87.48914451310277,
-      49.214721719542,
+      112.48914451310277,
+      24.214721719542,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      92.46695433611816,
-      48.74418015294943,
+      117.46695433611816,
+      23.744180152949433,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -4110,10 +4110,10 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      33.999955586816725,
-      24.97172571262709,
-      33.999758195774945,
-      74.93402714511485,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -4121,7 +4121,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       0,
-      "rgba(51, 153, 255, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4129,7 +4129,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       1,
-      "rgba(51, 153, 255, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4141,16 +4141,16 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      33.999955586816725,
-      24.97172571262709,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      33.999758195774945,
-      74.93402714511485,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -4162,10 +4162,10 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      41.14280145016102,
-      24.96903294303996,
-      41.14263860256141,
-      74.93806626701293,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -4173,7 +4173,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       0,
-      "rgba(80.14285714285714, 142.07142857142858, 244.07142857142858, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4181,7 +4181,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       1,
-      "rgba(80.14285714285714, 142.07142857142858, 244.07142857142858, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4193,16 +4193,16 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      41.14280145016102,
-      24.96903294303996,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      41.14263860256141,
-      74.93806626701293,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -4214,10 +4214,10 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      48.28564731350532,
-      24.96634017345284,
-      48.28551900934789,
-      74.94210538891099,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -4225,7 +4225,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       0,
-      "rgba(109.28571428571429, 131.14285714285714, 233.14285714285714, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4233,7 +4233,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       1,
-      "rgba(109.28571428571429, 131.14285714285714, 233.14285714285714, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4245,16 +4245,16 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      48.28564731350532,
-      24.96634017345284,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      48.28551900934789,
-      74.94210538891099,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -4266,10 +4266,10 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      55.42849317684963,
-      24.963647403865718,
-      55.428399416134354,
-      74.94614451080908,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -4277,7 +4277,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       0,
-      "rgba(138.42857142857144, 120.21428571428571, 222.21428571428572, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4285,7 +4285,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       1,
-      "rgba(138.42857142857144, 120.21428571428571, 222.21428571428572, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4297,16 +4297,16 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      55.42849317684963,
-      24.963647403865718,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      55.428399416134354,
-      74.94614451080908,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -4318,10 +4318,10 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      62.57133904019393,
-      24.960954634278586,
-      62.57127982292082,
-      74.95018363270715,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -4329,7 +4329,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       0,
-      "rgba(167.57142857142858, 109.28571428571429, 211.28571428571428, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4337,7 +4337,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       1,
-      "rgba(167.57142857142858, 109.28571428571429, 211.28571428571428, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4349,16 +4349,16 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      62.57133904019393,
-      24.960954634278586,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      62.57127982292082,
-      74.95018363270715,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -4370,10 +4370,10 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      69.71418490353824,
-      24.95826186469148,
-      69.7141602297073,
-      74.95422275460521,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -4381,7 +4381,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       0,
-      "rgba(196.71428571428575, 98.35714285714285, 200.35714285714286, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4389,7 +4389,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       1,
-      "rgba(196.71428571428575, 98.35714285714285, 200.35714285714286, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4401,16 +4401,16 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      69.71418490353824,
-      24.95826186469148,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      69.7141602297073,
-      74.95422275460521,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -4422,10 +4422,10 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      76.85703076688253,
-      24.955569095104345,
-      76.85704063649376,
-      74.9582618765033,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -4433,7 +4433,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       0,
-      "rgba(225.85714285714286, 87.42857142857143, 189.42857142857144, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4441,7 +4441,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       1,
-      "rgba(225.85714285714286, 87.42857142857143, 189.42857142857144, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4453,16 +4453,16 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      76.85703076688253,
-      24.955569095104345,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      76.85704063649376,
-      74.9582618765033,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -4474,10 +4474,10 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      83.99987663022684,
-      24.952876325517227,
-      83.99992104328024,
-      74.96230099840136,
+      NaN,
+      NaN,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -4485,7 +4485,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       0,
-      "rgba(255, 76.5, 178.5, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4493,7 +4493,7 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   {
     "args": [
       1,
-      "rgba(255, 76.5, 178.5, 0.7)",
+      "rgba(NaN, NaN, NaN, undefined)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -4505,16 +4505,16 @@ exports[`All production graphs > 'wavingLines' runs without error 2`] = `
   },
   {
     "args": [
-      83.99987663022684,
-      24.952876325517227,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      83.99992104328024,
-      74.96230099840136,
+      NaN,
+      NaN,
     ],
     "kind": "method",
     "name": "lineTo",

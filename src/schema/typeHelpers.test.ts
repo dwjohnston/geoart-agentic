@@ -44,6 +44,43 @@ describe("NodeInputsRecord", () => {
         //@ts-expect-error - wrong v type on port a
         assertType<NodeInputsRecord<"add">>({ a: { v: "foo" }, b: { v: 0 } });
     });
+
+    assertType<NodeInputsRecord<"pointsOnALine">>({
+        "pointA": {
+            "v": {
+                "color": {
+                    r: 1,
+                    g: 1,
+                    b: 1,
+                    a: 1
+                },
+                point: {
+                    x: 1,
+                    y: 1,
+                },
+                "valueType": "colorPoint"
+            }
+        },
+        "pointB": {
+            "v": {
+                "color": {
+                    r: 1,
+                    g: 1,
+                    b: 1,
+                    a: 1
+                },
+                point: {
+                    x: 1,
+                    y: 1,
+                },
+                "valueType": "colorPoint"
+            }
+        },
+        "numberOfPoints": {
+            "v": 1
+        }
+
+    })
 });
 
 describe("NodeOutputsRecord", () => {
@@ -65,5 +102,26 @@ describe("NodeOutputsRecord", () => {
 
         //@ts-expect-error - missing 'points' port
         assertType<NodeOutputsRecord<"orbit">>({ point: { x: 0, y: 0 } });
+    });
+
+
+    it("pointsOnALine (colorPointArray return", () => {
+        assertType<NodeOutputsRecord<"pointsOnALine">>({
+            "points": [
+                {
+                    "color": {
+                        r: 1,
+                        g: 1,
+                        b: 1,
+                        a: 1
+                    },
+                    point: {
+                        x: 1,
+                        y: 1,
+                    },
+                    "valueType": "colorPoint"
+                }
+            ]
+        })
     });
 });
