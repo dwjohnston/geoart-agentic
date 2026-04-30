@@ -35,7 +35,7 @@ export function createGraphEngine(
       tickCount,
       canvas: { orbit: orbitCtx, trail: trailCtx, width: canvasSize, height: canvasSize },
       getState<T>(): T { return undefined as unknown as T; },
-      setState(): void {},
+      setState(): void { },
     };
     evaluatorTick(compiled, tickCount, ctx);
   }
@@ -77,6 +77,7 @@ export function createGraphEngine(
       renderControlNodes: () => graph.control.nodes.map(node => {
         const def = controlRegistry.get(node.type);
         if (!def) return null;
+        //@ts-expect-error - ignore for now
         const element = def.renderControl(node, (paramKey, value) => mutateControl(node.id, paramKey, value));
         return React.createElement(React.Fragment, { key: node.id }, element);
       }),

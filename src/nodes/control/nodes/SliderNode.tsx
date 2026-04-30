@@ -1,23 +1,25 @@
-import type { ControlNodeDef } from '../types';
+import { defineControlNode } from '../types';
 import { SliderControl } from '../ui/SliderControl';
 
-export const sliderNodeDef: ControlNodeDef<'slider'> = {
-  type: 'slider',
-  outputs: [{ name: 'value', type: 'number' }],
-  evaluate(params) {
-    return [{ kind: 'number', v: (params['value']?.v as number) ?? 0 }];
+export const sliderNodeDef = defineControlNode('slider', {
+  defaults: {
+    label: { v: '' },
+    min: { v: 0 },
+    max: { v: 1 },
+    value: { v: 0 },
+    step: { v: 0.01 },
   },
   renderControl(node, set) {
     return (
       <SliderControl
         id={node.id}
-        label={node.params.label?.v ?? ''}
-        min={node.params.min?.v ?? 0}
-        max={node.params.max?.v ?? 1}
-        step={node.params.step?.v ?? 0.01}
-        initialValue={node.params.value?.v ?? 0}
-        onChange={v => set('value', { kind: 'number', v })}
+        label={node.params.label.v}
+        min={node.params.min.v}
+        max={node.params.max.v}
+        step={node.params.step.v}
+        initialValue={node.params.value.v}
+        onChange={v => set('value', { v })}
       />
     );
   },
-};
+});

@@ -5,6 +5,28 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 	control: {
 		nodes: [
 			{
+				id: 'earthWaveType',
+				type: 'dropdown',
+				params: {
+					label: { v: 'Wave Type' },
+					"value": { v: "sine" },
+					options: {
+						"v": ["sine", "square", "saw", "reverse-saw", "triangle"].map((v => ({ v })))
+					}
+				},
+			},
+			{
+				id: 'venusWaveType',
+				type: 'dropdown',
+				params: {
+					label: { v: 'Wave Type' },
+					"value": { v: "sine" },
+					options: {
+						"v": ["sine", "square", "saw", "reverse-saw", "triangle"].map((v => ({ v })))
+					}
+				},
+			},
+			{
 				id: 'earthColor',
 				type: 'colorPicker',
 				params: {
@@ -175,6 +197,7 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 					time: { ref: 'time.time' },
 					frequency: { ref: 'earthSpeedFreq.value' },
 					amplitude: { ref: 'earthSpeedAmp.value' },
+
 				},
 			},
 			{
@@ -184,6 +207,7 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 					time: { ref: 'time.time' },
 					frequency: { ref: 'earthRadiusFreq.value' },
 					amplitude: { ref: 'earthRadiusAmp.value' },
+					waveType: { ref: "earthWaveType.value" }
 				},
 			},
 			{
@@ -202,6 +226,7 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 					time: { ref: 'time.time' },
 					frequency: { ref: 'venusRadiusFreq.value' },
 					amplitude: { ref: 'venusRadiusAmp.value' },
+					waveType: { ref: "venusWaveType.value" }
 				},
 			},
 			{
