@@ -1,4 +1,4 @@
-import type { NodeDef } from './types';
+import type { NodeDef } from './defineComputeNode';
 import { timeNodeDef } from './nodes/time.node';
 import { orbitNodeDef } from './nodes/orbit.node';
 import { colorPointNodeDef } from './nodes/colorPointCompute.node';

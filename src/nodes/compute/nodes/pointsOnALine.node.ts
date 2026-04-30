@@ -1,4 +1,4 @@
-import { defineComputeNode } from '../types';
+import { defineComputeNode } from '../defineComputeNode';
 import { pointsOnALine } from './pointsOnALine';
 
 export const pointsOnALineNodeDef = defineComputeNode("pointsOnALine", {

@@ -1,4 +1,4 @@
-import type { NodeDef } from '../types';
+import type { NodeDef } from '../defineComputeNode';
 import { evaluateTime } from './time';
 
 export const timeNodeDef: NodeDef = {

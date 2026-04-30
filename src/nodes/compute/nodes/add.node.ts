@@ -1,4 +1,4 @@
-import { defineComputeNode } from '../types';
+import { defineComputeNode } from '../defineComputeNode';
 
 export const addNodeDef = defineComputeNode("add", {
   isTimeDependant: false,

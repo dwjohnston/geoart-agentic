@@ -1,4 +1,4 @@
-import { defineComputeNode } from '../types';
+import { defineComputeNode } from '../defineComputeNode';
 import { evaluateOrbitPoints } from './orbit';
 
 export const orbitNodeDef = defineComputeNode("orbit", {

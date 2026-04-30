@@ -1,5 +1,5 @@
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
-import type { NodeDef } from '../../nodes/compute/types';
+import type { NodeDef } from '../../nodes/compute/defineComputeNode';
 import type { RenderNodeDef } from '../../nodes/render/types';
 import type { ValidationError } from './types';
 import { buildNodeMap } from './_helpers';

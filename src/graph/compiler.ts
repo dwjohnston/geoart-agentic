@@ -1,6 +1,6 @@
 import type { GeoArtGraph } from '../schema/_generated/schema-types';
 import type { Value } from './types';
-import type { NodeDef } from '../nodes/compute/types';
+import type { NodeDef } from '../nodes/compute/defineComputeNode';
 import type { RenderNodeDef } from '../nodes/render/types';
 import type { ControlNodeDef } from '../nodes/control/types';
 import { computeRegistry } from '../nodes/compute/registry';
@@ -280,7 +280,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
     const { def } = compiledNode;
     // Control nodes have no inputs — skip.
     const inputs = ((def as NodeDef).inputs ?? (def as RenderNodeDef).inputs) as
-      | import('../nodes/compute/types').PortDef[]
+      | import('../nodes/compute/defineComputeNode').PortDef[]
       | undefined;
     if (!inputs) continue;
 

@@ -1,7 +1,7 @@
 import type { Value, PointValue, ColorPointValue, ColorPointArrayValue } from './types';
 import type { CompiledGraph } from './compiler';
 import type { EvalContext } from './EvalContext';
-import type { NodeDef } from '../nodes/compute/types';
+import type { NodeDef } from '../nodes/compute/defineComputeNode';
 import type { RenderNodeDef } from '../nodes/render/types';
 import type { ControlNodeDef } from '../nodes/control/types';
 
@@ -221,7 +221,7 @@ type NodeStateWithExtra = {
 function buildScopedCtx(
   ctx: EvalContext,
   nodeState: ReturnType<Map<string, NodeStateWithExtra>['get']> & object,
-): import('../nodes/compute/types').EvalContext {
+): import('../nodes/compute/defineComputeNode').EvalContext {
   const state = nodeState as NodeStateWithExtra;
   return {
     tickCount: ctx.tickCount,
@@ -251,7 +251,7 @@ export function tick(compiled: CompiledGraph, t: number, ctx: EvalContext): void
   // 1. Mark time-dependant compute nodes dirty.
   for (const nodeId of compiled.sortedNodes) {
     const node = compiled.nodes.get(nodeId)!;
-    const def = node.def as Partial<import('../nodes/compute/types').NodeDef>;
+    const def = node.def as Partial<import('../nodes/compute/defineComputeNode').NodeDef>;
     if (def.isTimeDependant) {
       compiled.states.get(nodeId)!.isDirty = true;
     }

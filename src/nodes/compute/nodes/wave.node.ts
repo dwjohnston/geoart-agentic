@@ -1,4 +1,4 @@
-import { defineComputeNode } from '../types';
+import { defineComputeNode } from '../defineComputeNode';
 import { evaluateWave } from './wave';
 
 export const waveNodeDef = defineComputeNode("wave", {
