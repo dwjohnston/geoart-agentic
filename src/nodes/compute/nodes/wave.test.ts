@@ -50,15 +50,15 @@ describe('evaluateWave', () => {
     });
   });
 
-  describe('inverse-saw', () => {
+  describe('reverse-saw', () => {
     test('+1 at t=0', () => {
-      expect(evaluateWave('inverse-saw', 1, 1, 0, 0)).toBeCloseTo(1);
+      expect(evaluateWave('reverse-saw', 1, 1, 0, 0)).toBeCloseTo(1);
     });
     test('0 at t=30 ticks (midpoint)', () => {
-      expect(evaluateWave('inverse-saw', 1, 1, 0, 30)).toBeCloseTo(0);
+      expect(evaluateWave('reverse-saw', 1, 1, 0, 30)).toBeCloseTo(0);
     });
     test('approaches -1 near end of cycle', () => {
-      expect(evaluateWave('inverse-saw', 1, 1, 0, 59.94)).toBeCloseTo(-1, 1);
+      expect(evaluateWave('reverse-saw', 1, 1, 0, 59.94)).toBeCloseTo(-1, 1);
     });
   });
 

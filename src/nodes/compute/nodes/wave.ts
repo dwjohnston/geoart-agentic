@@ -1,4 +1,5 @@
-export type WaveType = 'sine' | 'square' | 'saw' | 'inverse-saw' | 'triangle';
+import { UnreachableError } from "../../../common-tooling/errors/UnreachableError";
+import type { V_waveTypeValue } from "../../../schema/_generated/value-kinds-2";
 
 function frac(x: number): number {
   return x - Math.floor(x);
@@ -13,7 +14,7 @@ function frac(x: number): number {
  * @param t - Tick count since algorithm started
  */
 export function evaluateWave(
-  waveType: WaveType,
+  waveType: V_waveTypeValue['v'],
   frequency: number,
   amplitude: number,
   phase: number,
@@ -32,14 +33,14 @@ export function evaluateWave(
     case 'saw':
       raw = 2 * frac(pos) - 1;
       break;
-    case 'inverse-saw':
+    case 'reverse-saw':
       raw = 1 - 2 * frac(pos);
       break;
     case 'triangle':
       raw = 4 * Math.abs(frac(pos - 0.25) - 0.5) - 1;
       break;
     default:
-      raw = Math.sin(2 * Math.PI * pos);
+      throw new UnreachableError(waveType)
   }
 
   return raw * amplitude;
