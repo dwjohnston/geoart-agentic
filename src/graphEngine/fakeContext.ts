@@ -1,6 +1,5 @@
 export type Call =
-  | { kind: 'method'; name: string; args: unknown[] }
-  | { kind: 'set'; name: string; value: unknown };
+  | { kind: 'method'; name: string; args: unknown[] };
 
 export type FakeContext = CanvasRenderingContext2D & {
   getCalls(): Call[];
@@ -37,8 +36,7 @@ export function createFakeContext(): FakeContext {
         calls.push({ kind: 'method', name: String(prop), args });
       };
     },
-    set(_target, prop, value) {
-      calls.push({ kind: 'set', name: String(prop), value });
+    set() {
       return true;
     },
   };
