@@ -2,6 +2,7 @@ import type { Value } from '../../graph/types';
 import type { ComputeNodeKinds, NodeInputsRecord, NodeOutputsRecord } from '../../schema/typeHelpers';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
+import { objectEntries } from '../../common-tooling/typedObject';
 
 //@legacy - this does not belong here we should get this (or a type like this) into `src/graph`
 export type PortDef = {
@@ -38,21 +39,27 @@ export function defineComputeNode<K extends DefineableComputeNodeKind>(
     evaluate: (inputs: NodeInputsRecord<K>) => NodeOutputsRecord<K>;
   }
 ): NodeDef {
-  const inputEntries = Object.entries(nodeInputs[kind]) as [keyof NodeInputsRecord<K>, { valueType: string }][];
-  const outputItems = nodeOutputMeta[kind] as readonly { name: string; valueType: string }[];
+  const inputEntries = objectEntries(nodeInputs[kind]);
+  const outputItems = nodeOutputMeta[kind];
   const inputPortNames = inputEntries.map(([name]) => name);
+
+
 
   return {
     type: kind,
     isTimeDependant: def.isTimeDependant,
 
     //@ts-expect-error - ignore this for now
-    inputs: inputEntries.map(([name, port]) => {
-      console.log(name, def.defaults)
+    inputs: inputEntries.map((entries) => {
+
+      const [paramName, paramValueInformation] = entries;
+      console.log(paramName, def.defaults)
       return {
-        name,
-        type: valueTypeToPortType(port.valueType),
-        default: def.defaults[name]
+        name: paramName,
+        //@ts-expect-error - ignore this for now
+
+        type: valueTypeToPortType(paramValueInformation.valueType),
+        default: def.defaults[paramName]
       }
     }),
     outputs: outputItems.map(({ name, valueType }) => ({
