@@ -6,6 +6,7 @@ import { monaLisaGraph } from './monaLisa';
 import { wavingLinesGraph } from './wavingLines';
 import { lfoPlanetsGraph } from './lfoPlanets';
 import { singleOrbitLfoGraph } from './singleOrbitLfo';
+import { pulsingSpiralsGraph } from './pulsingSpirals';
 
 export type GraphEntry = {
   id: string;
@@ -21,6 +22,7 @@ export const GRAPHS: GraphEntry[] = [
   { id: 'wavingLines', name: 'Waving Lines', graph: wavingLinesGraph },
   { id: 'lfoPlanets', name: 'LFO Planets', graph: lfoPlanetsGraph },
   { id: 'singleOrbitLfo', name: 'Single Orbit LFO', graph: singleOrbitLfoGraph },
+  { id: 'pulsingSpirals', name: 'Pulsing Spirals', graph: pulsingSpiralsGraph },
 ];
 
 export const DEFAULT_GRAPH_ID = GRAPHS[0].id;

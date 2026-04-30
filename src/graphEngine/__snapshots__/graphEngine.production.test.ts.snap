@@ -2455,6 +2455,370 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
 ]
 `;
 
+exports[`All production graphs > 'pulsingSpirals' runs without error 1`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      17.56283111811078,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      32.53333333333334,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      82.53265204455187,
+      49.78945611884319,
+      0.8,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      67.56186813693716,
+      49.81608582406106,
+      1,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      17.62565782651736,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      32.56666666666667,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      82.56393874793702,
+      49.5784896224475,
+      0.8,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      67.62179222848928,
+      49.6308760730767,
+      1,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      17.68847571582503,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      32.6,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      82.59385600776888,
+      49.36710937372314,
+      0.8,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      67.67974752083705,
+      49.4443915508309,
+      1,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs > 'pulsingSpirals' runs without error 2`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      67.56186813693716,
+      49.81608582406106,
+      82.53265204455187,
+      49.78945611884319,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(51, 204, 255, 0.5)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(255, 102, 25.5, 0.5)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      67.56186813693716,
+      49.81608582406106,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      82.53265204455187,
+      49.78945611884319,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
 exports[`All production graphs > 'singleOrbitLfo' runs without error 1`] = `
 [
   {
