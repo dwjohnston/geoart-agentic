@@ -2581,6 +2581,213 @@ exports[`All production graphs > 'monaLisa' runs without error 2`] = `
 ]
 `;
 
+exports[`All production graphs > 'singleOrbitLfo' runs without error 1`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      25,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      74.99996915749259,
+      49.960730107979224,
+      1,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      25,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      74.99987663004646,
+      49.92146031285301,
+      1,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      25,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      74.9997224178899,
+      49.88219071151566,
+      1,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs > 'singleOrbitLfo' runs without error 2`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      74.99996915749259,
+      49.960730107979224,
+      0.25,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
 exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
 [
   {
@@ -2610,8 +2817,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      74.99978067577844,
-      49.89528055111491,
+      50,
+      50,
       25,
       0,
       6.283185307179586,
@@ -2746,8 +2953,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      74.99912270696201,
-      49.79056293963073,
+      50,
+      50,
       25,
       0,
       6.283185307179586,
@@ -2882,8 +3089,8 @@ exports[`All production graphs > 'threeOrbits' runs without error 1`] = `
   },
   {
     "args": [
-      74.9980261050954,
-      49.685849002916186,
+      50,
+      50,
       25,
       0,
       6.283185307179586,

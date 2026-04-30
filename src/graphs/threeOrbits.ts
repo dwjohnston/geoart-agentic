@@ -236,7 +236,6 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					center: { ref: 'orbitA.point' },
 					radius: { ref: 'aRadiusSlider.value' },
 					color: { ref: 'aColor.value' },
 				},
