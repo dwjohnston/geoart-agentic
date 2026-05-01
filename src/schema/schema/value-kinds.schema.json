@@ -29,7 +29,7 @@
       }
     },
     "stringArrayValue": {
-      "title": "String Value",
+      "title": "String Array Value",
       "type": "object",
       "required": [
         "v"

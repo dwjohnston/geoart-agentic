@@ -259,30 +259,104 @@
           }
         },
         {
+          "title": "Wave Selector Control Node",
+          "type": "object",
+          "description": "Wave Selector",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "value",
+              "valueType": "waveTypeValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "waveSelector"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
+                },
+                "value": {
+                  "$ref": "value-kinds.schema.json#/definitions/waveTypeValue"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "LFO Control Node",
           "type": "object",
           "description": "Bundles the four LFO parameters into one compact control — outputs baseValue, frequency, amplitude, and waveShape for wiring into a wave compute node",
           "additionalProperties": false,
-          "required": ["id", "type", "params"],
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
           "x-outputs": [
-            { "name": "baseValue",  "valueType": "numberValue" },
-            { "name": "frequency",  "valueType": "numberValue" },
-            { "name": "amplitude",  "valueType": "numberValue" },
-            { "name": "waveShape",  "valueType": "waveTypeValue" }
+            {
+              "name": "baseValue",
+              "valueType": "numberValue"
+            },
+            {
+              "name": "frequency",
+              "valueType": "numberValue"
+            },
+            {
+              "name": "amplitude",
+              "valueType": "numberValue"
+            },
+            {
+              "name": "waveShape",
+              "valueType": "waveTypeValue"
+            }
           ],
           "properties": {
-            "id":   { "title": "ID",   "type": "string" },
-            "type": { "title": "Type", "type": "string", "enum": ["lfo-control"] },
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "lfo-control"
+              ]
+            },
             "params": {
               "title": "Params",
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "baseValue":        { "$ref": "value-kinds.schema.json#/definitions/numberValue" },
-                "frequency":        { "$ref": "value-kinds.schema.json#/definitions/numberValue" },
-                "amplitude":        { "$ref": "value-kinds.schema.json#/definitions/numberValue" },
-                "waveShape":        { "$ref": "value-kinds.schema.json#/definitions/waveTypeValue" },
-                "waveShapeOptions": { "$ref": "value-kinds.schema.json#/definitions/stringArrayValue" }
+                "baseValue": {
+                  "$ref": "value-kinds.schema.json#/definitions/numberValue"
+                },
+                "frequency": {
+                  "$ref": "value-kinds.schema.json#/definitions/numberValue"
+                },
+                "amplitude": {
+                  "$ref": "value-kinds.schema.json#/definitions/numberValue"
+                },
+                "waveShape": {
+                  "$ref": "value-kinds.schema.json#/definitions/waveTypeValue"
+                }
               }
             }
           }

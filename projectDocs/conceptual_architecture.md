@@ -19,6 +19,33 @@ The schema is split across three files:
 
 The split exists to make it straightforward to generate TypeScript types from each concern independently.
 
+Value types are always keyed with `v`, eg
+
+```
+    "numberValue": {
+      "title": "Number Value",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "number"
+        }
+      }
+    },
+```
+
+This means that when we go to add some inputs in an algorithm we can easily distingush static values from refs.
+
+eg. 
+
+```
+					time:      { ref: 'time.time' }, // a ref
+					frequency: { v: 1}               // a static value
+ ```
+
 ## Node Types
 
 There are three kinds of node, corresponding to three layers of the architecture:

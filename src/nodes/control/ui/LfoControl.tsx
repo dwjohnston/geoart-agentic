@@ -1,5 +1,9 @@
 import { KnobControl } from './KnobControl';
 import { DropdownControl } from './DropdownControl';
+import { DebugPanel } from '../../../ui-tooling/DebugPanel';
+
+
+
 
 type Props = {
   id: string;
@@ -7,7 +11,7 @@ type Props = {
   frequency: number;
   amplitude: number;
   waveShape: string;
-  waveShapeOptions: string[];
+  waveShapeOptions: readonly string[];
   onBaseValueChange: (v: number) => void;
   onFrequencyChange: (v: number) => void;
   onAmplitudeChange: (v: number) => void;
@@ -43,6 +47,7 @@ export function LfoControl({
 
       {/* Right column: wave shape dropdown + two small knobs */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <DebugPanel value={{ waveShape, waveShapeOptions }} />
         <DropdownControl
           id={`${id}-waveShape`}
           label=""

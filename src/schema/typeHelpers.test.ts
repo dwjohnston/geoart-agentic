@@ -1,5 +1,5 @@
-import { describe, it, assertType } from 'vitest';
-import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsRecord, type NodeOutputsRecord } from './typeHelpers';
+import { describe, it, assertType, expect } from 'vitest';
+import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsRecord, type NodeOutputsRecord, type ResolvedValue } from './typeHelpers';
 
 
 describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds", () => {
@@ -23,8 +23,24 @@ describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds", () => {
 })
 
 describe("ValueTypeByName", () => {
+
+
+    it("only accepts full suffixed values", () => {
+
+
+        type X = ValueTypeByName<"numberValue">;
+        //@ts-expect-error - needs to be one of the full types
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        type T = ValueTypeByName<"X">
+
+
+        const x = { v: 9 } satisfies X;
+        expect(x.v).toBe(9)
+
+    })
     it("maps 'numberValue' to { v: number } without kind", () => {
         assertType<ValueTypeByName<"numberValue">>({ v: 1 });
+
 
         //@ts-expect-error - wrong v type
         assertType<ValueTypeByName<"numberValue">>({ v: "foo" });
@@ -32,7 +48,36 @@ describe("ValueTypeByName", () => {
         //@ts-expect-error - kind is not part of the type
         assertType<ValueTypeByName<"numberValue">>({ kind: 'number', v: 1 });
     });
+
+
+    it("waveTypes", () => {
+        assertType<ValueTypeByName<"waveTypeValue">>({ "v": "saw" })
+
+        //@ts-expect-error - not matching the enum
+        assertType<ValueTypeByName<"waveTypeValue">>({ "v": "sdfds" })
+
+    })
 });
+
+
+describe('ResolvedValue', () => {
+    it("has just the shorthand value representation", () => {
+        assertType<ResolvedValue<"waveTypeValue">>("reverse-saw")
+
+        //@ts-expect-error - mis matching type
+        assertType<ResolvedValue<"waveTypeValue">>("sfdsfd")
+
+
+        assertType<ResolvedValue<"numberValue">>(1);
+
+
+        assertType<ResolvedValue<"stringArrayValue">>(["1", "2"]);
+
+
+
+
+    })
+})
 
 describe("NodeInputsRecord", () => {
     it("maps 'add' inputs to named ports without kind", () => {

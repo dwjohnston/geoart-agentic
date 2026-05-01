@@ -7,6 +7,8 @@
     - Ban !
 
 - Enforce file name conventions. 
+    - node file names
+
 - Enforce node titles in schema. Just via test? 
 
 - Git hooks

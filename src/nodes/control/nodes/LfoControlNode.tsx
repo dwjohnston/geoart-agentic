@@ -1,5 +1,6 @@
 import { defineControlNode } from '../types';
 import { LfoControl } from '../ui/LfoControl';
+const WAVE_TYPES = ["sine", "square", "triangle", "saw", "reverse-saw"] as const
 
 export const lfoControlNodeDef = defineControlNode('lfo-control', {
   defaults: {
@@ -7,7 +8,6 @@ export const lfoControlNodeDef = defineControlNode('lfo-control', {
     frequency: { v: 0.5 },
     amplitude: { v: 0 },
     waveShape: { v: 'sine' },
-    waveShapeOptions: { v: ["sine", "square", "saw", "reverse-saw", "triangle"] as const }
   },
   renderControl(node, set) {
     return (
@@ -17,7 +17,7 @@ export const lfoControlNodeDef = defineControlNode('lfo-control', {
         frequency={node.params.frequency.v}
         amplitude={node.params.amplitude.v}
         waveShape={node.params.waveShape.v}
-        waveShapeOptions={node.params.waveShapeOptions.v.map(s => s.v)}
+        waveShapeOptions={WAVE_TYPES}
         onBaseValueChange={v => set('baseValue', { v })}
         onFrequencyChange={v => set('frequency', { v })}
         onAmplitudeChange={v => set('amplitude', { v })}
