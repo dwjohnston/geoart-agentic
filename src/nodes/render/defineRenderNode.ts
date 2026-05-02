@@ -2,11 +2,17 @@ import type { Value } from '../../graph/types';
 import type { RenderNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
-import type { PortDef, RenderEvalContext, RenderNodeDef } from './types';
+import type { PortDef, RenderEvalContext, LegacyRenderNodeDef } from './types';
 
 
 // 🤖 Move to typeHelpers
 export type DefineableRenderNodeKind = RenderNodeKinds & keyof typeof nodeInputs;
+
+export type RenderNodeDef<K extends DefineableRenderNodeKind> = {
+  nodeKind: K;
+  defaultValues: NodeInputsResolved<K>;
+  evaluate: (inputs: NodeInputsResolved<K>, ctx: RenderEvalContext) => void;
+};
 
 export function defineRenderNode<K extends DefineableRenderNodeKind>(
   kind: K,
@@ -14,12 +20,22 @@ export function defineRenderNode<K extends DefineableRenderNodeKind>(
     defaults: NodeInputsResolved<K>;
     evaluate: (inputs: NodeInputsResolved<K>, ctx: RenderEvalContext) => void;
   }
-): RenderNodeDef {
-  const inputEntries = objectEntries(nodeInputs[kind]);
+): RenderNodeDef<K> {
+  return {
+    nodeKind: kind,
+    defaultValues: def.defaults,
+    evaluate: def.evaluate,
+  };
+}
+
+export function convertRenderNodeDefToLegacy<K extends DefineableRenderNodeKind>(
+  def: RenderNodeDef<K>
+): LegacyRenderNodeDef {
+  const inputEntries = objectEntries(nodeInputs[def.nodeKind]);
   const inputPortNames = inputEntries.map(([name]) => name);
 
   return {
-    type: kind,
+    type: def.nodeKind,
     //@ts-expect-error - ignore this for now
     inputs: inputEntries.map((entries) => {
       const [paramName, paramValueInformation] = entries;
@@ -29,20 +45,19 @@ export function defineRenderNode<K extends DefineableRenderNodeKind>(
         //@ts-expect-error - ignore this for now
         type: valueTypeToPortType(paramValueInformation.valueType),
         //@ts-expect-error - ignore this for now
-        default: buildDefault(paramValueInformation.valueType, { v: def.defaults[paramName] }),
+        default: buildDefault(paramValueInformation.valueType, { v: def.defaultValues[paramName] }),
       };
     }),
     outputs: [],
     evaluate(inputs: Value[], ctx: RenderEvalContext): void {
       const namedInputs = Object.fromEntries(
         inputPortNames.map((name, i) => [name, inputs[i]['v']])
-      ) as unknown as NodeInputsResolved<K>;
+      ) as NodeInputsResolved<K>;
 
       def.evaluate(namedInputs, ctx);
     },
   };
 }
-
 
 
 function valueTypeToPortType(valueType: string): PortDef['type'] {

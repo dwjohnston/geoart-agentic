@@ -1,10 +1,12 @@
-import type { RenderNodeDef } from './types';
+import type { LegacyRenderNodeDef } from './types';
+import type { RenderNodeDef } from './defineRenderNode';
+import { convertRenderNodeDefToLegacy } from './defineRenderNode';
+import type { RenderNodeKinds } from '../../schema/typeHelpers';
 import { timedLineNodeDef } from './nodes/timedLine.node';
 import { timedLineArrayNodeDef } from './nodes/timedLineArray.node';
 import { circleNodeDef } from './nodes/circle.node';
 
-export const renderRegistry = new Map<string, RenderNodeDef>([
-  [timedLineNodeDef.type, timedLineNodeDef],
-  [timedLineArrayNodeDef.type, timedLineArrayNodeDef],
-  [circleNodeDef.type, circleNodeDef],
-]);
+export const renderRegistry = new Map<string, LegacyRenderNodeDef>(
+  ([timedLineNodeDef, timedLineArrayNodeDef, circleNodeDef] as Array<RenderNodeDef<RenderNodeKinds>>)
+    .map(v => [v.nodeKind, convertRenderNodeDefToLegacy(v)] as [string, LegacyRenderNodeDef])
+);

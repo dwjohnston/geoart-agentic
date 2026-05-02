@@ -1,6 +1,6 @@
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { NodeDef } from '../../nodes/compute/defineComputeNode';
-import type { RenderNodeDef } from '../../nodes/render/types';
+import type { LegacyRenderNodeDef } from '../../nodes/render/types';
 import type { ValidationError } from './types';
 import { buildNodeMap } from './_helpers';
 
@@ -20,7 +20,7 @@ export function validateEnumValues(graph: GeoArtGraph): ValidationError[] {
     if (!entry) continue;
 
     const inputs = 'inputs' in entry.def
-      ? ((entry.def as NodeDef | RenderNodeDef).inputs as EnumPortDef[])
+      ? ((entry.def as NodeDef | LegacyRenderNodeDef).inputs as EnumPortDef[])
       : undefined;
     if (!inputs) continue;
 

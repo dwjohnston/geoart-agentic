@@ -24,19 +24,27 @@ type OutputValueForPort<K extends keyof typeof nodeOutputMeta, PortName extends 
 export type ControlSetter<K extends keyof typeof nodeOutputMeta> =
   <PortName extends OutputPortNames<K>>(paramKey: PortName, value: OutputValueForPort<K, PortName>) => void;
 
-export type ControlNodeDef<T extends ControlNode['type'] & keyof typeof nodeOutputMeta = ControlNode['type'] & keyof typeof nodeOutputMeta> = {
+// Legacy format — used internally by the registry and graph layer
+export type LegacyControlNodeDef<T extends ControlNode['type'] & keyof typeof nodeOutputMeta = ControlNode['type'] & keyof typeof nodeOutputMeta> = {
   type: T;
   outputs: PortDef[];
   evaluate(params: ResolvedParams): Value[];
   renderControl(node: Extract<ControlNode, { type: T }>, set: ControlSetter<T>): React.ReactNode;
 };
 
-type DefineableControlNodeKind = ControlNodeKinds & keyof typeof nodeInputs & keyof typeof nodeOutputMeta;
+export type DefineableControlNodeKind = ControlNodeKinds & keyof typeof nodeInputs & keyof typeof nodeOutputMeta;
 
-type NodeWithDefaults<K extends DefineableControlNodeKind> =
+export type NodeWithDefaults<K extends DefineableControlNodeKind> =
   Omit<Extract<ControlNode, { type: K }>, 'params'> & {
     params: Required<Extract<ControlNode, { type: K }>['params']>;
   };
+
+// Clean typed spec — mirrors ComputeNodeDef<K>
+export type ControlNodeDef<K extends DefineableControlNodeKind> = {
+  nodeKind: K;
+  defaultValues: NodeInputsResolved<K>;
+  renderControl: (node: NodeWithDefaults<K>, set: ControlSetter<K>) => React.ReactNode;
+};
 
 export function defineControlNode<K extends DefineableControlNodeKind>(
   kind: K,
@@ -45,11 +53,21 @@ export function defineControlNode<K extends DefineableControlNodeKind>(
     renderControl: (node: NodeWithDefaults<K>, set: ControlSetter<K>) => React.ReactNode;
   }
 ): ControlNodeDef<K> {
-  const outputItems = nodeOutputMeta[kind];
-  const defaults = def.defaults as unknown as Record<string, { v: unknown }>;
+  return {
+    nodeKind: kind,
+    defaultValues: def.defaults,
+    renderControl: def.renderControl,
+  } as unknown as ControlNodeDef<K>;
+}
+
+export function convertControlNodeDefToLegacy<K extends DefineableControlNodeKind>(
+  def: ControlNodeDef<K>
+): LegacyControlNodeDef<K> {
+  const outputItems = nodeOutputMeta[def.nodeKind];
+  const defaults = def.defaultValues as unknown as Record<string, { v: unknown }>;
 
   return {
-    type: kind,
+    type: def.nodeKind,
     outputs: outputItems.map(({ name, valueType }) => ({
       name,
       type: valueTypeToPortType(valueType),
@@ -62,18 +80,16 @@ export function defineControlNode<K extends DefineableControlNodeKind>(
       });
     },
     renderControl(rawNode: Extract<ControlNode, { type: K }>, set: ControlSetter<K>) {
-
-
       const mungedDefaults = Object.entries(defaults).reduce((acc, cur) => {
-        return { ...acc, [cur[0]]: cur[1] }
-      })
+        return { ...acc, [cur[0]]: cur[1] };
+      });
       const node = {
         ...rawNode,
         params: { ...mungedDefaults, ...rawNode.params },
       } as unknown as NodeWithDefaults<K>;
       return def.renderControl(node, set);
     },
-  } as unknown as ControlNodeDef<K>;
+  } as unknown as LegacyControlNodeDef<K>;
 }
 
 function valueTypeToPortType(valueType: string): PortDef['type'] {

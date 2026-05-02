@@ -2,8 +2,8 @@ import type { Value, PointValue, ColorPointValue, ColorPointArrayValue } from '.
 import type { CompiledGraph } from './compiler';
 import type { EvalContext } from './EvalContext';
 import type { NodeDef } from '../nodes/compute/defineComputeNode';
-import type { RenderNodeDef } from '../nodes/render/types';
-import type { ControlNodeDef } from '../nodes/control/types';
+import type { LegacyRenderNodeDef } from '../nodes/render/types';
+import type { LegacyControlNodeDef } from '../nodes/control/types';
 
 // ---------------------------------------------------------------------------
 // resolveInput
@@ -44,7 +44,7 @@ export function resolveInput(
   const def = compiledNode.def;
 
   // Control nodes have no inputs array — they should never reach here.
-  const inputs = (def as NodeDef | RenderNodeDef).inputs;
+  const inputs = (def as NodeDef | LegacyRenderNodeDef).inputs;
   if (!inputs || portIndex >= inputs.length) {
     throw new Error(
       `resolveInput: port ${portIndex} out of range for node "${nodeId}"`,
@@ -152,7 +152,7 @@ function evaluateNode(
 
   // ---- Control node -------------------------------------------------------
   if (layer === 'control') {
-    const controlDef = def as ControlNodeDef;
+    const controlDef = def as LegacyControlNodeDef;
     // Build ResolvedParams from the compiled static params.
     const resolvedParams: Record<string, { v: unknown }> = {};
     for (const [key, val] of Object.entries(compiledNode.params)) {
@@ -174,7 +174,7 @@ function evaluateNode(
   }
 
   // ---- Render node --------------------------------------------------------
-  const renderDef = def as RenderNodeDef;
+  const renderDef = def as LegacyRenderNodeDef;
 
   // Resolve all inputs for the render node.
   const rawInputs: Value[] = renderDef.inputs.map((_, i) =>

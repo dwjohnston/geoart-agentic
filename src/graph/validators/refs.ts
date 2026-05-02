@@ -1,6 +1,6 @@
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { NodeDef } from '../../nodes/compute/defineComputeNode';
-import type { RenderNodeDef } from '../../nodes/render/types';
+import type { LegacyRenderNodeDef } from '../../nodes/render/types';
 import type { ValidationError } from './types';
 import { parseRefs, buildNodeMap, type AnyNodeDef, type NodeLayer } from './_helpers';
 
@@ -12,7 +12,7 @@ function getOutputs(def: AnyNodeDef): { name: string; type: string }[] {
 
 function getInputs(def: AnyNodeDef): { name: string; type: string }[] | undefined {
   if ('inputs' in def) {
-    return ((def as NodeDef | RenderNodeDef).inputs) as { name: string; type: string }[];
+    return ((def as NodeDef | LegacyRenderNodeDef).inputs) as { name: string; type: string }[];
   }
   return undefined;
 }

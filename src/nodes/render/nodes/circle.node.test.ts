@@ -8,38 +8,15 @@ describe("circleNodeDef", () => {
 
         const fakeContext = createFakeContext();
 
-
-        // THIS SUCKS
-        // The array is really awful, no names on them. 
-        circleNodeDef.evaluate([
-            {
-                "kind": "number",
-                "v": 1,
-            },
-            {
-                "kind": "point",
-                "v": {
-                    x: 0, y: 0
-                }
-            },
-            {
-                "kind": "number",
-                "v": 1
-            },
-            {
-                "kind": "color",
-                "v": {
-                    a: 1,
-                    r: 1,
-                    g: 1,
-                    b: 1,
-                }
-            },
-
-        ], {
-            "canvas": fakeContext,
-            "height": 100,
-            width: 100
+        circleNodeDef.evaluate({
+            intervalTicks: 0,
+            center: { x: 0, y: 0 },
+            radius: 1,
+            color: { r: 1, g: 1, b: 1, a: 1 },
+        }, {
+            canvas: fakeContext,
+            height: 100,
+            width: 100,
         })
 
 
