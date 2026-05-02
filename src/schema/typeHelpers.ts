@@ -36,15 +36,22 @@ export type InputDefsAsObject<T extends keyof typeof nodeInputs> = typeof nodeIn
 // Given a compute node kind (e.g. "add"), produces a record of output port names
 // to the raw .v type of each port: { sum: number }
 // The evaluate function returns this shape — defineComputeNode reconstructs the full Value.
-export type NodeOutputsRecord<K extends keyof typeof nodeOutputMeta> = {
+export type NodeOutputsResolved<K extends keyof typeof nodeOutputMeta> = {
   [Item in typeof nodeOutputMeta[K][number]as Item['name']]:
   ValueTypeByName<Item['valueType']> extends { v: infer V } ? V : never
 }
 
-// Given a compute node kind (e.g. "add"), produces a record of input port names
-// to their full value types: { a: V_numberValue; b: V_numberValue }
-export type NodeInputsRecord<K extends keyof typeof nodeInputs> = {
+
+
+/**
+ * Given a nodeType, get its resolved values
+ */
+export type NodeInputsResolved<K extends keyof typeof nodeInputs> = {
   [Port in keyof typeof nodeInputs[K]]: typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
   ? ResolvedValue<VT>
   : never
 }
+
+
+
+

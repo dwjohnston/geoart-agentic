@@ -1,5 +1,6 @@
 import { defineComputeNode } from '../defineComputeNode';
 
+
 export const addNodeDef = defineComputeNode("add", {
   isTimeDependant: false,
   defaults: {
@@ -11,4 +12,5 @@ export const addNodeDef = defineComputeNode("add", {
     const b = inputs.b;
     return { sum: a + b };
   },
-});
+})
+

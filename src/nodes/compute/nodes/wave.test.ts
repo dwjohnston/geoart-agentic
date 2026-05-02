@@ -1,82 +1,88 @@
 import { describe, expect, test } from 'vitest';
-import { evaluateWave } from './wave';
+import { waveNodeDef } from './wave.node';
 
-describe('evaluateWave', () => {
+const base = { time: 0, waveType: 'sine' as const, frequency: 1, amplitude: 1, phase: 0 };
+
+describe('waveNodeDef', () => {
   describe('sine', () => {
     test('zero at t=0', () => {
-      expect(evaluateWave('sine', 1, 1, 0, 0)).toBeCloseTo(0);
+      expect(waveNodeDef.evaluate(base).value).toBeCloseTo(0);
     });
-    test('peaks at +1 at t=15 ticks (quarter cycle, freq=1)', () => {
-      expect(evaluateWave('sine', 1, 1, 0, 15)).toBeCloseTo(1);
+    test('peaks at +1 at t=15 (quarter cycle)', () => {
+      expect(waveNodeDef.evaluate({ ...base, time: 15 }).value).toBeCloseTo(1);
     });
-    test('zero at t=30 ticks (half cycle)', () => {
-      expect(evaluateWave('sine', 1, 1, 0, 30)).toBeCloseTo(0);
+    test('zero at t=30 (half cycle)', () => {
+      expect(waveNodeDef.evaluate({ ...base, time: 30 }).value).toBeCloseTo(0);
     });
-    test('troughs at -1 at t=45 ticks (three-quarter cycle)', () => {
-      expect(evaluateWave('sine', 1, 1, 0, 45)).toBeCloseTo(-1);
+    test('troughs at -1 at t=45 (three-quarter cycle)', () => {
+      expect(waveNodeDef.evaluate({ ...base, time: 45 }).value).toBeCloseTo(-1);
     });
     test('amplitude scales output', () => {
-      expect(evaluateWave('sine', 1, 0.5, 0, 15)).toBeCloseTo(0.5);
+      expect(waveNodeDef.evaluate({ ...base, amplitude: 0.5, time: 15 }).value).toBeCloseTo(0.5);
     });
     test('phase 0.25 shifts peak to t=0', () => {
-      expect(evaluateWave('sine', 1, 1, 0.25, 0)).toBeCloseTo(1);
+      expect(waveNodeDef.evaluate({ ...base, phase: 0.25 }).value).toBeCloseTo(1);
     });
-    test('phase 0.5 inverts (starts at 0 going negative)', () => {
-      expect(evaluateWave('sine', 1, 1, 0.5, 15)).toBeCloseTo(-1);
+    test('phase 0.5 inverts', () => {
+      expect(waveNodeDef.evaluate({ ...base, phase: 0.5, time: 15 }).value).toBeCloseTo(-1);
     });
   });
 
   describe('square', () => {
+    const sq = { ...base, waveType: 'square' as const };
     test('+1 in first half of cycle', () => {
-      expect(evaluateWave('square', 1, 1, 0, 6)).toBe(1);
+      expect(waveNodeDef.evaluate({ ...sq, time: 6 }).value).toBe(1);
     });
     test('-1 in second half of cycle', () => {
-      expect(evaluateWave('square', 1, 1, 0, 36)).toBe(-1);
+      expect(waveNodeDef.evaluate({ ...sq, time: 36 }).value).toBe(-1);
     });
     test('amplitude scales output', () => {
-      expect(evaluateWave('square', 1, 0.5, 0, 6)).toBe(0.5);
+      expect(waveNodeDef.evaluate({ ...sq, amplitude: 0.5, time: 6 }).value).toBe(0.5);
     });
   });
 
   describe('saw', () => {
+    const saw = { ...base, waveType: 'saw' as const };
     test('-1 at t=0', () => {
-      expect(evaluateWave('saw', 1, 1, 0, 0)).toBeCloseTo(-1);
+      expect(waveNodeDef.evaluate(saw).value).toBeCloseTo(-1);
     });
-    test('0 at t=30 ticks (midpoint)', () => {
-      expect(evaluateWave('saw', 1, 1, 0, 30)).toBeCloseTo(0);
+    test('0 at midpoint (t=30)', () => {
+      expect(waveNodeDef.evaluate({ ...saw, time: 30 }).value).toBeCloseTo(0);
     });
     test('approaches +1 near end of cycle', () => {
-      expect(evaluateWave('saw', 1, 1, 0, 59.94)).toBeCloseTo(1, 1);
+      expect(waveNodeDef.evaluate({ ...saw, time: 59.94 }).value).toBeCloseTo(1, 1);
     });
   });
 
   describe('reverse-saw', () => {
+    const rsaw = { ...base, waveType: 'reverse-saw' as const };
     test('+1 at t=0', () => {
-      expect(evaluateWave('reverse-saw', 1, 1, 0, 0)).toBeCloseTo(1);
+      expect(waveNodeDef.evaluate(rsaw).value).toBeCloseTo(1);
     });
-    test('0 at t=30 ticks (midpoint)', () => {
-      expect(evaluateWave('reverse-saw', 1, 1, 0, 30)).toBeCloseTo(0);
+    test('0 at midpoint (t=30)', () => {
+      expect(waveNodeDef.evaluate({ ...rsaw, time: 30 }).value).toBeCloseTo(0);
     });
     test('approaches -1 near end of cycle', () => {
-      expect(evaluateWave('reverse-saw', 1, 1, 0, 59.94)).toBeCloseTo(-1, 1);
+      expect(waveNodeDef.evaluate({ ...rsaw, time: 59.94 }).value).toBeCloseTo(-1, 1);
     });
   });
 
   describe('triangle', () => {
+    const tri = { ...base, waveType: 'triangle' as const };
     test('0 at t=0', () => {
-      expect(evaluateWave('triangle', 1, 1, 0, 0)).toBeCloseTo(0);
+      expect(waveNodeDef.evaluate(tri).value).toBeCloseTo(0);
     });
-    test('+1 at t=15 ticks (peak)', () => {
-      expect(evaluateWave('triangle', 1, 1, 0, 15)).toBeCloseTo(1);
+    test('+1 at peak (t=15)', () => {
+      expect(waveNodeDef.evaluate({ ...tri, time: 15 }).value).toBeCloseTo(1);
     });
-    test('0 at t=30 ticks', () => {
-      expect(evaluateWave('triangle', 1, 1, 0, 30)).toBeCloseTo(0);
+    test('0 at t=30', () => {
+      expect(waveNodeDef.evaluate({ ...tri, time: 30 }).value).toBeCloseTo(0);
     });
-    test('-1 at t=45 ticks (trough)', () => {
-      expect(evaluateWave('triangle', 1, 1, 0, 45)).toBeCloseTo(-1);
+    test('-1 at trough (t=45)', () => {
+      expect(waveNodeDef.evaluate({ ...tri, time: 45 }).value).toBeCloseTo(-1);
     });
     test('amplitude scales output', () => {
-      expect(evaluateWave('triangle', 1, 2, 0, 15)).toBeCloseTo(2);
+      expect(waveNodeDef.evaluate({ ...tri, amplitude: 2, time: 15 }).value).toBeCloseTo(2);
     });
   });
 });

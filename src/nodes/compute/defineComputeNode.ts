@@ -1,5 +1,5 @@
 import type { Value } from '../../graph/types';
-import type { ComputeNodeKinds, NodeInputsRecord, NodeOutputsRecord } from '../../schema/typeHelpers';
+import type { ComputeNodeKinds, NodeInputsResolved, NodeOutputsResolved } from '../../schema/typeHelpers';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
@@ -28,15 +28,25 @@ export type NodeDef = {
   outputs: PortDef[];
   evaluate(inputs: Value[], ctx: EvalContext): Value[];
 };
+type DefineableComputeNodeKind = ComputeNodeKinds;
 
-type DefineableComputeNodeKind = ComputeNodeKinds & keyof typeof nodeInputs & keyof typeof nodeOutputMeta;
 
-export function defineComputeNode<K extends DefineableComputeNodeKind>(
+export type ComputeNodeDef<T extends DefineableComputeNodeKind> = {
+  nodeKind: T;
+
+  //I'm not sure about this one though
+  isTimeDependant?: boolean;
+  defaultValues: NodeInputsResolved<T>;
+  evaluate: (inputs: NodeInputsResolved<T>) => NodeOutputsResolved<T>
+}
+
+
+export function defineComputeNodeLegacy<K extends DefineableComputeNodeKind>(
   kind: K,
   def: {
     isTimeDependant?: boolean;
-    defaults: NodeInputsRecord<K>,
-    evaluate: (inputs: NodeInputsRecord<K>) => NodeOutputsRecord<K>;
+    defaults: NodeInputsResolved<K>,
+    evaluate: (inputs: NodeInputsResolved<K>) => NodeOutputsResolved<K>;
   }
 ): NodeDef {
   const inputEntries = objectEntries(nodeInputs[kind]);
@@ -68,7 +78,7 @@ export function defineComputeNode<K extends DefineableComputeNodeKind>(
     evaluate(inputs: Value[]) {
       const namedInputs = Object.fromEntries(
         inputPortNames.map((name, i) => [name, inputs[i]['v']])
-      ) as unknown as NodeInputsRecord<K>;
+      ) as unknown as NodeInputsResolved<K>;
 
       const result = def.evaluate(namedInputs);
 
@@ -79,6 +89,34 @@ export function defineComputeNode<K extends DefineableComputeNodeKind>(
       });
     },
   };
+}
+
+
+export function convertComputeNodeDefinitionToLegacyDefinition<T extends ComputeNodeKinds>(value: ComputeNodeDef<T>): NodeDef {
+
+
+
+  return defineComputeNodeLegacy(value.nodeKind, {
+    defaults: value.defaultValues,
+    evaluate: value.evaluate,
+    isTimeDependant: value.isTimeDependant
+  })
+}
+
+export function defineComputeNode<K extends ComputeNodeKinds>(
+  kind: K,
+  def: {
+    isTimeDependant?: boolean;
+    defaults: NodeInputsResolved<K>,
+    evaluate: (inputs: NodeInputsResolved<K>) => NodeOutputsResolved<K>;
+  }
+): ComputeNodeDef<K> {
+  return {
+    nodeKind: kind,
+    isTimeDependant: def.isTimeDependant,
+    evaluate: def.evaluate,
+    defaultValues: def.defaults
+  }
 }
 
 function valueTypeToPortType(valueType: string): PortDef['type'] {

@@ -1,5 +1,5 @@
 import { describe, it, assertType, expect } from 'vitest';
-import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsRecord, type NodeOutputsRecord, type ResolvedValue } from './typeHelpers';
+import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue } from './typeHelpers';
 
 
 describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds", () => {
@@ -81,16 +81,16 @@ describe('ResolvedValue', () => {
 
 describe("NodeInputsRecord", () => {
     it("maps 'add' inputs to named ports without kind", () => {
-        assertType<NodeInputsRecord<"add">>({ a: 1, b: 2 });
+        assertType<NodeInputsResolved<"add">>({ a: 1, b: 2 });
 
         //@ts-expect-error - wrong key name
-        assertType<NodeInputsRecord<"add">>({ x: 1, b: 2 });
+        assertType<NodeInputsResolved<"add">>({ x: 1, b: 2 });
 
         //@ts-expect-error - wrong v type on port a
-        assertType<NodeInputsRecord<"add">>({ a: "foo", b: 0 });
+        assertType<NodeInputsResolved<"add">>({ a: "foo", b: 0 });
     });
 
-    assertType<NodeInputsRecord<"pointsOnALine">>({
+    assertType<NodeInputsResolved<"pointsOnALine">>({
         "pointA": {
 
             r: 1,
@@ -120,28 +120,28 @@ describe("NodeInputsRecord", () => {
 
 describe("NodeOutputsRecord", () => {
     it("maps 'add' outputs to named ports with raw .v types", () => {
-        assertType<NodeOutputsRecord<"add">>({ sum: 42 });
+        assertType<NodeOutputsResolved<"add">>({ sum: 42 });
 
         //@ts-expect-error - wrong key name
-        assertType<NodeOutputsRecord<"add">>({ value: 42 });
+        assertType<NodeOutputsResolved<"add">>({ value: 42 });
 
         //@ts-expect-error - wrong value type (string instead of number)
-        assertType<NodeOutputsRecord<"add">>({ sum: "42" });
+        assertType<NodeOutputsResolved<"add">>({ sum: "42" });
     });
 
     it("maps multi-output node 'orbit' to both port names", () => {
-        assertType<NodeOutputsRecord<"orbit">>({
+        assertType<NodeOutputsResolved<"orbit">>({
             point: { x: 0, y: 0 },
             points: [],
         });
 
         //@ts-expect-error - missing 'points' port
-        assertType<NodeOutputsRecord<"orbit">>({ point: { x: 0, y: 0 } });
+        assertType<NodeOutputsResolved<"orbit">>({ point: { x: 0, y: 0 } });
     });
 
 
     it("pointsOnALine (colorPointArray return", () => {
-        assertType<NodeOutputsRecord<"pointsOnALine">>({
+        assertType<NodeOutputsResolved<"pointsOnALine">>({
             "points": [
                 {
                     r: 1,

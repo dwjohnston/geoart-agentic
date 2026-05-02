@@ -1,16 +1,18 @@
 import type { Value } from '../../graph/types';
-import type { RenderNodeKinds, NodeInputsRecord } from '../../schema/typeHelpers';
+import type { RenderNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
 import type { PortDef, RenderEvalContext, RenderNodeDef } from './types';
 
-type DefineableRenderNodeKind = RenderNodeKinds & keyof typeof nodeInputs;
+
+// 🤖 Move to typeHelpers
+export type DefineableRenderNodeKind = RenderNodeKinds & keyof typeof nodeInputs;
 
 export function defineRenderNode<K extends DefineableRenderNodeKind>(
   kind: K,
   def: {
-    defaults: NodeInputsRecord<K>;
-    evaluate: (inputs: NodeInputsRecord<K>, ctx: RenderEvalContext) => void;
+    defaults: NodeInputsResolved<K>;
+    evaluate: (inputs: NodeInputsResolved<K>, ctx: RenderEvalContext) => void;
   }
 ): RenderNodeDef {
   const inputEntries = objectEntries(nodeInputs[kind]);
@@ -34,12 +36,14 @@ export function defineRenderNode<K extends DefineableRenderNodeKind>(
     evaluate(inputs: Value[], ctx: RenderEvalContext): void {
       const namedInputs = Object.fromEntries(
         inputPortNames.map((name, i) => [name, inputs[i]['v']])
-      ) as unknown as NodeInputsRecord<K>;
+      ) as unknown as NodeInputsResolved<K>;
 
       def.evaluate(namedInputs, ctx);
     },
   };
 }
+
+
 
 function valueTypeToPortType(valueType: string): PortDef['type'] {
   const map: Record<string, PortDef['type']> = {

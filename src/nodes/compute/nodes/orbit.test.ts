@@ -1,134 +1,83 @@
-import { describe, it, expect } from 'vitest';
-import { evaluateOrbit, evaluateOrbitPoints } from './orbit';
+import { describe, expect, it } from 'vitest';
+import { orbitNodeDef } from './orbit.node';
 
 // speed=1 → 1 orbit per 600 ticks. Tick values for clean positions:
-//   t=0    → angle=0       (rightmost point)
-//   t=150  → angle=π/2    (quarter turn, top)
-//   t=300  → angle=π      (half turn, leftmost)
-//   t=600  → angle=2π     (full turn, back to start)
+//   t=0    → angle=0    (rightmost point)
+//   t=150  → angle=π/2  (quarter turn, top)
+//   t=300  → angle=π    (half turn, leftmost)
+const base = { time: 0, radius: 0.5, speed: 1, center: { x: 0, y: 0 }, numPoints: 1, phase: 0 };
 
-describe('evaluateOrbit', () => {
-  it('at t=0, x equals radius and y equals 0', () => {
-    const result = evaluateOrbit(0.5, 1, 0);
-    expect(result.x).toBeCloseTo(0.5);
-    expect(result.y).toBeCloseTo(0);
+describe('orbitNodeDef', () => {
+  it('at t=0, point is at (radius, 0)', () => {
+    const { point } = orbitNodeDef.evaluate(base);
+    expect(point.x).toBeCloseTo(0.5);
+    expect(point.y).toBeCloseTo(0);
   });
 
-  it('at t=150 (quarter turn), x is ~0 and y equals radius', () => {
-    const result = evaluateOrbit(0.5, 1, 150);
-    expect(result.x).toBeCloseTo(0);
-    expect(result.y).toBeCloseTo(0.5);
+  it('at t=150 (quarter turn), point is at (0, radius)', () => {
+    const { point } = orbitNodeDef.evaluate({ ...base, time: 150 });
+    expect(point.x).toBeCloseTo(0);
+    expect(point.y).toBeCloseTo(0.5);
   });
 
-  it('at t=300 (half turn), x equals -radius and y is ~0', () => {
-    const result = evaluateOrbit(0.5, 1, 300);
-    expect(result.x).toBeCloseTo(-0.5);
-    expect(result.y).toBeCloseTo(0);
+  it('at t=300 (half turn), point is at (-radius, 0)', () => {
+    const { point } = orbitNodeDef.evaluate({ ...base, time: 300 });
+    expect(point.x).toBeCloseTo(-0.5);
+    expect(point.y).toBeCloseTo(0);
   });
 
-  it('at t=600 (full turn), returns to starting position', () => {
-    const result = evaluateOrbit(0.5, 1, 600);
-    expect(result.x).toBeCloseTo(0.5);
-    expect(result.y).toBeCloseTo(0);
+  it('at t=600 (full turn), point returns to start', () => {
+    const { point } = orbitNodeDef.evaluate({ ...base, time: 600 });
+    expect(point.x).toBeCloseTo(0.5);
+    expect(point.y).toBeCloseTo(0);
   });
 
-  it('speed doubles the angular velocity', () => {
-    // speed=2, t=150 → angle = 2 * (150/600) * 2π = π → half turn
-    const result = evaluateOrbit(0.5, 2, 150);
-    expect(result.x).toBeCloseTo(-0.5);
-    expect(result.y).toBeCloseTo(0);
+  it('speed=2 doubles angular velocity', () => {
+    const { point } = orbitNodeDef.evaluate({ ...base, speed: 2, time: 150 });
+    expect(point.x).toBeCloseTo(-0.5);
+    expect(point.y).toBeCloseTo(0);
   });
 
-  it('radius=0 always returns the origin', () => {
-    const result = evaluateOrbit(0, 1, 100);
-    expect(result.x).toBeCloseTo(0);
-    expect(result.y).toBeCloseTo(0);
+  it('radius=0 always returns origin', () => {
+    const { point } = orbitNodeDef.evaluate({ ...base, radius: 0, time: 100 });
+    expect(point.x).toBeCloseTo(0);
+    expect(point.y).toBeCloseTo(0);
   });
 
-  it('radius=1 produces points on the unit circle', () => {
-    const result = evaluateOrbit(1, 1, 0);
-    const dist = Math.sqrt(result.x ** 2 + result.y ** 2);
-    expect(dist).toBeCloseTo(1);
+  it('center offset shifts the point', () => {
+    const { point } = orbitNodeDef.evaluate({ ...base, center: { x: 0.3, y: 0.2 } });
+    expect(point.x).toBeCloseTo(0.8);
+    expect(point.y).toBeCloseTo(0.2);
   });
 
-  it('center offset shifts the output position', () => {
-    const result = evaluateOrbit(0.5, 1, 0, 0.3, 0.2);
-    expect(result.x).toBeCloseTo(0.8);  // 0.3 + 0.5
-    expect(result.y).toBeCloseTo(0.2);  // 0.2 + 0
+  it('phase shifts starting angle', () => {
+    const { point } = orbitNodeDef.evaluate({ ...base, phase: 0.25 });
+    expect(point.x).toBeCloseTo(0);
+    expect(point.y).toBeCloseTo(0.5);
   });
 
-  it('center defaults to origin when omitted', () => {
-    const withCenter = evaluateOrbit(0.5, 1, 150, 0, 0);
-    const withoutCenter = evaluateOrbit(0.5, 1, 150);
-    expect(withCenter.x).toBeCloseTo(withoutCenter.x);
-    expect(withCenter.y).toBeCloseTo(withoutCenter.y);
+  it('numPoints=4 returns four evenly-spaced colour points', () => {
+    const { points } = orbitNodeDef.evaluate({ ...base, numPoints: 4 });
+    expect(points).toHaveLength(4);
+    expect(points[0].x).toBeCloseTo(0.5);
+    expect(points[0].y).toBeCloseTo(0);
+    expect(points[1].x).toBeCloseTo(0, 5);
+    expect(points[1].y).toBeCloseTo(0.5);
+    expect(points[2].x).toBeCloseTo(-0.5);
+    expect(points[2].y).toBeCloseTo(0, 5);
+    expect(points[3].x).toBeCloseTo(0, 5);
+    expect(points[3].y).toBeCloseTo(-0.5);
   });
 
-  it('phase parameter shifts the starting angle', () => {
-    // phase=0.25 → 90 degree offset
-    const noPhase = evaluateOrbit(0.5, 1, 0, 0, 0, 0);
-    const withPhase = evaluateOrbit(0.5, 1, 0, 0, 0, 0.25);
-    expect(noPhase.x).toBeCloseTo(0.5);   // starts at right
-    expect(withPhase.x).toBeCloseTo(0);   // starts at top
-    expect(withPhase.y).toBeCloseTo(0.5);
-  });
-});
-
-describe('evaluateOrbitPoints', () => {
-  it('numPoints=1 returns a single point', () => {
-    const result = evaluateOrbitPoints(0.5, 1, 0, 1, 0);
-    expect(result).toHaveLength(1);
-    expect(result[0].x).toBeCloseTo(0.5);
-    expect(result[0].y).toBeCloseTo(0);
+  it('colour points have white colour by default', () => {
+    const { points } = orbitNodeDef.evaluate(base);
+    expect(points[0]).toMatchObject({ r: 1, g: 1, b: 1, a: 1 });
   });
 
   it('numPoints=2 returns two points 180 degrees apart', () => {
-    const result = evaluateOrbitPoints(0.5, 1, 0, 2, 0);
-    expect(result).toHaveLength(2);
-    expect(result[0].x).toBeCloseTo(0.5);   // right
-    expect(result[0].y).toBeCloseTo(0);
-    expect(result[1].x).toBeCloseTo(-0.5);  // left
-    expect(result[1].y).toBeCloseTo(0);
-  });
-
-  it('numPoints=4 returns four evenly-spaced points', () => {
-    const result = evaluateOrbitPoints(0.5, 1, 0, 4, 0);
-    expect(result).toHaveLength(4);
-    // 0° — right
-    expect(result[0].x).toBeCloseTo(0.5);
-    expect(result[0].y).toBeCloseTo(0);
-    // 90° — top
-    expect(result[1].x).toBeCloseTo(0, 5);
-    expect(result[1].y).toBeCloseTo(0.5);
-    // 180° — left
-    expect(result[2].x).toBeCloseTo(-0.5);
-    expect(result[2].y).toBeCloseTo(0, 5);
-    // 270° — bottom
-    expect(result[3].x).toBeCloseTo(0, 5);
-    expect(result[3].y).toBeCloseTo(-0.5);
-  });
-
-  it('phase shifts all points by the same angle', () => {
-    const noPhase = evaluateOrbitPoints(0.5, 1, 0, 2, 0);
-    const withPhase = evaluateOrbitPoints(0.5, 1, 0, 2, 0.25);
-    expect(noPhase[0].x).toBeCloseTo(0.5);
-    expect(withPhase[0].x).toBeCloseTo(0);
-    expect(withPhase[0].y).toBeCloseTo(0.5);
-  });
-
-  it('respects time parameter', () => {
-    const t0 = evaluateOrbitPoints(0.5, 1, 0, 1, 0);
-    const t150 = evaluateOrbitPoints(0.5, 1, 150, 1, 0);
-    expect(t0[0].x).toBeCloseTo(0.5);
-    expect(t150[0].x).toBeCloseTo(0, 5);
-    expect(t150[0].y).toBeCloseTo(0.5);
-  });
-
-  it('centre offset applies to all points', () => {
-    const result = evaluateOrbitPoints(0.5, 1, 0, 2, 0, 0.3, 0.2);
-    expect(result[0].x).toBeCloseTo(0.8);  // 0.3 + 0.5
-    expect(result[0].y).toBeCloseTo(0.2);  // 0.2 + 0
-    expect(result[1].x).toBeCloseTo(-0.2); // 0.3 - 0.5
-    expect(result[1].y).toBeCloseTo(0.2);  // 0.2 + 0
+    const { points } = orbitNodeDef.evaluate({ ...base, numPoints: 2 });
+    expect(points).toHaveLength(2);
+    expect(points[0].x).toBeCloseTo(0.5);
+    expect(points[1].x).toBeCloseTo(-0.5);
   });
 });

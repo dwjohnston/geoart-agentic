@@ -1,11 +1,18 @@
-import { describe, it, expect } from 'vitest';
-import { evaluateTime } from './time';
+import { describe, expect, it } from 'vitest';
+import { timeNodeDef } from './time.node';
 
-describe('evaluateTime', () => {
-  it('returns the elapsed time unchanged', () => {
-    expect(evaluateTime(0)).toBe(0);
-    expect(evaluateTime(1)).toBe(1);
-    expect(evaluateTime(3.5)).toBe(3.5);
-    expect(evaluateTime(100)).toBe(100);
+const ctx = { tickCount: 0, getState: <T>() => ({} as T), setState: () => {} };
+
+describe('timeNodeDef', () => {
+  it('outputs the tick count unchanged', () => {
+    expect(timeNodeDef.evaluate([], { ...ctx, tickCount: 42 })[0].v).toBe(42);
+  });
+
+  it('outputs 0 at tick 0', () => {
+    expect(timeNodeDef.evaluate([], { ...ctx, tickCount: 0 })[0].v).toBe(0);
+  });
+
+  it('handles large tick counts', () => {
+    expect(timeNodeDef.evaluate([], { ...ctx, tickCount: 3600 })[0].v).toBe(3600);
   });
 });

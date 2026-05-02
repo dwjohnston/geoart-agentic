@@ -2,7 +2,7 @@ import type React from 'react';
 import type { Value } from '../../graph/types';
 import type { ValueTypes } from '../../schema/_generated/value-kinds-2';
 import type { ControlNode } from '../../schema/_generated/schema-types';
-import type { ControlNodeKinds, NodeInputsRecord } from '../../schema/typeHelpers';
+import type { ControlNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
 
@@ -41,7 +41,7 @@ type NodeWithDefaults<K extends DefineableControlNodeKind> =
 export function defineControlNode<K extends DefineableControlNodeKind>(
   kind: K,
   def: {
-    defaults: NodeInputsRecord<K>;
+    defaults: NodeInputsResolved<K>;
     renderControl: (node: NodeWithDefaults<K>, set: ControlSetter<K>) => React.ReactNode;
   }
 ): ControlNodeDef<K> {
