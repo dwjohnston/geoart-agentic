@@ -3,12 +3,12 @@ import { defineComputeNode } from '../defineComputeNode';
 export const addNodeDef = defineComputeNode("add", {
   isTimeDependant: false,
   defaults: {
-    a: { v: 0 },
-    b: { v: 0 }
+    a: 0,
+    b: 0
   },
   evaluate: (inputs) => {
-    const a = inputs.a.v;
-    const b = inputs.b.v;
+    const a = inputs.a;
+    const b = inputs.b;
     return { sum: a + b };
   },
 });

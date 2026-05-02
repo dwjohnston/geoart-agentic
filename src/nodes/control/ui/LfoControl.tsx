@@ -1,6 +1,7 @@
 import { KnobControl } from './KnobControl';
 import { DropdownControl } from './DropdownControl';
 import { DebugPanel } from '../../../ui-tooling/DebugPanel';
+import type { ResolvedValue } from '../../../schema/typeHelpers';
 
 
 
@@ -10,12 +11,12 @@ type Props = {
   baseValue: number;
   frequency: number;
   amplitude: number;
-  waveShape: string;
-  waveShapeOptions: readonly string[];
+  waveShape: ResolvedValue<"waveTypeValue">;
+  waveShapeOptions: readonly ResolvedValue<"waveTypeValue">[];
   onBaseValueChange: (v: number) => void;
   onFrequencyChange: (v: number) => void;
   onAmplitudeChange: (v: number) => void;
-  onWaveShapeChange: (v: string) => void;
+  onWaveShapeChange: (v: ResolvedValue<"waveTypeValue">) => void;
 };
 
 export function LfoControl({

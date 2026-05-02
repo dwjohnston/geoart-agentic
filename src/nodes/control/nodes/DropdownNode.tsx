@@ -3,9 +3,9 @@ import { DropdownControl } from '../ui/DropdownControl';
 
 export const dropdownNodeDef = defineControlNode('dropdown', {
   defaults: {
-    label: { v: '' },
-    options: { v: [] },
-    value: { v: '' },
+    label: '',
+    options: [],
+    value: '',
   },
   renderControl(node, set) {
     return (

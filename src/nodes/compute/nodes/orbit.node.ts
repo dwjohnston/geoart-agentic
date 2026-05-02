@@ -4,20 +4,20 @@ import { evaluateOrbitPoints } from './orbit';
 export const orbitNodeDef = defineComputeNode("orbit", {
   isTimeDependant: true,
   defaults: {
-    radius: { v: 0.5 },
-    speed: { v: 0.5 },
-    center: { v: { x: 0, y: 0 } },
-    numPoints: { v: 1 },
-    phase: { v: 0 },
-    time: { v: 0 }
+    radius: 0.5,
+    speed: 0.5,
+    center: { x: 0, y: 0 },
+    numPoints: 1,
+    phase: 0,
+    time: 0
   },
   evaluate: (inputs) => {
-    const t = inputs.time.v;
-    const radius = inputs.radius.v;
-    const speed = inputs.speed.v;
-    const center = inputs.center.v;
-    const numPoints = Math.max(1, Math.round(inputs.numPoints.v));
-    const phase = inputs.phase.v;
+    const t = inputs.time;
+    const radius = inputs.radius;
+    const speed = inputs.speed;
+    const center = inputs.center;
+    const numPoints = Math.max(1, Math.round(inputs.numPoints));
+    const phase = inputs.phase;
 
     const rawPoints = evaluateOrbitPoints(radius, speed, t, numPoints, phase, center.x, center.y);
     const colorPoints = rawPoints.map(p => ({

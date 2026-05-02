@@ -1,5 +1,3655 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`All production graphs $id runs without error 1`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 2`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 3`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 4`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 5`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 6`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 7`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 8`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 9`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 10`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 11`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      NaN,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs $id runs without error 12`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(NaN, NaN, NaN, undefined)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      undefined,
+      undefined,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
 exports[`All production graphs > 'earth3Venus' runs without error 1`] = `
 [
   {

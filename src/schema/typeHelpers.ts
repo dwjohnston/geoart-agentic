@@ -45,6 +45,6 @@ export type NodeOutputsRecord<K extends keyof typeof nodeOutputMeta> = {
 // to their full value types: { a: V_numberValue; b: V_numberValue }
 export type NodeInputsRecord<K extends keyof typeof nodeInputs> = {
   [Port in keyof typeof nodeInputs[K]]: typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
-  ? ValueTypeByName<VT>
+  ? ResolvedValue<VT>
   : never
 }

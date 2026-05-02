@@ -2,13 +2,13 @@ import { defineRenderNode } from '../defineRenderNode';
 
 export const timedLineArrayNodeDef = defineRenderNode('timedLineArray', {
   defaults: {
-    intervalTicks: { v: 6 },
-    colorPointsA: { v: [] },
-    colorPointsB: { v: [] },
+    intervalTicks: 6,
+    colorPointsA: [],
+    colorPointsB: [],
   },
   evaluate: (inputs, ctx) => {
-    const arrayA = inputs.colorPointsA.v;
-    const arrayB = inputs.colorPointsB.v;
+    const arrayA = inputs.colorPointsA;
+    const arrayB = inputs.colorPointsB;
     const count = Math.min(arrayA.length, arrayB.length);
 
     const canvas = ctx.canvas;

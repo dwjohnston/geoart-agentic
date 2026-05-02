@@ -18,8 +18,8 @@ type OutputPortNames<K extends keyof typeof nodeOutputMeta> =
 
 type OutputValueForPort<K extends keyof typeof nodeOutputMeta, PortName extends string> =
   Extract<typeof nodeOutputMeta[K][number], { name: PortName }> extends { valueType: `${infer Kind}Value` }
-    ? Omit<Extract<ValueTypes, { kind: Kind }>, 'kind'>
-    : never;
+  ? Omit<Extract<ValueTypes, { kind: Kind }>, 'kind'>
+  : never;
 
 export type ControlSetter<K extends keyof typeof nodeOutputMeta> =
   <PortName extends OutputPortNames<K>>(paramKey: PortName, value: OutputValueForPort<K, PortName>) => void;
@@ -56,15 +56,20 @@ export function defineControlNode<K extends DefineableControlNodeKind>(
     })),
     evaluate(params: ResolvedParams) {
       return outputItems.map(({ name, valueType }) => {
-        const v = params[name]?.v ?? defaults[name]?.v;
+        const v = params[name]?.v ?? defaults[name];
         const resultKind = valueType.replace(/Value$/, '');
         return { kind: resultKind, v } as Value;
       });
     },
     renderControl(rawNode: Extract<ControlNode, { type: K }>, set: ControlSetter<K>) {
+
+
+      const mungedDefaults = Object.entries(defaults).reduce((acc, cur) => {
+        return { ...acc, [cur[0]]: cur[1] }
+      })
       const node = {
         ...rawNode,
-        params: { ...defaults, ...rawNode.params },
+        params: { ...mungedDefaults, ...rawNode.params },
       } as unknown as NodeWithDefaults<K>;
       return def.renderControl(node, set);
     },

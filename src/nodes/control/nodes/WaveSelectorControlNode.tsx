@@ -5,8 +5,8 @@ const WAVE_TYPES = ["sine", "square", "triangle", "saw", "reverse-saw"] as const
 
 export const waveSelectorNodeDef = defineControlNode('waveSelector', {
   defaults: {
-    label: { v: '' },
-    value: { v: 'sine' },
+    label: '',
+    value: 'sine',
   },
   renderControl(node, set) {
     return (

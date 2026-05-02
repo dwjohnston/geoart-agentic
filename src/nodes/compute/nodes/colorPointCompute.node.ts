@@ -3,19 +3,14 @@ import { defineComputeNode, } from '../defineComputeNode';
 export const colorPointNodeDef = defineComputeNode('colorPointCompute', {
   defaults: {
     "color": {
-      "v": {
-        "a": 1,
-        "r": 1,
-        "g": 1,
-        "b": 1
-      },
-
+      "a": 1,
+      "r": 1,
+      "g": 1,
+      "b": 1
     },
     point: {
-      v: {
-        x: 0,
-        y: 0
-      }
+      x: 0,
+      y: 0
     }
   },
 
@@ -24,12 +19,12 @@ export const colorPointNodeDef = defineComputeNode('colorPointCompute', {
     const color = inputs.color;
     return {
       colorPoint: {
-        x: point.v.x,
-        y: point.v.y,
-        r: color.v.r,
-        g: color.v.g,
-        b: color.v.b,
-        a: color.v.a,
+        x: point.x,
+        y: point.y,
+        r: color.r,
+        g: color.g,
+        b: color.b,
+        a: color.a,
       },
     };
   },

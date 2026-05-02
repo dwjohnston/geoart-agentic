@@ -81,42 +81,39 @@ describe('ResolvedValue', () => {
 
 describe("NodeInputsRecord", () => {
     it("maps 'add' inputs to named ports without kind", () => {
-        assertType<NodeInputsRecord<"add">>({ a: { v: 0 }, b: { v: 0 } });
+        assertType<NodeInputsRecord<"add">>({ a: 1, b: 2 });
 
         //@ts-expect-error - wrong key name
-        assertType<NodeInputsRecord<"add">>({ x: { v: 0 }, b: { v: 0 } });
+        assertType<NodeInputsRecord<"add">>({ x: 1, b: 2 });
 
         //@ts-expect-error - wrong v type on port a
-        assertType<NodeInputsRecord<"add">>({ a: { v: "foo" }, b: { v: 0 } });
+        assertType<NodeInputsRecord<"add">>({ a: "foo", b: 0 });
     });
 
     assertType<NodeInputsRecord<"pointsOnALine">>({
         "pointA": {
-            "v": {
-                r: 1,
-                g: 1,
-                b: 1,
-                a: 1,
-                x: 1,
-                y: 1,
-            },
+
+            r: 1,
+            g: 1,
+            b: 1,
+            a: 1,
+            x: 1,
+            y: 1,
+
         },
 
         "pointB": {
-            "v": {
-                r: 1,
-                g: 1,
-                b: 1,
-                a: 1,
-                x: 1,
-                y: 1,
+            r: 1,
+            g: 1,
+            b: 1,
+            a: 1,
+            x: 1,
+            y: 1,
 
 
-            }
+
         },
-        "numberOfPoints": {
-            "v": 1
-        }
+        "numberOfPoints": 1
 
     })
 });

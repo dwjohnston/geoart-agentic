@@ -2,13 +2,13 @@ import { defineRenderNode } from '../defineRenderNode';
 
 export const timedLineNodeDef = defineRenderNode('timedLine', {
   defaults: {
-    intervalTicks: { v: 6 },
-    colorPointA: { v: { x: -0.5, y: 0, r: 1, g: 1, b: 1, a: 1 } },
-    colorPointB: { v: { x:  0.5, y: 0, r: 1, g: 1, b: 1, a: 1 } },
+    intervalTicks: 6,
+    colorPointA: { x: -0.5, y: 0, r: 1, g: 1, b: 1, a: 1 },
+    colorPointB: { x: 0.5, y: 0, r: 1, g: 1, b: 1, a: 1 },
   },
   evaluate: (inputs, ctx) => {
-    const { v: a } = inputs.colorPointA;
-    const { v: b } = inputs.colorPointB;
+    const a = inputs.colorPointA;
+    const b = inputs.colorPointB;
     const canvas = ctx.canvas;
 
     const gradient = canvas.createLinearGradient(a.x, a.y, b.x, b.y);

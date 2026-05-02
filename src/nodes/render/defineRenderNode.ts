@@ -21,18 +21,19 @@ export function defineRenderNode<K extends DefineableRenderNodeKind>(
     //@ts-expect-error - ignore this for now
     inputs: inputEntries.map((entries) => {
       const [paramName, paramValueInformation] = entries;
+
       return {
         name: paramName,
         //@ts-expect-error - ignore this for now
         type: valueTypeToPortType(paramValueInformation.valueType),
         //@ts-expect-error - ignore this for now
-        default: buildDefault(paramValueInformation.valueType, def.defaults[paramName]),
+        default: buildDefault(paramValueInformation.valueType, { v: def.defaults[paramName] }),
       };
     }),
     outputs: [],
     evaluate(inputs: Value[], ctx: RenderEvalContext): void {
       const namedInputs = Object.fromEntries(
-        inputPortNames.map((name, i) => [name, inputs[i]])
+        inputPortNames.map((name, i) => [name, inputs[i]['v']])
       ) as unknown as NodeInputsRecord<K>;
 
       def.evaluate(namedInputs, ctx);

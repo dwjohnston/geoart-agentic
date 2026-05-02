@@ -3,11 +3,11 @@ import { SliderControl } from '../ui/SliderControl';
 
 export const sliderNodeDef = defineControlNode('slider', {
   defaults: {
-    label: { v: '' },
-    min: { v: 0 },
-    max: { v: 1 },
-    value: { v: 0 },
-    step: { v: 0.01 },
+    label: '',
+    min: 0,
+    max: 1,
+    value: 0,
+    step: 0.01,
   },
   renderControl(node, set) {
     return (

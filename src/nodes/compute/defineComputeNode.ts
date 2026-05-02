@@ -58,7 +58,7 @@ export function defineComputeNode<K extends DefineableComputeNodeKind>(
         //@ts-expect-error - ignore this for now
 
         type: valueTypeToPortType(paramValueInformation.valueType),
-        default: def.defaults[paramName]
+        default: { v: def.defaults[paramName] }
       }
     }),
     outputs: outputItems.map(({ name, valueType }) => ({
@@ -67,7 +67,7 @@ export function defineComputeNode<K extends DefineableComputeNodeKind>(
     })),
     evaluate(inputs: Value[]) {
       const namedInputs = Object.fromEntries(
-        inputPortNames.map((name, i) => [name, inputs[i]])
+        inputPortNames.map((name, i) => [name, inputs[i]['v']])
       ) as unknown as NodeInputsRecord<K>;
 
       const result = def.evaluate(namedInputs);

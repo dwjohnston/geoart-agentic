@@ -3,14 +3,10 @@ import { defineComputeNode } from '../defineComputeNode';
 export const multiplierNodeDef = defineComputeNode("multiplier", {
   isTimeDependant: false,
   defaults: {
-    a: {
-      v: 1,
-    },
-    b: {
-      v: 1
-    }
+    a: 1,
+    b: 1,
   },
   evaluate: (inputs) => {
-    return { product: inputs.a.v * inputs.b.v };
+    return { product: inputs.a * inputs.b };
   },
 });
