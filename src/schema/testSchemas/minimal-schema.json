@@ -1,0 +1,288 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GeoArt Graph (minimal — slider, orbit, circle)",
+  "description": "Trimmed schema for AI context: one node of each type only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "control",
+    "compute",
+    "render"
+  ],
+  "properties": {
+    "version": {
+      "title": "Version",
+      "type": "string",
+      "description": "major.minor — increment minor for backward-compatible additions, major for breaking changes",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "speed": {
+      "title": "Global Speed",
+      "type": "number",
+      "description": "Global playback speed. Values >= 1 run that many ticks per frame. Values < 1 must be unit fractions (1/2, 1/3, …) — one tick every n frames. Default 1.",
+      "minimum": 0.125
+    },
+    "control": {
+      "title": "Control Section",
+      "description": "User-facing input nodes — sliders, colour pickers, and dropdowns",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodes"],
+      "properties": {
+        "nodes": {
+          "title": "Control Nodes",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/controlNode"
+          }
+        }
+      }
+    },
+    "compute": {
+      "title": "Compute",
+      "description": "Pure math nodes — no canvas, no DOM, no side effects",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodes"],
+      "properties": {
+        "nodes": {
+          "title": "Nodes",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/computeNode"
+          }
+        }
+      }
+    },
+    "render": {
+      "title": "Render",
+      "description": "Drawing nodes — canvas access lives here and nowhere else",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodes"],
+      "properties": {
+        "nodes": {
+          "title": "Nodes",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/renderNode"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "refParam": {
+      "title": "Ref Param",
+      "type": "object",
+      "description": "A reference to another node's named output port, in the form 'nodeId.portName'",
+      "additionalProperties": false,
+      "required": ["ref"],
+      "properties": {
+        "ref": {
+          "title": "Ref",
+          "description": "Reference in the form 'nodeId.portName'",
+          "type": "string",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*\\.[a-zA-Z][a-zA-Z0-9_-]*$"
+        }
+      }
+    },
+    "renderConfig": {
+      "title": "Render Layer Config",
+      "type": "object",
+      "description": "Controls which canvas layer the render node draws to",
+      "additionalProperties": false,
+      "required": ["layer"],
+      "properties": {
+        "layer": {
+          "title": "Layer",
+          "description": "paint = accumulates on trail canvas; live = cleared-each-frame orbit canvas",
+          "type": "string",
+          "enum": ["paint", "live"]
+        }
+      }
+    },
+    "numberValueOrRef": {
+      "title": "Number Value or Ref",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": { "type": "number" }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
+    },
+    "stringValueOrRef": {
+      "title": "String Value or Ref",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": { "type": "string" }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
+    },
+    "colorValue": {
+      "title": "Color Value",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["v"],
+      "properties": {
+        "v": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["r", "g", "b", "a"],
+          "properties": {
+            "r": { "type": "number" },
+            "g": { "type": "number" },
+            "b": { "type": "number" },
+            "a": { "type": "number" }
+          }
+        }
+      }
+    },
+    "colorValueOrRef": {
+      "title": "Color Value or Ref",
+      "oneOf": [
+        { "$ref": "#/definitions/colorValue" },
+        { "$ref": "#/definitions/refParam" }
+      ]
+    },
+    "pointValueOrRef": {
+      "title": "Point Value or Ref",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["v"],
+          "properties": {
+            "v": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["x", "y"],
+              "properties": {
+                "x": { "type": "number" },
+                "y": { "type": "number" }
+              }
+            }
+          }
+        },
+        { "$ref": "#/definitions/refParam" }
+      ]
+    },
+    "controlNode": {
+      "title": "Control Node",
+      "description": "User-facing input node — pure value source with no inputs",
+      "oneOf": [
+        {
+          "title": "Slider Control Node",
+          "type": "object",
+          "description": "Numeric slider",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "x-outputs": [
+            { "name": "value", "valueType": "numberValue" }
+          ],
+          "properties": {
+            "id": { "title": "ID", "type": "string" },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": ["slider"]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": { "$ref": "#/definitions/stringValueOrRef" },
+                "min": { "$ref": "#/definitions/numberValueOrRef" },
+                "max": { "$ref": "#/definitions/numberValueOrRef" },
+                "value": { "$ref": "#/definitions/numberValueOrRef" },
+                "step": { "$ref": "#/definitions/numberValueOrRef" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "computeNode": {
+      "title": "Compute Node",
+      "description": "Pure math node — no canvas, no DOM, no side effects",
+      "oneOf": [
+        {
+          "title": "Orbit Compute Node",
+          "type": "object",
+          "description": "Circular motion — outputs a single point (backwards-compat) and an array of evenly-spaced coloured points",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "x-outputs": [
+            { "name": "point", "valueType": "pointValue" },
+            { "name": "points", "valueType": "colorPointArrayValue" }
+          ],
+          "properties": {
+            "id": { "title": "ID", "type": "string" },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": ["orbit"]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "time": { "$ref": "#/definitions/numberValueOrRef" },
+                "radius": { "$ref": "#/definitions/numberValueOrRef" },
+                "speed": { "$ref": "#/definitions/numberValueOrRef" },
+                "center": { "$ref": "#/definitions/pointValueOrRef" },
+                "numPoints": { "$ref": "#/definitions/numberValueOrRef" },
+                "phase": { "$ref": "#/definitions/numberValueOrRef" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "renderNode": {
+      "title": "Render Node",
+      "description": "Drawing node — canvas access lives here and nowhere else",
+      "oneOf": [
+        {
+          "title": "Circle Render Node",
+          "type": "object",
+          "description": "Draws a circle at a point",
+          "additionalProperties": false,
+          "required": ["id", "type", "renderConfig", "params"],
+          "x-outputs": [],
+          "properties": {
+            "id": { "title": "ID", "type": "string" },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": ["circle"]
+            },
+            "renderConfig": { "$ref": "#/definitions/renderConfig" },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "intervalTicks": { "$ref": "#/definitions/numberValueOrRef" },
+                "center": { "$ref": "#/definitions/pointValueOrRef" },
+                "radius": { "$ref": "#/definitions/numberValueOrRef" },
+                "color": { "$ref": "#/definitions/colorValueOrRef" }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
