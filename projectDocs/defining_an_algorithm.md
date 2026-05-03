@@ -1,6 +1,6 @@
 # Defining an Algorithm
 
-An algorithm is a TypeScript file in `src/graphs/` that exports a plain `GeoArtGraph` data structure. It has no logic of its own — it is purely declarative wiring.
+An algorithm is a TypeScript file in `src/algorithms/` that exports a plain `GeoArtGraph` data structure. It has no logic of its own — it is purely declarative wiring.
 
 ## File structure
 
@@ -103,7 +103,7 @@ See [Sensible Defaults](sensible_defaults.md) for conventions on coordinates, co
 
 ## Registering the algorithm
 
-Add an entry to the `GRAPHS` array in `src/graphs/index.ts`:
+Add an entry to the `GRAPHS` array in `src/algorithms/index.ts`:
 
 ```ts
 import { myAlgorithmGraph } from './myAlgorithm';

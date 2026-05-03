@@ -20,7 +20,7 @@ Implementations are registered in each layer's registry, which is what the compi
 
 ## 3. Write the Algorithm
 
-An algorithm is a TypeScript file in `src/graphs/`. It is a plain data structure of type `GeoArtGraph` — three sections of nodes (`control`, `compute`, `render`) connected via inline `ref` params.
+An algorithm is a TypeScript file in `src/algorithms/`. It is a plain data structure of type `GeoArtGraph` — three sections of nodes (`control`, `compute`, `render`) connected via inline `ref` params.
 
 TypeScript gives immediate type safety on the structure (correct param shapes, valid node types) but does not verify things like whether a referenced port actually exists on the source node — that is the compiler's job.
 
@@ -52,7 +52,7 @@ The topological sort happens once here. The hot per-frame path is just a flat lo
 
 ## 6. Register the Algorithm
 
-Add the algorithm to the `GRAPHS` array in `src/graphs/index.ts`:
+Add the algorithm to the `GRAPHS` array in `src/algorithms/index.ts`:
 
 ```ts
 { id: 'myAlgorithm', name: 'My Algorithm', graph: myAlgorithmGraph }
@@ -93,13 +93,13 @@ schema.json          ← declare node & value types
       ↓
 node implementations ← src/nodes/[compute|control|render]/
       ↓
-algorithm file       ← src/graphs/myAlgorithm.ts  (TypeScript type safety)
+algorithm file       ← src/algorithms/myAlgorithm.ts  (TypeScript type safety)
       ↓
 validateGeoArtGraph  ← schema validation (AJV)
       ↓
 compile()            ← topology checks, edge resolution, topological sort
       ↓
-GRAPHS registry      ← src/graphs/index.ts
+GRAPHS registry      ← src/algorithms/index.ts
       ↓
 GraphEngine.load()   ← returns control nodes for the UI
       ↓

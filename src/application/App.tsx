@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { GRAPHS, DEFAULT_GRAPH_ID, getGraph } from '../graphs/index';
+import { GRAPHS, DEFAULT_GRAPH_ID, getGraph } from '../algorithms/index';
 import { createGraphEngine } from '../graphEngine/graphEngine';
 import type { GraphEngine, GraphLoadPayload } from '../graphEngine/graphEngine';
 import { Canvas } from './Canvas';

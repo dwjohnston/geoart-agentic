@@ -11,7 +11,7 @@ You generate new algorithms  - using the schema described in `src/schema`.
 ## File Scope
 
 - You can _only_ read from `src/schema`
-- You can _only_ write in `src/graphs`
+- You can _only_ write in `src/algorithms`
 
 
 ## Responsbilities 

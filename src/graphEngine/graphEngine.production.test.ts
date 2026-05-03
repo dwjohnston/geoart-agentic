@@ -1,4 +1,4 @@
-import { GRAPHS } from "../graphs"
+import { GRAPHS } from "../algorithms"
 import { describe, expect, test } from 'vitest';
 import { createFakeContext } from "./fakeContext";
 import { createGraphEngine } from "./graphEngine";

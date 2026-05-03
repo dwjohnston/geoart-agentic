@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { GRAPHS } from '../graphs/index';
+import type { GRAPHS } from '../algorithms/index';
 
 type GraphEntry = (typeof GRAPHS)[number];
 
