@@ -1,4 +1,4 @@
-import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
 // Minimal frozen graph used solely as a snapshot regression fixture.
 // Do not change this — any modification will invalidate existing snapshots.

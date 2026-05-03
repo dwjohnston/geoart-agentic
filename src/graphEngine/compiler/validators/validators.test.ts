@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 import { validateGraphSemantics } from './index';
 
 // ---------------------------------------------------------------------------

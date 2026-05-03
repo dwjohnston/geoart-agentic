@@ -30,7 +30,7 @@ Before a graph is loaded it is validated against `schema.json` using AJV (`src/s
 
 ## 5. Compilation
 
-`compile()` in `src/graph/compiler.ts` takes the validated `GeoArtGraph` and produces a `CompiledGraph`. This is where topology is verified:
+`compile()` in `src/graphEngine/compiler/` takes the validated `GeoArtGraph` and produces a `CompiledGraph`. This is where topology is verified:
 
 - **Circular references** — detected and rejected
 - **Port existence** — every `ref` must point to a node and port name that actually exists

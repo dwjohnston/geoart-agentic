@@ -1,11 +1,11 @@
 import React from 'react';
-import { compile } from '../graph/compiler';
-import { tick as evaluatorTick } from '../graph/evaluator';
-import { controlRegistry } from '../nodes/control/registry';
-import type { CompiledGraph } from '../graph/compiler';
-import type { EvalContext } from '../graph/EvalContext';
-import type { Value } from '../graph/types';
-import type { GeoArtGraph } from '../schema/_generated/schema-types';
+import { compile } from '../compiler/compiler';
+import { tick as evaluatorTick } from '../../graphEngine/evaluator/evaluator';
+import { controlRegistry } from '../../nodes/control/registry';
+import type { CompiledGraph } from '../compiler/compiler';
+import type { EvalContext } from '../evaluator/EvalContext';
+import type { Value } from '../types';
+import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 
 export type GraphLoadPayload = {
   renderControlNodes: () => React.ReactNode;

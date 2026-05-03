@@ -1,4 +1,4 @@
-import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 import type { ValidationError } from './types';
 
 export function validateNoDuplicateIds(graph: GeoArtGraph): ValidationError[] {
@@ -8,7 +8,7 @@ export function validateNoDuplicateIds(graph: GeoArtGraph): ValidationError[] {
   const layers = [
     { layerName: 'control', nodes: graph.control.nodes as { id: string }[] },
     { layerName: 'compute', nodes: graph.compute.nodes as { id: string }[] },
-    { layerName: 'render',  nodes: graph.render.nodes  as { id: string }[] },
+    { layerName: 'render', nodes: graph.render.nodes as { id: string }[] },
   ];
 
   for (const { layerName, nodes } of layers) {

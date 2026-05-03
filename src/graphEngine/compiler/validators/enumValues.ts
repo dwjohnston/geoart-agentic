@@ -1,6 +1,6 @@
-import type { GeoArtGraph } from '../../schema/_generated/schema-types';
-import type { NodeDef } from '../../nodes/compute/defineComputeNode';
-import type { LegacyRenderNodeDef } from '../../nodes/render/types';
+import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
+import type { NodeDef } from '../../../nodes/compute/defineComputeNode';
+import type { LegacyRenderNodeDef } from '../../../nodes/render/types';
 import type { ValidationError } from './types';
 import { buildNodeMap } from './_helpers';
 

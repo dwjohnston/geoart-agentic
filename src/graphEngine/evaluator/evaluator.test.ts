@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from 'vitest';
-import type { GeoArtGraph } from '../schema/_generated/schema-types';
-import { compile } from './compiler';
+import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+import { compile } from '../compiler/compiler';
 import { tick } from './evaluator';
 import type { EvalContext } from './EvalContext';
 

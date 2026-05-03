@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { GRAPHS, DEFAULT_GRAPH_ID, getGraph } from '../algorithms/index';
-import { createGraphEngine } from '../graphEngine/graphEngine';
-import type { GraphEngine, GraphLoadPayload } from '../graphEngine/graphEngine';
+import { createGraphEngine } from '../graphEngine/graphEngine/graphEngine';
+import type { GraphEngine, GraphLoadPayload } from '../graphEngine/graphEngine/graphEngine';
 import { Canvas } from './Canvas';
 import { SidePanel } from './SidePanel';
 import { AlgorithmPicker } from './AlgorithmPicker';

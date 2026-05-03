@@ -12,7 +12,7 @@ You implement the graph compiler.
 ## File Scope
 
 - You can _only_ read from `src/schema`
-- You can _only_ write in `src/graph`
+- You can _only_ write in `src/graphEngine`
 
 
 ## Responsbilities 

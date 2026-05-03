@@ -1,4 +1,4 @@
-import type { Value } from '../../graph/types';
+import type { Value } from '../../graphEngine/types';
 import type { ComputeNodeKinds, NodeInputsResolved, NodeOutputsResolved } from '../../schema/typeHelpers';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
