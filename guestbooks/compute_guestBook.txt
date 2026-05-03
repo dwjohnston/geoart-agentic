@@ -1,0 +1,69 @@
+2026-04-22 Claude Haiku - Updating orbit node to support multiple evenly-spaced colorPoints with phase param
+2026-04-22 Claude Sonnet 4.6 - Fixing orbit node: restoring point output as type 'point' for backwards-compat, adding colorPointArray 'points' output
+2026-04-23 Claude Sonnet 4.6 - Checking which schema nodes have implementations
+2026-04-23 Claude Sonnet 4.6 - Checking for add node to support base + LFO composition
+2026-04-23 Claude Sonnet 4.6 - Planning multiplier node implementation
+2026-04-23 compute-node-agent (Claude Sonnet 4.6) - Implementing multiplier compute node
+
+2026-04-23 | claude-sonnet-4-6 | Using multiplier node in LFO Planets graph
+2026-04-24 | claude-sonnet-4-6 | md-file-agent review — moved time/frequency section to src/schema, removed annotation
+2026-04-27T00:00:00+00:00 | claude-sonnet-4-6 | Executing add-output-types-to-schema plan | solstice
+
+2026-04-28T00:00:00+00:00
+compute-node-agent
+Updating compute nodes to use generated outputs and value types
+solstice
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Making NodeDef generic with ValueOfKind | solstice
+2026-04-28T00:00:00+00:00 | Claude Sonnet 4.6 | Reviewing compute node typing changes | solstice
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Updating compute nodes to follow add.node.ts pattern | solstice
+2026-04-28T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Updating multiplier.node.ts to use createComputeNodeDef factory | solstice
+
+2026-04-28T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Updating colorPoint.node.ts to use createComputeNodeDef factory | solstice
+
+2026-04-28T00:00:00+00:00
+Claude Code (claude-sonnet-4-6)
+Updating time.node.ts to use createComputeNodeDef factory pattern
+solstice
+
+2026-04-28T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Updating wave.node.ts to use createComputeNodeDef factory | solstice
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Refactoring orbit.node.ts to use createComputeNodeDef factory | solstice
+
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Updating pointsOnALine.node.ts to use createComputeNodeDef factory | solstice
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Adding createRenderNodeDef factory to render/types.ts | solstice
+
+2026-04-30T00:00:00+00:00
+claude-sonnet-4-6
+Building defineComputeNode type helpers
+solstice
+
+2026-04-30T00:00:00+00:00 | claude-sonnet-4-6 | Building defineComputeNode type helpers | solstice
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Implementing defineComputeNode in compute/types.ts | solstice
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Designing defineComputeNode typing | solstice
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Migrating wave.node.ts to defineComputeNode | solstice
+
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Migrating remaining compute nodes to defineComputeNode | solstice
+2026-04-30T00:00:00+00:00
+Claude Code (claude-sonnet-4-6)
+Migrating multiplier.node.ts to defineComputeNode pattern
+solstice
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Migrating orbit.node.ts to defineComputeNode pattern | solstice
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Migrating colorPoint.node.ts to defineComputeNode pattern | solstice
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Migrating pointsOnALine.node.ts to defineComputeNode pattern | solstice
+
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Improving outputItems typing in defineComputeNode | solstice
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Creating defineRenderNode helper | solstice
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Implementing defineControlNode factory | solstice
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Writing node_anatomy documentation | solstice
+Claude Sonnet 4.6 — 2026-04-30
+2026-05-01T00:00:00+00:00 | compute-node-agent (claude-sonnet-4-6) | Fixing multiplier.node.ts defaults and evaluate unwrapping | solstice
+2026-05-01T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Fixing compute node defaults and evaluate unwrapping | solstice
+
+2026-05-01T00:00:00+00:00
+claude-sonnet-4-6
+Writing a test for ColorPickerNode
+solstice
+
+2026-05-02T00:00:00+00:00 | claude-sonnet-4-6 | Writing a test for ColorPickerNode | solstice
+2026-05-02T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Adding tests for compute nodes | solstice
+2026-05-02T00:00:00+00:00 | claude-sonnet-4-6 | Investigating type errors in registry.ts | solstice
+2026-05-02T12:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Converting control and render nodes to defineComputeNode pattern | solstice

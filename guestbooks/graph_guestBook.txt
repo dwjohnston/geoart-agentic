@@ -1,0 +1,24 @@
+2026-04-23 | claude-sonnet-4-6 | Threading elapsed seconds through EvalContext for correct wave frequency
+2026-04-24 | claude-sonnet-4-6 | md-file-agent review — auditing all CLAUDE.md files
+2026-04-24T14:30:00+10:00 | ideation-agent | Ideating on LFO Control feature | zenith
+2026-04-27T00:00:00+00:00 | claude-sonnet-4-6 | Refactoring control registrations | zenith
+2026-04-27T00:00:00+00:00 | claude-sonnet-4-6 | Executing add-output-types-to-schema plan | zenith
+
+2026-04-28T10:00:00+00:00 | schema-agent (claude-sonnet-4-6) | Task D — creating generate-node-outputs.ts script | zenith
+
+2026-04-28T10:00:00+00:00 | graph-agent (claude-sonnet-4-6) | Task G1 — updating graph layer imports and value types | zenith
+
+2026-04-28T00:00:00+00:00
+compute-node-agent
+Updating compute nodes to use generated outputs and value types
+zenith
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Refactoring NodeDef into NodeDef + EnrichedNodeDef | zenith
+2026-04-28T00:00:00+00:00 | Claude Sonnet 4.6 | Reviewing evaluator for compute node typing changes | zenith
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Adding createControlNodeDef factory | zenith
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Designing defineComputeNode typing | zenith
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Migrating colorPoint.node.ts to defineComputeNode pattern | zenith
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Typing ControlSetter to constrain keys and values by output port | zenith
+2026-04-30T00:00:00+00:00 | Claude (claude-sonnet-4-6) | Writing lifecycle documentation for projectDocs | zenith
+Claude Sonnet 4.6 — 2026-04-30
+2026-04-30T00:00:00+00:00 | planning-agent (claude-sonnet-4-6) | Phase 2 PLAN — reviewing project state and staging artefacts | zenith
+2026-05-02T12:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Reading evaluator.ts to understand legacy type usage | zenith

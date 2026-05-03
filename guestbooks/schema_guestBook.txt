@@ -1,0 +1,60 @@
+2026-04-23 Claude Sonnet 4.6 - Checking which schema nodes have implementations
+2026-04-23 Claude Sonnet 4.6 (schema-agent) - Adding multiplier compute node to schema
+2026-04-23 | claude-sonnet-4-6 | Adding add node to schema
+2026-04-23 | claude-sonnet-4-6 | Creating OpenAPI wrapper for schema docs viewer
+2026-04-23 | claude-sonnet-4-6 | Adding title fields to all schema properties
+2026-04-24 | claude-sonnet-4-6 | md-file-agent review — added time/frequency section moved from src/nodes/compute
+2026-04-24T14:30:00+10:00 | ideation-agent | Ideating on LFO Control feature | fractal
+2026-04-26T00:00:00+00:00 | claude-sonnet-4-6 | Adding schema structure validation tests | fractal
+2026-04-27T00:00:00+00:00 | claude-sonnet-4-6 | Writing up derive-value-types-from-schema feedback | fractal
+2026-04-27T17:20:00+00:00 | Claude Haiku | Executing add-output-types-to-schema: creating value-kinds.schema.json | fractal
+2026-04-27T00:00:00+00:00 | claude-sonnet-4-6 | Executing add-output-types-to-schema plan | fractal
+2026-04-28T00:00:00+00:00 | schema-agent (claude-sonnet-4-6) | Creating value-kinds.schema.json | fractal
+2026-04-28T00:01:00+00:00 | schema-agent (claude-sonnet-4-6) | Creating refable-value-kinds.schema.json | fractal
+2026-04-28T00:02:00+00:00 | schema-agent (claude-sonnet-4-6) | Slimming schema.json and adding x-outputs to all node definitions | fractal
+2026-04-28T00:03:00+00:00 | schema-agent (claude-sonnet-4-6) | Extending validateSchemaStructure to accept SchemaSet with cross-file ref resolution | fractal
+
+2026-04-28T10:00:00+00:00 | schema-agent (claude-sonnet-4-6) | Task D — creating generate-node-outputs.ts script | fractal
+
+2026-04-28T00:00:00+00:00
+compute-node-agent
+Updating compute nodes to use generated outputs and value types
+fractal
+
+2026-04-28T00:00:00+00:00
+tooling-agent
+Updating generate:schema-types script to include generate-node-outputs.ts
+fractal
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Examining value-types.ts for ValueKind generic type | fractal
+
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Adding ComputeNodeTypes/RenderNodeTypes/ControlNodeTypes to generate-node-outputs | fractal
+2026-04-28T00:00:00+00:00 | Claude Sonnet 4.6 | Reviewing compute node typing changes | fractal
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Updating compute nodes to follow add.node.ts pattern | fractal
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Adding createRenderNodeDef factory to render/types.ts | fractal
+2026-04-28T12:00:00+00:00 | claude-sonnet-4-6 | Implementing generateOutputs function in generate-node-outputs.ts | fractal
+2026-04-30T00:00:00+00:00 | claude-sonnet-4-6 | Setting up test boilerplate for generated typings | fractal
+
+2026-04-30T00:00:00+00:00
+claude-sonnet-4-6
+Building defineComputeNode type helpers
+fractal
+
+2026-04-30T00:00:00+00:00 | claude-sonnet-4-6 | Building defineComputeNode type helpers | fractal
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Implementing defineComputeNode in compute/types.ts | fractal
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Designing defineComputeNode typing | fractal
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Migrating orbit.node.ts to defineComputeNode pattern | fractal
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Migrating colorPoint.node.ts to defineComputeNode pattern | fractal
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Implementing defineControlNode factory | fractal
+2026-04-30T00:00:00+00:00 | Claude Sonnet 4.6 | Migrating DropdownNode to defineControlNode pattern | fractal
+2026-04-30T00:00:00+00:00 | Claude (claude-sonnet-4-6) | Writing lifecycle documentation for projectDocs | fractal
+Claude Sonnet 4.6 — 2026-04-30
+2026-04-30T00:00:00+00:00 | planning-agent (claude-sonnet-4-6) | Planning lfo-control feature | fractal
+schema-agent — claude-sonnet-4-6 — 2026-04-30 — Added lfo-control node to schema and regenerated _generated files.
+2026-04-30T00:00:00+00:00 — schema-agent — Adding lfo-control node to schema.json and regenerating _generated files — fractal
+2026-04-30T00:00:00+00:00 | claude-sonnet-4-6 | Coordinating lfo-control implementation (schema + UI) | fractal
+2026-04-30T00:00:00+00:00 - algorithm-agent - reading schema to create lfo-control algorithm - fractal
+
+2026-04-30T00:00:00+00:00 | control-node-agent (claude-sonnet-4-6) | Fixing bugs in LFO control node | fractal
+2026-05-01T00:00:00+00:00 | claude-sonnet-4-6 | Explaining typeHelpers.ts L32 | fractal
+2026-05-02T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Adding tests for compute nodes | fractal
+2026-05-02T00:00:00+00:00 | claude-sonnet-4-6 | Creating minimal test schema with slider, orbit, circle nodes | fractal

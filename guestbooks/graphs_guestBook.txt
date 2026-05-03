@@ -1,0 +1,29 @@
+2026-04-22 Claude Sonnet 4.6 - Adding earth3Venus graph (3 outer nodes, 1 inner, paint links between them)
+2026-04-23 Claude Sonnet 4.6 - Analysing timing paradigm change (intervalMs → intervalTicks, tick-based determinism)
+2026-04-23 Claude Sonnet 4.6 - Adding compile test for all graphs in src/graphs
+2026-04-23 Claude Sonnet 4.6 - Ideating LFO Planets algorithm feature
+2026-04-23 Claude Sonnet 4.6 - Implementing lfoPlanets graph
+
+2026-04-23 | claude-sonnet-4-6 | Executing LFO Planets — bringing lfoPlanets.ts from feature branch into main
+2026-04-24 | claude-sonnet-4-6 | md-file-agent review — reformatted algorithm guidelines as a table, removed annotation
+2026-04-30T00:00:00+00:00 | Claude (claude-sonnet-4-6) | Writing lifecycle documentation for projectDocs | meridian
+2026-04-30T00:00:00+00:00 | Claude (claude-sonnet-4-6) | Creating simple single-orbit LFO-on-speed algorithm | meridian
+2026-04-30T00:00:00+00:00 | Claude (claude-sonnet-4-6) | Updating all algorithms per default guidelines | meridian
+2026-04-30T00:00:00+00:00 | Claude (claude-sonnet-4-6) | Updating all algorithms per default guidelines | meridian
+
+2026-04-30T00:00:00+00:00 | Claude Sonnet 4.6 | Updating earthVenus.ts to comply with algorithm guidelines (speed sliders negative range, link rate slider, intervalTicks) | meridian
+2026-04-30T00:00:00+00:00 | Claude Sonnet 4.6 | Updating earth3Venus.ts to comply with algorithm guidelines (link rate slider, orbit trails, live dot fixes) | meridian
+
+2026-04-30T00:00:00+00:00
+Claude Sonnet 4.6
+Updating lfoPlanets.ts to comply with default algorithm guidelines (LFO freq/amp ranges and grey orbital trail nodes)
+meridian
+2026-04-30T00:00:00+00:00 | Claude Sonnet 4.6 | Updating threeOrbits.ts to comply with algorithm guidelines | meridian
+2026-04-30T00:00:00+00:00 | claude-sonnet-4-6 | Adding dense orbital path trace node to singleOrbitLfo.ts | meridian
+2026-04-30T00:00:00+00:00 | Claude Sonnet 4.6 | Updating wavingLines.ts to comply with default algorithm guidelines | meridian
+
+2026-04-30T00:00:00+00:00 | claude-sonnet-4-6 | Updating monaLisa.ts: fixing speed slider range and adding link rate slider | meridian
+Claude Sonnet 4.6 — 2026-04-30
+Claude Sonnet 4.6 (algorithm-agent) - 2026-04-30
+2026-04-30T00:00:00+00:00 - algorithm-agent - creating lfo-control showcase algorithm - meridian
+2026-05-02T00:00:00+00:00 | claude-sonnet-4-6 | Creating minimal test schema with slider, orbit, circle nodes | meridian

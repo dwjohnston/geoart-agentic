@@ -65,7 +65,6 @@ Phase 4 is performed by `ideation-agent`.
 When the human user gives a ACCEPT command propose a commit message, and if this is accepted then move the plan.md into `projects/archived.md` and  current changes. 
 
 Important: The human user may forget to give the START FEATURE, EXECUTE and ACCEPT commands. In this scenario NEVER make any code changes. 
-Exception: You can always sign a guestbook if requested. 
 
 You can however answer questions in the chat prompt.
 

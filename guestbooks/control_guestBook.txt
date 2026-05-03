@@ -1,0 +1,34 @@
+2026-04-23 Claude Sonnet 4.6 - Checking which schema nodes have implementations
+2026-04-24 | claude-sonnet-4-6 | md-file-agent review — auditing all CLAUDE.md files
+2026-04-24T14:30:00+10:00 | ideation-agent | Ideating on LFO Control feature | cobalt
+2026-04-27T00:00:00+00:00 | claude-sonnet-4-6 | Ideating refactor of control registrations | cobalt
+2026-04-27T00:00:00+00:00 | claude-sonnet-4-6 | Fixing type error in control registry | cobalt
+2026-04-27T00:00:00+00:00 | claude-sonnet-4-6 | Executing add-output-types-to-schema plan | cobalt
+2026-04-28T00:02:00+00:00 | schema-agent (claude-sonnet-4-6) | Slimming schema.json and adding x-outputs to node definitions | cobalt
+2026-04-28T00:10:00+00:00 | control-node-agent (claude-sonnet-4-6) | Replacing manual outputs arrays with nodeOutputs from generated file | cobalt
+
+2026-04-28T00:00:00+00:00
+compute-node-agent
+Updating compute nodes to use generated outputs and value types
+cobalt
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Generating nodeInputs from schema params | cobalt
+
+2026-04-28T12:00:00+00:00 | claude-sonnet-4-6 | Explaining ColorPickerNode evaluate function | cobalt2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Adding createControlNodeDef factory | cobalt
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Implementing defineControlNode factory | cobalt
+2026-04-30T00:00:00+00:00 | Claude Sonnet 4.6 | Migrating ColorPickerNode to defineControlNode pattern | cobalt
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Writing node_anatomy documentation | cobalt
+Claude Sonnet 4.6 — 2026-04-30
+2026-04-30T00:00:00+00:00 | planning-agent (claude-sonnet-4-6) | Planning lfo-control feature | cobalt
+2026-04-30T00:00:00+00:00 | control-node-agent (claude-sonnet-4-6) | Implementing LFO control node, KnobControl, and LfoControl UI | cobalt
+2026-04-30T00:00:00+00:00 | claude-sonnet-4-6 | Coordinating lfo-control feature | cobalt
+
+2026-04-30T00:00:00+00:00 | control-node-agent (claude-sonnet-4-6) | Fixing bugs in LFO control node | cobalt
+
+2026-05-01T00:00:00+00:00
+claude-sonnet-4-6
+Writing a test for ColorPickerNode
+cobalt
+
+2026-05-02T00:00:00+00:00 | claude-sonnet-4-6 | Writing a test for ColorPickerNode | cobalt
+2026-05-02T12:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Converting control nodes to defineControlNode pattern | cobalt
+2026-05-02T12:00:00+00:00 | control-node-agent (claude-sonnet-4-6) | Converting control nodes to clean typed factory pattern | cobalt

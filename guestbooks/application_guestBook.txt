@@ -1,0 +1,4 @@
+2026-04-23 | claude-sonnet-4-6 | Threading elapsed seconds through EvalContext for correct wave frequency
+2026-04-24 | claude-sonnet-4-6 | md-file-agent review — auditing all CLAUDE.md files
+2026-04-24T14:30:00+10:00 | ideation-agent | Ideating on LFO Control feature | vortex
+Claude Sonnet 4.6 — 2026-04-30

@@ -1,0 +1,13 @@
+2026-04-23 Claude Sonnet 4.6 - Checking which schema nodes have implementations
+2026-04-24 | claude-sonnet-4-6 | md-file-agent review — auditing all CLAUDE.md files
+2026-04-27T00:00:00+00:00 | claude-sonnet-4-6 | Executing add-output-types-to-schema plan | prism
+2026-04-28T10:30:00+00:00 | render-node-agent (claude-sonnet-4-6) | Replacing manual outputs arrays with nodeOutputs from generated file | prism
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Generating nodeInputs from schema params | prism
+2026-04-28T00:00:00+00:00 | claude-sonnet-4-6 | Adding createRenderNodeDef factory to render/types.ts | prism
+2026-04-30T00:00:00+00:00 | claude-sonnet-4-6 | Debugging timedLineArray gradient proxy | prism
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Creating defineRenderNode helper | prism
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Implementing defineControlNode factory | prism
+2026-04-30T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Writing node_anatomy documentation | prism
+Claude Sonnet 4.6 — 2026-04-30
+2026-05-02T12:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Converting render nodes to defineRenderNode pattern | prism
+2026-05-02T12:00:00+00:00 | render-node-agent (claude-sonnet-4-6) | Converting render nodes to clean typed factory pattern | prism
