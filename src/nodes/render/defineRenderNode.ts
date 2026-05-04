@@ -1,4 +1,5 @@
-import type { Value } from '../../graphEngine/types';
+import type { Value } from '../../schema/types';
+
 import type { RenderNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';

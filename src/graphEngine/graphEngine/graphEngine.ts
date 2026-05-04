@@ -4,7 +4,7 @@ import { tick as evaluatorTick } from '../../graphEngine/evaluator/evaluator';
 import { controlRegistry } from '../../nodes/control/registry';
 import type { CompiledGraph } from '../compiler/compiler';
 import type { EvalContext } from '../evaluator/EvalContext';
-import type { Value } from '../types';
+import type { Value } from '../../schema/types';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 
 export type GraphLoadPayload = {

@@ -34,7 +34,7 @@ export function createImportNoRestrictedPathsZones<T extends ZoneNameToZonePathM
             return {
                 target: zonePath,
                 from: folderConfigMapping[w],
-                message: `files in zone: [${zoneName as string}] are not allowed to import from files in zone [${v as string}]`
+                message: `Files in zone: [${zoneName as string}] are not allowed to import from files in zone [${w}]`
             };
         }).filter((v) => !!v);
     })

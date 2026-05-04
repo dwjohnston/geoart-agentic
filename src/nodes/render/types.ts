@@ -1,4 +1,4 @@
-import type { Value } from '../../graphEngine/types';
+import type { Value } from '../../schema/types';
 
 export type PortDef = {
   name: string;

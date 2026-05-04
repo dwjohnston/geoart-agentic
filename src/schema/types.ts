@@ -6,3 +6,6 @@ export type ColorPointArrayValue = { kind: 'colorPointArray'; v: Array<{ x: numb
 export type StringValue = { kind: 'string'; v: string };
 
 export type Value = NumberValue | PointValue | ColorValue | ColorPointValue | ColorPointArrayValue | StringValue;
+
+
+

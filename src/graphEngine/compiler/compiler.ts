@@ -1,5 +1,5 @@
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
-import type { Value } from '../types';
+import type { Value } from '../../schema/types';
 import type { NodeDef } from '../../nodes/compute/defineComputeNode';
 import type { LegacyRenderNodeDef } from '../../nodes/render/types';
 import type { LegacyControlNodeDef } from '../../nodes/control/types';

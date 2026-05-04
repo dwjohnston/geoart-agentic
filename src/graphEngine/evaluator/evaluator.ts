@@ -1,4 +1,4 @@
-import type { Value, PointValue, ColorPointValue, ColorPointArrayValue } from '../types';
+import type { Value, PointValue, ColorPointValue, ColorPointArrayValue } from '../../schema/types';
 import type { CompiledGraph } from '../compiler/compiler';
 import type { EvalContext } from './EvalContext';
 import type { NodeDef } from '../../nodes/compute/defineComputeNode';
