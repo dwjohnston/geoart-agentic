@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { createGraphEngine } from './graphEngine';
 import { testGraph } from './_testGraphs/testGraph';
 import { wavingLinesGraph } from './_testGraphs/pointsOnALine';
-import { createFakeContext } from './fakeContext';
+import { createFakeContext } from "../../common-tooling/test-tooling/fakeContext"
 
 const CANVAS_SIZE = 800;
 
