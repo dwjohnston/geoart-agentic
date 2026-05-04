@@ -34,16 +34,18 @@ export default defineConfig([
             "common-tooling": "src/common-tooling",
             "ui-tooling": "src/ui-tooling",
             "theSchema": "src/schema",
+            "nodesControl": "src/nodes/control",
+            "nodesCompute": "src/nodes/compute",
+            "nodesRender": "src/nodes/render",
             "compiler": "src/graphEngine/compiler",
             "evaluator": "src/graphEngine/evaluator",
             "graphEngine": "src/graphEngine/graphEngine",
-            // "graphEngineBase": "src/graphEngine"
           }, {
             "application": {
               allowedZones: ["common-tooling", "ui-tooling", "theSchema", "graphEngine", "algorithms"]
             },
             "algorithms": {
-              allowedZones: ["common-tooling", "ui-tooling", "theSchema"]
+              allowedZones: ["common-tooling", "theSchema"]
             },
             "common-tooling": {
               allowedZones: []
@@ -52,20 +54,26 @@ export default defineConfig([
               allowedZones: []
             },
             "theSchema": {
-              allowedZones: ["common-tooling", "ui-tooling"]
+              allowedZones: ["common-tooling"]
             },
             "compiler": {
-              allowedZones: ["common-tooling", "ui-tooling", "theSchema"]
+              allowedZones: ["common-tooling", "theSchema"]
             },
             "evaluator": {
-              allowedZones: ["common-tooling", "ui-tooling", "theSchema", "compiler"]
+              allowedZones: ["common-tooling", "theSchema", "compiler"]
             },
-            // graphEngineBase: {
-            //   "allowedZones": [],
-            // },
             "graphEngine": {
-              allowedZones: ["common-tooling", "ui-tooling", "theSchema", "compiler", "evaluator", "algorithms"]
+              allowedZones: ["common-tooling", "theSchema", "compiler", "evaluator", "algorithms"]
             },
+            "nodesCompute": {
+              allowedZones: ["common-tooling", "theSchema"],
+            },
+            "nodesControl": {
+              allowedZones: ["common-tooling", "theSchema", "ui-tooling"],
+            },
+            "nodesRender": {
+              allowedZones: ["common-tooling", "theSchema"],
+            }
 
           })
         ]
