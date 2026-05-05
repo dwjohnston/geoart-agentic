@@ -1,8 +1,8 @@
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { Value } from '../../schema/types';
-import type { NodeDef } from '../../nodes/compute/defineComputeNode';
-import type { LegacyRenderNodeDef } from '../../nodes/render/types';
-import type { LegacyControlNodeDef } from '../../nodes/control/defineControlNode';
+import type { LegacyComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
+import type { LegacyRenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
+import type { LegacyControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
 import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
 import { controlRegistry } from '../../nodes/control/registry';
@@ -11,7 +11,7 @@ import { controlRegistry } from '../../nodes/control/registry';
 type Layer = 'control' | 'compute' | 'render';
 
 /** Union of all node definition shapes. */
-type AnyNodeDef = NodeDef | LegacyRenderNodeDef | LegacyControlNodeDef;
+type AnyNodeDef = LegacyComputeNodeDef | LegacyRenderNodeDef | LegacyControlNodeDef;
 
 /**
  * Internal edge representation — produced by the compiler from inline param refs
@@ -279,8 +279,8 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
   for (const [toNodeId, compiledNode] of nodes.entries()) {
     const { def } = compiledNode;
     // Control nodes have no inputs — skip.
-    const inputs = ((def as NodeDef).inputs ?? (def as LegacyRenderNodeDef).inputs) as
-      | import('../../nodes/compute/defineComputeNode').LegacyComputeNodePortDef[]
+    const inputs = ((def as LegacyComputeNodeDef).inputs ?? (def as LegacyRenderNodeDef).inputs) as
+      | import('../../graphEngine/externalInterfaces/ComputeNodeDefinition').LegacyComputeNodePortDef[]
       | undefined;
     if (!inputs) continue;
 
@@ -311,7 +311,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
         );
       }
 
-      const fromDef = fromCompiledNode.def as NodeDef | LegacyControlNodeDef | LegacyRenderNodeDef;
+      const fromDef = fromCompiledNode.def as LegacyComputeNodeDef | LegacyControlNodeDef | LegacyRenderNodeDef;
       const fromOutputs = fromDef.outputs ?? [];
       const fromPort = fromOutputs.findIndex((p) => p.name === fromPortName);
       if (fromPort === -1) {

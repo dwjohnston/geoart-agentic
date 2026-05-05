@@ -1,7 +1,7 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
-import type { NodeDef } from '../../../nodes/compute/defineComputeNode';
-import type { LegacyControlNodeDef } from '../../../nodes/control/defineControlNode';
-import type { LegacyRenderNodeDef } from '../../../nodes/render/types';
+import type { LegacyComputeNodeDef } from '../../../graphEngine/externalInterfaces/ComputeNodeDefinition';
+import type { LegacyControlNodeDef } from '../../../graphEngine/externalInterfaces/ControlNodeDefinition';
+import type { LegacyRenderNodeDef } from '../../../graphEngine/externalInterfaces/RenderNodeDefinition';
 import { computeRegistry } from '../../../nodes/compute/registry';
 import { controlRegistry } from '../../../nodes/control/registry';
 import { renderRegistry } from '../../../nodes/render/registry';
@@ -14,7 +14,7 @@ export type RawEdge = {
 };
 
 export type NodeLayer = 'control' | 'compute' | 'render';
-export type AnyNodeDef = NodeDef | LegacyControlNodeDef | LegacyRenderNodeDef;
+export type AnyNodeDef = LegacyComputeNodeDef | LegacyControlNodeDef | LegacyRenderNodeDef;
 export type NodeEntry = { layer: NodeLayer; def: AnyNodeDef };
 
 /** Extract all { ref: "nodeId.portName" } params from all nodes in the graph. */

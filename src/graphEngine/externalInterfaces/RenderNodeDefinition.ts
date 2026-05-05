@@ -1,4 +1,5 @@
 import type { Value } from '../../schema/types';
+import type { RenderNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 
 //@legacy - we are trying to get rid of this
 export type LegacyRenderNodePortDef = {
@@ -21,4 +22,10 @@ export type LegacyRenderNodeDef = {
   inputs: LegacyRenderNodePortDef[];
   outputs: LegacyRenderNodePortDef[];
   evaluate(inputs: Value[], ctx: RenderEvalContext): void;
+};
+
+export type RenderNodeDef<K extends RenderNodeKinds> = {
+  nodeKind: K;
+  defaultValues: NodeInputsResolved<K>;
+  evaluate: (inputs: NodeInputsResolved<K>, ctx: RenderEvalContext) => void;
 };

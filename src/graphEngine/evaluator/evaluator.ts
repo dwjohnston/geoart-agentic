@@ -1,9 +1,9 @@
 import type { Value, PointValue, ColorPointValue, ColorPointArrayValue } from '../../schema/types';
 import type { CompiledGraph } from '../compiler/compiler';
 import type { EvalContext } from './EvalContext';
-import type { NodeDef } from '../../nodes/compute/defineComputeNode';
-import type { LegacyRenderNodeDef } from '../../nodes/render/types';
-import type { LegacyControlNodeDef } from '../../nodes/control/defineControlNode';
+import type { LegacyComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
+import type { LegacyRenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
+import type { LegacyControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
 
 // ---------------------------------------------------------------------------
 // resolveInput
@@ -44,7 +44,7 @@ export function resolveInput(
   const def = compiledNode.def;
 
   // Control nodes have no inputs array — they should never reach here.
-  const inputs = (def as NodeDef | LegacyRenderNodeDef).inputs;
+  const inputs = (def as LegacyComputeNodeDef | LegacyRenderNodeDef).inputs;
   if (!inputs || portIndex >= inputs.length) {
     throw new Error(
       `resolveInput: port ${portIndex} out of range for node "${nodeId}"`,
@@ -163,7 +163,7 @@ function evaluateNode(
 
   // ---- Compute node -------------------------------------------------------
   if (layer === 'compute') {
-    const computeDef = def as NodeDef;
+    const computeDef = def as LegacyComputeNodeDef;
     const inputs: Value[] = computeDef.inputs.map((_, i) =>
       resolveInput(compiled, nodeId, i, cache),
     );
@@ -221,7 +221,7 @@ type NodeStateWithExtra = {
 function buildScopedCtx(
   ctx: EvalContext,
   nodeState: ReturnType<Map<string, NodeStateWithExtra>['get']> & object,
-): import('../../nodes/compute/defineComputeNode').EvalContext {
+): import('../../graphEngine/externalInterfaces/ComputeNodeDefinition').EvalContext {
   const state = nodeState as NodeStateWithExtra;
   return {
     tickCount: ctx.tickCount,
@@ -251,7 +251,7 @@ export function tick(compiled: CompiledGraph, t: number, ctx: EvalContext): void
   // 1. Mark time-dependant compute nodes dirty.
   for (const nodeId of compiled.sortedNodes) {
     const node = compiled.nodes.get(nodeId)!;
-    const def = node.def as Partial<import('../../nodes/compute/defineComputeNode').NodeDef>;
+    const def = node.def as Partial<import('../../graphEngine/externalInterfaces/ComputeNodeDefinition').LegacyComputeNodeDef>;
     if (def.isTimeDependant) {
       compiled.states.get(nodeId)!.isDirty = true;
     }

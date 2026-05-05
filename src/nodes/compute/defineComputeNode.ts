@@ -1,45 +1,11 @@
 import type { Value } from '../../schema/types';
 import type { ComputeNodeKinds, NodeInputsResolved, NodeOutputsResolved } from '../../schema/typeHelpers';
+import type { LegacyComputeNodePortDef, LegacyComputeNodeDef, ComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
 
-//@legacy - this does not belong here we should get this (or a type like this) into `src/graph`
-// We are trying to get rid of this
-export type LegacyComputeNodePortDef = {
-  name: string;
-  type: 'number' | 'string' | 'boolean' | 'color' | 'point' | 'colorPoint' | 'colorPointArray';
-  default?: Value | { v: string };
-  options?: string[];
-};
-
-//@legacy - this does not belong here we should get this (or a type like this) into `src/graph`
-export type EvalContext = {
-  tickCount: number;
-  getState<T>(): T;
-  setState<T>(s: T): void;
-};
-
-
-//@legacy - this does not belong here we should get this (or a type like this) into `src/graph`
-export type NodeDef = {
-  type: string;
-  isTimeDependant?: boolean;
-  inputs: LegacyComputeNodePortDef[];
-  outputs: LegacyComputeNodePortDef[];
-  evaluate(inputs: Value[], ctx: EvalContext): Value[];
-};
 type DefineableComputeNodeKind = ComputeNodeKinds;
-
-
-export type ComputeNodeDef<T extends DefineableComputeNodeKind> = {
-  nodeKind: T;
-
-  //I'm not sure about this one though
-  isTimeDependant?: boolean;
-  defaultValues: NodeInputsResolved<T>;
-  evaluate: (inputs: NodeInputsResolved<T>) => NodeOutputsResolved<T>
-}
 
 
 export function defineComputeNodeLegacy<K extends DefineableComputeNodeKind>(
@@ -49,7 +15,7 @@ export function defineComputeNodeLegacy<K extends DefineableComputeNodeKind>(
     defaults: NodeInputsResolved<K>,
     evaluate: (inputs: NodeInputsResolved<K>) => NodeOutputsResolved<K>;
   }
-): NodeDef {
+): LegacyComputeNodeDef {
   const inputEntries = objectEntries(nodeInputs[kind]);
   const outputItems = nodeOutputMeta[kind];
   const inputPortNames = inputEntries.map(([name]) => name);
@@ -93,7 +59,7 @@ export function defineComputeNodeLegacy<K extends DefineableComputeNodeKind>(
 }
 
 
-export function convertComputeNodeDefinitionToLegacyDefinition<T extends ComputeNodeKinds>(value: ComputeNodeDef<T>): NodeDef {
+export function convertComputeNodeDefinitionToLegacyDefinition<T extends ComputeNodeKinds>(value: ComputeNodeDef<T>): LegacyComputeNodeDef {
 
 
 

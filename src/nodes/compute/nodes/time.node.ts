@@ -1,7 +1,7 @@
-import type { NodeDef } from '../defineComputeNode';
+import type { LegacyComputeNodeDef } from '../../../graphEngine/externalInterfaces/ComputeNodeDefinition';
 import { evaluateTime } from './time';
 
-export const timeNodeDef: NodeDef = {
+export const timeNodeDef: LegacyComputeNodeDef = {
   type: 'time',
   isTimeDependant: true,
   inputs: [],

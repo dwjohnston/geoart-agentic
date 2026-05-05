@@ -1,4 +1,4 @@
-import type { LegacyControlNodeDef, ControlNodeDef, } from './defineControlNode';
+import type { LegacyControlNodeDef, ControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
 import { convertControlNodeDefToLegacy } from './defineControlNode';
 import { sliderNodeDef } from './nodes/SliderNode';
 import { colorPickerNodeDef } from './nodes/ColorPickerNode';

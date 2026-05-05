@@ -3,15 +3,7 @@ import type { Value } from '../../schema/types';
 import type { RenderNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
-import type { LegacyRenderNodePortDef, RenderEvalContext, LegacyRenderNodeDef } from './types';
-
-
-
-export type RenderNodeDef<K extends RenderNodeKinds> = {
-  nodeKind: K;
-  defaultValues: NodeInputsResolved<K>;
-  evaluate: (inputs: NodeInputsResolved<K>, ctx: RenderEvalContext) => void;
-};
+import type { LegacyRenderNodePortDef, RenderEvalContext, LegacyRenderNodeDef, RenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
 
 export function defineRenderNode<K extends RenderNodeKinds>(
   kind: K,

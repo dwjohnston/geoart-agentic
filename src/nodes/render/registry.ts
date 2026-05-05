@@ -1,5 +1,4 @@
-import type { LegacyRenderNodeDef } from './types';
-import type { RenderNodeDef } from './defineRenderNode';
+import type { LegacyRenderNodeDef, RenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
 import { convertRenderNodeDefToLegacy } from './defineRenderNode';
 import type { RenderNodeKinds } from '../../schema/typeHelpers';
 import { timedLineNodeDef } from './nodes/timedLine.node';
