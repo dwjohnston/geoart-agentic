@@ -818,12 +818,19 @@
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "center": {
+                  "deprecated": true,
+                  "description": "DEPRECATED: use centerPoints instead",
                   "$ref": "refable-value-kinds.schema.json#/definitions/pointValueOrRef"
+                },
+                "centerPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "radius": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "color": {
+                  "deprecated": true,
+                  "description": "DEPRECATED: use centerPoints instead",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorValueOrRef"
                 }
               }

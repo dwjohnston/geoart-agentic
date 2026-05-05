@@ -13,6 +13,7 @@ describe("circleNodeDef", () => {
       center: { x: 0, y: 0 },
       radius: 1,
       color: { r: 1, g: 1, b: 1, a: 1 },
+      centerPoints: []
     }, {
       canvas: fakeContext,
       height: 100,
