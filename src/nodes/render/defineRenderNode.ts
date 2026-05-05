@@ -3,19 +3,17 @@ import type { Value } from '../../schema/types';
 import type { RenderNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
-import type { PortDef, RenderEvalContext, LegacyRenderNodeDef } from './types';
+import type { LegacyRenderNodePortDef, RenderEvalContext, LegacyRenderNodeDef } from './types';
 
 
-// 🤖 Move to typeHelpers
-export type DefineableRenderNodeKind = RenderNodeKinds & keyof typeof nodeInputs;
 
-export type RenderNodeDef<K extends DefineableRenderNodeKind> = {
+export type RenderNodeDef<K extends RenderNodeKinds> = {
   nodeKind: K;
   defaultValues: NodeInputsResolved<K>;
   evaluate: (inputs: NodeInputsResolved<K>, ctx: RenderEvalContext) => void;
 };
 
-export function defineRenderNode<K extends DefineableRenderNodeKind>(
+export function defineRenderNode<K extends RenderNodeKinds>(
   kind: K,
   def: {
     defaults: NodeInputsResolved<K>;
@@ -29,7 +27,7 @@ export function defineRenderNode<K extends DefineableRenderNodeKind>(
   };
 }
 
-export function convertRenderNodeDefToLegacy<K extends DefineableRenderNodeKind>(
+export function convertRenderNodeDefToLegacy<K extends RenderNodeKinds>(
   def: RenderNodeDef<K>
 ): LegacyRenderNodeDef {
   const inputEntries = objectEntries(nodeInputs[def.nodeKind]);
@@ -61,8 +59,10 @@ export function convertRenderNodeDefToLegacy<K extends DefineableRenderNodeKind>
 }
 
 
-function valueTypeToPortType(valueType: string): PortDef['type'] {
-  const map: Record<string, PortDef['type']> = {
+
+//@legacy we are trying to get rid of this
+function valueTypeToPortType(valueType: string): LegacyRenderNodePortDef['type'] {
+  const map: Record<string, LegacyRenderNodePortDef['type']> = {
     numberValue: 'number',
     colorValue: 'color',
     pointValue: 'point',

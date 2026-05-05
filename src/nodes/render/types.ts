@@ -1,6 +1,7 @@
 import type { Value } from '../../schema/types';
 
-export type PortDef = {
+//@legacy - we are trying to get rid of this
+export type LegacyRenderNodePortDef = {
   name: string;
   type: 'number' | 'color' | 'point' | 'colorPoint' | 'colorPointArray' | 'trigger';
   default?: Value;
@@ -17,7 +18,7 @@ export type RenderEvalContext = {
 //@legacy
 export type LegacyRenderNodeDef = {
   type: string;
-  inputs: PortDef[];
-  outputs: PortDef[];
+  inputs: LegacyRenderNodePortDef[];
+  outputs: LegacyRenderNodePortDef[];
   evaluate(inputs: Value[], ctx: RenderEvalContext): void;
 };

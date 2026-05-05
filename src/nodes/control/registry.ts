@@ -1,11 +1,11 @@
-import type { LegacyControlNodeDef, ControlNodeDef, DefineableControlNodeKind } from './defineControlNode';
+import type { LegacyControlNodeDef, ControlNodeDef, } from './defineControlNode';
 import { convertControlNodeDefToLegacy } from './defineControlNode';
 import { sliderNodeDef } from './nodes/SliderNode';
 import { colorPickerNodeDef } from './nodes/ColorPickerNode';
 import { dropdownNodeDef } from './nodes/DropdownNode';
 import { lfoControlNodeDef } from './nodes/LfoControlNode';
+import type { ControlNodeKinds } from '../../schema/typeHelpers';
 
-type ControlNodeKinds = DefineableControlNodeKind;
 
 export const controlRegistry = new Map<string, LegacyControlNodeDef>(
   ([sliderNodeDef, colorPickerNodeDef, dropdownNodeDef, lfoControlNodeDef] as Array<ControlNodeDef<ControlNodeKinds>>)

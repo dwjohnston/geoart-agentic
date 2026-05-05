@@ -280,7 +280,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
     const { def } = compiledNode;
     // Control nodes have no inputs — skip.
     const inputs = ((def as NodeDef).inputs ?? (def as LegacyRenderNodeDef).inputs) as
-      | import('../../nodes/compute/defineComputeNode').PortDef[]
+      | import('../../nodes/compute/defineComputeNode').LegacyComputeNodePortDef[]
       | undefined;
     if (!inputs) continue;
 

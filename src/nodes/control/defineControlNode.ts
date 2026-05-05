@@ -3,10 +3,11 @@ import type { Value } from '../../schema/types';
 import type { ValueTypes } from '../../schema/_generated/value-kinds-2';
 import type { ControlNode } from '../../schema/_generated/schema-types';
 import type { ControlNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
-import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
 
-export type PortDef = {
+
+// @legacy - this should have the possible value types derived from the schema
+export type LegacyControlNodePortDef = {
   name: string;
   type: 'number' | 'string' | 'boolean' | 'color' | 'point';
 };
@@ -25,28 +26,28 @@ export type ControlSetter<K extends keyof typeof nodeOutputMeta> =
   <PortName extends OutputPortNames<K>>(paramKey: PortName, value: OutputValueForPort<K, PortName>) => void;
 
 // Legacy format — used internally by the registry and graph layer
+// We want to get rid of this
 export type LegacyControlNodeDef<T extends ControlNode['type'] & keyof typeof nodeOutputMeta = ControlNode['type'] & keyof typeof nodeOutputMeta> = {
   type: T;
-  outputs: PortDef[];
+  outputs: LegacyControlNodePortDef[];
   evaluate(params: ResolvedParams): Value[];
   renderControl(node: Extract<ControlNode, { type: T }>, set: ControlSetter<T>): React.ReactNode;
 };
 
-export type DefineableControlNodeKind = ControlNodeKinds & keyof typeof nodeInputs & keyof typeof nodeOutputMeta;
 
-export type NodeWithDefaults<K extends DefineableControlNodeKind> =
+export type NodeWithDefaults<K extends ControlNodeKinds> =
   Omit<Extract<ControlNode, { type: K }>, 'params'> & {
     params: Required<Extract<ControlNode, { type: K }>['params']>;
   };
 
 // Clean typed spec — mirrors ComputeNodeDef<K>
-export type ControlNodeDef<K extends DefineableControlNodeKind> = {
+export type ControlNodeDef<K extends ControlNodeKinds> = {
   nodeKind: K;
   defaultValues: NodeInputsResolved<K>;
   renderControl: (node: NodeWithDefaults<K>, set: ControlSetter<K>) => React.ReactNode;
 };
 
-export function defineControlNode<K extends DefineableControlNodeKind>(
+export function defineControlNode<K extends ControlNodeKinds>(
   kind: K,
   def: {
     defaults: NodeInputsResolved<K>;
@@ -60,7 +61,7 @@ export function defineControlNode<K extends DefineableControlNodeKind>(
   } as unknown as ControlNodeDef<K>;
 }
 
-export function convertControlNodeDefToLegacy<K extends DefineableControlNodeKind>(
+export function convertControlNodeDefToLegacy<K extends ControlNodeKinds>(
   def: ControlNodeDef<K>
 ): LegacyControlNodeDef<K> {
   const outputItems = nodeOutputMeta[def.nodeKind];
@@ -92,8 +93,10 @@ export function convertControlNodeDefToLegacy<K extends DefineableControlNodeKin
   } as unknown as LegacyControlNodeDef<K>;
 }
 
-function valueTypeToPortType(valueType: string): PortDef['type'] {
-  const map: Record<string, PortDef['type']> = {
+
+// @legacy - we are trying to get rid of this 
+function valueTypeToPortType(valueType: string): LegacyControlNodePortDef['type'] {
+  const map: Record<string, LegacyControlNodePortDef['type']> = {
     numberValue: 'number',
     stringValue: 'string',
     stringArrayValue: 'string',

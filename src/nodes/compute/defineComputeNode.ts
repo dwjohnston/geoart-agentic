@@ -5,7 +5,8 @@ import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
 
 //@legacy - this does not belong here we should get this (or a type like this) into `src/graph`
-export type PortDef = {
+// We are trying to get rid of this
+export type LegacyComputeNodePortDef = {
   name: string;
   type: 'number' | 'string' | 'boolean' | 'color' | 'point' | 'colorPoint' | 'colorPointArray';
   default?: Value | { v: string };
@@ -24,8 +25,8 @@ export type EvalContext = {
 export type NodeDef = {
   type: string;
   isTimeDependant?: boolean;
-  inputs: PortDef[];
-  outputs: PortDef[];
+  inputs: LegacyComputeNodePortDef[];
+  outputs: LegacyComputeNodePortDef[];
   evaluate(inputs: Value[], ctx: EvalContext): Value[];
 };
 type DefineableComputeNodeKind = ComputeNodeKinds;
@@ -119,8 +120,10 @@ export function defineComputeNode<K extends ComputeNodeKinds>(
   }
 }
 
-function valueTypeToPortType(valueType: string): PortDef['type'] {
-  const map: Record<string, PortDef['type']> = {
+
+//@legacy - we are trying to get rid of this
+function valueTypeToPortType(valueType: string): LegacyComputeNodePortDef['type'] {
+  const map: Record<string, LegacyComputeNodePortDef['type']> = {
     numberValue: 'number',
     stringValue: 'string',
     stringArrayValue: 'string',
