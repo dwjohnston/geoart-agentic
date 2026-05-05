@@ -1,32 +1,44 @@
 ## Workflow 
 
+### Projects folder
+
+the projects folder structure looks like this: 
+
+```
+/projects
+   /complete-features - features move here when they are done
+   /features
+      /[feature name]
+         FEATURE_BRIEF.md
+         FEATURE_PLAN.md 
+         task_xx_agent_name_task_name 
+
+   /feedback - execution agents can leave notes here
+   /human - human only notes area
+```
+
+### Workflow Phases
+
 
 The workflow loop looks like this: 
 
 1. Phase 1 - Ideating on a feature 
 
-Phase 1 is performed by `ideation-agent`.
-
 Feature ideation starts with the human giving a 'FEATURE' command. 
 Immediately ask for name for the feature. 
-Create a md file with this name in the `project/staging` folder. If a feature with a matching name already exists - tell the human user. 
 
-This should resemble a regular claude chat session, with a helpful back and forth, not a ‘jump straight into action’. 
+If this feature folder already exists in `src/projects/features`tell the human user. 
 
+Create an FEATURE_BRIEF.md 
 
-The artifact you will create out of this is a .md file in the `project/staging` folder. 
+This should resemble a regular claude chat session, with a helpful back and forth, asking clarifying questions, suggesting alternatives or potential problems, etc - this isnot a ‘jump straight into action’. 
 
-1b. Iterate
-
+The artifact you will create out of this is a FEATURE_BRIEF.md in the appropriate feature folder. 
 
 2. Phase 2 - Planning and delgation 
 
-Phase 2 is performed by `planning-agent`.
-
 Phase 2 starts with the 'PLAN' command. 
-Immediately ask, or give a list of staged features. 
-
-At this point the AI is directed to read one of the `projects/staging` .md files, and from here create a plan.md in the `projects/execution` folder.
+Immediately ask, or give a list of features. 
 
 This phase should not require reading project files. Delegation should be possible via just reading the feature brief. 
 
@@ -37,43 +49,25 @@ The purpose of this phase is to chop the feature into sub tasks and:
    - The available sub agents are listed in `.claude/agents` folder
    - If an appropriate subagent does not exist, then inform the user and suggest creating or ask for guidance what to do next.  
 
-The output of this phase is the plan.md which contains: 
+The output of this phase is the FEATURE_PLAN.md which contains: 
 - The dependency graph of the tasks to be done, and the sub agent to to do it. 
 - A prompt for each sub agent for that task.
 - Initialising the .md file with a kind of status panel. 
 
 You do not need to repeat instructions that written in the CLAUDE.mds - the sub agents will already have these instructions. 
 
-If needed the AI that is creating the plan.md may need to spawn sub agents to 
-have them assist in the creation of prompts and the dependency graph. 
+If you do not have requisite information to create the plan, then spawn subagents in readonly mode to ask them for advice. 
 
 3. Phase 3 - Execution 
 
-When the human user gives the EXECUTE command, start implementing the feature as described in the corresponding `projects/execution` .md file. 
+When the human user gives the EXECUTE command, spawn sub agents for each `projects/[feature name]/task*` .md file. 
 
-IMPORTANT: Use the subagent pattern. Decompose the task into as many items as there are in the execution .md file's status panel. 
+IMPORTANT: Use the subagent pattern. 
 
 IMPORTANT: Do not explore the codebase yourself before spawning subagents. The feature brief and execution plan contain sufficient context. Subagents will read what they need. Pre-reading duplicates their work and wastes context.
 
-3b. Iterate
-
 3. Phase 4 - Acceptance
 
-Phase 4 is performed by `ideation-agent`.
-
-
-When the human user gives a ACCEPT command propose a commit message, and if this is accepted then move the plan.md into `projects/archived.md` and  current changes. 
-
-Important: The human user may forget to give the START FEATURE, EXECUTE and ACCEPT commands. In this scenario NEVER make any code changes. 
-
-You can however answer questions in the chat prompt.
-
-### Escape hatch - QUICK
-
-Sometimes the above workflow is a bit cumbersome. If the human prefixes a statement with QUICK then treat this as a one time task. 
-
-If in the middle of a phase, clarify if things should be parked first. 
-
-And the end of a QUICK task then request acceptance, and then propose a commit message. 
+When the human user gives a ACCEPT command propose a commit message, and if this is accepted then move the feature folder into `projects/completed-features` and  current changes. 
 
 
