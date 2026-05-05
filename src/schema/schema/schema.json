@@ -416,6 +416,10 @@
             {
               "name": "value",
               "valueType": "numberValue"
+            },
+            {
+              "name": "sampler",
+              "valueType": "samplerValue"
             }
           ],
           "properties": {
@@ -593,6 +597,9 @@
                 },
                 "numberOfPoints": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "modulateBy": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
                 }
               }
             }
@@ -818,6 +825,50 @@
                 },
                 "color": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Connect Dots Render Node",
+          "type": "object",
+          "description": "Draws lines connecting consecutive coloured points in sequence. Each line segment inherits the colour of the second point.",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "renderConfig",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "connect-dots"
+              ]
+            },
+            "renderConfig": {
+              "$ref": "#/definitions/renderConfig"
+            },
+            "params": {
+              "title": "Params",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "colorPointsArray": {
+                  "description": "Array of coloured points to connect",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "lineWidth": {
+                  "description": "Width of each line segment in pixels",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
             }

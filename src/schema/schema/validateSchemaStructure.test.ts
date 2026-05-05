@@ -77,8 +77,8 @@ describe("validateSchemaStructure", () => {
 	describe("production schemas", () => {
 		test("passes with the full production SchemaSet", () => {
 			const result = validateSchemaStructure(productionSchemaSet);
-			expect(result.valid).toBe(true);
 			expect(result.errors).toEqual([]);
+			expect(result.valid).toBe(true);
 		});
 	});
 

@@ -219,6 +219,21 @@
           ]
         }
       }
+    },
+    "samplerValue": {
+      "title": "Sampler Value",
+      "type": "object",
+      "description": "Runtime-only function wrapper for lazy evaluation of a wave at arbitrary positions. Contains sample(t) and sampleMany(ts) functions. Cannot be statically defined in JSON.",
+      "additionalProperties": false,
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "object",
+          "description": "Placeholder object — actual value is a function at runtime"
+        }
+      }
     }
   }
 }

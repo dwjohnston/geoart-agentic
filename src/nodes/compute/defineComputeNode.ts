@@ -98,6 +98,7 @@ function valueTypeToPortType(valueType: string): LegacyComputeNodePortDef['type'
     colorPointValue: 'colorPoint',
     colorPointArrayValue: 'colorPointArray',
     waveTypeValue: 'string',
+    samplerValue: 'number',
   };
   return map[valueType] ?? 'number';
 }

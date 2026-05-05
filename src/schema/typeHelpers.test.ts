@@ -113,7 +113,8 @@ describe("NodeInputsRecord", () => {
 
 
         },
-        "numberOfPoints": 1
+        "numberOfPoints": 1,
+        "modulateBy": null
 
     })
 });

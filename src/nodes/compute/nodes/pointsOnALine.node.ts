@@ -1,5 +1,5 @@
 import { defineComputeNode } from '../defineComputeNode';
-import { pointsOnALine } from './pointsOnALine';
+import { pointsOnALine, type Sampler } from './pointsOnALine';
 
 export const pointsOnALineNodeDef = defineComputeNode("pointsOnALine", {
   isTimeDependant: false,
@@ -20,15 +20,17 @@ export const pointsOnALineNodeDef = defineComputeNode("pointsOnALine", {
       x: 1,
       y: 1,
     } as const,
-    "numberOfPoints": 1
+    "numberOfPoints": 1,
+    "modulateBy": null
   },
   evaluate: (inputs) => {
     const pointA = inputs.pointA;
     const pointB = inputs.pointB;
     const numberOfPoints = inputs.numberOfPoints;
+    const modulateBy = inputs.modulateBy as Sampler | null;
 
 
-    const points = pointsOnALine(pointA, pointB, numberOfPoints)
+    const points = pointsOnALine(pointA, pointB, numberOfPoints, modulateBy)
     return {
       points: points
     }
