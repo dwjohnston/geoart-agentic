@@ -1,6 +1,6 @@
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { Value } from '../../schema/types';
-import type { LegacyComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
+import type { LegacyComputeNodeDef, LegacyComputeNodePortDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
 import type { LegacyRenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
 import type { LegacyControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
 import { computeRegistry } from '../../nodes/compute/registry';
@@ -280,7 +280,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
     const { def } = compiledNode;
     // Control nodes have no inputs — skip.
     const inputs = ((def as LegacyComputeNodeDef).inputs ?? (def as LegacyRenderNodeDef).inputs) as
-      | import('../../graphEngine/externalInterfaces/ComputeNodeDefinition').LegacyComputeNodePortDef[]
+      | LegacyComputeNodePortDef[]
       | undefined;
     if (!inputs) continue;
 

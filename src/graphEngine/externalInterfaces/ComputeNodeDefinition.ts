@@ -11,7 +11,7 @@ export type LegacyComputeNodePortDef = {
 };
 
 //@legacy - this does not belong here we should get this (or a type like this) into `src/graph`
-export type EvalContext = {
+export type ComputeNodeEvalContext = {
   tickCount: number;
   getState<T>(): T;
   setState<T>(s: T): void;
@@ -24,7 +24,7 @@ export type LegacyComputeNodeDef = {
   isTimeDependant?: boolean;
   inputs: LegacyComputeNodePortDef[];
   outputs: LegacyComputeNodePortDef[];
-  evaluate(inputs: Value[], ctx: EvalContext): Value[];
+  evaluate(inputs: Value[], ctx: ComputeNodeEvalContext): Value[];
 };
 
 export type ComputeNodeDef<T extends ComputeNodeKinds> = {

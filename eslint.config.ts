@@ -30,7 +30,13 @@ export default defineConfig([
 
     rules: {
       "vitest/no-focused-tests": "error",
-
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'TSImportType',
+          message: 'Inline import() types are not allowed. Use a top-level import statement instead.',
+        },
+      ],
       "import/no-restricted-paths": ["warn", {
         "zones": [
           ...createImportNoRestrictedPathsZones({

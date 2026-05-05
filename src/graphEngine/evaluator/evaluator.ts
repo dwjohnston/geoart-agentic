@@ -1,7 +1,7 @@
 import type { Value, PointValue, ColorPointValue, ColorPointArrayValue } from '../../schema/types';
 import type { CompiledGraph } from '../compiler/compiler';
 import type { EvalContext } from './EvalContext';
-import type { LegacyComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
+import type { ComputeNodeEvalContext, LegacyComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
 import type { LegacyRenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
 import type { LegacyControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
 
@@ -221,7 +221,7 @@ type NodeStateWithExtra = {
 function buildScopedCtx(
   ctx: EvalContext,
   nodeState: ReturnType<Map<string, NodeStateWithExtra>['get']> & object,
-): import('../../graphEngine/externalInterfaces/ComputeNodeDefinition').EvalContext {
+): ComputeNodeEvalContext {
   const state = nodeState as NodeStateWithExtra;
   return {
     tickCount: ctx.tickCount,
@@ -251,7 +251,7 @@ export function tick(compiled: CompiledGraph, t: number, ctx: EvalContext): void
   // 1. Mark time-dependant compute nodes dirty.
   for (const nodeId of compiled.sortedNodes) {
     const node = compiled.nodes.get(nodeId)!;
-    const def = node.def as Partial<import('../../graphEngine/externalInterfaces/ComputeNodeDefinition').LegacyComputeNodeDef>;
+    const def = node.def as LegacyComputeNodeDef;
     if (def.isTimeDependant) {
       compiled.states.get(nodeId)!.isDirty = true;
     }
