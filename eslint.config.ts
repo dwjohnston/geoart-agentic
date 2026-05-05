@@ -6,11 +6,14 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import importPlugin from "eslint-plugin-import";
 import { createImportNoRestrictedPathsZones } from './tooling/eslint/configureImportRules';
+import vitest from "@vitest/eslint-plugin";
 
 export default defineConfig([
   globalIgnores(['dist']),
   {
     files: ['**/*.{ts,tsx}'],
+    plugins: { vitest },
+
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
@@ -26,6 +29,8 @@ export default defineConfig([
     },
 
     rules: {
+      "vitest/no-focused-tests": "error",
+
       "import/no-restricted-paths": ["warn", {
         "zones": [
           ...createImportNoRestrictedPathsZones({
