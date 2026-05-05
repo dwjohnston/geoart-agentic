@@ -1,5 +1,5 @@
-import type { LegacyControlNodeDef, ControlNodeDef, DefineableControlNodeKind } from './types';
-import { convertControlNodeDefToLegacy } from './types';
+import type { LegacyControlNodeDef, ControlNodeDef, DefineableControlNodeKind } from './defineControlNode';
+import { convertControlNodeDefToLegacy } from './defineControlNode';
 import { sliderNodeDef } from './nodes/SliderNode';
 import { colorPickerNodeDef } from './nodes/ColorPickerNode';
 import { dropdownNodeDef } from './nodes/DropdownNode';

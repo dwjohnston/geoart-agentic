@@ -1,4 +1,4 @@
-import { defineControlNode } from '../types';
+import { defineControlNode } from '../defineControlNode';
 import { ColorPickerControl } from '../ui/ColorPickerControl';
 
 export const colorPickerNodeDef = defineControlNode('colorPicker', {

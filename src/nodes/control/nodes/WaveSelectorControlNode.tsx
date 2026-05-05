@@ -1,4 +1,4 @@
-import { defineControlNode } from '../types';
+import { defineControlNode } from '../defineControlNode';
 import { DropdownControl } from '../ui/DropdownControl';
 
 const WAVE_TYPES = ["sine", "square", "triangle", "saw", "reverse-saw"] as const

@@ -2,7 +2,7 @@ import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { Value } from '../../schema/types';
 import type { NodeDef } from '../../nodes/compute/defineComputeNode';
 import type { LegacyRenderNodeDef } from '../../nodes/render/types';
-import type { LegacyControlNodeDef } from '../../nodes/control/types';
+import type { LegacyControlNodeDef } from '../../nodes/control/defineControlNode';
 import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
 import { controlRegistry } from '../../nodes/control/registry';

@@ -3,7 +3,7 @@ import type { CompiledGraph } from '../compiler/compiler';
 import type { EvalContext } from './EvalContext';
 import type { NodeDef } from '../../nodes/compute/defineComputeNode';
 import type { LegacyRenderNodeDef } from '../../nodes/render/types';
-import type { LegacyControlNodeDef } from '../../nodes/control/types';
+import type { LegacyControlNodeDef } from '../../nodes/control/defineControlNode';
 
 // ---------------------------------------------------------------------------
 // resolveInput

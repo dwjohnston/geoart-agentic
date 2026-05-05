@@ -1,6 +1,6 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 import type { NodeDef } from '../../../nodes/compute/defineComputeNode';
-import type { LegacyControlNodeDef } from '../../../nodes/control/types';
+import type { LegacyControlNodeDef } from '../../../nodes/control/defineControlNode';
 import type { LegacyRenderNodeDef } from '../../../nodes/render/types';
 import { computeRegistry } from '../../../nodes/compute/registry';
 import { controlRegistry } from '../../../nodes/control/registry';

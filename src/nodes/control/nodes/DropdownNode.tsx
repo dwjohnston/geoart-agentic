@@ -1,4 +1,4 @@
-import { defineControlNode } from '../types';
+import { defineControlNode } from '../defineControlNode';
 import { DropdownControl } from '../ui/DropdownControl';
 
 export const dropdownNodeDef = defineControlNode('dropdown', {

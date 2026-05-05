@@ -1,5 +1,5 @@
 import type { ResolvedValue } from '../../../schema/typeHelpers';
-import { defineControlNode } from '../types';
+import { defineControlNode } from '../defineControlNode';
 import { LfoControl } from '../ui/LfoControl';
 const WAVE_TYPES = ["sine", "square", "triangle", "saw", "reverse-saw"] as Array<ResolvedValue<"waveTypeValue">>;
 

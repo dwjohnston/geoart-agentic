@@ -1,4 +1,4 @@
-import { defineControlNode } from '../types';
+import { defineControlNode } from '../defineControlNode';
 import { SliderControl } from '../ui/SliderControl';
 
 export const sliderNodeDef = defineControlNode('slider', {
