@@ -76,11 +76,15 @@ function paramToValue(v: unknown): Value {
     return { kind: 'string', v: inner };
   }
   if (Array.isArray(inner)) {
-    const items = inner as Array<Record<string, unknown>>;
-    if (items.every(item => 'x' in item && 'y' in item && 'r' in item && 'g' in item && 'b' in item && 'a' in item)) {
+    const items = inner as Array<unknown>;
+    if (items.every(item => typeof item === 'number')) {
+      return { kind: 'numberArray', v: items as number[] };
+    }
+    const cpItems = items as Array<Record<string, unknown>>;
+    if (cpItems.every(item => 'x' in item && 'y' in item && 'r' in item && 'g' in item && 'b' in item && 'a' in item)) {
       return {
         kind: 'colorPointArray',
-        v: items as Array<{ x: number; y: number; r: number; g: number; b: number; a: number }>,
+        v: cpItems as Array<{ x: number; y: number; r: number; g: number; b: number; a: number }>,
       };
     }
     throw new Error(`Cannot convert array param to internal Value: ${JSON.stringify(v)}`);

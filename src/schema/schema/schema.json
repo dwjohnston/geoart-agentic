@@ -719,6 +719,53 @@
               }
             }
           }
+        },
+        {
+          "title": "Line Through Point Render Node",
+          "type": "object",
+          "description": "For each point in the array, for each degree value, draws a line through the point at that angle relative to the point's dx/dy direction",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "renderConfig",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "lineThroughPoint"
+              ]
+            },
+            "renderConfig": {
+              "$ref": "#/definitions/renderConfig"
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "intervalTicks": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "points": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "degrees": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberArrayValueOrRef"
+                },
+                "lineLength": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     }

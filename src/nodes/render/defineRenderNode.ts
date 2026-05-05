@@ -47,6 +47,7 @@ function valueTypeToPortType(valueType: string): PortDef['type'] {
     pointValue: 'point',
     colorPointValue: 'colorPoint',
     colorPointArrayValue: 'colorPointArray',
+    numberArrayValue: 'numberArray',
     triggerValue: 'trigger',
   };
   return map[valueType] ?? 'number';

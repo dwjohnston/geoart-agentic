@@ -4,5 +4,6 @@ export type ColorValue = { kind: 'color'; v: { r: number; g: number; b: number; 
 export type ColorPointValue = { kind: 'colorPoint'; v: { x: number; y: number; r: number; g: number; b: number; a: number } };
 export type ColorPointArrayValue = { kind: 'colorPointArray'; v: Array<{ x: number; y: number; r: number; g: number; b: number; a: number }> };
 export type StringValue = { kind: 'string'; v: string };
+export type NumberArrayValue = { kind: 'numberArray'; v: Array<number> };
 
-export type Value = NumberValue | PointValue | ColorValue | ColorPointValue | ColorPointArrayValue | StringValue;
+export type Value = NumberValue | PointValue | ColorValue | ColorPointValue | ColorPointArrayValue | StringValue | NumberArrayValue;

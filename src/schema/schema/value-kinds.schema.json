@@ -219,6 +219,23 @@
           ]
         }
       }
+    },
+    "numberArrayValue": {
+      "title": "Number Array Value",
+      "type": "object",
+      "description": "An array of number values",
+      "additionalProperties": false,
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/numberValue"
+          }
+        }
+      }
     }
   }
 }
