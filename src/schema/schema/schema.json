@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
   "title": "GeoArt Graph",
   "description": "Serialised dataflow graph for the Geometric Art Engine",
   "type": "object",
@@ -469,6 +469,8 @@
           ],
           "x-outputs": [
             {
+              "x-deprecated": true,
+              "x-deprecation-reason": "use `points` instead",
               "name": "point",
               "valueType": "pointValue"
             },
@@ -518,7 +520,8 @@
         {
           "title": "Color Point Compute Compute Node",
           "type": "object",
-          "description": "Packs a point and colour into a single coloured-point value",
+          "deprecated": false,
+          "description": "Packs a point and colour into a single coloured-point value. Avoid using this node - nodes should be outputing colorPoints directly. ",
           "additionalProperties": false,
           "required": [
             "id",
