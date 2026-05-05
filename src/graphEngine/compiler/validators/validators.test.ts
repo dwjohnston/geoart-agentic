@@ -92,7 +92,7 @@ const earthVenus: GeoArtGraph = {
 // ---------------------------------------------------------------------------
 
 describe('validateGraphSemantics', () => {
-  test.only('earth-venus fixture is fully valid', () => {
+  test('earth-venus fixture is fully valid', () => {
     const result = validateGraphSemantics(earthVenus);
     expect(result.valid).toBe(true);
     expect(result.errors).toHaveLength(0);
