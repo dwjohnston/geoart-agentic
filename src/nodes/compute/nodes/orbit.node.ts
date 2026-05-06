@@ -1,7 +1,7 @@
-import { defineComputeNode } from '../defineComputeNode';
+import { implementComputeNode } from '../implementComputeNode';
 import { evaluateOrbitPoints } from './orbit';
 
-export const orbitNodeDef = defineComputeNode("orbit", {
+export const orbitNodeDef = implementComputeNode("orbit", {
   isTimeDependant: true,
   defaults: {
     radius: 0.5,

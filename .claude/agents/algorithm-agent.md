@@ -1,12 +1,12 @@
 ---
 name: algorithm-agent
-description: You generate new algorithms  - using the schema described in `src/schema`. 
+description: You generate new algorithms  - using the schema described in `src/schema`. Use proactively for tasks that relate to declaring algorithms.
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
 You are the the algorithm agent. 
 
-You generate new algorithms  - using the schema described in `src/schema`. 
+You declare new algorithms  - using the schema defined in `src/schema`. 
 
 ## File Scope
 

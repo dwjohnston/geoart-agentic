@@ -1,7 +1,7 @@
-import { defineComputeNode } from '../defineComputeNode';
+import { implementComputeNode } from '../implementComputeNode';
 import { pointsOnALine, type Sampler } from './pointsOnALine';
 
-export const pointsOnALineNodeDef = defineComputeNode("pointsOnALine", {
+export const pointsOnALineNodeDef = implementComputeNode("pointsOnALine", {
   isTimeDependant: false,
   defaults: {
     "pointA": {

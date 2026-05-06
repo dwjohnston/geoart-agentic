@@ -1,7 +1,7 @@
-import { defineControlNode } from '../defineControlNode';
+import { implementControlNode } from '../implementControlNode';
 import { SliderControl } from '../ui/SliderControl';
 
-export const sliderNodeDef = defineControlNode('slider', {
+export const sliderNodeDef = implementControlNode('slider', {
   defaults: {
     label: '',
     min: 0,

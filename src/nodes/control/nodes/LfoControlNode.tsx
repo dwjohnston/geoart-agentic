@@ -1,9 +1,9 @@
 import type { ResolvedValue } from '../../../schema/typeHelpers';
-import { defineControlNode } from '../defineControlNode';
+import { implementControlNode } from '../implementControlNode';
 import { LfoControl } from '../ui/LfoControl';
 const WAVE_TYPES = ["sine", "square", "triangle", "saw", "reverse-saw"] as Array<ResolvedValue<"waveTypeValue">>;
 
-export const lfoControlNodeDef = defineControlNode('lfo-control', {
+export const lfoControlNodeDef = implementControlNode('lfo-control', {
   defaults: {
     baseValue: 0,
     frequency: 0.5,

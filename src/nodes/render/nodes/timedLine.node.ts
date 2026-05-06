@@ -1,6 +1,6 @@
-import { defineRenderNode } from '../defineRenderNode';
+import { implementRenderNode } from '../implementRenderNode';
 
-export const timedLineNodeDef = defineRenderNode('timedLine', {
+export const timedLineNodeDef = implementRenderNode('timedLine', {
   defaults: {
     intervalTicks: 6,
     colorPointA: { x: -0.5, y: 0, r: 1, g: 1, b: 1, a: 1 },

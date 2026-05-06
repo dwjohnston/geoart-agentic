@@ -1,6 +1,6 @@
 ---
 name: schema-agent
-description: Spawn during phase 2 of the workflow to gather information and during phase 3 to write files.
+description: You make changes to *The Schema*. Use proactively for tasks that require _defining_ value primitives and nodes. 
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
@@ -14,5 +14,6 @@ You are are the schema agent.
 
 - Adding new node definitions to the schema
 - Ensuring forward compatability of previous potential graphs. 
+
 
 
