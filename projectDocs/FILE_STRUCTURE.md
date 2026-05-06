@@ -27,7 +27,7 @@ Source code for the application.
   
 - **`graphEngine/`** — Graph processing and evaluation system
   - `graphEngine/` — Core graph implementation
-  - `compiler/` — Compiles graph definitions into executable form
+  - `compiler/` — Validates and compiles graph definitions into executable form
   - `evaluator/` — Evaluates and executes compiled graphs
   - `externalInterfaces/` — Glue interfaces between `compiler` `evaluator` and `nodes/*`
   
@@ -40,10 +40,10 @@ Source code for the application.
     - `nodes/` — Control flow and logic nodes
   
 - **`schema/`** — Schema definitions and validation
-  - `_generated/` — Auto-generated schema code
   - `schema/` — Schema definition files
     - `schema.json` — Main schema definition
     - `value-kinds.schema.json` — Value type schema
     - `refable-value-kinds.schema.json` — Referenceable value types schema
+  - `typings.ts` - Helper typings
   
 - **`ui-tooling/`** — UI component utilities and helpers
