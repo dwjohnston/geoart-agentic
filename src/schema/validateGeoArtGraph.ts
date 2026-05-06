@@ -1,9 +1,10 @@
-import Ajv, { type AnySchema } from "ajv";
+import { type AnySchema } from "ajv";
 import schema from "./schema/schema.json";
 import valueKindsSchema from "./schema/value-kinds.schema.json";
 import refableValueKindsSchema from "./schema/refable-value-kinds.schema.json";
+import Ajv2019 from "ajv/dist/2019"
 
-const ajv = new Ajv({
+const ajv = new Ajv2019({
 	allErrors: true,
 	strict: false,
 });
