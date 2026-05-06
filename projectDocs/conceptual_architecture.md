@@ -4,7 +4,7 @@ This project is a generative art engine. Graphs of connected nodes are evaluated
 
 ## The Schema
 
-The starting point is _The Schema_ — a JSON Schema (draft-07) definition living in `src/schema/schema/`. It defines:
+The starting point is _The Schema_ — a JSON Schema (draft-09) definition living in `src/schema/schema/`. It defines:
 
 - What node types exist and their input parameters
 - What value types exist
