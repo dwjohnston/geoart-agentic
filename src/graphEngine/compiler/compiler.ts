@@ -3,9 +3,8 @@ import type { Value } from '../../schema/types';
 import type { LegacyComputeNodeDef, LegacyComputeNodePortDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
 import type { LegacyRenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
 import type { LegacyControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
-import { computeRegistry } from '../../nodes/compute/registry';
-import { renderRegistry } from '../../nodes/render/registry';
-import { controlRegistry } from '../../nodes/control/registry';
+
+import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeDefinitions';
 
 /** Layer tag used to enforce direction constraints at compile time. */
 type Layer = 'control' | 'compute' | 'render';
@@ -214,7 +213,7 @@ const layerOrder: Record<Layer, number> = { control: 0, compute: 1, render: 2 };
  * - Edges that violate layer ordering (render → compute, etc.)
  * - Cycles in the graph
  */
-export function compile(graph: GeoArtGraph): CompiledGraph {
+export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): CompiledGraph {
   const nodes = new Map<string, CompiledNode>();
   // Raw (unparsed) params per node — needed for ref scanning below.
   const rawParamsByNodeId = new Map<string, Record<string, unknown>>();
@@ -223,7 +222,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
   // 1. Register control nodes
   // ------------------------------------------------------------------
   for (const node of graph.control.nodes) {
-    const def = controlRegistry.get(node.type);
+    const def = nodeRegistry.controlRegistry.get(node.type);
     if (!def) {
       throw new Error(`Unknown control node type: "${node.type}" (id: "${node.id}")`);
     }
@@ -240,7 +239,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
   // 2. Register compute nodes
   // ------------------------------------------------------------------
   for (const node of graph.compute.nodes) {
-    const def = computeRegistry.get(node.type);
+    const def = nodeRegistry.computeRegistry.get(node.type);
     if (!def) {
       throw new Error(`Unknown compute node type: "${node.type}" (id: "${node.id}")`);
     }
@@ -257,7 +256,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
   // 3. Register render nodes
   // ------------------------------------------------------------------
   for (const node of graph.render.nodes) {
-    const def = renderRegistry.get(node.type);
+    const def = nodeRegistry.renderRegistry.get(node.type);
     if (!def) {
       throw new Error(`Unknown render node type: "${node.type}" (id: "${node.id}")`);
     }

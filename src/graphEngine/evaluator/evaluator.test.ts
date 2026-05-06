@@ -3,6 +3,17 @@ import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { compile } from '../compiler/compiler';
 import { tick } from './evaluator';
 import type { EvalContext } from './EvalContext';
+import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeDefinitions';
+import { computeRegistry } from '../../nodes/compute/registry';
+import { renderRegistry } from '../../nodes/render/registry';
+import { controlRegistry } from '../../nodes/control/registry';
+
+
+const realNodeRegistry: LegacyNodeRegistry = {
+  computeRegistry: computeRegistry,
+  renderRegistry: renderRegistry,
+  controlRegistry: controlRegistry
+}
 
 // ---------------------------------------------------------------------------
 // Canvas mock factory
@@ -137,11 +148,11 @@ const earthVenus: GeoArtGraph = {
 
 describe('graph compiler and evaluator — Earth-Venus integration', () => {
   test('compile() does not throw', () => {
-    expect(() => compile(earthVenus)).not.toThrow();
+    expect(() => compile(earthVenus, realNodeRegistry)).not.toThrow();
   });
 
   test('sortedNodes contains all node IDs', () => {
-    const compiled = compile(earthVenus);
+    const compiled = compile(earthVenus, realNodeRegistry);
     const allIds = [
       'earthSpeedSlider',
       'venusSpeedSlider',
@@ -159,7 +170,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
   });
 
   test('sortedNodes respects topological order (sources before sinks)', () => {
-    const compiled = compile(earthVenus);
+    const compiled = compile(earthVenus, realNodeRegistry);
     const idx = (id: string) => compiled.sortedNodes.indexOf(id);
 
     // time must come before earthOrbit and venusOrbit.
@@ -176,18 +187,18 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
   });
 
   test('tick() at t=0 does not throw', () => {
-    const compiled = compile(earthVenus);
+    const compiled = compile(earthVenus, realNodeRegistry);
     expect(() => tick(compiled, 0, makeCtx(0))).not.toThrow();
   });
 
   test('tick() at t=500 does not throw', () => {
-    const compiled = compile(earthVenus);
+    const compiled = compile(earthVenus, realNodeRegistry);
     tick(compiled, 0, makeCtx(0));
     expect(() => tick(compiled, 500, makeCtx(500))).not.toThrow();
   });
 
   test('time node outputs the tick count', () => {
-    const compiled = compile(earthVenus);
+    const compiled = compile(earthVenus, realNodeRegistry);
     const ctx = makeCtx(42);
     tick(compiled, 42, ctx);
     const timeOutput = compiled.states.get('time')!.lastOutput;
@@ -207,7 +218,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
         ],
       },
     };
-    expect(() => compile(badGraph)).toThrow(/Unknown compute node type/);
+    expect(() => compile(badGraph, realNodeRegistry)).toThrow(/Unknown compute node type/);
   });
 
   test('compile() throws for ref to unknown node', () => {
@@ -228,7 +239,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
       },
       render: { nodes: [] },
     };
-    expect(() => compile(badGraph)).toThrow(/unknown source node/i);
+    expect(() => compile(badGraph, realNodeRegistry)).toThrow(/unknown source node/i);
   });
 
   test('compile() throws for ref to unknown port', () => {
@@ -249,6 +260,6 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
       },
       render: { nodes: [] },
     };
-    expect(() => compile(badGraph)).toThrow(/no output port named/i);
+    expect(() => compile(badGraph, realNodeRegistry)).toThrow(/no output port named/i);
   });
 });
