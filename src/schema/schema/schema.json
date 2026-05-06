@@ -555,6 +555,14 @@
                 },
                 "color": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorValueOrRef"
+                },
+                "dx": {
+                  "description": "X component of tangent vector (optional, defaults to 0)",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "dy": {
+                  "description": "Y component of tangent vector (optional, defaults to 0)",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
             }

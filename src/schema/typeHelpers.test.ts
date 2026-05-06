@@ -99,6 +99,8 @@ describe("NodeInputsRecord", () => {
             a: 1,
             x: 1,
             y: 1,
+            dx: 0,
+            dy: 0,
 
         },
 
@@ -109,6 +111,9 @@ describe("NodeInputsRecord", () => {
             a: 1,
             x: 1,
             y: 1,
+            dx: 0,
+            dy: 0,
+
 
 
 
@@ -151,6 +156,9 @@ describe("NodeOutputsRecord", () => {
                     a: 1,
                     x: 1,
                     y: 1,
+                    dx: 0,
+                    dy: 0,
+
                 }
             ]
         })

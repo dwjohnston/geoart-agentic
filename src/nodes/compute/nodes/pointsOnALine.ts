@@ -1,4 +1,5 @@
-export type ColorPointData = { x: number; y: number; r: number; g: number; b: number; a: number };
+import type { ResolvedValue } from "../../../schema/typeHelpers";
+
 
 export interface Sampler {
   sample(t: number): number;
@@ -6,11 +7,11 @@ export interface Sampler {
 }
 
 export function pointsOnALine(
-  pointA: ColorPointData,
-  pointB: ColorPointData,
+  pointA: ResolvedValue<"colorPointValue">,
+  pointB: ResolvedValue<"colorPointValue">,
   numberOfPoints: number,
   modulateBy?: Sampler | null,
-): ColorPointData[] {
+): ResolvedValue<"colorPointValue">[] {
   const count = Math.max(1, Math.round(numberOfPoints));
   if (count === 1) return [{ ...pointA }];
 
@@ -23,6 +24,10 @@ export function pointsOnALine(
       g: pointA.g + t * (pointB.g - pointA.g),
       b: pointA.b + t * (pointB.b - pointA.b),
       a: pointA.a + t * (pointB.a - pointA.a),
+
+      // Default gradient, just the gradient of the line
+      dx: pointB.x - pointA.x,
+      dy: pointB.y - pointA.y
     };
   });
 
@@ -53,12 +58,12 @@ export function pointsOnALine(
     const displacement = modulateBy.sample(t);
 
     return {
+      //nb. for now, the gradient stays the same 
+      ...point,
       x: point.x + perpVector.x * displacement,
       y: point.y + perpVector.y * displacement,
-      r: point.r,
-      g: point.g,
-      b: point.b,
-      a: point.a,
+
+
     };
   });
 }

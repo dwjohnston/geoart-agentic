@@ -10,9 +10,20 @@ describe("connectDotsNodeDef", () => {
 
     connectDotsNodeDef.evaluate({
       colorPointsArray: [
-        { x: 0, y: 0, r: 1, g: 0, b: 0, a: 1 },
-        { x: 10, y: 10, r: 0, g: 1, b: 0, a: 1 },
-        { x: 20, y: 0, r: 0, g: 0, b: 1, a: 1 },
+        {
+          x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
+          dy: 0,
+        },
+        {
+          x: 10, y: 10, r: 0, g: 1, b: 0, a: 1, dx: 0,
+          dy: 0,
+        },
+        {
+          x: 20, y: 0, r: 0, g: 0, b: 1, a: 1,
+          dx: 0,
+          dy: 0,
+
+        },
       ],
       lineWidth: 2,
     }, {
@@ -29,7 +40,10 @@ describe("connectDotsNodeDef", () => {
 
     connectDotsNodeDef.evaluate({
       colorPointsArray: [
-        { x: 0, y: 0, r: 1, g: 0, b: 0, a: 1 },
+        {
+          x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
+          dy: 0,
+        },
       ],
       lineWidth: 2,
     }, {

@@ -3,8 +3,14 @@ import { implementRenderNode } from '../implementRenderNode';
 export const timedLineNodeDef = implementRenderNode('timedLine', {
   defaults: {
     intervalTicks: 6,
-    colorPointA: { x: -0.5, y: 0, r: 1, g: 1, b: 1, a: 1 },
-    colorPointB: { x: 0.5, y: 0, r: 1, g: 1, b: 1, a: 1 },
+    colorPointA: {
+      x: -0.5, y: 0, r: 1, g: 1, b: 1, a: 1, dx: 0,
+      dy: 0,
+    },
+    colorPointB: {
+      x: 0.5, y: 0, r: 1, g: 1, b: 1, a: 1, dx: 0,
+      dy: 0,
+    },
   },
   evaluate: (inputs, ctx) => {
     const a = inputs.colorPointA;

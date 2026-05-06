@@ -11,12 +11,16 @@ export const colorPointNodeDef = implementComputeNode('colorPointCompute', {
     point: {
       x: 0,
       y: 0
-    }
+    },
+    dx: 0,
+    dy: 0,
   },
 
   evaluate(inputs) {
     const point = inputs.point;
     const color = inputs.color;
+    const dx = inputs.dx ?? 0; // Default to 0 if not provided
+    const dy = inputs.dy ?? 0;
     return {
       colorPoint: {
         x: point.x,
@@ -25,6 +29,8 @@ export const colorPointNodeDef = implementComputeNode('colorPointCompute', {
         g: color.g,
         b: color.b,
         a: color.a,
+        dx: dx,
+        dy: dy,
       },
     };
   },

@@ -11,7 +11,9 @@ export const pointsOnALineNodeDef = implementComputeNode("pointsOnALine", {
       a: 1,
       x: 1,
       y: 1,
-    } as const,
+      dx: 0,
+      dy: 0,
+    },
     "pointB": {
       r: 1,
       g: 1,
@@ -19,7 +21,9 @@ export const pointsOnALineNodeDef = implementComputeNode("pointsOnALine", {
       a: 1,
       x: 1,
       y: 1,
-    } as const,
+      dx: 0,
+      dy: 0,
+    },
     "numberOfPoints": 1,
     "modulateBy": null
   },
