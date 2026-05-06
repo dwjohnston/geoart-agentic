@@ -1,6 +1,6 @@
 ---
 name: render-node-agent
-description: Spawn during phase 2 of the workflow to gather information and during phase 3 to write files.
+description: You implement render nodes that are defined in the schema. Use proactively for tasks that require implementing Render Nodes.
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
