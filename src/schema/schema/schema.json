@@ -880,6 +880,57 @@
               }
             }
           }
+        },
+        {
+          "title": "Line Through A Point Render Node",
+          "type": "object",
+          "description": "For each coloured point, draws lines through it at each specified angle. Angle 0° is the positive x-axis; degrees increase clockwise.",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "renderConfig",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "lineThroughAPoint"
+              ]
+            },
+            "renderConfig": {
+              "$ref": "#/definitions/renderConfig"
+            },
+            "params": {
+              "title": "Params",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "points": {
+                  "title": "Points",
+                  "description": "Array of coloured points to draw lines through",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "degrees": {
+                  "title": "Degrees",
+                  "description": "Array of angles in degrees at which to draw a line through each point",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberArrayValueOrRef"
+                },
+                "lineLength": {
+                  "title": "Line Length",
+                  "description": "Length of each line in normalised units (1 = full canvas width)",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     }

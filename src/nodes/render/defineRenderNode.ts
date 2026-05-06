@@ -60,6 +60,7 @@ function valueTypeToPortType(valueType: string): LegacyRenderNodePortDef['type']
     pointValue: 'point',
     colorPointValue: 'colorPoint',
     colorPointArrayValue: 'colorPointArray',
+    numberArrayValue: 'numberArray',
     triggerValue: 'trigger',
   };
   return map[valueType] ?? 'number';

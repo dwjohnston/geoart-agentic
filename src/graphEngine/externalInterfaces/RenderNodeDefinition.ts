@@ -4,7 +4,7 @@ import type { RenderNodeKinds, NodeInputsResolved } from '../../schema/typeHelpe
 //@legacy - we are trying to get rid of this
 export type LegacyRenderNodePortDef = {
   name: string;
-  type: 'number' | 'color' | 'point' | 'colorPoint' | 'colorPointArray' | 'trigger';
+  type: 'number' | 'color' | 'point' | 'colorPoint' | 'colorPointArray' | 'numberArray' | 'trigger';
   default?: Value;
 };
 
