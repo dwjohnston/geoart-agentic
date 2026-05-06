@@ -4372,6 +4372,183 @@ exports[`All production graphs > 'orbitWaveLine' runs without error 2`] = `
 ]
 `;
 
+exports[`All production graphs > 'polygon' runs without error 1`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      64.99979438371139,
+      49.921460542528706,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.432085642774716,
+      37.049066740898425,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [
+      42.56811997351387,
+      63.02947271657287,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "closePath",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "fill",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      64.99917754048268,
+      49.84292323825631,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.36437876374444,
+      37.088869594940846,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [
+      42.63644369577288,
+      63.068207166802836,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "closePath",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "fill",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      64.99814948722491,
+      49.76439024032268,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.29688121912745,
+      37.12902641414533,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [
+      42.704969293647636,
+      63.10658334553197,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "closePath",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "fill",
+  },
+]
+`;
+
+exports[`All production graphs > 'polygon' runs without error 2`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+]
+`;
+
 exports[`All production graphs > 'pulsingSpirals' runs without error 1`] = `
 [
   {

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`minimal > uminimalThreeNode.ts 1`] = `
+exports[`minimal > uminimalThreeNodeReferenceGraph.ts 1`] = `
 [
   {
     "args": [
@@ -108,7 +108,184 @@ exports[`minimal > uminimalThreeNode.ts 1`] = `
 ]
 `;
 
-exports[`minimal > uminimalThreeNode.ts 2`] = `
+exports[`minimal > uminimalThreeNodeReferenceGraph.ts 2`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+]
+`;
+
+exports[`node_specific > upolygonReferenceGraph.ts 1`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      519.9983550696911,
+      399.37168434022965,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      339.4566851421977,
+      296.3925339271874,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [
+      340.544959788111,
+      504.23578173258295,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "closePath",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "fill",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      519.9934203238614,
+      398.7433859060505,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      338.9150301099555,
+      296.71095675952677,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [
+      341.09154956618306,
+      504.5456573344227,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "closePath",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "fill",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      519.9851958977993,
+      398.11512192258147,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      338.3750497530196,
+      297.03221131316263,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [
+      341.6397543491811,
+      504.8526667642558,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "closePath",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "fill",
+  },
+]
+`;
+
+exports[`node_specific > upolygonReferenceGraph.ts 2`] = `
 [
   {
     "args": [

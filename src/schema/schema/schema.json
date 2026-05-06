@@ -891,6 +891,47 @@
               }
             }
           }
+        },
+        {
+          "title": "Polygon Render Node",
+          "type": "object",
+          "description": "Draws a solid filled polygon using an array of coloured points connected in order",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "renderConfig",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "polygon"
+              ]
+            },
+            "renderConfig": {
+              "$ref": "#/definitions/renderConfig"
+            },
+            "params": {
+              "title": "Params",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "points": {
+                  "title": "Points",
+                  "description": "Array of coloured points defining the polygon vertices",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     }
