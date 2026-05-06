@@ -108,9 +108,18 @@ describe('orbitNodeDef', () => {
   it('tangent at t=0 points upward (perpendicular to rightmost radius)', () => {
     const { points } = orbitNodeDef.evaluate({ ...base, numPoints: 1 });
 
+    const point = points[0]
+
+
     // At t=0, angle=0, point is at (radius, 0)
     // Tangent should be (-sin(0), cos(0)) = (0, 1)
-    expect(points[0].dx).toBeCloseTo(0, 2);
-    expect(points[0].dy).toBeCloseTo(1, 2);
+    expect(expect(point.x).toBe(0.5))
+    expect(expect(point.y).toBe(0))
+    expect(expect(point.dx).toBe(-0))
+
+    expect(expect(point.dy).toBe(-1))
+
+
+
   });
 });

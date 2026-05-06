@@ -932,6 +932,57 @@
               }
             }
           }
+        },
+        {
+          "title": "Lines Through Point Render Node",
+          "type": "object",
+          "description": "Draws lines through each point, rotated by the specified angle. Line direction is determined by the point's dx,dy gradient; 0° follows the gradient, 90° is perpendicular. Points with zero gradient (0,0) are skipped.",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "renderConfig",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "linesThroughPoint"
+              ]
+            },
+            "renderConfig": {
+              "$ref": "#/definitions/renderConfig"
+            },
+            "params": {
+              "title": "Params",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "points": {
+                  "title": "Points",
+                  "description": "Array of color points with gradient info via dx,dy",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "degrees": {
+                  "title": "Degrees",
+                  "description": "Rotation angles in degrees for each line",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberArrayValueOrRef"
+                },
+                "lineLength": {
+                  "title": "Line Length",
+                  "description": "Length of each line",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     }

@@ -208,6 +208,17 @@ export const orbitWaveLineGraph: GeoArtGraph = {
 					color: { v: { r: 1, g: 0.3, b: 0.5, a: 1 } },
 				},
 			},
+
+			{
+				id: 'lineThroughPoint',
+				type: 'linesThroughPoint',
+				renderConfig: { layer: 'live' },
+				params: {
+					points: { ref: 'linePoints.points' },
+					lineLength: { v: 10 }
+
+				},
+			},
 		],
 	},
 };

@@ -123,6 +123,567 @@ exports[`minimal > uminimalThreeNodeReferenceGraph.ts 2`] = `
 ]
 `;
 
+exports[`node_specific > ulinesThroughPointReferenceGraph.ts 1`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      240,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      639.9868406477228,
+      397.48677181210104,
+      6,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      160.0131593522771,
+      402.5132281878989,
+      6,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      640.5104298535351,
+      447.48403028037666,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      639.4632514419105,
+      347.4895133438254,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      589.9895821794472,
+      398.01036101791334,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      689.9840991159984,
+      396.96318260628874,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      159.48957014646484,
+      352.5159697196233,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      160.53674855808939,
+      452.5104866561745,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      210.01041782055273,
+      401.98963898208666,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      110.01590088400151,
+      403.03681739371115,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      240,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      639.9473640339629,
+      394.9738192279943,
+      6,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      160.05263596603706,
+      405.0261807720057,
+      6,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      640.9944850281307,
+      444.96285340173654,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      638.9002430397951,
+      344.98478505425203,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      589.9583298602206,
+      396.02094022216215,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      689.9363982077052,
+      393.9266982338264,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      159.00551497186922,
+      355.03714659826346,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      161.0997569602049,
+      455.01521494574797,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      210.04167013977934,
+      403.9790597778379,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      110.06360179229478,
+      406.07330176617353,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      240,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      639.8815744877755,
+      392.4614178212492,
+      6,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      160.1184255122244,
+      407.53858217875074,
+      6,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      641.452112441682,
+      442.4367458395358,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      638.3110365338691,
+      342.4860898029626,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      589.9062464694889,
+      394.0319557751556,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      689.8569025060622,
+      390.8908798673428,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      158.547887558318,
+      357.56325416046417,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      161.68896346613082,
+      457.5139101970373,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      210.09375353051098,
+      405.96804422484433,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      110.14309749393783,
+      409.10912013265715,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`node_specific > ulinesThroughPointReferenceGraph.ts 2`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+]
+`;
+
 exports[`node_specific > upolygonReferenceGraph.ts 1`] = `
 [
   {

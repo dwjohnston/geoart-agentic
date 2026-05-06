@@ -832,6 +832,567 @@ exports[`All production graphs > 'earthVenus' runs without error 2`] = `
 ]
 `;
 
+exports[`All production graphs > 'linesThroughPoint' runs without error 1`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      30,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      79.99835508096535,
+      49.68584647651263,
+      0.75,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      20.00164491903464,
+      50.31415352348736,
+      0.75,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      80.52194428677765,
+      99.68310494478823,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      79.47476587515305,
+      -0.31141199176297363,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      30.00109661268975,
+      50.20943568232493,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      129.99561354924094,
+      49.16225727070033,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      19.478055713222368,
+      0.3168950552117593,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      20.52523412484691,
+      100.31141199176297,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      69.99890338731024,
+      49.7905643176751,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      -29.995613549240964,
+      50.83774272929963,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      30,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      79.99342050424536,
+      49.371727403499285,
+      0.75,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      20.006579495754632,
+      50.628272596500715,
+      0.75,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      81.04054149841322,
+      99.36076157724156,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      78.94629951007751,
+      -0.6173067702429904,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      30.00438633050309,
+      50.41884839766715,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      129.98245467798765,
+      48.32460640933142,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      18.95945850158679,
+      0.6392384227584387,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      21.053700489922473,
+      100.61730677024299,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      69.9956136694969,
+      49.58115160233288,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      -29.982454677987644,
+      51.67539359066855,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      30,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      79.98519681097194,
+      49.05767722765615,
+      0.75,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      20.01480318902805,
+      50.94232277234384,
+      0.75,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      81.55573476487835,
+      99.03300524594273,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      78.41465885706553,
+      -0.9176507906304323,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      30.00986879268536,
+      50.62821518156257,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      129.96052482925853,
+      47.48713927374973,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      18.44426523512165,
+      0.9669947540572608,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      21.58534114293445,
+      100.91765079063043,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      69.99013120731463,
+      49.37178481843743,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      -29.96052482925853,
+      52.51286072625025,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`All production graphs > 'linesThroughPoint' runs without error 2`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+]
+`;
+
 exports[`All production graphs > 'minimalThreeNode' runs without error 1`] = `
 [
   {
@@ -3179,6 +3740,1046 @@ exports[`All production graphs > 'orbitWaveLine' runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      23.964781920677066,
+      81.44449993122541,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      31.03518723681552,
+      88.5162301767538,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      31.03584970151049,
+      81.44516239592038,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      23.964119455982097,
+      88.51556771205883,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      24.286183438323704,
+      74.39742293631407,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      31.35658875446216,
+      81.46915318184246,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      31.357251219157128,
+      74.39808540100904,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      24.285520973628735,
+      81.46849071714749,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      29.254870714205534,
+      71.99676100388588,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      36.32527603034399,
+      79.06849124941427,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      36.325938495038955,
+      71.99742346858085,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      29.254208249510565,
+      79.0678287847193,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      37.09573854411004,
+      72.46774150591172,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      44.1661438602485,
+      79.5394717514401,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      44.166806324943465,
+      72.46840397060669,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      37.09507607941508,
+      79.53880928674513,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      42.064425819991875,
+      70.06707957348351,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      49.13483113613034,
+      77.1388098190119,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      49.1354936008253,
+      70.06774203817848,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.06376335529691,
+      77.13814735431693,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      42.38582733763852,
+      63.020002578572175,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      49.45623265377698,
+      70.09173282410056,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      49.45689511847194,
+      63.02066504326714,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.385164872943555,
+      70.09107035940559,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      42.70722885528516,
+      55.97292558366084,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      49.77763417142362,
+      63.044655829189225,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      49.77829663611858,
+      55.9735880483558,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.7065663905902,
+      63.04399336449426,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      47.67591613116699,
+      53.57226365123263,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      54.746321447305455,
+      60.64399389676102,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      54.74698391200042,
+      53.572926115927594,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      47.67525366647203,
+      60.643331432066056,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      55.516783961071496,
+      54.04324415325846,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      62.58718927720996,
+      61.11497439878685,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      62.58785174190492,
+      54.043906617953425,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      55.516121496376535,
+      61.11431193409189,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      60.48547123695332,
+      51.64258222083027,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      67.55587655309178,
+      58.714312466358656,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      67.55653901778675,
+      51.64324468552523,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      60.48480877225836,
+      58.713650001663694,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      60.80687275459997,
+      44.59550522591893,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      67.87727807073843,
+      51.66723547144731,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      67.8779405354334,
+      44.59616769061389,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      60.80621028990501,
+      51.66657300675235,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      61.12827427224661,
+      37.54842823100759,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      68.19867958838506,
+      44.62015847653598,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      68.19934205308003,
+      37.54909069570255,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      61.127611807551645,
+      44.619496011841015,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      66.09696154812845,
+      35.147766298579384,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      73.1673668642669,
+      42.21949654410777,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      73.16802932896186,
+      35.148428763274346,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      66.09629908343348,
+      42.21883407941281,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      73.93782937803294,
+      35.618746800605216,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      81.00823469417139,
+      42.6904770461336,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      81.00889715886636,
+      35.61940926530018,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      73.93716691333798,
+      42.68981458143864,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      78.90651665391478,
+      33.21808486817702,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      85.97692197005323,
+      40.28981511370541,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      85.9775844347482,
+      33.218747332871985,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      78.90585418921981,
+      40.28915264901045,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      79.22791817156143,
+      26.17100787326568,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      86.29832348769988,
+      33.24273811879407,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      86.29898595239484,
+      26.17167033796065,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      79.22725570686646,
+      33.242075654099104,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      79.54931968920806,
+      19.12393087835434,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      86.61972500534651,
+      26.195661123882733,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      86.62038747004148,
+      19.124593343049305,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      79.5486572245131,
+      26.194998659187767,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      84.5180069650899,
+      16.723268945926137,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      91.58841228122834,
+      23.79499919145453,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      91.58907474592331,
+      16.723931410621105,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      84.51734450039493,
+      23.79433672675956,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      92.35887479499439,
+      17.19424944795199,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      99.42928011113284,
+      24.265979693480382,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      99.42994257582781,
+      17.19491191264696,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      92.35821233029942,
+      24.265317228785413,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      97.32756207087624,
+      14.793587515523772,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      104.39796738701469,
+      21.865317761052165,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      104.39862985170966,
+      14.794249980218739,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      97.32689960618127,
+      21.8646552963572,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
     "args": [
       0,
       0,
@@ -3767,6 +5368,1046 @@ exports[`All production graphs > 'orbitWaveLine' runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      23.96506825453937,
+      81.42453252966767,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      31.034808375507094,
+      88.49692778318534,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      31.03613594178207,
+      81.42586009594265,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      23.963740688264394,
+      88.49560021691036,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      24.286149213338163,
+      74.37708291889736,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      31.355889334305886,
+      81.44947817241503,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      31.35721690058086,
+      74.37841048517234,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      24.28482164706319,
+      81.44815060614005,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      29.25495294960937,
+      71.97561122836409,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      36.32469307057709,
+      79.04800648188176,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      36.326020636852064,
+      71.97693879463907,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      29.253625383334395,
+      79.04667891560678,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      37.096207332645584,
+      72.44551180351883,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      44.165947453613306,
+      79.5179070570365,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      44.16727501988828,
+      72.4468393697938,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      37.09487976637061,
+      79.51657949076152,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      42.06501106891679,
+      70.04404011298554,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      49.13475118988451,
+      77.11643536650321,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      49.136078756159485,
+      70.04536767926052,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.063683502641815,
+      77.11510780022823,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      42.38609202771558,
+      62.99659050221524,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      49.4558321486833,
+      70.06898575573291,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      49.45715971495827,
+      62.997918068490215,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.384764461440604,
+      70.06765818945793,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      42.70717298651437,
+      55.949140891444934,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      49.776913107482095,
+      63.0215361449626,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      49.77824067375707,
+      55.95046845771991,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.7058454202394,
+      63.02020857868763,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      47.67597672278558,
+      53.54766920091165,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      54.7457168437533,
+      60.62006445442932,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      54.74704441002827,
+      53.54899676718662,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      47.674649156510604,
+      60.618736888154345,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      55.517231105821786,
+      54.017569776066395,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      62.58697122678951,
+      61.089965029584064,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      62.58829879306448,
+      54.01889734234137,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      55.51590353954681,
+      61.08863746330909,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      60.486034842093,
+      51.61609808553311,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      67.55577496306071,
+      58.68849333905078,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      67.5571025293357,
+      51.617425651808084,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      60.484707275818025,
+      58.687165772775806,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      60.807115800891786,
+      44.56864847476281,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      67.8768559218595,
+      51.64104372828048,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      67.87818348813448,
+      44.56997604103778,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      60.80578823461681,
+      51.639716162005506,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      61.12819675969059,
+      37.521198863992495,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      68.1979368806583,
+      44.593594117510165,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      68.19926444693328,
+      37.52252643026747,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      61.126869193415615,
+      44.59226655123519,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      66.0970004959618,
+      35.11972717345922,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      73.1667406169295,
+      42.19212242697689,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      73.16806818320448,
+      35.12105473973419,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      66.09567292968681,
+      42.190794860701914,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      73.93825487899801,
+      35.58962774861396,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      81.00799499996572,
+      42.662023002131626,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      81.0093225662407,
+      35.59095531488893,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      73.93692731272303,
+      42.66069543585665,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      78.90705861526921,
+      33.18815605808069,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      85.97679873623692,
+      40.26055131159836,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      85.9781263025119,
+      33.18948362435567,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      78.90573104899423,
+      40.25922374532339,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      79.22813957406801,
+      26.14070644731037,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      86.29787969503572,
+      33.21310170082805,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      86.2992072613107,
+      26.14203401358535,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      79.22681200779303,
+      33.21177413455307,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      79.5492205328668,
+      19.093256836540075,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      86.6189606538345,
+      26.16565209005775,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      86.62028822010949,
+      19.09458440281505,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      79.54789296659182,
+      26.164324523782774,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      84.51802426913801,
+      16.69178514600678,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      91.58776439010572,
+      23.764180399524456,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      91.5890919563807,
+      16.693112712281756,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      84.51669670286303,
+      23.76285283324948,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      92.35927865217421,
+      17.161685721161536,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      99.42901877314192,
+      24.234080974679213,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      99.4303463394169,
+      17.163013287436513,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      92.35795108589923,
+      24.232753408404236,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      97.32808238844544,
+      14.760214030628253,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      104.39782250941315,
+      21.832609284145928,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      104.39915007568813,
+      14.761541596903228,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      97.32675482217046,
+      21.83128171787095,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
     "args": [
       0,
       0,
@@ -4345,6 +6986,1046 @@ exports[`All production graphs > 'orbitWaveLine' runs without error 1`] = `
     "args": [
       100.86305571607473,
       18.26336984528034,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      23.965325091697,
+      81.40456394265405,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      31.034397326192906,
+      88.4776267688616,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      31.036392622048727,
+      81.40655923850987,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      23.96332979584118,
+      88.47563147300578,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      24.286081386267146,
+      74.35674301432446,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      31.35515362076305,
+      81.42980584053201,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      31.357148916618872,
+      74.35873831018029,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      24.284086090411325,
+      81.42781054467619,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      29.254999162975537,
+      71.9544610953599,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      36.32407139747144,
+      79.02752392156745,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      36.32606669332726,
+      71.95645639121572,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      29.253003867119716,
+      79.02552862571163,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      37.096638720843444,
+      72.42328018024644,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      44.16571095533935,
+      79.49634300645398,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      44.16770625119517,
+      72.42527547610226,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      37.09464342498762,
+      79.49434771059816,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      42.06555649755183,
+      70.02099826128187,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      49.13462873204774,
+      77.09406108748942,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      49.13662402790356,
+      70.0229935571377,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.06356120169601,
+      77.0920657916336,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      42.38631279212198,
+      62.97317733295229,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      49.45538502661788,
+      70.04624015915984,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      49.4573803224737,
+      62.97517262880811,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.384317496266156,
+      70.04424486330402,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      42.70706908669212,
+      55.925356404622704,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      49.77614132118803,
+      62.99841923083025,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      49.77813661704385,
+      55.927351700478525,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      42.7050737908363,
+      62.99642393497443,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      47.67598686340051,
+      53.523074485658135,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      54.745059097896416,
+      60.59613731186568,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      54.74705439375224,
+      53.525069781513956,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      47.67399156754469,
+      60.59414201600986,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      55.51762642126842,
+      53.991893570544676,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      62.58669865576432,
+      61.06495639675222,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      62.588693951620144,
+      53.993888866400496,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      55.5156311254126,
+      61.0629611008964,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      60.48654419797681,
+      51.589611651580114,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      67.55561643247272,
+      58.66267447778766,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      67.55761172832854,
+      51.591606947435935,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      60.48454890212099,
+      58.66067918193184,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      60.80730049254696,
+      44.54179072325053,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      67.87637272704286,
+      51.614853549458076,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      67.87836802289868,
+      44.54378601910635,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      60.80530519669114,
+      51.612858253602255,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      61.12805678711709,
+      37.49396979492092,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      68.197129021613,
+      44.56703262112847,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      68.19912431746882,
+      37.49596509077674,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      61.12606149126127,
+      44.56503732527265,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      66.09697456382548,
+      35.09168787595637,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      73.16604679832139,
+      42.164750702163914,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      73.16804209417721,
+      35.09368317181219,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      66.09497926796966,
+      42.162755406308094,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      73.93861412169339,
+      35.56050696084289,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      81.0076863561893,
+      42.63356978705044,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      81.00968165204512,
+      35.562502256698714,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      73.93661882583757,
+      42.63157449119462,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      78.90753189840179,
+      33.15822504187834,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      85.97660413289769,
+      40.231287868085886,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      85.97859942875351,
+      33.16022033773416,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      78.90553660254596,
+      40.229292572230065,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      79.22828819297193,
+      26.110404113548757,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      86.29736042746784,
+      33.1834669397563,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      86.29935572332366,
+      26.112399409404578,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      79.22629289711611,
+      33.18147164390048,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      79.54904448754208,
+      19.06258318521917,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      86.61811672203798,
+      26.13564601142672,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      86.6201120178938,
+      19.064578481074992,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      79.54704919168626,
+      26.133650715570898,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      84.51796226425047,
+      16.660301266254592,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      91.58703449874638,
+      23.73336409246214,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      91.5890297946022,
+      16.662296562110413,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      84.51596696839465,
+      23.73136879660632,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      92.35960182211836,
+      17.129120351141133,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      99.42867405661427,
+      24.20218317734868,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      99.43066935247009,
+      17.131115646996953,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      92.35760652626254,
+      24.20018788149286,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      97.32851959882677,
+      14.726838432176567,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      104.39759183332268,
+      21.799901258384114,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      104.3995871291785,
+      14.728833728032388,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      97.32652430297095,
+      21.797905962528294,
     ],
     "kind": "method",
     "name": "lineTo",

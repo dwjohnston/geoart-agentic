@@ -14,8 +14,6 @@ export const circleNodeDef = implementRenderNode('circle', {
     const deprecatedColorPoint = { ...inputs.color, ...inputs.center };
 
     const colorPointsToUse = inputs.centerPoints.length > 0 ? inputs.centerPoints : [deprecatedColorPoint];
-
-
     colorPointsToUse.forEach((v) => {
       const { r, g, b, a, x, y } = v;
       ctx.canvas.strokeStyle = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;

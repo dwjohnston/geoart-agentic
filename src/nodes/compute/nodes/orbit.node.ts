@@ -23,15 +23,18 @@ export const orbitNodeDef = implementComputeNode("orbit", {
 
     // For each point on the orbit, calculate the tangent (velocity direction)
     const colorPoints = rawPoints.map((p, i) => {
-      // Calculate the angle at this point
-      const totalPhase = (2 * Math.PI * speed * t) / 60 + phase;
-      const pointPhase = totalPhase + (2 * Math.PI * i) / numPoints;
+      // Calculate the angle at this point (match evaluateOrbitPoints formula)
+      const phaseRadians = phase * 2 * Math.PI;
+      const baseAngle = speed * (t / 600) * 2 * Math.PI + phaseRadians;
+      const spacing = (2 * Math.PI) / Math.max(1, numPoints);
+      const pointPhase = baseAngle + i * spacing;
 
       // Tangent is perpendicular to the radius vector (90° rotation)
       // Radius vector: (cos(angle), sin(angle))
       // Tangent: (-sin(angle), cos(angle))
+      // Canvas has y flipped (y increases downward), so negate dy
       const dx = -Math.sin(pointPhase);
-      const dy = Math.cos(pointPhase);
+      const dy = -Math.cos(pointPhase);
 
       return {
         ...p,

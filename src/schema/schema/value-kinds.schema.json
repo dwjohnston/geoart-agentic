@@ -212,6 +212,22 @@
         }
       }
     },
+    "numberArrayValue": {
+      "title": "Number Array Value",
+      "type": "object",
+      "description": "An array of numbers",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/numberValue"
+          }
+        }
+      }
+    },
     "waveTypeValue": {
       "title": "Wave Type Value",
       "type": "object",

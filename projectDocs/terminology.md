@@ -194,3 +194,12 @@ Understanding these four layers and how they relate is fundamental to the projec
 
 - **param** 
     - This term is not problematic, but is already well covered by 'node input'
+
+
+## Terms not yet documented
+
+- graph
+
+- array values
+
+- enum values
