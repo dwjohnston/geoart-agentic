@@ -7,6 +7,7 @@ import { playwright } from "@vitest/browser-playwright";
 
 // https://vite.dev/config/
 export default defineConfig({
+	base: process.env.VITE_APP_BASE ?? "/",
 	plugins: [react()],
 	test: {
 		globalSetup: "./vitest.setup.ts",
