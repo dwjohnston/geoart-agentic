@@ -364,7 +364,9 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
           color: { r: 0, g: 0, b: 0, a: 0 },
           "intervalTicks": 1,
           "radius": 0.5,
-          "centerPoints": []
+          "centerPoints": [],
+          eccentricity: 0,
+          tilt: 0
         },
         evaluate: (inputs) => {
           mockFn(inputs)

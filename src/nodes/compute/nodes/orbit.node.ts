@@ -9,7 +9,9 @@ export const orbitNodeDef = implementComputeNode("orbit", {
     center: { x: 0, y: 0 },
     numPoints: 1,
     phase: 0,
-    time: 0
+    time: 0,
+    eccentricity: 0,
+    tilt: 0,
   },
   evaluate: (inputs) => {
     const t = inputs.time;
@@ -18,8 +20,10 @@ export const orbitNodeDef = implementComputeNode("orbit", {
     const center = inputs.center;
     const numPoints = Math.max(1, Math.round(inputs.numPoints));
     const phase = inputs.phase;
+    const eccentricity = inputs.eccentricity;
+    const tilt = inputs.tilt;
 
-    const rawPoints = evaluateOrbitPoints(radius, speed, t, numPoints, phase, center.x, center.y);
+    const rawPoints = evaluateOrbitPoints(radius, speed, t, numPoints, phase, center.x, center.y, eccentricity, tilt);
 
     // For each point on the orbit, calculate the tangent (velocity direction)
     const colorPoints = rawPoints.map((p, i) => {
