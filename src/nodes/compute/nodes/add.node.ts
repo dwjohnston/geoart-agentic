@@ -1,7 +1,7 @@
-import { defineComputeNode } from '../defineComputeNode';
+import { implementComputeNode } from '../implementComputeNode';
 
 
-export const addNodeDef = defineComputeNode("add", {
+export const addNodeImplementation = implementComputeNode("add", {
   isTimeDependant: false,
   defaults: {
     a: 0,

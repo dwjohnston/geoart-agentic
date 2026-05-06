@@ -1,5 +1,5 @@
 import type { LegacyRenderNodeDef, RenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
-import { convertRenderNodeDefToLegacy } from './defineRenderNode';
+import { convertRenderNodeDefToLegacy } from './implementRenderNode';
 import type { RenderNodeKinds } from '../../schema/typeHelpers';
 import { timedLineNodeDef } from './nodes/timedLine.node';
 import { timedLineArrayNodeDef } from './nodes/timedLineArray.node';

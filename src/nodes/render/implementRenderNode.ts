@@ -5,7 +5,7 @@ import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
 import type { LegacyRenderNodePortDef, RenderEvalContext, LegacyRenderNodeDef, RenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
 
-export function defineRenderNode<K extends RenderNodeKinds>(
+export function implementRenderNode<K extends RenderNodeKinds>(
   kind: K,
   def: {
     defaults: NodeInputsResolved<K>;

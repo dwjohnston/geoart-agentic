@@ -1,6 +1,6 @@
-import { defineRenderNode } from '../defineRenderNode';
+import { implementRenderNode } from '../implementRenderNode';
 
-export const circleNodeDef = defineRenderNode('circle', {
+export const circleNodeDef = implementRenderNode('circle', {
   defaults: {
     intervalTicks: 0,
     center: { x: 0, y: 0 },

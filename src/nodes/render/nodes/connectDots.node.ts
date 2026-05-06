@@ -1,6 +1,6 @@
-import { defineRenderNode } from '../defineRenderNode';
+import { implementRenderNode } from '../implementRenderNode';
 
-export const connectDotsNodeDef = defineRenderNode('connect-dots', {
+export const connectDotsNodeDef = implementRenderNode('connect-dots', {
   defaults: {
     colorPointsArray: [],
     lineWidth: 1,

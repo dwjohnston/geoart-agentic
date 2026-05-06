@@ -1,6 +1,6 @@
-import { defineComputeNode, } from '../defineComputeNode';
+import { implementComputeNode, } from '../implementComputeNode';
 
-export const colorPointNodeDef = defineComputeNode('colorPointCompute', {
+export const colorPointNodeDef = implementComputeNode('colorPointCompute', {
   defaults: {
     "color": {
       "a": 1,

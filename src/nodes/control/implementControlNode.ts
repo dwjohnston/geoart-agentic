@@ -5,7 +5,7 @@ import type { ControlNodeKinds, NodeInputsResolved } from '../../schema/typeHelp
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
 import type { LegacyControlNodePortDef, ResolvedParams, ControlSetter, LegacyControlNodeDef, NodeWithDefaults, ControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
 
-export function defineControlNode<K extends ControlNodeKinds>(
+export function implementControlNode<K extends ControlNodeKinds>(
   kind: K,
   def: {
     defaults: NodeInputsResolved<K>;

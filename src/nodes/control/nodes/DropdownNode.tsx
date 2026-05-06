@@ -1,7 +1,7 @@
-import { defineControlNode } from '../defineControlNode';
+import { implementControlNode } from '../implementControlNode';
 import { DropdownControl } from '../ui/DropdownControl';
 
-export const dropdownNodeDef = defineControlNode('dropdown', {
+export const dropdownNodeDef = implementControlNode('dropdown', {
   defaults: {
     label: '',
     options: [],

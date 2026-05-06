@@ -8,7 +8,7 @@ import { objectEntries } from '../../common-tooling/typedObject';
 type DefineableComputeNodeKind = ComputeNodeKinds;
 
 
-export function defineComputeNodeLegacy<K extends DefineableComputeNodeKind>(
+export function implementComputeNodeLegacy<K extends DefineableComputeNodeKind>(
   kind: K,
   def: {
     isTimeDependant?: boolean;
@@ -63,14 +63,14 @@ export function convertComputeNodeDefinitionToLegacyDefinition<T extends Compute
 
 
 
-  return defineComputeNodeLegacy(value.nodeKind, {
+  return implementComputeNodeLegacy(value.nodeKind, {
     defaults: value.defaultValues,
     evaluate: value.evaluate,
     isTimeDependant: value.isTimeDependant
   })
 }
 
-export function defineComputeNode<K extends ComputeNodeKinds>(
+export function implementComputeNode<K extends ComputeNodeKinds>(
   kind: K,
   def: {
     isTimeDependant?: boolean;

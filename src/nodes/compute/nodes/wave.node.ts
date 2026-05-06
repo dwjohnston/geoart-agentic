@@ -1,8 +1,8 @@
-import { defineComputeNode } from '../defineComputeNode';
+import { implementComputeNode } from '../implementComputeNode';
 import { evaluateWave } from './wave';
 import type { Sampler } from './pointsOnALine';
 
-export const waveNodeDef = defineComputeNode("wave", {
+export const waveNodeDef = implementComputeNode("wave", {
   isTimeDependant: true,
   defaults: {
     "amplitude": 1,

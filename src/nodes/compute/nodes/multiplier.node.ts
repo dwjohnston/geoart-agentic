@@ -1,6 +1,6 @@
-import { defineComputeNode } from '../defineComputeNode';
+import { implementComputeNode } from '../implementComputeNode';
 
-export const multiplierNodeDef = defineComputeNode("multiplier", {
+export const multiplierNodeDef = implementComputeNode("multiplier", {
   isTimeDependant: false,
   defaults: {
     a: 1,
