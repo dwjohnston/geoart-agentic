@@ -54,4 +54,21 @@ export type NodeInputsResolved<K extends keyof typeof nodeInputs> = {
 
 
 
+export type ReferencedValueDeclared = { ref: string };
+
+export type StaticValueDeclared<T extends ValueTypeNames> = { v: ResolvedValue<`${T}Value`> };
+
+export type ValueDeclared<T extends ValueTypeNames> = ReferencedValueDeclared | StaticValueDeclared<T>;
+
+
+
+// Remember, Control nodes inputs can not be refererenced values.
+export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
+  [Port in keyof typeof nodeInputs[K]]?: typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
+  ? K extends ControlNodeKinds
+  ? StaticValueDeclared<VT extends `${infer Kind}Value` ? Kind : never>
+  : ValueDeclared<VT extends `${infer Kind}Value` ? Kind : never>
+  : never
+}
+
 

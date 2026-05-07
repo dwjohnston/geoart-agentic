@@ -1,5 +1,5 @@
 import { describe, it, assertType, expect } from 'vitest';
-import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue } from './typeHelpers';
+import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared } from './typeHelpers';
 
 
 describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds", () => {
@@ -162,5 +162,74 @@ describe("NodeOutputsRecord", () => {
                 }
             ]
         })
+    });
+});
+
+describe("Declared value types", () => {
+    it("ReferencedValueDeclared is { ref: string }", () => {
+        assertType<ReferencedValueDeclared>({ ref: "node.output" });
+
+        //@ts-expect-error - missing ref
+        assertType<ReferencedValueDeclared>({ v: 1 });
+
+        //@ts-expect-error - wrong ref type
+        assertType<ReferencedValueDeclared>({ ref: 123 });
+    });
+
+    it("StaticValueDeclared maps to { v: ResolvedValue<type> }", () => {
+        assertType<StaticValueDeclared<"number">>({ v: 42 });
+
+        //@ts-expect-error - wrong v type (string instead of number)
+        assertType<StaticValueDeclared<"number">>({ v: "42" });
+
+        assertType<StaticValueDeclared<"waveType">>({ v: "sine" });
+
+        //@ts-expect-error - wrong enum value
+        assertType<StaticValueDeclared<"waveType">>({ v: "invalid" });
+    });
+
+    it("ValueDeclared is static or referenced", () => {
+        assertType<ValueDeclared<"number">>({ v: 42 });
+        assertType<ValueDeclared<"number">>({ ref: "node.output" });
+
+        //@ts-expect-error - neither static nor ref
+        assertType<ValueDeclared<"number">>({ x: 42 });
+    });
+});
+
+describe("NodeInputsDeclared", () => {
+    it("compute nodes accept both static and referenced values", () => {
+        assertType<NodeInputsDeclared<"add">>({
+            a: { v: 1 },
+            b: { ref: "other.output" },
+        });
+
+        assertType<NodeInputsDeclared<"add">>({
+            a: { v: 1 },
+        });
+    });
+
+    it("render nodes accept both static and referenced values", () => {
+        assertType<NodeInputsDeclared<"circle">>({
+            center: { ref: "orbit.point" },
+            radius: { v: 0.5 },
+        });
+    });
+
+    it("control nodes only accept static values", () => {
+        assertType<NodeInputsDeclared<"slider">>({
+            value: { v: 50 },
+        });
+
+        assertType<NodeInputsDeclared<"slider">>({
+            //@ts-expect-error - control nodes cannot use refs
+            value: { ref: "other.output" },
+        });
+    });
+
+    it("all inputs are optional", () => {
+        assertType<NodeInputsDeclared<"add">>({});
+
+        assertType<NodeInputsDeclared<"slider">>({});
     });
 });
