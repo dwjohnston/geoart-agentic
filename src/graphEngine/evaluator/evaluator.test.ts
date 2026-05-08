@@ -7,6 +7,9 @@ import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeDefinition
 import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
 import { controlRegistry } from '../../nodes/control/registry';
+import { convertRenderNodeDefToLegacy, implementRenderNode } from '../../nodes/render/implementRenderNode';
+import type { NodeInputsDeclared, NodeInputsResolved } from '../../schema/typeHelpers';
+import { fColorPoint } from '../../constants';
 
 
 const realNodeRegistry: LegacyNodeRegistry = {
@@ -262,4 +265,232 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
     };
     expect(() => compile(badGraph, realNodeRegistry)).toThrow(/no output port named/i);
   });
+
+
+
+
+
+
+  describe("positional normalising does not occur within the graph compilation and evaluation", () => {
+
+
+
+    // The orbit node will initially have a position of 1,0.5
+    const computeNodes = [
+      {
+        id: 'time',
+        type: 'time',
+        params: {},
+      },
+      {
+        id: 'orbitNode',
+        type: 'orbit',
+        params: {
+          time: { ref: 'time.time' },
+          center: { v: { x: 0.5, y: 0.5 } },
+          radius: { v: 0.5 },
+          speed: { v: 0.5 },
+        },
+      },
+    ] satisfies GeoArtGraph['compute']['nodes'];
+
+
+
+    test.each<{
+      scenarioName: string,
+      computeNodes: GeoArtGraph['compute']['nodes']
+      inputs: NodeInputsDeclared<"circle">,
+      assertion: (resolvedInputs: NodeInputsResolved<"circle">) => void;
+    }>([
+      {
+        scenarioName: "(legacy) - center static value",
+        computeNodes: [],
+        inputs: {
+          center: { v: { x: 0.5, y: 0.5 } },
+
+        },
+        assertion: (resolvedInputs) => {
+          expect(resolvedInputs.center.x).toBe(0.5);
+          expect(resolvedInputs.center.y).toBe(0.5);
+        }
+      },
+      {
+        scenarioName: "centerPoints static value",
+        computeNodes: [],
+        inputs: {
+          centerPoints: {
+            v: [
+              { v: fColorPoint({ x: 0.5, y: 0.5 }) }
+            ]
+          },
+
+        },
+        assertion: (resolvedInputs) => {
+          expect(resolvedInputs.centerPoints[0].x).toBe(0.5);
+          expect(resolvedInputs.centerPoints[0].y).toBe(0.5);
+        }
+      },
+      {
+        scenarioName: "(legacy) - center referenced value",
+        computeNodes: computeNodes,
+        inputs: {
+          center: { ref: "orbitNode.point" },
+
+        },
+        assertion: (resolvedInputs) => {
+          expect(resolvedInputs.center.x).toBe(1);
+          expect(resolvedInputs.center.y).toBe(0.5);
+        }
+      },
+      {
+        scenarioName: "centerPoints referenced value",
+        computeNodes: computeNodes,
+        inputs: {
+          centerPoints: { ref: "orbitNode.points" },
+        },
+        assertion: (resolvedInputs) => {
+          expect(resolvedInputs.centerPoints[0].x).toBe(1);
+          expect(resolvedInputs.centerPoints[0].y).toBe(0.5);
+        }
+      },
+
+    ])('$scenarioName', (testInputs) => {
+      const mockFn = vi.fn();
+
+      // Create a custom circle node implementation with the mock
+      const mockCircleDef = implementRenderNode("circle", {
+        "defaults": {
+          center: { x: 0, y: 0 },
+          color: { r: 0, g: 0, b: 0, a: 0 },
+          "intervalTicks": 1,
+          "radius": 0.5,
+          "centerPoints": []
+        },
+        evaluate: (inputs) => {
+          mockFn(inputs)
+        }
+
+
+
+
+      });
+
+      const legacyCircleDef = convertRenderNodeDefToLegacy(mockCircleDef)
+
+      // Create a custom registry with the mocked circle node
+      const customRegistry: LegacyNodeRegistry = {
+        computeRegistry: realNodeRegistry.computeRegistry,
+        renderRegistry: new Map([['circle', legacyCircleDef]]),
+        controlRegistry: realNodeRegistry.controlRegistry,
+      };
+
+
+      const graphWithCircle: GeoArtGraph = {
+        version: '2.0',
+        control: { nodes: [] },
+        compute: { nodes: testInputs.computeNodes },
+        render: {
+          nodes: [
+            {
+              id: 'testCircle',
+              type: 'circle',
+              renderConfig: { layer: 'paint' },
+              params: {
+                intervalTicks: { v: 1 },
+                radius: { v: 0.02 },
+                color: { v: { r: 1, g: 1, b: 1, a: 1 } },
+                ...testInputs.inputs
+              },
+            },
+          ],
+        },
+      };
+
+      // Compile the graph with the custom registry
+      const compiled = compile(graphWithCircle, customRegistry);
+
+      // Create a context and evaluate one tick
+      const ctx = makeCtx(0);
+      tick(compiled, 0, ctx);
+
+      // Assert that the mock was called with the correct center position (not normalized)
+      expect(mockFn).toHaveBeenCalledTimes(1)
+      const callArgs = mockFn.mock.calls[0];
+      const inputs = callArgs[0];
+      testInputs.assertion(inputs)
+    })
+
+
+
+
+    test("numberValueArray also behaves", () => {
+
+      const mockFn = vi.fn();
+
+      const mockLinesThroughPoint = implementRenderNode("linesThroughPoint", {
+        "defaults": {
+          "degrees": [],
+          "lineLength": 1,
+          "points": []
+
+        },
+        evaluate: (inputs) => {
+          mockFn(inputs)
+        }
+
+
+
+
+      });
+
+      const legacyCircleDef = convertRenderNodeDefToLegacy(mockLinesThroughPoint)
+
+      // Create a custom registry with the mocked circle node
+      const customRegistry: LegacyNodeRegistry = {
+        computeRegistry: realNodeRegistry.computeRegistry,
+        renderRegistry: new Map([['linesThroughPoint', legacyCircleDef]]),
+        controlRegistry: realNodeRegistry.controlRegistry,
+      };
+
+
+      const graphWithLinesThroughAPoint: GeoArtGraph = {
+        version: '2.0',
+        control: { nodes: [] },
+        compute: { nodes: [] },
+        render: {
+          nodes: [
+            {
+              id: 'linesThroughPoint',
+              type: 'linesThroughPoint',
+              renderConfig: { layer: 'paint' },
+              params: {
+                degrees: { v: [{ v: 9 }, { v: 2 }] }
+              },
+            },
+          ],
+        },
+      };
+
+      // Compile the graph with the custom registry
+      const compiled = compile(graphWithLinesThroughAPoint, customRegistry);
+
+      // Create a context and evaluate one tick
+      const ctx = makeCtx(0);
+      tick(compiled, 0, ctx);
+
+      // Assert that the mock was called with the correct center position (not normalized)
+      expect(mockFn).toHaveBeenCalledTimes(1)
+      const callArgs = mockFn.mock.calls[0];
+      const inputs = callArgs[0] as NodeInputsResolved<"linesThroughPoint">;
+      expect(inputs.degrees).toEqual([9, 2]);
+    })
+
+
+  })
+
+
+
+
+
+
 });

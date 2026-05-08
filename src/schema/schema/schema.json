@@ -460,7 +460,7 @@
         {
           "title": "Orbit Compute Node",
           "type": "object",
-          "description": "Circular motion — outputs a single point (backwards-compat) and an array of evenly-spaced coloured points",
+          "description": "Circular motion — outputs a single point (backwards-compat) and an array of evenly-spaced coloured points. A single point on an orbit centered at 0.5,0.5, with starting phase 0, and radius 0.5, will be 1,0.5 ",
           "additionalProperties": false,
           "required": [
             "id",

@@ -181,19 +181,11 @@ function evaluateNode(
     resolveInput(compiled, nodeId, i, cache),
   );
 
-  // intervalTicks is port 0 — used for scheduling (already checked before this call).
-  // Scale all point inputs from normalised space to canvas pixels.
-  const scaledInputs = scalePointInputs(
-    rawInputs,
-    ctx.canvas.width,
-    ctx.canvas.height,
-  );
-
   // Select the target canvas based on renderConfig.layer.
   const renderLayer = compiledNode.renderConfig?.layer ?? 'paint';
   const targetCanvas = renderLayer === 'live' ? ctx.canvas.orbit : ctx.canvas.trail;
 
-  renderDef.evaluate(scaledInputs, {
+  renderDef.evaluate(rawInputs, {
     canvas: targetCanvas,
     width: ctx.canvas.width,
     height: ctx.canvas.height,

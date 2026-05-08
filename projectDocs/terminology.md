@@ -75,6 +75,8 @@ Understanding these four layers and how they relate is fundamental to the projec
     - Examples live in `src/algorithms/`
     - 'validate the algorithm' means to validate that a given algorithm is spec compliant and compiles correctly
 
+- **graph** 
+    - A graph is what an algorithm becomes once it has been compiled, when it becomes a series of runtime nodes. 
 
 ---
 
@@ -198,8 +200,11 @@ Understanding these four layers and how they relate is fundamental to the projec
 
 ## Terms not yet documented
 
-- graph
 
 - array values
 
 - enum values
+
+- registry  
+
+- reference algorithm

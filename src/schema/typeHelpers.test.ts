@@ -457,7 +457,9 @@ describe("Declared value types", () => {
 
         })
         it(`ValueDeclared<colorPointArray> can be a reference value to an array`, () => {
-
+            assertType<ValueDeclared<"colorPointArray">>({
+                ref: "foo.bar"
+            })
         })
 
         it(`ValueDeclared<colorPointArray> can be a static value of mixed of static values or referenced values `, () => {
@@ -482,9 +484,7 @@ describe("Declared value types", () => {
                 }]
             })
 
-            assertType<ValueDeclared<"colorPointArray">>({
-                ref: "foo.bar"
-            })
+
         })
     });
 
