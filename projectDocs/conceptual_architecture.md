@@ -62,11 +62,11 @@ User-facing inputs: sliders, colour pickers, and similar UI controls. They are p
 
 ### Compute Nodes
 
-Pure mathematical transformation nodes. They take inputs and emit outputs. No canvas access, no UI knowledge. Examples: `add`, `wave`, `orbit`, `scale`.
+Pure mathematical transformation nodes. They take inputs and emit outputs. No canvas access, no UI knowledge. Examples: `add`, `wave`, `orbit`.
 
 ### Render Nodes
 
-Responsible for drawing to the canvas. They have no node-level output — they are the end of the data flow. Examples: `timedLine`, `circle`, `trail`. Each render node runs on its own schedule (`intervalTicks`) rather than every frame.
+Responsible for drawing to the canvas. They have no node-level output — they are the end of the data flow. Examples: `timedLine`, `circle`. Each render node runs on its own schedule (`intervalTicks`) rather than every frame.
 
 ## Inputs and Outputs
 

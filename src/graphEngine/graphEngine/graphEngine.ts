@@ -6,6 +6,8 @@ import type { CompiledGraph } from '../compiler/compiler';
 import type { EvalContext } from '../evaluator/EvalContext';
 import type { Value } from '../../schema/types';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+import { computeRegistry } from '../../nodes/compute/registry';
+import { renderRegistry } from '../../nodes/render/registry';
 
 export type GraphLoadPayload = {
   renderControlNodes: () => React.ReactNode;
@@ -71,7 +73,11 @@ export function createGraphEngine(
     frameCount = 0;
     orbitCtx.clearRect(0, 0, canvasSize, canvasSize);
     trailCtx.clearRect(0, 0, canvasSize, canvasSize);
-    compiled = compile(graph);
+    compiled = compile(graph, {
+      computeRegistry: computeRegistry,
+      controlRegistry: controlRegistry,
+      renderRegistry: renderRegistry
+    });
 
     return {
       renderControlNodes: () => graph.control.nodes.map(node => {

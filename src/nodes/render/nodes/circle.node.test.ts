@@ -10,8 +10,8 @@ describe("circleNodeDef", () => {
 
     circleNodeDef.evaluate({
       intervalTicks: 0,
-      center: { x: 0, y: 0 },
-      radius: 1,
+      center: { x: 0.5, y: 0.5 },
+      radius: 0.5,
       color: { r: 1, g: 1, b: 1, a: 1 },
       centerPoints: []
     }, {
@@ -22,30 +22,30 @@ describe("circleNodeDef", () => {
 
 
     expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
-          [
-            {
-              "args": [],
-              "kind": "method",
-              "name": "beginPath",
-            },
-            {
-              "args": [
-                0,
-                0,
-                50,
-                0,
-                6.283185307179586,
-              ],
-              "kind": "method",
-              "name": "arc",
-            },
-            {
-              "args": [],
-              "kind": "method",
-              "name": "stroke",
-            },
-          ]
-        `)
+      [
+        {
+          "args": [],
+          "kind": "method",
+          "name": "beginPath",
+        },
+        {
+          "args": [
+            75,
+            25,
+            25,
+            0,
+            6.283185307179586,
+          ],
+          "kind": "method",
+          "name": "arc",
+        },
+        {
+          "args": [],
+          "kind": "method",
+          "name": "stroke",
+        },
+      ]
+    `)
   })
 
 })

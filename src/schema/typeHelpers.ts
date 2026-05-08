@@ -54,4 +54,37 @@ export type NodeInputsResolved<K extends keyof typeof nodeInputs> = {
 
 
 
+export type ReferencedValueDeclared = { ref: string };
+
+// Detect if a value type name is an array type (e.g., "colorPointArray", "stringArray")
+type IsArrayValueType<T extends ValueTypeNames> = T extends `${string}Array` ? true : false;
+
+// Extract the item type from an array value kind (e.g., "colorPointArray" -> "colorPoint")
+type ArrayItemType<T extends ValueTypeNames> = T extends `${infer Item}Array` ? Item : never;
+
+// For array types, StaticValueDeclared is an array of StaticValueDeclared items
+// For non-array types, it's the raw resolved value
+export type StaticValueDeclared<T extends ValueTypeNames> =
+  IsArrayValueType<T> extends true
+    ? { v: Array<StaticValueDeclared<ArrayItemType<T>>> }
+    : { v: ResolvedValue<`${T}Value`> };
+
+// For array types, ValueDeclared can be a reference to an array or an array of mixed declared values
+// For non-array types, it's either a reference or a static value
+export type ValueDeclared<T extends ValueTypeNames> =
+  IsArrayValueType<T> extends true
+    ? ReferencedValueDeclared | { v: Array<ValueDeclared<ArrayItemType<T>>> }
+    : ReferencedValueDeclared | StaticValueDeclared<T>;
+
+
+
+// Remember, Control nodes inputs can not be refererenced values.
+export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
+  [Port in keyof typeof nodeInputs[K]]?: typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
+  ? K extends ControlNodeKinds
+  ? StaticValueDeclared<VT extends `${infer Kind}Value` ? Kind : never>
+  : ValueDeclared<VT extends `${infer Kind}Value` ? Kind : never>
+  : never
+}
+
 

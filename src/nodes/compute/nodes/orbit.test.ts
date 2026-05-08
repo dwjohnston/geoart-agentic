@@ -80,4 +80,48 @@ describe('orbitNodeDef', () => {
     expect(points[0].x).toBeCloseTo(0.5);
     expect(points[1].x).toBeCloseTo(-0.5);
   });
+
+  it('exports tangent in direction of motion', () => {
+    const { points } = orbitNodeDef.evaluate({ ...base, numPoints: 4 });
+
+    // Check that each point has a unit-magnitude tangent
+    points.forEach(p => {
+      const mag = Math.sqrt((p.dx ?? 0) ** 2 + (p.dy ?? 0) ** 2);
+      expect(mag).toBeCloseTo(1, 2); // Tangent should be normalised
+    });
+  });
+
+  it('tangents are perpendicular to radius at each point', () => {
+    const { points } = orbitNodeDef.evaluate({ ...base, numPoints: 4 });
+
+    points.forEach(p => {
+      // Radius vector from center to point
+      const radiusX = p.x - base.center.x;
+      const radiusY = p.y - base.center.y;
+
+      // Dot product of radius and tangent should be near zero (perpendicular)
+      const dotProduct = radiusX * (p.dx ?? 0) + radiusY * (p.dy ?? 0);
+      expect(dotProduct).toBeCloseTo(0, 1);
+    });
+  });
+
+  it('tangent at t=0 points upward (perpendicular to rightmost radius)', () => {
+    const { points } = orbitNodeDef.evaluate({ ...base, phase: 0, numPoints: 1 });
+
+    const point = points[0]
+
+    // At t=0, angle=0, point is at (radius, 0)
+    // Tangent should be (-sin(0), cos(0)) = (0, 1)
+    expect(point.x).toBeCloseTo(0.5);
+    expect(point.y).toBeCloseTo(0);
+    expect(point.dx).toBeCloseTo(0);
+    expect(point.dy).toBeCloseTo(1);
+
+    // After 1 tick with speed=150 (quarter orbit per tick), it should be in the top center position
+    const result2 = orbitNodeDef.evaluate({ ...base, phase: 0, numPoints: 1, time: 1, speed: 600 / 4 });
+    expect(result2.points[0].x).toBeCloseTo(0);
+    expect(result2.points[0].y).toBeCloseTo(0.5);
+    expect(result2.points[0].dx).toBeCloseTo(-1);
+    expect(result2.points[0].dy).toBeCloseTo(0);
+  });
 });

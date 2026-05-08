@@ -307,6 +307,129 @@ describe("validateSchemaStructure", () => {
 			const result = validateSchemaStructure(schemas);
 			expect(result.valid).toBe(true);
 		});
+
+		describe("array value kinds naming convention", () => {
+			test("fails when a kind has an array type but does not end with 'Array'", () => {
+				const schemas: SchemaSet = {
+					"schema.json": validStructuredSchema,
+					"value-kinds.schema.json": {
+						definitions: {
+							numberValue: { title: "Number Value", type: "object", properties: { v: { type: "number" } } },
+							numberCollectionValue: { // kind "numberCollection" (array type) but doesn't end with "Array"
+								title: "Number Collection Value",
+								type: "object",
+								properties: {
+									v: {
+										type: "array",
+										items: { type: "number" },
+									},
+								},
+							},
+						},
+					},
+					"refable-value-kinds.schema.json": {
+						definitions: {
+							numberValueOrRef: { title: "Number Value Or Ref" },
+							numberCollectionValueOrRef: { title: "Number Collection Value Or Ref" },
+						},
+					},
+				};
+				const result = validateSchemaStructure(schemas);
+				expect(result.valid).toBe(false);
+				expect(result.errors.some((e) =>
+					e.includes('"numberCollectionValue"') && e.includes("does not end with \"Array\"")
+				)).toBe(true);
+			});
+
+			test("fails when a kind ends with 'Array' but is not an array type", () => {
+				const schemas: SchemaSet = {
+					"schema.json": validStructuredSchema,
+					"value-kinds.schema.json": {
+						definitions: {
+							numberValue: { title: "Number Value", type: "object", properties: { v: { type: "number" } } },
+							colorArrayValue: { // kind "colorArray" ends with "Array" but isn't an array type
+								title: "Color Array Value",
+								type: "object",
+								properties: {
+									v: {
+										type: "object",
+										properties: { r: { type: "number" } },
+									},
+								},
+							},
+						},
+					},
+					"refable-value-kinds.schema.json": {
+						definitions: {
+							numberValueOrRef: { title: "Number Value Or Ref" },
+							colorArrayValueOrRef: { title: "Color Array Value Or Ref" },
+						},
+					},
+				};
+				const result = validateSchemaStructure(schemas);
+				expect(result.valid).toBe(false);
+				expect(result.errors.some((e) =>
+					e.includes('"colorArrayValue"') && e.includes("kind ends with \"Array\" but does not have an array type")
+				)).toBe(true);
+			});
+
+			test("passes when array kinds end with 'Array' and non-array kinds do not", () => {
+				const schemas: SchemaSet = {
+					"schema.json": validStructuredSchema,
+					"value-kinds.schema.json": {
+						definitions: {
+							numberValue: {
+								title: "Number Value",
+								type: "object",
+								properties: { v: { type: "number" } },
+							},
+							numberArrayValue: {
+								title: "Number Array Value",
+								type: "object",
+								properties: {
+									v: {
+										type: "array",
+										items: { type: "number" },
+									},
+								},
+							},
+							colorValue: {
+								title: "Color Value",
+								type: "object",
+								properties: {
+									v: {
+										type: "object",
+										properties: { r: { type: "number" }, g: { type: "number" } },
+									},
+								},
+							},
+							colorPointArrayValue: {
+								title: "Color Point Array Value",
+								type: "object",
+								properties: {
+									v: {
+										type: "array",
+										items: {
+											$ref: "#/definitions/colorValue",
+										},
+									},
+								},
+							},
+						},
+					},
+					"refable-value-kinds.schema.json": {
+						definitions: {
+							numberValueOrRef: { title: "Number Value Or Ref" },
+							numberArrayValueOrRef: { title: "Number Array Value Or Ref" },
+							colorValueOrRef: { title: "Color Value Or Ref" },
+							colorPointArrayValueOrRef: { title: "Color Point Array Value Or Ref" },
+						},
+					},
+				};
+				const result = validateSchemaStructure(schemas);
+				expect(result.valid).toBe(true);
+			});
+		});
 	});
 
 	describe("x-outputs completeness", () => {

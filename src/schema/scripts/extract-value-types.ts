@@ -1,3 +1,4 @@
+//🧽 Find a nice way of typing Json Schema objects
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type JsonSchema = Record<string, any>;
 function deriveKind(key: string): string {

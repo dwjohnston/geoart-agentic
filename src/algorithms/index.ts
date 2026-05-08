@@ -8,7 +8,7 @@ import { lfoPlanetsGraph } from './lfoPlanets';
 import { singleOrbitLfoGraph } from './singleOrbitLfo';
 import { pulsingSpiralsGraph } from './pulsingSpirals';
 import { orbitWaveLineGraph } from './orbitWaveLine';
-import { minimalThreeNodeGraph } from './reference/minimal/minimalThreeNode';
+import { REFERENCE_GRAPHS } from './reference/_index';
 
 export type GraphEntry = {
   id: string;
@@ -16,7 +16,7 @@ export type GraphEntry = {
   graph: GeoArtGraph;
 };
 
-export const GRAPHS: GraphEntry[] = [
+export const PRODUCTION_GRAPHS: GraphEntry[] = [
   { id: 'threeOrbits', name: 'Three Orbits', graph: threeOrbitsGraph },
   { id: 'earthVenus', name: 'Earth & Venus', graph: earthVenusGraph },
   { id: 'monaLisa', name: "Mona Lisa", graph: monaLisaGraph },
@@ -26,7 +26,10 @@ export const GRAPHS: GraphEntry[] = [
   { id: 'singleOrbitLfo', name: 'Single Orbit LFO', graph: singleOrbitLfoGraph },
   { id: 'pulsingSpirals', name: 'Pulsing Spirals', graph: pulsingSpiralsGraph },
   { id: 'orbitWaveLine', name: 'Orbit Wave Line', graph: orbitWaveLineGraph },
-  { id: 'minimalThreeNode', name: "minimalThreeNodeGraph", graph: minimalThreeNodeGraph }
+]
+export const GRAPHS: GraphEntry[] = [
+  ...PRODUCTION_GRAPHS,
+  ...REFERENCE_GRAPHS
 ];
 
 export const DEFAULT_GRAPH_ID = GRAPHS[0].id;

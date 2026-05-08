@@ -121,6 +121,40 @@ export function validateSchemaStructure(schemas: SchemaSet): SchemaValidationRes
 		}
 	}
 
+	// ── 3b. Array value kinds must end with "Array" and vice versa ──────────────
+	// The convention: if a value kind (name without "Value" suffix) ends with "Array",
+	// then its v property must be an array type, and vice versa.
+	if (valueKinds !== undefined) {
+		const vk = valueKinds as Record<string, unknown>;
+		const vkDefs = vk['definitions'] as Record<string, unknown> | undefined;
+		if (vkDefs !== undefined) {
+			for (const [name, def] of Object.entries(vkDefs)) {
+				if (typeof def !== 'object' || def === null) continue;
+				const defObj = def as Record<string, unknown>;
+
+				// Extract the kind by removing "Value" suffix
+				const kind = name.endsWith('Value') ? name.slice(0, -5) : name;
+
+				// Check if the definition's `v` property is an array
+				const props = defObj['properties'] as Record<string, unknown> | undefined;
+				const vProp = props?.['v'] as Record<string, unknown> | undefined;
+				const isArrayType = vProp?.['type'] === 'array' ||
+					(typeof vProp?.['items'] !== 'undefined');
+				const kindEndsWithArray = kind.endsWith('Array');
+
+				if (isArrayType && !kindEndsWithArray) {
+					errors.push(
+						`value-kinds.schema.json: "${name}" (kind: "${kind}") has an array type but the kind does not end with "Array"`
+					);
+				} else if (!isArrayType && kindEndsWithArray) {
+					errors.push(
+						`value-kinds.schema.json: "${name}" (kind: "${kind}") kind ends with "Array" but does not have an array type`
+					);
+				}
+			}
+		}
+	}
+
 	// ── 4. x-outputs completeness ─────────────────────────────────────────────
 	// Collect valid valueType names from value-kinds.schema.json
 	const validValueTypes = new Set<string>();

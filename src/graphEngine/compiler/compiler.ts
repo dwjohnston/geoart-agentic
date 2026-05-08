@@ -3,9 +3,8 @@ import type { Value } from '../../schema/types';
 import type { LegacyComputeNodeDef, LegacyComputeNodePortDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
 import type { LegacyRenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
 import type { LegacyControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
-import { computeRegistry } from '../../nodes/compute/registry';
-import { renderRegistry } from '../../nodes/render/registry';
-import { controlRegistry } from '../../nodes/control/registry';
+
+import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeDefinitions';
 
 /** Layer tag used to enforce direction constraints at compile time. */
 type Layer = 'control' | 'compute' | 'render';
@@ -76,14 +75,41 @@ function paramToValue(v: unknown): Value {
     return { kind: 'string', v: inner };
   }
   if (Array.isArray(inner)) {
-    const items = inner as Array<Record<string, unknown>>;
-    if (items.every(item => 'x' in item && 'y' in item && 'r' in item && 'g' in item && 'b' in item && 'a' in item)) {
-      return {
-        kind: 'colorPointArray',
-        v: items as Array<{ x: number; y: number; r: number; g: number; b: number; a: number }>,
-      };
+    const items = inner as Array<unknown>;
+    if (items.length === 0) {
+      throw new Error(`Cannot determine array item type for empty array`);
     }
-    throw new Error(`Cannot convert array param to internal Value: ${JSON.stringify(v)}`);
+
+    // Convert each array item (handling both wrapped and raw items)
+    const convertedItems: Value[] = [];
+    for (const item of items) {
+      if (typeof item === 'object' && item !== null && 'v' in item) {
+        // Item is wrapped with { v: ... }, convert recursively
+        convertedItems.push(paramToValue(item));
+      } else {
+        throw new Error(
+          `Array item must be wrapped with { v: ... }: ${JSON.stringify(item)}. ` +
+          `Received: ${JSON.stringify(v)}`
+        );
+      }
+    }
+
+    // All items must have the same kind
+    const firstKind = convertedItems[0].kind;
+    if (!convertedItems.every((item) => item.kind === firstKind)) {
+      throw new Error(
+        `Array items have mixed kinds: ${convertedItems
+          .map((v) => v.kind)
+          .join(', ')}. All array items must be the same type.`
+      );
+    }
+
+    // Build array value kind dynamically from item kind
+    const arrayKind = `${firstKind}Array` as unknown as string;
+    return {
+      kind: arrayKind,
+      v: convertedItems.map((item) => item.v),
+    } as Value;
   }
   if (typeof inner === 'object' && inner !== null) {
     const obj = inner as Record<string, unknown>;
@@ -214,7 +240,7 @@ const layerOrder: Record<Layer, number> = { control: 0, compute: 1, render: 2 };
  * - Edges that violate layer ordering (render → compute, etc.)
  * - Cycles in the graph
  */
-export function compile(graph: GeoArtGraph): CompiledGraph {
+export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): CompiledGraph {
   const nodes = new Map<string, CompiledNode>();
   // Raw (unparsed) params per node — needed for ref scanning below.
   const rawParamsByNodeId = new Map<string, Record<string, unknown>>();
@@ -223,7 +249,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
   // 1. Register control nodes
   // ------------------------------------------------------------------
   for (const node of graph.control.nodes) {
-    const def = controlRegistry.get(node.type);
+    const def = nodeRegistry.controlRegistry.get(node.type);
     if (!def) {
       throw new Error(`Unknown control node type: "${node.type}" (id: "${node.id}")`);
     }
@@ -240,7 +266,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
   // 2. Register compute nodes
   // ------------------------------------------------------------------
   for (const node of graph.compute.nodes) {
-    const def = computeRegistry.get(node.type);
+    const def = nodeRegistry.computeRegistry.get(node.type);
     if (!def) {
       throw new Error(`Unknown compute node type: "${node.type}" (id: "${node.id}")`);
     }
@@ -257,7 +283,7 @@ export function compile(graph: GeoArtGraph): CompiledGraph {
   // 3. Register render nodes
   // ------------------------------------------------------------------
   for (const node of graph.render.nodes) {
-    const def = renderRegistry.get(node.type);
+    const def = nodeRegistry.renderRegistry.get(node.type);
     if (!def) {
       throw new Error(`Unknown render node type: "${node.type}" (id: "${node.id}")`);
     }

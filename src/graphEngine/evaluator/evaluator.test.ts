@@ -3,6 +3,20 @@ import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { compile } from '../compiler/compiler';
 import { tick } from './evaluator';
 import type { EvalContext } from './EvalContext';
+import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeDefinitions';
+import { computeRegistry } from '../../nodes/compute/registry';
+import { renderRegistry } from '../../nodes/render/registry';
+import { controlRegistry } from '../../nodes/control/registry';
+import { convertRenderNodeDefToLegacy, implementRenderNode } from '../../nodes/render/implementRenderNode';
+import type { NodeInputsDeclared, NodeInputsResolved } from '../../schema/typeHelpers';
+import { fColorPoint } from '../../constants';
+
+
+const realNodeRegistry: LegacyNodeRegistry = {
+  computeRegistry: computeRegistry,
+  renderRegistry: renderRegistry,
+  controlRegistry: controlRegistry
+}
 
 // ---------------------------------------------------------------------------
 // Canvas mock factory
@@ -137,11 +151,11 @@ const earthVenus: GeoArtGraph = {
 
 describe('graph compiler and evaluator — Earth-Venus integration', () => {
   test('compile() does not throw', () => {
-    expect(() => compile(earthVenus)).not.toThrow();
+    expect(() => compile(earthVenus, realNodeRegistry)).not.toThrow();
   });
 
   test('sortedNodes contains all node IDs', () => {
-    const compiled = compile(earthVenus);
+    const compiled = compile(earthVenus, realNodeRegistry);
     const allIds = [
       'earthSpeedSlider',
       'venusSpeedSlider',
@@ -159,7 +173,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
   });
 
   test('sortedNodes respects topological order (sources before sinks)', () => {
-    const compiled = compile(earthVenus);
+    const compiled = compile(earthVenus, realNodeRegistry);
     const idx = (id: string) => compiled.sortedNodes.indexOf(id);
 
     // time must come before earthOrbit and venusOrbit.
@@ -176,18 +190,18 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
   });
 
   test('tick() at t=0 does not throw', () => {
-    const compiled = compile(earthVenus);
+    const compiled = compile(earthVenus, realNodeRegistry);
     expect(() => tick(compiled, 0, makeCtx(0))).not.toThrow();
   });
 
   test('tick() at t=500 does not throw', () => {
-    const compiled = compile(earthVenus);
+    const compiled = compile(earthVenus, realNodeRegistry);
     tick(compiled, 0, makeCtx(0));
     expect(() => tick(compiled, 500, makeCtx(500))).not.toThrow();
   });
 
   test('time node outputs the tick count', () => {
-    const compiled = compile(earthVenus);
+    const compiled = compile(earthVenus, realNodeRegistry);
     const ctx = makeCtx(42);
     tick(compiled, 42, ctx);
     const timeOutput = compiled.states.get('time')!.lastOutput;
@@ -207,7 +221,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
         ],
       },
     };
-    expect(() => compile(badGraph)).toThrow(/Unknown compute node type/);
+    expect(() => compile(badGraph, realNodeRegistry)).toThrow(/Unknown compute node type/);
   });
 
   test('compile() throws for ref to unknown node', () => {
@@ -228,7 +242,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
       },
       render: { nodes: [] },
     };
-    expect(() => compile(badGraph)).toThrow(/unknown source node/i);
+    expect(() => compile(badGraph, realNodeRegistry)).toThrow(/unknown source node/i);
   });
 
   test('compile() throws for ref to unknown port', () => {
@@ -249,6 +263,234 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
       },
       render: { nodes: [] },
     };
-    expect(() => compile(badGraph)).toThrow(/no output port named/i);
+    expect(() => compile(badGraph, realNodeRegistry)).toThrow(/no output port named/i);
   });
+
+
+
+
+
+
+  describe("positional normalising does not occur within the graph compilation and evaluation", () => {
+
+
+
+    // The orbit node will initially have a position of 1,0.5
+    const computeNodes = [
+      {
+        id: 'time',
+        type: 'time',
+        params: {},
+      },
+      {
+        id: 'orbitNode',
+        type: 'orbit',
+        params: {
+          time: { ref: 'time.time' },
+          center: { v: { x: 0.5, y: 0.5 } },
+          radius: { v: 0.5 },
+          speed: { v: 0.5 },
+        },
+      },
+    ] satisfies GeoArtGraph['compute']['nodes'];
+
+
+
+    test.each<{
+      scenarioName: string,
+      computeNodes: GeoArtGraph['compute']['nodes']
+      inputs: NodeInputsDeclared<"circle">,
+      assertion: (resolvedInputs: NodeInputsResolved<"circle">) => void;
+    }>([
+      {
+        scenarioName: "(legacy) - center static value",
+        computeNodes: [],
+        inputs: {
+          center: { v: { x: 0.5, y: 0.5 } },
+
+        },
+        assertion: (resolvedInputs) => {
+          expect(resolvedInputs.center.x).toBe(0.5);
+          expect(resolvedInputs.center.y).toBe(0.5);
+        }
+      },
+      {
+        scenarioName: "centerPoints static value",
+        computeNodes: [],
+        inputs: {
+          centerPoints: {
+            v: [
+              { v: fColorPoint({ x: 0.5, y: 0.5 }) }
+            ]
+          },
+
+        },
+        assertion: (resolvedInputs) => {
+          expect(resolvedInputs.centerPoints[0].x).toBe(0.5);
+          expect(resolvedInputs.centerPoints[0].y).toBe(0.5);
+        }
+      },
+      {
+        scenarioName: "(legacy) - center referenced value",
+        computeNodes: computeNodes,
+        inputs: {
+          center: { ref: "orbitNode.point" },
+
+        },
+        assertion: (resolvedInputs) => {
+          expect(resolvedInputs.center.x).toBe(1);
+          expect(resolvedInputs.center.y).toBe(0.5);
+        }
+      },
+      {
+        scenarioName: "centerPoints referenced value",
+        computeNodes: computeNodes,
+        inputs: {
+          centerPoints: { ref: "orbitNode.points" },
+        },
+        assertion: (resolvedInputs) => {
+          expect(resolvedInputs.centerPoints[0].x).toBe(1);
+          expect(resolvedInputs.centerPoints[0].y).toBe(0.5);
+        }
+      },
+
+    ])('$scenarioName', (testInputs) => {
+      const mockFn = vi.fn();
+
+      // Create a custom circle node implementation with the mock
+      const mockCircleDef = implementRenderNode("circle", {
+        "defaults": {
+          center: { x: 0, y: 0 },
+          color: { r: 0, g: 0, b: 0, a: 0 },
+          "intervalTicks": 1,
+          "radius": 0.5,
+          "centerPoints": []
+        },
+        evaluate: (inputs) => {
+          mockFn(inputs)
+        }
+
+
+
+
+      });
+
+      const legacyCircleDef = convertRenderNodeDefToLegacy(mockCircleDef)
+
+      // Create a custom registry with the mocked circle node
+      const customRegistry: LegacyNodeRegistry = {
+        computeRegistry: realNodeRegistry.computeRegistry,
+        renderRegistry: new Map([['circle', legacyCircleDef]]),
+        controlRegistry: realNodeRegistry.controlRegistry,
+      };
+
+
+      const graphWithCircle: GeoArtGraph = {
+        version: '2.0',
+        control: { nodes: [] },
+        compute: { nodes: testInputs.computeNodes },
+        render: {
+          nodes: [
+            {
+              id: 'testCircle',
+              type: 'circle',
+              renderConfig: { layer: 'paint' },
+              params: {
+                intervalTicks: { v: 1 },
+                radius: { v: 0.02 },
+                color: { v: { r: 1, g: 1, b: 1, a: 1 } },
+                ...testInputs.inputs
+              },
+            },
+          ],
+        },
+      };
+
+      // Compile the graph with the custom registry
+      const compiled = compile(graphWithCircle, customRegistry);
+
+      // Create a context and evaluate one tick
+      const ctx = makeCtx(0);
+      tick(compiled, 0, ctx);
+
+      // Assert that the mock was called with the correct center position (not normalized)
+      expect(mockFn).toHaveBeenCalledTimes(1)
+      const callArgs = mockFn.mock.calls[0];
+      const inputs = callArgs[0];
+      testInputs.assertion(inputs)
+    })
+
+
+
+
+    test("numberValueArray also behaves", () => {
+
+      const mockFn = vi.fn();
+
+      const mockLinesThroughPoint = implementRenderNode("linesThroughPoint", {
+        "defaults": {
+          "degrees": [],
+          "lineLength": 1,
+          "points": []
+
+        },
+        evaluate: (inputs) => {
+          mockFn(inputs)
+        }
+
+
+
+
+      });
+
+      const legacyCircleDef = convertRenderNodeDefToLegacy(mockLinesThroughPoint)
+
+      // Create a custom registry with the mocked circle node
+      const customRegistry: LegacyNodeRegistry = {
+        computeRegistry: realNodeRegistry.computeRegistry,
+        renderRegistry: new Map([['linesThroughPoint', legacyCircleDef]]),
+        controlRegistry: realNodeRegistry.controlRegistry,
+      };
+
+
+      const graphWithLinesThroughAPoint: GeoArtGraph = {
+        version: '2.0',
+        control: { nodes: [] },
+        compute: { nodes: [] },
+        render: {
+          nodes: [
+            {
+              id: 'linesThroughPoint',
+              type: 'linesThroughPoint',
+              renderConfig: { layer: 'paint' },
+              params: {
+                degrees: { v: [{ v: 9 }, { v: 2 }] }
+              },
+            },
+          ],
+        },
+      };
+
+      // Compile the graph with the custom registry
+      const compiled = compile(graphWithLinesThroughAPoint, customRegistry);
+
+      // Create a context and evaluate one tick
+      const ctx = makeCtx(0);
+      tick(compiled, 0, ctx);
+
+      // Assert that the mock was called with the correct center position (not normalized)
+      expect(mockFn).toHaveBeenCalledTimes(1)
+      const callArgs = mockFn.mock.calls[0];
+      const inputs = callArgs[0] as NodeInputsResolved<"linesThroughPoint">;
+      expect(inputs.degrees).toEqual([9, 2]);
+    })
+
+
+  })
+
+
+
+
+
+
 });

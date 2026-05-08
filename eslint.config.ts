@@ -28,6 +28,8 @@ export default defineConfig([
       globals: globals.browser,
     },
 
+    //💪 ban .toMatchSnapshot in tests that do not have .snapshot in the title
+
     rules: {
       "vitest/no-focused-tests": "error",
       'no-restricted-syntax': [
