@@ -8,9 +8,7 @@ import { lfoPlanetsGraph } from './lfoPlanets';
 import { singleOrbitLfoGraph } from './singleOrbitLfo';
 import { pulsingSpiralsGraph } from './pulsingSpirals';
 import { orbitWaveLineGraph } from './orbitWaveLine';
-import { minimalThreeNodeGraph } from './reference/minimal/minimalThreeNodeReferenceGraph';
-import { polygonGraph } from './reference/node_specific/polygonReferenceGraph';
-import { linesThroughPointGraph } from './reference/node_specific/linesThroughPointReferenceGraph';
+import { REFERENCE_GRAPHS } from './reference/_index';
 
 export type GraphEntry = {
   id: string;
@@ -28,9 +26,7 @@ export const GRAPHS: GraphEntry[] = [
   { id: 'singleOrbitLfo', name: 'Single Orbit LFO', graph: singleOrbitLfoGraph },
   { id: 'pulsingSpirals', name: 'Pulsing Spirals', graph: pulsingSpiralsGraph },
   { id: 'orbitWaveLine', name: 'Orbit Wave Line', graph: orbitWaveLineGraph },
-  { id: 'minimalThreeNode', name: "minimalThreeNodeGraph", graph: minimalThreeNodeGraph },
-  { id: 'polygon', name: 'polygonGraph', graph: polygonGraph },
-  { id: 'linesThroughPoint', name: 'Lines Through Point', graph: linesThroughPointGraph }
+  ...REFERENCE_GRAPHS
 ];
 
 export const DEFAULT_GRAPH_ID = GRAPHS[0].id;
