@@ -16,10 +16,18 @@ function App() {
   const trailCanvasRef = useRef<HTMLCanvasElement>(null);
   const engineRef = useRef<GraphEngine | null>(null);
 
-  const [payload, setPayload] = useState<GraphLoadPayload>({ renderControlNodes: () => null });
-  const [speed, setSpeed] = useState(() => getGraph(DEFAULT_GRAPH_ID).graph.speed ?? 1.0);
+  const getInitialGraphId = () => {
+    const params = new URLSearchParams(window.location.search);
+    const paramId = params.get('algorithm');
+    if (paramId && GRAPHS.some(g => g.id === paramId)) {
+      return paramId;
+    }
+    return DEFAULT_GRAPH_ID;
+  };
 
-  const [loadKey, setLoadKey] = useState(0);
+  const [payload, setPayload] = useState<GraphLoadPayload>({ renderControlNodes: () => null });
+  const [selectedGraphId, setSelectedGraphId] = useState(getInitialGraphId);
+  const [speed, setSpeed] = useState(() => getGraph(selectedGraphId).graph.speed ?? 1.0);
 
   useEffect(() => {
     const orbitCtx = orbitCanvasRef.current!.getContext('2d')!;
@@ -28,7 +36,7 @@ function App() {
     const engine = createGraphEngine(orbitCtx, trailCtx, CANVAS_SIZE);
     engineRef.current = engine;
 
-    const { graph } = getGraph(DEFAULT_GRAPH_ID);
+    const { graph } = getGraph(selectedGraphId);
     engine.setSpeed(graph.speed ?? 1.0);
     setPayload(engine.load(graph));
 
@@ -40,18 +48,17 @@ function App() {
     rafId = requestAnimationFrame(frame);
 
     return () => cancelAnimationFrame(rafId);
-  }, []);
+  }, [selectedGraphId]);
 
   function handleGraphChange(id: string) {
     if (!engineRef.current) {
       throw new NeverShouldHappenError();
     }
-    const { graph } = getGraph(id);
-    const graphSpeed = graph.speed ?? 1.0;
-    engineRef.current.setSpeed(graphSpeed);
-    setPayload(engineRef.current.load(graph));
-    setSpeed(graphSpeed);
-    setLoadKey(k => k + 1);
+    const params = new URLSearchParams(window.location.search);
+    params.set('algorithm', id);
+    window.history.replaceState(null, '', `?${params.toString()}`);
+
+    setSelectedGraphId(id);
   }
 
   function handleSpeedChange(value: number) {
@@ -66,9 +73,9 @@ function App() {
     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 24, padding: 24 }}>
       <Canvas orbitCanvasRef={orbitCanvasRef} trailCanvasRef={trailCanvasRef} size={CANVAS_SIZE} />
       <SidePanel>
-        <AlgorithmPicker graphs={GRAPHS} defaultId={DEFAULT_GRAPH_ID} onChange={handleGraphChange} />
+        <AlgorithmPicker graphs={GRAPHS} defaultId={selectedGraphId} onChange={handleGraphChange} />
         <SpeedControl speed={speed} onChange={handleSpeedChange} />
-        <Controls key={loadKey} renderControlNodes={payload.renderControlNodes} />
+        <Controls key={selectedGraphId} renderControlNodes={payload.renderControlNodes} />
       </SidePanel>
     </div>
   );
