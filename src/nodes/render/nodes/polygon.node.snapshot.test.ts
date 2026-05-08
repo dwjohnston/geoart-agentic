@@ -1,31 +1,29 @@
 import { describe, expect, it } from "vitest";
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import { connectDotsNodeDef } from "./connectDots.node";
+import { polygonNodeDef } from "./polygon.node";
 
-describe("connectDotsNodeDef", () => {
+describe("polygonNodeDef", () => {
 
-  it("draws lines between consecutive points", () => {
+  it("draws polygon from points", () => {
 
     const fakeContext = createFakeContext();
 
-    connectDotsNodeDef.evaluate({
-      colorPointsArray: [
+    polygonNodeDef.evaluate({
+      points: [
         {
           x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
           dy: 0,
         },
         {
-          x: 10, y: 10, r: 0, g: 1, b: 0, a: 1, dx: 0,
+          x: 0.5, y: 0.5, r: 0, g: 1, b: 0, a: 1, dx: 0,
           dy: 0,
         },
         {
-          x: 20, y: 0, r: 0, g: 0, b: 1, a: 1,
+          x: -0.5, y: 0.5, r: 0, g: 0, b: 1, a: 1,
           dx: 0,
           dy: 0,
-
         },
       ],
-      lineWidth: 2,
     }, {
       canvas: fakeContext,
       height: 100,
@@ -49,8 +47,16 @@ describe("connectDotsNodeDef", () => {
         },
         {
           "args": [
-            550,
-            -450,
+            75,
+            25,
+          ],
+          "kind": "method",
+          "name": "lineTo",
+        },
+        {
+          "args": [
+            25,
+            25,
           ],
           "kind": "method",
           "name": "lineTo",
@@ -58,49 +64,31 @@ describe("connectDotsNodeDef", () => {
         {
           "args": [],
           "kind": "method",
-          "name": "stroke",
+          "name": "closePath",
         },
         {
           "args": [],
           "kind": "method",
-          "name": "beginPath",
-        },
-        {
-          "args": [
-            550,
-            -450,
-          ],
-          "kind": "method",
-          "name": "moveTo",
-        },
-        {
-          "args": [
-            1050,
-            50,
-          ],
-          "kind": "method",
-          "name": "lineTo",
-        },
-        {
-          "args": [],
-          "kind": "method",
-          "name": "stroke",
+          "name": "fill",
         },
       ]
     `);
   })
 
-  it("does nothing with less than 2 points", () => {
+  it("does nothing with less than 3 points", () => {
     const fakeContext = createFakeContext();
 
-    connectDotsNodeDef.evaluate({
-      colorPointsArray: [
+    polygonNodeDef.evaluate({
+      points: [
         {
           x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
           dy: 0,
         },
+        {
+          x: 0.5, y: 0.5, r: 0, g: 1, b: 0, a: 1, dx: 0,
+          dy: 0,
+        },
       ],
-      lineWidth: 2,
     }, {
       canvas: fakeContext,
       height: 100,

@@ -1,31 +1,22 @@
 import { describe, expect, it } from "vitest";
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import { connectDotsNodeDef } from "./connectDots.node";
+import { linesThroughPointNodeDef } from "./linesThroughPoint";
 
-describe("connectDotsNodeDef", () => {
+describe("linesThroughPointNodeDef", () => {
 
-  it("draws lines between consecutive points", () => {
+  it("draws lines through points at specified degrees", () => {
 
     const fakeContext = createFakeContext();
 
-    connectDotsNodeDef.evaluate({
-      colorPointsArray: [
+    linesThroughPointNodeDef.evaluate({
+      points: [
         {
-          x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
+          x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 1,
           dy: 0,
-        },
-        {
-          x: 10, y: 10, r: 0, g: 1, b: 0, a: 1, dx: 0,
-          dy: 0,
-        },
-        {
-          x: 20, y: 0, r: 0, g: 0, b: 1, a: 1,
-          dx: 0,
-          dy: 0,
-
         },
       ],
-      lineWidth: 2,
+      degrees: [0, 90],
+      lineLength: 0.2,
     }, {
       canvas: fakeContext,
       height: 100,
@@ -41,7 +32,7 @@ describe("connectDotsNodeDef", () => {
         },
         {
           "args": [
-            50,
+            40,
             50,
           ],
           "kind": "method",
@@ -49,8 +40,8 @@ describe("connectDotsNodeDef", () => {
         },
         {
           "args": [
-            550,
-            -450,
+            60,
+            50,
           ],
           "kind": "method",
           "name": "lineTo",
@@ -67,16 +58,16 @@ describe("connectDotsNodeDef", () => {
         },
         {
           "args": [
-            550,
-            -450,
+            50,
+            40,
           ],
           "kind": "method",
           "name": "moveTo",
         },
         {
           "args": [
-            1050,
             50,
+            60,
           ],
           "kind": "method",
           "name": "lineTo",
@@ -90,17 +81,19 @@ describe("connectDotsNodeDef", () => {
     `);
   })
 
-  it("does nothing with less than 2 points", () => {
+  it("skips points with zero gradient", () => {
+
     const fakeContext = createFakeContext();
 
-    connectDotsNodeDef.evaluate({
-      colorPointsArray: [
+    linesThroughPointNodeDef.evaluate({
+      points: [
         {
           x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
           dy: 0,
         },
       ],
-      lineWidth: 2,
+      degrees: [0, 90],
+      lineLength: 0.2,
     }, {
       canvas: fakeContext,
       height: 100,

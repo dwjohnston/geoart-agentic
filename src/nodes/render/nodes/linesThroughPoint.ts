@@ -19,26 +19,29 @@ export const linesThroughPointNodeDef = implementRenderNode('linesThroughPoint',
         continue;
       }
 
+      const pixelX = x * (ctx.width / 2) + (ctx.width / 2);
+      const pixelY = (ctx.height / 2) - y * (ctx.height / 2);
+      const pixelLength = lineLength * ctx.width;
+      const halfLength = pixelLength / 2;
+
       for (const degree of degrees) {
         // Calculate base angle from dx, dy
-        const baseAngle = Math.atan2(dy, dx);
+        // Note: dy needs to be negated because canvas y-axis is inverted
+        const baseAngle = Math.atan2(-dy, dx);
 
         // Convert degrees to radians and add to base angle
         const rotationRadians = (degree * Math.PI) / 180;
         const finalAngle = baseAngle + rotationRadians;
 
-        // Calculate half-length for offset calculations
-        const halfLength = lineLength / 2;
-
         // Calculate endpoints
         const cosAngle = Math.cos(finalAngle);
         const sinAngle = Math.sin(finalAngle);
 
-        const startX = x - halfLength * cosAngle;
-        const startY = y - halfLength * sinAngle;
+        const startX = pixelX - halfLength * cosAngle;
+        const startY = pixelY - halfLength * sinAngle;
 
-        const endX = x + halfLength * cosAngle;
-        const endY = y + halfLength * sinAngle;
+        const endX = pixelX + halfLength * cosAngle;
+        const endY = pixelY + halfLength * sinAngle;
 
         // Set stroke style and draw line
         ctx.canvas.strokeStyle = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;

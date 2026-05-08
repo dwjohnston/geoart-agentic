@@ -1,4 +1,4 @@
-import type { Value, PointValue, ColorPointValue, ColorPointArrayValue } from '../../schema/types';
+import type { Value } from '../../schema/types';
 import type { CompiledGraph } from '../compiler/compiler';
 import type { EvalContext } from './EvalContext';
 import type { ComputeNodeEvalContext, LegacyComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
@@ -65,58 +65,6 @@ export function resolveInput(
     `resolveInput: no value for port "${portDef.name}" (index ${portIndex}) ` +
     `on node "${nodeId}" — no edge, no static param, and no default.`,
   );
-}
-
-// ---------------------------------------------------------------------------
-// Coordinate scaling for render nodes
-// ---------------------------------------------------------------------------
-
-/**
- * Scale a normalised point (-1..1) to canvas pixel coordinates.
- * Canvas origin is the centre of the viewport; positive y is up.
- */
-function normalisedToCanvas(
-  v: { x: number; y: number },
-  width: number,
-  height: number,
-): { x: number; y: number } {
-  return {
-    x: (v.x * 0.5 + 0.5) * width,
-    // y-flip: normalised +1 is top, canvas y grows downward.
-    y: (1 - (v.y * 0.5 + 0.5)) * height,
-  };
-}
-
-/**
- * Apply the normalised-to-canvas coordinate transform to all `point`-type
- * inputs in the resolved input array, for render nodes only.
- */
-function scalePointInputs(inputs: Value[], width: number, height: number): Value[] {
-  return inputs.map((val) => {
-    if (val.kind === 'point') {
-      return {
-        kind: 'point',
-        v: normalisedToCanvas(val.v, width, height),
-      } satisfies PointValue;
-    }
-    if (val.kind === 'colorPoint') {
-      const scaled = normalisedToCanvas({ x: val.v.x, y: val.v.y }, width, height);
-      return {
-        kind: 'colorPoint',
-        v: { ...val.v, x: scaled.x, y: scaled.y },
-      } satisfies ColorPointValue;
-    }
-    if (val.kind === 'colorPointArray') {
-      return {
-        kind: 'colorPointArray',
-        v: val.v.map(p => {
-          const scaled = normalisedToCanvas({ x: p.x, y: p.y }, width, height);
-          return { ...p, x: scaled.x, y: scaled.y };
-        }),
-      } satisfies ColorPointArrayValue;
-    }
-    return val;
-  });
 }
 
 // ---------------------------------------------------------------------------

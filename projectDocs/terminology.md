@@ -181,11 +181,25 @@ Understanding these four layers and how they relate is fundamental to the projec
 - **tick**
     - A single frame evaluation of an algorithm. Each tick clears the live canvas layers, captures the current state of controls, evaluates the graph, and draws to the canvas layers.
 
+## Measurements
+
+### Time
 - **frequency**
     - A measure of cycles per unit time, expressed as cycles per 60 ticks. Because the application runs via `requestAnimationFrame` (which varies by device), frequency must be frame-rate-independent. A frequency value describes how many complete cycles occur in a normalized 60-tick interval.
 
 - **intervalTicks**
     - An optional scheduling parameter for render nodes, measured in ticks. When present, render nodes fire according to their `intervalTicks` schedule rather than every frame.
+
+### Size
+
+- **position** In the compute layer x,y positions are always given assuming the canvas has a height and width of 1. 
+    - ie. the center of the canvas is at position 0.5, 0.5
+    - These values are then denormalised in the render layer. 
+
+- **length** values should also be intepreted in this manner. 
+
+- **thickness* - (ie line widths) should always be interpreted as absolute pixel values. ie. a line*Thickness* of 2 will be two pixels thick. 
+
 
 ---
 
@@ -197,7 +211,7 @@ Understanding these four layers and how they relate is fundamental to the projec
 - **param** 
     - This term is not problematic, but is already well covered by 'node input'
 
-
+- **width** If talking about the thickness of a line, use *thickness* instead. 
 ## Terms not yet documented
 
 

@@ -19,7 +19,7 @@ export const polygonGraph: GeoArtGraph = {
                     time: { ref: 'time.time' },
                     radius: { v: 0.3 },
                     speed: { v: 0.5 },
-                    numPoints: { v: 3 },
+                    numPoints: { v: 5 },
                     phase: { v: 0 },
                 },
             },

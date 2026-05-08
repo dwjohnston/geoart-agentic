@@ -32,9 +32,8 @@ export const orbitNodeDef = implementComputeNode("orbit", {
       // Tangent is perpendicular to the radius vector (90° rotation)
       // Radius vector: (cos(angle), sin(angle))
       // Tangent: (-sin(angle), cos(angle))
-      // Canvas has y flipped (y increases downward), so negate dy
       const dx = -Math.sin(pointPhase);
-      const dy = -Math.cos(pointPhase);
+      const dy = Math.cos(pointPhase);
 
       return {
         ...p,
@@ -48,7 +47,7 @@ export const orbitNodeDef = implementComputeNode("orbit", {
     });
 
     return {
-      point: rawPoints[0],
+      point: colorPoints[0],
       points: colorPoints,
     };
   },

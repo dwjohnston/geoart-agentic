@@ -30,7 +30,7 @@
     "clean": "rm -rf src/_generated",
     "test": "vitest --browser.headless",
     "test:no-snapshots": "bun run test:headless -- --exclude '**/*.snapshot.test.ts'",
-    "test:only-snapshots": "bun run test:headless  -- **/*.snapshot.*",
+    "test:only-snapshots": "vitest  '**/*.snapshot.*' --browser.headless",
     "test:headless": "vitest --browser.headless",
     "generate": "bun generate:derived-schema && bun generate:derived-types && bun generate:algorithms-index",
     "generate:derived-schema": "bun src/schema/scripts/generate-derived-schema.ts",

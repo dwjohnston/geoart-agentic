@@ -91,7 +91,8 @@ export const linesThroughPointGraph: GeoArtGraph = {
 				renderConfig: { layer: 'live' },
 				params: {
 					points: { ref: 'outerOrbit1.points' },
-					lineLength: { v: 100 }
+					degrees: { v: [{ v: 0 }, { v: 90 }] },
+					lineLength: { v: 0.08 }
 
 				},
 			},

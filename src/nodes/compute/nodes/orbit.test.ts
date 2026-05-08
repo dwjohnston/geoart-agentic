@@ -106,20 +106,22 @@ describe('orbitNodeDef', () => {
   });
 
   it('tangent at t=0 points upward (perpendicular to rightmost radius)', () => {
-    const { points } = orbitNodeDef.evaluate({ ...base, numPoints: 1 });
+    const { points } = orbitNodeDef.evaluate({ ...base, phase: 0, numPoints: 1 });
 
     const point = points[0]
 
-
     // At t=0, angle=0, point is at (radius, 0)
     // Tangent should be (-sin(0), cos(0)) = (0, 1)
-    expect(expect(point.x).toBe(0.5))
-    expect(expect(point.y).toBe(0))
-    expect(expect(point.dx).toBe(-0))
+    expect(point.x).toBeCloseTo(0.5);
+    expect(point.y).toBeCloseTo(0);
+    expect(point.dx).toBeCloseTo(0);
+    expect(point.dy).toBeCloseTo(1);
 
-    expect(expect(point.dy).toBe(-1))
-
-
-
+    // After 1 tick with speed=150 (quarter orbit per tick), it should be in the top center position
+    const result2 = orbitNodeDef.evaluate({ ...base, phase: 0, numPoints: 1, time: 1, speed: 600 / 4 });
+    expect(result2.points[0].x).toBeCloseTo(0);
+    expect(result2.points[0].y).toBeCloseTo(0.5);
+    expect(result2.points[0].dx).toBeCloseTo(-1);
+    expect(result2.points[0].dy).toBeCloseTo(0);
   });
 });
