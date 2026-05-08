@@ -1,5 +1,7 @@
 import { describe, it, assertType, expect } from 'vitest';
 import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared } from './typeHelpers';
+import type { GeoArtGraph } from './_generated/schema-types';
+import { fColorPoint } from '../constants';
 
 
 describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds", () => {
@@ -164,6 +166,214 @@ describe("NodeOutputsRecord", () => {
         })
     });
 });
+
+
+describe("GeoArtGraph", () => {
+
+
+    //💪 It would be good to have a case here for control nodes that accept array inputs, and how they cannot have static references
+
+    it("empty case", () => {
+        assertType<GeoArtGraph>({
+            version: '2.0',
+            control: {
+                nodes: [
+                ],
+            },
+            compute: {
+                nodes: [
+                ]
+            },
+            render: {
+                nodes: [
+
+                ],
+            },
+        })
+    })
+
+    it("minimal case", () => {
+        assertType<GeoArtGraph>({
+            version: '2.0',
+            control: {
+                nodes: [
+                    {
+                        id: 'speedSlider',
+                        type: 'slider',
+                        params: {
+                            label: { v: 'Speed' },
+                            min: { v: -5 },
+                            max: { v: 5 },
+                            value: { v: 0.2 },
+                            step: { v: 0.01 },
+                        },
+                    },
+                ],
+            },
+            compute: {
+                nodes: [
+                    { id: 'time', type: 'time', params: {} },
+                    {
+                        id: 'orbit',
+                        type: 'orbit',
+                        params: {
+                            time: { ref: 'time.time' },
+                            radius: { v: 0.3 },
+                            speed: { ref: 'speedSlider.value' },
+                        },
+                    },
+                ],
+            },
+            render: {
+                nodes: [
+                    {
+                        id: 'dot',
+                        type: 'circle',
+                        renderConfig: { layer: 'live' },
+                        params: {
+                            center: { ref: 'orbit.point' },
+                            radius: { v: 0.02 },
+                            color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+                        },
+                    },
+                ],
+            },
+        })
+    })
+
+    it("control nodes cannot have referenced values", () => {
+        assertType<GeoArtGraph>({
+            version: '2.0',
+            control: {
+                nodes: [
+                    {
+                        id: 'speedSlider',
+                        type: 'slider',
+                        params: {
+                            label: { v: 'Speed' },
+
+                            // @ts-expect-error - referenced nodes not allowed here
+                            min: { ref: "foo.bar" },
+                            max: { v: 5 },
+                            value: { v: 0.2 },
+                            step: { v: 0.01 },
+                        },
+                    },
+                ],
+            },
+            compute: {
+                nodes: [
+                ]
+            },
+            render: {
+                nodes: [
+
+                ],
+            },
+        })
+    })
+
+    it("array values can be a referenced value for the entire array", () => {
+        assertType<GeoArtGraph>({
+            version: '2.0',
+            control: {
+                nodes: [
+                ],
+            },
+            compute: {
+                nodes: [
+                ]
+            },
+            render: {
+                nodes: [
+                    {
+                        id: 'dot',
+                        type: 'circle',
+                        renderConfig: { layer: 'live' },
+                        params: {
+                            // nb. no actual enforcement that the ref port is the correct value type
+                            centerPoints: { ref: 'orbit.points' },
+                        },
+                    },
+                ],
+            },
+        })
+    })
+
+    it("array values can be a static list of static values", () => {
+        assertType<GeoArtGraph>({
+            version: '2.0',
+            control: {
+                nodes: [
+                ],
+            },
+            compute: {
+                nodes: [
+                ]
+            },
+            render: {
+                nodes: [
+                    {
+                        id: 'dot',
+                        type: 'circle',
+                        renderConfig: { layer: 'live' },
+                        params: {
+                            centerPoints: {
+                                v: [{
+                                    v: fColorPoint()
+                                },
+                                {
+                                    v: fColorPoint()
+                                },
+
+                                //@ts-expect-error - mismatching values still error
+                                { v: "foo" }
+
+                                ]
+                            }
+                        },
+                    },
+                ],
+            },
+        })
+    })
+
+    it("array values can be a static list of referenced values", () => {
+        assertType<GeoArtGraph>({
+            version: '2.0',
+            control: {
+                nodes: [
+                ],
+            },
+            compute: {
+                nodes: [
+                ]
+            },
+            render: {
+                nodes: [
+                    {
+                        id: 'dot',
+                        type: 'circle',
+                        renderConfig: { layer: 'live' },
+                        params: {
+                            centerPoints: {
+                                v: [{
+                                    ref: "foo.bar",
+                                },
+
+                                // Can be a mix
+                                {
+                                    v: fColorPoint()
+                                }
+                                ]
+                            },
+                        },
+                    }
+                ],
+            },
+        })
+    })
+})
 
 describe("Declared value types", () => {
     it("ReferencedValueDeclared is { ref: string }", () => {
