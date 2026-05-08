@@ -4,6 +4,7 @@ import type { GeoArtGraph } from './_generated/schema-types';
 import { fColorPoint } from '../constants';
 
 
+
 describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds", () => {
     it("are correctly typed", () => {
 
@@ -376,6 +377,118 @@ describe("GeoArtGraph", () => {
 })
 
 describe("Declared value types", () => {
+
+    describe("array values are special", () => {
+
+
+
+
+
+        it("ValueDeclared<colorPointArray> matches the type in required by GeoArtGraph", () => {
+            const centerPointsArrayOfMixed = {
+                v: [{
+                    v: fColorPoint()
+                },
+                // Can be a mix
+                {
+                    ref: "hello.world"
+                }
+
+                ]
+            }
+
+            assertType<GeoArtGraph>({
+                version: '2.0',
+                control: {
+                    nodes: [
+                    ],
+                },
+                compute: {
+                    nodes: [
+                    ]
+                },
+                render: {
+                    nodes: [
+                        {
+                            id: 'dot',
+                            type: 'circle',
+                            renderConfig: { layer: 'live' },
+                            params: {
+                                centerPoints: centerPointsArrayOfMixed
+                            },
+                        },
+                    ],
+                },
+            })
+
+
+            assertType<ValueDeclared<"colorPointArray">>(centerPointsArrayOfMixed)
+        })
+
+        it(`StaticValueDeclared<"colorPointArray"> can only be a static list of static values`, () => {
+            assertType<StaticValueDeclared<"colorPointArray">>({
+                v: [{
+                    v: fColorPoint()
+                }]
+            })
+
+            assertType<StaticValueDeclared<"colorPointArray">>({
+                v: [{
+
+                    //@ts-expect-error mismatching type
+                    v: 1231
+                }]
+            })
+
+
+            assertType<StaticValueDeclared<"colorPointArray">>({
+                v: [{
+
+                    //@ts-expect-error refs not valid
+                    ref: "foo.bar"
+                }]
+            })
+
+            assertType<StaticValueDeclared<"colorPointArray">>({
+                //@ts-expect-error - refs not valid
+                "ref": "foo.bar"
+            })
+
+
+        })
+        it(`ValueDeclared<colorPointArray> can be a reference value to an array`, () => {
+
+        })
+
+        it(`ValueDeclared<colorPointArray> can be a static value of mixed of static values or referenced values `, () => {
+            assertType<ValueDeclared<"colorPointArray">>({
+                v: [{
+                    v: fColorPoint()
+                }]
+            })
+
+            assertType<ValueDeclared<"colorPointArray">>({
+                v: [{
+
+                    //@ts-expect-error mismatching type
+                    v: 1231
+                }]
+            })
+
+
+            assertType<ValueDeclared<"colorPointArray">>({
+                v: [{
+                    ref: "foo.bar"
+                }]
+            })
+
+            assertType<ValueDeclared<"colorPointArray">>({
+                ref: "foo.bar"
+            })
+        })
+    });
+
+
     it("ReferencedValueDeclared is { ref: string }", () => {
         assertType<ReferencedValueDeclared>({ ref: "node.output" });
 
