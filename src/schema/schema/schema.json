@@ -936,7 +936,7 @@
         {
           "title": "Lines Through Point Render Node",
           "type": "object",
-          "description": "Draws lines through each point, rotated by the specified angle. Line direction is determined by the point's dx,dy gradient; 0° follows the gradient, 90° is perpendicular. Points with zero gradient (0,0) are skipped.",
+          "description": "Draws lines through each point, rotated by the specified angle. Useful for drawing tangents and normals. Line direction is determined by the point's dx,dy gradient; 0° follows the gradient, 90° is perpendicular. Points with zero gradient (0,0) are skipped.",
           "additionalProperties": false,
           "required": [
             "id",
@@ -972,7 +972,7 @@
                 },
                 "degrees": {
                   "title": "Degrees",
-                  "description": "Rotation angles in degrees for each line",
+                  "description": "Rotation angles in degrees for each line, relative to the points dx,dy values. A degree of 0 aligns with the points dx,dy.",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberArrayValueOrRef"
                 },
                 "lineLength": {
