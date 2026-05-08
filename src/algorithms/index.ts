@@ -16,7 +16,7 @@ export type GraphEntry = {
   graph: GeoArtGraph;
 };
 
-export const GRAPHS: GraphEntry[] = [
+export const PRODUCTION_GRAPHS: GraphEntry[] = [
   { id: 'threeOrbits', name: 'Three Orbits', graph: threeOrbitsGraph },
   { id: 'earthVenus', name: 'Earth & Venus', graph: earthVenusGraph },
   { id: 'monaLisa', name: "Mona Lisa", graph: monaLisaGraph },
@@ -26,6 +26,9 @@ export const GRAPHS: GraphEntry[] = [
   { id: 'singleOrbitLfo', name: 'Single Orbit LFO', graph: singleOrbitLfoGraph },
   { id: 'pulsingSpirals', name: 'Pulsing Spirals', graph: pulsingSpiralsGraph },
   { id: 'orbitWaveLine', name: 'Orbit Wave Line', graph: orbitWaveLineGraph },
+]
+export const GRAPHS: GraphEntry[] = [
+  ...PRODUCTION_GRAPHS,
   ...REFERENCE_GRAPHS
 ];
 
