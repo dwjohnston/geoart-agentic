@@ -1,7 +1,8 @@
 import { describe, expect, test } from 'bun:test';
 import { waveNodeDef } from './wave.node';
+import type { NodeInputsResolved } from '../../../schema/typeHelpers';
 
-const base = { time: 0, waveType: 'sine' as const, frequency: 1, amplitude: 1, phase: 0, samplerTemporalImpact: 0 };
+const base = { time: 0, waveType: 'sine' as const, frequency: 1, amplitude: 1, phase: 0, samplerTemporalImpact: 0 } satisfies NodeInputsResolved<"wave">;
 
 describe('waveNodeDef', () => {
   describe('sine', () => {
@@ -84,5 +85,47 @@ describe('waveNodeDef', () => {
     test('amplitude scales output', () => {
       expect(waveNodeDef.evaluate({ ...tri, amplitude: 2, time: 15 }).value).toBeCloseTo(2);
     });
+  });
+
+  describe.only('sampler', () => {
+    test('sine: base case - does a regular cycle in 0-1', () => {
+
+      // 🫤 We need a better way of typing the output. Gonna need to be some magic in the generation script
+      const result = waveNodeDef.evaluate({ ...base, frequency: 1, amplitude: 1, time: 0, phase: 0, samplerTemporalImpact: 0 }) as { value: number; sampler: { sample: (t: number) => number } };
+      expect(result.sampler.sample(0)).toBe(0)
+      expect(result.sampler.sample(0.25)).toBeCloseTo(1)
+      expect(result.sampler.sample(1)).toBeCloseTo(0)
+      expect(result.sampler.sample(0.75)).toBeCloseTo(-1)
+      expect(result.sampler.sample(0.5)).toBeCloseTo(0)
+    });
+
+    test('sine: frequency@2 - does two cycles in 0-1', () => {
+
+      const result = waveNodeDef.evaluate({ ...base, frequency: 2, amplitude: 1, time: 0, phase: 0, samplerTemporalImpact: 0 }) as { value: number; sampler: { sample: (t: number) => number } };
+      expect(result.sampler.sample(0)).toBe(0)
+      expect(result.sampler.sample(1 / 8)).toBeCloseTo(1)
+      expect(result.sampler.sample(2 / 8)).toBeCloseTo(0)
+      expect(result.sampler.sample(3 / 8)).toBeCloseTo(-1)
+      expect(result.sampler.sample(4 / 8)).toBeCloseTo(0)
+
+
+
+    });
+
+    test('sine: frequency@2 - with samplerTemporalImpact', () => {
+
+      //At t=15 (one quarter of a cycle) the wave starts at the 2/8 mark above (0)
+      const result = waveNodeDef.evaluate({ ...base, frequency: 2, amplitude: 1, time: 15, phase: 0, samplerTemporalImpact: 1 }) as { value: number; sampler: { sample: (t: number) => number } };
+      expect(result.sampler.sample(0)).toBeCloseTo(0)
+      expect(result.sampler.sample(1 / 8)).toBeCloseTo(-1)
+      expect(result.sampler.sample(2 / 8)).toBeCloseTo(0)
+      expect(result.sampler.sample(3 / 8)).toBeCloseTo(1)
+      expect(result.sampler.sample(4 / 8)).toBeCloseTo(0)
+
+
+
+    });
+
+
   });
 });
