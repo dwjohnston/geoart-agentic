@@ -232,6 +232,12 @@ export function tick(compiled: CompiledGraph, t: number, ctx: EvalContext): void
       }
     }
 
+    // Check if render node is enabled.
+    if (node.layer === 'render' && ctx.enabledRenderNodes && !ctx.enabledRenderNodes.has(nodeId)) {
+      cache.set(nodeId, state.lastOutput);
+      continue;
+    }
+
     // Live-layer render nodes always run (canvas was cleared this frame).
     // Paint-layer render nodes and compute/control nodes skip if not dirty.
     const isLiveRender = node.layer === 'render' && node.renderConfig?.layer === 'live';

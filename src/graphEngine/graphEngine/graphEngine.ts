@@ -11,23 +11,31 @@ import { renderRegistry } from '../../nodes/render/registry';
 
 export type GraphLoadPayload = {
   renderControlNodes: () => React.ReactNode;
+  renderingNodes: Array<{ nodeId: string; label: string; layer: 'live' | 'paint' }>;
 };
 
 export type GraphEngine = {
   load: (graph: GeoArtGraph) => GraphLoadPayload;
   setSpeed: (value: number) => void;
   tick: () => void;
+  toggleRenderNode: (nodeId: string) => void;
 };
 
 export function createGraphEngine(
   orbitCtx: CanvasRenderingContext2D,
   trailCtx: CanvasRenderingContext2D,
   canvasSize: number,
+  registry?: {
+    computeRegistry?: typeof computeRegistry;
+    renderRegistry?: typeof renderRegistry;
+    controlRegistry?: typeof controlRegistry;
+  },
 ): GraphEngine {
   let compiled: CompiledGraph | null = null;
   let tickCount = 0;
   let frameCount = 0;
   let speed = 1;
+  const enabledRenderNodes = new Set<string>();
 
   function runTick(): void {
     if (!compiled) return;
@@ -38,6 +46,7 @@ export function createGraphEngine(
       canvas: { orbit: orbitCtx, trail: trailCtx, width: canvasSize, height: canvasSize },
       getState<T>(): T { return undefined as unknown as T; },
       setState(): void { },
+      enabledRenderNodes,
     };
     evaluatorTick(compiled, tickCount, ctx);
   }
@@ -74,10 +83,27 @@ export function createGraphEngine(
     orbitCtx.clearRect(0, 0, canvasSize, canvasSize);
     trailCtx.clearRect(0, 0, canvasSize, canvasSize);
     compiled = compile(graph, {
-      computeRegistry: computeRegistry,
-      controlRegistry: controlRegistry,
-      renderRegistry: renderRegistry
+      computeRegistry: registry?.computeRegistry ?? computeRegistry,
+      controlRegistry: registry?.controlRegistry ?? controlRegistry,
+      renderRegistry: registry?.renderRegistry ?? renderRegistry
     });
+
+    // Extract render nodes and initialize enabled set
+    const renderingNodes: Array<{ nodeId: string; label: string; layer: 'live' | 'paint' }> = [];
+    enabledRenderNodes.clear();
+
+    if (compiled) {
+      for (const nodeId of compiled.sortedNodes) {
+        const compiledNode = compiled.nodes.get(nodeId);
+        if (compiledNode && compiledNode.layer === 'render') {
+          const nodeDecl = graph.render.nodes.find(n => n.id === nodeId);
+          const label = nodeDecl?.id || nodeId;
+          const layer = compiledNode.renderConfig?.layer || 'paint';
+          renderingNodes.push({ nodeId, label, layer });
+          enabledRenderNodes.add(nodeId);
+        }
+      }
+    }
 
     return {
       renderControlNodes: () => graph.control.nodes.map(node => {
@@ -87,12 +113,23 @@ export function createGraphEngine(
         const element = def.renderControl(node, (paramKey, value) => mutateControl(node.id, paramKey, value));
         return React.createElement(React.Fragment, { key: node.id }, element);
       }),
+      renderingNodes,
     };
+  }
+
+  function toggleRenderNode(nodeId: string): void {
+    if (enabledRenderNodes.has(nodeId)) {
+      enabledRenderNodes.delete(nodeId);
+    } else {
+      enabledRenderNodes.add(nodeId);
+    }
+    trailCtx.clearRect(0, 0, canvasSize, canvasSize);
   }
 
   return {
     load,
     setSpeed: value => { speed = value; },
     tick,
+    toggleRenderNode,
   };
 }

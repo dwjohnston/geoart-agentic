@@ -27,11 +27,11 @@ export type ControlSetter<K extends keyof typeof nodeOutputMeta> =
 
 // Legacy format — used internally by the registry and graph layer
 // We want to get rid of this
-export type LegacyControlNodeDef<T extends ControlNode['type'] & keyof typeof nodeOutputMeta = ControlNode['type'] & keyof typeof nodeOutputMeta> = {
-  type: T;
+export type LegacyControlNodeDef = {
+  type: string;
   outputs: LegacyControlNodePortDef[];
   evaluate(params: ResolvedParams): Value[];
-  renderControl(node: Extract<ControlNode, { type: T }>, set: ControlSetter<T>): React.ReactNode;
+  renderControl(node: Extract<ControlNode, { type: string }>, set: ControlSetter<keyof typeof nodeOutputMeta>): React.ReactNode;
 };
 
 
