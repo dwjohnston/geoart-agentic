@@ -620,9 +620,6 @@
                 },
                 "numberOfPoints": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "modulateBy": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
                 }
               }
             }
@@ -724,7 +721,7 @@
           ],
           "x-outputs": [
             {
-              "name": "modulated",
+              "name": "points",
               "valueType": "colorPointArrayValue"
             }
           ],

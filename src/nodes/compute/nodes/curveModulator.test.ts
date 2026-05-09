@@ -14,14 +14,14 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.1),
     };
 
-    const { modulated } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeDef.evaluate({
       curve,
       modulator: sampler,
     });
 
     // Perpendicular to (1, 0) rotated 90° clockwise is (0, -1)
-    expect(modulated[0].y).toBeCloseTo(-0.1, 2);
-    expect(modulated[0].x).toBeCloseTo(0, 2); // x should not change
+    expect(points[0].y).toBeCloseTo(-0.1, 2);
+    expect(points[0].x).toBeCloseTo(0, 2); // x should not change
   });
 
   it('does not displace points with zero tangent', () => {
@@ -35,16 +35,16 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.5),
     };
 
-    const { modulated } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeDef.evaluate({
       curve,
       modulator: sampler,
     });
 
     // No tangent means no displacement
-    expect(modulated[0].x).toBeCloseTo(0, 2);
-    expect(modulated[0].y).toBeCloseTo(0, 2);
-    expect(modulated[1].x).toBeCloseTo(1, 2);
-    expect(modulated[1].y).toBeCloseTo(0, 2);
+    expect(points[0].x).toBeCloseTo(0, 2);
+    expect(points[0].y).toBeCloseTo(0, 2);
+    expect(points[1].x).toBeCloseTo(1, 2);
+    expect(points[1].y).toBeCloseTo(0, 2);
   });
 
   it('handles empty curves gracefully', () => {
@@ -53,12 +53,12 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.1),
     };
 
-    const { modulated } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeDef.evaluate({
       curve: [],
       modulator: sampler,
     });
 
-    expect(modulated).toEqual([]);
+    expect(points).toEqual([]);
   });
 
   it('passes through curve when modulator is null', () => {
@@ -67,13 +67,13 @@ describe('CurveModulator', () => {
       { x: 1, y: 0, r: 0, g: 0, b: 1, a: 1, dx: 1, dy: 0 },
     ];
 
-    const { modulated } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeDef.evaluate({
       curve,
       modulator: null,
     });
 
     // Should pass through unchanged
-    expect(modulated).toEqual(curve);
+    expect(points).toEqual(curve);
   });
 
   it('preserves colour information', () => {
@@ -86,15 +86,15 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.1),
     };
 
-    const { modulated } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeDef.evaluate({
       curve,
       modulator: sampler,
     });
 
-    expect(modulated[0].r).toBe(1);
-    expect(modulated[0].g).toBe(0.5);
-    expect(modulated[0].b).toBe(0.2);
-    expect(modulated[0].a).toBe(0.8);
+    expect(points[0].r).toBe(1);
+    expect(points[0].g).toBe(0.5);
+    expect(points[0].b).toBe(0.2);
+    expect(points[0].a).toBe(0.8);
   });
 
   it('preserves tangent information', () => {
@@ -107,13 +107,13 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.1),
     };
 
-    const { modulated } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeDef.evaluate({
       curve,
       modulator: sampler,
     });
 
-    expect(modulated[0].dx).toBe(0.707);
-    expect(modulated[0].dy).toBe(0.707);
+    expect(points[0].dx).toBe(0.707);
+    expect(points[0].dy).toBe(0.707);
   });
 
   it('samples at correct normalized position along curve', () => {

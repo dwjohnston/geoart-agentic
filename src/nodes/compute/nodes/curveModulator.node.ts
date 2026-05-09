@@ -14,7 +14,7 @@ export const curveModulatorNodeDef = implementComputeNode('curveModulator', {
 
     if (!curve || curve.length === 0 || !modulator) {
       // No curve or no modulator: pass through unchanged
-      return { modulated: curve };
+      return { points: curve };
     }
 
     // First pass: displace each point based on its input tangent
@@ -49,7 +49,7 @@ export const curveModulatorNodeDef = implementComputeNode('curveModulator', {
     });
 
     // Second pass: calculate new dx/dy based on displaced neighbors
-    const modulated = displacedCurve.map((point, i) => {
+    const points = displacedCurve.map((point, i) => {
       let dx: number, dy: number;
 
       if (displacedCurve.length === 1) {
@@ -81,6 +81,6 @@ export const curveModulatorNodeDef = implementComputeNode('curveModulator', {
       } satisfies ResolvedValue<"colorPointValue">;
     });
 
-    return { modulated };
+    return { points };
   },
 });

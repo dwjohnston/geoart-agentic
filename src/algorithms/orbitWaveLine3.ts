@@ -12,14 +12,36 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 	control: {
 		nodes: [
 			{
-				id: 'temporalImpact',
+				id: 'temporalImpact1',
 				type: 'slider',
 				params: {
 					label: { v: 'Sampler Temporal Impact' },
 					min: { v: 0 },
-					max: { v: 1 },
-					value: { v: 0.3 },
-					step: { v: 0.01 }
+					max: { v: 0.1 },
+					value: { v: 0.05 },
+					step: { v: 0.001 }
+				},
+			},
+			{
+				id: 'temporalImpact2',
+				type: 'slider',
+				params: {
+					label: { v: 'Sampler Temporal Impact' },
+					min: { v: 0 },
+					max: { v: 0.1 },
+					value: { v: 0.05 },
+					step: { v: 0.001 }
+				},
+			},
+			{
+				id: 'temporalImpact3',
+				type: 'slider',
+				params: {
+					label: { v: 'Sampler Temporal Impact' },
+					min: { v: 0 },
+					max: { v: 0.1 },
+					value: { v: 0.05 },
+					step: { v: 0.001 }
 				},
 			},
 			{
@@ -59,7 +81,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				id: 'waveAmplitudeSlider',
 				type: 'slider',
 				params: {
-					label: { v: 'Wave Amplitude' },
+					label: { v: 'Wave Amplitude 1' },
 					min: { v: 0 },
 					max: { v: 1 },
 					value: { v: 0.1 },
@@ -70,7 +92,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				id: 'waveFrequencySlider',
 				type: 'slider',
 				params: {
-					label: { v: 'Wave Frequency' },
+					label: { v: 'Wave Frequency 1' },
 					min: { v: 0.001 },
 					max: { v: 20 },
 					value: { v: 4 },
@@ -103,7 +125,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				id: 'wave3AmplitudeSlider',
 				type: 'slider',
 				params: {
-					label: { v: 'Wave Amplitude 2' },
+					label: { v: 'Wave Amplitude 3' },
 					min: { v: 0 },
 					max: { v: 1 },
 					value: { v: 0.1 },
@@ -114,7 +136,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				id: 'wave3FrequencySlider',
 				type: 'slider',
 				params: {
-					label: { v: 'Wave Frequency 2' },
+					label: { v: 'Wave Frequency 3' },
 					min: { v: 0.001 },
 					max: { v: 200 },
 					value: { v: 4 },
@@ -165,7 +187,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 			},
 			// Wave modulator
 			{
-				id: 'waveMod',
+				id: 'waveMod1',
 				type: 'wave',
 				params: {
 					time: { ref: 'time.time' },
@@ -173,7 +195,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					frequency: { ref: 'waveFrequencySlider.value' },
 					phase: { v: 0 },
 					waveType: { v: 'sine' },
-					samplerTemporalImpact: { ref: "temporalImpact.value" }
+					samplerTemporalImpact: { ref: "temporalImpact1.value" }
 				},
 			},
 			{
@@ -185,7 +207,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					frequency: { ref: 'wave2FrequencySlider.value' },
 					phase: { v: 0 },
 					waveType: { v: 'sine' },
-					samplerTemporalImpact: { ref: "temporalImpact.value" }
+					samplerTemporalImpact: { ref: "temporalImpact2.value" }
 
 				},
 			},
@@ -198,7 +220,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					frequency: { ref: 'wave3FrequencySlider.value' },
 					phase: { v: 0 },
 					waveType: { v: 'sine' },
-					samplerTemporalImpact: { ref: "temporalImpact.value" }
+					samplerTemporalImpact: { ref: "temporalImpact3.value" }
 
 				},
 			},
@@ -210,7 +232,6 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					pointA: { ref: 'orbitA.point' },
 					pointB: { ref: 'orbitB.point' },
 					numberOfPoints: { ref: 'numberOfPointsSlider.value' },
-					modulateBy: { ref: 'waveMod.sampler' },
 				},
 			},
 			// Color points for orbit A
@@ -231,11 +252,20 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					color: { v: { r: 1, g: 0.3, b: 0.5, a: 1 } },
 				},
 			},
+
+			{
+				id: 'firstModulated',
+				type: 'curveModulator',
+				params: {
+					curve: { ref: 'linePoints.points' },
+					modulator: { ref: 'waveMod1.sampler' },
+				},
+			},
 			{
 				id: 'secondModulated',
 				type: 'curveModulator',
 				params: {
-					curve: { ref: 'linePoints.points' },
+					curve: { ref: 'firstModulated.points' },
 					modulator: { ref: 'waveMod2.sampler' },
 				},
 			},
@@ -243,7 +273,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				id: 'thirdModulated',
 				type: 'curveModulator',
 				params: {
-					curve: { ref: 'secondModulated.modulated' },
+					curve: { ref: 'secondModulated.points' },
 					modulator: { ref: 'waveMod3.sampler' },
 				},
 			},
@@ -267,7 +297,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				type: 'connect-dots',
 				renderConfig: { layer: 'live' },
 				params: {
-					colorPointsArray: { ref: 'linePoints.points' },
+					colorPointsArray: { ref: 'firstModulated.points' },
 					lineWidth: { v: 1 },
 					mode: { v: "catmull-rom" }
 
@@ -278,7 +308,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				type: 'connect-dots',
 				renderConfig: { layer: 'live' },
 				params: {
-					colorPointsArray: { ref: 'secondModulated.modulated' },
+					colorPointsArray: { ref: 'secondModulated.points' },
 					lineWidth: { v: 1 },
 					mode: { v: "catmull-rom" }
 
@@ -289,7 +319,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				type: 'connect-dots',
 				renderConfig: { layer: 'live' },
 				params: {
-					colorPointsArray: { ref: 'thirdModulated.modulated' },
+					colorPointsArray: { ref: 'thirdModulated.points' },
 					lineWidth: { v: 1 },
 					mode: { v: "catmull-rom" }
 
@@ -303,7 +333,32 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				params: {
 					radius: { v: 0.01 },
 					centerPoints: {
-						ref: 'linePoints.points'
+						ref: 'firstModulated.points'
+					}
+
+				},
+			},
+
+			{
+				id: 'level1cross',
+				type: 'linesThroughPoint',
+				renderConfig: { layer: 'live' },
+				params: {
+					points: {
+						ref: 'firstModulated.points'
+					},
+					lineLength: {
+						v: 0.03
+					},
+					degrees: {
+						v: [
+							{
+								v: 0,
+							},
+							{
+								v: 90,
+							}
+						]
 					}
 
 				},
@@ -314,7 +369,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				renderConfig: { layer: 'live' },
 				params: {
 					points: {
-						ref: 'secondModulated.modulated'
+						ref: 'secondModulated.points'
 					},
 					lineLength: {
 						v: 0.03
@@ -338,7 +393,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				renderConfig: { layer: 'live' },
 				params: {
 					points: {
-						ref: 'thirdModulated.modulated'
+						ref: 'thirdModulated.points'
 					},
 					lineLength: {
 						v: 0.03
@@ -356,30 +411,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 
 				},
 			},
-			{
-				id: 'level1cross',
-				type: 'linesThroughPoint',
-				renderConfig: { layer: 'live' },
-				params: {
-					points: {
-						ref: 'linePoints.points'
-					},
-					lineLength: {
-						v: 0.03
-					},
-					degrees: {
-						v: [
-							{
-								v: 0,
-							},
-							{
-								v: 90,
-							}
-						]
-					}
 
-				},
-			},
 
 			{
 				id: 'level2dots',
@@ -388,7 +420,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				params: {
 					radius: { v: 0.01 },
 					centerPoints: {
-						ref: 'secondModulated.modulated'
+						ref: 'secondModulated.points'
 					}
 
 				},
@@ -401,7 +433,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				params: {
 					radius: { v: 0.01 },
 					centerPoints: {
-						ref: 'thirdModulated.modulated'
+						ref: 'thirdModulated.points'
 					}
 
 				},
