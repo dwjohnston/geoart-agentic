@@ -19,4 +19,6 @@ export type EvalContext = {
   getState<T>(): T;
   /** Persist state for this node; retrieved on the next frame via getState. */
   setState<T>(s: T): void;
+  /** Set of enabled render node IDs. */
+  enabledRenderNodes?: Set<string>;
 };

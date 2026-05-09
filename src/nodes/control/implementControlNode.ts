@@ -16,12 +16,12 @@ export function implementControlNode<K extends ControlNodeKinds>(
     nodeKind: kind,
     defaultValues: def.defaults,
     renderControl: def.renderControl,
-  } as unknown as ControlNodeDef<K>;
+  };
 }
 
 export function convertControlNodeDefToLegacy<K extends ControlNodeKinds>(
   def: ControlNodeDef<K>
-): LegacyControlNodeDef<K> {
+): LegacyControlNodeDef {
   const outputItems = nodeOutputMeta[def.nodeKind];
   const defaults = def.defaultValues as unknown as Record<string, { v: unknown }>;
 
@@ -48,7 +48,7 @@ export function convertControlNodeDefToLegacy<K extends ControlNodeKinds>(
       } as unknown as NodeWithDefaults<K>;
       return def.renderControl(node, set);
     },
-  } as unknown as LegacyControlNodeDef<K>;
+  };
 }
 
 

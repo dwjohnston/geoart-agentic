@@ -7,6 +7,7 @@ import { SidePanel } from './SidePanel';
 import { AlgorithmPicker } from './AlgorithmPicker';
 import { Controls } from './Controls';
 import { SpeedControl } from './SpeedControl';
+import { RenderToggles } from './RenderToggles';
 import { NeverShouldHappenError } from '../common-tooling/errors/NeverShouldHappenError';
 
 const CANVAS_SIZE = 800;
@@ -25,7 +26,7 @@ function App() {
     return DEFAULT_GRAPH_ID;
   };
 
-  const [payload, setPayload] = useState<GraphLoadPayload>({ renderControlNodes: () => null });
+  const [payload, setPayload] = useState<GraphLoadPayload>({ renderControlNodes: () => null, renderingNodes: [] });
   const [selectedGraphId, setSelectedGraphId] = useState(getInitialGraphId);
   const [speed, setSpeed] = useState(() => getGraph(selectedGraphId).graph.speed ?? 1.0);
 
@@ -69,8 +70,19 @@ function App() {
     engineRef.current.setSpeed(value);
   }
 
+  function handleRenderNodeToggle(nodeId: string) {
+    if (!engineRef.current) {
+      throw new NeverShouldHappenError();
+    }
+    engineRef.current.toggleRenderNode(nodeId);
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 24, padding: 24 }}>
+      <SidePanel>
+        <RenderToggles renderingNodes={payload.renderingNodes} onToggle={handleRenderNodeToggle} />
+
+      </SidePanel>
       <Canvas orbitCanvasRef={orbitCanvasRef} trailCanvasRef={trailCanvasRef} size={CANVAS_SIZE} />
       <SidePanel>
         <AlgorithmPicker graphs={GRAPHS} defaultId={selectedGraphId} onChange={handleGraphChange} />
