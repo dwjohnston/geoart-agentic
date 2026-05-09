@@ -10,6 +10,7 @@ export const waveNodeDef = implementComputeNode("wave", {
     "phase": 0,
     "time": 0,
     "waveType": "sine",
+    "samplerTemporalImpact": 1,
   },
   evaluate: (inputs) => {
     const t = inputs.time;
@@ -17,13 +18,14 @@ export const waveNodeDef = implementComputeNode("wave", {
     const frequency = inputs.frequency;
     const amplitude = inputs.amplitude;
     const phase = inputs.phase;
+    const samplerTemporalImpact = inputs.samplerTemporalImpact;
 
     // Create sampler object for lazy evaluation at arbitrary positions
     const sampler: Sampler = {
       sample: (spatialPosition: number): number => {
         // spatialPosition is a normalised spatial position (0–1)
         // Incorporate time as a phase offset for animation
-        const phaseShift = (t * frequency * 2 * Math.PI) / 60; // time is tick count, convert to phase
+        const phaseShift = (t * samplerTemporalImpact * frequency * 2 * Math.PI) / 60; // time is tick count, convert to phase
         const arg = frequency * spatialPosition * 2 * Math.PI + phaseShift + phase * 2 * Math.PI;
         return amplitude * evaluateWaveAtAngle(waveType, arg);
       },

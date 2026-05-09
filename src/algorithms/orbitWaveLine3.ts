@@ -12,6 +12,17 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 	control: {
 		nodes: [
 			{
+				id: 'temporalImpact',
+				type: 'slider',
+				params: {
+					label: { v: 'Sampler Temporal Impact' },
+					min: { v: 0 },
+					max: { v: 1 },
+					value: { v: 0.3 },
+					step: { v: 0.01 }
+				},
+			},
+			{
 				id: 'orbitASpeedSlider',
 				type: 'slider',
 				params: {
@@ -162,6 +173,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					frequency: { ref: 'waveFrequencySlider.value' },
 					phase: { v: 0 },
 					waveType: { v: 'sine' },
+					samplerTemporalImpact: { ref: "temporalImpact.value" }
 				},
 			},
 			{
@@ -173,6 +185,8 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					frequency: { ref: 'wave2FrequencySlider.value' },
 					phase: { v: 0 },
 					waveType: { v: 'sine' },
+					samplerTemporalImpact: { ref: "temporalImpact.value" }
+
 				},
 			},
 			{
@@ -184,6 +198,8 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					frequency: { ref: 'wave3FrequencySlider.value' },
 					phase: { v: 0 },
 					waveType: { v: 'sine' },
+					samplerTemporalImpact: { ref: "temporalImpact.value" }
+
 				},
 			},
 			// Points along the line between the two orbits

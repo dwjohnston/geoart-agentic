@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 import { waveNodeDef } from './wave.node';
 
-const base = { time: 0, waveType: 'sine' as const, frequency: 1, amplitude: 1, phase: 0 };
+const base = { time: 0, waveType: 'sine' as const, frequency: 1, amplitude: 1, phase: 0, samplerTemporalImpact: 0 };
 
 describe('waveNodeDef', () => {
   describe('sine', () => {

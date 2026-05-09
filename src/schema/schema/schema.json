@@ -452,6 +452,10 @@
                 },
                 "phase": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "samplerTemporalImpact": {
+                  "description": "Temporal impact factor for the wave sampler (0-1) - controls intensity of time component in phaseShift calculation",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
             }
