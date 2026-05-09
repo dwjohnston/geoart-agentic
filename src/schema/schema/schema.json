@@ -707,6 +707,57 @@
               }
             }
           }
+        },
+        {
+          "title": "Curve Modulator Compute Node",
+          "type": "object",
+          "description": "Displaces each point in a curve perpendicular to its tangent using a sampler value.",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "modulated",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "curveModulator"
+              ]
+            },
+            "params": {
+              "title": "Params",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "curve": {
+                  "title": "Curve",
+                  "description": "Array of coloured points with tangents to be modulated",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "modulator": {
+                  "title": "Modulator",
+                  "description": "Sampler to control displacement magnitude at each point",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                }
+              },
+              "required": [
+                "curve",
+                "modulator"
+              ]
+            }
+          }
         }
       ]
     },
