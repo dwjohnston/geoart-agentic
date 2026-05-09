@@ -954,6 +954,11 @@
                 "lineWidth": {
                   "description": "Width of each line segment in pixels",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "mode": {
+                  "title": "Mode",
+                  "description": "Curve interpolation mode: straight for linear segments between points, catmull-rom for smooth curves",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/curveModeValueOrRef"
                 }
               }
             }

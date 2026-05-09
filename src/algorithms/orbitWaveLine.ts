@@ -161,6 +161,7 @@ export const orbitWaveLineGraph: GeoArtGraph = {
 				params: {
 					colorPointsArray: { ref: 'linePoints.points' },
 					lineWidth: { v: 1 },
+					mode: { v: "catmull-rom" }
 				},
 			},
 
@@ -215,7 +216,7 @@ export const orbitWaveLineGraph: GeoArtGraph = {
 				renderConfig: { layer: 'live' },
 				params: {
 					points: { ref: 'linePoints.points' },
-					lineLength: { v: 10 }
+					lineLength: { v: 0.02 }
 
 				},
 			},

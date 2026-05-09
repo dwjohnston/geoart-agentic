@@ -261,6 +261,22 @@
           "description": "Placeholder object — actual value is a function at runtime"
         }
       }
+    },
+    "curveModeValue": {
+      "title": "Curve Mode Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "straight",
+            "catmull-rom"
+          ]
+        }
+      }
     }
   }
 }
