@@ -253,6 +253,8 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				params: {
 					colorPointsArray: { ref: 'linePoints.points' },
 					lineWidth: { v: 1 },
+					mode: { v: "catmull-rom" }
+
 				},
 			},
 			{
@@ -262,6 +264,8 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				params: {
 					colorPointsArray: { ref: 'secondModulated.modulated' },
 					lineWidth: { v: 1 },
+					mode: { v: "catmull-rom" }
+
 				},
 			},
 			{
@@ -271,6 +275,8 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				params: {
 					colorPointsArray: { ref: 'thirdModulated.modulated' },
 					lineWidth: { v: 1 },
+					mode: { v: "catmull-rom" }
+
 				},
 			},
 
