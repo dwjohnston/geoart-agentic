@@ -165,9 +165,9 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				type: 'orbit',
 				params: {
 					time: { ref: 'time.time' },
-					radius: { v: 0.25 },
+					radius: { v: 1 },
 					speed: { ref: 'orbitASpeedSlider.value' },
-					center: { v: { x: -0.7, y: -0.7 } },
+					center: { v: { x: -1, y: 0 } },
 					numPoints: { v: 1 },
 					phase: { v: 0 },
 				},
@@ -178,9 +178,9 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				type: 'orbit',
 				params: {
 					time: { ref: 'time.time' },
-					radius: { v: 0.25 },
+					radius: { v: 1 },
 					speed: { ref: 'orbitBSpeedSlider.value' },
-					center: { v: { x: 0.7, y: 0.7 } },
+					center: { v: { x: 1, y: 0 } },
 					numPoints: { v: 1 },
 					phase: { v: 0 },
 				},
@@ -259,6 +259,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				params: {
 					curve: { ref: 'linePoints.points' },
 					modulator: { ref: 'waveMod1.sampler' },
+					"cycleLengthMode": { v: "linearOne", }
 				},
 			},
 			{
@@ -267,6 +268,8 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				params: {
 					curve: { ref: 'firstModulated.points' },
 					modulator: { ref: 'waveMod2.sampler' },
+					"cycleLengthMode": { v: "linearOne", }
+
 				},
 			},
 			{
@@ -275,6 +278,8 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				params: {
 					curve: { ref: 'secondModulated.points' },
 					modulator: { ref: 'waveMod3.sampler' },
+					"cycleLengthMode": { v: "linearOne", }
+
 				},
 			},
 		],
@@ -445,9 +450,9 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					center: { v: { x: -0.7, y: -0.7 } },
-					radius: { v: 0.25 },
-					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
+					center: { v: { x: -1, y: 0 } },
+					radius: { v: 0.0 },
+					color: { v: { r: 1, g: 0.5, b: 0.5, a: 0.5 } },
 				},
 			},
 			// Orbit B circle (live layer, redrawn each frame)
@@ -456,8 +461,8 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					center: { v: { x: 0.7, y: 0.7 } },
-					radius: { v: 0.25 },
+					center: { v: { x: 1, y: 0 } },
+					radius: { v: 0.0 },
 					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
 				},
 			},

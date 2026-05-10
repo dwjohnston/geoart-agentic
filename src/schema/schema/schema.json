@@ -751,12 +751,14 @@
                   "title": "Modulator",
                   "description": "Sampler to control displacement magnitude at each point",
                   "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "cycleLengthMode": {
+                  "title": "Cycle Length Mode",
+                  "description": "Method for determining cycle length: arrayLength uses array size, linearOne accumulates euclidean distance between points",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeValueOrRef"
                 }
               },
-              "required": [
-                "curve",
-                "modulator"
-              ]
+              "required": []
             }
           }
         }

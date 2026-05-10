@@ -4,6 +4,8 @@ import type { GraphEntry } from '../index';
 import { minimalThreeNodeGraph } from './minimal/minimalThreeNodeReferenceGraph';
 import { circleGraph } from './node_specific/circleReferenceGraph';
 import { connectDotsGraph } from './node_specific/connectDotsReferenceGraph';
+import { connectTheDotsGraph } from './node_specific/connectTheDotsReferenceGraph';
+import { curveModulatorGraph } from './node_specific/curveModulatorReferenceGraph';
 import { linesThroughPointGraph } from './node_specific/linesThroughPointReferenceGraph';
 import { polygonGraph } from './node_specific/polygonReferenceGraph';
 import { timedLineArrayGraph } from './node_specific/timedLineArrayReferenceGraph';
@@ -16,6 +18,8 @@ export const REFERENCE_GRAPHS: GraphEntry[] = [
   { id: 'minimal-three-node', name: 'Minimal Three Node', graph: minimalThreeNodeGraph },
   { id: 'circle', name: 'Circle', graph: circleGraph },
   { id: 'connect-dots', name: 'Connect Dots', graph: connectDotsGraph },
+  { id: 'connect-the-dots', name: 'Connect The Dots', graph: connectTheDotsGraph },
+  { id: 'curve-modulator', name: 'Curve Modulator', graph: curveModulatorGraph },
   { id: 'lines-through-point', name: 'Lines Through Point', graph: linesThroughPointGraph },
   { id: 'polygon', name: 'Polygon', graph: polygonGraph },
   { id: 'timed-line-array', name: 'Timed Line Array', graph: timedLineArrayGraph },

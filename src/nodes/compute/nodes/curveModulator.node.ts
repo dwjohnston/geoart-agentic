@@ -2,24 +2,56 @@ import type { ResolvedValue } from '../../../schema/typeHelpers';
 import { implementComputeNode } from '../implementComputeNode';
 import type { Sampler } from './pointsOnALine';
 
+function calculateArrayLengthT(curve: ResolvedValue<'colorPointArrayValue'>): number[] {
+  if (curve.length <= 1) return curve.map(() => 0);
+  return curve.map((_, i) => i / (curve.length - 1));
+}
+
+function calculateDistanceBasedT(curve: ResolvedValue<'colorPointArrayValue'>): number[] {
+  if (curve.length === 0) return [];
+  if (curve.length === 1) return [0];
+
+  // Calculate cumulative distance along the curve
+  const distances: number[] = [0];
+  for (let i = 1; i < curve.length; i++) {
+    const dx = curve[i].x - curve[i - 1].x;
+    const dy = curve[i].y - curve[i - 1].y;
+    const euclideanDistance = Math.sqrt(dx * dx + dy * dy);
+    distances.push(distances[i - 1] + euclideanDistance);
+  }
+
+  // Normalize distances to [0, 1]
+  const totalDistance = distances[distances.length - 1];
+  return totalDistance === 0
+    ? distances.map(() => 0)
+    : distances.map(d => d / totalDistance);
+}
+
 
 export const curveModulatorNodeDef = implementComputeNode('curveModulator', {
   defaults: {
     curve: [],
     modulator: null,
+    cycleLengthMode: 'arrayLength',
   },
   evaluate: (inputs) => {
     const curve = inputs.curve
     const modulator = inputs.modulator as Sampler | null;
+    const cycleLengthMode = inputs.cycleLengthMode;
 
     if (!curve || curve.length === 0 || !modulator) {
       // No curve or no modulator: pass through unchanged
       return { points: curve };
     }
 
+    // Calculate t values based on cycle length mode
+    const tValues = cycleLengthMode === 'linearOne'
+      ? calculateDistanceBasedT(curve)
+      : calculateArrayLengthT(curve);
+
     // First pass: displace each point based on its input tangent
     const displacedCurve = curve.map((point, i) => {
-      const t = curve.length > 1 ? i / (curve.length - 1) : 0;
+      const t = tValues[i];
       const displacement = modulator.sample(t);
 
       // Use input dx/dy to calculate perpendicular

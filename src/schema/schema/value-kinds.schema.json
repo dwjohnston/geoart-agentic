@@ -277,6 +277,22 @@
           ]
         }
       }
+    },
+    "cycleLengthModeValue": {
+      "title": "Cycle Length Mode Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "arrayLength",
+            "linearOne"
+          ]
+        }
+      }
     }
   }
 }

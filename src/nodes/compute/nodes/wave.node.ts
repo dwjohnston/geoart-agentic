@@ -22,11 +22,14 @@ export const waveNodeDef = implementComputeNode("wave", {
 
     // Create sampler object for lazy evaluation at arbitrary positions
     const sampler: Sampler = {
-      sample: (fauxT: number): number => {
+
+      // To be abundantly clear what this value is
+      // 0.5 = half way through 'one second' or 30 ticks. 
+      sample: (fractionOfOneCycle: number): number => {
         // spatialPosition is a normalised spatial position (0–1)
         // Incorporate time as a phase offset for animation
         const phaseShift = (t * samplerTemporalImpact * frequency * 2 * Math.PI) / 60; // time is tick count, convert to phase
-        const arg = frequency * fauxT * 2 * Math.PI + phaseShift + phase * 2 * Math.PI;
+        const arg = frequency * fractionOfOneCycle * 2 * Math.PI + phaseShift + phase * 2 * Math.PI;
         return amplitude * evaluateWaveAtAngle(waveType, arg);
       },
       sampleMany: (spatialPositions: number[]): number[] => {

@@ -87,7 +87,7 @@ describe('waveNodeDef', () => {
     });
   });
 
-  describe.only('sampler', () => {
+  describe('sampler', () => {
     test('sine: base case - does a regular cycle in 0-1', () => {
 
       // 🫤 We need a better way of typing the output. Gonna need to be some magic in the generation script

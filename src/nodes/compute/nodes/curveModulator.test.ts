@@ -17,6 +17,8 @@ describe('CurveModulator', () => {
     const { points } = curveModulatorNodeDef.evaluate({
       curve,
       modulator: sampler,
+      "cycleLengthMode": "arrayLength",
+
     });
 
     // Perpendicular to (1, 0) rotated 90° clockwise is (0, -1)
@@ -38,6 +40,8 @@ describe('CurveModulator', () => {
     const { points } = curveModulatorNodeDef.evaluate({
       curve,
       modulator: sampler,
+      "cycleLengthMode": "arrayLength",
+
     });
 
     // No tangent means no displacement
@@ -56,6 +60,7 @@ describe('CurveModulator', () => {
     const { points } = curveModulatorNodeDef.evaluate({
       curve: [],
       modulator: sampler,
+      "cycleLengthMode": "arrayLength",
     });
 
     expect(points).toEqual([]);
@@ -70,6 +75,8 @@ describe('CurveModulator', () => {
     const { points } = curveModulatorNodeDef.evaluate({
       curve,
       modulator: null,
+      "cycleLengthMode": "arrayLength",
+
     });
 
     // Should pass through unchanged
@@ -89,6 +96,8 @@ describe('CurveModulator', () => {
     const { points } = curveModulatorNodeDef.evaluate({
       curve,
       modulator: sampler,
+      "cycleLengthMode": "arrayLength",
+
     });
 
     expect(points[0].r).toBe(1);
@@ -110,6 +119,8 @@ describe('CurveModulator', () => {
     const { points } = curveModulatorNodeDef.evaluate({
       curve,
       modulator: sampler,
+      "cycleLengthMode": "arrayLength",
+
     });
 
     expect(points[0].dx).toBe(0.707);
@@ -134,6 +145,8 @@ describe('CurveModulator', () => {
     curveModulatorNodeDef.evaluate({
       curve,
       modulator: sampler,
+      "cycleLengthMode": "arrayLength",
+
     });
 
     // Last point should be at t=1
