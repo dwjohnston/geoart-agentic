@@ -801,6 +801,54 @@
               "required": []
             }
           }
+        },
+        {
+          "title": "Color Shift Compute Node",
+          "type": "object",
+          "description": "Shifts colours of input points based on inverse-distance weighted influence from target points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "colorShift"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "targetPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorNullableColorPointArrayValueOrRef"
+                },
+                "falloff": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "strength": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     },

@@ -14,6 +14,7 @@ import { twoOrbitCurveGraph } from './general/twoOrbitCurve';
 import { wavingLinesGraph } from './general/wavingLines';
 import { minimalThreeNodeGraph } from './minimal/minimalThreeNodeReferenceGraph';
 import { circleGraph } from './node_specific/circleReferenceGraph';
+import { colorShiftGraph } from './node_specific/colorShiftReferenceGraph';
 import { connectDotsGraph } from './node_specific/connectDotsReferenceGraph';
 import { connectTheDotsGraph } from './node_specific/connectTheDotsReferenceGraph';
 import { curveModulatorGraph } from './node_specific/curveModulatorReferenceGraph';
@@ -40,6 +41,7 @@ export const REFERENCE_GRAPHS: GraphEntry[] = [
   { id: 'waving-lines', name: 'Waving Lines', graph: wavingLinesGraph },
   { id: 'minimal-three-node', name: 'Minimal Three Node', graph: minimalThreeNodeGraph },
   { id: 'circle', name: 'Circle', graph: circleGraph },
+  { id: 'color-shift', name: 'Color Shift', graph: colorShiftGraph },
   { id: 'connect-dots', name: 'Connect Dots', graph: connectDotsGraph },
   { id: 'connect-the-dots', name: 'Connect The Dots', graph: connectTheDotsGraph },
   { id: 'curve-modulator', name: 'Curve Modulator', graph: curveModulatorGraph },
