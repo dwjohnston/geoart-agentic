@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, test, mock } from 'bun:test';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { compile } from '../compiler/compiler';
 import { tick } from './evaluator';
@@ -23,18 +23,18 @@ const realNodeRegistry: LegacyNodeRegistry = {
 // ---------------------------------------------------------------------------
 
 function makeGradientMock() {
-  return { addColorStop: vi.fn() };
+  return { addColorStop: mock() };
 }
 
 function makeCanvasMock(): CanvasRenderingContext2D {
   return {
-    beginPath: vi.fn(),
-    moveTo: vi.fn(),
-    lineTo: vi.fn(),
-    stroke: vi.fn(),
-    arc: vi.fn(),
-    fill: vi.fn(),
-    createLinearGradient: vi.fn(() => makeGradientMock()),
+    beginPath: mock(),
+    moveTo: mock(),
+    lineTo: mock(),
+    stroke: mock(),
+    arc: mock(),
+    fill: mock(),
+    createLinearGradient: mock(() => makeGradientMock()),
     strokeStyle: '',
     fillStyle: '',
     lineWidth: 1,
@@ -355,7 +355,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
       },
 
     ])('$scenarioName', (testInputs) => {
-      const mockFn = vi.fn();
+      const mockFn = mock();
 
       // Create a custom circle node implementation with the mock
       const mockCircleDef = implementRenderNode("circle", {
@@ -425,7 +425,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
     test("numberValueArray also behaves", () => {
 
-      const mockFn = vi.fn();
+      const mockFn = mock();
 
       const mockLinesThroughPoint = implementRenderNode("linesThroughPoint", {
         "defaults": {

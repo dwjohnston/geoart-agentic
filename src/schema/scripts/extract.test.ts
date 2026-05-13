@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { extractDerviedSchema } from './generate-derived-schema';
 import { buildNodeInputs, generateOutputs, jsonSchemaValueKindsToTypeScript } from './generate-derived-types';
 

@@ -20,7 +20,7 @@
     }
   },
   "scripts": {
-    "validate": "bun clean && bun generate && concurrently   \"bun test:headless\" \"bun typecheck\"  \"bun lint\"",
+    "validate": "bun clean && bun generate && concurrently   \"bun test:browser:headless\" \"bun test\" \"bun typecheck\"  \"bun lint\"",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -28,10 +28,8 @@
     "preview": "vite preview",
     "pretest": "npm run generate",
     "clean": "rm -rf src/_generated",
-    "test": "vitest --browser.headless",
-    "test:no-snapshots": "bun run test:headless -- --exclude '**/*.snapshot.test.ts'",
-    "test:only-snapshots": "vitest  '**/*.snapshot.*' --browser.headless",
-    "test:headless": "vitest --browser.headless",
+    "test:browser": "vitest",
+    "test:browser:headless": "vitest --browser.headless",
     "generate": "bun generate:derived-schema && bun generate:derived-types && bun generate:algorithms-index",
     "generate:derived-schema": "bun src/schema/scripts/generate-derived-schema.ts",
     "generate:derived-types": "mkdir -p src/schema/_generated && json2ts -i src/schema/schema/schema.json -o src/schema/_generated/schema-types.d.ts --cwd=src/schema/schema && bun src/schema/scripts/generate-derived-types.ts",

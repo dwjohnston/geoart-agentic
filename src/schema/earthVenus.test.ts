@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from 'bun:test';
 import type { GeoArtGraph } from "./_generated/schema-types";
 import { validateGeoArtGraph } from "./validateGeoArtGraph";
 

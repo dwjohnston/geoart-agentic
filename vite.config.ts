@@ -16,7 +16,7 @@ export default defineConfig({
 				plugins: [react()],
 				test: {
 					name: "browser",
-					include: ["**/*.test.tsx"],
+					include: ["**/*.browser.test.tsx"],
 					browser: {
 						enabled: true,
 						instances: [{ browser: "chromium" }],
@@ -24,12 +24,7 @@ export default defineConfig({
 					},
 				},
 			},
-			{
-				test: {
-					name: "unit",
-					include: ["**/*.test.ts"],
-				},
-			},
+
 		],
 	},
 });

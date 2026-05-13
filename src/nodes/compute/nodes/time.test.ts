@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { timeNodeDef } from './time.node';
 
 const ctx = { tickCount: 0, getState: <T>() => ({} as T), setState: () => {} };

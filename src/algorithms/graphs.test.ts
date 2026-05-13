@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test } from 'bun:test';
 import { GRAPHS } from './index';
 import { compile } from '../graphEngine/compiler/compiler';
 

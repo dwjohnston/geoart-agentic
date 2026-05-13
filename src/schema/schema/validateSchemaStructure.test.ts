@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from 'bun:test';
 import { validateSchemaStructure } from "./validateSchemaStructure";
 import type { SchemaSet } from "./validateSchemaStructure";
 import productionSchema from "./schema.json";

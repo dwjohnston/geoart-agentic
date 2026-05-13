@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { orbitNodeDef } from './orbit.node';
 
 // speed=1 → 1 orbit per 600 ticks. Tick values for clean positions:
