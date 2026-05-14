@@ -1,3 +1,10 @@
+/**
+ * CANONICAL LEVEL: 👑 - 2026-05-14
+ * 
+ * Canonically demonstrates how to deal with deprecated values
+ */
+
+
 import { implementRenderNode } from '../implementRenderNode';
 
 export const circleNodeDef = implementRenderNode('circle', {

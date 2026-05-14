@@ -439,3 +439,31 @@ Trust that the agents have enough context to do their job. You just need to give
     - This should be a minimal algorithm that contains the node you just created.
     - Tests will automatically pick this reference algorithm up and create snapshot tests for it. 
 
+## Canonical Levels
+
+Some files will have a `CANONICAL LEVEL` header at the top. 
+
+This will give you an indication of how seriously the code contained in this file should be treated. 
+
+eg: 
+```
+/**
+ * CANONICAL LEVEL: 🧪 - 2026-05-14
+ */
+
+```
+
+
+
+The levels are:
+
+👑 - Gold standard. This is how things should be done. Use this as a template for doing similar work and freely depend on the code on this file - respecting the regular module boundaries. 
+
+🥈 - The code here is mostly pretty good but there are some things I'm a bit iffy about. 
+
+🗑️ - This code is intended to be replaced. Do not rely on the code in this file as an example of how to do things.
+
+🧪 - Experimental. This code was working well enough when it was commited it, but it may contain bugs or patterns that I do not want repeated. Do no rely too heavily on this code. If you are relying on this code then prompt the user for clarification if you should proceed. Ask the user if they want you to also add a same level canonical header to the file you are writing.  
+
+The canonical header also has a YYYY-MM-DD format date - use this to assign weight for how seriously to consider a file - a file with a more recent 👑 canonical header should be taken more seriously than one with an older header.
+

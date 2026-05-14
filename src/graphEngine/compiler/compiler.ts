@@ -1,3 +1,8 @@
+/**
+ * CANONICAL LEVEL: 🗑️ - 2026-05-14
+ */
+
+
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { Value } from '../../schema/types';
 import type { LegacyComputeNodeDef, LegacyComputeNodePortDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
