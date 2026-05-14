@@ -53,6 +53,16 @@ describe("timedLineNodeDef", () => {
           "name": "gradient.addColorStop",
         },
         {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": ,
+        },
+        {
+          "kind": "property",
+          "name": "lineWidth",
+          "value": 1,
+        },
+        {
           "args": [],
           "kind": "method",
           "name": "beginPath",

@@ -67,6 +67,11 @@ describe("polygonNodeDef", () => {
           "name": "closePath",
         },
         {
+          "kind": "property",
+          "name": "fillStyle",
+          "value": "rgba(255, 0, 0, 1)",
+        },
+        {
           "args": [],
           "kind": "method",
           "name": "fill",

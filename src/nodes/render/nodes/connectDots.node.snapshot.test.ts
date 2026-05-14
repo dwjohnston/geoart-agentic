@@ -35,6 +35,16 @@ describe("connectDotsNodeDef", () => {
     expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
         {
+          "kind": "property",
+          "name": "lineWidth",
+          "value": 2,
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": "rgba(0, 255, 0, 1)",
+        },
+        {
           "args": [],
           "kind": "method",
           "name": "beginPath",
@@ -59,6 +69,11 @@ describe("connectDotsNodeDef", () => {
           "args": [],
           "kind": "method",
           "name": "stroke",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": "rgba(0, 0, 255, 1)",
         },
         {
           "args": [],

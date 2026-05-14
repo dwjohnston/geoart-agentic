@@ -39,6 +39,11 @@ describe("timedLineArrayNodeDef", () => {
     expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
         {
+          "kind": "property",
+          "name": "lineWidth",
+          "value": 1,
+        },
+        {
           "args": [
             50,
             50,
@@ -63,6 +68,11 @@ describe("timedLineArrayNodeDef", () => {
           ],
           "kind": "method",
           "name": "gradient.addColorStop",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": ,
         },
         {
           "args": [],
@@ -115,6 +125,11 @@ describe("timedLineArrayNodeDef", () => {
           ],
           "kind": "method",
           "name": "gradient.addColorStop",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": ,
         },
         {
           "args": [],
@@ -177,6 +192,11 @@ describe("timedLineArrayNodeDef", () => {
     expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
         {
+          "kind": "property",
+          "name": "lineWidth",
+          "value": 1,
+        },
+        {
           "args": [
             50,
             50,
@@ -201,6 +221,11 @@ describe("timedLineArrayNodeDef", () => {
           ],
           "kind": "method",
           "name": "gradient.addColorStop",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": ,
         },
         {
           "args": [],

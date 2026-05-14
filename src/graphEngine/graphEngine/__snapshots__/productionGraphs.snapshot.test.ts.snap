@@ -23,6 +23,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -42,6 +52,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -65,6 +85,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -84,6 +114,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -107,6 +147,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -126,6 +176,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -159,6 +219,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -178,6 +248,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -201,6 +281,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -220,6 +310,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -243,6 +343,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -262,6 +372,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -295,6 +415,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -314,6 +444,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -337,6 +477,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -356,6 +506,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -379,6 +539,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -398,6 +568,16 @@ exports[`All production graphs threeOrbits runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -462,6 +642,16 @@ exports[`All production graphs threeOrbits runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -512,6 +702,16 @@ exports[`All production graphs threeOrbits runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -566,6 +766,16 @@ exports[`All production graphs threeOrbits runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -617,6 +827,16 @@ exports[`All production graphs earthVenus runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -636,6 +856,16 @@ exports[`All production graphs earthVenus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -669,6 +899,16 @@ exports[`All production graphs earthVenus runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -688,6 +928,16 @@ exports[`All production graphs earthVenus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -721,6 +971,16 @@ exports[`All production graphs earthVenus runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -740,6 +1000,16 @@ exports[`All production graphs earthVenus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -804,6 +1074,16 @@ exports[`All production graphs earthVenus runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -855,6 +1135,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -874,6 +1164,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -897,6 +1197,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -918,6 +1228,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -937,6 +1257,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -970,6 +1300,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -989,6 +1329,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -1012,6 +1362,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1033,6 +1393,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1052,6 +1422,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -1085,6 +1465,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1104,6 +1494,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -1127,6 +1527,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1148,6 +1558,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1167,6 +1587,16 @@ exports[`All production graphs monaLisa runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -1231,6 +1661,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1283,6 +1723,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1335,6 +1785,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1387,6 +1847,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1439,6 +1909,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1491,6 +1971,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -1541,6 +2031,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -1593,6 +2093,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -1645,6 +2155,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -1697,6 +2217,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -1749,6 +2279,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -1801,6 +2341,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -1853,6 +2403,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -1905,6 +2465,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -1957,6 +2527,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -2009,6 +2589,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -2061,6 +2651,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -2113,6 +2713,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -2165,6 +2775,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -2217,6 +2837,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -2269,6 +2899,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -2321,6 +2961,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -2373,6 +3023,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -2425,6 +3085,16 @@ exports[`All production graphs monaLisa runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -2478,6 +3148,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.5, 76.5, 89.25, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -2497,6 +3177,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.5, 76.5, 89.25, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -2520,6 +3210,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -2539,6 +3239,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -2562,6 +3272,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -2581,6 +3301,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -2614,6 +3344,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.5, 76.5, 89.25, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -2633,6 +3373,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.5, 76.5, 89.25, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -2656,6 +3406,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -2675,6 +3435,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -2698,6 +3468,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -2717,6 +3497,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -2750,6 +3540,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.5, 76.5, 89.25, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -2769,6 +3569,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.5, 76.5, 89.25, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -2792,6 +3602,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -2811,6 +3631,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -2834,6 +3664,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -2853,6 +3693,16 @@ exports[`All production graphs earth3Venus runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -2917,6 +3767,16 @@ exports[`All production graphs earth3Venus runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -2969,6 +3829,16 @@ exports[`All production graphs earth3Venus runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -3019,6 +3889,16 @@ exports[`All production graphs earth3Venus runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -3072,6 +3952,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -3091,6 +3981,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -3114,6 +4014,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -3133,6 +4043,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -3180,6 +4100,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -3232,6 +4162,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -3270,6 +4210,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -3289,6 +4239,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -3312,6 +4272,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -3331,6 +4301,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -3378,6 +4358,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -3430,6 +4420,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -3466,6 +4466,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     ],
     "kind": "method",
     "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -3489,6 +4499,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -3510,6 +4530,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -3529,6 +4559,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -3578,6 +4618,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -3628,6 +4678,16 @@ exports[`All production graphs wavingLines runs without error 1`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
   },
   {
     "args": [],
@@ -3671,6 +4731,11 @@ exports[`All production graphs wavingLines runs without error 2`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [
       33.999955586816725,
       24.971725712627084,
@@ -3695,6 +4760,11 @@ exports[`All production graphs wavingLines runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -3747,6 +4817,11 @@ exports[`All production graphs wavingLines runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -3799,6 +4874,11 @@ exports[`All production graphs wavingLines runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -3851,6 +4931,11 @@ exports[`All production graphs wavingLines runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -3903,6 +4988,11 @@ exports[`All production graphs wavingLines runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -3955,6 +5045,11 @@ exports[`All production graphs wavingLines runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -4007,6 +5102,11 @@ exports[`All production graphs wavingLines runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -4059,6 +5159,11 @@ exports[`All production graphs wavingLines runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -4112,6 +5217,16 @@ exports[`All production graphs singleOrbitLfo runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4131,6 +5246,16 @@ exports[`All production graphs singleOrbitLfo runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4164,6 +5289,16 @@ exports[`All production graphs singleOrbitLfo runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4183,6 +5318,16 @@ exports[`All production graphs singleOrbitLfo runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4216,6 +5361,16 @@ exports[`All production graphs singleOrbitLfo runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4235,6 +5390,16 @@ exports[`All production graphs singleOrbitLfo runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4271,6 +5436,16 @@ exports[`All production graphs singleOrbitLfo runs without error 2`] = `
     ],
     "kind": "method",
     "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4319,6 +5494,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4338,6 +5523,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4361,6 +5556,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4380,6 +5585,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4413,6 +5628,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4432,6 +5657,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4455,6 +5690,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4474,6 +5719,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4507,6 +5762,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4526,6 +5791,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4549,6 +5824,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4568,6 +5853,16 @@ exports[`All production graphs pulsingSpirals runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4632,6 +5927,16 @@ exports[`All production graphs pulsingSpirals runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4683,6 +5988,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4704,6 +6019,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4723,6 +6048,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -4746,6 +6081,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -4765,6 +6110,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -4791,6 +6146,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -4817,6 +6177,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -4843,6 +6208,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -4869,6 +6239,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -4895,6 +6270,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -4921,6 +6301,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -4947,6 +6332,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -4973,6 +6363,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -4999,6 +6394,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -5025,6 +6425,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -5051,6 +6456,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -5077,6 +6487,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -5103,6 +6518,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -5129,6 +6549,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -5155,6 +6580,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -5181,6 +6611,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -5207,6 +6642,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -5233,6 +6673,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -5261,6 +6706,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5285,6 +6745,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5313,6 +6788,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5337,6 +6827,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5365,6 +6870,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5389,6 +6909,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5417,6 +6952,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5441,6 +6991,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5469,6 +7034,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5493,6 +7073,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5521,6 +7116,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5545,6 +7155,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5573,6 +7198,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5597,6 +7237,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5625,6 +7280,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5649,6 +7319,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5677,6 +7362,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5701,6 +7401,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5729,6 +7444,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5753,6 +7483,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5781,6 +7526,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5805,6 +7565,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5833,6 +7608,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5857,6 +7647,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5885,6 +7690,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5909,6 +7729,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5937,6 +7772,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -5961,6 +7811,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -5989,6 +7854,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6013,6 +7893,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -6041,6 +7936,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6065,6 +7975,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -6093,6 +8018,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6117,6 +8057,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -6145,6 +8100,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6169,6 +8139,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -6197,6 +8182,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6221,6 +8221,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -6249,6 +8264,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6273,6 +8303,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -6311,6 +8356,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6332,6 +8387,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6351,6 +8416,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -6374,6 +8449,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6393,6 +8478,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6419,6 +8514,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6445,6 +8545,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6471,6 +8576,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6497,6 +8607,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6523,6 +8638,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6549,6 +8669,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6575,6 +8700,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6601,6 +8731,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6627,6 +8762,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6653,6 +8793,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6679,6 +8824,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6705,6 +8855,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6731,6 +8886,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6757,6 +8917,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6783,6 +8948,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6809,6 +8979,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6835,6 +9010,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6861,6 +9041,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -6889,6 +9074,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6913,6 +9113,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -6941,6 +9156,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -6965,6 +9195,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -6993,6 +9238,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7017,6 +9277,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7045,6 +9320,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7069,6 +9359,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7097,6 +9402,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7121,6 +9441,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7149,6 +9484,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7173,6 +9523,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7201,6 +9566,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7225,6 +9605,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7253,6 +9648,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7277,6 +9687,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7305,6 +9730,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7329,6 +9769,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7357,6 +9812,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7381,6 +9851,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7409,6 +9894,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7433,6 +9933,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7461,6 +9976,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7485,6 +10015,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7513,6 +10058,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7537,6 +10097,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7565,6 +10140,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7589,6 +10179,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7617,6 +10222,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7641,6 +10261,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7669,6 +10304,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7693,6 +10343,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7721,6 +10386,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7745,6 +10425,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7773,6 +10468,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7797,6 +10507,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7825,6 +10550,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7849,6 +10589,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7877,6 +10632,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7901,6 +10671,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -7939,6 +10724,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7960,6 +10755,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -7979,6 +10784,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -8002,6 +10817,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -8021,6 +10846,16 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8047,6 +10882,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8073,6 +10913,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8099,6 +10944,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8125,6 +10975,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8151,6 +11006,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8177,6 +11037,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8203,6 +11068,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8229,6 +11099,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8255,6 +11130,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8281,6 +11161,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8307,6 +11192,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8333,6 +11223,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8359,6 +11254,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8385,6 +11285,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8411,6 +11316,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8437,6 +11347,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8463,6 +11378,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8489,6 +11409,11 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -8517,6 +11442,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -8541,6 +11481,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -8569,6 +11524,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -8593,6 +11563,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -8621,6 +11606,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -8645,6 +11645,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -8673,6 +11688,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -8697,6 +11727,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -8725,6 +11770,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -8749,6 +11809,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -8777,6 +11852,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -8801,6 +11891,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -8829,6 +11934,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -8853,6 +11973,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -8881,6 +12016,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -8905,6 +12055,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -8933,6 +12098,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -8957,6 +12137,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -8985,6 +12180,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9009,6 +12219,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9037,6 +12262,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9061,6 +12301,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9089,6 +12344,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9113,6 +12383,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9141,6 +12426,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9165,6 +12465,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9193,6 +12508,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9217,6 +12547,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9245,6 +12590,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9269,6 +12629,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9297,6 +12672,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9321,6 +12711,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9349,6 +12754,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9373,6 +12793,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9401,6 +12836,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9425,6 +12875,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9453,6 +12918,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9477,6 +12957,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9505,6 +13000,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9529,6 +13039,21 @@ exports[`All production graphs orbitWaveLine runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9597,6 +13122,16 @@ exports[`All production graphs minimal-three-node runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9628,6 +13163,16 @@ exports[`All production graphs minimal-three-node runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9657,6 +13202,16 @@ exports[`All production graphs minimal-three-node runs without error 1`] = `
     ],
     "kind": "method",
     "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9720,6 +13275,16 @@ exports[`All production graphs circle runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9751,6 +13316,16 @@ exports[`All production graphs circle runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9780,6 +13355,16 @@ exports[`All production graphs circle runs without error 1`] = `
     ],
     "kind": "method",
     "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -9843,6 +13428,16 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9869,6 +13464,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9895,6 +13495,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9921,6 +13526,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -9945,6 +13555,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -9983,6 +13598,16 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10009,6 +13634,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10035,6 +13665,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10061,6 +13696,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10085,6 +13725,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -10123,6 +13768,16 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10149,6 +13804,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10175,6 +13835,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10201,6 +13866,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10225,6 +13895,11 @@ exports[`All production graphs connect-dots runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -10293,6 +13968,16 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.5, 76.5, 89.25, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10312,6 +13997,16 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -10335,6 +14030,16 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10354,6 +14059,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -10382,6 +14102,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10408,6 +14143,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10432,6 +14182,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -10470,6 +14235,16 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.5, 76.5, 89.25, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10489,6 +14264,16 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -10512,6 +14297,16 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10531,6 +14326,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -10559,6 +14369,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10585,6 +14410,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10609,6 +14449,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -10647,6 +14502,16 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.5, 76.5, 89.25, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10666,6 +14531,16 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -10689,6 +14564,16 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10708,6 +14593,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -10736,6 +14636,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10762,6 +14677,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -10786,6 +14716,21 @@ exports[`All production graphs lines-through-point runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -10904,6 +14849,11 @@ exports[`All production graphs polygon runs without error 1`] = `
     "name": "closePath",
   },
   {
+    "kind": "property",
+    "name": "fillStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "fill",
@@ -10967,6 +14917,11 @@ exports[`All production graphs polygon runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "closePath",
+  },
+  {
+    "kind": "property",
+    "name": "fillStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
     "args": [],
@@ -11034,6 +14989,11 @@ exports[`All production graphs polygon runs without error 1`] = `
     "name": "closePath",
   },
   {
+    "kind": "property",
+    "name": "fillStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "fill",
@@ -11079,6 +15039,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11098,6 +15068,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11121,6 +15101,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11140,6 +15130,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11163,6 +15163,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11182,6 +15192,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11215,6 +15235,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11234,6 +15264,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11257,6 +15297,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11276,6 +15326,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11299,6 +15359,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11318,6 +15388,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11351,6 +15431,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11370,6 +15460,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11393,6 +15493,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11412,6 +15522,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11435,6 +15555,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11454,6 +15584,16 @@ exports[`All production graphs timed-line-array runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11492,6 +15632,11 @@ exports[`All production graphs timed-line-array runs without error 2`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [
       57.4998971918557,
       49.96073027126435,
@@ -11516,6 +15661,11 @@ exports[`All production graphs timed-line-array runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -11568,6 +15718,11 @@ exports[`All production graphs timed-line-array runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -11620,6 +15775,11 @@ exports[`All production graphs timed-line-array runs without error 2`] = `
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
   },
   {
     "args": [],
@@ -11673,6 +15833,16 @@ exports[`All production graphs timed-line runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11692,6 +15862,16 @@ exports[`All production graphs timed-line runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11725,6 +15905,16 @@ exports[`All production graphs timed-line runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11744,6 +15934,16 @@ exports[`All production graphs timed-line runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11777,6 +15977,16 @@ exports[`All production graphs timed-line runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11796,6 +16006,16 @@ exports[`All production graphs timed-line runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11860,6 +16080,16 @@ exports[`All production graphs timed-line runs without error 2`] = `
     "name": "gradient.addColorStop",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -11911,35 +16141,14 @@ exports[`All production graphs array-mixed-values runs without error 1`] = `
     "name": "clearRect",
   },
   {
-    "args": [],
-    "kind": "method",
-    "name": "beginPath",
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
   },
   {
-    "args": [
-      50,
-      50,
-      1,
-      0,
-      6.283185307179586,
-    ],
-    "kind": "method",
-    "name": "arc",
-  },
-  {
-    "args": [],
-    "kind": "method",
-    "name": "stroke",
-  },
-  {
-    "args": [
-      0,
-      0,
-      100,
-      100,
-    ],
-    "kind": "method",
-    "name": "clearRect",
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -11971,6 +16180,57 @@ exports[`All production graphs array-mixed-values runs without error 1`] = `
     ],
     "kind": "method",
     "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      50,
+      50,
+      1,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "arc",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      100,
+      100,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -12034,6 +16294,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12055,6 +16325,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12076,6 +16356,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12095,6 +16385,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -12128,6 +16428,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12149,6 +16459,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12170,6 +16490,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12189,6 +16519,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -12222,6 +16562,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12243,6 +16593,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12264,6 +16624,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12283,6 +16653,16 @@ exports[`All production graphs array-reference runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -12346,6 +16726,16 @@ exports[`All production graphs array-static-values runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12367,6 +16757,16 @@ exports[`All production graphs array-static-values runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 255, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12386,6 +16786,16 @@ exports[`All production graphs array-static-values runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -12419,6 +16829,16 @@ exports[`All production graphs array-static-values runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12440,6 +16860,16 @@ exports[`All production graphs array-static-values runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 255, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12459,6 +16889,16 @@ exports[`All production graphs array-static-values runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
@@ -12492,6 +16932,16 @@ exports[`All production graphs array-static-values runs without error 1`] = `
     "name": "clearRect",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12513,6 +16963,16 @@ exports[`All production graphs array-static-values runs without error 1`] = `
     "name": "stroke",
   },
   {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 255, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
     "args": [],
     "kind": "method",
     "name": "beginPath",
@@ -12532,6 +16992,16 @@ exports[`All production graphs array-static-values runs without error 1`] = `
     "args": [],
     "kind": "method",
     "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
   },
   {
     "args": [],
