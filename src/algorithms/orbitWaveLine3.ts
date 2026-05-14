@@ -12,6 +12,72 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 	control: {
 		nodes: [
 			{
+				id: "aColor",
+				type: "colorPicker",
+				params: {
+					label: { v: "Orbit A Color" },
+					value: {
+						"v": {
+							"r": 1,
+							"g": 0,
+							"b": 0,
+							"a": 0.5
+						}
+					}
+
+				}
+			},
+			{
+				id: "eccentricity1",
+				type: "slider",
+				params: {
+					label: { v: "eccentricity" },
+					value: { v: 0.9 },
+
+					min: { v: 0 },
+					max: { v: 1 },
+					step: { v: 0.01 }
+
+				}
+			},
+			{
+				id: "tilt1",
+				type: "slider",
+				params: {
+					label: { v: "tilt" },
+					value: { v: 0.1 },
+
+					min: { v: 0 },
+					max: { v: 1 },
+					step: { v: 0.01 }
+				}
+			},
+			{
+				id: "eccentricity2",
+				type: "slider",
+				params: {
+					label: { v: "eccentricity" },
+					value: { v: 0.9 },
+
+					min: { v: 0 },
+					max: { v: 1 },
+					step: { v: 0.01 }
+
+				}
+			},
+			{
+				id: "tilt2",
+				type: "slider",
+				params: {
+					label: { v: "tilt" },
+					value: { v: 0.5 },
+
+					min: { v: 0 },
+					max: { v: 1 },
+					step: { v: 0.01 }
+				}
+			},
+			{
 				id: 'temporalImpact1',
 				type: 'slider',
 				params: {
@@ -51,7 +117,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					label: { v: 'Orbit A Speed' },
 					min: { v: -5 },
 					max: { v: 5 },
-					value: { v: 0.15 },
+					value: { v: 0.02 },
 					step: { v: 0.01 }
 				},
 			},
@@ -62,7 +128,7 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					label: { v: 'Orbit B Speed' },
 					min: { v: -5 },
 					max: { v: 5 },
-					value: { v: 0.25 },
+					value: { v: -0.02 },
 					step: { v: 0.01 }
 				},
 			},
@@ -167,9 +233,11 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					time: { ref: 'time.time' },
 					radius: { v: 1 },
 					speed: { ref: 'orbitASpeedSlider.value' },
-					center: { v: { x: -1, y: 0 } },
 					numPoints: { v: 1 },
 					phase: { v: 0 },
+					eccentricity: { ref: "eccentricity1.value" },
+					tilt: { ref: "tilt1.value" }
+
 				},
 			},
 			// Top-right orbit
@@ -180,9 +248,10 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 					time: { ref: 'time.time' },
 					radius: { v: 1 },
 					speed: { ref: 'orbitBSpeedSlider.value' },
-					center: { v: { x: 1, y: 0 } },
 					numPoints: { v: 1 },
 					phase: { v: 0 },
+					eccentricity: { ref: "eccentricity2.value" },
+					tilt: { ref: "tilt2.value" }
 				},
 			},
 			// Wave modulator
@@ -450,9 +519,12 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					center: { v: { x: -1, y: 0 } },
-					radius: { v: 0.0 },
-					color: { v: { r: 1, g: 0.5, b: 0.5, a: 0.5 } },
+					radius: { v: 1 },
+					color: { ref: 'aColor.value' },
+
+					eccentricity: { ref: "eccentricity1.value" },
+					tilt: { ref: "tilt1.value" }
+
 				},
 			},
 			// Orbit B circle (live layer, redrawn each frame)
@@ -461,9 +533,11 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					center: { v: { x: 1, y: 0 } },
-					radius: { v: 0.0 },
+					radius: { v: 1 },
+
 					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
+					eccentricity: { ref: "eccentricity2.value" },
+					tilt: { ref: "tilt2.value" }
 				},
 			},
 			// Orbit A position dot (live layer)
