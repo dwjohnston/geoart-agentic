@@ -1,3 +1,8 @@
+/**
+ * CANONICAL LEVEL: 🗑️ - 2026-05-14
+ */
+
+
 import type { Value } from '../../schema/types';
 import type { CompiledGraph } from '../compiler/compiler';
 import type { EvalContext } from './EvalContext';

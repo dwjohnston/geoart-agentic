@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
 import { linesThroughPointNodeDef } from "./linesThroughPoint";
 
@@ -26,6 +26,21 @@ describe("linesThroughPointNodeDef", () => {
     expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
         {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": "rgba(255, 0, 0, 1)",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": "rgba(255, 255, 255, 1)",
+        },
+        {
+          "kind": "property",
+          "name": "lineWidth",
+          "value": 2,
+        },
+        {
           "args": [],
           "kind": "method",
           "name": "beginPath",
@@ -50,6 +65,21 @@ describe("linesThroughPointNodeDef", () => {
           "args": [],
           "kind": "method",
           "name": "stroke",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": "rgba(255, 0, 0, 1)",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": "rgba(255, 255, 255, 1)",
+        },
+        {
+          "kind": "property",
+          "name": "lineWidth",
+          "value": 2,
         },
         {
           "args": [],

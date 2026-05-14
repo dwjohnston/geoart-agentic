@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../common-tooling/test-tooling/fakeContext";
 import { createGraphEngine } from "./graphEngine";
 import type { GeoArtGraph } from "../../schema/_generated/schema-types";

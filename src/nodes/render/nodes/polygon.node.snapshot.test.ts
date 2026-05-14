@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
 import { polygonNodeDef } from "./polygon.node";
 
@@ -65,6 +65,11 @@ describe("polygonNodeDef", () => {
           "args": [],
           "kind": "method",
           "name": "closePath",
+        },
+        {
+          "kind": "property",
+          "name": "fillStyle",
+          "value": "rgba(255, 0, 0, 1)",
         },
         {
           "args": [],

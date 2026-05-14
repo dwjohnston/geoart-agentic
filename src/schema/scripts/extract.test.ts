@@ -1,8 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { extractDerviedSchema } from './extract-derived-schema';
-import { buildNodeInputs } from './extract-node-inputs';
-import { generateOutputs } from './extract-node-outputs';
-import { jsonSchemaValueKindsToTypeScript } from './extract-value-types';
+import { describe, it, expect } from 'bun:test';
+import { extractDerviedSchema } from './generate-derived-schema';
+import { buildNodeInputs, generateOutputs, jsonSchemaValueKindsToTypeScript } from './generate-derived-types';
 
 
 //🧽 Find a nice way of typing Json Schema objects

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
 import { circleNodeDef } from "./circle.node";
 
@@ -23,6 +23,16 @@ describe("circleNodeDef", () => {
 
     expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": "rgba(255, 255, 255, 1)",
+        },
+        {
+          "kind": "property",
+          "name": "lineWidth",
+          "value": 2,
+        },
         {
           "args": [],
           "kind": "method",

@@ -12,12 +12,12 @@ const baseProps = {
 
 describe('ColorPickerControl', () => {
   test('renders label', () => {
-    const { container } = render(<ColorPickerControl {...baseProps} onChange={() => {}} />);
+    const { container } = render(<ColorPickerControl {...baseProps} onChange={() => { }} />);
     expect(within(container).getByText('Trail Colour')).toBeDefined();
   });
 
   test('renders colour input with correct hex value', () => {
-    const { container } = render(<ColorPickerControl {...baseProps} onChange={() => {}} />);
+    const { container } = render(<ColorPickerControl {...baseProps} onChange={() => { }} />);
     const input = container.querySelector('input[type="color"]') as HTMLInputElement;
     expect(input.value).toBe('#ff0080');
   });
@@ -47,7 +47,7 @@ describe('ColorPickerControl', () => {
 
   test('falls back to white when initialValue is default', () => {
     const { container } = render(
-      <ColorPickerControl id="x" label="" initialValue={{ r: 1, g: 1, b: 1, a: 1 }} onChange={() => {}} />
+      <ColorPickerControl id="x" label="" initialValue={{ r: 1, g: 1, b: 1, a: 1 }} onChange={() => { }} />
     );
     const input = container.querySelector('input[type="color"]') as HTMLInputElement;
     expect(input.value).toBe('#ffffff');

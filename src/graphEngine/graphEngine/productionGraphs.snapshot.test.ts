@@ -1,5 +1,5 @@
 import { GRAPHS } from "../../algorithms"
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test } from 'bun:test';
 import { createFakeContext } from "../../common-tooling/test-tooling/fakeContext"
 import { createGraphEngine } from "./graphEngine";
 

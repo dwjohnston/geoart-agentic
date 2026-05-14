@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, test, mock } from 'bun:test';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { createGraphEngine } from './graphEngine';
 import { implementRenderNode, convertRenderNodeDefToLegacy } from '../../nodes/render/implementRenderNode';
@@ -19,10 +19,10 @@ const realNodeRegistry: LegacyNodeRegistry = {
 
 describe("graph engine - unnecessary node evaluation", () => {
     test("nodes only reevaluate if something has actually changed", () => {
-        const mockChangingRender = vi.fn();
-        const mockUnchangingRender = vi.fn();
-        const mockUnchangingControl = vi.fn();
-        const mockUnchangingCompute = vi.fn();
+        const mockChangingRender = mock();
+        const mockUnchangingRender = mock();
+        const mockUnchangingControl = mock();
+        const mockUnchangingCompute = mock();
 
         const mockChangingCircleDef = implementRenderNode('circle', {
             defaults: {
@@ -176,7 +176,7 @@ describe("graph engine - unnecessary node evaluation", () => {
 
 describe('graph engine — render node toggling', () => {
     test('render node will only be called if toggled on', () => {
-        const mockFn = vi.fn();
+        const mockFn = mock();
 
         const mockCircleDef = implementRenderNode('circle', {
             defaults: {

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
 import { timedLineNodeDef } from "./timedLine.node";
 
@@ -51,6 +51,16 @@ describe("timedLineNodeDef", () => {
           ],
           "kind": "method",
           "name": "gradient.addColorStop",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": ,
+        },
+        {
+          "kind": "property",
+          "name": "lineWidth",
+          "value": 1,
         },
         {
           "args": [],
