@@ -20,7 +20,7 @@
     }
   },
   "scripts": {
-    "validate": "bun clean && bun generate && concurrently    \"bun test\" \"bun typecheck\"  \"bun lint\"",
+    "validate": "bun clean && bun generate && concurrently    \"bun test\" \"bun typecheck\"  \"bunx lint-staged\"",
     "dev": "vite",
     "build": "tsgo -b && vite build",
     "lint": "eslint .",
@@ -71,6 +71,7 @@
     "husky": "^9.1.7",
     "import": "^0.0.6",
     "json-schema-to-typescript": "^15.0.4",
+    "lint-staged": "^17.0.4",
     "playwright": "^1.59.1",
     "semver": "^7.7.4",
     "typescript": "~6.0.2",
