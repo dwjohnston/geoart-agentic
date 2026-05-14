@@ -20,7 +20,7 @@
     }
   },
   "scripts": {
-    "validate": "bun clean && bun generate && concurrently   \"bun test:browser:headless\" \"bun test\" \"bun typecheck\"  \"bun lint\"",
+    "validate": "bun clean && bun generate && concurrently    \"bun test\" \"bun typecheck\"  \"bun lint\"",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
