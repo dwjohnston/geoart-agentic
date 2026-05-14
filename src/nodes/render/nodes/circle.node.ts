@@ -12,11 +12,15 @@ export const circleNodeDef = implementRenderNode('circle', {
     intervalTicks: 0,
     center: { x: 0, y: 0 },
     radius: 0.02,
+    eccentricity: 0,
+    tilt: 0,
     color: { r: 1, g: 1, b: 1, a: 1 },
     centerPoints: []
   },
   evaluate: (inputs, ctx) => {
     const pixelRadius = Math.abs(inputs.radius) * (ctx.width / 2);
+    const radiusY = pixelRadius * (1 - inputs.eccentricity);
+    const rotation = -inputs.tilt * 2 * Math.PI;
 
     const deprecatedColorPoint = { ...inputs.color, ...inputs.center };
 
@@ -28,7 +32,7 @@ export const circleNodeDef = implementRenderNode('circle', {
       ctx.canvas.strokeStyle = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
       ctx.canvas.lineWidth = 2;
       ctx.canvas.beginPath();
-      ctx.canvas.arc(pixelX, pixelY, pixelRadius, 0, Math.PI * 2);
+      ctx.canvas.ellipse(pixelX, pixelY, pixelRadius, radiusY, rotation, 0, Math.PI * 2);
       ctx.canvas.stroke();
     })
 

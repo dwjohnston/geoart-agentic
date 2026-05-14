@@ -31,6 +31,8 @@ describe("graph engine - unnecessary node evaluation", () => {
                 intervalTicks: 1,
                 radius: 0.5,
                 centerPoints: [],
+                eccentricity: 0,
+                tilt: 0
             },
             evaluate: () => {
                 mockChangingRender();
@@ -185,6 +187,8 @@ describe('graph engine — render node toggling', () => {
                 intervalTicks: 1,
                 radius: 0.5,
                 centerPoints: [],
+                eccentricity: 0,
+                tilt: 0
             },
             evaluate: () => {
                 mockFn();

@@ -31,6 +31,31 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				}
 			},
 			{
+				id: "eccentricity",
+				type: "slider",
+				params: {
+					label: { v: "eccentricity" },
+					value: { v: 0.1 },
+
+					min: { v: 0 },
+					max: { v: 1 },
+					step: { v: 0.01 }
+
+				}
+			},
+			{
+				id: "tilt",
+				type: "slider",
+				params: {
+					label: { v: "tilt" },
+					value: { v: 0.1 },
+
+					min: { v: 0 },
+					max: { v: 1 },
+					step: { v: 0.01 }
+				}
+			},
+			{
 				id: "bColor",
 				type: "colorPicker",
 				params: {
@@ -160,6 +185,9 @@ export const threeOrbitsGraph: GeoArtGraph = {
 					time: { ref: 'time.time' },
 					radius: { ref: 'aRadiusSlider.value' },
 					speed: { ref: 'aSpeedSlider.value' },
+					eccentricity: { ref: "eccentricity.value" },
+					tilt: { ref: "tilt.value" },
+
 					// center defaults to origin
 				},
 			},
@@ -249,6 +277,8 @@ export const threeOrbitsGraph: GeoArtGraph = {
 				params: {
 					radius: { ref: 'aRadiusSlider.value' },
 					color: { ref: 'aColor.value' },
+					eccentricity: { ref: "eccentricity.value" },
+					tilt: { ref: "tilt.value" }
 				},
 			},
 			{

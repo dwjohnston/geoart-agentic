@@ -5,7 +5,7 @@ import { orbitNodeDef } from './orbit.node';
 //   t=0    → angle=0    (rightmost point)
 //   t=150  → angle=π/2  (quarter turn, top)
 //   t=300  → angle=π    (half turn, leftmost)
-const base = { time: 0, radius: 0.5, speed: 1, center: { x: 0, y: 0 }, numPoints: 1, phase: 0 };
+const base = { time: 0, radius: 0.5, speed: 1, center: { x: 0, y: 0 }, numPoints: 1, phase: 0, eccentricity: 0, tilt: 0 };
 
 describe('orbitNodeDef', () => {
   it('at t=0, point is at (radius, 0)', () => {
@@ -123,5 +123,61 @@ describe('orbitNodeDef', () => {
     expect(result2.points[0].y).toBeCloseTo(0.5);
     expect(result2.points[0].dx).toBeCloseTo(-1);
     expect(result2.points[0].dy).toBeCloseTo(0);
+  });
+  describe('eccentricity', () => {
+    it('eccentricity=0 produces a circle (default behaviour)', () => {
+      const { point } = orbitNodeDef.evaluate({ ...base, time: 150, eccentricity: 0 });
+      expect(point.x).toBeCloseTo(0);
+      expect(point.y).toBeCloseTo(0.5);
+    });
+
+    it('eccentricity=1 collapses the orbit to a flat line (y=0 for all t)', () => {
+      const atZero = orbitNodeDef.evaluate({ ...base, time: 0, eccentricity: 1 });
+      const atQuarter = orbitNodeDef.evaluate({ ...base, time: 150, eccentricity: 1 });
+      const atHalf = orbitNodeDef.evaluate({ ...base, time: 300, eccentricity: 1 });
+      expect(atZero.point.y).toBeCloseTo(0);
+      expect(atQuarter.point.y).toBeCloseTo(0);
+      expect(atHalf.point.y).toBeCloseTo(0);
+    });
+
+    it('eccentricity=1 at t=0 puts point at (radius, 0)', () => {
+      const { point } = orbitNodeDef.evaluate({ ...base, eccentricity: 1 });
+      expect(point.x).toBeCloseTo(0.5);
+      expect(point.y).toBeCloseTo(0);
+    });
+
+    it('eccentricity=0.5 squashes the y-axis to half radius at the quarter turn', () => {
+      const { point } = orbitNodeDef.evaluate({ ...base, time: 150, eccentricity: 0.5 });
+      expect(point.x).toBeCloseTo(0);
+      expect(point.y).toBeCloseTo(0.25);
+    });
+  });
+
+  describe('tilt', () => {
+    it('tilt=0 produces no rotation (default behaviour)', () => {
+      const { point } = orbitNodeDef.evaluate({ ...base, tilt: 0 });
+      expect(point.x).toBeCloseTo(0.5);
+      expect(point.y).toBeCloseTo(0);
+    });
+
+    it('tilt=0.25 rotates the orbit 90 degrees — t=0 point moves to (0, radius)', () => {
+      const { point } = orbitNodeDef.evaluate({ ...base, tilt: 0.25 });
+      expect(point.x).toBeCloseTo(0);
+      expect(point.y).toBeCloseTo(0.5);
+    });
+
+    it('tilt=0.5 rotates 180 degrees — t=0 point moves to (-radius, 0)', () => {
+      const { point } = orbitNodeDef.evaluate({ ...base, tilt: 0.5 });
+      expect(point.x).toBeCloseTo(-0.5);
+      expect(point.y).toBeCloseTo(0);
+    });
+
+    it('tilt=0.25 with eccentricity=0.5 — quarter-turn point lands at (-0.25, 0)', () => {
+      // At t=150 (angle=π/2): px=0, py=radius*(1-0.5)*sin(π/2)=0.25
+      // Rotate by tilt=0.25 (90°): x = -py*sin(π/2) = -0.25, y = py*cos(π/2) = 0
+      const { point } = orbitNodeDef.evaluate({ ...base, time: 150, eccentricity: 0.5, tilt: 0.25 });
+      expect(point.x).toBeCloseTo(-0.25);
+      expect(point.y).toBeCloseTo(0);
+    });
   });
 });

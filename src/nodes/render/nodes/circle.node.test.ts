@@ -12,6 +12,8 @@ describe("circleNodeDef", () => {
       intervalTicks: 0,
       center: { x: 0.5, y: 0.5 },
       radius: 0.5,
+      eccentricity: 0,
+      tilt: 0,
       color: { r: 1, g: 1, b: 1, a: 1 },
       centerPoints: []
     }, {
@@ -43,11 +45,13 @@ describe("circleNodeDef", () => {
             75,
             25,
             25,
+            25,
+            -0,
             0,
             6.283185307179586,
           ],
           "kind": "method",
-          "name": "arc",
+          "name": "ellipse",
         },
         {
           "args": [],
