@@ -3,6 +3,7 @@ import type { GraphEntry } from '../index';
 
 import { earth3VenusGraph } from './general/earth3Venus';
 import { earthVenusGraph } from './general/earthVenus';
+import { fractalOrbitTreeGraph } from './general/fractalOrbitTree';
 import { lfoPlanetsGraph } from './general/lfoPlanets';
 import { monaLisaGraph } from './general/monaLisa';
 import { orbitWaveLineGraph3 } from './general/orbitWaveLine3';
@@ -28,6 +29,7 @@ import { arrayStaticValuesReferenceGraph } from './value_array/arrayStaticValues
 export const REFERENCE_GRAPHS: GraphEntry[] = [
   { id: 'earth3venus', name: 'Earth3 Venus', graph: earth3VenusGraph },
   { id: 'earth-venus', name: 'Earth Venus', graph: earthVenusGraph },
+  { id: 'fractal-orbit-tree', name: 'Fractal Orbit Tree', graph: fractalOrbitTreeGraph },
   { id: 'lfo-planets', name: 'Lfo Planets', graph: lfoPlanetsGraph },
   { id: 'mona-lisa', name: 'Mona Lisa', graph: monaLisaGraph },
   { id: 'orbit-wave-line3', name: 'Orbit Wave Line3', graph: orbitWaveLineGraph3 },
