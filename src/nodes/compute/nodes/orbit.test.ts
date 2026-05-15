@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'bun:test';
 import { orbitNodeDef } from './orbit.node';
+import type { NodeInputsResolved } from '../../../schema/typeHelpers';
 
 // speed=1 → 1 orbit per 600 ticks. Tick values for clean positions:
 //   t=0    → angle=0    (rightmost point)
 //   t=150  → angle=π/2  (quarter turn, top)
 //   t=300  → angle=π    (half turn, leftmost)
-const base = { time: 0, radius: 0.5, speed: 1, center: { x: 0, y: 0 }, numPoints: 1, phase: 0, eccentricity: 0, tilt: 0 };
+const base = { time: 0, radius: 0.5, speed: 1, center: { x: 0, y: 0 }, numPoints: 1, phase: 0, eccentricity: 0, tilt: 0, centerPoints: [] } satisfies NodeInputsResolved<"orbit">;
 
 describe('orbitNodeDef', () => {
   it('at t=0, point is at (radius, 0)', () => {
@@ -151,6 +152,48 @@ describe('orbitNodeDef', () => {
       expect(point.x).toBeCloseTo(0);
       expect(point.y).toBeCloseTo(0.25);
     });
+  });
+
+  describe('centerPoints', () => {
+    it('3 centre points with numPoints=2 produces 6 output points', () => {
+      const centres = [
+        { x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0, dy: 0 },
+        { x: 0.5, y: 0.5, r: 0, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
+        { x: -0.5, y: -0.5, r: 0, g: 0, b: 1, a: 1, dx: 0, dy: 0 },
+      ];
+      const { points } = orbitNodeDef.evaluate({ ...base, centerPoints: centres, numPoints: 2 });
+      expect(points).toHaveLength(6);
+    });
+
+    it('output points inherit colour from their respective centre point', () => {
+      const centres = [
+        { x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0, dy: 0 },
+        { x: 0.5, y: 0.5, r: 0, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
+      ];
+      const { points } = orbitNodeDef.evaluate({ ...base, centerPoints: centres, numPoints: 1 });
+      expect(points).toHaveLength(2);
+      expect(points[0]).toMatchObject({ r: 1, g: 0, b: 0, a: 1 });
+      expect(points[1]).toMatchObject({ r: 0, g: 1, b: 0, a: 1 });
+    });
+
+    it('centerPoints takes precedence over center when both are provided', () => {
+      const centres = [
+        { x: 0.2, y: 0.3, r: 0.5, g: 0.5, b: 0.5, a: 1, dx: 0, dy: 0 },
+      ];
+      const { points } = orbitNodeDef.evaluate({ ...base, centerPoints: centres, center: { x: 0.9, y: 0.9 }, numPoints: 1 });
+      // orbit should be around (0.2, 0.3), not (0.9, 0.9)
+      expect(points).toHaveLength(1);
+      expect(points[0]).toMatchObject({ r: 0.5, g: 0.5, b: 0.5, a: 1 });
+    });
+
+    it('empty centerPoints falls back to the center input', () => {
+      const { points } = orbitNodeDef.evaluate({ ...base, centerPoints: [], center: { x: 0.3, y: 0.2 }, numPoints: 1 });
+      expect(points).toHaveLength(1);
+      // orbit at t=0, radius=0.5 around (0.3, 0.2) → x = 0.3 + 0.5, y = 0.2
+      expect(points[0].x).toBeCloseTo(0.8);
+      expect(points[0].y).toBeCloseTo(0.2);
+    });
+
   });
 
   describe('tilt', () => {

@@ -185290,3 +185290,459 @@ exports[`value_array uarrayReferenceReferenceGraph.ts 2`] = `
   },
 ]
 `;
+
+exports[`node_specific uorbitCenterPointsReferenceGraph.ts 1`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      359.9991775348456,
+      399.6858421701148,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      240.00082246515439,
+      400.3141578298852,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      559.9991775348456,
+      399.6858421701148,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      440.0008224651544,
+      400.3141578298852,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      359.9967101619307,
+      399.3716929530253,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      240.0032898380693,
+      400.6283070469747,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      559.9967101619307,
+      399.3716929530253,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      440.0032898380693,
+      400.6283070469747,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      359.99259794889963,
+      399.05756096129073,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 0, 0, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      240.00740205110037,
+      400.9424390387092,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      559.9925979488996,
+      399.05756096129073,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      440.00740205110037,
+      400.9424390387092,
+      16,
+      16,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`node_specific uorbitCenterPointsReferenceGraph.ts 2`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+]
+`;

@@ -509,7 +509,13 @@
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "center": {
+                  "deprecated": true,
+                  "description": "DEPRECATED: use centerPoints instead",
                   "$ref": "refable-value-kinds.schema.json#/definitions/pointValueOrRef"
+                },
+                "centerPoints": {
+                  "description": "Array of centre points. One orbit is generated per centre; all output points are flattened into the points output. Takes precedence over center.",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "numPoints": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
