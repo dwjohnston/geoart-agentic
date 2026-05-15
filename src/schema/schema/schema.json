@@ -452,6 +452,10 @@
                 },
                 "phase": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "samplerTemporalImpact": {
+                  "description": "Temporal impact factor for the wave sampler (0-1) - controls intensity of time component in phaseShift calculation",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
             }
@@ -616,9 +620,6 @@
                 },
                 "numberOfPoints": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "modulateBy": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
                 }
               }
             }
@@ -705,6 +706,59 @@
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
+            }
+          }
+        },
+        {
+          "title": "Curve Modulator Compute Node",
+          "type": "object",
+          "description": "Displaces each point in a curve perpendicular to its tangent using a sampler value.",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "curveModulator"
+              ]
+            },
+            "params": {
+              "title": "Params",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "curve": {
+                  "title": "Curve",
+                  "description": "Array of coloured points with tangents to be modulated",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "modulator": {
+                  "title": "Modulator",
+                  "description": "Sampler to control displacement magnitude at each point",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "cycleLengthMode": {
+                  "title": "Cycle Length Mode",
+                  "description": "Method for determining cycle length: arrayLength uses array size, linearOne accumulates euclidean distance between points",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeValueOrRef"
+                }
+              },
+              "required": []
             }
           }
         }
@@ -903,6 +957,11 @@
                 "lineWidth": {
                   "description": "Width of each line segment in pixels",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "mode": {
+                  "title": "Mode",
+                  "description": "Curve interpolation mode: straight for linear segments between points, catmull-rom for smooth curves",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/curveModeValueOrRef"
                 }
               }
             }

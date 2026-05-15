@@ -7,8 +7,9 @@ import { wavingLinesGraph } from './wavingLines';
 import { lfoPlanetsGraph } from './lfoPlanets';
 import { singleOrbitLfoGraph } from './singleOrbitLfo';
 import { pulsingSpiralsGraph } from './pulsingSpirals';
-import { orbitWaveLineGraph } from './orbitWaveLine';
 import { REFERENCE_GRAPHS } from './reference/_index';
+import { orbitWaveLineGraph3 } from './orbitWaveLine3';
+import { twoOrbitCurveGraph } from './twoOrbitCurve';
 
 export type GraphEntry = {
   id: string;
@@ -25,7 +26,8 @@ export const PRODUCTION_GRAPHS: GraphEntry[] = [
   { id: 'lfoPlanets', name: 'LFO Planets', graph: lfoPlanetsGraph },
   { id: 'singleOrbitLfo', name: 'Single Orbit LFO', graph: singleOrbitLfoGraph },
   { id: 'pulsingSpirals', name: 'Pulsing Spirals', graph: pulsingSpiralsGraph },
-  { id: 'orbitWaveLine', name: 'Orbit Wave Line', graph: orbitWaveLineGraph },
+  { id: "orbitWaveLineGraph3", name: "Orbit Wave Line 3", graph: orbitWaveLineGraph3 },
+  { id: "twoOrbitCurve", name: "Two Orbit Curve", graph: twoOrbitCurveGraph },
 ]
 export const GRAPHS: GraphEntry[] = [
   ...PRODUCTION_GRAPHS,

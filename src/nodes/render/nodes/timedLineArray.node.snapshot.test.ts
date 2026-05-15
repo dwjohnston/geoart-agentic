@@ -102,6 +102,120 @@ describe("timedLineArrayNodeDef", () => {
         },
         {
           "args": [
+            50,
+            50,
+            75,
+            75,
+          ],
+          "kind": "method",
+          "name": "createLinearGradient",
+        },
+        {
+          "args": [
+            0,
+            "rgba(255, 0, 0, 1)",
+          ],
+          "kind": "method",
+          "name": "gradient.addColorStop",
+        },
+        {
+          "args": [
+            1,
+            "rgba(255, 255, 0, 1)",
+          ],
+          "kind": "method",
+          "name": "gradient.addColorStop",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": ,
+        },
+        {
+          "args": [],
+          "kind": "method",
+          "name": "beginPath",
+        },
+        {
+          "args": [
+            50,
+            50,
+          ],
+          "kind": "method",
+          "name": "moveTo",
+        },
+        {
+          "args": [
+            75,
+            75,
+          ],
+          "kind": "method",
+          "name": "lineTo",
+        },
+        {
+          "args": [],
+          "kind": "method",
+          "name": "stroke",
+        },
+        {
+          "args": [
+            25,
+            75,
+            75,
+            25,
+          ],
+          "kind": "method",
+          "name": "createLinearGradient",
+        },
+        {
+          "args": [
+            0,
+            "rgba(0, 255, 0, 1)",
+          ],
+          "kind": "method",
+          "name": "gradient.addColorStop",
+        },
+        {
+          "args": [
+            1,
+            "rgba(0, 0, 255, 1)",
+          ],
+          "kind": "method",
+          "name": "gradient.addColorStop",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": ,
+        },
+        {
+          "args": [],
+          "kind": "method",
+          "name": "beginPath",
+        },
+        {
+          "args": [
+            25,
+            75,
+          ],
+          "kind": "method",
+          "name": "moveTo",
+        },
+        {
+          "args": [
+            75,
+            25,
+          ],
+          "kind": "method",
+          "name": "lineTo",
+        },
+        {
+          "args": [],
+          "kind": "method",
+          "name": "stroke",
+        },
+        {
+          "args": [
             25,
             75,
             75,
@@ -236,6 +350,63 @@ describe("timedLineArrayNodeDef", () => {
           "args": [
             50,
             50,
+          ],
+          "kind": "method",
+          "name": "moveTo",
+        },
+        {
+          "args": [
+            75,
+            25,
+          ],
+          "kind": "method",
+          "name": "lineTo",
+        },
+        {
+          "args": [],
+          "kind": "method",
+          "name": "stroke",
+        },
+        {
+          "args": [
+            25,
+            75,
+            75,
+            25,
+          ],
+          "kind": "method",
+          "name": "createLinearGradient",
+        },
+        {
+          "args": [
+            0,
+            "rgba(0, 255, 0, 1)",
+          ],
+          "kind": "method",
+          "name": "gradient.addColorStop",
+        },
+        {
+          "args": [
+            1,
+            "rgba(0, 0, 255, 1)",
+          ],
+          "kind": "method",
+          "name": "gradient.addColorStop",
+        },
+        {
+          "kind": "property",
+          "name": "strokeStyle",
+          "value": ,
+        },
+        {
+          "args": [],
+          "kind": "method",
+          "name": "beginPath",
+        },
+        {
+          "args": [
+            25,
+            75,
           ],
           "kind": "method",
           "name": "moveTo",
