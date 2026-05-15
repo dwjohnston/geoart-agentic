@@ -11,6 +11,16 @@
 - Be very concise in creating .md files, commit messages etc. 
 - If you ask a question and it doesn't get an answer - re ask the question.
 
+## Tooling 
+
+Use `bun` to execute node-like commands. 
+
+`bun test fileName` to run tests on a single file. 
+
+Use `bun typecheck` for typing entire thing.
+
+After making a series of changes run `bun validate` to run all tests and static checks. 
+
 ## Spelling 
 
 Always use British English, with the exception of the following words: 

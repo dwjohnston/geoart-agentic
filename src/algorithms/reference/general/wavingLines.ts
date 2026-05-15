@@ -1,4 +1,4 @@
-import type { GeoArtGraph } from '../schema/_generated/schema-types';
+
 
 // Waving Lines algorithm.
 //
@@ -8,6 +8,8 @@ import type { GeoArtGraph } from '../schema/_generated/schema-types';
 // and bottom-right orbits. A correspondingLines render node then
 // connects each top point to its matching bottom point, producing a
 // curtain of lines that waves as the orbits move.
+
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 
 export const wavingLinesGraph: GeoArtGraph = {
   version: '2.0',

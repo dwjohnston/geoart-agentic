@@ -1,4 +1,4 @@
-import type { GeoArtGraph } from '../schema/_generated/schema-types';
+import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
 // Mona Lisa — an orbital approximation.
 //

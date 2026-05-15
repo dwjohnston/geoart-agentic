@@ -14,11 +14,7 @@ function extractExportName(content: string): string | null {
 	return match ? match[1] : null;
 }
 
-/**
- * Converts a filename like "arrayReferenceReferenceGraph" to a friendly name like "Array Reference"
- */
 function filenameToDisplayName(filename: string): string {
-	// Remove "ReferenceGraph" suffix
 	let name = filename.replace(/ReferenceGraph$/, '');
 
 	// Convert camelCase to Title Case
@@ -72,8 +68,7 @@ function findFiles(dir: string, pattern: RegExp, results: string[] = []): string
 function generateIndex(): void {
 	const referenceDir = path.join(projectRoot, 'src/algorithms/reference');
 
-	// Find all files ending with ReferenceGraph.ts
-	const files = findFiles(referenceDir, /ReferenceGraph\.ts$/).sort();
+	const files = findFiles(referenceDir, /(?<!index)\.ts$/).sort();
 
 	const graphs: GraphInfo[] = [];
 
