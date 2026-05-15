@@ -1,3 +1,7 @@
+--- 
+canon: CANONICAL STATUS 👑 - 2026-05-16
+---
+
 ⚠️ This document defines terminology _as it should be_. However, this document was created _after_ a lot of code was already written, and so in the code some terms may not be compliant with the definitions as they are here. 
 
 Going forward, you should create code and documentation that is compliant with this terminology specification. 
