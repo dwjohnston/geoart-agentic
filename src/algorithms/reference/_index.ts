@@ -7,6 +7,7 @@ import { connectDotsGraph } from './node_specific/connectDotsReferenceGraph';
 import { connectTheDotsGraph } from './node_specific/connectTheDotsReferenceGraph';
 import { curveModulatorGraph } from './node_specific/curveModulatorReferenceGraph';
 import { linesThroughPointGraph } from './node_specific/linesThroughPointReferenceGraph';
+import { orbitCenterPointsGraph } from './node_specific/orbitCenterPointsReferenceGraph';
 import { polygonGraph } from './node_specific/polygonReferenceGraph';
 import { timedLineArrayGraph } from './node_specific/timedLineArrayReferenceGraph';
 import { timedLineGraph } from './node_specific/timedLineReferenceGraph';
@@ -21,6 +22,7 @@ export const REFERENCE_GRAPHS: GraphEntry[] = [
   { id: 'connect-the-dots', name: 'Connect The Dots', graph: connectTheDotsGraph },
   { id: 'curve-modulator', name: 'Curve Modulator', graph: curveModulatorGraph },
   { id: 'lines-through-point', name: 'Lines Through Point', graph: linesThroughPointGraph },
+  { id: 'orbit-center-points', name: 'Orbit Center Points', graph: orbitCenterPointsGraph },
   { id: 'polygon', name: 'Polygon', graph: polygonGraph },
   { id: 'timed-line-array', name: 'Timed Line Array', graph: timedLineArrayGraph },
   { id: 'timed-line', name: 'Timed Line', graph: timedLineGraph },

@@ -57,7 +57,7 @@ Your primary value is in creating briefs that _other_ agents will act on.
 the projects folder structure looks like this: 
 
 ```
-/projects
+/project
    /complete-features - features move here when they are done
    /features
       /[feature name]
