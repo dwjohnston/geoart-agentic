@@ -838,7 +838,7 @@
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "targetPoints": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorNullableColorPointArrayValueOrRef"
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "falloff": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"

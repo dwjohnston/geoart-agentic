@@ -1,3 +1,4 @@
+import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
 
 // Catmull-Rom spline interpolation
@@ -55,7 +56,8 @@ export const connectDotsNodeDef = implementRenderNode('connect-dots', {
         const p2Pixel = toPixelCoords(p2.x, p2.y, ctx.width, ctx.height);
 
         // Set stroke colour from p2 (the second point in the segment)
-        canvas.strokeStyle = `rgba(${p2.r * 255}, ${p2.g * 255}, ${p2.b * 255}, ${p2.a})`;
+        const c2 = toSolidColorPoint(p2);
+        canvas.strokeStyle = `rgba(${c2.r * 255}, ${c2.g * 255}, ${c2.b * 255}, ${c2.a})`;
 
         // Draw the line
         canvas.beginPath();
@@ -80,7 +82,8 @@ export const connectDotsNodeDef = implementRenderNode('connect-dots', {
         const p3 = i < points.length - 2 ? points[i + 2] : points[i + 1];
 
         // Set stroke colour from p2 (the second point in the segment)
-        canvas.strokeStyle = `rgba(${p2.r * 255}, ${p2.g * 255}, ${p2.b * 255}, ${p2.a})`;
+        const c2 = toSolidColorPoint(p2);
+        canvas.strokeStyle = `rgba(${c2.r * 255}, ${c2.g * 255}, ${c2.b * 255}, ${c2.a})`;
 
         canvas.beginPath();
         let firstPoint = true;

@@ -1,3 +1,4 @@
+import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
 
 export const timedLineArrayNodeDef = implementRenderNode('timedLineArray', {
@@ -16,8 +17,8 @@ export const timedLineArrayNodeDef = implementRenderNode('timedLineArray', {
     for (let i = 0; i < arrayA.length; i++) {
 
       for (let j = 0; j < arrayB.length; j++) {
-        const a = arrayA[i];
-        const b = arrayB[j];
+        const a = toSolidColorPoint(arrayA[i]);
+        const b = toSolidColorPoint(arrayB[j]);
 
         const aPixelX = a.x * (ctx.width / 2) + (ctx.width / 2);
         const aPixelY = (ctx.height / 2) - a.y * (ctx.height / 2);

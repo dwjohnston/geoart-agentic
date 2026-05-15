@@ -1,3 +1,4 @@
+import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
 
 export const timedLineNodeDef = implementRenderNode('timedLine', {
@@ -15,8 +16,8 @@ export const timedLineNodeDef = implementRenderNode('timedLine', {
   evaluate: (inputs, ctx) => {
 
 
-    const a = inputs.colorPointA;
-    const b = inputs.colorPointB;
+    const a = toSolidColorPoint(inputs.colorPointA);
+    const b = toSolidColorPoint(inputs.colorPointB);
     const canvas = ctx.canvas;
 
     const aPixelX = a.x * (ctx.width / 2) + (ctx.width / 2);

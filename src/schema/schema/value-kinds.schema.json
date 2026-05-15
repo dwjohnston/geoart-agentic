@@ -163,29 +163,41 @@
             },
             "r": {
               "title": "Red",
-              "description": "Red channel (0–1)",
-              "type": "number",
+              "description": "Red channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "type": [
+                "number",
+                "null"
+              ],
               "minimum": 0,
               "maximum": 1
             },
             "g": {
               "title": "Green",
-              "description": "Green channel (0–1)",
-              "type": "number",
+              "description": "Green channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "type": [
+                "number",
+                "null"
+              ],
               "minimum": 0,
               "maximum": 1
             },
             "b": {
               "title": "Blue",
-              "description": "Blue channel (0–1)",
-              "type": "number",
+              "description": "Blue channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "type": [
+                "number",
+                "null"
+              ],
               "minimum": 0,
               "maximum": 1
             },
             "a": {
               "title": "Alpha",
-              "description": "Alpha channel (0–1)",
-              "type": "number",
+              "description": "Alpha channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "type": [
+                "number",
+                "null"
+              ],
               "minimum": 0,
               "maximum": 1
             }
@@ -291,93 +303,6 @@
             "arrayLength",
             "linearOne"
           ]
-        }
-      }
-    },
-    "colorNullableColorPointValue": {
-      "title": "Color Nullable Color Point Value",
-      "type": "object",
-      "description": "A 2-D point combined with an optional RGBA colour (rgba channels can be null)",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "object",
-          "required": [
-            "x",
-            "y"
-          ],
-          "properties": {
-            "x": {
-              "title": "X",
-              "description": "Horizontal position in normalised space (-1 to 1)",
-              "type": "number"
-            },
-            "y": {
-              "title": "Y",
-              "description": "Vertical position in normalised space (-1 to 1)",
-              "type": "number"
-            },
-            "r": {
-              "title": "Red",
-              "description": "Red channel (0–1) or null",
-              "type": [
-                "number",
-                "null"
-              ],
-              "minimum": 0,
-              "maximum": 1
-            },
-            "g": {
-              "title": "Green",
-              "description": "Green channel (0–1) or null",
-              "type": [
-                "number",
-                "null"
-              ],
-              "minimum": 0,
-              "maximum": 1
-            },
-            "b": {
-              "title": "Blue",
-              "description": "Blue channel (0–1) or null",
-              "type": [
-                "number",
-                "null"
-              ],
-              "minimum": 0,
-              "maximum": 1
-            },
-            "a": {
-              "title": "Alpha",
-              "description": "Alpha channel (0–1) or null",
-              "type": [
-                "number",
-                "null"
-              ],
-              "minimum": 0,
-              "maximum": 1
-            }
-          },
-          "additionalProperties": false
-        }
-      },
-      "additionalProperties": false
-    },
-    "colorNullableColorPointArrayValue": {
-      "title": "Color Nullable Color Point Array Value",
-      "type": "object",
-      "description": "An array of colour points with nullable colour channels",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/colorNullableColorPointValue"
-          }
         }
       }
     }

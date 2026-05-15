@@ -14,12 +14,12 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 // orbit node per level expresses the whole fractal tier. Each level's
 // `points` output is fed straight into the next level's `centerPoints`.
 //
-// Colour shifters: this schema has no dedicated "colour shifter" node, so
-// the shifters are expressed as `colorPointCompute` colour anchors pinned
-// at fixed clock positions (12 / 4 / 8 o'clock + centre). Each carries a
-// target colour and is rendered as a soft disc; timedLines link them to the
-// centre so the accumulated paint visibly shifts colour towards each anchor.
-// The centre anchor shifts opacity towards 0 (transparent).
+// Colour shift: each level's points pass through a `colorShift` node before
+// being painted/rendered. Four positional anchors pull the colour of nearby
+// points by inverse-distance weighting: 12 o'clock -> yellow, 4 o'clock ->
+// green, 8 o'clock -> light pink, and a centre anchor that shifts only the
+// alpha channel towards 0 (transparent). `falloff` and `strength` are exposed
+// as controls.
 //
 // Every tunable parameter is exposed as a control node and wired in by ref.
 
@@ -213,59 +213,27 @@ export const fractalOrbitTreeGraph: GeoArtGraph = {
 				},
 			},
 
-			// ---- Colour shifters (anchors) ----
+			// ---- Colour shift ----
 			{
-				id: 'shiftRadius',
+				id: 'shiftFalloff',
 				type: 'slider',
 				params: {
-					label: { v: 'Shifter Disc Size' },
+					label: { v: 'Shift Falloff' },
 					min: { v: 0 },
-					max: { v: 0.1 },
-					step: { v: 0.005 },
-					value: { v: 0.03 },
+					max: { v: 5 },
+					step: { v: 0.1 },
+					value: { v: 2 },
 				},
 			},
 			{
-				id: 'shifterDistance',
+				id: 'shiftStrength',
 				type: 'slider',
 				params: {
-					label: { v: 'Shifter Distance' },
+					label: { v: 'Shift Strength' },
 					min: { v: 0 },
-					max: { v: 0.9 },
-					step: { v: 0.01 },
-					value: { v: 0.8 },
-				},
-			},
-			{
-				id: 'topShiftColor',
-				type: 'colorPicker',
-				params: {
-					label: { v: '12 o\'clock -> Yellow' },
-					value: { v: { r: 1, g: 1, b: 0, a: 0.5 } },
-				},
-			},
-			{
-				id: 'fourShiftColor',
-				type: 'colorPicker',
-				params: {
-					label: { v: '4 o\'clock -> Green' },
-					value: { v: { r: 0, g: 0.8, b: 0.2, a: 0.5 } },
-				},
-			},
-			{
-				id: 'eightShiftColor',
-				type: 'colorPicker',
-				params: {
-					label: { v: '8 o\'clock -> Light Pink' },
-					value: { v: { r: 1, g: 0.7, b: 0.8, a: 0.5 } },
-				},
-			},
-			{
-				id: 'centerShiftColor',
-				type: 'colorPicker',
-				params: {
-					label: { v: 'Centre -> Transparent' },
-					value: { v: { r: 1, g: 1, b: 1, a: 0 } },
+					max: { v: 1 },
+					step: { v: 0.05 },
+					value: { v: 1 },
 				},
 			},
 		],
@@ -274,6 +242,15 @@ export const fractalOrbitTreeGraph: GeoArtGraph = {
 		nodes: [
 			{ id: 'time', type: 'time', params: {} },
 
+
+			{
+				id: "center",
+				type: "colorPointCompute",
+				params: {
+					color: { ref: "l1Color.value" },
+					point: { v: { x: 0, y: 0 } }
+				}
+			},
 			// Level 1 — single root orbit at the canvas centre (0,0).
 			{
 				id: 'l1Orbit',
@@ -287,7 +264,7 @@ export const fractalOrbitTreeGraph: GeoArtGraph = {
 					tilt: { ref: 'l1Tilt.value' },
 					phase: { v: 0 },
 					centerPoints: {
-						v: [{ v: { x: 0, y: 0, r: 1, g: 0, b: 0, a: 0.25 } }],
+						ref: "center.points"
 					},
 				},
 			},
@@ -304,7 +281,7 @@ export const fractalOrbitTreeGraph: GeoArtGraph = {
 					eccentricity: { ref: 'l2Eccentricity.value' },
 					tilt: { ref: 'l2Tilt.value' },
 					phase: { v: 0 },
-					centerPoints: { ref: 'l1Orbit.points' },
+					centerPoints: { ref: 'l1Shift.points' },
 				},
 			},
 
@@ -320,81 +297,88 @@ export const fractalOrbitTreeGraph: GeoArtGraph = {
 					eccentricity: { ref: 'l3Eccentricity.value' },
 					tilt: { ref: 'l3Tilt.value' },
 					phase: { v: 0 },
-					centerPoints: { ref: 'l2Orbit.points' },
+					centerPoints: { ref: 'l2Shift.points' },
 				},
 			},
 
-			// ---- Colour shifter anchors ----
-			// 12 o'clock — top of canvas (y = -distance), shifts towards yellow.
+			// ---- Colour shift ----
+			// Positional anchors pull nearby points' colour by inverse-distance.
+			// The centre anchor sets r/g/b to null so only alpha shifts -> 0.
 			{
-				id: 'topShifter',
-				type: 'colorPointCompute',
+				id: 'l1Shift',
+				type: 'colorShift',
 				params: {
-					point: { v: { x: 0, y: -0.8 } },
-					color: { ref: 'topShiftColor.value' },
+					inputPoints: { ref: 'l1Orbit.points' },
+					targetPoints: {
+						v: [
+							{ v: { x: 0, y: -0.8, r: 1, g: 1, b: 0, a: 0.5 } },
+							{ v: { x: 0.69, y: 0.4, r: 0, g: 0.8, b: 0.2, a: 0.5 } },
+							{ v: { x: -0.69, y: 0.4, r: 1, g: 0.7, b: 0.8, a: 0.5 } },
+							{ v: { x: 0, y: 0, r: null, g: null, b: null, a: 0 } },
+						],
+					},
+					falloff: { ref: 'shiftFalloff.value' },
+					strength: { ref: 'shiftStrength.value' },
 				},
 			},
-			// 4 o'clock — lower right, shifts towards green.
 			{
-				id: 'fourShifter',
-				type: 'colorPointCompute',
+				id: 'l2Shift',
+				type: 'colorShift',
 				params: {
-					point: { v: { x: 0.69, y: 0.4 } },
-					color: { ref: 'fourShiftColor.value' },
+					inputPoints: { ref: 'l2Orbit.points' },
+					targetPoints: {
+						v: [
+							{ v: { x: 0, y: -0.8, r: 1, g: 1, b: 0, a: 0.5 } },
+							{ v: { x: 0.69, y: 0.4, r: 0, g: 0.8, b: 0.2, a: 0.5 } },
+							{ v: { x: -0.69, y: 0.4, r: 1, g: 0.7, b: 0.8, a: 0.5 } },
+							{ v: { x: 0, y: 0, r: null, g: null, b: null, a: 0 } },
+						],
+					},
+					falloff: { ref: 'shiftFalloff.value' },
+					strength: { ref: 'shiftStrength.value' },
 				},
 			},
-			// 8 o'clock — lower left, shifts towards light pink.
 			{
-				id: 'eightShifter',
-				type: 'colorPointCompute',
+				id: 'l3Shift',
+				type: 'colorShift',
 				params: {
-					point: { v: { x: -0.69, y: 0.4 } },
-					color: { ref: 'eightShiftColor.value' },
-				},
-			},
-			// Centre — shifts opacity towards 0.
-			{
-				id: 'centerShifter',
-				type: 'colorPointCompute',
-				params: {
-					point: { v: { x: 0, y: 0 } },
-					color: { ref: 'centerShiftColor.value' },
+					inputPoints: { ref: 'l3Orbit.points' },
+					targetPoints: {
+						v: [
+							{ v: { x: 0, y: -0.8, r: 1, g: 1, b: 0, a: 0.5 } },
+							{ v: { x: 0.69, y: 0.4, r: 0, g: 0.8, b: 0.2, a: 0.5 } },
+							{ v: { x: -0.69, y: 0.4, r: 1, g: 0.7, b: 0.8, a: 0.5 } },
+							{ v: { x: 0, y: 0, r: null, g: null, b: null, a: 0 } },
+						],
+					},
+					falloff: { ref: 'shiftFalloff.value' },
+					strength: { ref: 'shiftStrength.value' },
 				},
 			},
 		],
 	},
 	render: {
 		nodes: [
-			// Accumulated paint — link the centre to each colour shifter so the
-			// trail visibly shifts colour towards each anchor over time.
+			// Accumulated paint — link consecutive levels of colour-shifted
+			// points so the trail visibly shifts colour towards each anchor.
 			{
-				id: 'shiftLineTop',
+				id: 'shiftLineL1L2',
 				type: 'timedLineArray',
 				renderConfig: { layer: 'paint' },
 				params: {
 					intervalTicks: { ref: 'linkRate.value' },
-					colorPointsA: { ref: 'l1Orbit.points' },
-					colorPointsB: { ref: 'l2Orbit.points' },
+					colorPointsA: { ref: 'l1Shift.points' },
+					colorPointsB: { ref: 'l2Shift.points' },
 				},
 			},
 			{
-				id: 'shiftLineFour',
+				id: 'shiftLineL2L3',
 				type: 'timedLineArray',
 				renderConfig: { layer: 'paint' },
 				params: {
 					intervalTicks: { ref: 'linkRate.value' },
-					colorPointsA: { ref: 'l2Orbit.points' },
-					colorPointsB: { ref: 'l3Orbit.points' },
-				},
-			},
-			{
-				id: 'shiftLineEight',
-				type: 'timedLineArray',
-				renderConfig: { layer: 'paint' },
-				params: {
-					intervalTicks: { ref: 'linkRate.value' },
-					colorPointsA: { ref: 'centerShifter.points' },
-					colorPointsB: { ref: 'eightShifter.points' },
+					colorPointsA: { ref: 'l2Shift.points' },
+					colorPointsB: { ref: 'l3Shift.points' },
 				},
 			},
 
@@ -412,79 +396,76 @@ export const fractalOrbitTreeGraph: GeoArtGraph = {
 					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.3 } },
 				},
 			},
-			// Level 1 points — red @ 0.25.
+			// Level 1 points — colour-shifted.
 			{
 				id: 'l1Points',
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					centerPoints: { ref: 'l1Orbit.points' },
+					centerPoints: { ref: 'l1Shift.points' },
 					radius: { v: 0.03 },
-					color: { ref: 'l1Color.value' },
 				},
 			},
-			// Level 2 points.
+			// Level 2 points — colour-shifted.
 			{
 				id: 'l2Points',
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					centerPoints: { ref: 'l2Orbit.points' },
+					centerPoints: { ref: 'l2Shift.points' },
 					radius: { v: 0.02 },
-					color: { ref: 'l2Color.value' },
 				},
 			},
-			// Level 3 points.
+			// Level 3 points — colour-shifted.
 			{
 				id: 'l3Points',
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
-					centerPoints: { ref: 'l3Orbit.points' },
+					centerPoints: { ref: 'l3Shift.points' },
 					radius: { v: 0.012 },
-					color: { ref: 'l3Color.value' },
 				},
 			},
 
-			// ---- Colour shifter discs ----
+			// ---- Colour shift anchor markers ----
 			{
-				id: 'topShifterDisc',
+				id: 'topAnchorDisc',
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
 					center: { v: { x: 0, y: -0.8 } },
-					radius: { ref: 'shiftRadius.value' },
-					color: { ref: 'topShiftColor.value' },
+					radius: { v: 0.03 },
+					color: { v: { r: 1, g: 1, b: 0, a: 0.5 } },
 				},
 			},
 			{
-				id: 'fourShifterDisc',
+				id: 'fourAnchorDisc',
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
 					center: { v: { x: 0.69, y: 0.4 } },
-					radius: { ref: 'shiftRadius.value' },
-					color: { ref: 'fourShiftColor.value' },
+					radius: { v: 0.03 },
+					color: { v: { r: 0, g: 0.8, b: 0.2, a: 0.5 } },
 				},
 			},
 			{
-				id: 'eightShifterDisc',
+				id: 'eightAnchorDisc',
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
 					center: { v: { x: -0.69, y: 0.4 } },
-					radius: { ref: 'shiftRadius.value' },
-					color: { ref: 'eightShiftColor.value' },
+					radius: { v: 0.03 },
+					color: { v: { r: 1, g: 0.7, b: 0.8, a: 0.5 } },
 				},
 			},
 			{
-				id: 'centerShifterDisc',
+				id: 'centerAnchorDisc',
 				type: 'circle',
 				renderConfig: { layer: 'live' },
 				params: {
 					center: { v: { x: 0, y: 0 } },
-					radius: { ref: 'shiftRadius.value' },
-					color: { ref: 'centerShiftColor.value' },
+					radius: { v: 0.03 },
+					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.2 } },
 				},
 			},
 		],

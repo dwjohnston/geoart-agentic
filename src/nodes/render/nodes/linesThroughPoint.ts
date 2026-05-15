@@ -1,3 +1,4 @@
+import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
 
 export const linesThroughPointNodeDef = implementRenderNode('linesThroughPoint', {
@@ -13,7 +14,7 @@ export const linesThroughPointNodeDef = implementRenderNode('linesThroughPoint',
 
 
     for (const point of points) {
-      const { x, y, dx = 0, dy = 0, r, g, b, a } = point;
+      const { x, y, dx = 0, dy = 0, r, g, b, a } = toSolidColorPoint(point);
       // Skip if gradient is (0, 0)
       if (dx === 0 && dy === 0) {
         continue;

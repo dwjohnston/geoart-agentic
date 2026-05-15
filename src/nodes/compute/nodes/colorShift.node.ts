@@ -28,13 +28,18 @@ function inverseDistanceWeight(dist: number, falloff: number): number {
  * Only considers target points that have a defined (non-null) value for this channel
  */
 function blendChannel(
-  inputValue: number,
+  inputValue: number | null,
   inputPoint: ResolvedValue<"colorPointValue">,
-  targetPoints: ResolvedValue<"colorNullableColorPointArrayValue">,
+  targetPoints: ResolvedValue<"colorPointArrayValue">,
   falloff: number,
   strength: number,
   channel: 'r' | 'g' | 'b' | 'a'
-): number {
+): number | null {
+  // A null input channel means 'ignore this channel' — leave it untouched.
+  if (inputValue === null) {
+    return null;
+  }
+
   // Filter targets that have a defined value for this channel
   const validTargets = targetPoints.filter((t) => t[channel] !== undefined && t[channel] !== null);
 

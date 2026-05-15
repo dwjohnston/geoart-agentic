@@ -5,6 +5,7 @@
  */
 
 
+import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
 
 export const circleNodeDef = implementRenderNode('circle', {
@@ -26,7 +27,7 @@ export const circleNodeDef = implementRenderNode('circle', {
 
     const colorPointsToUse = inputs.centerPoints.length > 0 ? inputs.centerPoints : [deprecatedColorPoint];
     colorPointsToUse.forEach((v) => {
-      const { r, g, b, a, x, y } = v;
+      const { r, g, b, a, x, y } = toSolidColorPoint(v);
       const pixelX = x * (ctx.width / 2) + (ctx.width / 2);
       const pixelY = (ctx.height / 2) - y * (ctx.height / 2);
       ctx.canvas.strokeStyle = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;

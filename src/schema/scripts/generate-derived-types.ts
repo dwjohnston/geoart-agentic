@@ -71,8 +71,15 @@ function schemaToTs(schema: JsonSchema, allDefs: Record<string, JsonSchema>): st
 
     const type = schema.type;
 
+    if (Array.isArray(type)) {
+        return type
+            .map((t) => schemaToTs({ ...schema, type: t }, allDefs))
+            .join(' | ');
+    }
+
     if (type === 'number') return 'number';
     if (type === 'boolean') return 'boolean';
+    if (type === 'null') return 'null';
 
     if (type === 'string') {
         if (schema.enum) {
