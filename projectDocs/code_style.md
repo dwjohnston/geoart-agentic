@@ -1,3 +1,7 @@
+--- 
+canon: CANONICAL STATUS 👑 - 2026-05-16
+---
+
 ## Tooling 
 
 - Use Bun as package manager and for runtime.

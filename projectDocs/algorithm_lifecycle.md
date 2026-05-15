@@ -1,3 +1,7 @@
+--- 
+canon: CANONICAL STATUS 👑 - 2026-05-16
+---
+
 # Algorithm Lifecycle
 
 This document traces the path an algorithm takes from initial definition to pixels on screen.
