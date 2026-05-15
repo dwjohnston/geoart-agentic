@@ -548,8 +548,14 @@
           ],
           "x-outputs": [
             {
+              "x-deprecated": true,
+              "x-deprecation-reason": "use `points` instead",
               "name": "colorPoint",
               "valueType": "colorPointValue"
+            },
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
             }
           ],
           "properties": {
@@ -569,10 +575,38 @@
               "additionalProperties": false,
               "properties": {
                 "point": {
+                  "deprecated": true,
+                  "description": "DEPRECATED: use x, y instead",
                   "$ref": "refable-value-kinds.schema.json#/definitions/pointValueOrRef"
                 },
                 "color": {
+                  "deprecated": true,
+                  "description": "DEPRECATED: use r, g, b, a instead",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorValueOrRef"
+                },
+                "r": {
+                  "description": "Red colour component (0-1)",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "g": {
+                  "description": "Green colour component (0-1)",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "b": {
+                  "description": "Blue colour component (0-1)",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "a": {
+                  "description": "Alpha component (0-1)",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "x": {
+                  "description": "X coordinate of the point",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "y": {
+                  "description": "Y coordinate of the point",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "dx": {
                   "description": "X component of tangent vector (optional, defaults to 0)",
@@ -777,7 +811,8 @@
         {
           "title": "Timed Line Render Node",
           "type": "object",
-          "description": "Draws a gradient line between two coloured points on an interval",
+          "deprecated": true,
+          "description": "DEPRECATED: Use Timed Line Array instead. Draws a gradient line between two coloured points on an interval",
           "additionalProperties": false,
           "required": [
             "id",
