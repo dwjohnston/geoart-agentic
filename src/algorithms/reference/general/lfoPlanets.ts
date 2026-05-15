@@ -1,4 +1,4 @@
-import type { GeoArtGraph } from '../schema/_generated/schema-types';
+import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
 export const lfoPlanetsGraph: GeoArtGraph = {
 	version: '2.0',

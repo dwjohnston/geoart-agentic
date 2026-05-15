@@ -2,7 +2,7 @@
 // Lines are painted between each outer node and the inner node.
 // Orbit rings and current node positions are drawn live each frame.
 
-import type { GeoArtGraph } from '../schema/_generated/schema-types';
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 
 const OUTER_COLOR = { r: 0.3, g: 0.6, b: 1, a: 0.9 };
 const INNER_COLOR = { r: 1, g: 0.7, b: 0.2, a: 0.9 };
