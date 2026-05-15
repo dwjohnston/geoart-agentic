@@ -3692,6 +3692,1376 @@ exports[`general ulfoPlanets.ts 2`] = `
 ]
 `;
 
+exports[`general ucolorShiftOrbitReferenceGraph.ts 1`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.4)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      60,
+      60,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      8,
+      8,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 255, 255, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      320,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.3)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      480,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      480,
+      400,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 204.0615898970462, 244.80198301651254, 0.24405610145847612)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      459.9997039121115,
+      399.81150475084723,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 231.1632875718078, 236.7633990664703, 0.14989153715457249)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      369.8369063696853,
+      348.1329798171433,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 190.51738806497048, 219.8054595321052, 0.07724371177879208)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      370.1633897182032,
+      452.0555154320095,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.4)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      60,
+      60,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      8,
+      8,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 255, 255, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      320,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.3)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      480,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      480,
+      400,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 204.12330969625242, 244.80301128271518, 0.24410667456605212)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      459.9988156513682,
+      399.62301136206645,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 231.06699591642183, 236.7033081972865, 0.14980634439081836)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      369.6741104369274,
+      348.2279957679025,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 190.49773797714175, 219.81379309337456, 0.07704866973697502)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      370.32707391170436,
+      452.148992870031,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.4)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      60,
+      60,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      8,
+      8,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 255, 255, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      320,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.3)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      480,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      480,
+      400,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 204.18515941103522, 244.80308699257034, 0.24415173715208113)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      459.99733522653696,
+      399.4345216940114,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 230.97069564198844, 236.64328781302896, 0.14972121077873118)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      369.5116138084564,
+      348.3235226874423,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(255, 190.4782080435116, 219.8222252538175, 0.07685320953894609)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      370.49105096500665,
+      452.24195561854634,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`general ucolorShiftOrbitReferenceGraph.ts 2`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
+    "args": [
+      459.9997039121115,
+      399.81150475084723,
+      459.9997039121115,
+      399.81150475084723,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(255, 0, 0, 0.1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(255, 204.0615898970462, 244.80198301651254, 0.24405610145847612)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      459.9997039121115,
+      399.81150475084723,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      459.9997039121115,
+      399.81150475084723,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      459.9997039121115,
+      399.81150475084723,
+      369.8369063696853,
+      348.1329798171433,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(255, 0, 0, 0.1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(255, 231.1632875718078, 236.7633990664703, 0.14989153715457249)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      459.9997039121115,
+      399.81150475084723,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      369.8369063696853,
+      348.1329798171433,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      459.9997039121115,
+      399.81150475084723,
+      370.1633897182032,
+      452.0555154320095,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(255, 0, 0, 0.1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(255, 190.51738806497048, 219.8054595321052, 0.07724371177879208)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      459.9997039121115,
+      399.81150475084723,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      370.1633897182032,
+      452.0555154320095,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      369.8369063696853,
+      348.1329798171433,
+      459.9997039121115,
+      399.81150475084723,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(255, 0, 0, 0.1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(255, 204.0615898970462, 244.80198301651254, 0.24405610145847612)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      369.8369063696853,
+      348.1329798171433,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      459.9997039121115,
+      399.81150475084723,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      369.8369063696853,
+      348.1329798171433,
+      369.8369063696853,
+      348.1329798171433,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(255, 0, 0, 0.1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(255, 231.1632875718078, 236.7633990664703, 0.14989153715457249)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      369.8369063696853,
+      348.1329798171433,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      369.8369063696853,
+      348.1329798171433,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      369.8369063696853,
+      348.1329798171433,
+      370.1633897182032,
+      452.0555154320095,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(255, 0, 0, 0.1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(255, 190.51738806497048, 219.8054595321052, 0.07724371177879208)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      369.8369063696853,
+      348.1329798171433,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      370.1633897182032,
+      452.0555154320095,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      370.1633897182032,
+      452.0555154320095,
+      459.9997039121115,
+      399.81150475084723,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(255, 0, 0, 0.1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(255, 204.0615898970462, 244.80198301651254, 0.24405610145847612)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      370.1633897182032,
+      452.0555154320095,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      459.9997039121115,
+      399.81150475084723,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      370.1633897182032,
+      452.0555154320095,
+      369.8369063696853,
+      348.1329798171433,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(255, 0, 0, 0.1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(255, 231.1632875718078, 236.7633990664703, 0.14989153715457249)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      370.1633897182032,
+      452.0555154320095,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      369.8369063696853,
+      348.1329798171433,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      370.1633897182032,
+      452.0555154320095,
+      370.1633897182032,
+      452.0555154320095,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(255, 0, 0, 0.1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(255, 190.51738806497048, 219.8054595321052, 0.07724371177879208)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      370.1633897182032,
+      452.0555154320095,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      370.1633897182032,
+      452.0555154320095,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
 exports[`general uorbitWaveLine3.ts 1`] = `
 [
   {
@@ -205460,6 +206830,1376 @@ exports[`value_array uarrayReferenceReferenceGraph.ts 2`] = `
     ],
     "kind": "method",
     "name": "clearRect",
+  },
+]
+`;
+
+exports[`canonical ucolorShiftOrbitReferenceGraph.ts 1`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      8,
+      8,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.4)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      220.00000000000003,
+      220.00000000000003,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      0,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 0, 0)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      800,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      800,
+      400,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(167.7715108756685, 87.22848912433149, 250.422607637004, 0.9748660396486689)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      619.9989143444088,
+      399.30885075310647,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(17.416195674601774, 237.58380432539823, 237.83380466047836, 0.9311895162330321)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      289.4019900221794,
+      209.82092599619193,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(225.52598417684234, 29.474015823157643, 65.50078575717855, 0.029073924406706433)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      290.5990956334117,
+      590.8702232507014,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      8,
+      8,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.4)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      220.00000000000003,
+      220.00000000000003,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      0,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 0, 0)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      800,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      800,
+      400,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(167.38892962782708, 87.6110703721729, 250.4219979845573, 0.9749213153657228)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      619.9956573883502,
+      398.617708327577,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(17.61775216537947, 237.38224783462053, 237.63701479859046, 0.9303917293419905)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      288.80507160206696,
+      210.16931781564244,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(225.57541517538422, 29.42458482461579, 65.58899386808423, 0.0287876606213381)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      291.19927100958273,
+      591.2129738567803,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.5)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      8,
+      8,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(127.5, 127.5, 127.5, 0.4)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      400,
+      220.00000000000003,
+      220.00000000000003,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 255, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      0,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 0, 0)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      400,
+      800,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(0, 0, 255, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      800,
+      400,
+      10,
+      10,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(167.00453307151136, 87.99546692848863, 250.42079434313703, 0.9749728560334725)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      619.9902291639689,
+      397.9265795447083,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(17.82155235739789, 237.1784476426021, 237.43807287458318, 0.9295850870609327)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      288.2092506310067,
+      210.5195831872884,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(225.62446539375736, 29.375534606242624, 65.6783261828089, 0.02850456192617569)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      291.8005202050244,
+      591.5538372680032,
+      12,
+      12,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+]
+`;
+
+exports[`canonical ucolorShiftOrbitReferenceGraph.ts 2`] = `
+[
+  {
+    "args": [
+      0,
+      0,
+      800,
+      800,
+    ],
+    "kind": "method",
+    "name": "clearRect",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 1,
+  },
+  {
+    "args": [
+      619.9989143444088,
+      399.30885075310647,
+      619.9989143444088,
+      399.30885075310647,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(167.7715108756685, 87.22848912433149, 250.422607637004, 0.9748660396486689)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(167.7715108756685, 87.22848912433149, 250.422607637004, 0.9748660396486689)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      619.9989143444088,
+      399.30885075310647,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      619.9989143444088,
+      399.30885075310647,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      619.9989143444088,
+      399.30885075310647,
+      289.4019900221794,
+      209.82092599619193,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(167.7715108756685, 87.22848912433149, 250.422607637004, 0.9748660396486689)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(17.416195674601774, 237.58380432539823, 237.83380466047836, 0.9311895162330321)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      619.9989143444088,
+      399.30885075310647,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      289.4019900221794,
+      209.82092599619193,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      619.9989143444088,
+      399.30885075310647,
+      290.5990956334117,
+      590.8702232507014,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(167.7715108756685, 87.22848912433149, 250.422607637004, 0.9748660396486689)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(225.52598417684234, 29.474015823157643, 65.50078575717855, 0.029073924406706433)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      619.9989143444088,
+      399.30885075310647,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      290.5990956334117,
+      590.8702232507014,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      289.4019900221794,
+      209.82092599619193,
+      619.9989143444088,
+      399.30885075310647,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(17.416195674601774, 237.58380432539823, 237.83380466047836, 0.9311895162330321)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(167.7715108756685, 87.22848912433149, 250.422607637004, 0.9748660396486689)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      289.4019900221794,
+      209.82092599619193,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      619.9989143444088,
+      399.30885075310647,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      289.4019900221794,
+      209.82092599619193,
+      289.4019900221794,
+      209.82092599619193,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(17.416195674601774, 237.58380432539823, 237.83380466047836, 0.9311895162330321)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(17.416195674601774, 237.58380432539823, 237.83380466047836, 0.9311895162330321)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      289.4019900221794,
+      209.82092599619193,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      289.4019900221794,
+      209.82092599619193,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      289.4019900221794,
+      209.82092599619193,
+      290.5990956334117,
+      590.8702232507014,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(17.416195674601774, 237.58380432539823, 237.83380466047836, 0.9311895162330321)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(225.52598417684234, 29.474015823157643, 65.50078575717855, 0.029073924406706433)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      289.4019900221794,
+      209.82092599619193,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      290.5990956334117,
+      590.8702232507014,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      290.5990956334117,
+      590.8702232507014,
+      619.9989143444088,
+      399.30885075310647,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(225.52598417684234, 29.474015823157643, 65.50078575717855, 0.029073924406706433)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(167.7715108756685, 87.22848912433149, 250.422607637004, 0.9748660396486689)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      290.5990956334117,
+      590.8702232507014,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      619.9989143444088,
+      399.30885075310647,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      290.5990956334117,
+      590.8702232507014,
+      289.4019900221794,
+      209.82092599619193,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(225.52598417684234, 29.474015823157643, 65.50078575717855, 0.029073924406706433)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(17.416195674601774, 237.58380432539823, 237.83380466047836, 0.9311895162330321)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      290.5990956334117,
+      590.8702232507014,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      289.4019900221794,
+      209.82092599619193,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      290.5990956334117,
+      590.8702232507014,
+      290.5990956334117,
+      590.8702232507014,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(225.52598417684234, 29.474015823157643, 65.50078575717855, 0.029073924406706433)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(225.52598417684234, 29.474015823157643, 65.50078575717855, 0.029073924406706433)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      290.5990956334117,
+      590.8702232507014,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      290.5990956334117,
+      590.8702232507014,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
   },
 ]
 `;

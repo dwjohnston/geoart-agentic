@@ -1,6 +1,7 @@
 // This file is auto-generated. Run: bun run generate:algorithms-index
 import type { GraphEntry } from '../index';
 
+import { colorShiftOrbitGraph } from './canonical/colorShiftOrbitReferenceGraph';
 import { earth3VenusGraph } from './general/earth3Venus';
 import { earthVenusGraph } from './general/earthVenus';
 import { fractalOrbitTreeGraph } from './general/fractalOrbitTree';
@@ -28,6 +29,7 @@ import { arrayReferenceReferenceGraph } from './value_array/arrayReferenceRefere
 import { arrayStaticValuesReferenceGraph } from './value_array/arrayStaticValuesReferenceGraph';
 
 export const REFERENCE_GRAPHS: GraphEntry[] = [
+  { id: 'color-shift-orbit', name: 'Color Shift Orbit', graph: colorShiftOrbitGraph },
   { id: 'earth3venus', name: 'Earth3 Venus', graph: earth3VenusGraph },
   { id: 'earth-venus', name: 'Earth Venus', graph: earthVenusGraph },
   { id: 'fractal-orbit-tree', name: 'Fractal Orbit Tree', graph: fractalOrbitTreeGraph },

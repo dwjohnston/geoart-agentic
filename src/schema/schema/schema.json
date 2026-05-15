@@ -17,6 +17,14 @@
       "description": "major.minor — increment minor for backward-compatible additions, major for breaking changes",
       "pattern": "^\\d+\\.\\d+$"
     },
+    "title": {
+      "type": "string",
+      "title": "Title"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
     "speed": {
       "title": "Global Speed",
       "type": "number",
@@ -615,6 +623,46 @@
                 "dy": {
                   "description": "Y component of tangent vector (optional, defaults to 0)",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Color Point Array Compute Node",
+          "type": "object",
+          "deprecated": false,
+          "description": "Assembler/passthrough that takes an array of colour points (each element may be a static value or a ref) and emits them as a single colorPointArray output. Lets algorithms build a colorPointArray from individually-declared colour points and feed it into other nodes.",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "colorPointArrayCompute"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "points": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 }
               }
             }
