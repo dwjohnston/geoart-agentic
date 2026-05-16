@@ -58,10 +58,10 @@ describe("ValueTypeByName", () => {
 
 
     it("waveTypes", () => {
-        assertType<ValueTypeByName<"waveTypeValue">>({ "v": "saw" })
+        assertType<ValueTypeByName<"waveTypeEnumValue">>({ "v": "saw" })
 
         //@ts-expect-error - not matching the enum
-        assertType<ValueTypeByName<"waveTypeValue">>({ "v": "sdfds" })
+        assertType<ValueTypeByName<"waveTypeEnumValue">>({ "v": "sdfds" })
 
     })
 });
@@ -69,10 +69,10 @@ describe("ValueTypeByName", () => {
 
 describe('ResolvedValue', () => {
     it("has just the shorthand value representation", () => {
-        assertType<ResolvedValue<"waveTypeValue">>("reverse-saw")
+        assertType<ResolvedValue<"waveTypeEnumValue">>("reverse-saw")
 
         //@ts-expect-error - mis matching type
-        assertType<ResolvedValue<"waveTypeValue">>("sfdsfd")
+        assertType<ResolvedValue<"waveTypeEnumValue">>("sfdsfd")
 
 
         assertType<ResolvedValue<"numberValue">>(1);

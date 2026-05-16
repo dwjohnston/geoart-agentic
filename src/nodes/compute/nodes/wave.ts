@@ -1,5 +1,5 @@
 import { UnreachableError } from "../../../common-tooling/errors/UnreachableError";
-import type { V_waveTypeValue } from "../../../schema/_generated/value-kinds-2";
+import type { V_waveTypeEnumValue } from "../../../schema/_generated/value-kinds-2";
 
 function frac(x: number): number {
   return x - Math.floor(x);
@@ -14,7 +14,7 @@ function frac(x: number): number {
  * @param t - Tick count since algorithm started
  */
 export function evaluateWave(
-  waveType: V_waveTypeValue['v'],
+  waveType: V_waveTypeEnumValue['v'],
   frequency: number,
   amplitude: number,
   phase: number,

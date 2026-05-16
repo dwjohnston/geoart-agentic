@@ -61,6 +61,11 @@ function valueTypeToPortType(valueType: string): LegacyRenderNodePortDef['type']
     colorPointValue: 'colorPoint',
     colorPointArrayValue: 'colorPointArray',
     triggerValue: 'trigger',
+    waveTypeEnumValue: 'string',
+    curveModeEnumValue: 'string',
+    cycleLengthModeEnumValue: 'string',
+    timedLineArrayModeEnumValue: 'string',
+    timedLineArrayIntervalModeEnumValue: 'string',
   };
   return map[valueType] ?? 'number';
 }
