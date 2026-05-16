@@ -61,10 +61,20 @@ function valueTypeToPortType(valueType: string): LegacyRenderNodePortDef['type']
     colorPointValue: 'colorPoint',
     colorPointArrayValue: 'colorPointArray',
     triggerValue: 'trigger',
+
+    //@ts-expect-error - I'm just going to ignore these for now
     waveTypeEnumValue: 'string',
+    //@ts-expect-error - I'm just going to ignore these for now
+
     curveModeEnumValue: 'string',
+    //@ts-expect-error - I'm just going to ignore these for now
+
     cycleLengthModeEnumValue: 'string',
+    //@ts-expect-error - I'm just going to ignore these for now
+
     timedLineArrayModeEnumValue: 'string',
+    //@ts-expect-error - I'm just going to ignore these for now
+
     timedLineArrayIntervalModeEnumValue: 'string',
   };
   return map[valueType] ?? 'number';

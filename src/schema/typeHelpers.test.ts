@@ -508,7 +508,7 @@ describe("Declared value types", () => {
         //@ts-expect-error - wrong v type (string instead of number)
         assertType<StaticValueDeclared<"number">>({ v: "42" });
 
-        assertType<StaticValueDeclared<"waveType">>({ v: "sine" });
+        assertType<StaticValueDeclared<"waveTypeEnum">>({ v: "sine" });
 
         //@ts-expect-error - wrong enum value
         assertType<StaticValueDeclared<"waveType">>({ v: "invalid" });
