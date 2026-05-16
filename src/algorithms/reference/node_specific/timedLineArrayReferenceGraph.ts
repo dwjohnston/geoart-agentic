@@ -3,7 +3,16 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 export const timedLineArrayGraph: GeoArtGraph = {
 	version: '2.0',
 	control: {
-		nodes: [],
+		nodes: [
+			{
+				id: 'modeSelector',
+				type: 'timedLineArrayModeSelector',
+				params: {
+					label: { v: 'Mode' },
+					value: { v: 'all-to-all' },
+				},
+			},
+		],
 	},
 	compute: {
 		nodes: [
@@ -48,7 +57,7 @@ export const timedLineArrayGraph: GeoArtGraph = {
 					colorPointsA: { ref: 'orbitInner.points' },
 					colorPointsB: { ref: 'orbitOuter.points' },
 					intervalTicks: { v: 10 },
-					mode: { v: 'all-to-all' },
+					mode: { ref: 'modeSelector.value' },
 				},
 			}, {
 				id: 'circle',

@@ -301,6 +301,48 @@
           }
         },
         {
+          "title": "Timed Line Array Mode Selector Control Node",
+          "type": "object",
+          "description": "Dropdown selector for timedLineArray mode",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "value",
+              "valueType": "timedLineArrayModeEnumValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "timedLineArrayModeSelector"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
+                },
+                "value": {
+                  "$ref": "value-kinds.schema.json#/definitions/timedLineArrayModeEnumValue"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "LFO Control Node",
           "type": "object",
           "description": "Bundles the four LFO parameters into one compact control — outputs baseValue, frequency, amplitude, and waveShape for wiring into a wave compute node",
@@ -894,7 +936,7 @@
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "mode": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeValueOrRef"
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeEnumValueOrRef"
                 }
               }
             }

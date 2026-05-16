@@ -294,8 +294,8 @@
         }
       }
     },
-    "timedLineArrayModeValue": {
-      "title": "Timed Line Array Mode Value",
+    "timedLineArrayModeEnumValue": {
+      "title": "Timed Line Array Mode Enum Value",
       "type": "object",
       "required": [
         "v"
