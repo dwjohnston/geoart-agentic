@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const timedLineGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Timed Line',
 	control: {
 		nodes: [],
 	},
@@ -75,3 +76,5 @@ export const timedLineGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

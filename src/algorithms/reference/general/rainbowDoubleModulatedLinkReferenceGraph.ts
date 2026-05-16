@@ -28,8 +28,9 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 // final rendered result; its points are linked back to the primary
 // modulated curve so the links between the two curves keep working.
 
-export const rainbowDoubleModulatedLinkGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Rainbow Double Modulated Link',
 
 	control: {
 		nodes: [
@@ -544,3 +545,5 @@ export const rainbowDoubleModulatedLinkGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

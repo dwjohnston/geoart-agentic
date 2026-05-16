@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const curveModulatorGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Curve Modulator',
 	control: {
 		nodes: [],
 	},
@@ -66,3 +67,5 @@ export const curveModulatorGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const singleOrbitLfoGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Single Orbit LFO',
 	control: {
 		nodes: [
 			{
@@ -153,3 +154,5 @@ export const singleOrbitLfoGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const arrayStaticValuesReferenceGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Array Static Values',
 	control: {
 		nodes: [],
 	},
@@ -34,3 +35,5 @@ export const arrayStaticValuesReferenceGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

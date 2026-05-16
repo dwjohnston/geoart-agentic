@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const arrayMixedValuesReferenceGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Array Mixed Values',
 	control: {
 		nodes: [
 			{
@@ -61,3 +62,5 @@ export const arrayMixedValuesReferenceGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

@@ -11,8 +11,9 @@
 
 import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 
-export const wavingLinesGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
   version: '2.0',
+  title: 'Waving Lines',
   control: {
     nodes: [
       // --- Orbit speeds ---
@@ -294,3 +295,5 @@ export const wavingLinesGraph: GeoArtGraph = {
     ],
   },
 };
+
+export default graph;

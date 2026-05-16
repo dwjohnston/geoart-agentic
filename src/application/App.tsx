@@ -12,7 +12,7 @@ import { NeverShouldHappenError } from '../common-tooling/errors/NeverShouldHapp
 
 const CANVAS_SIZE = 800;
 
-function App() {
+export function App() {
   const orbitCanvasRef = useRef<HTMLCanvasElement>(null);
   const trailCanvasRef = useRef<HTMLCanvasElement>(null);
   const engineRef = useRef<GraphEngine | null>(null);
@@ -93,4 +93,3 @@ function App() {
   );
 }
 
-export default App;

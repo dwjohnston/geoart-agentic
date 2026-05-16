@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const polygonGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
     version: '2.0',
+    title: 'Polygon',
     control: {
         nodes: [],
     },
@@ -41,3 +42,5 @@ export const polygonGraph: GeoArtGraph = {
         ],
     },
 };
+
+export default graph;

@@ -23,8 +23,9 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 //
 // Every tunable parameter is exposed as a control node and wired in by ref.
 
-export const fractalOrbitTreeGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Fractal Orbit Tree',
 	control: {
 		nodes: [
 			// ---- Global ----
@@ -471,3 +472,5 @@ export const fractalOrbitTreeGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const colorShiftGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Color Shift',
 	control: {
 		nodes: [
 			{
@@ -104,3 +105,5 @@ export const colorShiftGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

@@ -7,8 +7,9 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 // on the live layer (redrawn each frame), and the connecting line points
 // are drawn on the paint layer (accumulating over time).
 
-export const orbitWaveLineGraph3: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Orbit Wave Line 3',
 	control: {
 		nodes: [
 			{
@@ -565,3 +566,5 @@ export const orbitWaveLineGraph3: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

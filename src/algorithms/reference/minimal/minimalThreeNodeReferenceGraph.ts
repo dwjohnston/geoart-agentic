@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const minimalThreeNodeGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
     version: '2.0',
+    title: 'Minimal Three Node',
     control: {
         nodes: [
             {
@@ -52,3 +53,5 @@ export const minimalThreeNodeGraph: GeoArtGraph = {
         ],
     },
 };
+
+export default graph;

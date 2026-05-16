@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const connectDotsGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Connect Dots',
 	control: {
 		nodes: [],
 	},
@@ -41,3 +42,5 @@ export const connectDotsGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

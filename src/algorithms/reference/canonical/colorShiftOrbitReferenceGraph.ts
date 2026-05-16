@@ -20,8 +20,9 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 // points are painted (connect dots) and drawn as live markers, alongside
 // the grey orbit path and grey orbit-centre marker.
 
-export const colorShiftOrbitGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Color Shift Orbit',
 
 	control: {
 		nodes: [
@@ -206,3 +207,5 @@ export const colorShiftOrbitGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

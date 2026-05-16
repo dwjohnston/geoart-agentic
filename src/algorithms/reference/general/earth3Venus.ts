@@ -9,8 +9,9 @@ const INNER_COLOR = { r: 1, g: 0.7, b: 0.2, a: 0.9 };
 const RING_COLOR = { r: 0.3, g: 0.3, b: 0.35, a: 0.5 };
 const DOT_RADIUS = 0.015;
 
-export const earth3VenusGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
   version: '2.0',
+  title: 'Earth 3 Venus',
   control: {
     nodes: [
       {
@@ -251,3 +252,5 @@ export const earth3VenusGraph: GeoArtGraph = {
     ],
   },
 };
+
+export default graph;

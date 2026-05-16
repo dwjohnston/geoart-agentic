@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const lfoPlanetsGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'LFO Planets',
 	control: {
 		nodes: [
 			{
@@ -384,3 +385,5 @@ export const lfoPlanetsGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;
