@@ -108,3 +108,14 @@ I really want some kind of benchmark/performance testing.
 - Some kind of AI prompting functionality. 
 - Responsive design 
 
+
+
+
+- modules
+- enforce enum property
+- color-shift primitive value
+
+
+transform compute node
+reflection compute node
+fourier shapes compute node
