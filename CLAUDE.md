@@ -130,6 +130,10 @@ Example — the `add` compute node:
 
 Every input port can accept either a static value or a reference to another node's output — this is handled transparently by the graph evaluator.
 
+#### Input port naming
+
+Input ports that represent a **count of things** must be prefixed with `num`: e.g. `numSides`, `numHarmonics`, `numPoints`.
+
 ### Refs — Connecting Nodes
 
 A `ref` is how the output of one node becomes the input of another. Instead of a static value, a param holds `{ "ref": "nodeId.portName" }`.
