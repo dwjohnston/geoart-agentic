@@ -1,3 +1,4 @@
+import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
 
 export const polygonNodeDef = implementRenderNode('polygon', {
@@ -34,7 +35,7 @@ export const polygonNodeDef = implementRenderNode('polygon', {
     canvas.closePath();
 
     // Fill with the colour of the first point
-    const { r, g, b, a } = firstPoint;
+    const { r, g, b, a } = toSolidColorPoint(firstPoint);
     canvas.fillStyle = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
     canvas.fill();
   },

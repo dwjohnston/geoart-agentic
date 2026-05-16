@@ -1,3 +1,4 @@
+import type { ResolvedValue } from '../../../schema/typeHelpers';
 import { implementComputeNode } from '../implementComputeNode';
 import { evaluateOrbitPoints } from './orbit';
 
@@ -31,7 +32,7 @@ export const orbitNodeDef = implementComputeNode("orbit", {
     // 2. center (deprecated) wrapped with default white colour
     // 3. default centre (0.5, 0.5) wrapped with default white colour
     const resolvedCenterPoints = inputs.centerPoints ?? [];
-    const centreArray: Array<{ x: number; y: number; r: number; g: number; b: number; a: number; dx: number; dy: number }> =
+    const centreArray: ResolvedValue<"colorPointArrayValue"> =
       resolvedCenterPoints.length > 0
         ? resolvedCenterPoints
         : inputs.center
@@ -43,7 +44,7 @@ export const orbitNodeDef = implementComputeNode("orbit", {
     const baseAngle = speed * (t / 600) * 2 * Math.PI + phaseRadians;
     const spacing = (2 * Math.PI) / Math.max(1, numPoints);
 
-    const allPoints: Array<{ x: number; y: number; r: number; g: number; b: number; a: number; dx: number; dy: number }> = [];
+    const allPoints: Array<{ x: number; y: number; r: number | null; g: number | null; b: number | null; a: number | null; dx: number; dy: number }> = [];
 
     for (const centre of centreArray) {
       const rawPoints = evaluateOrbitPoints(radius, speed, t, numPoints, phase, centre.x, centre.y, eccentricity, tilt);

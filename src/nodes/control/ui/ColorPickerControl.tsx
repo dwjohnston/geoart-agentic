@@ -39,6 +39,19 @@ export function ColorPickerControl({ id, label, initialValue, onChange }: Props)
           onChange(v);
         }}
       />
+      <input
+        id={`${id}-opacity`}
+        type="range"
+        min={0}
+        max={1}
+        step={0.01}
+        value={value.a}
+        onChange={e => {
+          const v = { ...value, a: Number(e.target.value) };
+          setValue(v);
+          onChange(v);
+        }}
+      />
     </div>
   );
 }

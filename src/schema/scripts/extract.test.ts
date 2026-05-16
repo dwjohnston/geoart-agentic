@@ -29,6 +29,18 @@ const minimalValueKindsSchema: any = {
 			type: 'object',
 			properties: { v: { type: 'string' } },
 		},
+		nullableColorValue: {
+			title: 'Nullable Color Value',
+			type: 'object',
+			properties: {
+				v: {
+					type: 'object',
+					properties: {
+						r: { type: ['number', 'null'] },
+					},
+				},
+			},
+		},
 	},
 };
 //🧽 Find a nice way of typing Json Schema objects
@@ -91,6 +103,17 @@ describe('extract-derived-schema', () => {
 		  {
 		    "$schema": "https://json-schema.org/draft/2019-09/schema",
 		    "definitions": {
+		      "nullableColorValueOrRef": {
+		        "oneOf": [
+		          {
+		            "$ref": "value-kinds.schema.json#/definitions/nullableColorValue",
+		          },
+		          {
+		            "$ref": "schema.json#/definitions/refParam",
+		          },
+		        ],
+		        "title": "Nullable Color Value Or Ref",
+		      },
 		      "numberArrayValueOrRef": {
 		        "oneOf": [
 		          {
@@ -199,8 +222,9 @@ describe('extract-value-types', () => {
 		  "export type V_numberValue = { kind: 'number'; v: number };
 		  export type V_numberArrayValue = { kind: 'numberArray'; v: Array<number> };
 		  export type V_stringValue = { kind: 'string'; v: string };
+		  export type V_nullableColorValue = { kind: 'nullableColor'; v: { r: number | null } };
 
-		  export type ValueTypes = V_numberValue | V_numberArrayValue | V_stringValue;"
+		  export type ValueTypes = V_numberValue | V_numberArrayValue | V_stringValue | V_nullableColorValue;"
 		`);
 	});
 });

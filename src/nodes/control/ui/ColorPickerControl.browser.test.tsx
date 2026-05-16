@@ -45,6 +45,14 @@ describe('ColorPickerControl', () => {
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ a: 0.5 }));
   });
 
+  test('calls onChange with updated alpha when opacity slider changes', () => {
+    const onChange = vi.fn();
+    const { container } = render(<ColorPickerControl {...baseProps} onChange={onChange} />);
+    const slider = container.querySelector('input[type="range"]') as HTMLInputElement;
+    fireEvent.change(slider, { target: { value: '0.25' } });
+    expect(onChange).toHaveBeenCalledWith({ r: 1, g: 0, b: 0.5, a: 0.25 });
+  });
+
   test('falls back to white when initialValue is default', () => {
     const { container } = render(
       <ColorPickerControl id="x" label="" initialValue={{ r: 1, g: 1, b: 1, a: 1 }} onChange={() => { }} />

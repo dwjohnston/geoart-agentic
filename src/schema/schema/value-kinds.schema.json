@@ -163,29 +163,41 @@
             },
             "r": {
               "title": "Red",
-              "description": "Red channel (0–1)",
-              "type": "number",
+              "description": "Red channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "type": [
+                "number",
+                "null"
+              ],
               "minimum": 0,
               "maximum": 1
             },
             "g": {
               "title": "Green",
-              "description": "Green channel (0–1)",
-              "type": "number",
+              "description": "Green channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "type": [
+                "number",
+                "null"
+              ],
               "minimum": 0,
               "maximum": 1
             },
             "b": {
               "title": "Blue",
-              "description": "Blue channel (0–1)",
-              "type": "number",
+              "description": "Blue channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "type": [
+                "number",
+                "null"
+              ],
               "minimum": 0,
               "maximum": 1
             },
             "a": {
               "title": "Alpha",
-              "description": "Alpha channel (0–1)",
-              "type": "number",
+              "description": "Alpha channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "type": [
+                "number",
+                "null"
+              ],
               "minimum": 0,
               "maximum": 1
             }

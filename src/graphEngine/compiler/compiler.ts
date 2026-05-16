@@ -124,6 +124,8 @@ function paramToValue(v: unknown): Value {
         v: {
           x: obj['x'] as number,
           y: obj['y'] as number,
+          dx: (obj['dx'] as number) ?? 0,
+          dy: (obj['dy'] as number) ?? 0,
           r: obj['r'] as number,
           g: obj['g'] as number,
           b: obj['b'] as number,
