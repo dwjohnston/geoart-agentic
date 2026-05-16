@@ -305,6 +305,42 @@
           ]
         }
       }
+    },
+    "timedLineArrayModeValue": {
+      "title": "Timed Line Array Mode Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "all-to-all",
+            "distribute",
+            "interleave"
+          ]
+        }
+      }
+    },
+    "timedLineArrayIntervalModeValue": {
+      "title": "Timed Line Array Interval Mode Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "all",
+            "cycle",
+            "back-and-forth",
+            "inside-out",
+            "inside-out-and-forth"
+          ]
+        }
+      }
     }
   }
 }

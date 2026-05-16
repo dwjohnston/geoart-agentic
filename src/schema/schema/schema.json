@@ -988,6 +988,12 @@
                 },
                 "colorPointsB": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeValueOrRef"
+                },
+                "intervalMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeValueOrRef"
                 }
               }
             }

@@ -13,6 +13,10 @@ export type RenderEvalContext = {
   canvas: CanvasRenderingContext2D;
   width: number;
   height: number;
+  /** Read this node's persisted state. Returns undefined on first call. */
+  getState?: <T>() => T | undefined;
+  /** Persist state for this node; retrieved on the next tick via getState. */
+  setState?: <T>(s: T) => void;
 };
 
 
