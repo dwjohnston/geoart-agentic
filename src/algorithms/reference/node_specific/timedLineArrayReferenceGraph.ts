@@ -48,6 +48,7 @@ export const timedLineArrayGraph: GeoArtGraph = {
 					colorPointsA: { ref: 'orbitInner.points' },
 					colorPointsB: { ref: 'orbitOuter.points' },
 					intervalTicks: { v: 10 },
+					mode: { v: 'all-to-all' },
 				},
 			}, {
 				id: 'circle',
