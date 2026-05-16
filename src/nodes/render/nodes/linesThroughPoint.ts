@@ -12,7 +12,6 @@ export const linesThroughPointNodeDef = implementRenderNode('linesThroughPoint',
     const degrees = inputs.degrees;
     const lineLength = inputs.lineLength;
 
-
     for (const point of points) {
       const { x, y, dx = 0, dy = 0, r, g, b, a } = toSolidColorPoint(point);
       // Skip if gradient is (0, 0)

@@ -9,6 +9,7 @@ import { lfoPlanetsGraph } from './general/lfoPlanets';
 import { monaLisaGraph } from './general/monaLisa';
 import { orbitWaveLineGraph3 } from './general/orbitWaveLine3';
 import { pulsingSpiralsGraph } from './general/pulsingSpirals';
+import { rainbowDoubleModulatedLinkGraph } from './general/rainbowDoubleModulatedLinkReferenceGraph';
 import { singleOrbitLfoGraph } from './general/singleOrbitLfo';
 import { threeOrbitsGraph } from './general/threeOrbits';
 import { twoOrbitCurveGraph } from './general/twoOrbitCurve';
@@ -37,6 +38,7 @@ export const REFERENCE_GRAPHS: GraphEntry[] = [
   { id: 'mona-lisa', name: 'Mona Lisa', graph: monaLisaGraph },
   { id: 'orbit-wave-line3', name: 'Orbit Wave Line3', graph: orbitWaveLineGraph3 },
   { id: 'pulsing-spirals', name: 'Pulsing Spirals', graph: pulsingSpiralsGraph },
+  { id: 'rainbow-double-modulated-link', name: 'Rainbow Double Modulated Link', graph: rainbowDoubleModulatedLinkGraph },
   { id: 'single-orbit-lfo', name: 'Single Orbit Lfo', graph: singleOrbitLfoGraph },
   { id: 'three-orbits', name: 'Three Orbits', graph: threeOrbitsGraph },
   { id: 'two-orbit-curve', name: 'Two Orbit Curve', graph: twoOrbitCurveGraph },
