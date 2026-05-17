@@ -106,16 +106,19 @@ function selectLinks(
 }
 
 export const timedLineArrayNodeDef = implementRenderNode('timedLineArray', {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaults: {
     intervalTicks: 6,
     colorPointsA: [],
     colorPointsB: [],
     mode: 'all-to-all',
     intervalMode: 'all',
-  } as any,
+  },
   evaluate: (inputs, ctx) => {
-    const links = computeLinks(inputs.colorPointsA, inputs.colorPointsB, inputs.mode);
+    const links = computeLinks(
+      inputs.colorPointsA.map(toSolidColorPoint),
+      inputs.colorPointsB.map(toSolidColorPoint),
+      inputs.mode,
+    );
     if (links.length === 0) return;
 
     ctx.canvas.lineWidth = 1;
