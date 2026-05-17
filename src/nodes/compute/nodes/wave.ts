@@ -1,7 +1,7 @@
 import { UnreachableError } from '../../../common-tooling/errors/UnreachableError';
 import type { V_waveTypeEnumValue } from '../../../schema/_generated/value-kinds-2';
 import { implementComputeNode } from '../implementComputeNode';
-import type { Sampler } from './pointsOnALine.node';
+import type { Sampler } from '../../../schema/typeHelpers';
 
 function evaluateWave(
   waveType: V_waveTypeEnumValue['v'],

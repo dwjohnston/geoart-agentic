@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import timedLineNodeDef from "./timedLine.node";
+import timedLineNodeDef from "./timedLine";
 
 describe("timedLineNodeDef", () => {
 

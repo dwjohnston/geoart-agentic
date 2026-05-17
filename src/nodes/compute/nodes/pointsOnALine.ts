@@ -1,11 +1,6 @@
 import type { ResolvedValue } from "../../../schema/typeHelpers";
 import { implementComputeNode } from '../implementComputeNode';
 
-export interface Sampler {
-  sample(t: number): number;
-  sampleMany(ts: number[]): number[];
-}
-
 function pointsOnALine(
   pointA: ResolvedValue<"colorPointValue">,
   pointB: ResolvedValue<"colorPointValue">,

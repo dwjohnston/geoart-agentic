@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import timedLineArrayNodeDef from "./timedLineArray.node";
+import timedLineArrayNodeDef from "./timedLineArray";
 import type { NodeInputsResolved } from '../../../schema/typeHelpers';
 
 function createCtxWithState(fakeContext: ReturnType<typeof createFakeContext>) {
@@ -1625,7 +1625,7 @@ describe("timedLineArrayNodeDef", () => {
         { x: 0.25, y: 0, r: 1, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
         { x: 0.75, y: 0, r: 0, g: 1, b: 1, a: 1, dx: 0, dy: 0 },
       ],
-    } satisfies NodeInputsResolved<"timedLineArray">;;
+    } satisfies NodeInputsResolved<"timedLineArray">;
 
     timedLineArrayNodeDef.evaluate(inputs, ctx); // step0 → links[1,2]
     timedLineArrayNodeDef.evaluate(inputs, ctx); // step1 → links[0,3]

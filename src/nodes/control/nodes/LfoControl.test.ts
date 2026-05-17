@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test';
-import lfoControlNodeDef from './LfoControlNode';
+import lfoControlNodeDef from './LfoControl';
 
 describe('lfo-control node', () => {
   it('has the correct node kind', () => {

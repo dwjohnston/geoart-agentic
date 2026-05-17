@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test';
-import dropdownNodeDef from './DropdownNode';
+import dropdownNodeDef from './Dropdown';
 
 describe('dropdown node', () => {
   it('has the correct node kind', () => {

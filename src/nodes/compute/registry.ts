@@ -3,7 +3,7 @@ import type { ComputeNodeDef, LegacyComputeNodeDef } from '../../graphEngine/ext
 import type { ComputeNodeKinds } from '../../schema/typeHelpers';
 
 const modules = import.meta.glob<{ default: ComputeNodeDef<ComputeNodeKinds> | LegacyComputeNodeDef }>(
-  './nodes/*.node.ts',
+  ['./nodes/*.ts', '!./nodes/*.test.ts'],
   { eager: true }
 );
 

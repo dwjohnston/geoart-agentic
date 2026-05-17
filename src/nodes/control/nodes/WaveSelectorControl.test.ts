@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test';
-import waveSelectorNodeDef from './WaveSelectorControlNode';
+import waveSelectorNodeDef from './WaveSelectorControl';
 
 describe('waveSelector node', () => {
   it('has the correct node kind', () => {

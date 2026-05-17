@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import circleNodeDef from "./circle.node";
+import circleNodeDef from "./circle";
 
 describe("circleNodeDef", () => {
 

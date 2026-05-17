@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import colorPickerNodeDef from './ColorPickerNode';
+import colorPickerNodeDef from './ColorPicker';
 
 describe('colorPicker node', () => {
   it('has the correct node kind', () => {

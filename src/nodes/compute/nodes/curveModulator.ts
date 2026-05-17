@@ -1,6 +1,6 @@
 import type { ResolvedValue } from '../../../schema/typeHelpers';
 import { implementComputeNode } from '../implementComputeNode';
-import type { Sampler } from './pointsOnALine.node';
+import type { Sampler } from '../../../schema/typeHelpers';
 
 function calculateArrayLengthT(curve: ResolvedValue<'colorPointArrayValue'>): number[] {
   if (curve.length <= 1) return curve.map(() => 0);

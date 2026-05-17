@@ -3,7 +3,7 @@ import { convertRenderNodeDefToLegacy } from './implementRenderNode';
 import type { RenderNodeKinds } from '../../schema/typeHelpers';
 
 const modules = import.meta.glob<{ default: RenderNodeDef<RenderNodeKinds> }>(
-  './nodes/*.node.ts',
+  ['./nodes/*.ts', '!./nodes/*.test.ts'],
   { eager: true }
 );
 
