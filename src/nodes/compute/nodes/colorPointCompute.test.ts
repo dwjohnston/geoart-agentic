@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import type { NodeInputsResolved } from '../../../schema/typeHelpers';
-import { colorPointNodeDef } from './colorPointCompute.node';
+import colorPointNodeDef from './colorPointCompute.node';
 
 const base = {
   point: { x: 0, y: 0 },

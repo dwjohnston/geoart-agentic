@@ -3,7 +3,7 @@ import { DropdownControl } from '../ui/DropdownControl';
 
 const WAVE_TYPES = ["sine", "square", "triangle", "saw", "reverse-saw"] as const
 
-export const waveSelectorNodeDef = implementControlNode('waveSelector', {
+const waveSelectorNodeDef = implementControlNode('waveSelector', {
   defaults: {
     label: '',
     value: 'sine',
@@ -20,4 +20,6 @@ export const waveSelectorNodeDef = implementControlNode('waveSelector', {
     );
   },
 });
+
+export default waveSelectorNodeDef;
 

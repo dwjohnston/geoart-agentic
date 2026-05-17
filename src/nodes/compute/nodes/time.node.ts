@@ -1,7 +1,7 @@
 import type { LegacyComputeNodeDef } from '../../../graphEngine/externalInterfaces/ComputeNodeDefinition';
 import { evaluateTime } from './time';
 
-export const timeNodeDef: LegacyComputeNodeDef = {
+const timeNodeDef: LegacyComputeNodeDef = {
   type: 'time',
   isTimeDependant: true,
   inputs: [],
@@ -13,3 +13,5 @@ export const timeNodeDef: LegacyComputeNodeDef = {
     return [{ kind: 'number', v: evaluateTime(ctx.tickCount) }];
   },
 };
+
+export default timeNodeDef;

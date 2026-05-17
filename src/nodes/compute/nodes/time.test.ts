@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { timeNodeDef } from './time.node';
+import timeNodeDef from './time.node';
 
 const ctx = { tickCount: 0, getState: <T>() => ({} as T), setState: () => {} };
 

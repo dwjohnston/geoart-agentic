@@ -1,7 +1,7 @@
 import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
 
-export const polygonNodeDef = implementRenderNode('polygon', {
+const polygonNodeDef = implementRenderNode('polygon', {
   defaults: {
     points: [],
   },
@@ -40,3 +40,5 @@ export const polygonNodeDef = implementRenderNode('polygon', {
     canvas.fill();
   },
 });
+
+export default polygonNodeDef;

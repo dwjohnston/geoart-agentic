@@ -105,7 +105,7 @@ function selectLinks(
   return getInsideOutLinksAtStep(links, step);
 }
 
-export const timedLineArrayNodeDef = implementRenderNode('timedLineArray', {
+const timedLineArrayNodeDef = implementRenderNode('timedLineArray', {
   defaults: {
     intervalTicks: 6,
     colorPointsA: [],
@@ -130,3 +130,5 @@ export const timedLineArrayNodeDef = implementRenderNode('timedLineArray', {
     }
   },
 });
+
+export default timedLineArrayNodeDef;

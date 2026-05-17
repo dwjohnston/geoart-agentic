@@ -1,7 +1,7 @@
 import { implementComputeNode } from '../implementComputeNode';
 import { pointsOnALine } from './pointsOnALine';
 
-export const pointsOnALineNodeDef = implementComputeNode("pointsOnALine", {
+const pointsOnALineNodeDef = implementComputeNode("pointsOnALine", {
   isTimeDependant: false,
   defaults: {
     "pointA": {
@@ -34,3 +34,5 @@ export const pointsOnALineNodeDef = implementComputeNode("pointsOnALine", {
 
   },
 });
+
+export default pointsOnALineNodeDef;

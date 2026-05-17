@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { curveModulatorNodeDef } from './curveModulator.node';
+import curveModulatorNodeDef from './curveModulator.node';
 import type { Sampler } from './pointsOnALine';
 
 describe('CurveModulator', () => {

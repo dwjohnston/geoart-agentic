@@ -1,21 +1,18 @@
 import { convertComputeNodeDefinitionToLegacyDefinition } from './implementComputeNode';
 import type { ComputeNodeDef, LegacyComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
-import { timeNodeDef } from './nodes/time.node';
-import { orbitNodeDef } from './nodes/orbit.node';
-import { colorPointNodeDef } from './nodes/colorPointCompute.node';
-import { colorPointArrayNodeDef } from './nodes/colorPointArrayCompute.node';
-import { waveNodeDef } from './nodes/wave.node';
-import { pointsOnALineNodeDef } from './nodes/pointsOnALine.node';
-import { multiplierNodeDef } from './nodes/multiplier.node';
-import { addNodeImplementation } from './nodes/add.node';
-import { colorShiftNodeDef } from './nodes/colorShift.node';
 import type { ComputeNodeKinds } from '../../schema/typeHelpers';
-import { curveModulatorNodeDef } from './nodes/curveModulator.node';
 
-export const computeRegistry = new Map<string, LegacyComputeNodeDef>([
-  [timeNodeDef.type, timeNodeDef],
-  ...([orbitNodeDef, colorPointNodeDef, colorPointArrayNodeDef, waveNodeDef, pointsOnALineNodeDef, multiplierNodeDef, addNodeImplementation, curveModulatorNodeDef, colorShiftNodeDef] as Array<ComputeNodeDef<ComputeNodeKinds>>).map((v) => {
-    return [v.nodeKind, convertComputeNodeDefinitionToLegacyDefinition(v)] as [string, LegacyComputeNodeDef]
+const modules = import.meta.glob<{ default: ComputeNodeDef<ComputeNodeKinds> | LegacyComputeNodeDef }>(
+  './nodes/*.node.ts',
+  { eager: true }
+);
+
+export const computeRegistry = new Map<string, LegacyComputeNodeDef>(
+  Object.values(modules).map((module) => {
+    const def = module.default;
+    if ('nodeKind' in def) {
+      return [def.nodeKind, convertComputeNodeDefinitionToLegacyDefinition(def as ComputeNodeDef<ComputeNodeKinds>)] as [string, LegacyComputeNodeDef];
+    }
+    return [(def as LegacyComputeNodeDef).type, def as LegacyComputeNodeDef] as [string, LegacyComputeNodeDef];
   })
-
-]);
+);

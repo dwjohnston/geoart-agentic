@@ -8,7 +8,7 @@ import { implementComputeNode, } from '../implementComputeNode';
 const DEPRECATED_POINT_DEFAULT = { x: 0, y: 0 };
 const DEPRECATED_COLOR_DEFAULT = { r: 1, g: 1, b: 1, a: 1 };
 
-export const colorPointNodeDef = implementComputeNode('colorPointCompute', {
+const colorPointNodeDef = implementComputeNode('colorPointCompute', {
   defaults: {
     // Deprecated params kept for backwards compatibility
     point: { ...DEPRECATED_POINT_DEFAULT },
@@ -70,3 +70,5 @@ export const colorPointNodeDef = implementComputeNode('colorPointCompute', {
     };
   },
 });
+
+export default colorPointNodeDef;

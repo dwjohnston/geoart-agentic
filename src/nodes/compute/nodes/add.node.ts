@@ -7,7 +7,7 @@
 import { implementComputeNode } from '../implementComputeNode';
 
 
-export const addNodeImplementation = implementComputeNode("add", {
+const addNodeImplementation = implementComputeNode("add", {
   isTimeDependant: false,
   defaults: {
     a: 0,
@@ -19,4 +19,6 @@ export const addNodeImplementation = implementComputeNode("add", {
     return { sum: a + b };
   },
 })
+
+export default addNodeImplementation;
 

@@ -1,6 +1,6 @@
 import { implementComputeNode } from '../implementComputeNode';
 
-export const multiplierNodeDef = implementComputeNode("multiplier", {
+const multiplierNodeDef = implementComputeNode("multiplier", {
   isTimeDependant: false,
   defaults: {
     a: 1,
@@ -10,3 +10,5 @@ export const multiplierNodeDef = implementComputeNode("multiplier", {
     return { product: inputs.a * inputs.b };
   },
 });
+
+export default multiplierNodeDef;

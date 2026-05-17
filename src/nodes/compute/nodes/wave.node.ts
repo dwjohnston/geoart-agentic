@@ -2,7 +2,7 @@ import { implementComputeNode } from '../implementComputeNode';
 import { evaluateWave } from './wave';
 import type { Sampler } from './pointsOnALine';
 
-export const waveNodeDef = implementComputeNode("wave", {
+const waveNodeDef = implementComputeNode("wave", {
   isTimeDependant: true,
   defaults: {
     "amplitude": 1,
@@ -43,6 +43,8 @@ export const waveNodeDef = implementComputeNode("wave", {
     };
   },
 });
+
+export default waveNodeDef;
 
 function evaluateWaveAtAngle(
   waveType: string,

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { multiplierNodeDef } from './multiplier.node';
+import multiplierNodeDef from './multiplier.node';
 
 
 

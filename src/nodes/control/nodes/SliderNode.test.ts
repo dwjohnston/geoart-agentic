@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test';
-import { sliderNodeDef } from './SliderNode';
+import sliderNodeDef from './SliderNode';
 
 describe('slider node', () => {
   it('has the correct node kind', () => {

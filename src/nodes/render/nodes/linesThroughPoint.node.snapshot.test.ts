@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import { linesThroughPointNodeDef } from "./linesThroughPoint";
+import linesThroughPointNodeDef from "./linesThroughPoint.node";
 
 describe("linesThroughPointNodeDef", () => {
 

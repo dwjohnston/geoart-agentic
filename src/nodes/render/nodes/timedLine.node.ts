@@ -1,7 +1,7 @@
 import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
 
-export const timedLineNodeDef = implementRenderNode('timedLine', {
+const timedLineNodeDef = implementRenderNode('timedLine', {
   defaults: {
     intervalTicks: 6,
     colorPointA: {
@@ -37,3 +37,5 @@ export const timedLineNodeDef = implementRenderNode('timedLine', {
     canvas.stroke();
   },
 });
+
+export default timedLineNodeDef;
