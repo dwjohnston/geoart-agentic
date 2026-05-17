@@ -218275,7 +218275,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(229.5, 51, 51, 1)",
   },
   {
     "kind": "property",
@@ -218289,10 +218289,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      459.9991775348456,
-      399.6858421701148,
-      4,
-      4,
+      287.999616182928,
+      539.8533930127203,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218308,7 +218308,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(204, 58.28571428571429, 76.5, 1)",
   },
   {
     "kind": "property",
@@ -218322,10 +218322,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      369.72834257109884,
-      348.1962669635937,
-      4,
-      4,
+      327.9996512747457,
+      539.8617705181024,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218341,7 +218341,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(178.50000000000003, 65.57142857142858, 102, 1)",
   },
   {
     "kind": "property",
@@ -218355,10 +218355,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      370.2724798940555,
-      452.1178908662914,
-      4,
-      4,
+      367.9996863665634,
+      539.8701480234846,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218374,7 +218374,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(153.00000000000003, 72.85714285714285, 127.5, 1)",
   },
   {
     "kind": "property",
@@ -218388,10 +218388,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      539.9993091282602,
-      399.5601777519769,
-      4,
-      4,
+      407.99972145838115,
+      539.8785255288667,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218407,7 +218407,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(127.5, 80.14285714285714, 153, 1)",
   },
   {
     "kind": "property",
@@ -218421,10 +218421,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      329.61944819593236,
-      278.97695290666763,
-      4,
-      4,
+      447.99975655019887,
+      539.8869030342489,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218440,7 +218440,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(102, 87.42857142857143, 178.5, 1)",
   },
   {
     "kind": "property",
@@ -218454,10 +218454,208 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      330.38124267580747,
-      521.4628693413555,
-      4,
-      4,
+      487.9997916420166,
+      539.895280539631,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.50000000000001, 94.71428571428572, 204, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      527.9998267338343,
+      539.9036580450132,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(51.000000000000014, 102, 229.49999999999997, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      567.999861825652,
+      539.9120355503953,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(51, 204, 76.5, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      287.99975435687185,
+      259.8827142172487,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(110.5, 187.00000000000003, 59.5, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      381.3331068810531,
+      259.88760110141726,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      474.6664594052343,
+      259.89248798558583,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(229.49999999999997, 153, 25.5, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      567.9998119294155,
+      259.89737486975446,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218483,7 +218681,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(229.5, 51, 51, 1)",
   },
   {
     "kind": "property",
@@ -218497,10 +218695,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      459.9967101619307,
-      399.3716929530253,
-      4,
-      4,
+      287.9984647422344,
+      539.706790044745,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218516,7 +218714,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(204, 58.28571428571429, 76.5, 1)",
   },
   {
     "kind": "property",
@@ -218530,10 +218728,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      369.45751505497776,
-      348.3554783797634,
-      4,
-      4,
+      327.99860510819684,
+      539.7235446053478,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218549,7 +218747,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(178.50000000000003, 65.57142857142858, 102, 1)",
   },
   {
     "kind": "property",
@@ -218563,10 +218761,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      370.54577478309153,
-      452.27282866721134,
-      4,
-      4,
+      367.99874547415936,
+      539.7402991659505,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218582,7 +218780,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(153.00000000000003, 72.85714285714285, 127.5, 1)",
   },
   {
     "kind": "property",
@@ -218596,10 +218794,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      539.9972365198591,
-      399.12035984482173,
-      4,
-      4,
+      407.99888584012183,
+      539.7570537265533,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218615,7 +218813,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(127.5, 80.14285714285714, 153, 1)",
   },
   {
     "kind": "property",
@@ -218629,10 +218827,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      329.2395910194972,
-      279.19865679177246,
-      4,
-      4,
+      447.99902620608435,
+      539.773808287156,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218648,7 +218846,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(102, 87.42857142857143, 178.5, 1)",
   },
   {
     "kind": "property",
@@ -218662,10 +218860,208 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      330.76317246064355,
-      521.6809833634056,
-      4,
-      4,
+      487.9991665720469,
+      539.7905628477588,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.50000000000001, 94.71428571428572, 204, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      527.9993069380093,
+      539.8073174083615,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(51.000000000000014, 102, 229.49999999999997, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      567.9994473039718,
+      539.8240719689643,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(51, 204, 76.5, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      287.9990174317975,
+      259.76543049238643,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(110.5, 187.00000000000003, 59.5, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      381.33242752792785,
+      259.77520403430265,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      474.6658376240583,
+      259.78497757621886,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(229.49999999999997, 153, 25.5, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      567.9992477201887,
+      259.7947511181351,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218691,7 +219087,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(229.5, 51, 51, 1)",
   },
   {
     "kind": "property",
@@ -218705,10 +219101,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      459.99259794889963,
-      399.05756096129073,
-      4,
-      4,
+      287.9965457094865,
+      539.560195115269,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218724,7 +219120,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(204, 58.28571428571429, 76.5, 1)",
   },
   {
     "kind": "property",
@@ -218738,10 +219134,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      369.1875248765098,
-      348.5161056565813,
-      4,
-      4,
+      327.99686152799563,
+      539.5853258307837,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218757,7 +219153,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(178.50000000000003, 65.57142857142858, 102, 1)",
   },
   {
     "kind": "property",
@@ -218771,10 +219167,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      370.81987717459054,
-      452.4263333821279,
-      4,
-      4,
+      367.9971773465048,
+      539.6104565462985,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218790,7 +219186,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(153.00000000000003, 72.85714285714285, 127.5, 1)",
   },
   {
     "kind": "property",
@@ -218804,10 +219200,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      539.993782195253,
-      398.68055061935985,
-      4,
-      4,
+      407.99749316501396,
+      539.6355872618132,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218823,7 +219219,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(127.5, 80.14285714285714, 153, 1)",
   },
   {
     "kind": "property",
@@ -218837,10 +219233,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      328.86043221973154,
-      279.42155293736533,
-      4,
-      4,
+      447.9978089835231,
+      539.6607179773277,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218856,7 +219252,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   {
     "kind": "property",
     "name": "strokeStyle",
-    "value": "rgba(255, 255, 255, 1)",
+    "value": "rgba(102, 87.42857142857143, 178.5, 1)",
   },
   {
     "kind": "property",
@@ -218870,10 +219266,208 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 1`] = `
   },
   {
     "args": [
-      331.1457855850155,
-      521.8978964432748,
-      4,
-      4,
+      487.9981248020323,
+      539.6858486928426,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(76.50000000000001, 94.71428571428572, 204, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      527.9984406205415,
+      539.7109794083573,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(51.000000000000014, 102, 229.49999999999997, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      567.9987564390506,
+      539.736110123872,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(51, 204, 76.5, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      287.99778923770685,
+      259.6481508832661,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(110.5, 187.00000000000003, 59.5, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      381.3312952851042,
+      259.6628106300941,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      474.6648013325015,
+      259.677470376922,
+      3.2,
+      3.2,
+      -0,
+      0,
+      6.283185307179586,
+    ],
+    "kind": "method",
+    "name": "ellipse",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": "rgba(229.49999999999997, 153, 25.5, 1)",
+  },
+  {
+    "kind": "property",
+    "name": "lineWidth",
+    "value": 2,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      567.9983073798988,
+      259.6921301237499,
+      3.2,
+      3.2,
       -0,
       0,
       6.283185307179586,
@@ -218908,10 +219502,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      459.9991775348456,
-      399.6858421701148,
-      539.9993091282602,
-      399.5601777519769,
+      287.999616182928,
+      539.8533930127203,
+      287.99975435687185,
+      259.8827142172487,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -218919,7 +219513,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       0,
-      "rgba(255, 255, 255, 1)",
+      "rgba(229.5, 51, 51, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -218927,7 +219521,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       1,
-      "rgba(255, 255, 255, 1)",
+      "rgba(51, 204, 76.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -218944,16 +219538,16 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      459.9991775348456,
-      399.6858421701148,
+      287.999616182928,
+      539.8533930127203,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      539.9993091282602,
-      399.5601777519769,
+      287.99975435687185,
+      259.8827142172487,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -218965,10 +219559,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      459.9991775348456,
-      399.6858421701148,
-      329.61944819593236,
-      278.97695290666763,
+      287.999616182928,
+      539.8533930127203,
+      381.3331068810531,
+      259.88760110141726,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -218976,7 +219570,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       0,
-      "rgba(255, 255, 255, 1)",
+      "rgba(229.5, 51, 51, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -218984,7 +219578,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       1,
-      "rgba(255, 255, 255, 1)",
+      "rgba(110.5, 187.00000000000003, 59.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219001,16 +219595,16 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      459.9991775348456,
-      399.6858421701148,
+      287.999616182928,
+      539.8533930127203,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      329.61944819593236,
-      278.97695290666763,
+      381.3331068810531,
+      259.88760110141726,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -219022,10 +219616,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      459.9991775348456,
-      399.6858421701148,
-      330.38124267580747,
-      521.4628693413555,
+      287.999616182928,
+      539.8533930127203,
+      474.6664594052343,
+      259.89248798558583,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -219033,7 +219627,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       0,
-      "rgba(255, 255, 255, 1)",
+      "rgba(229.5, 51, 51, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219041,7 +219635,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       1,
-      "rgba(255, 255, 255, 1)",
+      "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219058,16 +219652,16 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      459.9991775348456,
-      399.6858421701148,
+      287.999616182928,
+      539.8533930127203,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      330.38124267580747,
-      521.4628693413555,
+      474.6664594052343,
+      259.89248798558583,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -219079,10 +219673,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      369.72834257109884,
-      348.1962669635937,
-      539.9993091282602,
-      399.5601777519769,
+      287.999616182928,
+      539.8533930127203,
+      567.9998119294155,
+      259.89737486975446,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -219090,7 +219684,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       0,
-      "rgba(255, 255, 255, 1)",
+      "rgba(229.5, 51, 51, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219098,7 +219692,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       1,
-      "rgba(255, 255, 255, 1)",
+      "rgba(229.49999999999997, 153, 25.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219115,16 +219709,16 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      369.72834257109884,
-      348.1962669635937,
+      287.999616182928,
+      539.8533930127203,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      539.9993091282602,
-      399.5601777519769,
+      567.9998119294155,
+      259.89737486975446,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -219136,10 +219730,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      369.72834257109884,
-      348.1962669635937,
-      329.61944819593236,
-      278.97695290666763,
+      327.9996512747457,
+      539.8617705181024,
+      287.99975435687185,
+      259.8827142172487,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -219147,7 +219741,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       0,
-      "rgba(255, 255, 255, 1)",
+      "rgba(204, 58.28571428571429, 76.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219155,7 +219749,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       1,
-      "rgba(255, 255, 255, 1)",
+      "rgba(51, 204, 76.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219172,16 +219766,16 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      369.72834257109884,
-      348.1962669635937,
+      327.9996512747457,
+      539.8617705181024,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      329.61944819593236,
-      278.97695290666763,
+      287.99975435687185,
+      259.8827142172487,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -219193,10 +219787,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      369.72834257109884,
-      348.1962669635937,
-      330.38124267580747,
-      521.4628693413555,
+      327.9996512747457,
+      539.8617705181024,
+      381.3331068810531,
+      259.88760110141726,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -219204,7 +219798,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       0,
-      "rgba(255, 255, 255, 1)",
+      "rgba(204, 58.28571428571429, 76.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219212,7 +219806,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       1,
-      "rgba(255, 255, 255, 1)",
+      "rgba(110.5, 187.00000000000003, 59.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219229,16 +219823,16 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      369.72834257109884,
-      348.1962669635937,
+      327.9996512747457,
+      539.8617705181024,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      330.38124267580747,
-      521.4628693413555,
+      381.3331068810531,
+      259.88760110141726,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -219250,10 +219844,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      370.2724798940555,
-      452.1178908662914,
-      539.9993091282602,
-      399.5601777519769,
+      327.9996512747457,
+      539.8617705181024,
+      474.6664594052343,
+      259.89248798558583,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -219261,7 +219855,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       0,
-      "rgba(255, 255, 255, 1)",
+      "rgba(204, 58.28571428571429, 76.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219269,7 +219863,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       1,
-      "rgba(255, 255, 255, 1)",
+      "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219286,16 +219880,16 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      370.2724798940555,
-      452.1178908662914,
+      327.9996512747457,
+      539.8617705181024,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      539.9993091282602,
-      399.5601777519769,
+      474.6664594052343,
+      259.89248798558583,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -219307,10 +219901,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      370.2724798940555,
-      452.1178908662914,
-      329.61944819593236,
-      278.97695290666763,
+      327.9996512747457,
+      539.8617705181024,
+      567.9998119294155,
+      259.89737486975446,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -219318,7 +219912,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       0,
-      "rgba(255, 255, 255, 1)",
+      "rgba(204, 58.28571428571429, 76.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219326,7 +219920,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       1,
-      "rgba(255, 255, 255, 1)",
+      "rgba(229.49999999999997, 153, 25.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219343,16 +219937,16 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      370.2724798940555,
-      452.1178908662914,
+      327.9996512747457,
+      539.8617705181024,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      329.61944819593236,
-      278.97695290666763,
+      567.9998119294155,
+      259.89737486975446,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -219364,10 +219958,10 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      370.2724798940555,
-      452.1178908662914,
-      330.38124267580747,
-      521.4628693413555,
+      367.9996863665634,
+      539.8701480234846,
+      287.99975435687185,
+      259.8827142172487,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -219375,7 +219969,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       0,
-      "rgba(255, 255, 255, 1)",
+      "rgba(178.50000000000003, 65.57142857142858, 102, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219383,7 +219977,7 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   {
     "args": [
       1,
-      "rgba(255, 255, 255, 1)",
+      "rgba(51, 204, 76.5, 1)",
     ],
     "kind": "method",
     "name": "gradient.addColorStop",
@@ -219400,16 +219994,1327 @@ exports[`node_specific utimedLineArrayReferenceGraph.ts 2`] = `
   },
   {
     "args": [
-      370.2724798940555,
-      452.1178908662914,
+      367.9996863665634,
+      539.8701480234846,
     ],
     "kind": "method",
     "name": "moveTo",
   },
   {
     "args": [
-      330.38124267580747,
-      521.4628693413555,
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      367.9996863665634,
+      539.8701480234846,
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(178.50000000000003, 65.57142857142858, 102, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(110.5, 187.00000000000003, 59.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      367.9996863665634,
+      539.8701480234846,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      367.9996863665634,
+      539.8701480234846,
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(178.50000000000003, 65.57142857142858, 102, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      367.9996863665634,
+      539.8701480234846,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      367.9996863665634,
+      539.8701480234846,
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(178.50000000000003, 65.57142857142858, 102, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(229.49999999999997, 153, 25.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      367.9996863665634,
+      539.8701480234846,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      407.99972145838115,
+      539.8785255288667,
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(153.00000000000003, 72.85714285714285, 127.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(51, 204, 76.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      407.99972145838115,
+      539.8785255288667,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      407.99972145838115,
+      539.8785255288667,
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(153.00000000000003, 72.85714285714285, 127.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(110.5, 187.00000000000003, 59.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      407.99972145838115,
+      539.8785255288667,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      407.99972145838115,
+      539.8785255288667,
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(153.00000000000003, 72.85714285714285, 127.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      407.99972145838115,
+      539.8785255288667,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      407.99972145838115,
+      539.8785255288667,
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(153.00000000000003, 72.85714285714285, 127.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(229.49999999999997, 153, 25.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      407.99972145838115,
+      539.8785255288667,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      447.99975655019887,
+      539.8869030342489,
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(127.5, 80.14285714285714, 153, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(51, 204, 76.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      447.99975655019887,
+      539.8869030342489,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      447.99975655019887,
+      539.8869030342489,
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(127.5, 80.14285714285714, 153, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(110.5, 187.00000000000003, 59.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      447.99975655019887,
+      539.8869030342489,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      447.99975655019887,
+      539.8869030342489,
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(127.5, 80.14285714285714, 153, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      447.99975655019887,
+      539.8869030342489,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      447.99975655019887,
+      539.8869030342489,
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(127.5, 80.14285714285714, 153, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(229.49999999999997, 153, 25.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      447.99975655019887,
+      539.8869030342489,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      487.9997916420166,
+      539.895280539631,
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(102, 87.42857142857143, 178.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(51, 204, 76.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      487.9997916420166,
+      539.895280539631,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      487.9997916420166,
+      539.895280539631,
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(102, 87.42857142857143, 178.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(110.5, 187.00000000000003, 59.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      487.9997916420166,
+      539.895280539631,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      487.9997916420166,
+      539.895280539631,
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(102, 87.42857142857143, 178.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      487.9997916420166,
+      539.895280539631,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      487.9997916420166,
+      539.895280539631,
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(102, 87.42857142857143, 178.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(229.49999999999997, 153, 25.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      487.9997916420166,
+      539.895280539631,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      527.9998267338343,
+      539.9036580450132,
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(76.50000000000001, 94.71428571428572, 204, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(51, 204, 76.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      527.9998267338343,
+      539.9036580450132,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      527.9998267338343,
+      539.9036580450132,
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(76.50000000000001, 94.71428571428572, 204, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(110.5, 187.00000000000003, 59.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      527.9998267338343,
+      539.9036580450132,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      527.9998267338343,
+      539.9036580450132,
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(76.50000000000001, 94.71428571428572, 204, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      527.9998267338343,
+      539.9036580450132,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      527.9998267338343,
+      539.9036580450132,
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(76.50000000000001, 94.71428571428572, 204, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(229.49999999999997, 153, 25.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      527.9998267338343,
+      539.9036580450132,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      567.999861825652,
+      539.9120355503953,
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(51.000000000000014, 102, 229.49999999999997, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(51, 204, 76.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      567.999861825652,
+      539.9120355503953,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      287.99975435687185,
+      259.8827142172487,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      567.999861825652,
+      539.9120355503953,
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(51.000000000000014, 102, 229.49999999999997, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(110.5, 187.00000000000003, 59.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      567.999861825652,
+      539.9120355503953,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      381.3331068810531,
+      259.88760110141726,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      567.999861825652,
+      539.9120355503953,
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(51.000000000000014, 102, 229.49999999999997, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(170, 170.00000000000003, 42.50000000000001, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      567.999861825652,
+      539.9120355503953,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      474.6664594052343,
+      259.89248798558583,
+    ],
+    "kind": "method",
+    "name": "lineTo",
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "stroke",
+  },
+  {
+    "args": [
+      567.999861825652,
+      539.9120355503953,
+      567.9998119294155,
+      259.89737486975446,
+    ],
+    "kind": "method",
+    "name": "createLinearGradient",
+  },
+  {
+    "args": [
+      0,
+      "rgba(51.000000000000014, 102, 229.49999999999997, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "args": [
+      1,
+      "rgba(229.49999999999997, 153, 25.5, 1)",
+    ],
+    "kind": "method",
+    "name": "gradient.addColorStop",
+  },
+  {
+    "kind": "property",
+    "name": "strokeStyle",
+    "value": ,
+  },
+  {
+    "args": [],
+    "kind": "method",
+    "name": "beginPath",
+  },
+  {
+    "args": [
+      567.999861825652,
+      539.9120355503953,
+    ],
+    "kind": "method",
+    "name": "moveTo",
+  },
+  {
+    "args": [
+      567.9998119294155,
+      259.89737486975446,
     ],
     "kind": "method",
     "name": "lineTo",

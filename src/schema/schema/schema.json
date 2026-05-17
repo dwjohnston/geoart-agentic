@@ -279,7 +279,7 @@
           "x-outputs": [
             {
               "name": "value",
-              "valueType": "waveTypeValue"
+              "valueType": "waveTypeEnumValue"
             }
           ],
           "properties": {
@@ -302,7 +302,7 @@
                   "$ref": "value-kinds.schema.json#/definitions/stringValue"
                 },
                 "value": {
-                  "$ref": "value-kinds.schema.json#/definitions/waveTypeValue"
+                  "$ref": "value-kinds.schema.json#/definitions/waveTypeEnumValue"
                 }
               }
             }
@@ -333,7 +333,7 @@
             },
             {
               "name": "waveShape",
-              "valueType": "waveTypeValue"
+              "valueType": "waveTypeEnumValue"
             }
           ],
           "properties": {
@@ -363,8 +363,112 @@
                   "$ref": "value-kinds.schema.json#/definitions/numberValue"
                 },
                 "waveShape": {
-                  "$ref": "value-kinds.schema.json#/definitions/waveTypeValue"
+                  "$ref": "value-kinds.schema.json#/definitions/waveTypeEnumValue"
                 }
+              }
+            }
+          }
+        },
+        {
+          "title": "Curve Mode Selector Control Node",
+          "type": "object",
+          "description": "Dropdown selector for curve interpolation mode",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "x-outputs": [
+            { "name": "value", "valueType": "curveModeEnumValue" }
+          ],
+          "properties": {
+            "id": { "title": "ID", "type": "string" },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": ["curveModeSelector"]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": { "$ref": "value-kinds.schema.json#/definitions/stringValue" },
+                "value": { "$ref": "value-kinds.schema.json#/definitions/curveModeEnumValue" }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cycle Length Mode Selector Control Node",
+          "type": "object",
+          "description": "Dropdown selector for cycle length mode",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "x-outputs": [
+            { "name": "value", "valueType": "cycleLengthModeEnumValue" }
+          ],
+          "properties": {
+            "id": { "title": "ID", "type": "string" },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": ["cycleLengthModeSelector"]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": { "$ref": "value-kinds.schema.json#/definitions/stringValue" },
+                "value": { "$ref": "value-kinds.schema.json#/definitions/cycleLengthModeEnumValue" }
+              }
+            }
+          }
+        },
+        {
+          "title": "Timed Line Array Mode Selector Control Node",
+          "type": "object",
+          "description": "Dropdown selector for timed line array mode",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "x-outputs": [
+            { "name": "value", "valueType": "timedLineArrayModeEnumValue" }
+          ],
+          "properties": {
+            "id": { "title": "ID", "type": "string" },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": ["timedLineArrayModeSelector"]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": { "$ref": "value-kinds.schema.json#/definitions/stringValue" },
+                "value": { "$ref": "value-kinds.schema.json#/definitions/timedLineArrayModeEnumValue" }
+              }
+            }
+          }
+        },
+        {
+          "title": "Timed Line Array Interval Mode Selector Control Node",
+          "type": "object",
+          "description": "Dropdown selector for timed line array interval mode",
+          "additionalProperties": false,
+          "required": ["id", "type", "params"],
+          "x-outputs": [
+            { "name": "value", "valueType": "timedLineArrayIntervalModeEnumValue" }
+          ],
+          "properties": {
+            "id": { "title": "ID", "type": "string" },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": ["timedLineArrayIntervalModeSelector"]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": { "$ref": "value-kinds.schema.json#/definitions/stringValue" },
+                "value": { "$ref": "value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValue" }
               }
             }
           }
@@ -450,7 +554,7 @@
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "waveType": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/waveTypeValueOrRef"
+                  "$ref": "refable-value-kinds.schema.json#/definitions/waveTypeEnumValueOrRef"
                 },
                 "frequency": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
@@ -843,7 +947,7 @@
                 "cycleLengthMode": {
                   "title": "Cycle Length Mode",
                   "description": "Method for determining cycle length: arrayLength uses array size, linearOne accumulates euclidean distance between points",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeValueOrRef"
+                  "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeEnumValueOrRef"
                 }
               },
               "required": []
@@ -988,6 +1092,12 @@
                 },
                 "colorPointsB": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeEnumValueOrRef"
+                },
+                "intervalMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValueOrRef"
                 }
               }
             }
@@ -1098,7 +1208,7 @@
                 "mode": {
                   "title": "Mode",
                   "description": "Curve interpolation mode: straight for linear segments between points, catmull-rom for smooth curves",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/curveModeValueOrRef"
+                  "$ref": "refable-value-kinds.schema.json#/definitions/curveModeEnumValueOrRef"
                 }
               }
             }

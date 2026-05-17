@@ -58,10 +58,10 @@ describe("ValueTypeByName", () => {
 
 
     it("waveTypes", () => {
-        assertType<ValueTypeByName<"waveTypeValue">>({ "v": "saw" })
+        assertType<ValueTypeByName<"waveTypeEnumValue">>({ "v": "saw" })
 
         //@ts-expect-error - not matching the enum
-        assertType<ValueTypeByName<"waveTypeValue">>({ "v": "sdfds" })
+        assertType<ValueTypeByName<"waveTypeEnumValue">>({ "v": "sdfds" })
 
     })
 });
@@ -69,10 +69,10 @@ describe("ValueTypeByName", () => {
 
 describe('ResolvedValue', () => {
     it("has just the shorthand value representation", () => {
-        assertType<ResolvedValue<"waveTypeValue">>("reverse-saw")
+        assertType<ResolvedValue<"waveTypeEnumValue">>("reverse-saw")
 
         //@ts-expect-error - mis matching type
-        assertType<ResolvedValue<"waveTypeValue">>("sfdsfd")
+        assertType<ResolvedValue<"waveTypeEnumValue">>("sfdsfd")
 
 
         assertType<ResolvedValue<"numberValue">>(1);
@@ -508,7 +508,7 @@ describe("Declared value types", () => {
         //@ts-expect-error - wrong v type (string instead of number)
         assertType<StaticValueDeclared<"number">>({ v: "42" });
 
-        assertType<StaticValueDeclared<"waveType">>({ v: "sine" });
+        assertType<StaticValueDeclared<"waveTypeEnum">>({ v: "sine" });
 
         //@ts-expect-error - wrong enum value
         assertType<StaticValueDeclared<"waveType">>({ v: "invalid" });

@@ -60,6 +60,11 @@ function valueTypeToPortType(valueType: string): LegacyControlNodePortDef['type'
     stringArrayValue: 'string',
     colorValue: 'color',
     pointValue: 'point',
+    waveTypeEnumValue: 'string',
+    curveModeEnumValue: 'string',
+    cycleLengthModeEnumValue: 'string',
+    timedLineArrayModeEnumValue: 'string',
+    timedLineArrayIntervalModeEnumValue: 'string',
   };
   return map[valueType] ?? 'number';
 }

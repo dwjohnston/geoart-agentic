@@ -138,10 +138,13 @@ function evaluateNode(
   const renderLayer = compiledNode.renderConfig?.layer ?? 'paint';
   const targetCanvas = renderLayer === 'live' ? ctx.canvas.orbit : ctx.canvas.trail;
 
+  const renderNodeState = compiled.states.get(nodeId)! as NodeStateWithExtra;
   renderDef.evaluate(rawInputs, {
     canvas: targetCanvas,
     width: ctx.canvas.width,
     height: ctx.canvas.height,
+    getState: <T>() => renderNodeState._nodeLocalState as T | undefined,
+    setState: <T>(s: T) => { renderNodeState._nodeLocalState = s; },
   });
 
   // Render nodes have no outputs.

@@ -240,8 +240,8 @@
         }
       }
     },
-    "waveTypeValue": {
-      "title": "Wave Type Value",
+    "waveTypeEnumValue": {
+      "title": "Wave Type Enum Value",
       "type": "object",
       "required": [
         "v"
@@ -274,8 +274,8 @@
         }
       }
     },
-    "curveModeValue": {
-      "title": "Curve Mode Value",
+    "curveModeEnumValue": {
+      "title": "Curve Mode Enum Value",
       "type": "object",
       "required": [
         "v"
@@ -290,8 +290,8 @@
         }
       }
     },
-    "cycleLengthModeValue": {
-      "title": "Cycle Length Mode Value",
+    "cycleLengthModeEnumValue": {
+      "title": "Cycle Length Mode Enum Value",
       "type": "object",
       "required": [
         "v"
@@ -302,6 +302,42 @@
           "enum": [
             "arrayLength",
             "linearOne"
+          ]
+        }
+      }
+    },
+    "timedLineArrayModeEnumValue": {
+      "title": "Timed Line Array Mode Enum Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "all-to-all",
+            "distribute",
+            "interleave"
+          ]
+        }
+      }
+    },
+    "timedLineArrayIntervalModeEnumValue": {
+      "title": "Timed Line Array Interval Mode Enum Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "all",
+            "cycle",
+            "back-and-forth",
+            "inside-out",
+            "inside-out-and-forth"
           ]
         }
       }

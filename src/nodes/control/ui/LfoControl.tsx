@@ -11,12 +11,12 @@ type Props = {
   baseValue: number;
   frequency: number;
   amplitude: number;
-  waveShape: ResolvedValue<"waveTypeValue">;
-  waveShapeOptions: readonly ResolvedValue<"waveTypeValue">[];
+  waveShape: ResolvedValue<"waveTypeEnumValue">;
+  waveShapeOptions: readonly ResolvedValue<"waveTypeEnumValue">[];
   onBaseValueChange: (v: number) => void;
   onFrequencyChange: (v: number) => void;
   onAmplitudeChange: (v: number) => void;
-  onWaveShapeChange: (v: ResolvedValue<"waveTypeValue">) => void;
+  onWaveShapeChange: (v: ResolvedValue<"waveTypeEnumValue">) => void;
 };
 
 export function LfoControl({
