@@ -9,8 +9,9 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 // mouth-corner orbits, using an irrational speed ratio.
 // Warm sfumato palette: burnt sienna, raw umber, ivory.
 
-export const monaLisaGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
     version: '2.0',
+    title: 'Mona Lisa',
     control: {
         nodes: [
             {
@@ -482,3 +483,5 @@ export const monaLisaGraph: GeoArtGraph = {
         ],
     },
 };
+
+export default graph;

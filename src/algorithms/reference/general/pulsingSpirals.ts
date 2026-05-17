@@ -7,8 +7,9 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 // Lines accumulate between the two bodies on the paint layer, building a
 // spirograph that warps and pulses as the LFOs cycle.
 
-export const pulsingSpiralsGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Pulsing Spirals',
 	control: {
 		nodes: [
 			// --- Inner orbit LFO (controls radius oscillation) ---
@@ -270,3 +271,5 @@ export const pulsingSpiralsGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

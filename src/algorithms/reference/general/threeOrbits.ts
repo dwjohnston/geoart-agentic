@@ -8,8 +8,9 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 // The trail of planet C accumulates the spirograph pattern.
 // Speed and radius of each orbit are slider-controlled.
 
-export const threeOrbitsGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Three Orbits',
 	control: {
 		nodes: [
 
@@ -334,3 +335,5 @@ export const threeOrbitsGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

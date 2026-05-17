@@ -94,5 +94,19 @@ export default defineConfig([
     },
   },
 
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    rules: {
+      "import/no-default-export": "error",
+    },
+  },
+
+  {
+    files: ['src/algorithms/reference/**/*.ts'],
+    rules: {
+      "import/no-default-export": "off",
+      "import/prefer-default-export": "error",
+    },
+  },
 
 ])

@@ -8,8 +8,9 @@ const OUTER_COLOR = { r: 0.3, g: 0.6, b: 1, a: 0.9 };
 const RING_COLOR = { r: 0.3, g: 0.3, b: 0.35, a: 0.5 };
 const DOT_RADIUS = 0.015;
 
-export const linesThroughPointGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Lines Through Point',
 	control: {
 		nodes: [
 			{
@@ -100,3 +101,5 @@ export const linesThroughPointGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

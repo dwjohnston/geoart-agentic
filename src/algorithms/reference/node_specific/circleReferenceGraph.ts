@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const circleGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Circle',
 	control: {
 		nodes: [],
 	},
@@ -42,3 +43,5 @@ export const circleGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

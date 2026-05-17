@@ -7,8 +7,9 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 // Grey trails accumulate on the paint layer to show each planet's orbital
 // path. Coloured dots on the live layer show each planet's current position.
 
-export const earthVenusGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Earth Venus',
 	control: {
 		nodes: [
 			{
@@ -149,3 +150,5 @@ export const earthVenusGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

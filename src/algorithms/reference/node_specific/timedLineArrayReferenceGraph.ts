@@ -4,8 +4,9 @@
 
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const timedLineArrayGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Timed Line Array',
 	control: {
 		nodes: [
 			{
@@ -196,3 +197,5 @@ export const timedLineArrayGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

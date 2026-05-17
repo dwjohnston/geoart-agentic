@@ -12,8 +12,9 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 // corresponding points on the modulated Orbit 2 curve, accumulating on
 // the paint layer.
 
-export const twoOrbitCurveGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Two Orbit Curve',
 	control: {
 		nodes: [
 			// --- Orbit 1 controls ---
@@ -311,3 +312,5 @@ export const twoOrbitCurveGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;

@@ -1,7 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 
-export const orbitCenterPointsGraph: GeoArtGraph = {
+const graph: GeoArtGraph = {
 	version: '2.0',
+	title: 'Orbit Center Points',
 	control: {
 		nodes: [],
 	},
@@ -48,3 +49,5 @@ export const orbitCenterPointsGraph: GeoArtGraph = {
 		],
 	},
 };
+
+export default graph;
