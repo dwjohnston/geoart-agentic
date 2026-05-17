@@ -118,6 +118,14 @@ Understanding these four layers and how they relate is fundamental to the projec
     - The only things that can be passed via node ports
     - Defined in `src/schema/schema/value-kinds.schema.json`
 
+- **point** (common parlance)
+    - When contributors or agents say 'point', they mean a `colorPointValue` — the rich coloured point shape:
+      - `x`, `y` — position in normalised space
+      - `r`, `g`, `b`, `a` — colour channels
+      - `dx`, `dy` — optional tangent vector
+    - This is **distinct** from the deprecated `pointValue`, which carries only `x` and `y` (a bare 2-D position).
+    - Prefer the explicit schema names (`colorPointValue`, `pointValue`) in technical contexts to avoid ambiguity.
+
 - **node port**
     - Either a node input or a node output. The value types that flow through ports can only be value primitives (as defined in `value-kinds.schema.json`).
 
