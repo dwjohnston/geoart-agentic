@@ -3,7 +3,7 @@ import { DropdownControl } from '../ui/DropdownControl';
 
 const CURVE_MODES = ['straight', 'catmull-rom'] as const;
 
-export const curveModeDropdownDef = implementControlNode('curveModeSelector', {
+export default implementControlNode('curveModeSelector', {
   defaults: {
     label: '',
     value: 'straight',

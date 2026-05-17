@@ -1,6 +1,33 @@
 import type { ResolvedValue } from '../../../schema/typeHelpers';
 import { implementComputeNode } from '../implementComputeNode';
-import { evaluateOrbitPoints } from './orbit';
+
+function evaluateOrbitPoints(
+  radius: number,
+  speed: number,
+  t: number,
+  numPoints: number,
+  phase: number,
+  cx = 0,
+  cy = 0,
+  eccentricity = 0,
+  tilt = 0,
+): Array<{ x: number; y: number }> {
+  const phaseRadians = phase * 2 * Math.PI;
+  const baseAngle = speed * (t / 600) * 2 * Math.PI + phaseRadians;
+  const tiltRadians = tilt * 2 * Math.PI;
+  const spacing = (2 * Math.PI) / Math.max(1, numPoints);
+  const points: Array<{ x: number; y: number }> = [];
+  for (let i = 0; i < numPoints; i++) {
+    const angle = baseAngle + i * spacing;
+    const px = radius * Math.cos(angle);
+    const py = radius * (1 - eccentricity) * Math.sin(angle);
+    points.push({
+      x: cx + px * Math.cos(tiltRadians) - py * Math.sin(tiltRadians),
+      y: cy + px * Math.sin(tiltRadians) + py * Math.cos(tiltRadians),
+    });
+  }
+  return points;
+}
 
 const DEFAULT_CENTER_COLOR = { r: 1, g: 1, b: 1, a: 1 };
 const DEFAULT_CENTER_POINT = { x: 0.5, y: 0.5 };

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import curveModulatorNodeDef from './curveModulator.node';
-import type { Sampler } from './pointsOnALine';
+import type { Sampler } from './pointsOnALine.node';
 
 describe('CurveModulator', () => {
   it('displaces points perpendicular to tangent', () => {

@@ -3,7 +3,7 @@ import { DropdownControl } from '../ui/DropdownControl';
 
 const TIMED_LINE_ARRAY_MODES = ['all-to-all', 'distribute', 'interleave'] as const;
 
-export const timedLineArrayModeDropdownDef = implementControlNode('timedLineArrayModeSelector', {
+export default implementControlNode('timedLineArrayModeSelector', {
   defaults: {
     label: '',
     value: 'all-to-all',

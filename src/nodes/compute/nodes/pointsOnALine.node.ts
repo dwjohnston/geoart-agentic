@@ -1,5 +1,34 @@
+import type { ResolvedValue } from "../../../schema/typeHelpers";
 import { implementComputeNode } from '../implementComputeNode';
-import { pointsOnALine } from './pointsOnALine';
+
+export interface Sampler {
+  sample(t: number): number;
+  sampleMany(ts: number[]): number[];
+}
+
+function pointsOnALine(
+  pointA: ResolvedValue<"colorPointValue">,
+  pointB: ResolvedValue<"colorPointValue">,
+  numberOfPoints: number,
+): ResolvedValue<"colorPointValue">[] {
+  const count = Math.max(1, Math.round(numberOfPoints));
+  if (count === 1) return [{ ...pointA }];
+  const lerpChannel = (a: number | null, b: number | null, t: number) =>
+    a === null || b === null ? null : a + t * (b - a);
+  return Array.from({ length: count }, (_, i) => {
+    const t = i / (count - 1);
+    return {
+      x: pointA.x + t * (pointB.x - pointA.x),
+      y: pointA.y + t * (pointB.y - pointA.y),
+      r: lerpChannel(pointA.r, pointB.r, t),
+      g: lerpChannel(pointA.g, pointB.g, t),
+      b: lerpChannel(pointA.b, pointB.b, t),
+      a: lerpChannel(pointA.a, pointB.a, t),
+      dx: pointB.x - pointA.x,
+      dy: pointB.y - pointA.y,
+    };
+  });
+}
 
 const pointsOnALineNodeDef = implementComputeNode("pointsOnALine", {
   isTimeDependant: false,

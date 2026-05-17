@@ -1,5 +1,4 @@
 import type { LegacyComputeNodeDef } from '../../../graphEngine/externalInterfaces/ComputeNodeDefinition';
-import { evaluateTime } from './time';
 
 const timeNodeDef: LegacyComputeNodeDef = {
   type: 'time',
@@ -10,7 +9,7 @@ const timeNodeDef: LegacyComputeNodeDef = {
     { name: 'time', type: 'number' },
   ],
   evaluate(_inputs, ctx) {
-    return [{ kind: 'number', v: evaluateTime(ctx.tickCount) }];
+    return [{ kind: 'number', v: ctx.tickCount }];
   },
 };
 

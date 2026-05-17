@@ -1,6 +1,41 @@
+import { UnreachableError } from '../../../common-tooling/errors/UnreachableError';
+import type { V_waveTypeEnumValue } from '../../../schema/_generated/value-kinds-2';
 import { implementComputeNode } from '../implementComputeNode';
-import { evaluateWave } from './wave';
-import type { Sampler } from './pointsOnALine';
+import type { Sampler } from './pointsOnALine.node';
+
+function evaluateWave(
+  waveType: V_waveTypeEnumValue['v'],
+  frequency: number,
+  amplitude: number,
+  phase: number,
+  t: number,
+): number {
+  function frac(x: number): number {
+    return x - Math.floor(x);
+  }
+  const pos = (frequency / 60) * t + phase;
+  let raw: number;
+  switch (waveType) {
+    case 'sine':
+      raw = Math.sin(2 * Math.PI * pos);
+      break;
+    case 'square':
+      raw = Math.sin(2 * Math.PI * pos) >= 0 ? 1 : -1;
+      break;
+    case 'saw':
+      raw = 2 * frac(pos) - 1;
+      break;
+    case 'reverse-saw':
+      raw = 1 - 2 * frac(pos);
+      break;
+    case 'triangle':
+      raw = 4 * Math.abs(frac(pos - 0.25) - 0.5) - 1;
+      break;
+    default:
+      throw new UnreachableError(waveType);
+  }
+  return raw * amplitude;
+}
 
 const waveNodeDef = implementComputeNode("wave", {
   isTimeDependant: true,

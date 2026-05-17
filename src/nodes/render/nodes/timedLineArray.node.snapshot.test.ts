@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
 import timedLineArrayNodeDef from "./timedLineArray.node";
+import type { NodeInputsResolved } from '../../../schema/typeHelpers';
 
 function createCtxWithState(fakeContext: ReturnType<typeof createFakeContext>) {
   let state: unknown;
@@ -31,7 +32,7 @@ describe("timedLineArrayNodeDef", () => {
         { x: 0.5, y: 0.5, r: 0, g: 0, b: 1, a: 1, dx: 0, dy: 0 },
         { x: 0.5, y: -0.5, r: 1, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
       ],
-    } as any, {
+    }, {
       canvas: fakeContext,
       height: 100,
       width: 100,
@@ -293,7 +294,7 @@ describe("timedLineArrayNodeDef", () => {
         { x: 0.5, y: 0.5, r: 0, g: 0, b: 1, a: 1, dx: 0, dy: 0 },
         { x: 0.5, y: -0.5, r: 1, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
       ],
-    } as any, {
+    }, {
       canvas: fakeContext,
       height: 100,
       width: 100,
@@ -447,7 +448,7 @@ describe("timedLineArrayNodeDef", () => {
         { x: 0, y: 0.5, r: 1, g: 0, b: 1, a: 1, dx: 0, dy: 0 },
         { x: 0, y: -0.5, r: 0, g: 1, b: 1, a: 1, dx: 0, dy: 0 },
       ],
-    } as any, {
+    }, {
       canvas: fakeContext,
       height: 100,
       width: 100,
@@ -715,7 +716,7 @@ describe("timedLineArrayNodeDef", () => {
         { x: 0.5, y: 0.5, r: 0, g: 0, b: 1, a: 1, dx: 0, dy: 0 },
         { x: -0.5, y: -0.5, r: 0, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
       ],
-    } as any;
+    } satisfies NodeInputsResolved<"timedLineArray">;
 
     // Two separate evaluations with independent state — first call draws link 0, second draws link 0 again (no shared state)
     const ctx1 = createCtxWithState(fakeContext1);
@@ -943,7 +944,7 @@ describe("timedLineArrayNodeDef", () => {
         { x: 0, y: 0.5, r: 0, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
         { x: 0.5, y: 0, r: 1, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
       ],
-    } as any;
+    } satisfies NodeInputsResolved<"timedLineArray">;;
 
     // Call 1: counter=0 → getPingPong(0,3)=0 → link[0]: A[0](50,50)→B[0](25,50)
     // Call 2: counter=1 → getPingPong(1,3)=1 → link[1]: A[0](50,50)→B[1](50,25)
@@ -1231,7 +1232,7 @@ describe("timedLineArrayNodeDef", () => {
         { x: 0.25, y: 0, r: 1, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
         { x: 0.75, y: 0, r: 0, g: 1, b: 1, a: 1, dx: 0, dy: 0 },
       ],
-    } as any;
+    } satisfies NodeInputsResolved<"timedLineArray">;;
 
     // B pixel x coords: -0.75→12.5, -0.25→37.5, 0.25→62.5, 0.75→87.5; y=0→50
     // A: (50,50)
@@ -1624,7 +1625,7 @@ describe("timedLineArrayNodeDef", () => {
         { x: 0.25, y: 0, r: 1, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
         { x: 0.75, y: 0, r: 0, g: 1, b: 1, a: 1, dx: 0, dy: 0 },
       ],
-    } as any;
+    } satisfies NodeInputsResolved<"timedLineArray">;;
 
     timedLineArrayNodeDef.evaluate(inputs, ctx); // step0 → links[1,2]
     timedLineArrayNodeDef.evaluate(inputs, ctx); // step1 → links[0,3]

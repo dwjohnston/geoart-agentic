@@ -102,10 +102,10 @@ export default defineConfig([
   },
 
   {
-    files: ['src/algorithms/reference/**/*.ts', "src/nodes/*/nodes/*.ts"],
+    files: ['src/algorithms/reference/**/*.ts', "src/nodes/*/nodes/*.{ts,tsx}"],
     rules: {
       "import/no-default-export": "off",
-      "import/prefer-default-export": "error",
+      "import/prefer-default-export": ["error", { target: "any" }]
     },
   },
 

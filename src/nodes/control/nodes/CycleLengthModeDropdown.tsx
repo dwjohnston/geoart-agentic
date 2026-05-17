@@ -3,7 +3,7 @@ import { DropdownControl } from '../ui/DropdownControl';
 
 const CYCLE_LENGTH_MODES = ['arrayLength', 'linearOne'] as const;
 
-export const cycleLengthModeDropdownDef = implementControlNode('cycleLengthModeSelector', {
+export default implementControlNode('cycleLengthModeSelector', {
   defaults: {
     label: '',
     value: 'arrayLength',

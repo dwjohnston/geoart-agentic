@@ -3,7 +3,7 @@ import { DropdownControl } from '../ui/DropdownControl';
 
 const TIMED_LINE_ARRAY_INTERVAL_MODES = ['all', 'cycle', 'back-and-forth', 'inside-out', 'inside-out-and-forth'] as const;
 
-export const timedLineArrayIntervalModeDropdownDef = implementControlNode('timedLineArrayIntervalModeSelector', {
+export default implementControlNode('timedLineArrayIntervalModeSelector', {
   defaults: {
     label: '',
     value: 'all',
