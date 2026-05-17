@@ -123,7 +123,7 @@ Understanding these four layers and how they relate is fundamental to the projec
       - `x`, `y` — position in normalised space
       - `r`, `g`, `b`, `a` — colour channels
       - `dx`, `dy` — optional tangent vector
-    - This is **distinct** from `pointValue`, which carries only `x` and `y` (a bare 2-D position).
+    - This is **distinct** from the deprecated `pointValue`, which carries only `x` and `y` (a bare 2-D position).
     - Prefer the explicit schema names (`colorPointValue`, `pointValue`) in technical contexts to avoid ambiguity.
 
 - **node port**
