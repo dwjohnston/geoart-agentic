@@ -90,6 +90,20 @@
           }
         }
       }
+    },
+    "modules": {
+      "title": "Modules",
+      "description": "Reusable node bundles — each declaration is expanded at compile time into its constituent control/compute/render nodes",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodes"],
+      "properties": {
+        "nodes": {
+          "title": "Module Declarations",
+          "type": "array",
+          "items": { "$ref": "#/definitions/moduleDeclaration" }
+        }
+      }
     }
   },
   "definitions": {
@@ -1377,6 +1391,35 @@
           }
         }
       ]
+    },
+    "moduleDeclaration": {
+      "title": "Module Declaration",
+      "description": "Declares a module instance — expanded by the compiler into constituent control/compute/render nodes",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "module"],
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": ["module"]
+        },
+        "module": {
+          "title": "Module",
+          "description": "Name of the module type to instantiate (e.g. 'orbit')",
+          "type": "string"
+        },
+        "params": {
+          "title": "Params",
+          "description": "Input values for the module — each may be a static value { v: ... } or a ref { ref: '...' }",
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
     }
   }
 }

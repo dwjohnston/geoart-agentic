@@ -1,5 +1,7 @@
 import React from 'react';
 import { compile } from '../compiler/compiler';
+import { expandModules, type GraphWithModules } from '../compiler/moduleExpander';
+import { moduleRegistry } from '../../schema/modules/index';
 import { tick as evaluatorTick } from '../../graphEngine/evaluator/evaluator';
 import { controlRegistry } from '../../nodes/control/registry';
 import type { CompiledGraph } from '../compiler/compiler';
@@ -82,7 +84,11 @@ export function createGraphEngine(
     frameCount = 0;
     orbitCtx.clearRect(0, 0, canvasSize, canvasSize);
     trailCtx.clearRect(0, 0, canvasSize, canvasSize);
-    compiled = compile(graph, {
+
+    // Expand any module declarations into their constituent nodes before compiling.
+    const expandedGraph = expandModules(graph as unknown as GraphWithModules, moduleRegistry) as unknown as GeoArtGraph;
+
+    compiled = compile(expandedGraph, {
       computeRegistry: registry?.computeRegistry ?? computeRegistry,
       controlRegistry: registry?.controlRegistry ?? controlRegistry,
       renderRegistry: registry?.renderRegistry ?? renderRegistry
@@ -96,7 +102,7 @@ export function createGraphEngine(
       for (const nodeId of compiled.sortedNodes) {
         const compiledNode = compiled.nodes.get(nodeId);
         if (compiledNode && compiledNode.layer === 'render') {
-          const nodeDecl = graph.render.nodes.find(n => n.id === nodeId);
+          const nodeDecl = expandedGraph.render.nodes.find(n => n.id === nodeId);
           const label = nodeDecl?.id || nodeId;
           const layer = compiledNode.renderConfig?.layer || 'paint';
           renderingNodes.push({ nodeId, label, layer });
@@ -106,7 +112,7 @@ export function createGraphEngine(
     }
 
     return {
-      renderControlNodes: () => graph.control.nodes.map(node => {
+      renderControlNodes: () => expandedGraph.control.nodes.map(node => {
         const def = (registry?.controlRegistry ?? controlRegistry).get(node.type);
         if (!def) return null;
         //@ts-expect-error - ignore for now
