@@ -236,6 +236,24 @@ const graph: GeoArtGraph = {
 					value: { v: 0.08 },
 				},
 			},
+
+			// ---- Timed line array mode controls ----
+			{
+				id: 'linkMode',
+				type: 'timedLineArrayModeSelector',
+				params: {
+					label: { v: 'Link Mode' },
+					value: { v: 'all-to-all' },
+				},
+			},
+			{
+				id: 'linkIntervalMode',
+				type: 'timedLineArrayIntervalModeSelector',
+				params: {
+					label: { v: 'Link Interval Mode' },
+					value: { v: 'all' },
+				},
+			},
 		],
 	},
 
@@ -384,6 +402,8 @@ const graph: GeoArtGraph = {
 					intervalTicks: { ref: 'linkRate.value' },
 					colorPointsA: { ref: 'shift2.points' },
 					colorPointsB: { ref: 'shift.points' },
+					mode: { ref: 'linkMode.value' },
+					intervalMode: { ref: 'linkIntervalMode.value' },
 				},
 			},
 
