@@ -1,8 +1,16 @@
-/**
- * Pure math for the time node.
- *
- * Returns the tick count unchanged. Unbounded — does not follow the -1..1 rule.
- */
-export function evaluateTime(t: number): number {
-  return t;
-}
+import type { LegacyComputeNodeDef } from '../../../graphEngine/externalInterfaces/ComputeNodeDefinition';
+
+const timeNodeDef: LegacyComputeNodeDef = {
+  type: 'time',
+  isTimeDependant: true,
+  inputs: [],
+  outputs: [
+    // Exception to the -1..1 rule: tick count is unbounded.
+    { name: 'time', type: 'number' },
+  ],
+  evaluate(_inputs, ctx) {
+    return [{ kind: 'number', v: ctx.tickCount }];
+  },
+};
+
+export default timeNodeDef;

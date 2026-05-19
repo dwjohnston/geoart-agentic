@@ -1,24 +1,15 @@
 import type { ResolvedValue } from "../../../schema/typeHelpers";
+import { implementComputeNode } from '../implementComputeNode';
 
-
-export interface Sampler {
-  sample(t: number): number;
-  sampleMany(ts: number[]): number[];
-}
-
-export function pointsOnALine(
+function pointsOnALine(
   pointA: ResolvedValue<"colorPointValue">,
   pointB: ResolvedValue<"colorPointValue">,
   numberOfPoints: number,
 ): ResolvedValue<"colorPointValue">[] {
   const count = Math.max(1, Math.round(numberOfPoints));
   if (count === 1) return [{ ...pointA }];
-
-  // A null channel means 'ignore this channel'; if either endpoint is null
-  // there is nothing to interpolate, so the result stays null.
   const lerpChannel = (a: number | null, b: number | null, t: number) =>
     a === null || b === null ? null : a + t * (b - a);
-
   return Array.from({ length: count }, (_, i) => {
     const t = i / (count - 1);
     return {
@@ -29,7 +20,43 @@ export function pointsOnALine(
       b: lerpChannel(pointA.b, pointB.b, t),
       a: lerpChannel(pointA.a, pointB.a, t),
       dx: pointB.x - pointA.x,
-      dy: pointB.y - pointA.y
+      dy: pointB.y - pointA.y,
     };
   });
 }
+
+const pointsOnALineNodeDef = implementComputeNode("pointsOnALine", {
+  isTimeDependant: false,
+  defaults: {
+    "pointA": {
+      r: 1,
+      g: 1,
+      b: 1,
+      a: 1,
+      x: 1,
+      y: 1,
+      dx: 0,
+      dy: 0,
+    },
+    "pointB": {
+      r: 1,
+      g: 1,
+      b: 1,
+      a: 1,
+      x: 1,
+      y: 1,
+      dx: 0,
+      dy: 0,
+    },
+    "numberOfPoints": 1,
+  },
+  evaluate: (inputs) => {
+    const points = pointsOnALine(inputs.pointA, inputs.pointB, inputs.numberOfPoints)
+    return {
+      points: points
+    }
+
+  },
+});
+
+export default pointsOnALineNodeDef;

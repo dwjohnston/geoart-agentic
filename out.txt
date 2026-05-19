@@ -1,0 +1,86 @@
+# How My Current Prompt Is Constructed
+
+This file documents all user-configured context injected into my prompt for this session. This does NOT include Anthropic's base system prompt.
+
+---
+
+## 1. Project CLAUDE.md
+Source: /Users/davidjohnston/claude-workspace/geoart/app/CLAUDE.md
+
+This is loaded automatically because it lives in the working directory. It provides:
+- Project overview (Geometric Art Engine — generative art engine using graphs of nodes)
+- Tooling instructions (use `bun`, `bun test`, `bun typecheck`, `bun validate`)
+- Spelling rules (British English except "color" and "center")
+- Architecture overview (Control → Compute → Render layer model)
+- The Schema explained (JSON Schema in src/schema/schema/ defining node types and value types)
+- Full Terminology specification (define/declare/implement/resolve at schema/algorithm/code/runtime layers)
+- File structure guide
+- Sub-agent roster (schema-agent, compute-node-agent, render-node-agent, control-node-agent, algorithm-agent)
+- Canonical Level system (👑🥈🗑️🧪 headers with dates on source files)
+- Task workflow for creating new node types
+
+---
+
+## 2. Auto-Memory Files
+Source: /Users/davidjohnston/.claude/projects/-Users-davidjohnston-claude-workspace-geoart-app/memory/
+
+These are loaded via the memory system. Each file is a persistent record from past sessions.
+
+### MEMORY.md (index)
+Acts as a table of contents for the memory files. Loaded into every conversation context.
+
+### feedback_test_commands.md
+- Type: feedback
+- Rule: Use `bun test` to run tests (not the older `bun run test:headless --run`)
+- Single file: `bun test src/path/to/file.test.ts`
+- Update snapshots: `bun test --update-snapshots`
+
+### feedback_guest_book.md
+- Type: feedback
+- Rule: Sign guestBook.txt immediately upon reading a CLAUDE.md that contains guest book instructions — do not defer until after the task
+
+### user_comm_style_nz_no.md
+- Type: user
+- Rule: User is a NZ English speaker. A leading "no" is often a discourse marker / agreement, not refusal. Derive polarity from the following clause, not the word "no" itself.
+
+---
+
+## 3. Session-Injected Context (system-reminder tags)
+
+These are injected automatically by the Claude Code harness at runtime:
+
+### Available agent types
+Listed in <system-reminder> blocks — includes: algorithm-agent, claude, claude-code-guide, compute-node-agent, control-node-agent, Explore, feature-agent, general-purpose, graph-agent, md-file-agent, Plan, render-node-agent, schema-agent, statusline-setup, tooling-agent
+
+### Available deferred tools
+Listed in <system-reminder> blocks — includes: CronCreate, CronDelete, CronList, EnterPlanMode, EnterWorktree, ExitPlanMode, ExitWorktree, Monitor, NotebookEdit, PushNotification, RemoteTrigger, TaskOutput, TaskStop, TodoWrite, WebFetch, WebSearch
+
+### Available skills (slash commands)
+Listed in <system-reminder> blocks — includes: dj-create-script, update-config, keybindings-help, simplify, fewer-permission-prompts, loop, schedule, claude-api, init, review, security-review
+
+### Injected variables
+- userEmail: david@blacksheepcode.com
+- currentDate: 2026-05-17
+
+---
+
+## 4. IDE/Git Context (injected per-session)
+
+Provided automatically by the VSCode extension:
+- Working directory: /Users/davidjohnston/claude-workspace/geoart/app
+- Current branch: main
+- Git status: clean
+- Recent commits (last 5 shown)
+- Currently opened file: src/nodes/render/nodes/timedLineArray.node.ts
+
+---
+
+## 5. Base Behaviour Instructions (not user-configurable)
+
+These come from Anthropic's system prompt (not shown here per the user's request scope), covering:
+- Tool usage rules
+- Tone and style
+- Security guidelines
+- Git safety protocol
+- When/how to use sub-agents
+- Memory system mechanics

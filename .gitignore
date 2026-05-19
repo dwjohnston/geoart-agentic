@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 _generated/
 _testGenerated/
+*.generated.ts
 docs/
 __screenshots__
 

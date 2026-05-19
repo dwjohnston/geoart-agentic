@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test';
-import { cycleLengthModeDropdownDef } from './CycleLengthModeDropdown';
+import cycleLengthModeDropdownDef from './CycleLengthModeDropdown';
 
 describe('cycleLengthModeSelector node', () => {
   it('has the correct node kind', () => {

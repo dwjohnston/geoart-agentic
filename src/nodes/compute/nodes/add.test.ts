@@ -4,7 +4,7 @@
 
 
 import { describe, it, expect } from 'bun:test';
-import { addNodeImplementation } from './add.node';
+import addNodeImplementation from './add';
 
 describe('add node', () => {
 

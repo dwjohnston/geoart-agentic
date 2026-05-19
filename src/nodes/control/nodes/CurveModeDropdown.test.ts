@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test';
-import { curveModeDropdownDef } from './CurveModeDropdown';
+import curveModeDropdownDef from './CurveModeDropdown';
 
 describe('curveModeSelector node', () => {
   it('has the correct node kind', () => {

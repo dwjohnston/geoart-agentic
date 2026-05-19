@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test';
-import { timedLineArrayModeDropdownDef } from './TimedLineArrayModeDropdown';
+import timedLineArrayModeDropdownDef from './TimedLineArrayModeDropdown';
 
 describe('timedLineArrayModeSelector node', () => {
   it('has the correct node kind', () => {

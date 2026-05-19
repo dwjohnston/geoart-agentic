@@ -54,6 +54,11 @@ export type NodeInputsResolved<K extends keyof typeof nodeInputs> = {
 
 
 
+export type Sampler = {
+  sample(t: number): number;
+  sampleMany(ts: number[]): number[];
+}
+
 export type ReferencedValueDeclared = { ref: string };
 
 // Detect if a value type name is an array type (e.g., "colorPointArray", "stringArray")
@@ -66,15 +71,15 @@ type ArrayItemType<T extends ValueTypeNames> = T extends `${infer Item}Array` ? 
 // For non-array types, it's the raw resolved value
 export type StaticValueDeclared<T extends ValueTypeNames> =
   IsArrayValueType<T> extends true
-    ? { v: Array<StaticValueDeclared<ArrayItemType<T>>> }
-    : { v: ResolvedValue<`${T}Value`> };
+  ? { v: Array<StaticValueDeclared<ArrayItemType<T>>> }
+  : { v: ResolvedValue<`${T}Value`> };
 
 // For array types, ValueDeclared can be a reference to an array or an array of mixed declared values
 // For non-array types, it's either a reference or a static value
 export type ValueDeclared<T extends ValueTypeNames> =
   IsArrayValueType<T> extends true
-    ? ReferencedValueDeclared | { v: Array<ValueDeclared<ArrayItemType<T>>> }
-    : ReferencedValueDeclared | StaticValueDeclared<T>;
+  ? ReferencedValueDeclared | { v: Array<ValueDeclared<ArrayItemType<T>>> }
+  : ReferencedValueDeclared | StaticValueDeclared<T>;
 
 
 
