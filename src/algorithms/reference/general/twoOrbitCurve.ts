@@ -1,4 +1,4 @@
-import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 
 // Two-orbit curve algorithm.
 //
@@ -13,16 +13,16 @@ import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 // the paint layer.
 
 const graph: GeoArtGraph = {
-	version: '2.0',
-	title: 'Two Orbit Curve',
+	version: "2.0",
+	title: "Two Orbit Curve",
 	control: {
 		nodes: [
 			// --- Orbit 1 controls ---
 			{
-				id: 'orbit1SpeedSlider',
-				type: 'slider',
+				id: "orbit1SpeedSlider",
+				type: "slider",
 				params: {
-					label: { v: 'Orbit 1 Speed' },
+					label: { v: "Orbit 1 Speed" },
 					min: { v: -5 },
 					max: { v: 5 },
 					step: { v: 0.01 },
@@ -31,10 +31,10 @@ const graph: GeoArtGraph = {
 			},
 			// Oscillator controls for Orbit 1 radius modulation
 			{
-				id: 'oscFrequencySlider',
-				type: 'slider',
+				id: "oscFrequencySlider",
+				type: "slider",
 				params: {
-					label: { v: 'Oscillator Frequency' },
+					label: { v: "Oscillator Frequency" },
 					min: { v: 0.001 },
 					max: { v: 1 },
 					step: { v: 0.001 },
@@ -42,10 +42,10 @@ const graph: GeoArtGraph = {
 				},
 			},
 			{
-				id: 'oscAmplitudeSlider',
-				type: 'slider',
+				id: "oscAmplitudeSlider",
+				type: "slider",
 				params: {
-					label: { v: 'Oscillator Amplitude' },
+					label: { v: "Oscillator Amplitude" },
 					min: { v: 0 },
 					max: { v: 0.2 },
 					step: { v: 0.005 },
@@ -53,10 +53,10 @@ const graph: GeoArtGraph = {
 				},
 			},
 			{
-				id: 'oscOffsetSlider',
-				type: 'slider',
+				id: "oscOffsetSlider",
+				type: "slider",
 				params: {
-					label: { v: 'Oscillator Offset' },
+					label: { v: "Oscillator Offset" },
 					min: { v: -0.5 },
 					max: { v: 0.5 },
 					step: { v: 0.005 },
@@ -64,10 +64,10 @@ const graph: GeoArtGraph = {
 				},
 			},
 			{
-				id: 'oscPhaseSlider',
-				type: 'slider',
+				id: "oscPhaseSlider",
+				type: "slider",
 				params: {
-					label: { v: 'Oscillator Phase' },
+					label: { v: "Oscillator Phase" },
 					min: { v: 0 },
 					max: { v: 1 },
 					step: { v: 0.01 },
@@ -76,10 +76,10 @@ const graph: GeoArtGraph = {
 			},
 			// --- Orbit 2 controls ---
 			{
-				id: 'orbit2SpeedSlider',
-				type: 'slider',
+				id: "orbit2SpeedSlider",
+				type: "slider",
 				params: {
-					label: { v: 'Orbit 2 Speed' },
+					label: { v: "Orbit 2 Speed" },
 					min: { v: -5 },
 					max: { v: 5 },
 					step: { v: 0.01 },
@@ -88,10 +88,10 @@ const graph: GeoArtGraph = {
 			},
 			// Curve modulator oscillator controls
 			{
-				id: 'modFrequencySlider',
-				type: 'slider',
+				id: "modFrequencySlider",
+				type: "slider",
 				params: {
-					label: { v: 'Modulator Frequency' },
+					label: { v: "Modulator Frequency" },
 					min: { v: 0.001 },
 					max: { v: 1 },
 					step: { v: 0.001 },
@@ -99,10 +99,10 @@ const graph: GeoArtGraph = {
 				},
 			},
 			{
-				id: 'modAmplitudeSlider',
-				type: 'slider',
+				id: "modAmplitudeSlider",
+				type: "slider",
 				params: {
-					label: { v: 'Modulator Amplitude' },
+					label: { v: "Modulator Amplitude" },
 					min: { v: 0 },
 					max: { v: 0.2 },
 					step: { v: 0.005 },
@@ -112,10 +112,10 @@ const graph: GeoArtGraph = {
 
 			// Curve modulator oscillator controls
 			{
-				id: 'modFrequencySlider2',
-				type: 'slider',
+				id: "modFrequencySlider2",
+				type: "slider",
 				params: {
-					label: { v: 'Modulator Frequency' },
+					label: { v: "Modulator Frequency" },
 					min: { v: 0.001 },
 					max: { v: 1 },
 					step: { v: 0.001 },
@@ -123,10 +123,10 @@ const graph: GeoArtGraph = {
 				},
 			},
 			{
-				id: 'modAmplitudeSlider2',
-				type: 'slider',
+				id: "modAmplitudeSlider2",
+				type: "slider",
 				params: {
-					label: { v: 'Modulator Amplitude' },
+					label: { v: "Modulator Amplitude" },
 					min: { v: 0 },
 					max: { v: 0.2 },
 					step: { v: 0.005 },
@@ -135,10 +135,10 @@ const graph: GeoArtGraph = {
 			},
 			// --- Shared controls ---
 			{
-				id: 'linkRate',
-				type: 'slider',
+				id: "linkRate",
+				type: "slider",
 				params: {
-					label: { v: 'Link Rate' },
+					label: { v: "Link Rate" },
 					min: { v: 1 },
 					max: { v: 120 },
 					step: { v: 1 },
@@ -149,44 +149,44 @@ const graph: GeoArtGraph = {
 	},
 	compute: {
 		nodes: [
-			{ id: 'time', type: 'time', params: {} },
+			{ id: "time", type: "time", params: {} },
 
 			// --- Orbit 1: small orbit, 3 points, radius driven by oscillator ---
 			{
-				id: 'radiusOscillator',
-				type: 'wave',
+				id: "radiusOscillator",
+				type: "wave",
 				params: {
-					time: { ref: 'time.time' },
-					frequency: { ref: 'oscFrequencySlider.value' },
-					amplitude: { ref: 'oscAmplitudeSlider.value' },
-					phase: { ref: 'oscPhaseSlider.value' },
-					waveType: { v: 'sine' },
+					time: { ref: "time.time" },
+					frequency: { ref: "oscFrequencySlider.value" },
+					amplitude: { ref: "oscAmplitudeSlider.value" },
+					phase: { ref: "oscPhaseSlider.value" },
+					waveType: { v: "sine" },
 				},
 			},
 			// Add base radius (0.125) and oscillator offset, then add wave value
 			{
-				id: 'radiusWithOffset',
-				type: 'add',
+				id: "radiusWithOffset",
+				type: "add",
 				params: {
 					a: { v: 0.125 },
-					b: { ref: 'oscOffsetSlider.value' },
+					b: { ref: "oscOffsetSlider.value" },
 				},
 			},
 			{
-				id: 'orbit1Radius',
-				type: 'add',
+				id: "orbit1Radius",
+				type: "add",
 				params: {
-					a: { ref: 'radiusWithOffset.sum' },
-					b: { ref: 'radiusOscillator.value' },
+					a: { ref: "radiusWithOffset.sum" },
+					b: { ref: "radiusOscillator.value" },
 				},
 			},
 			{
-				id: 'orbit1',
-				type: 'orbit',
+				id: "orbit1",
+				type: "orbit",
 				params: {
-					time: { ref: 'time.time' },
-					speed: { ref: 'orbit1SpeedSlider.value' },
-					radius: { ref: 'orbit1Radius.sum' },
+					time: { ref: "time.time" },
+					speed: { ref: "orbit1SpeedSlider.value" },
+					radius: { ref: "orbit1Radius.sum" },
 					numPoints: { v: 1 },
 					phase: { v: 0 },
 				},
@@ -194,11 +194,11 @@ const graph: GeoArtGraph = {
 
 			// --- Orbit 2: larger orbit, 20 points, modulated by a curve modulator ---
 			{
-				id: 'orbit2',
-				type: 'orbit',
+				id: "orbit2",
+				type: "orbit",
 				params: {
-					time: { ref: 'time.time' },
-					speed: { ref: 'orbit2SpeedSlider.value' },
+					time: { ref: "time.time" },
+					speed: { ref: "orbit2SpeedSlider.value" },
 					radius: { v: 0.4 },
 					numPoints: { v: 20 },
 					phase: { v: 0 },
@@ -206,44 +206,44 @@ const graph: GeoArtGraph = {
 			},
 			// Wave oscillator for the curve modulator
 			{
-				id: 'curveWave',
-				type: 'wave',
+				id: "curveWave",
+				type: "wave",
 				params: {
-					time: { ref: 'time.time' },
-					frequency: { ref: 'modFrequencySlider.value' },
-					amplitude: { ref: 'modAmplitudeSlider.value' },
-					waveType: { v: 'sine' },
+					time: { ref: "time.time" },
+					frequency: { ref: "modFrequencySlider.value" },
+					amplitude: { ref: "modAmplitudeSlider.value" },
+					waveType: { v: "sine" },
 				},
 			},
 			{
-				id: 'curveWave2',
-				type: 'wave',
+				id: "curveWave2",
+				type: "wave",
 				params: {
-					time: { ref: 'time.time' },
-					frequency: { ref: 'modFrequencySlider2.value' },
-					amplitude: { ref: 'modAmplitudeSlider2.value' },
-					waveType: { v: 'sine' },
+					time: { ref: "time.time" },
+					frequency: { ref: "modFrequencySlider2.value" },
+					amplitude: { ref: "modAmplitudeSlider2.value" },
+					waveType: { v: "sine" },
 				},
 			},
 			// Curve modulator displaces Orbit 2's points perpendicular to their tangents
 			{
-				id: 'orbit2Modulated',
-				type: 'curveModulator',
+				id: "orbit2Modulated",
+				type: "curveModulator",
 				params: {
-					curve: { ref: 'orbit2.points' },
-					modulator: { ref: 'curveWave.sampler' },
-					cycleLengthMode: { v: 'linearOne' },
+					curve: { ref: "orbit2.points" },
+					modulator: { ref: "curveWave.sampler" },
+					cycleLengthMode: { v: "linearOne" },
 				},
 			},
 
 			// Curve modulator displaces Orbit 2's points perpendicular to their tangents
 			{
-				id: 'orbit2Modulated2',
-				type: 'curveModulator',
+				id: "orbit2Modulated2",
+				type: "curveModulator",
 				params: {
-					curve: { ref: 'orbit2Modulated.points' },
-					modulator: { ref: 'curveWave2.sampler' },
-					cycleLengthMode: { v: 'linearOne' },
+					curve: { ref: "orbit2Modulated.points" },
+					modulator: { ref: "curveWave2.sampler" },
+					cycleLengthMode: { v: "linearOne" },
 				},
 			},
 		],
@@ -253,22 +253,22 @@ const graph: GeoArtGraph = {
 			// --- Orbit 1 display ---
 			// Grey ring showing orbit 1 path
 			{
-				id: 'orbit1Ring',
-				type: 'circle',
-				renderConfig: { layer: 'live' },
+				id: "orbit1Ring",
+				type: "circle",
+				renderConfig: { layer: "live" },
 				params: {
 					center: { v: { x: 0, y: 0 } },
-					radius: { ref: 'orbit1Radius.sum' },
+					radius: { ref: "orbit1Radius.sum" },
 					color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 } },
 				},
 			},
 			// Current positions of Orbit 1's 3 points
 			{
-				id: 'orbit1Dots',
-				type: 'circle',
-				renderConfig: { layer: 'live' },
+				id: "orbit1Dots",
+				type: "circle",
+				renderConfig: { layer: "live" },
 				params: {
-					centerPoints: { ref: 'orbit1.points' },
+					centerPoints: { ref: "orbit1.points" },
 					radius: { v: 0.015 },
 				},
 			},
@@ -276,23 +276,22 @@ const graph: GeoArtGraph = {
 			{
 				id: "orbit2Dots",
 				type: "circle",
-				renderConfig: { layer: 'live' },
+				renderConfig: { layer: "live" },
 				params: {
-					centerPoints: { ref: 'orbit2Modulated2.points' },
+					centerPoints: { ref: "orbit2Modulated2.points" },
 					radius: { v: 0.015 },
-				}
+				},
 			},
-
 
 			// Modulated Orbit 2 curve drawn live (connect-the-dots)
 			{
-				id: 'orbit2CurveLive',
-				type: 'connect-dots',
-				renderConfig: { layer: 'live' },
+				id: "orbit2CurveLive",
+				type: "connect-dots",
+				renderConfig: { layer: "live" },
 				params: {
-					colorPointsArray: { ref: 'orbit2Modulated2.points' },
+					colorPointsArray: { ref: "orbit2Modulated2.points" },
 					lineWidth: { v: 1 },
-					mode: { v: 'catmull-rom' },
+					mode: { v: "catmull-rom" },
 				},
 			},
 
@@ -300,13 +299,13 @@ const graph: GeoArtGraph = {
 			// timedLineArray zips by index — links Orbit 1's 3 points to the first
 			// 3 points of the modulated Orbit 2 curve.
 			{
-				id: 'linksOrbit1ToOrbit2',
-				type: 'timedLineArray',
-				renderConfig: { layer: 'paint' },
+				id: "linksOrbit1ToOrbit2",
+				type: "timedLineArray",
+				renderConfig: { layer: "paint" },
 				params: {
-					intervalTicks: { ref: 'linkRate.value' },
-					colorPointsA: { ref: 'orbit1.points' },
-					colorPointsB: { ref: 'orbit2Modulated2.points' },
+					intervalTicks: { ref: "linkRate.value" },
+					colorPointsA: { ref: "orbit1.points" },
+					colorPointsB: { ref: "orbit2Modulated2.points" },
 				},
 			},
 		],

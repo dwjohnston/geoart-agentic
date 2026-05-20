@@ -1,15 +1,15 @@
-import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 
 const graph: GeoArtGraph = {
-	version: '2.0',
-	title: 'Color Shift',
+	version: "2.0",
+	title: "Color Shift",
 	control: {
 		nodes: [
 			{
-				id: 'falloffControl',
-				type: 'slider',
+				id: "falloffControl",
+				type: "slider",
 				params: {
-					label: { v: 'Falloff' },
+					label: { v: "Falloff" },
 					min: { v: 0 },
 					max: { v: 5 },
 					value: { v: 5 },
@@ -17,10 +17,10 @@ const graph: GeoArtGraph = {
 				},
 			},
 			{
-				id: 'strengthControl',
-				type: 'slider',
+				id: "strengthControl",
+				type: "slider",
 				params: {
-					label: { v: 'Strength' },
+					label: { v: "Strength" },
 					min: { v: 0 },
 					max: { v: 1 },
 					value: { v: 1 },
@@ -32,32 +32,28 @@ const graph: GeoArtGraph = {
 	compute: {
 		nodes: [
 			{
-				id: 'time',
-				type: 'time',
+				id: "time",
+				type: "time",
 				params: {},
 			},
 			{
 				id: "orbit",
 				type: "orbit",
 				params: {
-					time: { ref: 'time.time' },
+					time: { ref: "time.time" },
 
 					numPoints: { v: 3 },
 					radius: { v: 0.25 },
 					speed: { v: 1 },
-					center: { v: { x: 0, y: 0, } }
-
-				}
-
+					center: { v: { x: 0, y: 0 } },
+				},
 			},
 			{
-				id: 'colorShift',
-				type: 'colorShift',
+				id: "colorShift",
+				type: "colorShift",
 				params: {
 					inputPoints: {
-
-						ref: "orbit.points"
-
+						ref: "orbit.points",
 					},
 					targetPoints: {
 						v: [
@@ -83,8 +79,8 @@ const graph: GeoArtGraph = {
 							},
 						],
 					},
-					falloff: { ref: 'falloffControl.value' },
-					strength: { ref: 'strengthControl.value' },
+					falloff: { ref: "falloffControl.value" },
+					strength: { ref: "strengthControl.value" },
 				},
 			},
 		],
@@ -92,13 +88,13 @@ const graph: GeoArtGraph = {
 	render: {
 		nodes: [
 			{
-				id: 'outputCircles',
-				type: 'circle',
+				id: "outputCircles",
+				type: "circle",
 				renderConfig: {
-					layer: 'live',
+					layer: "live",
 				},
 				params: {
-					centerPoints: { ref: 'colorShift.points' },
+					centerPoints: { ref: "colorShift.points" },
 					radius: { v: 0.03 },
 				},
 			},

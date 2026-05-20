@@ -1,1 +1,1 @@
-export { controlRegistry } from './registry.generated';
+export { controlRegistry } from "./registry.generated";

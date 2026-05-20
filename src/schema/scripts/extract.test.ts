@@ -1,42 +1,45 @@
-import { describe, it, expect } from 'bun:test';
-import { extractDerviedSchema } from './generate-derived-schema';
-import { buildNodeInputs, generateOutputs, jsonSchemaValueKindsToTypeScript } from './generate-derived-types';
-
+import { describe, it, expect } from "bun:test";
+import { extractDerviedSchema } from "./generate-derived-schema";
+import {
+	buildNodeInputs,
+	generateOutputs,
+	jsonSchemaValueKindsToTypeScript,
+} from "./generate-derived-types";
 
 //🧽 Find a nice way of typing Json Schema objects
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const minimalValueKindsSchema: any = {
-	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	title: 'Test Value Kinds',
+	$schema: "https://json-schema.org/draft/2019-09/schema",
+	title: "Test Value Kinds",
 	definitions: {
 		numberValue: {
-			title: 'Number Value',
-			type: 'object',
-			properties: { v: { type: 'number' } },
+			title: "Number Value",
+			type: "object",
+			properties: { v: { type: "number" } },
 		},
 		numberArrayValue: {
-			title: 'Number Array Value',
-			type: 'object',
+			title: "Number Array Value",
+			type: "object",
 			properties: {
 				v: {
-					type: 'array',
-					items: { $ref: '#/definitions/numberValue' },
+					type: "array",
+					items: { $ref: "#/definitions/numberValue" },
 				},
 			},
 		},
 		stringValue: {
-			title: 'String Value',
-			type: 'object',
-			properties: { v: { type: 'string' } },
+			title: "String Value",
+			type: "object",
+			properties: { v: { type: "string" } },
 		},
 		nullableColorValue: {
-			title: 'Nullable Color Value',
-			type: 'object',
+			title: "Nullable Color Value",
+			type: "object",
 			properties: {
 				v: {
-					type: 'object',
+					type: "object",
 					properties: {
-						r: { type: ['number', 'null'] },
+						r: { type: ["number", "null"] },
 					},
 				},
 			},
@@ -46,16 +49,18 @@ const minimalValueKindsSchema: any = {
 //🧽 Find a nice way of typing Json Schema objects
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const minimalNodeSchema: any = {
-	$schema: 'https://json-schema.org/draft/2019-09/schema',
+	$schema: "https://json-schema.org/draft/2019-09/schema",
 	definitions: {
 		controlNode: {
 			oneOf: [
 				{
 					properties: {
-						type: { enum: ['slider'] },
+						type: { enum: ["slider"] },
 						params: {
 							properties: {
-								value: { $ref: 'refable-value-kinds.schema.json#/definitions/numberValueOrRef' },
+								value: {
+									$ref: "refable-value-kinds.schema.json#/definitions/numberValueOrRef",
+								},
 							},
 						},
 					},
@@ -66,15 +71,19 @@ const minimalNodeSchema: any = {
 			oneOf: [
 				{
 					properties: {
-						type: { enum: ['add'] },
+						type: { enum: ["add"] },
 						params: {
 							properties: {
-								a: { $ref: 'refable-value-kinds.schema.json#/definitions/numberValueOrRef' },
-								b: { $ref: 'refable-value-kinds.schema.json#/definitions/numberValueOrRef' },
+								a: {
+									$ref: "refable-value-kinds.schema.json#/definitions/numberValueOrRef",
+								},
+								b: {
+									$ref: "refable-value-kinds.schema.json#/definitions/numberValueOrRef",
+								},
 							},
 						},
 					},
-					'x-outputs': [{ name: 'sum', valueType: 'numberValue' }],
+					"x-outputs": [{ name: "sum", valueType: "numberValue" }],
 				},
 			],
 		},
@@ -82,22 +91,24 @@ const minimalNodeSchema: any = {
 			oneOf: [
 				{
 					properties: {
-						type: { enum: ['circle'] },
+						type: { enum: ["circle"] },
 						params: {
 							properties: {
-								radius: { $ref: 'refable-value-kinds.schema.json#/definitions/numberValueOrRef' },
+								radius: {
+									$ref: "refable-value-kinds.schema.json#/definitions/numberValueOrRef",
+								},
 							},
 						},
 					},
-					'x-outputs': [{ name: 'drawn', valueType: 'numberValue' }],
+					"x-outputs": [{ name: "drawn", valueType: "numberValue" }],
 				},
 			],
 		},
 	},
 };
 
-describe('extract-derived-schema', () => {
-	it('generates refable-value-kinds schema', () => {
+describe("extract-derived-schema", () => {
+	it("generates refable-value-kinds schema", () => {
 		const result = extractDerviedSchema(minimalValueKindsSchema);
 		expect(result).toMatchInlineSnapshot(`
 		  {
@@ -171,8 +182,8 @@ describe('extract-derived-schema', () => {
 	});
 });
 
-describe('extract-node-inputs', () => {
-	it('generates node inputs metadata', () => {
+describe("extract-node-inputs", () => {
+	it("generates node inputs metadata", () => {
 		const result = buildNodeInputs(minimalNodeSchema);
 		expect(result).toMatchInlineSnapshot(`
 		  "export const nodeInputs = {
@@ -200,8 +211,8 @@ describe('extract-node-inputs', () => {
 	});
 });
 
-describe('extract-node-outputs', () => {
-	it('generates node outputs metadata', () => {
+describe("extract-node-outputs", () => {
+	it("generates node outputs metadata", () => {
 		const result = generateOutputs(minimalNodeSchema);
 		expect(result).toMatchInlineSnapshot(`
 		  "// generated — do not edit
@@ -215,8 +226,8 @@ describe('extract-node-outputs', () => {
 	});
 });
 
-describe('extract-value-types', () => {
-	it('generates TypeScript types from value kinds schema', () => {
+describe("extract-value-types", () => {
+	it("generates TypeScript types from value kinds schema", () => {
 		const result = jsonSchemaValueKindsToTypeScript(minimalValueKindsSchema);
 		expect(result).toMatchInlineSnapshot(`
 		  "export type V_numberValue = { kind: 'number'; v: number };

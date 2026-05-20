@@ -1,23 +1,23 @@
-import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 
 const graph: GeoArtGraph = {
-	version: '2.0',
-	title: 'Circle',
+	version: "2.0",
+	title: "Circle",
 	control: {
 		nodes: [],
 	},
 	compute: {
 		nodes: [
 			{
-				id: 'time',
-				type: 'time',
+				id: "time",
+				type: "time",
 				params: {},
 			},
 			{
-				id: 'orbit',
-				type: 'orbit',
+				id: "orbit",
+				type: "orbit",
 				params: {
-					time: { ref: 'time.time' },
+					time: { ref: "time.time" },
 					radius: { v: 0.3 },
 					speed: { v: 0.5 },
 					numPoints: { v: 1 },
@@ -29,13 +29,13 @@ const graph: GeoArtGraph = {
 	render: {
 		nodes: [
 			{
-				id: 'circle',
-				type: 'circle',
+				id: "circle",
+				type: "circle",
 				renderConfig: {
-					layer: 'live',
+					layer: "live",
 				},
 				params: {
-					centerPoints: { ref: 'orbit.points' },
+					centerPoints: { ref: "orbit.points" },
 					radius: { v: 0.05 },
 					color: { v: { r: 1, g: 1, b: 1, a: 1 } },
 				},

@@ -1,8 +1,8 @@
-import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 
 const graph: GeoArtGraph = {
-	version: '2.0',
-	title: 'Connect The Dots',
+	version: "2.0",
+	title: "Connect The Dots",
 	control: {
 		nodes: [],
 	},
@@ -10,16 +10,16 @@ const graph: GeoArtGraph = {
 		nodes: [
 			// Create color points for the start and end positions
 			{
-				id: 'startPoint',
-				type: 'colorPointCompute',
+				id: "startPoint",
+				type: "colorPointCompute",
 				params: {
 					point: { v: { x: -0.5, y: 0 } },
 					color: { v: { r: 1, g: 0, b: 0, a: 1 } },
 				},
 			},
 			{
-				id: 'endPoint',
-				type: 'colorPointCompute',
+				id: "endPoint",
+				type: "colorPointCompute",
 				params: {
 					point: { v: { x: 0.5, y: 0 } },
 					color: { v: { r: 0, b: 1, g: 0, a: 1 } },
@@ -27,37 +27,37 @@ const graph: GeoArtGraph = {
 			},
 			// Generate 30 points connecting the two endpoints
 			{
-				id: 'thirtyPoints',
-				type: 'pointsOnALine',
+				id: "thirtyPoints",
+				type: "pointsOnALine",
 				params: {
-					pointA: { ref: 'startPoint.colorPoint' },
-					pointB: { ref: 'endPoint.colorPoint' },
+					pointA: { ref: "startPoint.colorPoint" },
+					pointB: { ref: "endPoint.colorPoint" },
 					numberOfPoints: { v: 10 },
 				},
 			},
 			// Generate 400 points connecting the same two endpoints
 			{
-				id: 'fourHundredPoints',
-				type: 'pointsOnALine',
+				id: "fourHundredPoints",
+				type: "pointsOnALine",
 				params: {
-					pointA: { ref: 'startPoint.colorPoint' },
-					pointB: { ref: 'endPoint.colorPoint' },
+					pointA: { ref: "startPoint.colorPoint" },
+					pointB: { ref: "endPoint.colorPoint" },
 					numberOfPoints: { v: 400 },
 				},
 			},
 			// Time source for wave nodes
 			{
-				id: 'time',
-				type: 'time',
+				id: "time",
+				type: "time",
 				params: {},
 			},
 			// Wave modulator for 30-point line
 			{
-				id: 'wave30',
-				type: 'wave',
+				id: "wave30",
+				type: "wave",
 				params: {
-					time: { ref: 'time.time' },
-					waveType: { v: 'sine' },
+					time: { ref: "time.time" },
+					waveType: { v: "sine" },
 					frequency: { v: 2 },
 					amplitude: { v: 1 },
 					phase: { v: 0 },
@@ -66,11 +66,11 @@ const graph: GeoArtGraph = {
 			},
 			// Wave modulator for 400-point line
 			{
-				id: 'wave400',
-				type: 'wave',
+				id: "wave400",
+				type: "wave",
 				params: {
-					time: { ref: 'time.time' },
-					waveType: { v: 'sine' },
+					time: { ref: "time.time" },
+					waveType: { v: "sine" },
 					frequency: { v: 2 },
 					amplitude: { v: 1 },
 					phase: { v: 0 },
@@ -79,22 +79,22 @@ const graph: GeoArtGraph = {
 			},
 			// Curve modulator for 30-point line
 			{
-				id: 'modulatedThirtyPoints',
-				type: 'curveModulator',
+				id: "modulatedThirtyPoints",
+				type: "curveModulator",
 				params: {
-					curve: { ref: 'thirtyPoints.points' },
-					modulator: { ref: 'wave30.sampler' },
-					cycleLengthMode: { v: 'arrayLength' },
+					curve: { ref: "thirtyPoints.points" },
+					modulator: { ref: "wave30.sampler" },
+					cycleLengthMode: { v: "arrayLength" },
 				},
 			},
 			// Curve modulator for 400-point line
 			{
-				id: 'modulatedFourHundredPoints',
-				type: 'curveModulator',
+				id: "modulatedFourHundredPoints",
+				type: "curveModulator",
 				params: {
-					curve: { ref: 'fourHundredPoints.points' },
-					modulator: { ref: 'wave400.sampler' },
-					cycleLengthMode: { v: 'arrayLength' },
+					curve: { ref: "fourHundredPoints.points" },
+					modulator: { ref: "wave400.sampler" },
+					cycleLengthMode: { v: "arrayLength" },
 				},
 			},
 		],
@@ -103,28 +103,28 @@ const graph: GeoArtGraph = {
 		nodes: [
 			// Render modulated 30 points with catmull-rom interpolation (smooth curves)
 			{
-				id: 'smoothLine',
-				type: 'connect-dots',
+				id: "smoothLine",
+				type: "connect-dots",
 				renderConfig: {
-					layer: 'live',
+					layer: "live",
 				},
 				params: {
-					colorPointsArray: { ref: 'modulatedThirtyPoints.points' },
+					colorPointsArray: { ref: "modulatedThirtyPoints.points" },
 					lineWidth: { v: 2 },
-					mode: { v: 'catmull-rom' },
+					mode: { v: "catmull-rom" },
 				},
 			},
 			// Render modulated 400 points with straight interpolation (linear segments)
 			{
-				id: 'straightLine',
-				type: 'connect-dots',
+				id: "straightLine",
+				type: "connect-dots",
 				renderConfig: {
-					layer: 'live',
+					layer: "live",
 				},
 				params: {
-					colorPointsArray: { ref: 'modulatedFourHundredPoints.points' },
+					colorPointsArray: { ref: "modulatedFourHundredPoints.points" },
 					lineWidth: { v: 1 },
-					mode: { v: 'straight' },
+					mode: { v: "straight" },
 				},
 			},
 		],

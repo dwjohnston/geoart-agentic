@@ -1,4 +1,4 @@
-import { implementComputeNode } from '../implementComputeNode';
+import { implementComputeNode } from "../implementComputeNode";
 
 /**
  * Pure assembler/passthrough. The evaluator resolves the declared array of
@@ -9,16 +9,16 @@ import { implementComputeNode } from '../implementComputeNode';
  * channel" in a colour shift. We must preserve them as-is and never coerce
  * nulls.
  */
-const colorPointArrayNodeDef = implementComputeNode('colorPointArrayCompute', {
-  isTimeDependant: false,
-  defaults: {
-    points: [],
-  },
-  evaluate: (inputs) => {
-    return {
-      points: inputs.points,
-    };
-  },
+const colorPointArrayNodeDef = implementComputeNode("colorPointArrayCompute", {
+	isTimeDependant: false,
+	defaults: {
+		points: [],
+	},
+	evaluate: (inputs) => {
+		return {
+			points: inputs.points,
+		};
+	},
 });
 
 export default colorPointArrayNodeDef;

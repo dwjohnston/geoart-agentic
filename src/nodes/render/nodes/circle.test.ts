@@ -1,29 +1,29 @@
-import { describe, expect, it } from 'bun:test';
-import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
+import { describe, expect, it } from "bun:test";
+import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext";
 import circleNodeDef from "./circle";
 
 describe("circleNodeDef", () => {
+	it("draws on context properly", () => {
+		const fakeContext = createFakeContext();
 
-  it("draws on context properly", () => {
+		circleNodeDef.evaluate(
+			{
+				intervalTicks: 0,
+				center: { x: 0.5, y: 0.5 },
+				radius: 0.5,
+				eccentricity: 0,
+				tilt: 0,
+				color: { r: 1, g: 1, b: 1, a: 1 },
+				centerPoints: [],
+			},
+			{
+				canvas: fakeContext,
+				height: 100,
+				width: 100,
+			},
+		);
 
-    const fakeContext = createFakeContext();
-
-    circleNodeDef.evaluate({
-      intervalTicks: 0,
-      center: { x: 0.5, y: 0.5 },
-      radius: 0.5,
-      eccentricity: 0,
-      tilt: 0,
-      color: { r: 1, g: 1, b: 1, a: 1 },
-      centerPoints: []
-    }, {
-      canvas: fakeContext,
-      height: 100,
-      width: 100,
-    })
-
-
-    expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
+		expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
         {
           "kind": "property",
@@ -59,7 +59,6 @@ describe("circleNodeDef", () => {
           "name": "stroke",
         },
       ]
-    `)
-  })
-
-})
+    `);
+	});
+});

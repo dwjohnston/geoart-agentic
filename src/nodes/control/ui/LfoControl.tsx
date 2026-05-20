@@ -1,80 +1,83 @@
-import { KnobControl } from './KnobControl';
-import { DropdownControl } from './DropdownControl';
-import { DebugPanel } from '../../../ui-tooling/DebugPanel';
-import type { ResolvedValue } from '../../../schema/typeHelpers';
-
-
-
+import { KnobControl } from "./KnobControl";
+import { DropdownControl } from "./DropdownControl";
+import { DebugPanel } from "../../../ui-tooling/DebugPanel";
+import type { ResolvedValue } from "../../../schema/typeHelpers";
 
 type Props = {
-  id: string;
-  baseValue: number;
-  frequency: number;
-  amplitude: number;
-  waveShape: ResolvedValue<"waveTypeEnumValue">;
-  waveShapeOptions: readonly ResolvedValue<"waveTypeEnumValue">[];
-  onBaseValueChange: (v: number) => void;
-  onFrequencyChange: (v: number) => void;
-  onAmplitudeChange: (v: number) => void;
-  onWaveShapeChange: (v: ResolvedValue<"waveTypeEnumValue">) => void;
+	id: string;
+	baseValue: number;
+	frequency: number;
+	amplitude: number;
+	waveShape: ResolvedValue<"waveTypeEnumValue">;
+	waveShapeOptions: readonly ResolvedValue<"waveTypeEnumValue">[];
+	onBaseValueChange: (v: number) => void;
+	onFrequencyChange: (v: number) => void;
+	onAmplitudeChange: (v: number) => void;
+	onWaveShapeChange: (v: ResolvedValue<"waveTypeEnumValue">) => void;
 };
 
 export function LfoControl({
-  id,
-  baseValue,
-  frequency,
-  amplitude,
-  waveShape,
-  waveShapeOptions,
-  onBaseValueChange,
-  onFrequencyChange,
-  onAmplitudeChange,
-  onWaveShapeChange,
+	id,
+	baseValue,
+	frequency,
+	amplitude,
+	waveShape,
+	waveShapeOptions,
+	onBaseValueChange,
+	onFrequencyChange,
+	onAmplitudeChange,
+	onWaveShapeChange,
 }: Props) {
-  return (
-    <div
-      className="lfo-control"
-      style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 12, padding: 8 }}
-    >
-      {/* Large base knob */}
-      <KnobControl
-        value={baseValue}
-        min={-1}
-        max={1}
-        size="lg"
-        label="base"
-        onChange={onBaseValueChange}
-      />
+	return (
+		<div
+			className="lfo-control"
+			style={{
+				display: "flex",
+				flexDirection: "row",
+				alignItems: "center",
+				gap: 12,
+				padding: 8,
+			}}
+		>
+			{/* Large base knob */}
+			<KnobControl
+				value={baseValue}
+				min={-1}
+				max={1}
+				size="lg"
+				label="base"
+				onChange={onBaseValueChange}
+			/>
 
-      {/* Right column: wave shape dropdown + two small knobs */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <DebugPanel value={{ waveShape, waveShapeOptions }} />
-        <DropdownControl
-          id={`${id}-waveShape`}
-          label=""
-          options={waveShapeOptions}
-          initialValue={waveShape}
-          onChange={onWaveShapeChange}
-        />
-        <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
-          <KnobControl
-            value={frequency}
-            min={0.001}
-            max={1}
-            size="sm"
-            label="freq"
-            onChange={onFrequencyChange}
-          />
-          <KnobControl
-            value={amplitude}
-            min={0}
-            max={1}
-            size="sm"
-            label="amp"
-            onChange={onAmplitudeChange}
-          />
-        </div>
-      </div>
-    </div>
-  );
+			{/* Right column: wave shape dropdown + two small knobs */}
+			<div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+				<DebugPanel value={{ waveShape, waveShapeOptions }} />
+				<DropdownControl
+					id={`${id}-waveShape`}
+					label=""
+					options={waveShapeOptions}
+					initialValue={waveShape}
+					onChange={onWaveShapeChange}
+				/>
+				<div style={{ display: "flex", flexDirection: "row", gap: 8 }}>
+					<KnobControl
+						value={frequency}
+						min={0.001}
+						max={1}
+						size="sm"
+						label="freq"
+						onChange={onFrequencyChange}
+					/>
+					<KnobControl
+						value={amplitude}
+						min={0}
+						max={1}
+						size="sm"
+						label="amp"
+						onChange={onAmplitudeChange}
+					/>
+				</div>
+			</div>
+		</div>
+	);
 }

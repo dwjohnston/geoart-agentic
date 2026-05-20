@@ -1,1312 +1,1179 @@
 {
-  "$schema": "https://json-schema.org/draft/2019-09/schema",
-  "title": "GeoArt Graph",
-  "description": "Serialised dataflow graph for the Geometric Art Engine",
-  "type": "object",
-  "additionalProperties": false,
-  "required": [
-    "version",
-    "control",
-    "compute",
-    "render"
-  ],
-  "properties": {
-    "version": {
-      "title": "Version",
-      "type": "string",
-      "description": "major.minor — increment minor for backward-compatible additions, major for breaking changes",
-      "pattern": "^\\d+\\.\\d+$"
-    },
-    "title": {
-      "type": "string",
-      "title": "Title"
-    },
-    "description": {
-      "type": "string",
-      "title": "Description"
-    },
-    "speed": {
-      "title": "Global Speed",
-      "type": "number",
-      "description": "Global playback speed. Values >= 1 run that many ticks per frame. Values < 1 must be unit fractions (1/2, 1/3, …) — one tick every n frames. Default 1.",
-      "minimum": 0.125
-    },
-    "control": {
-      "title": "Control Section",
-      "description": "User-facing input nodes — sliders, colour pickers, and dropdowns",
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "nodes"
-      ],
-      "properties": {
-        "nodes": {
-          "title": "Control Nodes",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/controlNode"
-          }
-        }
-      }
-    },
-    "compute": {
-      "title": "Compute",
-      "description": "Pure math nodes — no canvas, no DOM, no side effects",
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "nodes"
-      ],
-      "properties": {
-        "nodes": {
-          "title": "Nodes",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/computeNode"
-          }
-        }
-      }
-    },
-    "render": {
-      "title": "Render",
-      "description": "Drawing nodes — canvas access lives here and nowhere else",
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "nodes"
-      ],
-      "properties": {
-        "nodes": {
-          "title": "Nodes",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/renderNode"
-          }
-        }
-      }
-    }
-  },
-  "definitions": {
-    "refParam": {
-      "title": "Ref Param",
-      "type": "object",
-      "description": "A reference to another node's named output port, in the form 'nodeId.portName'",
-      "additionalProperties": false,
-      "required": [
-        "ref"
-      ],
-      "properties": {
-        "ref": {
-          "title": "Ref",
-          "description": "Reference in the form 'nodeId.portName'",
-          "type": "string",
-          "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*\\.[a-zA-Z][a-zA-Z0-9_-]*$"
-        }
-      }
-    },
-    "renderConfig": {
-      "title": "Render Layer Config",
-      "type": "object",
-      "description": "Controls which canvas layer the render node draws to",
-      "additionalProperties": false,
-      "required": [
-        "layer"
-      ],
-      "properties": {
-        "layer": {
-          "title": "Layer",
-          "description": "paint = accumulates on trail canvas; live = cleared-each-frame orbit canvas",
-          "type": "string",
-          "enum": [
-            "paint",
-            "live"
-          ]
-        }
-      }
-    },
-    "controlNode": {
-      "title": "Control Node",
-      "description": "User-facing input node — pure value source with no inputs",
-      "oneOf": [
-        {
-          "title": "Slider Control Node",
-          "type": "object",
-          "description": "Numeric slider",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "value",
-              "valueType": "numberValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "slider"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
-                },
-                "min": {
-                  "$ref": "value-kinds.schema.json#/definitions/numberValue"
-                },
-                "max": {
-                  "$ref": "value-kinds.schema.json#/definitions/numberValue"
-                },
-                "value": {
-                  "$ref": "value-kinds.schema.json#/definitions/numberValue"
-                },
-                "step": {
-                  "$ref": "value-kinds.schema.json#/definitions/numberValue"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Color Picker Control Node",
-          "type": "object",
-          "description": "Color picker",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "value",
-              "valueType": "colorValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "colorPicker"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
-                },
-                "value": {
-                  "$ref": "value-kinds.schema.json#/definitions/colorValue"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Dropdown Control Node",
-          "type": "object",
-          "description": "String dropdown / enum selector",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "value",
-              "valueType": "stringValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "dropdown"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
-                },
-                "options": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringArrayValue"
-                },
-                "value": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Wave Selector Control Node",
-          "type": "object",
-          "description": "Wave Selector",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "value",
-              "valueType": "waveTypeEnumValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "waveSelector"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
-                },
-                "value": {
-                  "$ref": "value-kinds.schema.json#/definitions/waveTypeEnumValue"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "LFO Control Node",
-          "type": "object",
-          "description": "Bundles the four LFO parameters into one compact control — outputs baseValue, frequency, amplitude, and waveShape for wiring into a wave compute node",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "baseValue",
-              "valueType": "numberValue"
-            },
-            {
-              "name": "frequency",
-              "valueType": "numberValue"
-            },
-            {
-              "name": "amplitude",
-              "valueType": "numberValue"
-            },
-            {
-              "name": "waveShape",
-              "valueType": "waveTypeEnumValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "lfo-control"
-              ]
-            },
-            "params": {
-              "title": "Params",
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "baseValue": {
-                  "$ref": "value-kinds.schema.json#/definitions/numberValue"
-                },
-                "frequency": {
-                  "$ref": "value-kinds.schema.json#/definitions/numberValue"
-                },
-                "amplitude": {
-                  "$ref": "value-kinds.schema.json#/definitions/numberValue"
-                },
-                "waveShape": {
-                  "$ref": "value-kinds.schema.json#/definitions/waveTypeEnumValue"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Curve Mode Selector Control Node",
-          "type": "object",
-          "description": "Dropdown selector for curve interpolation mode",
-          "additionalProperties": false,
-          "required": ["id", "type", "params"],
-          "x-outputs": [
-            { "name": "value", "valueType": "curveModeEnumValue" }
-          ],
-          "properties": {
-            "id": { "title": "ID", "type": "string" },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": ["curveModeSelector"]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": { "$ref": "value-kinds.schema.json#/definitions/stringValue" },
-                "value": { "$ref": "value-kinds.schema.json#/definitions/curveModeEnumValue" }
-              }
-            }
-          }
-        },
-        {
-          "title": "Cycle Length Mode Selector Control Node",
-          "type": "object",
-          "description": "Dropdown selector for cycle length mode",
-          "additionalProperties": false,
-          "required": ["id", "type", "params"],
-          "x-outputs": [
-            { "name": "value", "valueType": "cycleLengthModeEnumValue" }
-          ],
-          "properties": {
-            "id": { "title": "ID", "type": "string" },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": ["cycleLengthModeSelector"]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": { "$ref": "value-kinds.schema.json#/definitions/stringValue" },
-                "value": { "$ref": "value-kinds.schema.json#/definitions/cycleLengthModeEnumValue" }
-              }
-            }
-          }
-        },
-        {
-          "title": "Timed Line Array Mode Selector Control Node",
-          "type": "object",
-          "description": "Dropdown selector for timed line array mode",
-          "additionalProperties": false,
-          "required": ["id", "type", "params"],
-          "x-outputs": [
-            { "name": "value", "valueType": "timedLineArrayModeEnumValue" }
-          ],
-          "properties": {
-            "id": { "title": "ID", "type": "string" },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": ["timedLineArrayModeSelector"]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": { "$ref": "value-kinds.schema.json#/definitions/stringValue" },
-                "value": { "$ref": "value-kinds.schema.json#/definitions/timedLineArrayModeEnumValue" }
-              }
-            }
-          }
-        },
-        {
-          "title": "Timed Line Array Interval Mode Selector Control Node",
-          "type": "object",
-          "description": "Dropdown selector for timed line array interval mode",
-          "additionalProperties": false,
-          "required": ["id", "type", "params"],
-          "x-outputs": [
-            { "name": "value", "valueType": "timedLineArrayIntervalModeEnumValue" }
-          ],
-          "properties": {
-            "id": { "title": "ID", "type": "string" },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": ["timedLineArrayIntervalModeSelector"]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": { "$ref": "value-kinds.schema.json#/definitions/stringValue" },
-                "value": { "$ref": "value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValue" }
-              }
-            }
-          }
-        }
-      ]
-    },
-    "computeNode": {
-      "title": "Compute Node",
-      "description": "Pure math node — no canvas, no DOM, no side effects",
-      "oneOf": [
-        {
-          "title": "Tick Compute Node",
-          "type": "object",
-          "description": "Emits the current tick count",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "time",
-              "valueType": "numberValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "time"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {}
-            }
-          }
-        },
-        {
-          "title": "Wave Compute Node",
-          "type": "object",
-          "description": "Oscillation generator — sine, square, saw, inverse-saw, or triangle wave",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "value",
-              "valueType": "numberValue"
-            },
-            {
-              "name": "sampler",
-              "valueType": "samplerValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "wave"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "time": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "waveType": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/waveTypeEnumValueOrRef"
-                },
-                "frequency": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "amplitude": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "phase": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "samplerTemporalImpact": {
-                  "description": "Temporal impact factor for the wave sampler (0-1) - controls intensity of time component in phaseShift calculation",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Orbit Compute Node",
-          "type": "object",
-          "description": "Ellipitical motion — outputs a single point (backwards-compat) and an array of evenly-spaced coloured points. A single point on an orbit centered at 0.5,0.5, with starting phase 0, and radius 0.5, will be 1,0.5 ",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "x-deprecated": true,
-              "x-deprecation-reason": "use `points` instead",
-              "name": "point",
-              "valueType": "pointValue"
-            },
-            {
-              "name": "points",
-              "valueType": "colorPointArrayValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "orbit"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "time": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "radius": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "speed": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "center": {
-                  "deprecated": true,
-                  "description": "DEPRECATED: use centerPoints instead",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/pointValueOrRef"
-                },
-                "centerPoints": {
-                  "description": "Array of centre points. One orbit is generated per centre; all output points are flattened into the points output. Takes precedence over center.",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "numPoints": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "phase": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "eccentricity": {
-                  "title": "Eccentricity",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "tilt": {
-                  "title": "Tilt",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Color Point Compute Compute Node",
-          "type": "object",
-          "deprecated": false,
-          "description": "Packs a point and colour into a single coloured-point value. Avoid using this node - nodes should be outputing colorPoints directly. ",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "x-deprecated": true,
-              "x-deprecation-reason": "use `points` instead",
-              "name": "colorPoint",
-              "valueType": "colorPointValue"
-            },
-            {
-              "name": "points",
-              "valueType": "colorPointArrayValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "colorPointCompute"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "point": {
-                  "deprecated": true,
-                  "description": "DEPRECATED: use x, y instead",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/pointValueOrRef"
-                },
-                "color": {
-                  "deprecated": true,
-                  "description": "DEPRECATED: use r, g, b, a instead",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorValueOrRef"
-                },
-                "r": {
-                  "description": "Red colour component (0-1)",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "g": {
-                  "description": "Green colour component (0-1)",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "b": {
-                  "description": "Blue colour component (0-1)",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "a": {
-                  "description": "Alpha component (0-1)",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "x": {
-                  "description": "X coordinate of the point",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "y": {
-                  "description": "Y coordinate of the point",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "dx": {
-                  "description": "X component of tangent vector (optional, defaults to 0)",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "dy": {
-                  "description": "Y component of tangent vector (optional, defaults to 0)",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Color Point Array Compute Node",
-          "type": "object",
-          "deprecated": false,
-          "description": "Assembler/passthrough that takes an array of colour points (each element may be a static value or a ref) and emits them as a single colorPointArray output. Lets algorithms build a colorPointArray from individually-declared colour points and feed it into other nodes.",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "points",
-              "valueType": "colorPointArrayValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "colorPointArrayCompute"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "points": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Points On A Line Compute Node",
-          "type": "object",
-          "description": "Generates evenly-spaced colour points along a line between two colour points",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "points",
-              "valueType": "colorPointArrayValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "pointsOnALine"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "pointA": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointValueOrRef"
-                },
-                "pointB": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointValueOrRef"
-                },
-                "numberOfPoints": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Multiplier Compute Node",
-          "type": "object",
-          "description": "Multiplies two numbers — outputs product = a * b",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "product",
-              "valueType": "numberValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "multiplier"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "a": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "b": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Add Compute Node",
-          "type": "object",
-          "description": "Adds two numbers — outputs sum = a + b",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "sum",
-              "valueType": "numberValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "add"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "a": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "b": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Curve Modulator Compute Node",
-          "type": "object",
-          "description": "Displaces each point in a curve perpendicular to its tangent using a sampler value.",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "points",
-              "valueType": "colorPointArrayValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "curveModulator"
-              ]
-            },
-            "params": {
-              "title": "Params",
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "curve": {
-                  "title": "Curve",
-                  "description": "Array of coloured points with tangents to be modulated",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "modulator": {
-                  "title": "Modulator",
-                  "description": "Sampler to control displacement magnitude at each point",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
-                },
-                "cycleLengthMode": {
-                  "title": "Cycle Length Mode",
-                  "description": "Method for determining cycle length: arrayLength uses array size, linearOne accumulates euclidean distance between points",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeEnumValueOrRef"
-                }
-              },
-              "required": []
-            }
-          }
-        },
-        {
-          "title": "Color Shift Compute Node",
-          "type": "object",
-          "description": "Shifts colours of input points based on inverse-distance weighted influence from target points",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "points",
-              "valueType": "colorPointArrayValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "colorShift"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "inputPoints": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "targetPoints": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "falloff": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "strength": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    "renderNode": {
-      "title": "Render Node",
-      "description": "Drawing node — canvas access lives here and nowhere else",
-      "oneOf": [
-        {
-          "title": "Timed Line Render Node",
-          "type": "object",
-          "deprecated": true,
-          "description": "DEPRECATED: Use Timed Line Array instead. Draws a gradient line between two coloured points on an interval",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "renderConfig",
-            "params"
-          ],
-          "x-outputs": [],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "timedLine"
-              ]
-            },
-            "renderConfig": {
-              "$ref": "#/definitions/renderConfig"
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "intervalTicks": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "colorPointA": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointValueOrRef"
-                },
-                "colorPointB": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Timed Line Array Render Node",
-          "type": "object",
-          "description": "Draws gradient lines from each point in one array to the corresponding point in another array, on an interval",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "renderConfig",
-            "params"
-          ],
-          "x-outputs": [],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "timedLineArray"
-              ]
-            },
-            "renderConfig": {
-              "$ref": "#/definitions/renderConfig"
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "intervalTicks": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "colorPointsA": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "colorPointsB": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "mode": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeEnumValueOrRef"
-                },
-                "intervalMode": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Circle Render Node",
-          "type": "object",
-          "description": "Draws an ellipse at a point",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "renderConfig",
-            "params"
-          ],
-          "x-outputs": [],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "circle"
-              ]
-            },
-            "renderConfig": {
-              "$ref": "#/definitions/renderConfig"
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "intervalTicks": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "center": {
-                  "deprecated": true,
-                  "description": "DEPRECATED: use centerPoints instead",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/pointValueOrRef"
-                },
-                "centerPoints": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "radius": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "eccentricity": {
-                  "title": "Eccentricity",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "tilt": {
-                  "title": "Tilt",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "color": {
-                  "deprecated": true,
-                  "description": "DEPRECATED: use centerPoints instead",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Connect Dots Render Node",
-          "type": "object",
-          "description": "Draws lines connecting consecutive coloured points in sequence. Each line segment inherits the colour of the second point.",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "renderConfig",
-            "params"
-          ],
-          "x-outputs": [],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "connect-dots"
-              ]
-            },
-            "renderConfig": {
-              "$ref": "#/definitions/renderConfig"
-            },
-            "params": {
-              "title": "Params",
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "colorPointsArray": {
-                  "description": "Array of coloured points to connect",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "lineWidth": {
-                  "description": "Width of each line segment in pixels",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "mode": {
-                  "title": "Mode",
-                  "description": "Curve interpolation mode: straight for linear segments between points, catmull-rom for smooth curves",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/curveModeEnumValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Polygon Render Node",
-          "type": "object",
-          "description": "Draws a solid filled polygon using an array of coloured points connected in order",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "renderConfig",
-            "params"
-          ],
-          "x-outputs": [],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "polygon"
-              ]
-            },
-            "renderConfig": {
-              "$ref": "#/definitions/renderConfig"
-            },
-            "params": {
-              "title": "Params",
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "points": {
-                  "title": "Points",
-                  "description": "Array of coloured points defining the polygon vertices",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Lines Through Point Render Node",
-          "type": "object",
-          "description": "Draws lines through each point, rotated by the specified angle. Useful for drawing tangents and normals. Line direction is determined by the point's dx,dy gradient; 0° follows the gradient, 90° is perpendicular. Points with zero gradient (0,0) are skipped.",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "renderConfig",
-            "params"
-          ],
-          "x-outputs": [],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "linesThroughPoint"
-              ]
-            },
-            "renderConfig": {
-              "$ref": "#/definitions/renderConfig"
-            },
-            "params": {
-              "title": "Params",
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "points": {
-                  "title": "Points",
-                  "description": "Array of color points with gradient info via dx,dy",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "degrees": {
-                  "title": "Degrees",
-                  "description": "Rotation angles in degrees for each line, relative to the points dx,dy values. A degree of 0 aligns with the points dx,dy.",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberArrayValueOrRef"
-                },
-                "lineLength": {
-                  "title": "Line Length",
-                  "description": "Length of each line",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                }
-              }
-            }
-          }
-        }
-      ]
-    }
-  }
+	"$schema": "https://json-schema.org/draft/2019-09/schema",
+	"title": "GeoArt Graph",
+	"description": "Serialised dataflow graph for the Geometric Art Engine",
+	"type": "object",
+	"additionalProperties": false,
+	"required": ["version", "control", "compute", "render"],
+	"properties": {
+		"version": {
+			"title": "Version",
+			"type": "string",
+			"description": "major.minor — increment minor for backward-compatible additions, major for breaking changes",
+			"pattern": "^\\d+\\.\\d+$"
+		},
+		"title": {
+			"type": "string",
+			"title": "Title"
+		},
+		"description": {
+			"type": "string",
+			"title": "Description"
+		},
+		"speed": {
+			"title": "Global Speed",
+			"type": "number",
+			"description": "Global playback speed. Values >= 1 run that many ticks per frame. Values < 1 must be unit fractions (1/2, 1/3, …) — one tick every n frames. Default 1.",
+			"minimum": 0.125
+		},
+		"control": {
+			"title": "Control Section",
+			"description": "User-facing input nodes — sliders, colour pickers, and dropdowns",
+			"type": "object",
+			"additionalProperties": false,
+			"required": ["nodes"],
+			"properties": {
+				"nodes": {
+					"title": "Control Nodes",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/controlNode"
+					}
+				}
+			}
+		},
+		"compute": {
+			"title": "Compute",
+			"description": "Pure math nodes — no canvas, no DOM, no side effects",
+			"type": "object",
+			"additionalProperties": false,
+			"required": ["nodes"],
+			"properties": {
+				"nodes": {
+					"title": "Nodes",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/computeNode"
+					}
+				}
+			}
+		},
+		"render": {
+			"title": "Render",
+			"description": "Drawing nodes — canvas access lives here and nowhere else",
+			"type": "object",
+			"additionalProperties": false,
+			"required": ["nodes"],
+			"properties": {
+				"nodes": {
+					"title": "Nodes",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/renderNode"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"refParam": {
+			"title": "Ref Param",
+			"type": "object",
+			"description": "A reference to another node's named output port, in the form 'nodeId.portName'",
+			"additionalProperties": false,
+			"required": ["ref"],
+			"properties": {
+				"ref": {
+					"title": "Ref",
+					"description": "Reference in the form 'nodeId.portName'",
+					"type": "string",
+					"pattern": "^[a-zA-Z][a-zA-Z0-9_-]*\\.[a-zA-Z][a-zA-Z0-9_-]*$"
+				}
+			}
+		},
+		"renderConfig": {
+			"title": "Render Layer Config",
+			"type": "object",
+			"description": "Controls which canvas layer the render node draws to",
+			"additionalProperties": false,
+			"required": ["layer"],
+			"properties": {
+				"layer": {
+					"title": "Layer",
+					"description": "paint = accumulates on trail canvas; live = cleared-each-frame orbit canvas",
+					"type": "string",
+					"enum": ["paint", "live"]
+				}
+			}
+		},
+		"controlNode": {
+			"title": "Control Node",
+			"description": "User-facing input node — pure value source with no inputs",
+			"oneOf": [
+				{
+					"title": "Slider Control Node",
+					"type": "object",
+					"description": "Numeric slider",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "value",
+							"valueType": "numberValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["slider"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"$ref": "value-kinds.schema.json#/definitions/stringValue"
+								},
+								"min": {
+									"$ref": "value-kinds.schema.json#/definitions/numberValue"
+								},
+								"max": {
+									"$ref": "value-kinds.schema.json#/definitions/numberValue"
+								},
+								"value": {
+									"$ref": "value-kinds.schema.json#/definitions/numberValue"
+								},
+								"step": {
+									"$ref": "value-kinds.schema.json#/definitions/numberValue"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Color Picker Control Node",
+					"type": "object",
+					"description": "Color picker",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "value",
+							"valueType": "colorValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["colorPicker"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"$ref": "value-kinds.schema.json#/definitions/stringValue"
+								},
+								"value": {
+									"$ref": "value-kinds.schema.json#/definitions/colorValue"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Dropdown Control Node",
+					"type": "object",
+					"description": "String dropdown / enum selector",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "value",
+							"valueType": "stringValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["dropdown"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"$ref": "value-kinds.schema.json#/definitions/stringValue"
+								},
+								"options": {
+									"$ref": "value-kinds.schema.json#/definitions/stringArrayValue"
+								},
+								"value": {
+									"$ref": "value-kinds.schema.json#/definitions/stringValue"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Wave Selector Control Node",
+					"type": "object",
+					"description": "Wave Selector",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "value",
+							"valueType": "waveTypeEnumValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["waveSelector"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"$ref": "value-kinds.schema.json#/definitions/stringValue"
+								},
+								"value": {
+									"$ref": "value-kinds.schema.json#/definitions/waveTypeEnumValue"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "LFO Control Node",
+					"type": "object",
+					"description": "Bundles the four LFO parameters into one compact control — outputs baseValue, frequency, amplitude, and waveShape for wiring into a wave compute node",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "baseValue",
+							"valueType": "numberValue"
+						},
+						{
+							"name": "frequency",
+							"valueType": "numberValue"
+						},
+						{
+							"name": "amplitude",
+							"valueType": "numberValue"
+						},
+						{
+							"name": "waveShape",
+							"valueType": "waveTypeEnumValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["lfo-control"]
+						},
+						"params": {
+							"title": "Params",
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"baseValue": {
+									"$ref": "value-kinds.schema.json#/definitions/numberValue"
+								},
+								"frequency": {
+									"$ref": "value-kinds.schema.json#/definitions/numberValue"
+								},
+								"amplitude": {
+									"$ref": "value-kinds.schema.json#/definitions/numberValue"
+								},
+								"waveShape": {
+									"$ref": "value-kinds.schema.json#/definitions/waveTypeEnumValue"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Curve Mode Selector Control Node",
+					"type": "object",
+					"description": "Dropdown selector for curve interpolation mode",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [{ "name": "value", "valueType": "curveModeEnumValue" }],
+					"properties": {
+						"id": { "title": "ID", "type": "string" },
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["curveModeSelector"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"$ref": "value-kinds.schema.json#/definitions/stringValue"
+								},
+								"value": {
+									"$ref": "value-kinds.schema.json#/definitions/curveModeEnumValue"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Cycle Length Mode Selector Control Node",
+					"type": "object",
+					"description": "Dropdown selector for cycle length mode",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{ "name": "value", "valueType": "cycleLengthModeEnumValue" }
+					],
+					"properties": {
+						"id": { "title": "ID", "type": "string" },
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["cycleLengthModeSelector"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"$ref": "value-kinds.schema.json#/definitions/stringValue"
+								},
+								"value": {
+									"$ref": "value-kinds.schema.json#/definitions/cycleLengthModeEnumValue"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Timed Line Array Mode Selector Control Node",
+					"type": "object",
+					"description": "Dropdown selector for timed line array mode",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{ "name": "value", "valueType": "timedLineArrayModeEnumValue" }
+					],
+					"properties": {
+						"id": { "title": "ID", "type": "string" },
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["timedLineArrayModeSelector"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"$ref": "value-kinds.schema.json#/definitions/stringValue"
+								},
+								"value": {
+									"$ref": "value-kinds.schema.json#/definitions/timedLineArrayModeEnumValue"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Timed Line Array Interval Mode Selector Control Node",
+					"type": "object",
+					"description": "Dropdown selector for timed line array interval mode",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "value",
+							"valueType": "timedLineArrayIntervalModeEnumValue"
+						}
+					],
+					"properties": {
+						"id": { "title": "ID", "type": "string" },
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["timedLineArrayIntervalModeSelector"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"$ref": "value-kinds.schema.json#/definitions/stringValue"
+								},
+								"value": {
+									"$ref": "value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValue"
+								}
+							}
+						}
+					}
+				}
+			]
+		},
+		"computeNode": {
+			"title": "Compute Node",
+			"description": "Pure math node — no canvas, no DOM, no side effects",
+			"oneOf": [
+				{
+					"title": "Tick Compute Node",
+					"type": "object",
+					"description": "Emits the current tick count",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "time",
+							"valueType": "numberValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["time"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {}
+						}
+					}
+				},
+				{
+					"title": "Wave Compute Node",
+					"type": "object",
+					"description": "Oscillation generator — sine, square, saw, inverse-saw, or triangle wave",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "value",
+							"valueType": "numberValue"
+						},
+						{
+							"name": "sampler",
+							"valueType": "samplerValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["wave"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"time": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"waveType": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/waveTypeEnumValueOrRef"
+								},
+								"frequency": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"amplitude": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"phase": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"samplerTemporalImpact": {
+									"description": "Temporal impact factor for the wave sampler (0-1) - controls intensity of time component in phaseShift calculation",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Orbit Compute Node",
+					"type": "object",
+					"description": "Ellipitical motion — outputs a single point (backwards-compat) and an array of evenly-spaced coloured points. A single point on an orbit centered at 0.5,0.5, with starting phase 0, and radius 0.5, will be 1,0.5 ",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"x-deprecated": true,
+							"x-deprecation-reason": "use `points` instead",
+							"name": "point",
+							"valueType": "pointValue"
+						},
+						{
+							"name": "points",
+							"valueType": "colorPointArrayValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["orbit"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"time": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"radius": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"speed": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"center": {
+									"deprecated": true,
+									"description": "DEPRECATED: use centerPoints instead",
+									"$ref": "refable-value-kinds.schema.json#/definitions/pointValueOrRef"
+								},
+								"centerPoints": {
+									"description": "Array of centre points. One orbit is generated per centre; all output points are flattened into the points output. Takes precedence over center.",
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								},
+								"numPoints": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"phase": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"eccentricity": {
+									"title": "Eccentricity",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"tilt": {
+									"title": "Tilt",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Color Point Compute Compute Node",
+					"type": "object",
+					"deprecated": false,
+					"description": "Packs a point and colour into a single coloured-point value. Avoid using this node - nodes should be outputing colorPoints directly. ",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"x-deprecated": true,
+							"x-deprecation-reason": "use `points` instead",
+							"name": "colorPoint",
+							"valueType": "colorPointValue"
+						},
+						{
+							"name": "points",
+							"valueType": "colorPointArrayValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["colorPointCompute"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"point": {
+									"deprecated": true,
+									"description": "DEPRECATED: use x, y instead",
+									"$ref": "refable-value-kinds.schema.json#/definitions/pointValueOrRef"
+								},
+								"color": {
+									"deprecated": true,
+									"description": "DEPRECATED: use r, g, b, a instead",
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorValueOrRef"
+								},
+								"r": {
+									"description": "Red colour component (0-1)",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"g": {
+									"description": "Green colour component (0-1)",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"b": {
+									"description": "Blue colour component (0-1)",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"a": {
+									"description": "Alpha component (0-1)",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"x": {
+									"description": "X coordinate of the point",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"y": {
+									"description": "Y coordinate of the point",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"dx": {
+									"description": "X component of tangent vector (optional, defaults to 0)",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"dy": {
+									"description": "Y component of tangent vector (optional, defaults to 0)",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Color Point Array Compute Node",
+					"type": "object",
+					"deprecated": false,
+					"description": "Assembler/passthrough that takes an array of colour points (each element may be a static value or a ref) and emits them as a single colorPointArray output. Lets algorithms build a colorPointArray from individually-declared colour points and feed it into other nodes.",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "points",
+							"valueType": "colorPointArrayValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["colorPointArrayCompute"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"points": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Points On A Line Compute Node",
+					"type": "object",
+					"description": "Generates evenly-spaced colour points along a line between two colour points",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "points",
+							"valueType": "colorPointArrayValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["pointsOnALine"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"pointA": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointValueOrRef"
+								},
+								"pointB": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointValueOrRef"
+								},
+								"numberOfPoints": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Multiplier Compute Node",
+					"type": "object",
+					"description": "Multiplies two numbers — outputs product = a * b",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "product",
+							"valueType": "numberValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["multiplier"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"a": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"b": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Add Compute Node",
+					"type": "object",
+					"description": "Adds two numbers — outputs sum = a + b",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "sum",
+							"valueType": "numberValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["add"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"a": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"b": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Curve Modulator Compute Node",
+					"type": "object",
+					"description": "Displaces each point in a curve perpendicular to its tangent using a sampler value.",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "points",
+							"valueType": "colorPointArrayValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["curveModulator"]
+						},
+						"params": {
+							"title": "Params",
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"curve": {
+									"title": "Curve",
+									"description": "Array of coloured points with tangents to be modulated",
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								},
+								"modulator": {
+									"title": "Modulator",
+									"description": "Sampler to control displacement magnitude at each point",
+									"$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+								},
+								"cycleLengthMode": {
+									"title": "Cycle Length Mode",
+									"description": "Method for determining cycle length: arrayLength uses array size, linearOne accumulates euclidean distance between points",
+									"$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeEnumValueOrRef"
+								}
+							},
+							"required": []
+						}
+					}
+				},
+				{
+					"title": "Color Shift Compute Node",
+					"type": "object",
+					"description": "Shifts colours of input points based on inverse-distance weighted influence from target points",
+					"additionalProperties": false,
+					"required": ["id", "type", "params"],
+					"x-outputs": [
+						{
+							"name": "points",
+							"valueType": "colorPointArrayValue"
+						}
+					],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["colorShift"]
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"inputPoints": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								},
+								"targetPoints": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								},
+								"falloff": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"strength": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								}
+							}
+						}
+					}
+				}
+			]
+		},
+		"renderNode": {
+			"title": "Render Node",
+			"description": "Drawing node — canvas access lives here and nowhere else",
+			"oneOf": [
+				{
+					"title": "Timed Line Render Node",
+					"type": "object",
+					"deprecated": true,
+					"description": "DEPRECATED: Use Timed Line Array instead. Draws a gradient line between two coloured points on an interval",
+					"additionalProperties": false,
+					"required": ["id", "type", "renderConfig", "params"],
+					"x-outputs": [],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["timedLine"]
+						},
+						"renderConfig": {
+							"$ref": "#/definitions/renderConfig"
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"intervalTicks": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"colorPointA": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointValueOrRef"
+								},
+								"colorPointB": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Timed Line Array Render Node",
+					"type": "object",
+					"description": "Draws gradient lines from each point in one array to the corresponding point in another array, on an interval",
+					"additionalProperties": false,
+					"required": ["id", "type", "renderConfig", "params"],
+					"x-outputs": [],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["timedLineArray"]
+						},
+						"renderConfig": {
+							"$ref": "#/definitions/renderConfig"
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"intervalTicks": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"colorPointsA": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								},
+								"colorPointsB": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								},
+								"mode": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeEnumValueOrRef"
+								},
+								"intervalMode": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Circle Render Node",
+					"type": "object",
+					"description": "Draws an ellipse at a point",
+					"additionalProperties": false,
+					"required": ["id", "type", "renderConfig", "params"],
+					"x-outputs": [],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["circle"]
+						},
+						"renderConfig": {
+							"$ref": "#/definitions/renderConfig"
+						},
+						"params": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"intervalTicks": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"center": {
+									"deprecated": true,
+									"description": "DEPRECATED: use centerPoints instead",
+									"$ref": "refable-value-kinds.schema.json#/definitions/pointValueOrRef"
+								},
+								"centerPoints": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								},
+								"radius": {
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"eccentricity": {
+									"title": "Eccentricity",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"tilt": {
+									"title": "Tilt",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"color": {
+									"deprecated": true,
+									"description": "DEPRECATED: use centerPoints instead",
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Connect Dots Render Node",
+					"type": "object",
+					"description": "Draws lines connecting consecutive coloured points in sequence. Each line segment inherits the colour of the second point.",
+					"additionalProperties": false,
+					"required": ["id", "type", "renderConfig", "params"],
+					"x-outputs": [],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["connect-dots"]
+						},
+						"renderConfig": {
+							"$ref": "#/definitions/renderConfig"
+						},
+						"params": {
+							"title": "Params",
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"colorPointsArray": {
+									"description": "Array of coloured points to connect",
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								},
+								"lineWidth": {
+									"description": "Width of each line segment in pixels",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								},
+								"mode": {
+									"title": "Mode",
+									"description": "Curve interpolation mode: straight for linear segments between points, catmull-rom for smooth curves",
+									"$ref": "refable-value-kinds.schema.json#/definitions/curveModeEnumValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Polygon Render Node",
+					"type": "object",
+					"description": "Draws a solid filled polygon using an array of coloured points connected in order",
+					"additionalProperties": false,
+					"required": ["id", "type", "renderConfig", "params"],
+					"x-outputs": [],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["polygon"]
+						},
+						"renderConfig": {
+							"$ref": "#/definitions/renderConfig"
+						},
+						"params": {
+							"title": "Params",
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"points": {
+									"title": "Points",
+									"description": "Array of coloured points defining the polygon vertices",
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								}
+							}
+						}
+					}
+				},
+				{
+					"title": "Lines Through Point Render Node",
+					"type": "object",
+					"description": "Draws lines through each point, rotated by the specified angle. Useful for drawing tangents and normals. Line direction is determined by the point's dx,dy gradient; 0° follows the gradient, 90° is perpendicular. Points with zero gradient (0,0) are skipped.",
+					"additionalProperties": false,
+					"required": ["id", "type", "renderConfig", "params"],
+					"x-outputs": [],
+					"properties": {
+						"id": {
+							"title": "ID",
+							"type": "string"
+						},
+						"type": {
+							"title": "Type",
+							"type": "string",
+							"enum": ["linesThroughPoint"]
+						},
+						"renderConfig": {
+							"$ref": "#/definitions/renderConfig"
+						},
+						"params": {
+							"title": "Params",
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"points": {
+									"title": "Points",
+									"description": "Array of color points with gradient info via dx,dy",
+									"$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+								},
+								"degrees": {
+									"title": "Degrees",
+									"description": "Rotation angles in degrees for each line, relative to the points dx,dy values. A degree of 0 aligns with the points dx,dy.",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberArrayValueOrRef"
+								},
+								"lineLength": {
+									"title": "Line Length",
+									"description": "Length of each line",
+									"$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+								}
+							}
+						}
+					}
+				}
+			]
+		}
+	}
 }

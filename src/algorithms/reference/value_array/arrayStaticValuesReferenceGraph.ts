@@ -1,8 +1,8 @@
-import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 
 const graph: GeoArtGraph = {
-	version: '2.0',
-	title: 'Array Static Values',
+	version: "2.0",
+	title: "Array Static Values",
 	control: {
 		nodes: [],
 	},
@@ -12,9 +12,9 @@ const graph: GeoArtGraph = {
 	render: {
 		nodes: [
 			{
-				id: 'circle',
-				type: 'circle',
-				renderConfig: { layer: 'live' },
+				id: "circle",
+				type: "circle",
+				renderConfig: { layer: "live" },
 				params: {
 					centerPoints: {
 						v: [

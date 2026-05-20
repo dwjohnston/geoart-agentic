@@ -1,39 +1,56 @@
-import { describe, expect, it } from 'bun:test';
-import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
+import { describe, expect, it } from "bun:test";
+import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext";
 import connectDotsNodeDef from "./connectDots";
 
 describe("connectDotsNodeDef", () => {
+	it("draws lines between consecutive points", () => {
+		const fakeContext = createFakeContext();
 
-  it("draws lines between consecutive points", () => {
+		connectDotsNodeDef.evaluate(
+			{
+				colorPointsArray: [
+					{
+						x: 0,
+						y: 0,
+						r: 1,
+						g: 0,
+						b: 0,
+						a: 1,
+						dx: 0,
+						dy: 0,
+					},
+					{
+						x: 10,
+						y: 10,
+						r: 0,
+						g: 1,
+						b: 0,
+						a: 1,
+						dx: 0,
+						dy: 0,
+					},
+					{
+						x: 20,
+						y: 0,
+						r: 0,
+						g: 0,
+						b: 1,
+						a: 1,
+						dx: 0,
+						dy: 0,
+					},
+				],
+				lineWidth: 2,
+				mode: "straight",
+			},
+			{
+				canvas: fakeContext,
+				height: 100,
+				width: 100,
+			},
+		);
 
-    const fakeContext = createFakeContext();
-
-    connectDotsNodeDef.evaluate({
-      colorPointsArray: [
-        {
-          x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
-          dy: 0,
-        },
-        {
-          x: 10, y: 10, r: 0, g: 1, b: 0, a: 1, dx: 0,
-          dy: 0,
-        },
-        {
-          x: 20, y: 0, r: 0, g: 0, b: 1, a: 1,
-          dx: 0,
-          dy: 0,
-
-        },
-      ],
-      lineWidth: 2,
-      mode: 'straight',
-    }, {
-      canvas: fakeContext,
-      height: 100,
-      width: 100,
-    })
-
-    expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
+		expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
         {
           "kind": "property",
@@ -104,57 +121,86 @@ describe("connectDotsNodeDef", () => {
         },
       ]
     `);
-  })
+	});
 
-  it("does nothing with less than 2 points", () => {
-    const fakeContext = createFakeContext();
+	it("does nothing with less than 2 points", () => {
+		const fakeContext = createFakeContext();
 
-    connectDotsNodeDef.evaluate({
-      colorPointsArray: [
-        {
-          x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
-          dy: 0,
-        },
-      ],
-      lineWidth: 2,
-      mode: 'straight',
-    }, {
-      canvas: fakeContext,
-      height: 100,
-      width: 100,
-    })
+		connectDotsNodeDef.evaluate(
+			{
+				colorPointsArray: [
+					{
+						x: 0,
+						y: 0,
+						r: 1,
+						g: 0,
+						b: 0,
+						a: 1,
+						dx: 0,
+						dy: 0,
+					},
+				],
+				lineWidth: 2,
+				mode: "straight",
+			},
+			{
+				canvas: fakeContext,
+				height: 100,
+				width: 100,
+			},
+		);
 
-    expect(fakeContext.getCalls()).toMatchInlineSnapshot(`[]`);
-  })
+		expect(fakeContext.getCalls()).toMatchInlineSnapshot(`[]`);
+	});
 
-  it("draws catmull-rom curves through points", () => {
-    const fakeContext = createFakeContext();
+	it("draws catmull-rom curves through points", () => {
+		const fakeContext = createFakeContext();
 
-    connectDotsNodeDef.evaluate({
-      colorPointsArray: [
-        {
-          x: -10, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
-          dy: 0,
-        },
-        {
-          x: 0, y: 10, r: 0, g: 1, b: 0, a: 1, dx: 0,
-          dy: 0,
-        },
-        {
-          x: 10, y: 0, r: 0, g: 0, b: 1, a: 1,
-          dx: 0,
-          dy: 0,
-        },
-      ],
-      lineWidth: 2,
-      mode: 'catmull-rom',
-    }, {
-      canvas: fakeContext,
-      height: 100,
-      width: 100,
-    })
+		connectDotsNodeDef.evaluate(
+			{
+				colorPointsArray: [
+					{
+						x: -10,
+						y: 0,
+						r: 1,
+						g: 0,
+						b: 0,
+						a: 1,
+						dx: 0,
+						dy: 0,
+					},
+					{
+						x: 0,
+						y: 10,
+						r: 0,
+						g: 1,
+						b: 0,
+						a: 1,
+						dx: 0,
+						dy: 0,
+					},
+					{
+						x: 10,
+						y: 0,
+						r: 0,
+						g: 0,
+						b: 1,
+						a: 1,
+						dx: 0,
+						dy: 0,
+					},
+				],
+				lineWidth: 2,
+				mode: "catmull-rom",
+			},
+			{
+				canvas: fakeContext,
+				height: 100,
+				width: 100,
+			},
+		);
 
-    expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
+		expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
         {
           "kind": "property",
@@ -1009,6 +1055,5 @@ describe("connectDotsNodeDef", () => {
         },
       ]
     `);
-  })
-
-})
+	});
+});

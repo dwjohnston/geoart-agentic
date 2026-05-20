@@ -1,14 +1,14 @@
-import type { GeoArtGraph } from '../_generated/schema-types';
+import type { GeoArtGraph } from "../_generated/schema-types";
 
 export const minimalSchema: GeoArtGraph = {
-	version: '2.0',
+	version: "2.0",
 	control: {
 		nodes: [
 			{
-				id: 'speedSlider',
-				type: 'slider',
+				id: "speedSlider",
+				type: "slider",
 				params: {
-					label: { v: 'Speed' },
+					label: { v: "Speed" },
 					min: { v: -5 },
 					max: { v: 5 },
 					value: { v: 0.2 },
@@ -19,14 +19,14 @@ export const minimalSchema: GeoArtGraph = {
 	},
 	compute: {
 		nodes: [
-			{ id: 'time', type: 'time', params: {} },
+			{ id: "time", type: "time", params: {} },
 			{
-				id: 'orbit',
-				type: 'orbit',
+				id: "orbit",
+				type: "orbit",
 				params: {
-					time: { ref: 'time.time' },
+					time: { ref: "time.time" },
 					radius: { v: 0.3 },
-					speed: { ref: 'speedSlider.value' },
+					speed: { ref: "speedSlider.value" },
 				},
 			},
 		],
@@ -34,11 +34,11 @@ export const minimalSchema: GeoArtGraph = {
 	render: {
 		nodes: [
 			{
-				id: 'dot',
-				type: 'circle',
-				renderConfig: { layer: 'live' },
+				id: "dot",
+				type: "circle",
+				renderConfig: { layer: "live" },
 				params: {
-					center: { ref: 'orbit.point' },
+					center: { ref: "orbit.point" },
 					radius: { v: 0.02 },
 					color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
 				},

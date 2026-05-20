@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'bun:test';
+import { describe, expect, test } from "bun:test";
 import { validateSchemaStructure } from "./validateSchemaStructure";
 import type { SchemaSet } from "./validateSchemaStructure";
 import productionSchema from "./schema.json";
@@ -84,7 +84,9 @@ describe("validateSchemaStructure", () => {
 
 	describe("valid schema structure", () => {
 		test("passes when all oneOf titles end with the correct layer suffix", () => {
-			const result = validateSchemaStructure(asSchemaSet(validStructuredSchema));
+			const result = validateSchemaStructure(
+				asSchemaSet(validStructuredSchema),
+			);
 			expect(result.valid).toBe(true);
 			expect(result.errors).toEqual([]);
 		});
@@ -113,136 +115,180 @@ describe("validateSchemaStructure", () => {
 		});
 
 		test("fails when definitions is missing", () => {
-			const result = validateSchemaStructure(asSchemaSet({ title: "GeoArt Graph" }));
+			const result = validateSchemaStructure(
+				asSchemaSet({ title: "GeoArt Graph" }),
+			);
 			expect(result.valid).toBe(false);
 			expect(result.errors).toContain("Schema must have a definitions object");
 		});
 
 		test("fails when controlNode definition is missing", () => {
-			const result = validateSchemaStructure(asSchemaSet({
-				definitions: {
-					computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
-					renderNode: { oneOf: [{ title: "Circle Render Node" }] },
-				},
-			}));
+			const result = validateSchemaStructure(
+				asSchemaSet({
+					definitions: {
+						computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
+						renderNode: { oneOf: [{ title: "Circle Render Node" }] },
+					},
+				}),
+			);
 			expect(result.valid).toBe(false);
 			expect(result.errors).toContain("Missing definition: controlNode");
 		});
 
 		test("fails when computeNode definition is missing", () => {
-			const result = validateSchemaStructure(asSchemaSet({
-				definitions: {
-					controlNode: { oneOf: [{ title: "Slider Control Node" }] },
-					renderNode: { oneOf: [{ title: "Circle Render Node" }] },
-				},
-			}));
+			const result = validateSchemaStructure(
+				asSchemaSet({
+					definitions: {
+						controlNode: { oneOf: [{ title: "Slider Control Node" }] },
+						renderNode: { oneOf: [{ title: "Circle Render Node" }] },
+					},
+				}),
+			);
 			expect(result.valid).toBe(false);
 			expect(result.errors).toContain("Missing definition: computeNode");
 		});
 
 		test("fails when renderNode definition is missing", () => {
-			const result = validateSchemaStructure(asSchemaSet({
-				definitions: {
-					controlNode: { oneOf: [{ title: "Slider Control Node" }] },
-					computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
-				},
-			}));
+			const result = validateSchemaStructure(
+				asSchemaSet({
+					definitions: {
+						controlNode: { oneOf: [{ title: "Slider Control Node" }] },
+						computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
+					},
+				}),
+			);
 			expect(result.valid).toBe(false);
 			expect(result.errors).toContain("Missing definition: renderNode");
 		});
 
 		test("fails when a node definition lacks a oneOf array", () => {
-			const result = validateSchemaStructure(asSchemaSet({
-				definitions: {
-					controlNode: { description: "no oneOf here" },
-					computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
-					renderNode: { oneOf: [{ title: "Circle Render Node" }] },
-				},
-			}));
+			const result = validateSchemaStructure(
+				asSchemaSet({
+					definitions: {
+						controlNode: { description: "no oneOf here" },
+						computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
+						renderNode: { oneOf: [{ title: "Circle Render Node" }] },
+					},
+				}),
+			);
 			expect(result.valid).toBe(false);
 			expect(result.errors).toContain("controlNode must have a oneOf array");
 		});
 
 		test("fails when a controlNode oneOf item title does not end with 'Control Node'", () => {
-			const result = validateSchemaStructure(asSchemaSet({
-				definitions: {
-					controlNode: {
-						oneOf: [
-							{ title: "Slider" }, // missing "Control Node" suffix
-						],
+			const result = validateSchemaStructure(
+				asSchemaSet({
+					definitions: {
+						controlNode: {
+							oneOf: [
+								{ title: "Slider" }, // missing "Control Node" suffix
+							],
+						},
+						computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
+						renderNode: { oneOf: [{ title: "Circle Render Node" }] },
 					},
-					computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
-					renderNode: { oneOf: [{ title: "Circle Render Node" }] },
-				},
-			}));
+				}),
+			);
 			expect(result.valid).toBe(false);
-			expect(result.errors.some((e) => e.includes('"Slider"') && e.includes('"Control Node"'))).toBe(true);
+			expect(
+				result.errors.some(
+					(e) => e.includes('"Slider"') && e.includes('"Control Node"'),
+				),
+			).toBe(true);
 		});
 
 		test("fails when a computeNode oneOf item title does not end with 'Compute Node'", () => {
-			const result = validateSchemaStructure(asSchemaSet({
-				definitions: {
-					controlNode: { oneOf: [{ title: "Slider Control Node" }] },
-					computeNode: {
-						oneOf: [
-							{ title: "Wave Node" }, // missing "Compute Node" suffix
-						],
+			const result = validateSchemaStructure(
+				asSchemaSet({
+					definitions: {
+						controlNode: { oneOf: [{ title: "Slider Control Node" }] },
+						computeNode: {
+							oneOf: [
+								{ title: "Wave Node" }, // missing "Compute Node" suffix
+							],
+						},
+						renderNode: { oneOf: [{ title: "Circle Render Node" }] },
 					},
-					renderNode: { oneOf: [{ title: "Circle Render Node" }] },
-				},
-			}));
+				}),
+			);
 			expect(result.valid).toBe(false);
-			expect(result.errors.some((e) => e.includes('"Wave Node"') && e.includes('"Compute Node"'))).toBe(true);
+			expect(
+				result.errors.some(
+					(e) => e.includes('"Wave Node"') && e.includes('"Compute Node"'),
+				),
+			).toBe(true);
 		});
 
 		test("fails when a renderNode oneOf item title does not end with 'Render Node'", () => {
-			const result = validateSchemaStructure(asSchemaSet({
-				definitions: {
-					controlNode: { oneOf: [{ title: "Slider Control Node" }] },
-					computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
-					renderNode: {
-						oneOf: [
-							{ title: "Circle" }, // missing "Render Node" suffix
-						],
+			const result = validateSchemaStructure(
+				asSchemaSet({
+					definitions: {
+						controlNode: { oneOf: [{ title: "Slider Control Node" }] },
+						computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
+						renderNode: {
+							oneOf: [
+								{ title: "Circle" }, // missing "Render Node" suffix
+							],
+						},
 					},
-				},
-			}));
+				}),
+			);
 			expect(result.valid).toBe(false);
-			expect(result.errors.some((e) => e.includes('"Circle"') && e.includes('"Render Node"'))).toBe(true);
+			expect(
+				result.errors.some(
+					(e) => e.includes('"Circle"') && e.includes('"Render Node"'),
+				),
+			).toBe(true);
 		});
 
 		test("fails when a oneOf item is missing its title", () => {
-			const result = validateSchemaStructure(asSchemaSet({
-				definitions: {
-					controlNode: {
-						oneOf: [
-							{ description: "no title here" },
-						],
+			const result = validateSchemaStructure(
+				asSchemaSet({
+					definitions: {
+						controlNode: {
+							oneOf: [{ description: "no title here" }],
+						},
+						computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
+						renderNode: { oneOf: [{ title: "Circle Render Node" }] },
 					},
-					computeNode: { oneOf: [{ title: "Tick Compute Node" }] },
-					renderNode: { oneOf: [{ title: "Circle Render Node" }] },
-				},
-			}));
+				}),
+			);
 			expect(result.valid).toBe(false);
-			expect(result.errors).toContain("controlNode.oneOf[0] must have a title string");
+			expect(result.errors).toContain(
+				"controlNode.oneOf[0] must have a title string",
+			);
 		});
 
 		test("collects errors from multiple node types in one pass", () => {
-			const result = validateSchemaStructure(asSchemaSet({
-				definitions: {
-					controlNode: { oneOf: [{ title: "Slider" }] },
-					computeNode: { oneOf: [{ title: "Wave Node" }] },
-					renderNode: { oneOf: [{ title: "Circle" }] },
-				},
-			}));
+			const result = validateSchemaStructure(
+				asSchemaSet({
+					definitions: {
+						controlNode: { oneOf: [{ title: "Slider" }] },
+						computeNode: { oneOf: [{ title: "Wave Node" }] },
+						renderNode: { oneOf: [{ title: "Circle" }] },
+					},
+				}),
+			);
 			expect(result.valid).toBe(false);
 			// At minimum, one title error per node type. Additional errors (e.g. missing
 			// x-outputs) may also be reported — the important thing is all three layers
 			// are checked in a single pass.
 			expect(result.errors.length).toBeGreaterThanOrEqual(3);
-			expect(result.errors.some((e) => e.includes("controlNode") && e.includes('"Control Node"'))).toBe(true);
-			expect(result.errors.some((e) => e.includes("computeNode") && e.includes('"Compute Node"'))).toBe(true);
-			expect(result.errors.some((e) => e.includes("renderNode") && e.includes('"Render Node"'))).toBe(true);
+			expect(
+				result.errors.some(
+					(e) => e.includes("controlNode") && e.includes('"Control Node"'),
+				),
+			).toBe(true);
+			expect(
+				result.errors.some(
+					(e) => e.includes("computeNode") && e.includes('"Compute Node"'),
+				),
+			).toBe(true);
+			expect(
+				result.errors.some(
+					(e) => e.includes("renderNode") && e.includes('"Render Node"'),
+				),
+			).toBe(true);
 		});
 	});
 
@@ -265,7 +311,12 @@ describe("validateSchemaStructure", () => {
 			};
 			const result = validateSchemaStructure(schemas);
 			expect(result.valid).toBe(false);
-			expect(result.errors.some((e) => e.includes('"badName"') && e.includes('value-kinds.schema.json'))).toBe(true);
+			expect(
+				result.errors.some(
+					(e) =>
+						e.includes('"badName"') && e.includes("value-kinds.schema.json"),
+				),
+			).toBe(true);
 		});
 
 		test("fails when a refable-value-kinds definition name does not end with 'ValueOrRef'", () => {
@@ -285,7 +336,13 @@ describe("validateSchemaStructure", () => {
 			};
 			const result = validateSchemaStructure(schemas);
 			expect(result.valid).toBe(false);
-			expect(result.errors.some((e) => e.includes('"numberParam"') && e.includes('refable-value-kinds.schema.json'))).toBe(true);
+			expect(
+				result.errors.some(
+					(e) =>
+						e.includes('"numberParam"') &&
+						e.includes("refable-value-kinds.schema.json"),
+				),
+			).toBe(true);
 		});
 
 		test("passes when all value-kinds definitions end with 'Value'", () => {
@@ -295,7 +352,6 @@ describe("validateSchemaStructure", () => {
 					definitions: {
 						numberValue: { title: "Number Value" },
 						colorValue: { title: "Color Value" },
-
 					},
 				},
 				"refable-value-kinds.schema.json": {
@@ -314,8 +370,13 @@ describe("validateSchemaStructure", () => {
 					"schema.json": validStructuredSchema,
 					"value-kinds.schema.json": {
 						definitions: {
-							numberValue: { title: "Number Value", type: "object", properties: { v: { type: "number" } } },
-							numberCollectionValue: { // kind "numberCollection" (array type) but doesn't end with "Array"
+							numberValue: {
+								title: "Number Value",
+								type: "object",
+								properties: { v: { type: "number" } },
+							},
+							numberCollectionValue: {
+								// kind "numberCollection" (array type) but doesn't end with "Array"
 								title: "Number Collection Value",
 								type: "object",
 								properties: {
@@ -330,15 +391,21 @@ describe("validateSchemaStructure", () => {
 					"refable-value-kinds.schema.json": {
 						definitions: {
 							numberValueOrRef: { title: "Number Value Or Ref" },
-							numberCollectionValueOrRef: { title: "Number Collection Value Or Ref" },
+							numberCollectionValueOrRef: {
+								title: "Number Collection Value Or Ref",
+							},
 						},
 					},
 				};
 				const result = validateSchemaStructure(schemas);
 				expect(result.valid).toBe(false);
-				expect(result.errors.some((e) =>
-					e.includes('"numberCollectionValue"') && e.includes("does not end with \"Array\"")
-				)).toBe(true);
+				expect(
+					result.errors.some(
+						(e) =>
+							e.includes('"numberCollectionValue"') &&
+							e.includes('does not end with "Array"'),
+					),
+				).toBe(true);
 			});
 
 			test("fails when a kind ends with 'Array' but is not an array type", () => {
@@ -346,8 +413,13 @@ describe("validateSchemaStructure", () => {
 					"schema.json": validStructuredSchema,
 					"value-kinds.schema.json": {
 						definitions: {
-							numberValue: { title: "Number Value", type: "object", properties: { v: { type: "number" } } },
-							colorArrayValue: { // kind "colorArray" ends with "Array" but isn't an array type
+							numberValue: {
+								title: "Number Value",
+								type: "object",
+								properties: { v: { type: "number" } },
+							},
+							colorArrayValue: {
+								// kind "colorArray" ends with "Array" but isn't an array type
 								title: "Color Array Value",
 								type: "object",
 								properties: {
@@ -368,9 +440,15 @@ describe("validateSchemaStructure", () => {
 				};
 				const result = validateSchemaStructure(schemas);
 				expect(result.valid).toBe(false);
-				expect(result.errors.some((e) =>
-					e.includes('"colorArrayValue"') && e.includes("kind ends with \"Array\" but does not have an array type")
-				)).toBe(true);
+				expect(
+					result.errors.some(
+						(e) =>
+							e.includes('"colorArrayValue"') &&
+							e.includes(
+								'kind ends with "Array" but does not have an array type',
+							),
+					),
+				).toBe(true);
 			});
 
 			test("passes when array kinds end with 'Array' and non-array kinds do not", () => {
@@ -399,7 +477,10 @@ describe("validateSchemaStructure", () => {
 								properties: {
 									v: {
 										type: "object",
-										properties: { r: { type: "number" }, g: { type: "number" } },
+										properties: {
+											r: { type: "number" },
+											g: { type: "number" },
+										},
 									},
 								},
 							},
@@ -422,7 +503,9 @@ describe("validateSchemaStructure", () => {
 							numberValueOrRef: { title: "Number Value Or Ref" },
 							numberArrayValueOrRef: { title: "Number Array Value Or Ref" },
 							colorValueOrRef: { title: "Color Value Or Ref" },
-							colorPointArrayValueOrRef: { title: "Color Point Array Value Or Ref" },
+							colorPointArrayValueOrRef: {
+								title: "Color Point Array Value Or Ref",
+							},
 						},
 					},
 				};
@@ -442,8 +525,24 @@ describe("validateSchemaStructure", () => {
 								{ title: "Slider Control Node", params: { properties: {} } }, // no x-outputs
 							],
 						},
-						computeNode: { oneOf: [{ title: "Tick Compute Node", "x-outputs": [], params: { properties: {} } }] },
-						renderNode: { oneOf: [{ title: "Circle Render Node", "x-outputs": [], params: { properties: {} } }] },
+						computeNode: {
+							oneOf: [
+								{
+									title: "Tick Compute Node",
+									"x-outputs": [],
+									params: { properties: {} },
+								},
+							],
+						},
+						renderNode: {
+							oneOf: [
+								{
+									title: "Circle Render Node",
+									"x-outputs": [],
+									params: { properties: {} },
+								},
+							],
+						},
 					},
 				},
 				"value-kinds.schema.json": {
@@ -459,7 +558,11 @@ describe("validateSchemaStructure", () => {
 			};
 			const result = validateSchemaStructure(schemas);
 			expect(result.valid).toBe(false);
-			expect(result.errors.some((e) => e.includes("controlNode.oneOf[0]") && e.includes("x-outputs"))).toBe(true);
+			expect(
+				result.errors.some(
+					(e) => e.includes("controlNode.oneOf[0]") && e.includes("x-outputs"),
+				),
+			).toBe(true);
 		});
 
 		test("fails when an x-outputs entry has an unrecognised valueType", () => {
@@ -475,8 +578,24 @@ describe("validateSchemaStructure", () => {
 								},
 							],
 						},
-						computeNode: { oneOf: [{ title: "Tick Compute Node", "x-outputs": [], params: { properties: {} } }] },
-						renderNode: { oneOf: [{ title: "Circle Render Node", "x-outputs": [], params: { properties: {} } }] },
+						computeNode: {
+							oneOf: [
+								{
+									title: "Tick Compute Node",
+									"x-outputs": [],
+									params: { properties: {} },
+								},
+							],
+						},
+						renderNode: {
+							oneOf: [
+								{
+									title: "Circle Render Node",
+									"x-outputs": [],
+									params: { properties: {} },
+								},
+							],
+						},
 					},
 				},
 				"value-kinds.schema.json": {
@@ -492,7 +611,12 @@ describe("validateSchemaStructure", () => {
 			};
 			const result = validateSchemaStructure(schemas);
 			expect(result.valid).toBe(false);
-			expect(result.errors.some((e) => e.includes('"bogusValue"') && e.includes('value-kinds.schema.json'))).toBe(true);
+			expect(
+				result.errors.some(
+					(e) =>
+						e.includes('"bogusValue"') && e.includes("value-kinds.schema.json"),
+				),
+			).toBe(true);
 		});
 	});
 
@@ -508,22 +632,47 @@ describe("validateSchemaStructure", () => {
 									"x-outputs": [],
 									params: {
 										properties: {
-											value: { "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef" },
+											value: {
+												$ref: "refable-value-kinds.schema.json#/definitions/numberValueOrRef",
+											},
 										},
 									},
 								},
 							],
 						},
-						computeNode: { oneOf: [{ title: "Tick Compute Node", "x-outputs": [], params: { properties: {} } }] },
-						renderNode: { oneOf: [{ title: "Circle Render Node", "x-outputs": [], params: { properties: {} } }] },
+						computeNode: {
+							oneOf: [
+								{
+									title: "Tick Compute Node",
+									"x-outputs": [],
+									params: { properties: {} },
+								},
+							],
+						},
+						renderNode: {
+							oneOf: [
+								{
+									title: "Circle Render Node",
+									"x-outputs": [],
+									params: { properties: {} },
+								},
+							],
+						},
 					},
 				},
 				"value-kinds.schema.json": { definitions: { numberValue: {} } },
-				"refable-value-kinds.schema.json": { definitions: { numberValueOrRef: {} } },
+				"refable-value-kinds.schema.json": {
+					definitions: { numberValueOrRef: {} },
+				},
 			};
 			const result = validateSchemaStructure(schemas);
 			expect(result.valid).toBe(false);
-			expect(result.errors.some((e) => e.includes("controlNode") && e.includes("value-kinds.schema.json"))).toBe(true);
+			expect(
+				result.errors.some(
+					(e) =>
+						e.includes("controlNode") && e.includes("value-kinds.schema.json"),
+				),
+			).toBe(true);
 		});
 
 		test("fails when a compute node param refs into value-kinds.schema.json", () => {
@@ -546,21 +695,39 @@ describe("validateSchemaStructure", () => {
 									"x-outputs": [],
 									params: {
 										properties: {
-											time: { "$ref": "value-kinds.schema.json#/definitions/numberValue" },
+											time: {
+												$ref: "value-kinds.schema.json#/definitions/numberValue",
+											},
 										},
 									},
 								},
 							],
 						},
-						renderNode: { oneOf: [{ title: "Circle Render Node", "x-outputs": [], params: { properties: {} } }] },
+						renderNode: {
+							oneOf: [
+								{
+									title: "Circle Render Node",
+									"x-outputs": [],
+									params: { properties: {} },
+								},
+							],
+						},
 					},
 				},
 				"value-kinds.schema.json": { definitions: { numberValue: {} } },
-				"refable-value-kinds.schema.json": { definitions: { numberValueOrRef: {} } },
+				"refable-value-kinds.schema.json": {
+					definitions: { numberValueOrRef: {} },
+				},
 			};
 			const result = validateSchemaStructure(schemas);
 			expect(result.valid).toBe(false);
-			expect(result.errors.some((e) => e.includes("computeNode") && e.includes("refable-value-kinds.schema.json"))).toBe(true);
+			expect(
+				result.errors.some(
+					(e) =>
+						e.includes("computeNode") &&
+						e.includes("refable-value-kinds.schema.json"),
+				),
+			).toBe(true);
 		});
 
 		test("passes when compute node params use refable-value-kinds.schema.json", () => {
@@ -583,17 +750,29 @@ describe("validateSchemaStructure", () => {
 									"x-outputs": [{ name: "value", valueType: "numberValue" }],
 									params: {
 										properties: {
-											time: { "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef" },
+											time: {
+												$ref: "refable-value-kinds.schema.json#/definitions/numberValueOrRef",
+											},
 										},
 									},
 								},
 							],
 						},
-						renderNode: { oneOf: [{ title: "Circle Render Node", "x-outputs": [], params: { properties: {} } }] },
+						renderNode: {
+							oneOf: [
+								{
+									title: "Circle Render Node",
+									"x-outputs": [],
+									params: { properties: {} },
+								},
+							],
+						},
 					},
 				},
 				"value-kinds.schema.json": { definitions: { numberValue: {} } },
-				"refable-value-kinds.schema.json": { definitions: { numberValueOrRef: {} } },
+				"refable-value-kinds.schema.json": {
+					definitions: { numberValueOrRef: {} },
+				},
 			};
 			const result = validateSchemaStructure(schemas);
 			expect(result.valid).toBe(true);

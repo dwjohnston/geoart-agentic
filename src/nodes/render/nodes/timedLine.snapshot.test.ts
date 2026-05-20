@@ -1,30 +1,43 @@
-import { describe, expect, it } from 'bun:test';
-import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
+import { describe, expect, it } from "bun:test";
+import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext";
 import timedLineNodeDef from "./timedLine";
 
 describe("timedLineNodeDef", () => {
+	it("draws line with gradient between two color points", () => {
+		const fakeContext = createFakeContext();
 
-  it("draws line with gradient between two color points", () => {
+		timedLineNodeDef.evaluate(
+			{
+				intervalTicks: 6,
+				colorPointA: {
+					x: 0,
+					y: 0,
+					r: 1,
+					g: 0,
+					b: 0,
+					a: 1,
+					dx: 0,
+					dy: 0,
+				},
+				colorPointB: {
+					x: 0.5,
+					y: 0.5,
+					r: 0,
+					g: 1,
+					b: 0,
+					a: 1,
+					dx: 0,
+					dy: 0,
+				},
+			},
+			{
+				canvas: fakeContext,
+				height: 100,
+				width: 100,
+			},
+		);
 
-    const fakeContext = createFakeContext();
-
-    timedLineNodeDef.evaluate({
-      intervalTicks: 6,
-      colorPointA: {
-        x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
-        dy: 0,
-      },
-      colorPointB: {
-        x: 0.5, y: 0.5, r: 0, g: 1, b: 0, a: 1, dx: 0,
-        dy: 0,
-      },
-    }, {
-      canvas: fakeContext,
-      height: 100,
-      width: 100,
-    })
-
-    expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
+		expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
         {
           "args": [
@@ -90,6 +103,5 @@ describe("timedLineNodeDef", () => {
         },
       ]
     `);
-  })
-
-})
+	});
+});

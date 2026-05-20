@@ -1,1 +1,1 @@
-export { renderRegistry } from './registry.generated';
+export { renderRegistry } from "./registry.generated";

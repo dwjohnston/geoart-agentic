@@ -1,9 +1,9 @@
-import type React from 'react';
+import type React from "react";
 
 type Props = {
-  renderControlNodes: () => React.ReactNode;
+	renderControlNodes: () => React.ReactNode;
 };
 
 export function Controls({ renderControlNodes }: Props) {
-  return <>{renderControlNodes()}</>;
+	return <>{renderControlNodes()}</>;
 }

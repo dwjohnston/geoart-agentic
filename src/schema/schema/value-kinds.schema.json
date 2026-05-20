@@ -1,346 +1,275 @@
 {
-  "$schema": "https://json-schema.org/draft/2019-09/schema",
-  "title": "GeoArt Value Kinds",
-  "description": "Single source of truth for what a value looks like at runtime",
-  "definitions": {
-    "numberValue": {
-      "title": "Number Value",
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "number"
-        }
-      }
-    },
-    "stringValue": {
-      "title": "String Value",
-      "type": "object",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "string"
-        }
-      }
-    },
-    "stringArrayValue": {
-      "title": "String Array Value",
-      "type": "object",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/stringValue"
-          }
-        }
-      }
-    },
-    "colorValue": {
-      "title": "Color Value",
-      "type": "object",
-      "description": "RGBA colour with each component in 0–1",
-      "additionalProperties": false,
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "object",
-          "required": [
-            "r",
-            "g",
-            "b",
-            "a"
-          ],
-          "properties": {
-            "r": {
-              "title": "Red",
-              "description": "Red channel (0–1)",
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "g": {
-              "title": "Green",
-              "description": "Green channel (0–1)",
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "b": {
-              "title": "Blue",
-              "description": "Blue channel (0–1)",
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            },
-            "a": {
-              "title": "Alpha",
-              "description": "Alpha channel (0–1)",
-              "type": "number",
-              "minimum": 0,
-              "maximum": 1
-            }
-          }
-        }
-      }
-    },
-    "pointValue": {
-      "title": "Point Value",
-      "type": "object",
-      "description": "A 2-D point in normalised space (-1 to 1 per axis)",
-      "additionalProperties": false,
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "object",
-          "required": [
-            "x",
-            "y"
-          ],
-          "properties": {
-            "x": {
-              "title": "X",
-              "description": "Horizontal position in normalised space (-1 to 1)",
-              "type": "number"
-            },
-            "y": {
-              "title": "Y",
-              "description": "Vertical position in normalised space (-1 to 1)",
-              "type": "number"
-            }
-          }
-        }
-      }
-    },
-    "colorPointValue": {
-      "title": "Color Point Value",
-      "type": "object",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "object",
-          "required": [
-            "r",
-            "g",
-            "b",
-            "a",
-            "x",
-            "y"
-          ],
-          "properties": {
-            "x": {
-              "title": "X",
-              "description": "Horizontal position in normalised space (-1 to 1)",
-              "type": "number"
-            },
-            "y": {
-              "title": "Y",
-              "description": "Vertical position in normalised space (-1 to 1)",
-              "type": "number"
-            },
-            "dx": {
-              "title": "Tangent X",
-              "description": "X component of tangent vector (optional)",
-              "type": "number"
-            },
-            "dy": {
-              "title": "Tangent Y",
-              "description": "Y component of tangent vector (optional)",
-              "type": "number"
-            },
-            "r": {
-              "title": "Red",
-              "description": "Red channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
-              "type": [
-                "number",
-                "null"
-              ],
-              "minimum": 0,
-              "maximum": 1
-            },
-            "g": {
-              "title": "Green",
-              "description": "Green channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
-              "type": [
-                "number",
-                "null"
-              ],
-              "minimum": 0,
-              "maximum": 1
-            },
-            "b": {
-              "title": "Blue",
-              "description": "Blue channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
-              "type": [
-                "number",
-                "null"
-              ],
-              "minimum": 0,
-              "maximum": 1
-            },
-            "a": {
-              "title": "Alpha",
-              "description": "Alpha channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
-              "type": [
-                "number",
-                "null"
-              ],
-              "minimum": 0,
-              "maximum": 1
-            }
-          },
-          "additionalProperties": false
-        }
-      },
-      "description": "A 2-D point combined with an RGBA colour and optional tangent direction",
-      "additionalProperties": false
-    },
-    "colorPointArrayValue": {
-      "title": "Color Point Array Value",
-      "type": "object",
-      "description": "An array of coloured points",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/colorPointValue"
-          }
-        }
-      }
-    },
-    "numberArrayValue": {
-      "title": "Number Array Value",
-      "type": "object",
-      "description": "An array of numbers",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/numberValue"
-          }
-        }
-      }
-    },
-    "waveTypeEnumValue": {
-      "title": "Wave Type Enum Value",
-      "type": "object",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "string",
-          "enum": [
-            "sine",
-            "square",
-            "saw",
-            "reverse-saw",
-            "triangle"
-          ]
-        }
-      }
-    },
-    "samplerValue": {
-      "title": "Sampler Value",
-      "type": "object",
-      "description": "Runtime-only function wrapper for lazy evaluation of a wave at arbitrary positions. Contains sample(t) and sampleMany(ts) functions. Cannot be statically defined in JSON.",
-      "additionalProperties": false,
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "object",
-          "description": "Placeholder object — actual value is a function at runtime"
-        }
-      }
-    },
-    "curveModeEnumValue": {
-      "title": "Curve Mode Enum Value",
-      "type": "object",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "string",
-          "enum": [
-            "straight",
-            "catmull-rom"
-          ]
-        }
-      }
-    },
-    "cycleLengthModeEnumValue": {
-      "title": "Cycle Length Mode Enum Value",
-      "type": "object",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "string",
-          "enum": [
-            "arrayLength",
-            "linearOne"
-          ]
-        }
-      }
-    },
-    "timedLineArrayModeEnumValue": {
-      "title": "Timed Line Array Mode Enum Value",
-      "type": "object",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "string",
-          "enum": [
-            "all-to-all",
-            "distribute",
-            "interleave"
-          ]
-        }
-      }
-    },
-    "timedLineArrayIntervalModeEnumValue": {
-      "title": "Timed Line Array Interval Mode Enum Value",
-      "type": "object",
-      "required": [
-        "v"
-      ],
-      "properties": {
-        "v": {
-          "type": "string",
-          "enum": [
-            "all",
-            "cycle",
-            "back-and-forth",
-            "inside-out",
-            "inside-out-and-forth"
-          ]
-        }
-      }
-    }
-  }
+	"$schema": "https://json-schema.org/draft/2019-09/schema",
+	"title": "GeoArt Value Kinds",
+	"description": "Single source of truth for what a value looks like at runtime",
+	"definitions": {
+		"numberValue": {
+			"title": "Number Value",
+			"type": "object",
+			"additionalProperties": false,
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "number"
+				}
+			}
+		},
+		"stringValue": {
+			"title": "String Value",
+			"type": "object",
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "string"
+				}
+			}
+		},
+		"stringArrayValue": {
+			"title": "String Array Value",
+			"type": "object",
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/stringValue"
+					}
+				}
+			}
+		},
+		"colorValue": {
+			"title": "Color Value",
+			"type": "object",
+			"description": "RGBA colour with each component in 0–1",
+			"additionalProperties": false,
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "object",
+					"required": ["r", "g", "b", "a"],
+					"properties": {
+						"r": {
+							"title": "Red",
+							"description": "Red channel (0–1)",
+							"type": "number",
+							"minimum": 0,
+							"maximum": 1
+						},
+						"g": {
+							"title": "Green",
+							"description": "Green channel (0–1)",
+							"type": "number",
+							"minimum": 0,
+							"maximum": 1
+						},
+						"b": {
+							"title": "Blue",
+							"description": "Blue channel (0–1)",
+							"type": "number",
+							"minimum": 0,
+							"maximum": 1
+						},
+						"a": {
+							"title": "Alpha",
+							"description": "Alpha channel (0–1)",
+							"type": "number",
+							"minimum": 0,
+							"maximum": 1
+						}
+					}
+				}
+			}
+		},
+		"pointValue": {
+			"title": "Point Value",
+			"type": "object",
+			"description": "A 2-D point in normalised space (-1 to 1 per axis)",
+			"additionalProperties": false,
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "object",
+					"required": ["x", "y"],
+					"properties": {
+						"x": {
+							"title": "X",
+							"description": "Horizontal position in normalised space (-1 to 1)",
+							"type": "number"
+						},
+						"y": {
+							"title": "Y",
+							"description": "Vertical position in normalised space (-1 to 1)",
+							"type": "number"
+						}
+					}
+				}
+			}
+		},
+		"colorPointValue": {
+			"title": "Color Point Value",
+			"type": "object",
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "object",
+					"required": ["r", "g", "b", "a", "x", "y"],
+					"properties": {
+						"x": {
+							"title": "X",
+							"description": "Horizontal position in normalised space (-1 to 1)",
+							"type": "number"
+						},
+						"y": {
+							"title": "Y",
+							"description": "Vertical position in normalised space (-1 to 1)",
+							"type": "number"
+						},
+						"dx": {
+							"title": "Tangent X",
+							"description": "X component of tangent vector (optional)",
+							"type": "number"
+						},
+						"dy": {
+							"title": "Tangent Y",
+							"description": "Y component of tangent vector (optional)",
+							"type": "number"
+						},
+						"r": {
+							"title": "Red",
+							"description": "Red channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+							"type": ["number", "null"],
+							"minimum": 0,
+							"maximum": 1
+						},
+						"g": {
+							"title": "Green",
+							"description": "Green channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+							"type": ["number", "null"],
+							"minimum": 0,
+							"maximum": 1
+						},
+						"b": {
+							"title": "Blue",
+							"description": "Blue channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+							"type": ["number", "null"],
+							"minimum": 0,
+							"maximum": 1
+						},
+						"a": {
+							"title": "Alpha",
+							"description": "Alpha channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+							"type": ["number", "null"],
+							"minimum": 0,
+							"maximum": 1
+						}
+					},
+					"additionalProperties": false
+				}
+			},
+			"description": "A 2-D point combined with an RGBA colour and optional tangent direction",
+			"additionalProperties": false
+		},
+		"colorPointArrayValue": {
+			"title": "Color Point Array Value",
+			"type": "object",
+			"description": "An array of coloured points",
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/colorPointValue"
+					}
+				}
+			}
+		},
+		"numberArrayValue": {
+			"title": "Number Array Value",
+			"type": "object",
+			"description": "An array of numbers",
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/numberValue"
+					}
+				}
+			}
+		},
+		"waveTypeEnumValue": {
+			"title": "Wave Type Enum Value",
+			"type": "object",
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "string",
+					"enum": ["sine", "square", "saw", "reverse-saw", "triangle"]
+				}
+			}
+		},
+		"samplerValue": {
+			"title": "Sampler Value",
+			"type": "object",
+			"description": "Runtime-only function wrapper for lazy evaluation of a wave at arbitrary positions. Contains sample(t) and sampleMany(ts) functions. Cannot be statically defined in JSON.",
+			"additionalProperties": false,
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "object",
+					"description": "Placeholder object — actual value is a function at runtime"
+				}
+			}
+		},
+		"curveModeEnumValue": {
+			"title": "Curve Mode Enum Value",
+			"type": "object",
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "string",
+					"enum": ["straight", "catmull-rom"]
+				}
+			}
+		},
+		"cycleLengthModeEnumValue": {
+			"title": "Cycle Length Mode Enum Value",
+			"type": "object",
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "string",
+					"enum": ["arrayLength", "linearOne"]
+				}
+			}
+		},
+		"timedLineArrayModeEnumValue": {
+			"title": "Timed Line Array Mode Enum Value",
+			"type": "object",
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "string",
+					"enum": ["all-to-all", "distribute", "interleave"]
+				}
+			}
+		},
+		"timedLineArrayIntervalModeEnumValue": {
+			"title": "Timed Line Array Interval Mode Enum Value",
+			"type": "object",
+			"required": ["v"],
+			"properties": {
+				"v": {
+					"type": "string",
+					"enum": [
+						"all",
+						"cycle",
+						"back-and-forth",
+						"inside-out",
+						"inside-out-and-forth"
+					]
+				}
+			}
+		}
+	}
 }
