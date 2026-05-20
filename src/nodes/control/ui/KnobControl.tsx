@@ -85,10 +85,6 @@ export function KnobControl({ value, min, max, size, label, onChange }: Props) {
 				onMouseDown={handleMouseDown}
 				style={{ cursor: isDragging ? "ns-resize" : "pointer" }}
 				aria-label={label}
-				role="slider"
-				aria-valuenow={value}
-				aria-valuemin={min}
-				aria-valuemax={max}
 			>
 				{/* Knob body */}
 				<circle

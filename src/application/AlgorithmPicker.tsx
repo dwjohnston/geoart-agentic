@@ -22,8 +22,11 @@ export function AlgorithmPicker({ graphs, defaultId, onChange }: Props) {
 	return (
 		<>
 			<div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-				<label style={{ fontSize: 13, color: "#aaa" }}>Graph</label>
+				<label htmlFor="graph-select" style={{ fontSize: 13, color: "#aaa" }}>
+					Graph
+				</label>
 				<select
+					id="graph-select"
 					value={selectedId}
 					onChange={(e) => handleChange(e.target.value)}
 					style={{

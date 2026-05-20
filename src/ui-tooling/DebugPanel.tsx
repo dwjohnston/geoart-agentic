@@ -19,6 +19,7 @@ export function DebugPanel({ value, label = "Debug" }: DebugPanelProps) {
 			}}
 		>
 			<button
+				type="button"
 				onClick={() => setOpen((o) => !o)}
 				style={{
 					width: "100%",

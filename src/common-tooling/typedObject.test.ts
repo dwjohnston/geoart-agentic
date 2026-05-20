@@ -1,7 +1,8 @@
-import { describe, it, expect } from "bun:test";
+import { describe, expect, it } from "bun:test";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function assertType<T>(_value: T) {}
+function assertType<T>(_value: T) { }
+
 import { objectEntries } from "./typedObject";
 
 describe("objectEntries", () => {
@@ -14,7 +15,7 @@ describe("objectEntries", () => {
 			["c", true],
 		]);
 
-		entries.map((v) => {
+		entries.forEach((v) => {
 			if (v[0] === "a") {
 				assertType<number>(v[1]);
 

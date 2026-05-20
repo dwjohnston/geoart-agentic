@@ -16,10 +16,11 @@ export function SpeedControl({ speed, onChange }: Props) {
 
 	return (
 		<div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-			<label style={{ fontSize: 13, color: "#aaa" }}>
+			<label htmlFor="speed-control" style={{ fontSize: 13, color: "#aaa" }}>
 				Speed: {formatSpeed(SPEED_VALUES[safeIndex])}
 			</label>
 			<input
+				id="speed-control"
 				type="range"
 				min={0}
 				max={SPEED_VALUES.length - 1}
