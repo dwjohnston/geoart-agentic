@@ -102,7 +102,7 @@ describe("CurveModulator", () => {
 
 	it("preserves tangent information", () => {
 		const curve = [
-			{ x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0.707, dy: 0.707 },
+			{ x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: Math.SQRT2 / 2, dy: Math.SQRT2 / 2 },
 		];
 
 		const sampler: Sampler = {
@@ -116,8 +116,8 @@ describe("CurveModulator", () => {
 			cycleLengthMode: "arrayLength",
 		});
 
-		expect(points[0].dx).toBe(0.707);
-		expect(points[0].dy).toBe(0.707);
+		expect(points[0].dx).toBe(Math.SQRT2 / 2);
+		expect(points[0].dy).toBe(Math.SQRT2 / 2);
 	});
 
 	it("samples at correct normalized position along curve", () => {

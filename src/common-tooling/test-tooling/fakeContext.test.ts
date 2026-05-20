@@ -197,7 +197,9 @@ describe(createFakeContext, () => {
 		ctx.lineWidth = Math.PI;
 
 		expect(ctx.getCalls()).toEqual([
+			// biome-ignore lint/suspicious/noApproximativeNumericConstant: Math.PI/Math.E rounded to 10dp by fakeContext
 			{ kind: "method", name: "moveTo", args: [3.1415926536, 2.7182818285] },
+			// biome-ignore lint/suspicious/noApproximativeNumericConstant: Math.PI rounded to 10dp by fakeContext
 			{ kind: "property", name: "lineWidth", value: 3.1415926536 },
 		]);
 	});

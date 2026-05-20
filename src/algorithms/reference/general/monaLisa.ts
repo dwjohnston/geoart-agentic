@@ -105,7 +105,7 @@ const graph: GeoArtGraph = {
 				params: {
 					time: { ref: "time.time" },
 					radius: { v: 0.18 },
-					speed: { v: 2.718 }, // e — irrational, fine grain fill
+					speed: { v: Math.E }, // e — irrational, fine grain fill
 					center: { v: { x: 0, y: 0.05 } },
 				},
 			},
@@ -175,7 +175,7 @@ const graph: GeoArtGraph = {
 				params: {
 					time: { ref: "time.time" },
 					radius: { v: 0.042 },
-					speed: { v: 1.414 },
+					speed: { v: Math.SQRT2 },
 					center: { v: { x: 0.09, y: -0.1 } },
 				},
 			},

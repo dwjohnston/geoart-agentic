@@ -76,7 +76,7 @@ describe("SliderControl", () => {
 				min={0}
 				max={10}
 				step={0.1}
-				initialValue={3.14159}
+				initialValue={Math.PI}
 				onChange={() => {}}
 			/>,
 		);
