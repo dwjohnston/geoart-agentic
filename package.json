@@ -1,85 +1,86 @@
 {
-  "name": "app",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "devEngines": {
-    "runtime": [
-      {
-        "name": "bun",
-        "range": "^1.3.13"
-      },
-      {
-        "name": "node",
-        "range": "^24.15.0"
-      }
-    ],
-    "packageManager": {
-      "name": "bun",
-      "range": "^1.3.13"
-    }
-  },
-  "scripts": {
-    "validate": "bun clean && bun generate && concurrently    \"bun test\" \"bun typecheck\"  \"bunx lint-staged\"",
-    "dev": "vite",
-    "build": "tsgo -b && vite build",
-    "lint": "eslint .",
-    "typecheck": "tsgo -p tsconfig.app.json --noEmit",
-    "preview": "vite preview",
-    "pretest": "npm run generate",
-    "clean": "find src -type d -name '_generated' -exec rm -rf {} + ; find src -type f -name '*.generated*' -delete",
-    "test:browser": "vitest",
-    "test:browser:headless": "vitest --browser.headless",
-    "generate": "bun generate:derived-schema && bun generate:derived-types && bun generate:registries && bun generate:algorithms-index",
-    "generate:registries": "bun src/nodes/scripts/generate-registries.ts",
-    "generate:algorithms-index": "bun src/algorithms/scripts/generate-algorithms-index.ts",
-    "generate:derived-schema": "bun src/schema/scripts/generate-derived-schema.ts",
-    "generate:derived-types": "mkdir -p src/schema/_generated && json2ts -i src/schema/schema/schema.json -o src/schema/_generated/schema-types.d.ts --cwd=src/schema/schema && bun src/schema/scripts/generate-derived-types.ts",
-    "docs:generate": "bun run scripts/generate-openapi.ts",
-    "docs": "bun run docs:generate && vite --config vite.config.docs.ts",
-    "docs:build": "bun run docs:generate && vite build --config vite.config.docs.ts",
-    "docs:server": "vite preview --config vite.config.docs.ts",
-    "prepare": "husky"
-  },
-  "dependencies": {
-    "eslint-plugin-import": "^2.32.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.39.4",
-    "@happy-dom/global-registrator": "^20.8.9",
-    "@napi-rs/canvas": "^1.0.0",
-    "@testing-library/react": "^16.3.2",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/bun": "^1.3.13",
-    "@types/json-schema": "^7.0.15",
-    "@types/node": "^24.12.2",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@types/semver": "^7.7.1",
-    "@typescript/native-preview": "^7.0.0-dev.20260421.2",
-    "@vitejs/plugin-react": "^6.0.1",
-    "@vitest/browser": "^4.1.5",
-    "@vitest/browser-playwright": "^4.1.5",
-    "@vitest/eslint-plugin": "^1.6.16",
-    "ajv": "^8.18.0",
-    "concurrently": "^9.2.1",
-    "eslint": "^9.39.4",
-    "eslint-plugin-boundaries": "^6.0.2",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "from": "^0.1.7",
-    "globals": "^17.4.0",
-    "husky": "^9.1.7",
-    "import": "^0.0.6",
-    "json-schema-to-typescript": "^15.0.4",
-    "lint-staged": "^17.0.4",
-    "playwright": "^1.59.1",
-    "semver": "^7.7.4",
-    "typescript": "~6.0.2",
-    "typescript-eslint": "^8.58.0",
-    "vite": "^8.0.4",
-    "vitest": "^4.1.5"
-  }
+	"name": "app",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"devEngines": {
+		"runtime": [
+			{
+				"name": "bun",
+				"range": "^1.3.13"
+			},
+			{
+				"name": "node",
+				"range": "^24.15.0"
+			}
+		],
+		"packageManager": {
+			"name": "bun",
+			"range": "^1.3.13"
+		}
+	},
+	"scripts": {
+		"validate": "bun clean && bun generate && concurrently    \"bun test\" \"bun typecheck\"  \"bunx lint-staged\"",
+		"dev": "vite",
+		"build": "tsgo -b && vite build",
+		"lint": "eslint .",
+		"typecheck": "tsgo -p tsconfig.app.json --noEmit",
+		"preview": "vite preview",
+		"pretest": "npm run generate",
+		"clean": "find src -type d -name '_generated' -exec rm -rf {} + ; find src -type f -name '*.generated*' -delete",
+		"test:browser": "vitest",
+		"test:browser:headless": "vitest --browser.headless",
+		"generate": "bun generate:derived-schema && bun generate:derived-types && bun generate:registries && bun generate:algorithms-index",
+		"generate:registries": "bun src/nodes/scripts/generate-registries.ts",
+		"generate:algorithms-index": "bun src/algorithms/scripts/generate-algorithms-index.ts",
+		"generate:derived-schema": "bun src/schema/scripts/generate-derived-schema.ts",
+		"generate:derived-types": "mkdir -p src/schema/_generated && json2ts -i src/schema/schema/schema.json -o src/schema/_generated/schema-types.d.ts --cwd=src/schema/schema && bun src/schema/scripts/generate-derived-types.ts",
+		"docs:generate": "bun run scripts/generate-openapi.ts",
+		"docs": "bun run docs:generate && vite --config vite.config.docs.ts",
+		"docs:build": "bun run docs:generate && vite build --config vite.config.docs.ts",
+		"docs:server": "vite preview --config vite.config.docs.ts",
+		"prepare": "husky"
+	},
+	"dependencies": {
+		"eslint-plugin-import": "^2.32.0",
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.15",
+		"@eslint/js": "^9.39.4",
+		"@happy-dom/global-registrator": "^20.8.9",
+		"@napi-rs/canvas": "^1.0.0",
+		"@testing-library/react": "^16.3.2",
+		"@testing-library/user-event": "^14.6.1",
+		"@types/bun": "^1.3.13",
+		"@types/json-schema": "^7.0.15",
+		"@types/node": "^24.12.2",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.3",
+		"@types/semver": "^7.7.1",
+		"@typescript/native-preview": "^7.0.0-dev.20260421.2",
+		"@vitejs/plugin-react": "^6.0.1",
+		"@vitest/browser": "^4.1.5",
+		"@vitest/browser-playwright": "^4.1.5",
+		"@vitest/eslint-plugin": "^1.6.16",
+		"ajv": "^8.18.0",
+		"concurrently": "^9.2.1",
+		"eslint": "^9.39.4",
+		"eslint-plugin-boundaries": "^6.0.2",
+		"eslint-plugin-react-hooks": "^7.0.1",
+		"eslint-plugin-react-refresh": "^0.5.2",
+		"from": "^0.1.7",
+		"globals": "^17.4.0",
+		"husky": "^9.1.7",
+		"import": "^0.0.6",
+		"json-schema-to-typescript": "^15.0.4",
+		"lint-staged": "^17.0.4",
+		"playwright": "^1.59.1",
+		"semver": "^7.7.4",
+		"typescript": "~6.0.2",
+		"typescript-eslint": "^8.58.0",
+		"vite": "^8.0.4",
+		"vitest": "^4.1.5"
+	}
 }
