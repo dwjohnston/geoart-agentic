@@ -49,11 +49,11 @@ export function validateSchemaStructure(
 
 	const s = mainSchema as Record<string, unknown>;
 
-	if (typeof s["definitions"] !== "object" || s["definitions"] === null) {
+	if (typeof s.definitions !== "object" || s.definitions === null) {
 		return { valid: false, errors: ["Schema must have a definitions object"] };
 	}
 
-	const defs = s["definitions"] as Record<string, unknown>;
+	const defs = s.definitions as Record<string, unknown>;
 
 	// ── 2. Title-convention checks (existing rules) ───────────────────────────
 	for (const nodeType of NODE_TYPES) {
@@ -64,26 +64,26 @@ export function validateSchemaStructure(
 
 		const nodeDef = defs[nodeType] as Record<string, unknown>;
 
-		if (!Array.isArray(nodeDef["oneOf"])) {
+		if (!Array.isArray(nodeDef.oneOf)) {
 			errors.push(`${nodeType} must have a oneOf array`);
 			continue;
 		}
 
 		const suffix = REQUIRED_SUFFIX[nodeType];
 
-		for (const [index, item] of nodeDef["oneOf"].entries()) {
+		for (const [index, item] of nodeDef.oneOf.entries()) {
 			if (typeof item !== "object" || item === null) {
 				errors.push(`${nodeType}.oneOf[${index}] must be an object`);
 				continue;
 			}
 			const itemObj = item as Record<string, unknown>;
-			if (typeof itemObj["title"] !== "string") {
+			if (typeof itemObj.title !== "string") {
 				errors.push(`${nodeType}.oneOf[${index}] must have a title string`);
 				continue;
 			}
-			if (!itemObj["title"].endsWith(suffix)) {
+			if (!itemObj.title.endsWith(suffix)) {
 				errors.push(
-					`${nodeType}.oneOf[${index}] title "${itemObj["title"]}" must end with "${suffix}"`,
+					`${nodeType}.oneOf[${index}] title "${itemObj.title}" must end with "${suffix}"`,
 				);
 			}
 		}
@@ -96,7 +96,7 @@ export function validateSchemaStructure(
 
 	if (valueKinds !== undefined) {
 		const vk = valueKinds as Record<string, unknown>;
-		const vkDefs = vk["definitions"] as Record<string, unknown> | undefined;
+		const vkDefs = vk.definitions as Record<string, unknown> | undefined;
 		if (vkDefs !== undefined) {
 			for (const name of Object.keys(vkDefs)) {
 				if (!name.endsWith("Value")) {
@@ -110,7 +110,7 @@ export function validateSchemaStructure(
 
 	if (refableValueKinds !== undefined) {
 		const rvk = refableValueKinds as Record<string, unknown>;
-		const rvkDefs = rvk["definitions"] as Record<string, unknown> | undefined;
+		const rvkDefs = rvk.definitions as Record<string, unknown> | undefined;
 		if (rvkDefs !== undefined) {
 			for (const name of Object.keys(rvkDefs)) {
 				if (!name.endsWith("ValueOrRef")) {
@@ -127,7 +127,7 @@ export function validateSchemaStructure(
 	// then its v property must be an array type, and vice versa.
 	if (valueKinds !== undefined) {
 		const vk = valueKinds as Record<string, unknown>;
-		const vkDefs = vk["definitions"] as Record<string, unknown> | undefined;
+		const vkDefs = vk.definitions as Record<string, unknown> | undefined;
 		if (vkDefs !== undefined) {
 			for (const [name, def] of Object.entries(vkDefs)) {
 				if (typeof def !== "object" || def === null) continue;
@@ -137,13 +137,13 @@ export function validateSchemaStructure(
 				const kind = name.endsWith("Value") ? name.slice(0, -5) : name;
 
 				// Check if the definition's `v` property is an array
-				const props = defObj["properties"] as
+				const props = defObj.properties as
 					| Record<string, unknown>
 					| undefined;
-				const vProp = props?.["v"] as Record<string, unknown> | undefined;
+				const vProp = props?.v as Record<string, unknown> | undefined;
 				const isArrayType =
-					vProp?.["type"] === "array" ||
-					typeof vProp?.["items"] !== "undefined";
+					vProp?.type === "array" ||
+					typeof vProp?.items !== "undefined";
 				const kindEndsWithArray = kind.endsWith("Array");
 
 				if (isArrayType && !kindEndsWithArray) {
@@ -164,7 +164,7 @@ export function validateSchemaStructure(
 	const validValueTypes = new Set<string>();
 	if (valueKinds !== undefined) {
 		const vk = valueKinds as Record<string, unknown>;
-		const vkDefs = vk["definitions"] as Record<string, unknown> | undefined;
+		const vkDefs = vk.definitions as Record<string, unknown> | undefined;
 		if (vkDefs !== undefined) {
 			for (const name of Object.keys(vkDefs)) {
 				validValueTypes.add(name);
@@ -176,9 +176,9 @@ export function validateSchemaStructure(
 		if (!(nodeType in defs)) continue; // already reported above
 
 		const nodeDef = defs[nodeType] as Record<string, unknown>;
-		if (!Array.isArray(nodeDef["oneOf"])) continue;
+		if (!Array.isArray(nodeDef.oneOf)) continue;
 
-		for (const [index, item] of nodeDef["oneOf"].entries()) {
+		for (const [index, item] of nodeDef.oneOf.entries()) {
 			if (typeof item !== "object" || item === null) continue;
 			const itemObj = item as Record<string, unknown>;
 
@@ -199,15 +199,15 @@ export function validateSchemaStructure(
 					continue;
 				}
 				const outputObj = output as Record<string, unknown>;
-				if (typeof outputObj["valueType"] !== "string") {
+				if (typeof outputObj.valueType !== "string") {
 					errors.push(
 						`${nodeType}.oneOf[${index}].x-outputs[${outIndex}] must have a valueType string`,
 					);
 					continue;
 				}
-				if (!validValueTypes.has(outputObj["valueType"])) {
+				if (!validValueTypes.has(outputObj.valueType)) {
 					errors.push(
-						`${nodeType}.oneOf[${index}].x-outputs[${outIndex}] valueType "${outputObj["valueType"]}" is not defined in value-kinds.schema.json`,
+						`${nodeType}.oneOf[${index}].x-outputs[${outIndex}] valueType "${outputObj.valueType}" is not defined in value-kinds.schema.json`,
 					);
 				}
 			}
@@ -230,18 +230,18 @@ export function validateSchemaStructure(
 			if (!(nodeType in defs)) continue;
 
 			const nodeDef = defs[nodeType] as Record<string, unknown>;
-			if (!Array.isArray(nodeDef["oneOf"])) continue;
+			if (!Array.isArray(nodeDef.oneOf)) continue;
 
 			const expectedFile = layerExpectedFile[nodeType];
 
-			for (const [index, item] of nodeDef["oneOf"].entries()) {
+			for (const [index, item] of nodeDef.oneOf.entries()) {
 				if (typeof item !== "object" || item === null) continue;
 				const itemObj = item as Record<string, unknown>;
 
-				const params = itemObj["params"] as Record<string, unknown> | undefined;
+				const params = itemObj.params as Record<string, unknown> | undefined;
 				if (!params) continue;
 
-				const properties = params["properties"] as
+				const properties = params.properties as
 					| Record<string, unknown>
 					| undefined;
 				if (!properties) continue;
@@ -249,7 +249,7 @@ export function validateSchemaStructure(
 				for (const [paramName, paramDef] of Object.entries(properties)) {
 					if (typeof paramDef !== "object" || paramDef === null) continue;
 					const paramObj = paramDef as Record<string, unknown>;
-					const ref = paramObj["$ref"];
+					const ref = paramObj.$ref;
 					if (typeof ref !== "string") continue;
 
 					// Only check cross-file refs (those with a filename before `#`)

@@ -1,5 +1,5 @@
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import { describe, expect, it } from "bun:test";
 import { createFakeContext } from "../../common-tooling/test-tooling/fakeContext";
 import { createGraphEngine } from "./graphEngine";

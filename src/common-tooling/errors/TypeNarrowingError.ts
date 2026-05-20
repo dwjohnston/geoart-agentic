@@ -14,7 +14,4 @@
  * }
  */
 export class TypeNarrowingError extends Error {
-	constructor() {
-		super();
-	}
 }

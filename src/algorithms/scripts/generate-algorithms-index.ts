@@ -1,8 +1,8 @@
 // Generates src/algorithms/index.generated.ts from reference algorithm files,
 // replacing import.meta.glob (Vite-only) with static imports compatible with bun test.
-import * as fs from "fs";
-import * as path from "path";
-import { fileURLToPath } from "url";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -98,7 +98,7 @@ function scanAlgorithmFiles(
 			} else if (entry.name.endsWith(".ts") && !entry.name.includes(".test.")) {
 				const absPath = path.join(dir, entry.name);
 				const rel =
-					"./" + path.relative(algorithmsDir, absPath).replace(/\\/g, "/");
+					`./${path.relative(algorithmsDir, absPath).replace(/\\/g, "/")}`;
 				results.push(rel);
 			}
 		}

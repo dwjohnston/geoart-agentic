@@ -1,5 +1,5 @@
-import { readFileSync, mkdirSync, writeFileSync } from "fs";
-import { resolve } from "path";
+import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 /** 
  * The the purpose of this script is to turn the schema.json into an OpenAPI compliant spec. 

@@ -48,7 +48,7 @@ export function implementComputeNodeLegacy<K extends DefineableComputeNodeKind>(
 		})),
 		evaluate(inputs: Value[]) {
 			const namedInputs = Object.fromEntries(
-				inputPortNames.map((name, i) => [name, inputs[i]["v"]]),
+				inputPortNames.map((name, i) => [name, inputs[i].v]),
 			) as unknown as NodeInputsResolved<K>;
 
 			const result = def.evaluate(namedInputs);

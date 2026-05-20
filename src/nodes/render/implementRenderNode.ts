@@ -52,7 +52,7 @@ export function convertRenderNodeDefToLegacy<K extends RenderNodeKinds>(
 		outputs: [],
 		evaluate(inputs: Value[], ctx: RenderEvalContext): void {
 			const namedInputs = Object.fromEntries(
-				inputPortNames.map((name, i) => [name, inputs[i]["v"]]),
+				inputPortNames.map((name, i) => [name, inputs[i].v]),
 			) as NodeInputsResolved<K>;
 
 			def.evaluate(namedInputs, ctx);

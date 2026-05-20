@@ -1,8 +1,8 @@
 // Generates registry.generated.ts for compute, render, and control nodes,
 // replacing import.meta.glob (Vite-only) with static imports compatible with bun test.
-import * as fs from "fs";
-import * as path from "path";
-import { fileURLToPath } from "url";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

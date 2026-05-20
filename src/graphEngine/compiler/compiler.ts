@@ -135,14 +135,14 @@ function paramToValue(v: unknown): Value {
 			return {
 				kind: "colorPoint",
 				v: {
-					x: obj["x"] as number,
-					y: obj["y"] as number,
-					dx: (obj["dx"] as number) ?? 0,
-					dy: (obj["dy"] as number) ?? 0,
-					r: obj["r"] as number,
-					g: obj["g"] as number,
-					b: obj["b"] as number,
-					a: obj["a"] as number,
+					x: obj.x as number,
+					y: obj.y as number,
+					dx: (obj.dx as number) ?? 0,
+					dy: (obj.dy as number) ?? 0,
+					r: obj.r as number,
+					g: obj.g as number,
+					b: obj.b as number,
+					a: obj.a as number,
 				},
 			};
 		}
@@ -150,17 +150,17 @@ function paramToValue(v: unknown): Value {
 			return {
 				kind: "color",
 				v: {
-					r: obj["r"] as number,
-					g: obj["g"] as number,
-					b: obj["b"] as number,
-					a: obj["a"] as number,
+					r: obj.r as number,
+					g: obj.g as number,
+					b: obj.b as number,
+					a: obj.a as number,
 				},
 			};
 		}
 		if ("x" in obj && "y" in obj) {
 			return {
 				kind: "point",
-				v: { x: obj["x"] as number, y: obj["y"] as number },
+				v: { x: obj.x as number, y: obj.y as number },
 			};
 		}
 	}

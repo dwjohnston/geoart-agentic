@@ -1,8 +1,8 @@
 // Reads schema.json and value-kinds.schema.json and writes node-outputs-2.ts,
 // value-kinds-2.ts, and node-inputs-2.ts to src/schema/_generated/.
-import { writeFileSync } from "fs";
-import { resolve } from "path";
-import { fileURLToPath } from "url";
+import { writeFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { JSONSchema7 } from "json-schema";
 import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
 
@@ -21,7 +21,7 @@ type NodeDef = {
 };
 
 export function generateOutputs(schema: JSONSchema7): string {
-	const definitions = schema["definitions"] as Record<
+	const definitions = schema.definitions as Record<
 		string,
 		{ oneOf?: NodeDef[] }
 	>;

@@ -59,7 +59,7 @@ export function renderSnapshotToFile(testName: string): string {
 	);
 
 	mkdirSync(OUTPUT_DIR, { recursive: true });
-	const filename = testName.replace(/[^\w.-]/g, "_") + ".png";
+	const filename = `${testName.replace(/[^\w.-]/g, "_")}.png`;
 	const outputPath = join(OUTPUT_DIR, filename);
 	writeFileSync(outputPath, buffer);
 	return outputPath;
