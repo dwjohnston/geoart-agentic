@@ -3,6 +3,7 @@ import type { GeoArtGraph } from "../../schema/_generated/schema-types";
 import type { LegacyNodeRegistry } from "../externalInterfaces/AllNodeDefinitions";
 import { computeRegistry } from "../../nodes/compute/registry";
 import { renderRegistry } from "../../nodes/render/registry";
+import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
 import { controlRegistry } from "../../nodes/control/registry";
 import { compile } from "./compiler";
 
@@ -37,7 +38,9 @@ describe("compiler param conversion", () => {
 		};
 
 		const compiled = compile(graph, realNodeRegistry);
-		const points = compiled.nodes.get("rainbow")!.params.points;
+		const rainbowNode = compiled.nodes.get("rainbow");
+		if (!rainbowNode) throw new TypeNarrowingError();
+		const points = rainbowNode.params.points;
 
 		expect(points.v).toEqual([
 			{ x: -1, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 1, dy: 0 },
@@ -66,7 +69,9 @@ describe("compiler param conversion", () => {
 		};
 
 		const compiled = compile(graph, realNodeRegistry);
-		const points = compiled.nodes.get("rainbow")!.params.points;
+		const rainbowNode = compiled.nodes.get("rainbow");
+		if (!rainbowNode) throw new TypeNarrowingError();
+		const points = rainbowNode.params.points;
 
 		expect(points.v).toEqual([
 			{ x: 0, y: 0, r: 1, g: 1, b: 1, a: 1, dx: 0, dy: 0 },

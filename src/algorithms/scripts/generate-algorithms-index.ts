@@ -3,14 +3,15 @@
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
+import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export function filePathToId(filePath: string): string {
-	const filename = filePath
-		.split("/")
-		.pop()!
+	const lastSegment = filePath.split("/").pop();
+	if (!lastSegment) throw new TypeNarrowingError();
+	const filename = lastSegment
 		.replace(/\.ts$/, "")
 		.replace(/ReferenceGraph$/, "");
 	return filename.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();

@@ -3,6 +3,7 @@
  */
 
 import type { Value } from "../../schema/types";
+import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
 import type { CompiledGraph } from "../compiler/compiler";
 import type { EvalContext } from "./EvalContext";
 import type {
@@ -47,7 +48,8 @@ export function resolveInput(
 	}
 
 	// 2. Fall back to static param.
-	const compiledNode = compiled.nodes.get(nodeId)!;
+	const compiledNode = compiled.nodes.get(nodeId);
+	if (!compiledNode) throw new TypeNarrowingError();
 	const def = compiledNode.def;
 
 	// Control nodes have no inputs array — they should never reach here.
@@ -81,13 +83,16 @@ export function resolveInput(
 function propagateDirty(compiled: CompiledGraph): void {
 	// Walk nodes in topological order so upstream dirtiness propagates forward.
 	for (const nodeId of compiled.sortedNodes) {
-		const state = compiled.states.get(nodeId)!;
+		const state = compiled.states.get(nodeId);
+		if (!state) throw new TypeNarrowingError();
 		if (!state.isDirty) continue;
 
 		// Mark all downstream nodes that receive an edge from this node.
 		for (const edge of compiled.edges) {
 			if (edge.fromNode !== nodeId) continue;
-			compiled.states.get(edge.toNode)!.isDirty = true;
+			const toState = compiled.states.get(edge.toNode);
+			if (!toState) throw new TypeNarrowingError();
+			toState.isDirty = true;
 		}
 	}
 }
@@ -102,7 +107,8 @@ function evaluateNode(
 	cache: Map<string, Value[]>,
 	ctx: EvalContext,
 ): Value[] {
-	const compiledNode = compiled.nodes.get(nodeId)!;
+	const compiledNode = compiled.nodes.get(nodeId);
+	if (!compiledNode) throw new TypeNarrowingError();
 	const { def, layer } = compiledNode;
 
 	// ---- Control node -------------------------------------------------------
@@ -123,7 +129,8 @@ function evaluateNode(
 			resolveInput(compiled, nodeId, i, cache),
 		);
 		// Build a scoped EvalContext for this node (getState/setState scoped by id).
-		const nodeState = compiled.states.get(nodeId)!;
+		const nodeState = compiled.states.get(nodeId);
+		if (!nodeState) throw new TypeNarrowingError();
 		const nodeCtx = buildScopedCtx(ctx, nodeState);
 		return computeDef.evaluate(inputs, nodeCtx);
 	}
@@ -141,7 +148,8 @@ function evaluateNode(
 	const targetCanvas =
 		renderLayer === "live" ? ctx.canvas.orbit : ctx.canvas.trail;
 
-	const renderNodeState = compiled.states.get(nodeId)! as NodeStateWithExtra;
+	const renderNodeState = compiled.states.get(nodeId) as NodeStateWithExtra | undefined;
+	if (!renderNodeState) throw new TypeNarrowingError();
 	renderDef.evaluate(rawInputs, {
 		canvas: targetCanvas,
 		width: ctx.canvas.width,
@@ -207,10 +215,13 @@ export function tick(
 
 	// 1. Mark time-dependant compute nodes dirty.
 	for (const nodeId of compiled.sortedNodes) {
-		const node = compiled.nodes.get(nodeId)!;
+		const node = compiled.nodes.get(nodeId);
+		if (!node) throw new TypeNarrowingError();
 		const def = node.def as LegacyComputeNodeDef;
 		if (def.isTimeDependant) {
-			compiled.states.get(nodeId)!.isDirty = true;
+			const dirtyState = compiled.states.get(nodeId);
+			if (!dirtyState) throw new TypeNarrowingError();
+			dirtyState.isDirty = true;
 		}
 	}
 
@@ -219,8 +230,10 @@ export function tick(
 
 	// 3. Evaluate in topological order, skipping clean nodes.
 	for (const nodeId of compiled.sortedNodes) {
-		const state = compiled.states.get(nodeId)!;
-		const node = compiled.nodes.get(nodeId)!;
+		const state = compiled.states.get(nodeId);
+		if (!state) throw new TypeNarrowingError();
+		const node = compiled.nodes.get(nodeId);
+		if (!node) throw new TypeNarrowingError();
 
 		// For render nodes: decide whether to fire this frame.
 		if (node.layer === "render") {

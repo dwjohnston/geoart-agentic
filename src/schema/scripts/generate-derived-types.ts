@@ -4,6 +4,7 @@ import { writeFileSync } from "fs";
 import { resolve } from "path";
 import { fileURLToPath } from "url";
 import type { JSONSchema7 } from "json-schema";
+import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type JsonSchema = Record<string, any>;
@@ -184,10 +185,9 @@ interface Schema {
 }
 
 function extractValueType(ref: string): string {
-	return ref
-		.split("/")
-		.pop()!
-		.replace(/OrRef$/, "");
+	const last = ref.split("/").pop();
+	if (!last) throw new TypeNarrowingError();
+	return last.replace(/OrRef$/, "");
 }
 
 function serializeNodeInputs(nodeInputs: NodeInputMap): string {

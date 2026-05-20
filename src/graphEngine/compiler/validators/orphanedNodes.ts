@@ -1,6 +1,7 @@
 import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 import type { ValidationError } from "./types";
 import { parseRefs } from "./_helpers";
+import { TypeNarrowingError } from "../../../common-tooling/errors/TypeNarrowingError";
 
 export function validateOrphanedNodes(graph: GeoArtGraph): ValidationError[] {
 	const allNodeIds = [
@@ -30,7 +31,8 @@ export function validateOrphanedNodes(graph: GeoArtGraph): ValidationError[] {
 	const reachable = new Set<string>();
 	const queue = [...renderNodeIds];
 	while (queue.length > 0) {
-		const nodeId = queue.shift()!;
+		const nodeId = queue.shift();
+		if (nodeId === undefined) throw new TypeNarrowingError();
 		if (reachable.has(nodeId)) continue;
 		reachable.add(nodeId);
 		for (const upstream of reverseAdj.get(nodeId) ?? []) {

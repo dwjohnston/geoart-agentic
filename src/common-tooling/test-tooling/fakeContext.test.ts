@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { createFakeContext } from "./fakeContext";
+import { TypeNarrowingError } from "../errors/TypeNarrowingError";
 
 describe(createFakeContext, () => {
 	it("serializes things nicely - simple", () => {
@@ -77,7 +78,8 @@ describe(createFakeContext, () => {
 		conic.addColorStop(0.5, "green");
 
 		// nb.those typings don't exist in this context
-		const pattern = ctx.createPattern({} as CanvasImageSource, "repeat")!;
+		const pattern = ctx.createPattern({} as CanvasImageSource, "repeat");
+		if (!pattern) throw new TypeNarrowingError();
 		pattern.setTransform({} as DOMMatrix2DInit);
 
 		const calls = ctx.getCalls();

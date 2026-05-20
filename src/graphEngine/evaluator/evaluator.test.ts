@@ -3,6 +3,7 @@ import type { GeoArtGraph } from "../../schema/_generated/schema-types";
 import { compile } from "../compiler/compiler";
 import { tick } from "./evaluator";
 import type { EvalContext } from "./EvalContext";
+import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
 import type { LegacyNodeRegistry } from "../externalInterfaces/AllNodeDefinitions";
 import { computeRegistry } from "../../nodes/compute/registry";
 import { renderRegistry } from "../../nodes/render/registry";
@@ -209,7 +210,9 @@ describe("graph compiler and evaluator — Earth-Venus integration", () => {
 		const compiled = compile(earthVenus, realNodeRegistry);
 		const ctx = makeCtx(42);
 		tick(compiled, 42, ctx);
-		const timeOutput = compiled.states.get("time")!.lastOutput;
+		const timeState = compiled.states.get("time");
+		if (!timeState) throw new TypeNarrowingError();
+		const timeOutput = timeState.lastOutput;
 		expect(timeOutput).toHaveLength(1);
 		expect(timeOutput[0].kind).toBe("number");
 		expect((timeOutput[0] as { kind: "number"; v: number }).v).toBe(42);

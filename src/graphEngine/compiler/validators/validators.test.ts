@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 import { validateGraphSemantics } from "./index";
+import { TypeNarrowingError } from "../../../common-tooling/errors/TypeNarrowingError";
 
 // ---------------------------------------------------------------------------
 // Fixture: earth-venus graph (valid baseline)
@@ -133,7 +134,8 @@ describe("DUPLICATE_NODE_ID", () => {
 		expect(result.valid).toBe(false);
 		const dupe = result.errors.find((e) => e.code === "DUPLICATE_NODE_ID");
 		expect(dupe).toBeDefined();
-		expect(dupe!.nodeId).toBe("shared");
+		if (!dupe) throw new TypeNarrowingError();
+		expect(dupe.nodeId).toBe("shared");
 	});
 
 	test("same id twice in the same layer is an error", () => {
@@ -218,8 +220,9 @@ describe("UNKNOWN_REF_NODE", () => {
 		expect(result.valid).toBe(false);
 		const err = result.errors.find((e) => e.code === "UNKNOWN_REF_NODE");
 		expect(err).toBeDefined();
-		expect(err!.nodeId).toBe("cp");
-		expect(err!.paramName).toBe("point");
+		if (!err) throw new TypeNarrowingError();
+		expect(err.nodeId).toBe("cp");
+		expect(err.paramName).toBe("point");
 	});
 });
 
@@ -249,8 +252,9 @@ describe("UNKNOWN_REF_PORT", () => {
 		expect(result.valid).toBe(false);
 		const err = result.errors.find((e) => e.code === "UNKNOWN_REF_PORT");
 		expect(err).toBeDefined();
-		expect(err!.nodeId).toBe("cp");
-		expect(err!.paramName).toBe("point");
+		if (!err) throw new TypeNarrowingError();
+		expect(err.nodeId).toBe("cp");
+		expect(err.paramName).toBe("point");
 	});
 });
 
@@ -280,8 +284,9 @@ describe("TYPE_MISMATCH", () => {
 		expect(result.valid).toBe(false);
 		const err = result.errors.find((e) => e.code === "TYPE_MISMATCH");
 		expect(err).toBeDefined();
-		expect(err!.nodeId).toBe("cp");
-		expect(err!.paramName).toBe("point");
+		if (!err) throw new TypeNarrowingError();
+		expect(err.nodeId).toBe("cp");
+		expect(err.paramName).toBe("point");
 	});
 
 	test("correct type wiring produces no type mismatch", () => {

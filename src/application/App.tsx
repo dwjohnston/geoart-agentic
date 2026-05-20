@@ -39,8 +39,14 @@ export function App() {
 	);
 
 	useEffect(() => {
-		const orbitCtx = orbitCanvasRef.current!.getContext("2d")!;
-		const trailCtx = trailCanvasRef.current!.getContext("2d")!;
+		const orbitCanvas = orbitCanvasRef.current;
+		if (!orbitCanvas) throw new TypeNarrowingError();
+		const orbitCtx = orbitCanvas.getContext("2d");
+		if (!orbitCtx) throw new TypeNarrowingError();
+		const trailCanvas = trailCanvasRef.current;
+		if (!trailCanvas) throw new TypeNarrowingError();
+		const trailCtx = trailCanvas.getContext("2d");
+		if (!trailCtx) throw new TypeNarrowingError();
 
 		const engine = createGraphEngine(orbitCtx, trailCtx, CANVAS_SIZE);
 		engineRef.current = engine;

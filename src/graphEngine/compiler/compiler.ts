@@ -12,6 +12,7 @@ import type { LegacyRenderNodeDef } from "../../graphEngine/externalInterfaces/R
 import type { LegacyControlNodeDef } from "../../graphEngine/externalInterfaces/ControlNodeDefinition";
 
 import type { LegacyNodeRegistry } from "../externalInterfaces/AllNodeDefinitions";
+import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
 
 /** Layer tag used to enforce direction constraints at compile time. */
 type Layer = "control" | "compute" | "render";
@@ -218,7 +219,9 @@ function topologicalSort(nodeIds: string[], edges: Edge[]): string[] {
 		// Only count edges between nodes we know about.
 		if (!inDegree.has(fromNode) || !inDegree.has(toNode)) continue;
 		inDegree.set(toNode, (inDegree.get(toNode) ?? 0) + 1);
-		dependants.get(fromNode)!.push(toNode);
+		const fromDependants = dependants.get(fromNode);
+		if (!fromDependants) throw new TypeNarrowingError();
+		fromDependants.push(toNode);
 	}
 
 	const queue: string[] = [];
@@ -228,7 +231,8 @@ function topologicalSort(nodeIds: string[], edges: Edge[]): string[] {
 
 	const sorted: string[] = [];
 	while (queue.length > 0) {
-		const id = queue.shift()!;
+		const id = queue.shift();
+		if (id === undefined) throw new TypeNarrowingError();
 		sorted.push(id);
 		for (const dep of dependants.get(id) ?? []) {
 			const newDeg = (inDegree.get(dep) ?? 1) - 1;
@@ -399,8 +403,10 @@ export function compile(
 	// 5. Validate layer direction on edges
 	// ------------------------------------------------------------------
 	for (const edge of allEdges) {
-		const fromNode = nodes.get(edge.fromNode)!;
-		const toNode = nodes.get(edge.toNode)!;
+		const fromNode = nodes.get(edge.fromNode);
+		if (!fromNode) throw new TypeNarrowingError();
+		const toNode = nodes.get(edge.toNode);
+		if (!toNode) throw new TypeNarrowingError();
 
 		const fromOrder = layerOrder[fromNode.layer];
 		const toOrder = layerOrder[toNode.layer];

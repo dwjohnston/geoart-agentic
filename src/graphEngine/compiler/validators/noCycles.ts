@@ -1,6 +1,7 @@
 import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 import type { ValidationError } from "./types";
 import { parseRefs } from "./_helpers";
+import { TypeNarrowingError } from "../../../common-tooling/errors/TypeNarrowingError";
 
 export function validateNoCycles(graph: GeoArtGraph): ValidationError[] {
 	const allNodeIds = [
@@ -24,7 +25,9 @@ export function validateNoCycles(graph: GeoArtGraph): ValidationError[] {
 		// Skip edges that reference unknown nodes — those are caught by validateRefs
 		if (!inDegree.has(fromNodeId) || !inDegree.has(toNodeId)) continue;
 		inDegree.set(toNodeId, (inDegree.get(toNodeId) ?? 0) + 1);
-		dependants.get(fromNodeId)!.push(toNodeId);
+		const nodeDeps = dependants.get(fromNodeId);
+		if (!nodeDeps) throw new TypeNarrowingError();
+		nodeDeps.push(toNodeId);
 	}
 
 	const queue: string[] = [];
@@ -34,7 +37,8 @@ export function validateNoCycles(graph: GeoArtGraph): ValidationError[] {
 
 	const sorted: string[] = [];
 	while (queue.length > 0) {
-		const id = queue.shift()!;
+		const id = queue.shift();
+		if (id === undefined) throw new TypeNarrowingError();
 		sorted.push(id);
 		for (const dep of dependants.get(id) ?? []) {
 			const newDeg = (inDegree.get(dep) ?? 1) - 1;

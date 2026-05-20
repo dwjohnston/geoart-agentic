@@ -1541,8 +1541,8 @@ exports[`general umonaLisa.ts 1`] = `
   },
   {
     "args": [
-      452.7981582639,
-      439.7512452178,
+      452.7981577075,
+      439.7512076501,
       2.8,
       2.8,
       0,
@@ -1716,8 +1716,8 @@ exports[`general umonaLisa.ts 1`] = `
   },
   {
     "args": [
-      452.7926334593,
-      439.5025449762,
+      452.7926312341,
+      439.5024698654,
       2.8,
       2.8,
       0,
@@ -1891,8 +1891,8 @@ exports[`general umonaLisa.ts 1`] = `
   },
   {
     "args": [
-      452.7834267977,
-      439.2539538037,
+      452.7834217919,
+      439.2538411993,
       2.8,
       2.8,
       0,
@@ -1988,8 +1988,8 @@ exports[`general umonaLisa.ts 2`] = `
     "args": [
       511.9839234851,
       378.1024012848,
-      471.9708371931,
-      377.950952973,
+      471.9708311455,
+      377.9507405654,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -2035,8 +2035,8 @@ exports[`general umonaLisa.ts 2`] = `
   },
   {
     "args": [
-      471.9708371931,
-      377.950952973,
+      471.9708311455,
+      377.9507405654,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -2174,8 +2174,8 @@ exports[`general umonaLisa.ts 2`] = `
     "args": [
       380.7953946751,
       439.60665828,
-      452.7981582639,
-      439.7512452178,
+      452.7981577075,
+      439.7512076501,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -2221,8 +2221,8 @@ exports[`general umonaLisa.ts 2`] = `
   },
   {
     "args": [
-      452.7981582639,
-      439.7512452178,
+      452.7981577075,
+      439.7512076501,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -2236,8 +2236,8 @@ exports[`general umonaLisa.ts 2`] = `
     "args": [
       419.1885296605,
       399.3364267438,
-      471.9708371931,
-      377.950952973,
+      471.9708311455,
+      377.9507405654,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -2283,8 +2283,8 @@ exports[`general umonaLisa.ts 2`] = `
   },
   {
     "args": [
-      471.9708371931,
-      377.950952973,
+      471.9708311455,
+      377.9507405654,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -2484,8 +2484,8 @@ exports[`general umonaLisa.ts 2`] = `
     "args": [
       511.9356985556,
       376.2053473334,
-      471.8833723967,
-      375.9035658339,
+      471.8833482158,
+      375.9031415351,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -2531,8 +2531,8 @@ exports[`general umonaLisa.ts 2`] = `
   },
   {
     "args": [
-      471.8833723967,
-      375.9035658339,
+      471.8833482158,
+      375.9031415351,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -2670,8 +2670,8 @@ exports[`general umonaLisa.ts 2`] = `
     "args": [
       380.7815812252,
       439.2135322108,
-      452.7926334593,
-      439.5025449762,
+      452.7926312341,
+      439.5024698654,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -2717,8 +2717,8 @@ exports[`general umonaLisa.ts 2`] = `
   },
   {
     "args": [
-      452.7926334593,
-      439.5025449762,
+      452.7926312341,
+      439.5024698654,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -2732,8 +2732,8 @@ exports[`general umonaLisa.ts 2`] = `
     "args": [
       419.1541323473,
       398.6736463428,
-      471.8833723967,
-      375.9035658339,
+      471.8833482158,
+      375.9031415351,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -2779,8 +2779,8 @@ exports[`general umonaLisa.ts 2`] = `
   },
   {
     "args": [
-      471.8833723967,
-      375.9035658339,
+      471.8833482158,
+      375.9031415351,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -2980,8 +2980,8 @@ exports[`general umonaLisa.ts 2`] = `
     "args": [
       511.8553390561,
       374.3093827533,
-      471.737676464,
-      373.8594971258,
+      471.7376220938,
+      373.8588619677,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3027,8 +3027,8 @@ exports[`general umonaLisa.ts 2`] = `
   },
   {
     "args": [
-      471.737676464,
-      373.8594971258,
+      471.7376220938,
+      373.8588619677,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -3166,8 +3166,8 @@ exports[`general umonaLisa.ts 2`] = `
     "args": [
       380.7585672235,
       438.8208373249,
-      452.7834267977,
-      439.2539538037,
+      452.7834217919,
+      439.2538411993,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3213,8 +3213,8 @@ exports[`general umonaLisa.ts 2`] = `
   },
   {
     "args": [
-      452.7834267977,
-      439.2539538037,
+      452.7834217919,
+      439.2538411993,
     ],
     "kind": "method",
     "name": "lineTo",
@@ -3228,8 +3228,8 @@ exports[`general umonaLisa.ts 2`] = `
     "args": [
       419.096849159,
       398.012450705,
-      471.737676464,
-      373.8594971258,
+      471.7376220938,
+      373.8588619677,
     ],
     "kind": "method",
     "name": "createLinearGradient",
@@ -3275,8 +3275,8 @@ exports[`general umonaLisa.ts 2`] = `
   },
   {
     "args": [
-      471.737676464,
-      373.8594971258,
+      471.7376220938,
+      373.8588619677,
     ],
     "kind": "method",
     "name": "lineTo",
