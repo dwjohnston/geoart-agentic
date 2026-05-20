@@ -1,5 +1,11 @@
 function roundNumbers(v: unknown, precision = 10): unknown {
   if (typeof v === 'number') return parseFloat(v.toFixed(precision));
+  if (typeof v === 'string') {
+    return v.replace(/\d+\.?\d+/g, (match) => {
+      const num = parseFloat(match);
+      return String(parseFloat(num.toFixed(precision)));
+    });
+  }
   if (Array.isArray(v)) return v.map(x => roundNumbers(x, precision));
   if (v && typeof v === 'object') return Object.fromEntries(
     Object.entries(v).map(([k, val]) => [k, roundNumbers(val, precision)])
