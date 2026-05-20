@@ -165,6 +165,30 @@ describe(createFakeContext, () => {
     `)
   })
 
+  // Human explanation:
+  // Functions like Math.sin will have slightly different rounding differences on 
+  // different CPU architectures
+  // Which will cause snapshot failures on CI vs dev's machine
+  // So round the numbers as we capture the snapshot
+
+  // AI explanation: 
+  // Floating point transcendental functions (sin, cos, etc.) 
+  // produce last-ULP differences
+  // across CPU architectures (ARM vs x86), 
+  // causing snapshot mismatches between local (Apple Silicon)
+  // and CI (x86 Linux). Rounding to 10dp at record time eliminates the noise.
+  it("rounds floating point args to 10 decimal places", () => {
+    const ctx = createFakeContext();
+
+    ctx.moveTo(Math.PI, Math.E);
+    ctx.lineWidth = Math.PI;
+
+    expect(ctx.getCalls()).toEqual([
+      { kind: 'method', name: 'moveTo', args: [3.1415926536, 2.7182818285] },
+      { kind: 'property', name: 'lineWidth', value: 3.1415926536 },
+    ]);
+  });
+
   it("serialized property assignments", () => {
     const ctx = createFakeContext();
 

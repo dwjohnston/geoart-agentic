@@ -1,2 +1,5 @@
+[run]
+bun = true
+
 [test]
 pathIgnorePatterns = "**/*.browser.test.*"

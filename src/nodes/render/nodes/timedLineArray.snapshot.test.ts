@@ -74,7 +74,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -131,7 +131,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -188,7 +188,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -245,7 +245,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -338,7 +338,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -395,7 +395,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -497,7 +497,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -554,7 +554,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -611,7 +611,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -668,7 +668,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -763,7 +763,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -825,7 +825,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -894,7 +894,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -991,7 +991,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1053,7 +1053,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1115,7 +1115,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1177,7 +1177,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1276,7 +1276,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1333,7 +1333,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1395,7 +1395,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1452,7 +1452,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1514,7 +1514,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1571,7 +1571,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1667,7 +1667,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1724,7 +1724,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1786,7 +1786,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1843,7 +1843,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1905,7 +1905,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],
@@ -1962,7 +1962,7 @@ describe("timedLineArrayNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "args": [],

@@ -1,3 +1,18 @@
+function roundNumbers(v: unknown, precision = 10): unknown {
+  if (typeof v === 'number') return parseFloat(v.toFixed(precision));
+  if (typeof v === 'string') {
+    return v.replace(/\d+\.?\d+/g, (match) => {
+      const num = parseFloat(match);
+      return String(parseFloat(num.toFixed(precision)));
+    });
+  }
+  if (Array.isArray(v)) return v.map(x => roundNumbers(x, precision));
+  if (v && typeof v === 'object') return Object.fromEntries(
+    Object.entries(v).map(([k, val]) => [k, roundNumbers(val, precision)])
+  );
+  return v;
+}
+
 export type Call =
   | { kind: 'method'; name: string; args: unknown[] }
   | { kind: 'property'; name: string; value: unknown };
@@ -40,16 +55,16 @@ export function createFakeContext(): FakeContext {
       const creatorPrefix = creatorPrefixes[String(prop)];
       if (creatorPrefix) {
         return (...args: unknown[]) => {
-          calls.push({ kind: 'method', name: String(prop), args });
+          calls.push({ kind: 'method', name: String(prop), args: args.map(a => roundNumbers(a)) });
           return makeSubProxy(creatorPrefix);
         };
       }
       return (...args: unknown[]) => {
-        calls.push({ kind: 'method', name: String(prop), args });
+        calls.push({ kind: 'method', name: String(prop), args: args.map(a => roundNumbers(a)) });
       };
     },
     set(_target, prop, value) {
-      calls.push({ kind: 'property', name: String(prop), value });
+      calls.push({ kind: 'property', name: String(prop), value: roundNumbers(value) });
       return true;
     },
   };
