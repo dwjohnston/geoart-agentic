@@ -111,6 +111,12 @@ export const orbitModule: ModuleDef = {
       },
       defaultValue: { v: 1 },
     },
+    {
+      name: 'centerPoints',
+      valueType: 'colorPointArrayValue',
+      controlNode: null,
+      optional: true,
+    },
   ],
 
   outputs: [
@@ -134,6 +140,7 @@ export const orbitModule: ModuleDef = {
         tilt: { ref: resolvedInputs.get('tilt')! },
         phase: { ref: resolvedInputs.get('phase')! },
         numPoints: { ref: resolvedInputs.get('numPoints')! },
+        ...(resolvedInputs.has('centerPoints') ? { centerPoints: { ref: resolvedInputs.get('centerPoints')! } } : {}),
       },
     },
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { compile } from '../compiler/compiler';
-import { expandModules, type GraphWithModules } from '../compiler/moduleExpander';
 import { moduleRegistry } from '../../schema/modules/index';
 import { tick as evaluatorTick } from '../../graphEngine/evaluator/evaluator';
 import { controlRegistry } from '../../nodes/control/registry';
@@ -85,14 +84,15 @@ export function createGraphEngine(
     orbitCtx.clearRect(0, 0, canvasSize, canvasSize);
     trailCtx.clearRect(0, 0, canvasSize, canvasSize);
 
-    // Expand any module declarations into their constituent nodes before compiling.
-    const expandedGraph = expandModules(graph as unknown as GraphWithModules, moduleRegistry) as unknown as GeoArtGraph;
-
-    compiled = compile(expandedGraph, {
-      computeRegistry: registry?.computeRegistry ?? computeRegistry,
-      controlRegistry: registry?.controlRegistry ?? controlRegistry,
-      renderRegistry: registry?.renderRegistry ?? renderRegistry
-    });
+    compiled = compile(
+      graph,
+      {
+        computeRegistry: registry?.computeRegistry ?? computeRegistry,
+        controlRegistry: registry?.controlRegistry ?? controlRegistry,
+        renderRegistry: registry?.renderRegistry ?? renderRegistry,
+      },
+      moduleRegistry,
+    );
 
     // Extract render nodes and initialize enabled set
     const renderingNodes: Array<{ nodeId: string; label: string; layer: 'live' | 'paint' }> = [];
@@ -102,17 +102,15 @@ export function createGraphEngine(
       for (const nodeId of compiled.sortedNodes) {
         const compiledNode = compiled.nodes.get(nodeId);
         if (compiledNode && compiledNode.layer === 'render') {
-          const nodeDecl = expandedGraph.render.nodes.find(n => n.id === nodeId);
-          const label = nodeDecl?.id || nodeId;
           const layer = compiledNode.renderConfig?.layer || 'paint';
-          renderingNodes.push({ nodeId, label, layer });
+          renderingNodes.push({ nodeId, label: nodeId, layer });
           enabledRenderNodes.add(nodeId);
         }
       }
     }
 
     return {
-      renderControlNodes: () => expandedGraph.control.nodes.map(node => {
+      renderControlNodes: () => compiled!.controlNodeDecls.map(node => {
         const def = (registry?.controlRegistry ?? controlRegistry).get(node.type);
         if (!def) return null;
         //@ts-expect-error - ignore for now

@@ -75,6 +75,10 @@ export function expandModules(
       if (userParam && 'ref' in userParam && userParam.ref !== undefined) {
         // User supplied a ref — wire directly.
         resolvedInputs.set(inputDef.name, userParam.ref);
+      } else if (inputDef.optional && !userParam) {
+        // Optional input with no value supplied — omit from resolvedInputs entirely.
+        // buildNodes must guard with resolvedInputs.has(inputDef.name).
+        continue;
       } else {
         // User supplied a static value or nothing — generate control node (if defined).
         const controlNodeId = `${moduleId}__${inputDef.name}`;

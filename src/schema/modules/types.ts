@@ -22,6 +22,12 @@ export type ModuleInputDef = {
   } | null;
   /** Default value used when the input is omitted and no controlNode is defined. */
   defaultValue?: { v: unknown };
+  /**
+   * When true, this input is entirely omitted from resolvedInputs if not supplied
+   * by the algorithm. The module's buildNodes must check `resolvedInputs.has(name)`
+   * before using it. Use for inputs that have no sensible default.
+   */
+  optional?: boolean;
 };
 
 /** A single output port on a module. */

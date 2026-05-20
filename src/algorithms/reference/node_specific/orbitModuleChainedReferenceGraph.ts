@@ -1,39 +1,31 @@
 import type { GraphWithModules } from '../../../graphEngine/compiler/moduleExpander';
 
-// Three orbits declared as modules — demonstrates multiple module instances.
+// Demonstrates: an orbit module using another orbit module's output as its centerPoints.
+// The outer orbit's center tracks the inner orbit's current position (epicycle).
 const graph: GraphWithModules = {
   version: '2.0',
-  title: 'Orbit Modules — Three Orbits',
+  title: 'Orbit Module — Chained Modules',
   modules: {
     nodes: [
       {
-        id: 'mercury',
+        id: 'inner',
         type: 'module',
         module: 'orbit',
         params: {
           time: { ref: 'time.time' },
-          radius: { v: 0.15 },
-          speed: { v: 4.0 },
-        },
-      },
-      {
-        id: 'venus',
-        type: 'module',
-        module: 'orbit',
-        params: {
-          time: { ref: 'time.time' },
-          radius: { v: 0.28 },
-          speed: { v: 1.6 },
-        },
-      },
-      {
-        id: 'earth',
-        type: 'module',
-        module: 'orbit',
-        params: {
-          time: { ref: 'time.time' },
-          radius: { v: 0.4 },
+          radius: { v: 0.25 },
           speed: { v: 1.0 },
+        },
+      },
+      {
+        id: 'outer',
+        type: 'module',
+        module: 'orbit',
+        params: {
+          time: { ref: 'time.time' },
+          radius: { v: 0.1 },
+          speed: { v: 3.0 },
+          centerPoints: { ref: 'inner.points' },
         },
       },
     ],

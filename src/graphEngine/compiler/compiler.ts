@@ -4,6 +4,8 @@
 
 
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+import type { ModuleDef } from '../../schema/modules/types';
+import { expandModules, type GraphWithModules } from './moduleExpander';
 import type { Value } from '../../schema/types';
 import type { LegacyComputeNodeImplementation, LegacyComputeNodePortImplementation } from '../../graphEngine/externalInterfaces/ComputeNodeImplementation';
 import type { LegacyRenderNodeImplementation } from '../../graphEngine/externalInterfaces/RenderNodeImplementation';
@@ -62,6 +64,8 @@ export type CompiledGraph = {
   /** Internal edges derived from inline param refs. */
   edges: Edge[];
   states: Map<string, NodeState>;
+  /** Serialised control-node declarations (post-expansion) for UI rendering. */
+  controlNodeDecls: GeoArtGraph['control']['nodes'];
 };
 
 // ---------------------------------------------------------------------------
@@ -252,7 +256,18 @@ const layerOrder: Record<Layer, number> = { control: 0, compute: 1, render: 2 };
  * - Edges that violate layer ordering (render → compute, etc.)
  * - Cycles in the graph
  */
-export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): CompiledGraph {
+export function compile(
+  graph: GeoArtGraph,
+  nodeRegistry: LegacyNodeRegistry,
+  moduleRegistry?: Map<string, ModuleDef>,
+): CompiledGraph {
+  // Expand any module declarations before compiling.
+  const expandedGraph = moduleRegistry
+    ? expandModules(graph as unknown as GraphWithModules, moduleRegistry) as unknown as GeoArtGraph
+    : graph;
+
+  graph = expandedGraph;
+
   const nodes = new Map<string, CompiledNode>();
   // Raw (unparsed) params per node — needed for ref scanning below.
   const rawParamsByNodeId = new Map<string, Record<string, unknown>>();
@@ -418,5 +433,5 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
     });
   }
 
-  return { sortedNodes, nodes, edges: allEdges, states };
+  return { sortedNodes, nodes, edges: allEdges, states, controlNodeDecls: graph.control.nodes };
 }
