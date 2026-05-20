@@ -21,7 +21,7 @@ function inverseDistanceWeight(dist: number, falloff: number): number {
 	if (dist < 1e-10) {
 		return 1e10; // Very large weight for zero distance
 	}
-	return 1 / Math.pow(dist, falloff);
+	return 1 / dist ** falloff;
 }
 
 /**

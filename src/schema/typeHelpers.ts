@@ -3,8 +3,8 @@ import type {
 	RenderNode,
 	ComputeNode,
 } from "./_generated/schema-types";
-import { nodeInputs } from "./_generated/node-inputs-2";
-import { nodeOutputMeta } from "./_generated/node-outputs-2";
+import type { nodeInputs } from "./_generated/node-inputs-2";
+import type { nodeOutputMeta } from "./_generated/node-outputs-2";
 
 import type { ValueTypes } from "./_generated/value-kinds-2";
 

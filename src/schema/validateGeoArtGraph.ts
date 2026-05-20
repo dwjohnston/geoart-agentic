@@ -1,4 +1,4 @@
-import { type AnySchema } from "ajv";
+import type { AnySchema } from "ajv";
 import schema from "./schema/schema.json";
 import valueKindsSchema from "./schema/value-kinds.schema.json";
 import refableValueKindsSchema from "./schema/refable-value-kinds.schema.json";

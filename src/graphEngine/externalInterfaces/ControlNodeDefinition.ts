@@ -6,7 +6,7 @@ import type {
 	ControlNodeKinds,
 	NodeInputsResolved,
 } from "../../schema/typeHelpers";
-import { nodeOutputMeta } from "../../schema/_generated/node-outputs-2";
+import type { nodeOutputMeta } from "../../schema/_generated/node-outputs-2";
 
 // @legacy - this should have the possible value types derived from the schema
 export type LegacyControlNodePortDef = {

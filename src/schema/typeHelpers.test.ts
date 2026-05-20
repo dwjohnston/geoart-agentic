@@ -2,18 +2,18 @@ import { describe, it, expect } from "bun:test";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function assertType<T>(_value: T) {}
-import {
-	type ComputeNodeKinds,
-	type ControlNodeKinds,
-	type RenderNodeKinds,
-	type ValueTypeByName,
-	type NodeInputsResolved,
-	type NodeOutputsResolved,
-	type ResolvedValue,
-	type ReferencedValueDeclared,
-	type StaticValueDeclared,
-	type ValueDeclared,
-	type NodeInputsDeclared,
+import type {
+	ComputeNodeKinds,
+	ControlNodeKinds,
+	RenderNodeKinds,
+	ValueTypeByName,
+	NodeInputsResolved,
+	NodeOutputsResolved,
+	ResolvedValue,
+	ReferencedValueDeclared,
+	StaticValueDeclared,
+	ValueDeclared,
+	NodeInputsDeclared,
 } from "./typeHelpers";
 import type { GeoArtGraph } from "./_generated/schema-types";
 import { fColorPoint } from "../constants";
