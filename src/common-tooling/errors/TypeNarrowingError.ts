@@ -8,12 +8,12 @@
  * @example
  * function handleClick() {
  *     if(!someRef.value){
- *        throw new NeverShouldHappenError();
+ *        throw new TypeNarrowingError();
  *     }
  *     someRef.value.doSomething(); // For type purposes we can trust that someRef.value exists
  * }
  */
-export class NeverShouldHappenError extends Error {
+export class TypeNarrowingError extends Error {
 	constructor() {
 		super();
 	}

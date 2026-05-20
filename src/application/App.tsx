@@ -11,7 +11,7 @@ import { AlgorithmPicker } from "./AlgorithmPicker";
 import { Controls } from "./Controls";
 import { SpeedControl } from "./SpeedControl";
 import { RenderToggles } from "./RenderToggles";
-import { NeverShouldHappenError } from "../common-tooling/errors/NeverShouldHappenError";
+import { TypeNarrowingError } from "../common-tooling/errors/TypeNarrowingError";
 
 const CANVAS_SIZE = 800;
 
@@ -61,7 +61,7 @@ export function App() {
 
 	function handleGraphChange(id: string) {
 		if (!engineRef.current) {
-			throw new NeverShouldHappenError();
+			throw new TypeNarrowingError();
 		}
 		const params = new URLSearchParams(window.location.search);
 		params.set("algorithm", id);
@@ -72,7 +72,7 @@ export function App() {
 
 	function handleSpeedChange(value: number) {
 		if (!engineRef.current) {
-			throw new NeverShouldHappenError();
+			throw new TypeNarrowingError();
 		}
 		setSpeed(value);
 		engineRef.current.setSpeed(value);
@@ -80,7 +80,7 @@ export function App() {
 
 	function handleRenderNodeToggle(nodeId: string) {
 		if (!engineRef.current) {
-			throw new NeverShouldHappenError();
+			throw new TypeNarrowingError();
 		}
 		engineRef.current.toggleRenderNode(nodeId);
 	}
