@@ -1,17 +1,16 @@
-import type { Value } from "../../schema/types";
-
-import type {
-	RenderNodeKinds,
-	NodeInputsResolved,
-} from "../../schema/typeHelpers";
-import { nodeInputs } from "../../schema/_generated/node-inputs-2";
 import { objectEntries } from "../../common-tooling/typedObject";
 import type {
+	LegacyRenderNodeDef,
 	LegacyRenderNodePortDef,
 	RenderEvalContext,
-	LegacyRenderNodeDef,
 	RenderNodeDef,
 } from "../../graphEngine/externalInterfaces/RenderNodeDefinition";
+import { nodeInputs } from "../../schema/_generated/node-inputs-2";
+import type {
+	NodeInputsResolved,
+	RenderNodeKinds,
+} from "../../schema/typeHelpers";
+import type { Value } from "../../schema/types";
 
 export function implementRenderNode<K extends RenderNodeKinds>(
 	kind: K,

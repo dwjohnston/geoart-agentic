@@ -1,8 +1,8 @@
-import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { replayCallsOnCanvas } from "../../common-tooling/test-tooling/replayContext";
 import type { Call } from "../../common-tooling/test-tooling/fakeContext";
+import { replayCallsOnCanvas } from "../../common-tooling/test-tooling/replayContext";
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 const SNAPSHOT_PATH = join(

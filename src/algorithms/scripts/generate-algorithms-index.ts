@@ -97,8 +97,7 @@ function scanAlgorithmFiles(
 				walk(path.join(dir, entry.name));
 			} else if (entry.name.endsWith(".ts") && !entry.name.includes(".test.")) {
 				const absPath = path.join(dir, entry.name);
-				const rel =
-					`./${path.relative(algorithmsDir, absPath).replace(/\\/g, "/")}`;
+				const rel = `./${path.relative(algorithmsDir, absPath).replace(/\\/g, "/")}`;
 				results.push(rel);
 			}
 		}

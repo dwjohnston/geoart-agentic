@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { GRAPHS, DEFAULT_GRAPH_ID, getGraph } from "../algorithms/index";
-import { createGraphEngine } from "../graphEngine/graphEngine/graphEngine";
+import { DEFAULT_GRAPH_ID, GRAPHS, getGraph } from "../algorithms/index";
+import { TypeNarrowingError } from "../common-tooling/errors/TypeNarrowingError";
 import type {
 	GraphEngine,
 	GraphLoadPayload,
 } from "../graphEngine/graphEngine/graphEngine";
-import { Canvas } from "./Canvas";
-import { SidePanel } from "./SidePanel";
+import { createGraphEngine } from "../graphEngine/graphEngine/graphEngine";
 import { AlgorithmPicker } from "./AlgorithmPicker";
+import { Canvas } from "./Canvas";
 import { Controls } from "./Controls";
-import { SpeedControl } from "./SpeedControl";
 import { RenderToggles } from "./RenderToggles";
-import { TypeNarrowingError } from "../common-tooling/errors/TypeNarrowingError";
+import { SidePanel } from "./SidePanel";
+import { SpeedControl } from "./SpeedControl";
 
 const CANVAS_SIZE = 800;
 

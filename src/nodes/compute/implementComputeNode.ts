@@ -1,17 +1,17 @@
-import type { Value } from "../../schema/types";
+import { objectEntries } from "../../common-tooling/typedObject";
+import type {
+	ComputeNodeDef,
+	LegacyComputeNodeDef,
+	LegacyComputeNodePortDef,
+} from "../../graphEngine/externalInterfaces/ComputeNodeDefinition";
+import { nodeInputs } from "../../schema/_generated/node-inputs-2";
+import { nodeOutputMeta } from "../../schema/_generated/node-outputs-2";
 import type {
 	ComputeNodeKinds,
 	NodeInputsResolved,
 	NodeOutputsResolved,
 } from "../../schema/typeHelpers";
-import type {
-	LegacyComputeNodePortDef,
-	LegacyComputeNodeDef,
-	ComputeNodeDef,
-} from "../../graphEngine/externalInterfaces/ComputeNodeDefinition";
-import { nodeInputs } from "../../schema/_generated/node-inputs-2";
-import { nodeOutputMeta } from "../../schema/_generated/node-outputs-2";
-import { objectEntries } from "../../common-tooling/typedObject";
+import type { Value } from "../../schema/types";
 
 type DefineableComputeNodeKind = ComputeNodeKinds;
 

@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import curveModulatorNodeDef from "./curveModulator";
+import { describe, expect, it } from "vitest";
 import type { Sampler } from "../../../schema/typeHelpers";
+import curveModulatorNodeDef from "./curveModulator";
 
 describe("CurveModulator", () => {
 	it("displaces points perpendicular to tangent", () => {
@@ -102,7 +102,16 @@ describe("CurveModulator", () => {
 
 	it("preserves tangent information", () => {
 		const curve = [
-			{ x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: Math.SQRT2 / 2, dy: Math.SQRT2 / 2 },
+			{
+				x: 0,
+				y: 0,
+				r: 1,
+				g: 0,
+				b: 0,
+				a: 1,
+				dx: Math.SQRT2 / 2,
+				dy: Math.SQRT2 / 2,
+			},
 		];
 
 		const sampler: Sampler = {

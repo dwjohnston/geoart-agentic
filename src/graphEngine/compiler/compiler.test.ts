@@ -1,10 +1,10 @@
 import { describe, expect, test } from "bun:test";
+import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
+import { computeRegistry } from "../../nodes/compute/registry";
+import { controlRegistry } from "../../nodes/control/registry";
+import { renderRegistry } from "../../nodes/render/registry";
 import type { GeoArtGraph } from "../../schema/_generated/schema-types";
 import type { LegacyNodeRegistry } from "../externalInterfaces/AllNodeDefinitions";
-import { computeRegistry } from "../../nodes/compute/registry";
-import { renderRegistry } from "../../nodes/render/registry";
-import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
-import { controlRegistry } from "../../nodes/control/registry";
 import { compile } from "./compiler";
 
 const realNodeRegistry: LegacyNodeRegistry = {

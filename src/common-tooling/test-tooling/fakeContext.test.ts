@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { createFakeContext } from "./fakeContext";
 import { TypeNarrowingError } from "../errors/TypeNarrowingError";
+import { createFakeContext } from "./fakeContext";
 
 describe(createFakeContext, () => {
 	it("serializes things nicely - simple", () => {

@@ -1,9 +1,9 @@
-import type { Value } from "../../schema/types";
 import type {
 	ComputeNodeKinds,
 	NodeInputsResolved,
 	NodeOutputsResolved,
 } from "../../schema/typeHelpers";
+import type { Value } from "../../schema/types";
 
 //@legacy - this does not belong here we should get this (or a type like this) into `src/graph`
 // We are trying to get rid of this

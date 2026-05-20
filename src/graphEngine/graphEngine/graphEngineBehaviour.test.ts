@@ -1,23 +1,23 @@
-import { describe, expect, test, mock } from "bun:test";
-import type { GeoArtGraph } from "../../schema/_generated/schema-types";
-import { createGraphEngine } from "./graphEngine";
-import {
-	implementRenderNode,
-	convertRenderNodeDefToLegacy,
-} from "../../nodes/render/implementRenderNode";
-import type { LegacyNodeRegistry } from "../externalInterfaces/AllNodeDefinitions";
-import { computeRegistry } from "../../nodes/compute/registry";
-import { renderRegistry } from "../../nodes/render/registry";
-import { controlRegistry } from "../../nodes/control/registry";
+import { describe, expect, mock, test } from "bun:test";
 import { createFakeContext } from "../../common-tooling/test-tooling/fakeContext";
 import {
 	convertComputeNodeDefinitionToLegacyDefinition,
 	implementComputeNode,
 } from "../../nodes/compute/implementComputeNode";
+import { computeRegistry } from "../../nodes/compute/registry";
 import {
 	convertControlNodeDefToLegacy,
 	implementControlNode,
 } from "../../nodes/control/implementControlNode";
+import { controlRegistry } from "../../nodes/control/registry";
+import {
+	convertRenderNodeDefToLegacy,
+	implementRenderNode,
+} from "../../nodes/render/implementRenderNode";
+import { renderRegistry } from "../../nodes/render/registry";
+import type { GeoArtGraph } from "../../schema/_generated/schema-types";
+import type { LegacyNodeRegistry } from "../externalInterfaces/AllNodeDefinitions";
+import { createGraphEngine } from "./graphEngine";
 
 const realNodeRegistry: LegacyNodeRegistry = {
 	computeRegistry: computeRegistry,

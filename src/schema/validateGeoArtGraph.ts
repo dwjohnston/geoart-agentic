@@ -1,8 +1,8 @@
 import type { AnySchema } from "ajv";
+import Ajv2019 from "ajv/dist/2019";
+import refableValueKindsSchema from "./schema/refable-value-kinds.schema.json";
 import schema from "./schema/schema.json";
 import valueKindsSchema from "./schema/value-kinds.schema.json";
-import refableValueKindsSchema from "./schema/refable-value-kinds.schema.json";
-import Ajv2019 from "ajv/dist/2019";
 
 const ajv = new Ajv2019({
 	allErrors: true,

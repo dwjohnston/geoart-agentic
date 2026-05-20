@@ -1,8 +1,8 @@
 // Reads value-kinds.schema.json and writes refable-value-kinds.schema.json,
 // extending each value type to also accept a ref.
 import * as fs from "node:fs";
-import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 function fixInternalRefs(
 	obj: Record<string, unknown> | unknown[],

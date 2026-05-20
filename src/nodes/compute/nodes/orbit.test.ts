@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import orbitNodeDef from "./orbit";
 import type { NodeInputsResolved } from "../../../schema/typeHelpers";
+import orbitNodeDef from "./orbit";
 
 // speed=1 → 1 orbit per 600 ticks. Tick values for clean positions:
 //   t=0    → angle=0    (rightmost point)

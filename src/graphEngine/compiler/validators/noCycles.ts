@@ -1,7 +1,7 @@
-import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
-import type { ValidationError } from "./types";
-import { parseRefs } from "./_helpers";
 import { TypeNarrowingError } from "../../../common-tooling/errors/TypeNarrowingError";
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
+import { parseRefs } from "./_helpers";
+import type { ValidationError } from "./types";
 
 export function validateNoCycles(graph: GeoArtGraph): ValidationError[] {
 	const allNodeIds = [

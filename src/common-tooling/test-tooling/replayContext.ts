@@ -2,8 +2,8 @@
  * CANONICAL LEVEL: 🧪 - 2026-05-14
  */
 
-import { createCanvas } from "@napi-rs/canvas";
 import type { Canvas } from "@napi-rs/canvas";
+import { createCanvas } from "@napi-rs/canvas";
 import type { Call } from "./fakeContext";
 
 const creatorPrefixes: Record<string, string> = {

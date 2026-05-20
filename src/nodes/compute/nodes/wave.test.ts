@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import waveNodeDef from "./wave";
 import type { NodeInputsResolved } from "../../../schema/typeHelpers";
+import waveNodeDef from "./wave";
 
 const base = {
 	time: 0,

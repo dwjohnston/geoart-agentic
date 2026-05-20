@@ -13,5 +13,4 @@
  *     someRef.value.doSomething(); // For type purposes we can trust that someRef.value exists
  * }
  */
-export class TypeNarrowingError extends Error {
-}
+export class TypeNarrowingError extends Error {}

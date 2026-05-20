@@ -1,6 +1,5 @@
-import type { ResolvedValue } from "../../../schema/typeHelpers";
+import type { ResolvedValue, Sampler } from "../../../schema/typeHelpers";
 import { implementComputeNode } from "../implementComputeNode";
-import type { Sampler } from "../../../schema/typeHelpers";
 
 function calculateArrayLengthT(
 	curve: ResolvedValue<"colorPointArrayValue">,

@@ -1,13 +1,13 @@
 import React from "react";
-import { compile } from "../compiler/compiler";
 import { tick as evaluatorTick } from "../../graphEngine/evaluator/evaluator";
-import { controlRegistry } from "../../nodes/control/registry";
-import type { CompiledGraph } from "../compiler/compiler";
-import type { EvalContext } from "../evaluator/EvalContext";
-import type { Value } from "../../schema/types";
-import type { GeoArtGraph } from "../../schema/_generated/schema-types";
 import { computeRegistry } from "../../nodes/compute/registry";
+import { controlRegistry } from "../../nodes/control/registry";
 import { renderRegistry } from "../../nodes/render/registry";
+import type { GeoArtGraph } from "../../schema/_generated/schema-types";
+import type { Value } from "../../schema/types";
+import type { CompiledGraph } from "../compiler/compiler";
+import { compile } from "../compiler/compiler";
+import type { EvalContext } from "../evaluator/EvalContext";
 
 export type GraphLoadPayload = {
 	renderControlNodes: () => React.ReactNode;
@@ -56,7 +56,7 @@ export function createGraphEngine(
 			getState<T>(): T {
 				return undefined as unknown as T;
 			},
-			setState(): void { },
+			setState(): void {},
 			enabledRenderNodes,
 		};
 		evaluatorTick(compiled, tickCount, ctx);

@@ -1,5 +1,5 @@
+import { cleanup, fireEvent, render, within } from "@testing-library/react";
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { render, cleanup, within, fireEvent } from "@testing-library/react";
 import { ColorPickerControl } from "./ColorPickerControl";
 
 afterEach(cleanup);

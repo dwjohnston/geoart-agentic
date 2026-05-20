@@ -1,6 +1,6 @@
 import { toSolidColorPoint } from "../../../domain-helpers/colorPoint";
-import { implementRenderNode } from "../implementRenderNode";
 import type { RenderEvalContext } from "../../../graphEngine/externalInterfaces/RenderNodeDefinition";
+import { implementRenderNode } from "../implementRenderNode";
 
 type ColorPoint = {
 	x: number;

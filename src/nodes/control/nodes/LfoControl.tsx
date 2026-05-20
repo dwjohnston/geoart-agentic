@@ -1,6 +1,7 @@
 import type { ResolvedValue } from "../../../schema/typeHelpers";
 import { implementControlNode } from "../implementControlNode";
 import { LfoControl } from "../ui/LfoControl";
+
 const WAVE_TYPES = [
 	"sine",
 	"square",

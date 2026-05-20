@@ -1,13 +1,13 @@
-import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 import type { LegacyComputeNodeDef } from "../../../graphEngine/externalInterfaces/ComputeNodeDefinition";
 import type { LegacyRenderNodeDef } from "../../../graphEngine/externalInterfaces/RenderNodeDefinition";
-import type { ValidationError } from "./types";
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 import {
-	parseRefs,
-	buildNodeMap,
 	type AnyNodeDef,
+	buildNodeMap,
 	type NodeLayer,
+	parseRefs,
 } from "./_helpers";
+import type { ValidationError } from "./types";
 
 const layerOrder: Record<NodeLayer, number> = {
 	control: 0,

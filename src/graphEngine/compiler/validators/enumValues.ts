@@ -1,8 +1,8 @@
-import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 import type { LegacyComputeNodeDef } from "../../../graphEngine/externalInterfaces/ComputeNodeDefinition";
 import type { LegacyRenderNodeDef } from "../../../graphEngine/externalInterfaces/RenderNodeDefinition";
-import type { ValidationError } from "./types";
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 import { buildNodeMap } from "./_helpers";
+import type { ValidationError } from "./types";
 
 type EnumPortDef = { name: string; type: string; options?: string[] };
 

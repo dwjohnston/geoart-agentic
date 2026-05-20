@@ -1,9 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import { validateSchemaStructure } from "./validateSchemaStructure";
-import type { SchemaSet } from "./validateSchemaStructure";
-import productionSchema from "./schema.json";
-import productionValueKinds from "./value-kinds.schema.json";
 import productionRefableValueKinds from "./refable-value-kinds.schema.json";
+import productionSchema from "./schema.json";
+import type { SchemaSet } from "./validateSchemaStructure";
+import { validateSchemaStructure } from "./validateSchemaStructure";
+import productionValueKinds from "./value-kinds.schema.json";
 
 // Minimal valid fixture where every oneOf title ends with the correct layer suffix.
 // Nodes have x-outputs arrays as required by the new rules.

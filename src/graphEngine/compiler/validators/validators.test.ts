@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
+import { TypeNarrowingError } from "../../../common-tooling/errors/TypeNarrowingError";
 import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 import { validateGraphSemantics } from "./index";
-import { TypeNarrowingError } from "../../../common-tooling/errors/TypeNarrowingError";
 
 // ---------------------------------------------------------------------------
 // Fixture: earth-venus graph (valid baseline)

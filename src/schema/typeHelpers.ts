@@ -1,10 +1,10 @@
-import type {
-	ControlNode,
-	RenderNode,
-	ComputeNode,
-} from "./_generated/schema-types";
 import type { nodeInputs } from "./_generated/node-inputs-2";
 import type { nodeOutputMeta } from "./_generated/node-outputs-2";
+import type {
+	ComputeNode,
+	ControlNode,
+	RenderNode,
+} from "./_generated/schema-types";
 
 import type { ValueTypes } from "./_generated/value-kinds-2";
 

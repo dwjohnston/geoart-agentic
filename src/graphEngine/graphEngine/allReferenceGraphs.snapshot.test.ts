@@ -1,9 +1,9 @@
+import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { describe, expect, it } from "bun:test";
 import { createFakeContext } from "../../common-tooling/test-tooling/fakeContext";
-import { createGraphEngine } from "./graphEngine";
 import type { GeoArtGraph } from "../../schema/_generated/schema-types";
+import { createGraphEngine } from "./graphEngine";
 
 const CANVAS_SIZE = 800;
 

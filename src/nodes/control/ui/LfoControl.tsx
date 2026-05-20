@@ -1,7 +1,7 @@
-import { KnobControl } from "./KnobControl";
-import { DropdownControl } from "./DropdownControl";
-import { DebugPanel } from "../../../ui-tooling/DebugPanel";
 import type { ResolvedValue } from "../../../schema/typeHelpers";
+import { DebugPanel } from "../../../ui-tooling/DebugPanel";
+import { DropdownControl } from "./DropdownControl";
+import { KnobControl } from "./KnobControl";
 
 type Props = {
 	id: string;

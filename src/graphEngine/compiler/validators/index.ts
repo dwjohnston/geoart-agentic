@@ -2,16 +2,16 @@ import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 import type { SemanticValidationResult } from "./types";
 
 export type {
+	SemanticValidationResult,
 	ValidationError,
 	ValidationSeverity,
-	SemanticValidationResult,
 } from "./types";
 
 import { validateNoDuplicateIds } from "./duplicateIds";
-import { validateNoCycles } from "./noCycles";
-import { validateRefs } from "./refs";
 import { validateEnumValues } from "./enumValues";
+import { validateNoCycles } from "./noCycles";
 import { validateOrphanedNodes } from "./orphanedNodes";
+import { validateRefs } from "./refs";
 
 /**
  * Run all semantic validators against a graph.

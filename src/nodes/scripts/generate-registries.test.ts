@@ -1,8 +1,8 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import {
 	generateComputeRegistryContent,
-	generateRenderRegistryContent,
 	generateControlRegistryContent,
+	generateRenderRegistryContent,
 } from "./generate-registries";
 
 describe("generateComputeRegistryContent", () => {

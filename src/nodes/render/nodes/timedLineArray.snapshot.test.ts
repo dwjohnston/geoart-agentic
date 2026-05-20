@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext";
-import timedLineArrayNodeDef from "./timedLineArray";
 import type { NodeInputsResolved } from "../../../schema/typeHelpers";
+import timedLineArrayNodeDef from "./timedLineArray";
 
 function createCtxWithState(fakeContext: ReturnType<typeof createFakeContext>) {
 	let state: unknown;

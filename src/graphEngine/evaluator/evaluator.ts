@@ -2,16 +2,16 @@
  * CANONICAL LEVEL: 🗑️ - 2026-05-14
  */
 
-import type { Value } from "../../schema/types";
 import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
-import type { CompiledGraph } from "../compiler/compiler";
-import type { EvalContext } from "./EvalContext";
 import type {
 	ComputeNodeEvalContext,
 	LegacyComputeNodeDef,
 } from "../../graphEngine/externalInterfaces/ComputeNodeDefinition";
-import type { LegacyRenderNodeDef } from "../../graphEngine/externalInterfaces/RenderNodeDefinition";
 import type { LegacyControlNodeDef } from "../../graphEngine/externalInterfaces/ControlNodeDefinition";
+import type { LegacyRenderNodeDef } from "../../graphEngine/externalInterfaces/RenderNodeDefinition";
+import type { Value } from "../../schema/types";
+import type { CompiledGraph } from "../compiler/compiler";
+import type { EvalContext } from "./EvalContext";
 
 // ---------------------------------------------------------------------------
 // resolveInput
@@ -148,7 +148,9 @@ function evaluateNode(
 	const targetCanvas =
 		renderLayer === "live" ? ctx.canvas.orbit : ctx.canvas.trail;
 
-	const renderNodeState = compiled.states.get(nodeId) as NodeStateWithExtra | undefined;
+	const renderNodeState = compiled.states.get(nodeId) as
+		| NodeStateWithExtra
+		| undefined;
 	if (!renderNodeState) throw new TypeNarrowingError();
 	renderDef.evaluate(rawInputs, {
 		canvas: targetCanvas,

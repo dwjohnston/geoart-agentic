@@ -137,13 +137,10 @@ export function validateSchemaStructure(
 				const kind = name.endsWith("Value") ? name.slice(0, -5) : name;
 
 				// Check if the definition's `v` property is an array
-				const props = defObj.properties as
-					| Record<string, unknown>
-					| undefined;
+				const props = defObj.properties as Record<string, unknown> | undefined;
 				const vProp = props?.v as Record<string, unknown> | undefined;
 				const isArrayType =
-					vProp?.type === "array" ||
-					typeof vProp?.items !== "undefined";
+					vProp?.type === "array" || typeof vProp?.items !== "undefined";
 				const kindEndsWithArray = kind.endsWith("Array");
 
 				if (isArrayType && !kindEndsWithArray) {

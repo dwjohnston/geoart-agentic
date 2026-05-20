@@ -1,19 +1,19 @@
 import type React from "react";
-import type { Value } from "../../schema/types";
+import type {
+	ControlNodeDef,
+	ControlSetter,
+	LegacyControlNodeDef,
+	LegacyControlNodePortDef,
+	NodeWithDefaults,
+	ResolvedParams,
+} from "../../graphEngine/externalInterfaces/ControlNodeDefinition";
+import { nodeOutputMeta } from "../../schema/_generated/node-outputs-2";
 import type { ControlNode } from "../../schema/_generated/schema-types";
 import type {
 	ControlNodeKinds,
 	NodeInputsResolved,
 } from "../../schema/typeHelpers";
-import { nodeOutputMeta } from "../../schema/_generated/node-outputs-2";
-import type {
-	LegacyControlNodePortDef,
-	ResolvedParams,
-	ControlSetter,
-	LegacyControlNodeDef,
-	NodeWithDefaults,
-	ControlNodeDef,
-} from "../../graphEngine/externalInterfaces/ControlNodeDefinition";
+import type { Value } from "../../schema/types";
 
 export function implementControlNode<K extends ControlNodeKinds>(
 	kind: K,

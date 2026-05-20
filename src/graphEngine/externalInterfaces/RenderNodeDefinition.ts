@@ -1,8 +1,8 @@
-import type { Value } from "../../schema/types";
 import type {
-	RenderNodeKinds,
 	NodeInputsResolved,
+	RenderNodeKinds,
 } from "../../schema/typeHelpers";
+import type { Value } from "../../schema/types";
 
 //@legacy - we are trying to get rid of this
 export type LegacyRenderNodePortDef = {

@@ -1,22 +1,22 @@
-import { describe, expect, test, mock } from "bun:test";
-import type { GeoArtGraph } from "../../schema/_generated/schema-types";
-import { compile } from "../compiler/compiler";
-import { tick } from "./evaluator";
-import type { EvalContext } from "./EvalContext";
+import { describe, expect, mock, test } from "bun:test";
 import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
-import type { LegacyNodeRegistry } from "../externalInterfaces/AllNodeDefinitions";
+import { fColorPoint } from "../../constants";
 import { computeRegistry } from "../../nodes/compute/registry";
-import { renderRegistry } from "../../nodes/render/registry";
 import { controlRegistry } from "../../nodes/control/registry";
 import {
 	convertRenderNodeDefToLegacy,
 	implementRenderNode,
 } from "../../nodes/render/implementRenderNode";
+import { renderRegistry } from "../../nodes/render/registry";
+import type { GeoArtGraph } from "../../schema/_generated/schema-types";
 import type {
 	NodeInputsDeclared,
 	NodeInputsResolved,
 } from "../../schema/typeHelpers";
-import { fColorPoint } from "../../constants";
+import { compile } from "../compiler/compiler";
+import type { LegacyNodeRegistry } from "../externalInterfaces/AllNodeDefinitions";
+import type { EvalContext } from "./EvalContext";
+import { tick } from "./evaluator";
 
 const realNodeRegistry: LegacyNodeRegistry = {
 	computeRegistry: computeRegistry,

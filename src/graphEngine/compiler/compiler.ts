@@ -2,17 +2,16 @@
  * CANONICAL LEVEL: 🗑️ - 2026-05-14
  */
 
-import type { GeoArtGraph } from "../../schema/_generated/schema-types";
-import type { Value } from "../../schema/types";
+import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
 import type {
 	LegacyComputeNodeDef,
 	LegacyComputeNodePortDef,
 } from "../../graphEngine/externalInterfaces/ComputeNodeDefinition";
-import type { LegacyRenderNodeDef } from "../../graphEngine/externalInterfaces/RenderNodeDefinition";
 import type { LegacyControlNodeDef } from "../../graphEngine/externalInterfaces/ControlNodeDefinition";
-
+import type { LegacyRenderNodeDef } from "../../graphEngine/externalInterfaces/RenderNodeDefinition";
+import type { GeoArtGraph } from "../../schema/_generated/schema-types";
+import type { Value } from "../../schema/types";
 import type { LegacyNodeRegistry } from "../externalInterfaces/AllNodeDefinitions";
-import { TypeNarrowingError } from "../../common-tooling/errors/TypeNarrowingError";
 
 /** Layer tag used to enforce direction constraints at compile time. */
 type Layer = "control" | "compute" | "render";

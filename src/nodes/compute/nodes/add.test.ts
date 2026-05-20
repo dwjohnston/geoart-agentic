@@ -2,7 +2,7 @@
  * CANONICAL LEVEL: 👑 - 2026-05-14
  */
 
-import { describe, it, expect } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import addNodeImplementation from "./add";
 
 describe("add node", () => {

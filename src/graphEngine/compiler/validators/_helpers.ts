@@ -1,10 +1,10 @@
-import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 import type { LegacyComputeNodeDef } from "../../../graphEngine/externalInterfaces/ComputeNodeDefinition";
 import type { LegacyControlNodeDef } from "../../../graphEngine/externalInterfaces/ControlNodeDefinition";
 import type { LegacyRenderNodeDef } from "../../../graphEngine/externalInterfaces/RenderNodeDefinition";
 import { computeRegistry } from "../../../nodes/compute/registry";
 import { controlRegistry } from "../../../nodes/control/registry";
 import { renderRegistry } from "../../../nodes/render/registry";
+import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 
 export type RawEdge = {
 	fromNodeId: string;
