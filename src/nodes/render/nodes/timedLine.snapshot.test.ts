@@ -55,7 +55,7 @@ describe("timedLineNodeDef", () => {
         {
           "kind": "property",
           "name": "strokeStyle",
-          "value": ,
+          "value": {},
         },
         {
           "kind": "property",
