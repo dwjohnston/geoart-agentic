@@ -61,7 +61,7 @@ Take a 'at least write one test' strategy. You do not need to write comprehensiv
 
 If being asked to extend a script, include a test for this new extended functionality. 
 
-Scripts should include a comment at the top of the page describing what the test does. 
+Scripts should include a comment at the top of the page describing what the script does. 
 
 
 

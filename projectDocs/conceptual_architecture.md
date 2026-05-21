@@ -37,7 +37,7 @@ Value types are always keyed with `v`, eg
     },
 ```
 
-This means that when we go to add some inputs in an algorithm we can easily distingush static values from refs.
+This means that when we go to add some inputs in an algorithm we can easily distinguish static values from refs.
 
 eg. 
 

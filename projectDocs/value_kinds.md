@@ -2,12 +2,12 @@
 
 These are the shapes of the values that can communicated to and from nodes via their input and output ports. 
 
-`refable-value-kinds.schema.json` contains a registry of 'refs' of the value primitives. Call these 'value ref' These values are a direct 1:1 mapping from the value kinds in `value-kinds.schema.json` and this file is auto generated. Conceptually you might think of the refable types like a generic, like `RefableValueTypeL<NumberValue>`, but generics do no exist in 
+`refable-value-kinds.schema.json` contains a registry of 'refs' of the value primitives. Call these 'value ref' These values are a direct 1:1 mapping from the value kinds in `value-kinds.schema.json` and this file is auto generated. Conceptually you might think of the refable types like a generic, like `RefableValueTypeL<NumberValue>`, but generics do not exist in JSON Schema. 
 
 The value kinds in `value-kinds.schema.json` are all keyed with `v`. 
 The value kinds in `refable-value-kinds.schema.json` are all keyed with `ref`. 
 
-This allows the compiler to easy distingush between the two. 
+This allows the compiler to easy distinguish between the two. 
 
 When a value takes the `v` form, it should be considered static - it will never change
 When a value takes the `ref` form, it is determined as the output of another node. 
@@ -99,7 +99,7 @@ Enum values primitives are always a string as their underlying value.
 An example enum primitive declaration 
 
 ```
-    "waveTypjeValue": {
+    "waveTypeValue": {
       "title": "Wave Type Value",
       "type": "object",
       "required": [

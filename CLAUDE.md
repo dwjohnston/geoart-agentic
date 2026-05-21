@@ -41,7 +41,7 @@ This project is a generative art engine. Graphs of connected nodes are evaluated
 
 ### The Schema
 
-The starting point is _The Schema_ — a JSON Schema (draft-09) definition living in `src/schema/schema/`. It defines:
+The starting point is _The Schema_ — a JSON Schema (draft-19) definition living in `src/schema/schema/`. It defines:
 
 - What node types exist and their input parameters
 - What value types exist
@@ -74,7 +74,7 @@ Value types are always keyed with `v`, eg
     },
 ```
 
-This means that when we go to add some inputs in an algorithm we can easily distingush static values from refs.
+This means that when we go to add some inputs in an algorithm we can easily distinguish static values from refs.
 
 eg. 
 
@@ -107,7 +107,7 @@ Responsible for drawing to the canvas. They have no node-level output — they a
 
 ### Inputs and Outputs
 
-Node inputs are defined in the schema under `params`. Outputs are declared via the custom `x-outputs` extension property.
+Node inputs are specified in the schema under `params`. Outputs are declared via the custom `x-outputs` extension property.
 
 Example — the `add` compute node:
 
@@ -199,7 +199,7 @@ Source code for the application.
     - `schema.json` — Main schema definition
     - `value-kinds.schema.json` — Value type schema
     - `refable-value-kinds.schema.json` — Referenceable value types schema
-  - `typings.ts` - Helper typings
+  - `typeHelpers.ts` - Helper typings
   
 - **`ui-tooling/`** — UI component utilities and helpers
 
@@ -443,7 +443,7 @@ Trust that the agents have enough context to do their job. You just need to give
 1. If you need a new value kind, then define it in `value-kinds.schema.json`
     - Run `bun generate`
 2. Define the node in `schema.json`
-3. Implement the node in `src/nodes/*/nodes*`
+3. Implement the node in `src/nodes/[compute|control|render]/nodes/`
 3. Create a reference algorithm in `src/algorithms/reference/node_specific`
     - Create it with a single named export
     - This should be a minimal algorithm that contains the node you just created.

@@ -1,4 +1,4 @@
 
 
-Write tests using `.toMatchInlineSnapshots`
+Write tests using `.toMatchInlineSnapshot`
 

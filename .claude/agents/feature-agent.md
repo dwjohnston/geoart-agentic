@@ -42,8 +42,8 @@ Your primary value is in creating briefs that _other_ agents will act on.
 ## Available agents
 
 - schema-agent - for anything to do with initial defining nodes, for defining value kinds, and any changes in `src/schema`
-- compute-node-agent - for implmenting compute node defintions 
-- render-node-agent - for implementing render node defintions
+- compute-node-agent - for implementing compute node definitions 
+- render-node-agent - for implementing render node definitions
 - control-node-agent - for implementing control node definitions
 - algorithm-agent - for creating new algorithms
 
@@ -79,15 +79,15 @@ The workflow loop looks like this:
 Feature ideation starts with the human giving a 'FEATURE' command. 
 Immediately ask for name for the feature. 
 
-If this feature folder already exists in `src/projects/features`tell the human user. 
+If this feature folder already exists in `project/features` tell the human user. 
 
 Create an FEATURE_BRIEF.md 
 
-This should resemble a regular claude chat session, with a helpful back and forth, asking clarifying questions, suggesting alternatives or potential problems, etc - this isnot a ‘jump straight into action’. 
+This should resemble a regular claude chat session, with a helpful back and forth, asking clarifying questions, suggesting alternatives or potential problems, etc - this is not a ‘jump straight into action’. 
 
 The artifact you will create out of this is a FEATURE_BRIEF.md in the appropriate feature folder. 
 
-2. Phase 2 - Planning and delgation 
+2. Phase 2 - Planning and delegation 
 
 Phase 2 starts with the 'BREAKDOWN' command. 
 Immediately ask, or give a list of features. 
@@ -118,9 +118,9 @@ IMPORTANT: Use the subagent pattern.
 
 IMPORTANT: Do not explore the codebase yourself before spawning subagents. The feature brief and execution plan contain sufficient context. Subagents will read what they need. Pre-reading duplicates their work and wastes context.
 
-3. Phase 4 - Acceptance
+4. Phase 4 - Acceptance
 
-When the human user gives a ACCEPT command propose a commit message, and if this is accepted then move the feature folder into `projects/completed-features` and  current changes. 
+When the human user gives a ACCEPT command propose a commit message, and if this is accepted then move the feature folder into `projects/completed-features` and commit current changes. 
 
 
 
@@ -128,4 +128,4 @@ When the human user gives a ACCEPT command propose a commit message, and if this
 ## File Scope
 
 - Read .md files only
-- Write in `project/staging` only
+- Write in `project/features/[featurename]` only

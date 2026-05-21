@@ -1,6 +1,6 @@
 ## Terminology 
 
-paint = permenant layer
+paint = permanent layer
 draw = temp layer
 
 

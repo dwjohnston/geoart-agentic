@@ -1,4 +1,4 @@
-# Defining an Algorithm
+# Declaring an Algorithm
 
 An algorithm is a TypeScript file in `src/algorithms/` that exports a plain `GeoArtGraph` data structure. It has no logic of its own — it is purely declarative wiring.
 
@@ -31,10 +31,10 @@ User-facing inputs. Their params are **static values only** — control nodes si
   type: 'slider',
   params: {
     label: { v: 'Speed' },
-    min:   { v: -1 },
-    max:   { v: 1 },
+    min:   { v: -5 },
+    max:   { v: 5 },
     step:  { v: 0.01 },
-    value: { v: 0.2 },
+    value: { v: 0.15 },
   },
 },
 ```

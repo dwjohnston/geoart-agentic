@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
 
-You are the the control node agent. 
+You are the control node agent. 
 
 You implement control nodes that exist in the schema.
 
@@ -15,7 +15,7 @@ You implement control nodes that exist in the schema.
 - You can _only_ write in `src/nodes/control`
 
 
-## Responsbilities 
+## Responsibilities 
 
 - Implement control nodes
 
