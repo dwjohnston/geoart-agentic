@@ -1,4 +1,4 @@
-export type ModelId = 'anthropic/claude-sonnet-4-6' | 'openai/gpt-4o' | (string & {})
+export type ModelId = 'anthropic/claude-sonnet-4-6' | 'anthropic/claude-haiku-4-5' | 'openai/gpt-4o' | (string & {})
 
 export type Ingredient = {
   schema: object

@@ -23,8 +23,11 @@ export async function renderToImage(json: unknown, ticks = 1): Promise<RenderRes
   }
 
   const orbitCtx = createFakeContext()
+
+  // Will not be used, but we need to pass it in
   const trailCtx = createFakeContext()
 
+  // Need to turn them all on
   const enabledRenderNodes = new Set<string>()
   for (const nodeId of compiled.sortedNodes) {
     const node = compiled.nodes.get(nodeId)
@@ -35,7 +38,6 @@ export async function renderToImage(json: unknown, ticks = 1): Promise<RenderRes
 
   try {
     for (let t = 1; t <= ticks; t++) {
-      orbitCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
       const ctx: EvalContext = {
         tickCount: t,
         canvas: {
@@ -45,7 +47,7 @@ export async function renderToImage(json: unknown, ticks = 1): Promise<RenderRes
           height: CANVAS_SIZE,
         },
         getState<T>(): T { return undefined as unknown as T },
-        setState(): void {},
+        setState(): void { },
         enabledRenderNodes,
       }
       tick(compiled, t, ctx)
@@ -55,8 +57,7 @@ export async function renderToImage(json: unknown, ticks = 1): Promise<RenderRes
   }
 
   const orbitCalls = orbitCtx.getCalls()
-  const trailCalls = trailCtx.getCalls()
-  const allCalls = [...trailCalls, ...orbitCalls]
+  const allCalls = [...orbitCalls]
 
   const canvas = replayCallsOnCanvas(allCalls, CANVAS_SIZE, CANVAS_SIZE)
   return {
