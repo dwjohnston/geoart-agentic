@@ -4,6 +4,19 @@ paint = permanent layer
 draw = temp layer
 
 
+## File structure and general conventions
+
+- Generate algorithms in the `./algorithms/*` folders
+- Be sure to populate the `author` property 
+- If you are creating an algoirthm as part of implementing a node, then your algorithm goes in `_node_specific`
+    - All inputs for the node should be controlable via control node
+
+- If you have been given a general 'generate me an algorithm' task that is not otherwise related to another task then: 
+    - grep for 👑 - this will give you examples of algorithms that look good
+    - But don't try reproduce exactly what already looks good 
+
+    
+
 
 ## Guidelines for creating algorithms
 
