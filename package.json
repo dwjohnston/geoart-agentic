@@ -40,10 +40,14 @@
     "docs": "bun run docs:generate && vite --config vite.config.docs.ts",
     "docs:build": "bun run docs:generate && vite build --config vite.config.docs.ts",
     "docs:server": "vite preview --config vite.config.docs.ts",
+    "laboratory": "bun laboratory/index.ts",
     "prepare": "husky"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "latest",
+    "@ai-sdk/openai": "latest",
     "@apidevtools/json-schema-ref-parser": "^15.3.5",
+    "ai": "latest",
     "eslint-plugin-import": "^2.32.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"

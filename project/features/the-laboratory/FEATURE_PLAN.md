@@ -4,14 +4,14 @@
 
 | Task | Agent | Status |
 |------|-------|--------|
-| task_01_tooling_dependencies | tooling-agent | pending |
-| task_02_laboratory_scaffold | laboratory-agent | pending |
-| task_03a_validate_schema | laboratory-agent | pending |
-| task_03b_render_to_image | laboratory-agent | pending |
-| task_03c_conduct_experiment | laboratory-agent | pending |
-| task_03d_seed_ingredients | laboratory-agent | pending |
-| task_04_single_test | laboratory-agent | pending |
-| task_05_entry_point | laboratory-agent | pending |
+| task_01_tooling_dependencies | tooling-agent | complete |
+| task_02_laboratory_scaffold | laboratory-agent | complete |
+| task_03a_validate_schema | laboratory-agent | complete |
+| task_03b_render_to_image | laboratory-agent | complete |
+| task_03c_conduct_experiment | laboratory-agent | complete |
+| task_03d_seed_ingredients | laboratory-agent | complete |
+| task_04_single_test | laboratory-agent | complete |
+| task_05_entry_point | laboratory-agent | complete |
 
 ---
 
