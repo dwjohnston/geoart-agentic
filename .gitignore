@@ -25,6 +25,7 @@ dist-ssr
 _generated/
 _testGenerated/
 *.generated.ts
+*.generated.json
 docs/
 __screenshots__
 

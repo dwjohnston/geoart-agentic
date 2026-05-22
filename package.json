@@ -30,10 +30,11 @@
     "clean": "find src -type d -name '_generated' -exec rm -rf {} + ; find src -type f -name '*.generated*' -delete",
     "test:browser": "vitest",
     "test:browser:headless": "vitest --browser.headless",
-    "generate": "bun generate:derived-schema && bun generate:derived-types && bun generate:registries && bun generate:algorithms-index",
+    "generate": "bun generate:derived-schema && bun generate:unified-schema && bun generate:derived-types && bun generate:registries && bun generate:algorithms-index",
     "generate:registries": "bun src/nodes/scripts/generate-registries.ts",
     "generate:algorithms-index": "bun src/algorithms/scripts/generate-algorithms-index.ts",
     "generate:derived-schema": "bun src/schema/scripts/generate-derived-schema.ts",
+    "generate:unified-schema": "bun src/schema/scripts/generate-unify.ts",
     "generate:derived-types": "mkdir -p src/schema/_generated && json2ts -i src/schema/schema/schema.json -o src/schema/_generated/schema-types.d.ts --cwd=src/schema/schema && bun src/schema/scripts/generate-derived-types.ts",
     "docs:generate": "bun run scripts/generate-openapi.ts",
     "docs": "bun run docs:generate && vite --config vite.config.docs.ts",
@@ -42,6 +43,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^15.3.5",
+    "eslint-plugin-import": "^2.32.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
