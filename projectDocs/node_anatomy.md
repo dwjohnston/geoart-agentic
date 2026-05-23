@@ -62,6 +62,11 @@ All params are optional at the schema level — a missing param falls back to th
 
 For ports that accept only a fixed set of strings, define a named enum param type in `definitions` rather than using the bare `numberValueOrRef`. See the schema CLAUDE.md for the naming convention and structure.
 
+### Input port naming conventions
+
+- Ports that represent a **count of things** must be prefixed with `num`: `numSides`, `numHarmonics`, `numPoints`.
+- Use camelCase throughout.
+
 ### Output ports — `x-outputs`
 
 Outputs are declared with the custom `x-outputs` extension field — a JSON Schema array of `{ name, valueType }` objects:
