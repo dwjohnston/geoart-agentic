@@ -44,6 +44,6 @@ Source code for the application.
     - `schema.json` — Main schema definition
     - `value-kinds.schema.json` — Value type schema
     - `refable-value-kinds.schema.json` — Referenceable value types schema
-  - `typings.ts` - Helper typings
+  - `typeHelpers.ts` - Helper typings
   
 - **`ui-tooling/`** — UI component utilities and helpers

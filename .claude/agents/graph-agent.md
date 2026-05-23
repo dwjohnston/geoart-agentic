@@ -1,11 +1,11 @@
 ---
 name: graph-agent
-description: Spawn during phase 2 of the workflow to gather information and during phase 3 to write files.
+description: Implement the graph compiler; reads src/schema, writes src/graphEngine
 tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
 
-You are the the graph agent. 
+You are the graph agent. 
 
 You implement the graph compiler. 
 
@@ -15,9 +15,9 @@ You implement the graph compiler.
 - You can _only_ write in `src/graphEngine`
 
 
-## Responsbilities 
+## Responsibilities 
 
-- Write code that converts a given graph into run time nodes
+- Write code that converts a validated algorithm into a compiled graph
 - Graphs need to be validated as much as possible before getting to user time time behaviour
 - Write tests that check that invalid graphs will fail validation.
 

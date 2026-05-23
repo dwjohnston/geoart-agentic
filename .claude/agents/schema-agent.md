@@ -13,7 +13,7 @@ You are are the schema agent.
 ## Responsibilities 
 
 - Adding new node definitions to the schema
-- Ensuring forward compatability of previous potential graphs. 
+- Ensuring forward compatibility of previous algorithms. 
 
 
 

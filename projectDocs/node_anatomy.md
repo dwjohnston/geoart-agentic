@@ -1,12 +1,12 @@
 # Node Anatomy
 
-A node has two representations that must stay in sync: its **schema declaration** (what shape it has and what it outputs) and its **runtime implementation** (what it computes).
+A node has two representations that must stay in sync: its **schema definition** (what shape it has and what it outputs) and its **runtime implementation** (what it computes).
 
 ---
 
-## Part 1: Schema Declaration
+## Part 1: Schema Definition
 
-Every node is declared in `src/schema/schema/schema.json` as a member of the `computeNode`, `renderNode`, or `controlNode` `oneOf` array.
+Every node is defined in `src/schema/schema/schema.json` as a member of the `computeNode`, `renderNode`, or `controlNode` `oneOf` array.
 
 ### Required fields
 
@@ -84,14 +84,14 @@ Render nodes draw to canvas and produce no output values — their `x-outputs` i
 
 ## Part 2: Runtime Implementation
 
-The `define*Node` factory functions read the generated port metadata and produce a `NodeDef` with fully typed inputs and outputs. You never declare port names or types in the implementation — those come from the schema via code generation.
+The `implement*Node` factory functions read the generated port metadata and produce a `NodeDef` with fully typed inputs and outputs. You never declare port names or types in the implementation — those come from the schema via code generation.
 
-### Compute nodes — `defineComputeNode`
+### Compute nodes — `implementComputeNode`
 
 ```ts
-import { defineComputeNode } from '../defineComputeNode';
+import { implementComputeNode } from '../implementComputeNode';
 
-export const waveNodeDef = defineComputeNode('wave', {
+export const waveNodeDef = implementComputeNode('wave', {
   isTimeDependant: true,      // set true only if the node reads ctx.tickCount
   defaults: {
     time:      { v: 0 },
@@ -119,12 +119,12 @@ export const waveNodeDef = defineComputeNode('wave', {
 - The return value shape must exactly match the `x-outputs` names declared in the schema
 - Never access the DOM or canvas here
 
-### Render nodes — `defineRenderNode`
+### Render nodes — `implementRenderNode`
 
 ```ts
-import { defineRenderNode } from '../defineRenderNode';
+import { implementRenderNode } from '../implementRenderNode';
 
-export const circleNodeDef = defineRenderNode('circle', {
+export const circleNodeDef = implementRenderNode('circle', {
   defaults: {
     intervalTicks: { v: 0 },
     center:        { v: { x: 0, y: 0 } },
@@ -143,17 +143,17 @@ export const circleNodeDef = defineRenderNode('circle', {
 });
 ```
 
-- `ctx.canvas` — the `CanvasRenderingContext2D` pre-selected for this node's layer (orbit or trail)
-- `ctx.width` / `ctx.height` — canvas dimensions in pixels; the coordinate space is `0..1` so multiply by these to get pixel values
+- `ctx.canvas` — the `CanvasRenderingContext2D` pre-selected for this node's layer (live or paint)
+- `ctx.width` / `ctx.height` — canvas dimensions in pixels; the coordinate space is `-1..+1` so multiply by these to get pixel values
 - `evaluate` returns `void`; all output is via side-effects on `ctx.canvas`
 
-### Control nodes — `defineControlNode`
+### Control nodes — `implementControlNode`
 
 ```ts
-import { defineControlNode } from '../types';
+import { implementControlNode } from '../types';
 import { SliderControl } from '../ui/SliderControl';
 
-export const sliderNodeDef = defineControlNode('slider', {
+export const sliderNodeDef = implementControlNode('slider', {
   defaults: {
     label: { v: '' },
     min:   { v: 0 },

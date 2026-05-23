@@ -8,7 +8,7 @@ This document traces the path an algorithm takes from initial definition to pixe
 
 ## 1. Define in the Schema
 
-The schema is the source of truth. Any new node types must be declared in `src/schema/schema/schema.json` before they are implemented. If new value types are needed (e.g. a new shape that flows between nodes), they are declared in `value-kinds.schema.json` first.
+The schema is the source of truth. Any new node types must be defined in `src/schema/schema/schema.json` before they are implemented. If new value types are needed (e.g. a new shape that flows between nodes), they are defined in `value-kinds.schema.json` first.
 
 `schema.json` uses `additionalProperties: false` throughout — unknown keys are a hard error at load time.
 
@@ -66,7 +66,7 @@ This is what the UI reads to populate the algorithm selector.
 
 ## 7. The Graph Engine
 
-`createGraphEngine(orbitCtx, trailCtx, canvasSize)` creates a `GraphEngine` instance, receiving the two `CanvasRenderingContext2D` contexts it will pass to render nodes. Its interface:
+`createGraphEngine(orbitCtx, trailCtx, canvasSize)` creates a `GraphEngine` instance, receiving the two `CanvasRenderingContext2D` contexts it will pass to render nodes. (`orbitCtx` is the live layer; `trailCtx` is the paint layer.) Its interface:
 
 ```ts
 type GraphEngine = {
@@ -86,14 +86,14 @@ type GraphLoadPayload = {
 
 `renderControlNodes` gives the UI the React elements for the algorithm's control nodes — sliders, pickers, etc.
 
-**`tick()`** is called by the application's `requestAnimationFrame` loop. Each tick: clears the orbit (live) canvas, builds an `EvalContext` with the current tick count and canvas references, and runs `evaluatorTick()` over the compiled graph in topological order. Render nodes fire according to their own `intervalTicks` schedule, not every frame.
+**`tick()`** is called by the application's `requestAnimationFrame` loop. Each tick: clears the live canvas, builds an `EvalContext` with the current tick count and canvas references, and runs `evaluatorTick()` over the compiled graph in topological order. Render nodes fire according to their own `intervalTicks` schedule, not every frame.
 
 **Control mutation** — when a user moves a slider, the UI calls back into the engine which directly updates the compiled node's `params` map and marks that node dirty, causing re-evaluation on the next tick.
 
 ## Summary
 
 ```
-schema.json          ← declare node & value types
+schema.json          ← define node & value types
       ↓
 node implementations ← src/nodes/[compute|control|render]/
       ↓
