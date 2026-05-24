@@ -1,5 +1,6 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
 import type { SemanticValidationResult } from './types';
+import type { LegacyNodeRegistry } from '../../externalInterfaces/AllNodeImplementations';
 
 export type { ValidationError, ValidationSeverity, SemanticValidationResult } from './types';
 
@@ -8,6 +9,7 @@ import { validateNoCycles } from './noCycles';
 import { validateRefs } from './refs';
 import { validateEnumValues } from './enumValues';
 import { validateOrphanedNodes } from './orphanedNodes';
+import { realNodeRegistry } from '../../exports';
 
 /**
  * Run all semantic validators against a graph.
@@ -19,12 +21,12 @@ import { validateOrphanedNodes } from './orphanedNodes';
  * Returns `valid: false` if any error-severity item is present.
  * Warnings (e.g. orphaned nodes) do not affect `valid`.
  */
-export function validateGraphSemantics(graph: GeoArtGraph): SemanticValidationResult {
+export function validateGraphSemantics(graph: GeoArtGraph, registry: LegacyNodeRegistry = realNodeRegistry): SemanticValidationResult {
   const errors = [
     ...validateNoDuplicateIds(graph),
     ...validateNoCycles(graph),
-    ...validateRefs(graph),
-    ...validateEnumValues(graph),
+    ...validateRefs(graph, registry),
+    ...validateEnumValues(graph, registry),
     ...validateOrphanedNodes(graph),
   ];
   return {

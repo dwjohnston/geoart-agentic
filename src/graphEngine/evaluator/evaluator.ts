@@ -6,9 +6,9 @@
 import type { Value } from '../../schema/types';
 import type { CompiledGraph } from '../compiler/compiler';
 import type { EvalContext } from './EvalContext';
-import type { ComputeNodeEvalContext, LegacyComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
-import type { LegacyRenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
-import type { LegacyControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
+import type { ComputeNodeEvalContext, LegacyComputeNodeImplementation } from '../../graphEngine/externalInterfaces/ComputeNodeImplementation';
+import type { LegacyRenderNodeImplementation } from '../../graphEngine/externalInterfaces/RenderNodeImplementation';
+import type { LegacyControlNodeImplementation } from '../../graphEngine/externalInterfaces/ControlNodeImplementation';
 
 // ---------------------------------------------------------------------------
 // resolveInput
@@ -49,7 +49,7 @@ export function resolveInput(
   const def = compiledNode.def;
 
   // Control nodes have no inputs array — they should never reach here.
-  const inputs = (def as LegacyComputeNodeDef | LegacyRenderNodeDef).inputs;
+  const inputs = (def as LegacyComputeNodeImplementation | LegacyRenderNodeImplementation).inputs;
   if (!inputs || portIndex >= inputs.length) {
     throw new Error(
       `resolveInput: port ${portIndex} out of range for node "${nodeId}"`,
@@ -105,7 +105,7 @@ function evaluateNode(
 
   // ---- Control node -------------------------------------------------------
   if (layer === 'control') {
-    const controlDef = def as LegacyControlNodeDef;
+    const controlDef = def as LegacyControlNodeImplementation;
     // Build ResolvedParams from the compiled static params.
     const resolvedParams: Record<string, { v: unknown }> = {};
     for (const [key, val] of Object.entries(compiledNode.params)) {
@@ -116,7 +116,7 @@ function evaluateNode(
 
   // ---- Compute node -------------------------------------------------------
   if (layer === 'compute') {
-    const computeDef = def as LegacyComputeNodeDef;
+    const computeDef = def as LegacyComputeNodeImplementation;
     const inputs: Value[] = computeDef.inputs.map((_, i) =>
       resolveInput(compiled, nodeId, i, cache),
     );
@@ -127,7 +127,7 @@ function evaluateNode(
   }
 
   // ---- Render node --------------------------------------------------------
-  const renderDef = def as LegacyRenderNodeDef;
+  const renderDef = def as LegacyRenderNodeImplementation;
 
   // Resolve all inputs for the render node.
   const rawInputs: Value[] = renderDef.inputs.map((_, i) =>
@@ -199,7 +199,7 @@ export function tick(compiled: CompiledGraph, t: number, ctx: EvalContext): void
   // 1. Mark time-dependant compute nodes dirty.
   for (const nodeId of compiled.sortedNodes) {
     const node = compiled.nodes.get(nodeId)!;
-    const def = node.def as LegacyComputeNodeDef;
+    const def = node.def as LegacyComputeNodeImplementation;
     if (def.isTimeDependant) {
       compiled.states.get(nodeId)!.isDirty = true;
     }

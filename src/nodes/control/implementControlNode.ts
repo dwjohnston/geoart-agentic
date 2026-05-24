@@ -3,7 +3,7 @@ import type { Value } from '../../schema/types';
 import type { ControlNode } from '../../schema/_generated/schema-types';
 import type { ControlNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
-import type { LegacyControlNodePortDef, ResolvedParams, ControlSetter, LegacyControlNodeDef, NodeWithDefaults, ControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
+import type { LegacyControlNodePortImplementation, ResolvedParams, ControlSetter, LegacyControlNodeImplementation, NodeWithDefaults, ControlNodeImplementation } from '../../graphEngine/externalInterfaces/ControlNodeImplementation';
 
 export function implementControlNode<K extends ControlNodeKinds>(
   kind: K,
@@ -11,7 +11,7 @@ export function implementControlNode<K extends ControlNodeKinds>(
     defaults: NodeInputsResolved<K>;
     renderControl: (node: NodeWithDefaults<K>, set: ControlSetter<K>) => React.ReactNode;
   }
-): ControlNodeDef<K> {
+): ControlNodeImplementation<K> {
   return {
     nodeKind: kind,
     defaultValues: def.defaults,
@@ -19,9 +19,9 @@ export function implementControlNode<K extends ControlNodeKinds>(
   };
 }
 
-export function convertControlNodeDefToLegacy<K extends ControlNodeKinds>(
-  def: ControlNodeDef<K>
-): LegacyControlNodeDef {
+export function convertControlNodeImplementationToLegacy<K extends ControlNodeKinds>(
+  def: ControlNodeImplementation<K>
+): LegacyControlNodeImplementation {
   const outputItems = nodeOutputMeta[def.nodeKind];
   const defaults = def.defaultValues as unknown as Record<string, { v: unknown }>;
 
@@ -53,8 +53,8 @@ export function convertControlNodeDefToLegacy<K extends ControlNodeKinds>(
 
 
 // @legacy - we are trying to get rid of this 
-function valueTypeToPortType(valueType: string): LegacyControlNodePortDef['type'] {
-  const map: Record<string, LegacyControlNodePortDef['type']> = {
+function valueTypeToPortType(valueType: string): LegacyControlNodePortImplementation['type'] {
+  const map: Record<string, LegacyControlNodePortImplementation['type']> = {
     numberValue: 'number',
     stringValue: 'string',
     stringArrayValue: 'string',

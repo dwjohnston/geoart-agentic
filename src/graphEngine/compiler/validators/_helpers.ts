@@ -1,10 +1,8 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
-import type { LegacyComputeNodeDef } from '../../../graphEngine/externalInterfaces/ComputeNodeDefinition';
-import type { LegacyControlNodeDef } from '../../../graphEngine/externalInterfaces/ControlNodeDefinition';
-import type { LegacyRenderNodeDef } from '../../../graphEngine/externalInterfaces/RenderNodeDefinition';
-import { computeRegistry } from '../../../nodes/compute/registry';
-import { controlRegistry } from '../../../nodes/control/registry';
-import { renderRegistry } from '../../../nodes/render/registry';
+import type { LegacyComputeNodeImplementation } from '../../../graphEngine/externalInterfaces/ComputeNodeImplementation';
+import type { LegacyControlNodeImplementation } from '../../../graphEngine/externalInterfaces/ControlNodeImplementation';
+import type { LegacyRenderNodeImplementation } from '../../../graphEngine/externalInterfaces/RenderNodeImplementation';
+import type { LegacyNodeRegistry } from '../../externalInterfaces/AllNodeImplementations';
 
 export type RawEdge = {
   fromNodeId: string;
@@ -14,8 +12,8 @@ export type RawEdge = {
 };
 
 export type NodeLayer = 'control' | 'compute' | 'render';
-export type AnyNodeDef = LegacyComputeNodeDef | LegacyControlNodeDef | LegacyRenderNodeDef;
-export type NodeEntry = { layer: NodeLayer; def: AnyNodeDef };
+export type AnyNodeImplementation = LegacyComputeNodeImplementation | LegacyControlNodeImplementation | LegacyRenderNodeImplementation;
+export type NodeEntry = { layer: NodeLayer; def: AnyNodeImplementation };
 
 /** Extract all { ref: "nodeId.portName" } params from all nodes in the graph. */
 export function parseRefs(graph: GeoArtGraph): RawEdge[] {
@@ -46,18 +44,18 @@ export function parseRefs(graph: GeoArtGraph): RawEdge[] {
 }
 
 /** Build a map of node id → { layer, def } by consulting all three registries. */
-export function buildNodeMap(graph: GeoArtGraph): Map<string, NodeEntry> {
+export function buildNodeMap(graph: GeoArtGraph, registry: LegacyNodeRegistry): Map<string, NodeEntry> {
   const map = new Map<string, NodeEntry>();
   for (const node of graph.control.nodes) {
-    const def = controlRegistry.get(node.type);
+    const def = registry.controlRegistry.get(node.type);
     if (def) map.set(node.id, { layer: 'control', def });
   }
   for (const node of graph.compute.nodes) {
-    const def = computeRegistry.get(node.type);
+    const def = registry.computeRegistry.get(node.type);
     if (def) map.set(node.id, { layer: 'compute', def });
   }
   for (const node of graph.render.nodes) {
-    const def = renderRegistry.get(node.type);
+    const def = registry.renderRegistry.get(node.type);
     if (def) map.set(node.id, { layer: 'render', def });
   }
   return map;

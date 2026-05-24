@@ -1,17 +1,17 @@
 import { describe, it, expect } from 'bun:test';
-import sliderNodeDef from './Slider';
+import sliderNodeImplementation from './Slider';
 
 describe('slider node', () => {
   it('has the correct node kind', () => {
-    expect(sliderNodeDef.nodeKind).toBe('slider');
+    expect(sliderNodeImplementation.nodeKind).toBe('slider');
   });
 
   it('has correct default value', () => {
-    expect(sliderNodeDef.defaultValues.value).toBe(0);
+    expect(sliderNodeImplementation.defaultValues.value).toBe(0);
   });
 
   it('has correct default min and max', () => {
-    expect(sliderNodeDef.defaultValues.min).toBe(0);
-    expect(sliderNodeDef.defaultValues.max).toBe(1);
+    expect(sliderNodeImplementation.defaultValues.min).toBe(0);
+    expect(sliderNodeImplementation.defaultValues.max).toBe(1);
   });
 });

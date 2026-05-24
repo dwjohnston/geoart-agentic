@@ -1,16 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
-import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeDefinitions';
-import { computeRegistry } from '../../nodes/compute/registry';
-import { renderRegistry } from '../../nodes/render/registry';
-import { controlRegistry } from '../../nodes/control/registry';
+import { realNodeRegistry } from '../exports';
 import { compile } from './compiler';
-
-const realNodeRegistry: LegacyNodeRegistry = {
-  computeRegistry,
-  renderRegistry,
-  controlRegistry,
-};
 
 describe('compiler param conversion', () => {
   test('preserves dx/dy on statically-declared colour points', () => {

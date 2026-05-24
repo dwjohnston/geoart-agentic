@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import type { NodeInputsResolved } from '../../../schema/typeHelpers';
-import colorPointNodeDef from './colorPointCompute';
+import colorPointNodeImplementation from './colorPointCompute';
 
 const base = {
   point: { x: 0, y: 0 },
@@ -15,9 +15,9 @@ const base = {
   dy: 0,
 } satisfies NodeInputsResolved<"colorPointCompute">;
 
-describe('colorPointNodeDef', () => {
+describe('colorPointNodeImplementation', () => {
   test('uses the new flat params when the deprecated params are unset', () => {
-    const result = colorPointNodeDef.evaluate({
+    const result = colorPointNodeImplementation.evaluate({
       ...base,
       x: 0.5,
       y: -0.3,
@@ -32,7 +32,7 @@ describe('colorPointNodeDef', () => {
   });
 
   test('accepts optional tangent inputs', () => {
-    const result = colorPointNodeDef.evaluate({
+    const result = colorPointNodeImplementation.evaluate({
       ...base,
       x: 0.5,
       y: -0.3,
@@ -49,7 +49,7 @@ describe('colorPointNodeDef', () => {
   });
 
   test('falls back to the deprecated point/color params when they are provided', () => {
-    const result = colorPointNodeDef.evaluate({
+    const result = colorPointNodeImplementation.evaluate({
       ...base,
       point: { x: 0.25, y: 0.75 },
       color: { r: 0.1, g: 0.2, b: 0.3, a: 0.4 },
@@ -60,7 +60,7 @@ describe('colorPointNodeDef', () => {
   });
 
   test('deprecated params take precedence over flat params when both are set', () => {
-    const result = colorPointNodeDef.evaluate({
+    const result = colorPointNodeImplementation.evaluate({
       ...base,
       point: { x: 0.9, y: 0.8 },
       color: { r: 0.5, g: 0.5, b: 0.5, a: 0.5 },
@@ -77,7 +77,7 @@ describe('colorPointNodeDef', () => {
   });
 
   test('colorPoints always contains exactly one colorPoint', () => {
-    const result = colorPointNodeDef.evaluate({ ...base });
+    const result = colorPointNodeImplementation.evaluate({ ...base });
     expect(result.points).toHaveLength(1);
     expect(result.points[0]).toEqual(result.colorPoint);
   });

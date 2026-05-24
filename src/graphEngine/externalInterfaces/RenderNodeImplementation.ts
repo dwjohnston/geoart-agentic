@@ -2,7 +2,7 @@ import type { Value } from '../../schema/types';
 import type { RenderNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 
 //@legacy - we are trying to get rid of this
-export type LegacyRenderNodePortDef = {
+export type LegacyRenderNodePortImplementation = {
   name: string;
   type: 'number' | 'color' | 'point' | 'colorPoint' | 'colorPointArray' | 'trigger';
   default?: Value;
@@ -21,14 +21,14 @@ export type RenderEvalContext = {
 
 
 //@legacy
-export type LegacyRenderNodeDef = {
+export type LegacyRenderNodeImplementation = {
   type: string;
-  inputs: LegacyRenderNodePortDef[];
-  outputs: LegacyRenderNodePortDef[];
+  inputs: LegacyRenderNodePortImplementation[];
+  outputs: LegacyRenderNodePortImplementation[];
   evaluate(inputs: Value[], ctx: RenderEvalContext): void;
 };
 
-export type RenderNodeDef<K extends RenderNodeKinds> = {
+export type RenderNodeImplementation<K extends RenderNodeKinds> = {
   nodeKind: K;
   defaultValues: NodeInputsResolved<K>;
   evaluate: (inputs: NodeInputsResolved<K>, ctx: RenderEvalContext) => void;

@@ -8,7 +8,7 @@
 import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
 
-const circleNodeDef = implementRenderNode('circle', {
+const circleNodeImplementation = implementRenderNode('circle', {
   defaults: {
     intervalTicks: 0,
     center: { x: 0, y: 0 },
@@ -41,4 +41,4 @@ const circleNodeDef = implementRenderNode('circle', {
   },
 });
 
-export default circleNodeDef;
+export default circleNodeImplementation;

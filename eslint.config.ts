@@ -53,12 +53,13 @@ export default defineConfig([
             "compiler": "src/graphEngine/compiler",
             "evaluator": "src/graphEngine/evaluator",
             "graphEngine": "src/graphEngine/graphEngine",
+            "graphEngineExports": "src/graphEngine/exports",
           }, {
             "application": {
-              allowedZones: ["common-tooling", "ui-tooling", "theSchema", "graphEngine", "algorithms"]
+              allowedZones: ["common-tooling", "ui-tooling", "theSchema", "graphEngineExports", "algorithms"]
             },
             "algorithms": {
-              allowedZones: ["common-tooling", "theSchema"]
+              allowedZones: ["common-tooling", "theSchema", "graphEngineExports"]
             },
             "common-tooling": {
               allowedZones: []
@@ -77,6 +78,9 @@ export default defineConfig([
             },
             "graphEngine": {
               allowedZones: ["common-tooling", "theSchema", "compiler", "evaluator", "algorithms"]
+            },
+            "graphEngineExports": {
+              allowedZones: ["common-tooling", "theSchema", "compiler", "evaluator", "graphEngine", "nodesCompute", "nodesRender", "nodesControl"]
             },
             "nodesCompute": {
               allowedZones: ["common-tooling", "theSchema"],

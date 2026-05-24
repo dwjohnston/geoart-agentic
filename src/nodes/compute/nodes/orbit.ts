@@ -32,7 +32,7 @@ function evaluateOrbitPoints(
 const DEFAULT_CENTER_COLOR = { r: 1, g: 1, b: 1, a: 1 };
 const DEFAULT_CENTER_POINT = { x: 0.5, y: 0.5 };
 
-const orbitNodeDef = implementComputeNode("orbit", {
+const orbitNodeImplementation = implementComputeNode("orbit", {
   isTimeDependant: true,
   defaults: {
     radius: 0.5,
@@ -112,4 +112,4 @@ const orbitNodeDef = implementComputeNode("orbit", {
   },
 });
 
-export default orbitNodeDef;
+export default orbitNodeImplementation;

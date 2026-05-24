@@ -7,7 +7,7 @@ import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
 
 
 // @legacy - this should have the possible value types derived from the schema
-export type LegacyControlNodePortDef = {
+export type LegacyControlNodePortImplementation = {
   name: string;
   type: 'number' | 'string' | 'boolean' | 'color' | 'point';
 };
@@ -27,9 +27,9 @@ export type ControlSetter<K extends keyof typeof nodeOutputMeta> =
 
 // Legacy format — used internally by the registry and graph layer
 // We want to get rid of this
-export type LegacyControlNodeDef = {
+export type LegacyControlNodeImplementation = {
   type: string;
-  outputs: LegacyControlNodePortDef[];
+  outputs: LegacyControlNodePortImplementation[];
   evaluate(params: ResolvedParams): Value[];
   renderControl(node: Extract<ControlNode, { type: string }>, set: ControlSetter<keyof typeof nodeOutputMeta>): React.ReactNode;
 };
@@ -40,7 +40,7 @@ export type NodeWithDefaults<K extends ControlNodeKinds> =
     params: Required<Extract<ControlNode, { type: K }>['params']>;
   };
 
-export type ControlNodeDef<K extends ControlNodeKinds> = {
+export type ControlNodeImplementation<K extends ControlNodeKinds> = {
   nodeKind: K;
   defaultValues: NodeInputsResolved<K>;
   renderControl: (node: NodeWithDefaults<K>, set: ControlSetter<K>) => React.ReactNode;

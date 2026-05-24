@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import timedLineNodeDef from "./timedLine";
+import timedLineNodeImplementation from "./timedLine";
 
-describe("timedLineNodeDef", () => {
+describe("timedLineNodeImplementation", () => {
 
   it("draws line with gradient between two color points", () => {
 
     const fakeContext = createFakeContext();
 
-    timedLineNodeDef.evaluate({
+    timedLineNodeImplementation.evaluate({
       intervalTicks: 6,
       colorPointA: {
         x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,

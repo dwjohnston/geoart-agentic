@@ -28,7 +28,7 @@ function toPixelCoords(
   };
 }
 
-const connectDotsNodeDef = implementRenderNode('connect-dots', {
+const connectDotsNodeImplementation = implementRenderNode('connect-dots', {
   defaults: {
     colorPointsArray: [],
     lineWidth: 1,
@@ -111,4 +111,4 @@ const connectDotsNodeDef = implementRenderNode('connect-dots', {
   },
 });
 
-export default connectDotsNodeDef;
+export default connectDotsNodeImplementation;

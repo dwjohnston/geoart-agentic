@@ -3,7 +3,7 @@ import { implementControlNode } from '../implementControlNode';
 import { LfoControl } from '../ui/LfoControl';
 const WAVE_TYPES = ["sine", "square", "triangle", "saw", "reverse-saw"] as Array<ResolvedValue<"waveTypeEnumValue">>;
 
-const lfoControlNodeDef = implementControlNode('lfo-control', {
+const lfoControlNodeImplementation = implementControlNode('lfo-control', {
   defaults: {
     baseValue: 0,
     frequency: 0.5,
@@ -29,4 +29,4 @@ const lfoControlNodeDef = implementControlNode('lfo-control', {
   },
 });
 
-export default lfoControlNodeDef;
+export default lfoControlNodeImplementation;

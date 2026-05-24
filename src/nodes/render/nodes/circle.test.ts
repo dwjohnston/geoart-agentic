@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import circleNodeDef from "./circle";
+import circleNodeImplementation from "./circle";
 
-describe("circleNodeDef", () => {
+describe("circleNodeImplementation", () => {
 
   it("draws on context properly", () => {
 
     const fakeContext = createFakeContext();
 
-    circleNodeDef.evaluate({
+    circleNodeImplementation.evaluate({
       intervalTicks: 0,
       center: { x: 0.5, y: 0.5 },
       radius: 0.5,

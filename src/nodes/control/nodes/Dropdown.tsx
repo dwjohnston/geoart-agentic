@@ -1,7 +1,7 @@
 import { implementControlNode } from '../implementControlNode';
 import { DropdownControl } from '../ui/DropdownControl';
 
-const dropdownNodeDef = implementControlNode('dropdown', {
+const dropdownNodeImplementation = implementControlNode('dropdown', {
   defaults: {
     label: '',
     options: [],
@@ -20,4 +20,4 @@ const dropdownNodeDef = implementControlNode('dropdown', {
   },
 });
 
-export default dropdownNodeDef;
+export default dropdownNodeImplementation;

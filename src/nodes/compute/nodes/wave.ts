@@ -37,7 +37,7 @@ function evaluateWave(
   return raw * amplitude;
 }
 
-const waveNodeDef = implementComputeNode("wave", {
+const waveNodeImplementation = implementComputeNode("wave", {
   isTimeDependant: true,
   defaults: {
     "amplitude": 1,
@@ -79,7 +79,7 @@ const waveNodeDef = implementComputeNode("wave", {
   },
 });
 
-export default waveNodeDef;
+export default waveNodeImplementation;
 
 function evaluateWaveAtAngle(
   waveType: string,
