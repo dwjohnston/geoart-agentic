@@ -2,16 +2,15 @@ import { describe, expect, test, mock } from 'bun:test';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { createGraphEngine } from './graphEngine';
 import { createFakeContext } from '../../common-tooling/test-tooling/fakeContext';
-import {
-    realNodeRegistry,
-    implementRenderNode,
-    convertRenderNodeImplementationToLegacy,
-    convertComputeNodeImplementationToLegacy,
-    implementComputeNode,
-    convertControlNodeImplementationToLegacy,
-    implementControlNode,
-} from '../exports';
-import type { LegacyNodeRegistry } from '../exports';
+import { implementRenderNode, convertRenderNodeImplementationToLegacy } from '../../nodes/render/implementRenderNode';
+import { implementComputeNode, convertComputeNodeImplementationToLegacy } from '../../nodes/compute/implementComputeNode';
+import { implementControlNode, convertControlNodeImplementationToLegacy } from '../../nodes/control/implementControlNode';
+import { computeRegistry } from '../../nodes/compute/registry';
+import { renderRegistry } from '../../nodes/render/registry';
+import { controlRegistry } from '../../nodes/control/registry';
+import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeImplementations';
+
+const realNodeRegistry: LegacyNodeRegistry = { computeRegistry, renderRegistry, controlRegistry };
 
 
 describe("graph engine - unnecessary node evaluation", () => {

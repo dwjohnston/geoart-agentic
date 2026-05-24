@@ -3,7 +3,12 @@ import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { compile } from '../compiler/compiler';
 import { tick } from './evaluator';
 import type { EvalContext } from './EvalContext';
+
+// I think what we're saying is that this import is ok for the purpose of the test.
+// or you could create fake version of it for tests. 
+// eslint-disable-next-line import/no-restricted-paths
 import { realNodeRegistry, convertRenderNodeImplementationToLegacy, implementRenderNode } from '../exports';
+// eslint-disable-next-line import/no-restricted-paths
 import type { LegacyNodeRegistry } from '../exports';
 import type { NodeInputsDeclared, NodeInputsResolved } from '../../schema/typeHelpers';
 import { fColorPoint } from '../../constants';

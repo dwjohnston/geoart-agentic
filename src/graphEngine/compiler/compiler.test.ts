@@ -1,5 +1,9 @@
 import { describe, expect, test } from 'bun:test';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+
+// I think what we're saying is that this import is ok for the purpose of the test.
+// or you could create fake version of it for tests. 
+// eslint-disable-next-line import/no-restricted-paths
 import { realNodeRegistry } from '../exports';
 import { compile } from './compiler';
 

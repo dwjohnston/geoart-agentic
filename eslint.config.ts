@@ -39,7 +39,7 @@ export default defineConfig([
           message: 'Inline import() types are not allowed. Use a top-level import statement instead.',
         },
       ],
-      "import/no-restricted-paths": ["warn", {
+      "import/no-restricted-paths": ["error", {
         "zones": [
           ...createImportNoRestrictedPathsZones({
             "application": "src/application",
@@ -77,7 +77,7 @@ export default defineConfig([
               allowedZones: ["common-tooling", "theSchema", "compiler"]
             },
             "graphEngine": {
-              allowedZones: ["common-tooling", "theSchema", "compiler", "evaluator", "algorithms"]
+              allowedZones: ["common-tooling", "theSchema", "compiler", "evaluator", "algorithms", "nodesCompute", "nodesRender", "nodesControl"]
             },
             "graphEngineExports": {
               allowedZones: ["common-tooling", "theSchema", "compiler", "evaluator", "graphEngine", "nodesCompute", "nodesRender", "nodesControl"]

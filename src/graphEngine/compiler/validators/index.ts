@@ -9,6 +9,15 @@ import { validateNoCycles } from './noCycles';
 import { validateRefs } from './refs';
 import { validateEnumValues } from './enumValues';
 import { validateOrphanedNodes } from './orphanedNodes';
+
+
+/**
+ * It doesn't actually make sense that the validators need the node implementations
+ * The logic of knowing what nodes exists can be determined from the schema itself, surely. 
+ * 
+ * This lint ignore is not permission to ignore others. 
+ */
+// eslint-disable-next-line import/no-restricted-paths
 import { realNodeRegistry } from '../../exports';
 
 /**
