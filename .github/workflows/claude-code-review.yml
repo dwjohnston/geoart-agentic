@@ -30,7 +30,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
       - name: Run Claude Code Review
         id: claude-review
         uses: anthropics/claude-code-action@v1
@@ -41,4 +43,10 @@ jobs:
           prompt: '/code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }}'
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
+      - name: Generate token usage summary
+        if: always()
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number || '' }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+        run: bun .github/workflows/scripts/token-usage-summary.ts
 

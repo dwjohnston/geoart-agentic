@@ -29,7 +29,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@v1
@@ -47,39 +49,11 @@ jobs:
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
           # claude_args: '--allowed-tools Bash(gh pr *)'
-
-      - name: Collect Claude session
+      - name: Generate token usage summary
         if: always()
-        run: |
-          if [ -d "$HOME/.claude" ]; then
-            tar -czf claude-session.tar.gz -C "$HOME" .claude
-          else
-            echo "No .claude session directory found" > session-not-found.txt
-            tar -czf claude-session.tar.gz session-not-found.txt
-          fi
-
-      - name: Upload session artifact
-        if: always()
-        id: upload-session
-        uses: actions/upload-artifact@v4
-        with:
-          name: claude-session-${{ github.run_id }}
-          path: claude-session.tar.gz
-          retention-days: 30
-
-      - name: Comment with artifact link
-        if: always() && steps.upload-session.outcome == 'success'
         env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if [[ "${{ github.event_name }}" == "issue_comment" || "${{ github.event_name }}" == "issues" ]]; then
-            NUMBER="${{ github.event.issue.number }}"
-          elif [[ "${{ github.event_name }}" == "pull_request_review_comment" ]]; then
-            NUMBER="${{ github.event.pull_request.number }}"
-          elif [[ "${{ github.event_name }}" == "pull_request_review" ]]; then
-            NUMBER="${{ github.event.pull_request.number }}"
-          fi
+          ISSUE_NUMBER: ${{ github.event.issue.number || '' }}
+          PR_NUMBER: ${{ github.event.pull_request.number || '' }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+        run: bun .github/workflows/scripts/token-usage-summary.ts
 
-          gh issue comment "$NUMBER" \
-            --repo "${{ github.repository }}" \
-            --body "**Claude session transcript:** [Download artifact](${{ steps.upload-session.outputs.artifact-url }})"
