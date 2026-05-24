@@ -6,10 +6,9 @@ import { cleanEnv, str } from "envalid";
 
 const env = cleanEnv(process.env, {
     GITHUB_REPOSITORY: str(),
-    GH_TOKEN:          str(),
-    GITHUB_TOKEN:      str(),
-    ISSUE_NUMBER:      str(),
-    PR_NUMBER:         str(),
+    GH_TOKEN: str(),
+    ISSUE_NUMBER: str({ default: '' }),
+    PR_NUMBER: str({ default: '' }),
 });
 
 interface AgentCall {
@@ -158,7 +157,7 @@ function main(): void {
     if (!fs.existsSync("token-summary.md")) process.exit(0);
 
     const repo = env.GITHUB_REPOSITORY;
-    const ghEnv = { env: { ...process.env, GH_TOKEN: env.GH_TOKEN || env.GITHUB_TOKEN }, stdio: "inherit" } as const;
+    const ghEnv = { env: { ...process.env, GH_TOKEN: env.GH_TOKEN }, stdio: "inherit" } as const;
 
     try {
         if (env.ISSUE_NUMBER) {
