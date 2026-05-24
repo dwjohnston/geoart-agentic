@@ -944,7 +944,8 @@
         {
           "title": "Points On A Line Compute Node",
           "type": "object",
-          "description": "Generates evenly-spaced colour points along a line between two colour points",
+          "description": "DEPRECATED: use pointsOnALineV2 instead. Generates evenly-spaced colour points along a line between two colour points.",
+          "deprecated": true,
           "additionalProperties": false,
           "required": [
             "id",
@@ -985,6 +986,51 @@
                 "colorSampler": {
                   "description": "Optional color sampler — overrides point colours when provided",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Points On A Line V2 Compute Node",
+          "type": "object",
+          "description": "Distributes evenly-spaced colour points along a multi-segment curve defined by an ordered array of colour points. Generalises pointsOnALine to an arbitrary number of waypoints.",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "pointsOnALineV2"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "colorPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "numPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "curveMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/curveModeEnumValueOrRef"
                 }
               }
             }
