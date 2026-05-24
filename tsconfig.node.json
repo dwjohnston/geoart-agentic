@@ -23,6 +23,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
+    ".github/*/scripts/*.ts",
     "vite.config.ts",
     "vite.config.docs.ts",
     "scripts/**/*.ts",
