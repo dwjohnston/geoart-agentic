@@ -1,16 +1,14 @@
-import type { Call } from '../src/common-tooling/test-tooling/fakeContext'
+import { createCanvas } from '@napi-rs/canvas'
 import type { CompiledGraph } from '../src/graphEngine/compiler/compiler'
 import type { EvalContext } from '../src/graphEngine/evaluator/EvalContext'
 import type { GeoArtGraph } from '../src/schema/_generated/schema-types'
-import { createFakeContext } from '../src/common-tooling/test-tooling/fakeContext'
-import { replayCallsOnCanvas } from '../src/common-tooling/test-tooling/replayContext'
 import { compile } from '../src/graphEngine/compiler/compiler'
 import { tick } from '../src/graphEngine/evaluator/evaluator'
 import { computeRegistry } from '../src/nodes/compute/registry'
 import { controlRegistry } from '../src/nodes/control/registry'
 import { renderRegistry } from '../src/nodes/render/registry'
 
-export type RenderResult = { imageBuffer: Buffer; calls: Call[] }
+export type RenderResult = { imageBuffer: Buffer; calls: [] }
 
 const CANVAS_SIZE = 400
 
@@ -22,12 +20,9 @@ export async function renderToImage(json: unknown, ticks = 1): Promise<RenderRes
     throw new Error(`renderToImage: compile failed — ${err instanceof Error ? err.message : String(err)}`)
   }
 
-  const orbitCtx = createFakeContext()
+  const orbitCanvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE)
+  const trailCanvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE)
 
-  // Will not be used, but we need to pass it in
-  const trailCtx = createFakeContext()
-
-  // Need to turn them all on
   const enabledRenderNodes = new Set<string>()
   for (const nodeId of compiled.sortedNodes) {
     const node = compiled.nodes.get(nodeId)
@@ -41,8 +36,8 @@ export async function renderToImage(json: unknown, ticks = 1): Promise<RenderRes
       const ctx: EvalContext = {
         tickCount: t,
         canvas: {
-          orbit: orbitCtx,
-          trail: trailCtx,
+          orbit: orbitCanvas.getContext('2d') as unknown as CanvasRenderingContext2D,
+          trail: trailCanvas.getContext('2d') as unknown as CanvasRenderingContext2D,
           width: CANVAS_SIZE,
           height: CANVAS_SIZE,
         },
@@ -56,12 +51,8 @@ export async function renderToImage(json: unknown, ticks = 1): Promise<RenderRes
     throw new Error(`renderToImage: evaluation failed — ${err instanceof Error ? err.message : String(err)}`)
   }
 
-  const orbitCalls = orbitCtx.getCalls()
-  const allCalls = [...orbitCalls]
-
-  const canvas = replayCallsOnCanvas(allCalls, CANVAS_SIZE, CANVAS_SIZE)
   return {
-    imageBuffer: canvas.toBuffer('image/png') as unknown as Buffer,
-    calls: allCalls,
+    imageBuffer: trailCanvas.toBuffer('image/png') as unknown as Buffer,
+    calls: [],
   }
 }
