@@ -6,14 +6,27 @@ export type Ingredient = {
   feedbackPrompt: string
 }
 
-export type ExperimentVariable<T> = T | T[]
+export type ExperimentVariables = {
+  model: ModelId | ModelId[]
+  renderTicks: number | number[]
+  numIterations: number | number[]
+  schema: object | object[]
+  basePrompt: string | string[]
+  feedbackPrompt: string | string[]
+}
 
 export type ExperimentConfig = {
   name: string
-  model: ExperimentVariable<ModelId>
-  numIterations: ExperimentVariable<number>
-  renderTicks?: number
-  ingredients: Ingredient
+  variables: ExperimentVariables
+}
+
+export type ResolvedCombination = {
+  model: ModelId
+  renderTicks: number
+  numIterations: number
+  schema: object
+  basePrompt: string
+  feedbackPrompt: string
 }
 
 export type ExperimentResult = {
@@ -28,8 +41,13 @@ export type IterationRecord = {
   imageBuffer: Buffer
 }
 
+export type PriorFeedback = {
+  imageBuffer: Buffer | null
+  message: string | null
+} | null
+
 export type CallAI = (
   model: ModelId,
   iterationIndex: number,
-  priorImageBuffer: Buffer | null,
+  priorFeedback: PriorFeedback,
 ) => Promise<string>

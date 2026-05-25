@@ -18,19 +18,20 @@ function buildModel(modelId: ModelId) {
 }
 
 export function createCallAI(ingredients: Ingredient): CallAI {
-  return async (model, iterationIndex, priorImageBuffer) => {
+  return async (model, iterationIndex, priorFeedback) => {
     const llmModel = buildModel(model)
-    const isFirst = iterationIndex === 0
 
     const messages: Parameters<typeof generateText>[0]['messages'] =
-      isFirst || priorImageBuffer === null
+      iterationIndex === 0 || priorFeedback === null
         ? [{ role: 'user', content: ingredients.basePrompt }]
         : [
             {
               role: 'user',
               content: [
-                { type: 'image', image: priorImageBuffer },
-                { type: 'text', text: ingredients.feedbackPrompt },
+                ...(priorFeedback.imageBuffer !== null
+                  ? [{ type: 'image' as const, image: priorFeedback.imageBuffer }]
+                  : []),
+                { type: 'text' as const, text: priorFeedback.message ?? ingredients.feedbackPrompt },
               ],
             },
           ]

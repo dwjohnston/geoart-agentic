@@ -4,22 +4,20 @@ import { basePrompt } from './ingredients/basePrompt5.ts'
 import { feedbackPrompt } from './ingredients/feedbackPrompt.ts'
 import schemaJson from './ingredients/schema.ts'
 
-const ingredients = {
-  schema: schemaJson,
-  basePrompt,
-  feedbackPrompt,
-}
-
 const results = await conductExperiment(
   {
     name: 'lab',
-    model: ['anthropic/claude-sonnet-4-6'],
-    renderTicks: 1000,
-    numIterations: 3,
-    ingredients,
+    variables: {
+      model: ['anthropic/claude-sonnet-4-6', 'anthropic/claude-haiku-4-5'],
+      renderTicks: [1000],
+      numIterations: [2],
+      schema: [schemaJson],
+      basePrompt: [basePrompt],
+      feedbackPrompt: [feedbackPrompt],
+    },
   },
   'laboratory/results',
-  createCallAI(ingredients),
+  (combo) => createCallAI(combo),
 )
 
 for (const result of results) {
