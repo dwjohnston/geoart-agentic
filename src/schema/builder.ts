@@ -6,9 +6,25 @@ interface AlgorithmBuilderOptions {
     description?: string;
 }
 
-type BuilderStage = 'control' | 'compute' | 'render';
+interface ControlStageBuilder {
+    addControlNode(node: ControlNode): ControlStageBuilder;
+    addComputeNode(node: ComputeNode): ComputeStageBuilder;
+    addRenderNode(node: RenderNode): RenderStageBuilder;
+    construct(): GeoArtGraph;
+}
 
-export class AlgorithmBuilder<Stage extends BuilderStage = 'control'> {
+interface ComputeStageBuilder {
+    addComputeNode(node: ComputeNode): ComputeStageBuilder;
+    addRenderNode(node: RenderNode): RenderStageBuilder;
+    construct(): GeoArtGraph;
+}
+
+interface RenderStageBuilder {
+    addRenderNode(node: RenderNode): RenderStageBuilder;
+    construct(): GeoArtGraph;
+}
+
+export class AlgorithmBuilder implements ControlStageBuilder {
     private readonly options: AlgorithmBuilderOptions;
     private readonly controlNodes: ControlNode[] = [];
     private readonly computeNodes: ComputeNode[] = [];
@@ -18,19 +34,19 @@ export class AlgorithmBuilder<Stage extends BuilderStage = 'control'> {
         this.options = options;
     }
 
-    public addControlNode(node: ControlNode): [Stage] extends ['control'] ? AlgorithmBuilder<'control'> : never {
+    public addControlNode(node: ControlNode): ControlStageBuilder {
         this.controlNodes.push(node);
-        return this as never;
+        return this;
     }
 
-    public addComputeNode(node: ComputeNode): [Stage] extends ['render'] ? never : AlgorithmBuilder<'compute'> {
+    public addComputeNode(node: ComputeNode): ComputeStageBuilder {
         this.computeNodes.push(node);
-        return this as never;
+        return this;
     }
 
-    public addRenderNode(node: RenderNode): AlgorithmBuilder<'render'> {
+    public addRenderNode(node: RenderNode): RenderStageBuilder {
         this.renderNodes.push(node);
-        return this as never;
+        return this;
     }
 
     public construct(): GeoArtGraph {

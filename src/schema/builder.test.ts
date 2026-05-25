@@ -231,6 +231,7 @@ describe(AlgorithmBuilder, () => {
                     },
                 })
 
+                //@ts-expect-error - out of order 
                 .addControlNode({
                     id: 'speedSlider',
                     type: 'slider',
@@ -255,6 +256,12 @@ describe(AlgorithmBuilder, () => {
                 .construct();
 
 
+            //however, graph is still valid
+            // But note that we've lost typings at this point
+            expect(validateGeoArtGraph(result)).toBe(true)
+
+
+
         })
 
         it("Adding render node before compute node shows a type error", () => {
@@ -267,6 +274,7 @@ describe(AlgorithmBuilder, () => {
                     renderConfig: { layer: 'live' },
 
                 })
+                //@ts-expect-error - out of order 
                 .addComputeNode({
                     id: 'add',
                     type: 'add',
@@ -283,6 +291,10 @@ describe(AlgorithmBuilder, () => {
                     },
                 })
                 .construct();
+
+            //however, graph is still valid
+            // But note that we've lost typings at this point
+            expect(validateGeoArtGraph(result)).toBe(true)
         })
 
 
