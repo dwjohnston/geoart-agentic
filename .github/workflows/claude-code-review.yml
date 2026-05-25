@@ -44,7 +44,7 @@ jobs:
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
       - name: Generate token usage summary
-        if: always()
+        if: steps.claude-review.outcome == 'success' || steps.claude-review.outcome == 'failure'
         env:
           PR_NUMBER: ${{ github.event.pull_request.number || '' }}
           GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
