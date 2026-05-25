@@ -34,11 +34,21 @@ export type ExperimentResult = {
   iterations: IterationRecord[]
 }
 
-export type IterationRecord = {
+export type IterationRecord = IterationSuccess | IterationFailure
+
+export type IterationSuccess = {
+  status: 'success'
   iterationIndex: number
   prompt: string
   algorithmJson: unknown
   imageBuffer: Buffer
+}
+
+export type IterationFailure = {
+  status: 'failure'
+  iterationIndex: number
+  message: string
+  rawText: string | null
 }
 
 export type PriorFeedback = {

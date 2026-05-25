@@ -108,6 +108,7 @@ async function runSingleCombination(
       console.log(`[lab] iteration ${i + 1}/${numIterations} — saved iteration_${paddedIndex}.png + calls`)
 
       iterations.push({
+        status: 'success',
         iterationIndex: i,
         prompt: isFirst ? combo.basePrompt : combo.feedbackPrompt,
         algorithmJson,
@@ -118,10 +119,25 @@ async function runSingleCombination(
     } catch (err) {
       console.error(`[lab] iteration ${i + 1}/${numIterations} — failed:`, err)
       const message = err instanceof Error ? err.message : String(err)
+      const failureRecord = { iterationIndex: i, message, rawText: rawText ?? null }
+
+      if (rawText !== undefined) {
+        await writeFile(
+          path.join(resultDir, `iteration_${paddedIndex}_algorithm.txt`),
+          rawText,
+        )
+      }
+
       await writeFile(
         path.join(resultDir, `iteration_${paddedIndex}_failure.json`),
-        JSON.stringify({ iterationIndex: i, message, rawText: rawText ?? null }, null, 2),
+        JSON.stringify(failureRecord, null, 2),
       )
+      iterations.push({
+        status: 'failure',
+        iterationIndex: i,
+        message,
+        rawText: rawText ?? null,
+      })
       priorFeedback = { imageBuffer: null, message }
     }
   }

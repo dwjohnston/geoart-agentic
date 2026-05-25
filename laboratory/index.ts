@@ -1,6 +1,10 @@
 import { conductExperiment } from './conductExperiment.ts'
 import { createCallAI } from './createCallAI.ts'
-import { basePrompt } from './ingredients/basePrompt5.ts'
+import { basePrompt } from './ingredients/basePrompt9.ts'
+import { basePrompt as P2 } from './ingredients/basePrompt10.ts'
+
+import { basePrompt as p3 } from './ingredients/basePrompt11.ts'
+
 import { feedbackPrompt } from './ingredients/feedbackPrompt.ts'
 import schemaJson from './ingredients/schema.ts'
 
@@ -12,7 +16,7 @@ const results = await conductExperiment(
       renderTicks: [1000],
       numIterations: [2],
       schema: [schemaJson],
-      basePrompt: [basePrompt],
+      basePrompt: [basePrompt, P2, p3],
       feedbackPrompt: [feedbackPrompt],
     },
   },

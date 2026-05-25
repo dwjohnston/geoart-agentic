@@ -1,13 +1,28 @@
-import { describe, it, expect } from 'bun:test';
-import { exists } from 'node:fs/promises';
-import path from 'node:path';
+import { describe, it, expect, beforeAll } from 'bun:test';
+import { rm, stat } from 'fs/promises';
+import path from 'path';
 import { conductExperiment } from './conductExperiment.ts';
 import type { PriorFeedback } from './types.ts';
 import earthVenus from '../src/algorithms/reference/general/earthVenus.ts';
 
 const OUTPUT_PATH = 'laboratory/_testResults';
 
+async function pathExists(filePath: string): Promise<boolean> {
+  try {
+    await stat(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 describe('conductExperiment', () => {
+    beforeAll(async () => {
+        if (await pathExists(OUTPUT_PATH)) {
+            await rm(OUTPUT_PATH, { recursive: true });
+        }
+    });
+
     it('runs an experiment and writes the expected folders and files', async () => {
         const test1FolderName = 'test1'
 
@@ -32,18 +47,18 @@ describe('conductExperiment', () => {
         expect(results).toHaveLength(1);
 
         const experimentDir = path.join(OUTPUT_PATH, test1FolderName);
-        expect(await exists(experimentDir)).toBe(true);
+        expect(await pathExists(experimentDir)).toBe(true);
 
         const innerFolder = results[0].resultName;
         const resultDir = path.join(experimentDir, innerFolder);
-        expect(await exists(resultDir)).toBe(true);
+        expect(await pathExists(resultDir)).toBe(true);
 
-        expect(await exists(path.join(resultDir, '_schema.json'))).toBe(true);
-        expect(await exists(path.join(resultDir, '_basePrompt.md'))).toBe(true);
-        expect(await exists(path.join(resultDir, 'iteration_00_algorithm.json'))).toBe(true);
-        expect(await exists(path.join(resultDir, 'iteration_00.png'))).toBe(true);
-        expect(await exists(path.join(resultDir, 'iteration_01_algorithm.json'))).toBe(true);
-        expect(await exists(path.join(resultDir, 'iteration_01.png'))).toBe(true);
+        expect(await pathExists(path.join(resultDir, '_schema.json'))).toBe(true);
+        expect(await pathExists(path.join(resultDir, '_basePrompt.md'))).toBe(true);
+        expect(await pathExists(path.join(resultDir, 'iteration_00_algorithm.json'))).toBe(true);
+        expect(await pathExists(path.join(resultDir, 'iteration_00.png'))).toBe(true);
+        expect(await pathExists(path.join(resultDir, 'iteration_01_algorithm.json'))).toBe(true);
+        expect(await pathExists(path.join(resultDir, 'iteration_01.png'))).toBe(true);
     });
 
     it('creates a separate result folder for each model', async () => {
@@ -69,19 +84,19 @@ describe('conductExperiment', () => {
         expect(results).toHaveLength(2);
 
         const experimentDir = path.join(OUTPUT_PATH, test2FolderName);
-        expect(await exists(experimentDir)).toBe(true);
+        expect(await pathExists(experimentDir)).toBe(true);
 
         const resultDirA = path.join(experimentDir, results[0].resultName);
-        expect(await exists(resultDirA)).toBe(true);
+        expect(await pathExists(resultDirA)).toBe(true);
         const resultDirB = path.join(experimentDir, results[1].resultName);
-        expect(await exists(resultDirB)).toBe(true);
+        expect(await pathExists(resultDirB)).toBe(true);
 
 
         [resultDirA, resultDirB].forEach(async (v) => {
-            expect(await exists(path.join(v, '_schema.json'))).toBe(true);
-            expect(await exists(path.join(v, '_basePrompt.md'))).toBe(true);
-            expect(await exists(path.join(v, 'iteration_00_algorithm.json'))).toBe(true);
-            expect(await exists(path.join(v, 'iteration_00.png'))).toBe(true);
+            expect(await pathExists(path.join(v, '_schema.json'))).toBe(true);
+            expect(await pathExists(path.join(v, '_basePrompt.md'))).toBe(true);
+            expect(await pathExists(path.join(v, 'iteration_00_algorithm.json'))).toBe(true);
+            expect(await pathExists(path.join(v, 'iteration_00.png'))).toBe(true);
         })
 
 
@@ -112,18 +127,18 @@ describe('conductExperiment', () => {
         expect(results).toHaveLength(2);
 
         const experimentDir = path.join(OUTPUT_PATH, test3FolderName);
-        expect(await exists(experimentDir)).toBe(true);
+        expect(await pathExists(experimentDir)).toBe(true);
 
         const resultDirA = path.join(experimentDir, results[0].resultName);
-        expect(await exists(resultDirA)).toBe(true);
+        expect(await pathExists(resultDirA)).toBe(true);
         const resultDirB = path.join(experimentDir, results[1].resultName);
-        expect(await exists(resultDirB)).toBe(true);
+        expect(await pathExists(resultDirB)).toBe(true);
 
         [resultDirA, resultDirB].forEach(async (v) => {
-            expect(await exists(path.join(v, '_schema.json'))).toBe(true);
-            expect(await exists(path.join(v, '_basePrompt.md'))).toBe(true);
-            expect(await exists(path.join(v, 'iteration_00_algorithm.json'))).toBe(true);
-            expect(await exists(path.join(v, 'iteration_00.png'))).toBe(true);
+            expect(await pathExists(path.join(v, '_schema.json'))).toBe(true);
+            expect(await pathExists(path.join(v, '_basePrompt.md'))).toBe(true);
+            expect(await pathExists(path.join(v, 'iteration_00_algorithm.json'))).toBe(true);
+            expect(await pathExists(path.join(v, 'iteration_00.png'))).toBe(true);
         });
 
         expect(results[0].resultName).not.toBe(results[1].resultName);
@@ -153,7 +168,9 @@ describe('conductExperiment', () => {
         );
 
         expect(results).toHaveLength(1);
-        expect(results[0].iterations).toHaveLength(0);
+        expect(results[0].iterations).toHaveLength(2);
+        expect(results[0].iterations[0].status).toBe('failure');
+        expect(results[0].iterations[1].status).toBe('failure');
 
         expect(callLog).toHaveLength(2);
         expect(callLog[0].priorFeedback).toBeNull();
@@ -161,7 +178,9 @@ describe('conductExperiment', () => {
         expect(callLog[1].priorFeedback?.message).toContain('JSON Parse error');
 
         const resultDir = path.join(OUTPUT_PATH, 'test4', results[0].resultName);
-        expect(await exists(path.join(resultDir, 'iteration_00_failure.json'))).toBe(true);
-        expect(await exists(path.join(resultDir, 'iteration_01_failure.json'))).toBe(true);
+        expect(await pathExists(path.join(resultDir, 'iteration_00_algorithm.txt'))).toBe(true);
+        expect(await pathExists(path.join(resultDir, 'iteration_00_failure.json'))).toBe(true);
+        expect(await pathExists(path.join(resultDir, 'iteration_01_algorithm.txt'))).toBe(true);
+        expect(await pathExists(path.join(resultDir, 'iteration_01_failure.json'))).toBe(true);
     });
 });
