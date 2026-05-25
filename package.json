@@ -50,7 +50,9 @@
     "ai": "latest",
     "eslint-plugin-import": "^2.32.0",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.8.0"
   },
   "devDependencies": {
     "envalid": "^8.1.1",
