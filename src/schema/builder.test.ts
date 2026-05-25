@@ -70,6 +70,51 @@ describe(AlgorithmBuilder, () => {
             expect(result.render.nodes.some(n => n.id === 'dot')).toBe(true)
         })
 
+        it("Builds a graph with cross-layer refs", () => {
+            const result = new AlgorithmBuilder()
+                .addControlNode({
+                    id: 'radius',
+                    type: 'slider',
+                    params: {
+                        label: { v: 'Radius' },
+                        min: { v: 0 },
+                        max: { v: 0.5 },
+                        step: { v: 0.01 },
+                        value: { v: 0.1 },
+                    },
+                })
+                .addComputeNode({
+                    id: 'time',
+                    type: 'time',
+                    params: {},
+                })
+                .addComputeNode({
+                    id: 'earthOrbit',
+                    type: 'orbit',
+                    params: {
+                        time: { ref: 'time.time' },
+                        radius: { ref: 'radius.value' },
+                        speed: { v: 1 },
+                    },
+                })
+                .addRenderNode({
+                    id: 'dot',
+                    type: 'circle',
+                    renderConfig: { layer: 'live' },
+                    params: {
+                        radius: { ref: 'radius.value' },
+                        centerPoints: { ref: 'earthOrbit.points' },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(true)
+            expect(result.control.nodes.some(n => n.id === 'radius')).toBe(true)
+            expect(result.compute.nodes.some(n => n.id === 'time')).toBe(true)
+            expect(result.compute.nodes.some(n => n.id === 'earthOrbit')).toBe(true)
+            expect(result.render.nodes.some(n => n.id === 'dot')).toBe(true)
+        })
+
         it("Includes title, author, and description", () => {
             const result = new AlgorithmBuilder({
                 title: 'My Algorithm',
