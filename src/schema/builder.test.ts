@@ -188,4 +188,107 @@ describe(AlgorithmBuilder, () => {
     });
 
 
+    describe("ordering tests", () => {
+
+        it("correct order is control, compute, render", () => {
+            const result = new AlgorithmBuilder()
+
+
+                .addControlNode({
+                    id: 'speedSlider',
+                    type: 'slider',
+                    params: {
+
+                    },
+                })
+                .addComputeNode({
+                    id: 'add',
+                    type: 'add',
+                    params: {
+
+                    },
+                })
+                .addRenderNode({
+                    id: "dot",
+                    "type": "circle",
+                    params: {},
+                    renderConfig: { layer: 'live' },
+
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(true)
+
+        })
+
+        it("Adding compute node before control node shows a type error", () => {
+            const result = new AlgorithmBuilder()
+                .addComputeNode({
+                    id: 'add',
+                    type: 'add',
+                    params: {
+
+                    },
+                })
+
+                .addControlNode({
+                    id: 'speedSlider',
+                    type: 'slider',
+                    params: {
+
+                    },
+                })
+                .addRenderNode({
+                    id: "dot",
+                    "type": "circle",
+                    params: {},
+                    renderConfig: { layer: 'live' },
+
+                })
+                .addRenderNode({
+                    id: "dot",
+                    "type": "circle",
+                    params: {},
+                    renderConfig: { layer: 'live' },
+
+                })
+                .construct();
+
+
+        })
+
+        it("Adding render node before compute node shows a type error", () => {
+            const result = new AlgorithmBuilder()
+
+                .addRenderNode({
+                    id: "dot",
+                    "type": "circle",
+                    params: {},
+                    renderConfig: { layer: 'live' },
+
+                })
+                .addComputeNode({
+                    id: 'add',
+                    type: 'add',
+                    params: {
+
+                    },
+                })
+
+                .addControlNode({
+                    id: 'speedSlider',
+                    type: 'slider',
+                    params: {
+
+                    },
+                })
+                .construct();
+        })
+
+
+
+
+    })
+
+
 });

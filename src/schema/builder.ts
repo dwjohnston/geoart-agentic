@@ -6,7 +6,9 @@ interface AlgorithmBuilderOptions {
     description?: string;
 }
 
-export class AlgorithmBuilder {
+type BuilderStage = 'control' | 'compute' | 'render';
+
+export class AlgorithmBuilder<Stage extends BuilderStage = 'control'> {
     private readonly options: AlgorithmBuilderOptions;
     private readonly controlNodes: ControlNode[] = [];
     private readonly computeNodes: ComputeNode[] = [];
@@ -16,19 +18,19 @@ export class AlgorithmBuilder {
         this.options = options;
     }
 
-    public addControlNode(node: ControlNode): this {
+    public addControlNode(node: ControlNode): [Stage] extends ['control'] ? AlgorithmBuilder<'control'> : never {
         this.controlNodes.push(node);
-        return this;
+        return this as never;
     }
 
-    public addComputeNode(node: ComputeNode): this {
+    public addComputeNode(node: ComputeNode): [Stage] extends ['render'] ? never : AlgorithmBuilder<'compute'> {
         this.computeNodes.push(node);
-        return this;
+        return this as never;
     }
 
-    public addRenderNode(node: RenderNode): this {
+    public addRenderNode(node: RenderNode): AlgorithmBuilder<'render'> {
         this.renderNodes.push(node);
-        return this;
+        return this as never;
     }
 
     public construct(): GeoArtGraph {
