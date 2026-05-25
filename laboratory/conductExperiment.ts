@@ -1,13 +1,9 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
-import { createAnthropic } from '@ai-sdk/anthropic'
-import { createOpenAI } from '@ai-sdk/openai'
-import { generateText } from 'ai'
 import { renderToImage } from './renderToImage.ts'
-import type { ExperimentConfig, ExperimentResult, IterationRecord, ModelId } from './types.ts'
+import type { CallAI, ExperimentConfig, ExperimentResult, IterationRecord, ModelId } from './types.ts'
 import { validateSchema } from './validateSchema.ts'
 
-const RESULTS_DIR = new URL('./results/', import.meta.url).pathname
 const SPINNER_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
 
 async function withSpinner<T>(label: string, fn: () => Promise<T>): Promise<T> {
@@ -39,31 +35,18 @@ function buildResultName(experimentName: string, model: ModelId, numIterations: 
   return `${experimentName}__${safeModel}__${numIterations}`
 }
 
-function buildModel(modelId: ModelId) {
-  const slashIndex = modelId.indexOf('/')
-  const provider = modelId.slice(0, slashIndex)
-  const subId = modelId.slice(slashIndex + 1)
-
-  if (provider === 'anthropic') {
-    return createAnthropic()(subId)
-  }
-  if (provider === 'openai') {
-    return createOpenAI()(subId)
-  }
-  throw new Error(`Unknown provider prefix: ${provider}`)
-}
-
 async function runSingleCombination(
   config: ExperimentConfig,
   model: ModelId,
   numIterations: number,
+  outputPath: string,
+  callAI: CallAI,
 ): Promise<ExperimentResult> {
   const resultName = buildResultName(config.name, model, numIterations)
-  const resultDir = path.join(RESULTS_DIR, resultName)
+  const resultDir = path.join(outputPath, resultName)
   await mkdir(resultDir, { recursive: true })
 
   const { ingredients, renderTicks } = config
-  const llmModel = buildModel(model)
 
   const iterations: IterationRecord[] = []
   let feedbackImageBuffer: Buffer | null = null
@@ -74,28 +57,14 @@ async function runSingleCombination(
     let algorithmJson: unknown
     try {
       const isFirst = i === 0
-      const priorImage = feedbackImageBuffer
 
-      const messages: Parameters<typeof generateText>[0]['messages'] =
-        isFirst || priorImage === null
-          ? [{ role: 'user', content: ingredients.basePrompt }]
-          : [
-            {
-              role: 'user',
-              content: [
-                { type: 'image', image: priorImage },
-                { type: 'text', text: ingredients.feedbackPrompt },
-              ],
-            },
-          ]
-
-      const result = await withSpinner(
+      const text = await withSpinner(
         `[lab] iteration ${i + 1}/${numIterations} — prompting ${model}`,
-        () => generateText({ model: llmModel, system: JSON.stringify(ingredients.schema), messages }),
+        () => callAI(model, i, feedbackImageBuffer),
       )
 
       const paddedIndex = String(i).padStart(2, '0')
-      algorithmJson = JSON.parse(result.text)
+      algorithmJson = JSON.parse(text)
       validateSchema(algorithmJson)
       await writeFile(
         path.join(resultDir, `iteration_${paddedIndex}_algorithm.json`),
@@ -145,9 +114,11 @@ async function runSingleCombination(
   return { resultName, iterations }
 }
 
-export async function conductExperiment(c: ExperimentConfig): Promise<ExperimentResult[]> {
-
-
+export async function conductExperiment(
+  c: ExperimentConfig,
+  outputPath: string,
+  callAI: CallAI,
+): Promise<ExperimentResult[]> {
   const config = { ...c, name: `${c.name}-${new Date().toISOString()}` }
   const models = normaliseArray(config.model)
   const iterationCounts = normaliseArray(config.numIterations)
@@ -159,16 +130,19 @@ export async function conductExperiment(c: ExperimentConfig): Promise<Experiment
     }
   }
 
-  const results = await Promise.all(
+  return Promise.all(
     combinations.map(({ model, numIterations }) =>
-      runSingleCombination(config, model, numIterations),
+      runSingleCombination(config, model, numIterations, outputPath, callAI),
     ),
   )
-
-  return results
 }
 
-export async function singleTest(config: Omit<ExperimentConfig, 'name'>): Promise<ExperimentResult> {
-  const results = await conductExperiment({ ...config, name: 'single-test' })
+export async function singleTest(
+  config: Omit<ExperimentConfig, 'name'>,
+  outputPath: string,
+  callAI: CallAI,
+): Promise<ExperimentResult> {
+  const results = await conductExperiment({ ...config, name: 'single-test' }, outputPath, callAI)
   return results[0]
 }
+

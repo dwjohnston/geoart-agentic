@@ -27,3 +27,9 @@ export type IterationRecord = {
   algorithmJson: unknown
   imageBuffer: Buffer
 }
+
+export type CallAI = (
+  model: ModelId,
+  iterationIndex: number,
+  priorImageBuffer: Buffer | null,
+) => Promise<string>
