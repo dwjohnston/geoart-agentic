@@ -12,7 +12,7 @@ import { resolve } from "path";
 
 const root = resolve(import.meta.dir, "..");
 
-const schemaRaw = readFileSync(resolve(root, "src/schema/schema.json"), "utf-8");
+const schemaRaw = readFileSync(resolve(root, "src/schema/schema/schema.json"), "utf-8");
 const schema = JSON.parse(schemaRaw);
 
 // Rewrite all $ref strings from #/definitions/X to #/components/schemas/X
