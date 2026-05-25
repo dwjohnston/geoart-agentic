@@ -3,11 +3,189 @@ import { AlgorithmBuilder } from "./builder";
 import { validateGeoArtGraph } from "./validateGeoArtGraph";
 
 describe(AlgorithmBuilder, () => {
-    it("Builds a minimal graph", () => {
 
-        const result = new AlgorithmBuilder().construct();
 
-        expect(validateGeoArtGraph(result)).toBe(true)
+    describe("happy paths", () => {
+        it("Builds a minimal graph", () => {
+            const result = new AlgorithmBuilder().construct();
+            expect(validateGeoArtGraph(result)).toBe(true)
+        })
+
+        it("Adds a control node - all static params", () => {
+            const result = new AlgorithmBuilder()
+                .addControlNode({
+                    id: 'speedSlider',
+                    type: 'slider',
+                    params: {
+                        label: { v: 'Speed' },
+                        min: { v: -5 },
+                        max: { v: 5 },
+                        value: { v: 0.2 },
+                        step: { v: 0.01 },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(true)
+            expect(result.control.nodes).toHaveLength(1)
+            expect(result.control.nodes.some(n => n.id === 'speedSlider')).toBe(true)
+        })
+
+
+
+
+        it("Adds a compute node - all static params", () => {
+            const result = new AlgorithmBuilder()
+                .addComputeNode({
+                    id: 'sum',
+                    type: 'add',
+                    params: {
+                        a: { v: 1 },
+                        b: { v: 2 },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(true)
+            expect(result.compute.nodes).toHaveLength(1)
+            expect(result.compute.nodes.some(n => n.id === 'sum')).toBe(true)
+        })
+
+        it("Adds a render node - all static params", () => {
+            const result = new AlgorithmBuilder()
+                .addRenderNode({
+                    id: 'dot',
+                    type: 'circle',
+                    renderConfig: { layer: 'live' },
+                    params: {
+                        center: { v: { x: 0, y: 0 } },
+                        radius: { v: 0.02 },
+                        color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(true)
+            expect(result.render.nodes).toHaveLength(1)
+            expect(result.render.nodes.some(n => n.id === 'dot')).toBe(true)
+        })
+
+        it("Includes title, author, and description", () => {
+            const result = new AlgorithmBuilder({
+                title: 'My Algorithm',
+                author: 'Test Author',
+                description: 'A test description',
+            }).construct();
+
+            expect(validateGeoArtGraph(result)).toBe(true)
+            expect(result.title).toBe('My Algorithm')
+            expect(result.author).toBe('Test Author')
+            expect(result.description).toBe('A test description')
+        })
     })
+
+    describe("type errors", () => {
+        it("Adds a control node - invalid node type ", () => {
+            const result = new AlgorithmBuilder()
+                .addControlNode({
+                    id: 'speedSlider',
+                    //@ts-expect-error - 'abc' is not a valid node type
+                    type: 'abc',
+                    params: {
+                        label: { v: 'Speed' },
+                        min: { v: -5 },
+                        max: { v: 5 },
+                        value: { v: 0.2 },
+                        step: { v: 0.01 },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(false)
+        })
+
+        it("Adds a control node - invalid node type - mismatching params", () => {
+            const result = new AlgorithmBuilder()
+                .addControlNode({
+                    id: 'speedSlider',
+                    type: 'slider',
+                    params: {
+                        // @ts-expect-error - mismatching params
+                        labasdael: { v: 'Speed' },
+
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(false)
+        })
+
+        it("Adds a compute node - invalid node type ", () => {
+            const result = new AlgorithmBuilder()
+                .addComputeNode({
+                    id: 'addNode',
+                    //@ts-expect-error - 'abc' is not a valid node type
+                    type: 'abc',
+                    params: {
+                        a: { v: 1 },
+                        b: { v: 2 },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(false)
+        })
+
+        it("Adds a render node - invalid node type", () => {
+            const result = new AlgorithmBuilder()
+                .addRenderNode({
+                    id: 'dot',
+                    //@ts-expect-error - 'abc' is not a valid node type
+                    type: 'abc',
+                    renderConfig: { layer: 'live' },
+                    params: {
+                        center: { v: { x: 0, y: 0 } },
+                        radius: { v: 0.02 },
+                        color: { v: { r: 0.3, g: 0.7, b: 1, a: 1 } },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(false)
+        })
+
+        it("Adds a render node - mismatching params", () => {
+            const result = new AlgorithmBuilder()
+                .addRenderNode({
+                    id: 'dot',
+                    type: 'circle',
+                    renderConfig: { layer: 'live' },
+                    params: {
+                        //@ts-expect-error - 'aaaa' is not a valid param for circle node
+                        aaaa: { v: 0 },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(false)
+        })
+
+        it("Adds a compute node - mismatching params ", () => {
+            const result = new AlgorithmBuilder()
+                .addComputeNode({
+                    id: 'addNode',
+                    type: 'add',
+                    params: {
+                        //@ts-expect-error -- 'aaaa' is not a valid param for add node
+                        aaaa: { v: 1 },
+                        b: { v: 2 },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(false)
+        })
+    });
+
 
 });
