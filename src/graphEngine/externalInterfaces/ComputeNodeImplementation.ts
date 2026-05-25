@@ -3,7 +3,7 @@ import type { ComputeNodeKinds, NodeInputsResolved, NodeOutputsResolved } from '
 
 //@legacy - this does not belong here we should get this (or a type like this) into `src/graph`
 // We are trying to get rid of this
-export type LegacyComputeNodePortDef = {
+export type LegacyComputeNodePortImplementation = {
   name: string;
   type: 'number' | 'string' | 'boolean' | 'color' | 'point' | 'colorPoint' | 'colorPointArray';
   default?: Value | { v: string };
@@ -19,15 +19,15 @@ export type ComputeNodeEvalContext = {
 
 
 //@legacy - this does not belong here we should get this (or a type like this) into `src/graph`
-export type LegacyComputeNodeDef = {
+export type LegacyComputeNodeImplementation = {
   type: string;
   isTimeDependant?: boolean;
-  inputs: LegacyComputeNodePortDef[];
-  outputs: LegacyComputeNodePortDef[];
+  inputs: LegacyComputeNodePortImplementation[];
+  outputs: LegacyComputeNodePortImplementation[];
   evaluate(inputs: Value[], ctx: ComputeNodeEvalContext): Value[];
 };
 
-export type ComputeNodeDef<T extends ComputeNodeKinds> = {
+export type ComputeNodeImplementation<T extends ComputeNodeKinds> = {
   nodeKind: T;
 
   //I'm not sure about this one though

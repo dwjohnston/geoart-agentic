@@ -3,7 +3,7 @@ import type { Value } from '../../schema/types';
 import type { RenderNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
-import type { LegacyRenderNodePortDef, RenderEvalContext, LegacyRenderNodeDef, RenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
+import type { LegacyRenderNodePortImplementation, RenderEvalContext, LegacyRenderNodeImplementation, RenderNodeImplementation } from '../../graphEngine/externalInterfaces/RenderNodeImplementation';
 
 export function implementRenderNode<K extends RenderNodeKinds>(
   kind: K,
@@ -11,7 +11,7 @@ export function implementRenderNode<K extends RenderNodeKinds>(
     defaults: NodeInputsResolved<K>;
     evaluate: (inputs: NodeInputsResolved<K>, ctx: RenderEvalContext) => void;
   }
-): RenderNodeDef<K> {
+): RenderNodeImplementation<K> {
   return {
     nodeKind: kind,
     defaultValues: def.defaults,
@@ -19,9 +19,9 @@ export function implementRenderNode<K extends RenderNodeKinds>(
   };
 }
 
-export function convertRenderNodeDefToLegacy<K extends RenderNodeKinds>(
-  def: RenderNodeDef<K>
-): LegacyRenderNodeDef {
+export function convertRenderNodeImplementationToLegacy<K extends RenderNodeKinds>(
+  def: RenderNodeImplementation<K>
+): LegacyRenderNodeImplementation {
   const inputEntries = objectEntries(nodeInputs[def.nodeKind]);
   const inputPortNames = inputEntries.map(([name]) => name);
 
@@ -53,8 +53,8 @@ export function convertRenderNodeDefToLegacy<K extends RenderNodeKinds>(
 
 
 //@legacy we are trying to get rid of this
-function valueTypeToPortType(valueType: string): LegacyRenderNodePortDef['type'] {
-  const map: Record<string, LegacyRenderNodePortDef['type']> = {
+function valueTypeToPortType(valueType: string): LegacyRenderNodePortImplementation['type'] {
+  const map: Record<string, LegacyRenderNodePortImplementation['type']> = {
     numberValue: 'number',
     colorValue: 'color',
     pointValue: 'point',

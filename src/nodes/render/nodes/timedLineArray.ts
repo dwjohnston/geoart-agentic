@@ -1,6 +1,6 @@
 import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
-import type { RenderEvalContext } from '../../../graphEngine/externalInterfaces/RenderNodeDefinition';
+import type { RenderEvalContext } from '../../../graphEngine/externalInterfaces/RenderNodeImplementation';
 
 type ColorPoint = { x: number; y: number; r: number; g: number; b: number; a: number; dx?: number; dy?: number };
 type Link = [ColorPoint, ColorPoint];
@@ -105,7 +105,7 @@ function selectLinks(
   return getInsideOutLinksAtStep(links, step);
 }
 
-const timedLineArrayNodeDef = implementRenderNode('timedLineArray', {
+const timedLineArrayNodeImplementation = implementRenderNode('timedLineArray', {
   defaults: {
     intervalTicks: 6,
     colorPointsA: [],
@@ -131,4 +131,4 @@ const timedLineArrayNodeDef = implementRenderNode('timedLineArray', {
   },
 });
 
-export default timedLineArrayNodeDef;
+export default timedLineArrayNodeImplementation;

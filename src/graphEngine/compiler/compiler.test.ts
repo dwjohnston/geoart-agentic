@@ -1,16 +1,11 @@
 import { describe, expect, test } from 'bun:test';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
-import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeDefinitions';
-import { computeRegistry } from '../../nodes/compute/registry';
-import { renderRegistry } from '../../nodes/render/registry';
-import { controlRegistry } from '../../nodes/control/registry';
-import { compile } from './compiler';
 
-const realNodeRegistry: LegacyNodeRegistry = {
-  computeRegistry,
-  renderRegistry,
-  controlRegistry,
-};
+// I think what we're saying is that this import is ok for the purpose of the test.
+// or you could create fake version of it for tests. 
+// eslint-disable-next-line import/no-restricted-paths
+import { realNodeRegistry } from '../exports';
+import { compile } from './compiler';
 
 describe('compiler param conversion', () => {
   test('preserves dx/dy on statically-declared colour points', () => {

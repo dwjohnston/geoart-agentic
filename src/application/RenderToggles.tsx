@@ -1,4 +1,4 @@
-import type { GraphLoadPayload } from '../graphEngine/graphEngine/graphEngine';
+import type { GraphLoadPayload } from '../graphEngine/exports';
 
 type Props = {
   renderingNodes: GraphLoadPayload['renderingNodes'];

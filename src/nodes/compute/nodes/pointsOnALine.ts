@@ -25,7 +25,7 @@ function pointsOnALine(
   });
 }
 
-const pointsOnALineNodeDef = implementComputeNode("pointsOnALine", {
+const pointsOnALineNodeImplementation = implementComputeNode("pointsOnALine", {
   isTimeDependant: false,
   defaults: {
     "pointA": {
@@ -59,4 +59,4 @@ const pointsOnALineNodeDef = implementComputeNode("pointsOnALine", {
   },
 });
 
-export default pointsOnALineNodeDef;
+export default pointsOnALineNodeImplementation;

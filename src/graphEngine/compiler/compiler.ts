@@ -5,17 +5,17 @@
 
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { Value } from '../../schema/types';
-import type { LegacyComputeNodeDef, LegacyComputeNodePortDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
-import type { LegacyRenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
-import type { LegacyControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
+import type { LegacyComputeNodeImplementation, LegacyComputeNodePortImplementation } from '../../graphEngine/externalInterfaces/ComputeNodeImplementation';
+import type { LegacyRenderNodeImplementation } from '../../graphEngine/externalInterfaces/RenderNodeImplementation';
+import type { LegacyControlNodeImplementation } from '../../graphEngine/externalInterfaces/ControlNodeImplementation';
 
-import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeDefinitions';
+import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeImplementations';
 
 /** Layer tag used to enforce direction constraints at compile time. */
 type Layer = 'control' | 'compute' | 'render';
 
 /** Union of all node definition shapes. */
-type AnyNodeDef = LegacyComputeNodeDef | LegacyRenderNodeDef | LegacyControlNodeDef;
+type AnyNodeImplementation = LegacyComputeNodeImplementation | LegacyRenderNodeImplementation | LegacyControlNodeImplementation;
 
 /**
  * Internal edge representation — produced by the compiler from inline param refs
@@ -33,7 +33,7 @@ type Edge = {
  * and records which layer it belongs to.
  */
 type CompiledNode = {
-  def: AnyNodeDef;
+  def: AnyNodeImplementation;
   layer: Layer;
   /** Static params from the serialised graph, keyed by param name. */
   params: Record<string, Value>;
@@ -312,8 +312,8 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
   for (const [toNodeId, compiledNode] of nodes.entries()) {
     const { def } = compiledNode;
     // Control nodes have no inputs — skip.
-    const inputs = ((def as LegacyComputeNodeDef).inputs ?? (def as LegacyRenderNodeDef).inputs) as
-      | LegacyComputeNodePortDef[]
+    const inputs = ((def as LegacyComputeNodeImplementation).inputs ?? (def as LegacyRenderNodeImplementation).inputs) as
+      | LegacyComputeNodePortImplementation[]
       | undefined;
     if (!inputs) continue;
 
@@ -344,7 +344,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
         );
       }
 
-      const fromDef = fromCompiledNode.def as LegacyComputeNodeDef | LegacyControlNodeDef | LegacyRenderNodeDef;
+      const fromDef = fromCompiledNode.def as LegacyComputeNodeImplementation | LegacyControlNodeImplementation | LegacyRenderNodeImplementation;
       const fromOutputs = fromDef.outputs ?? [];
       const fromPort = fromOutputs.findIndex((p) => p.name === fromPortName);
       if (fromPort === -1) {

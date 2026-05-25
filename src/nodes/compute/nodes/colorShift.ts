@@ -75,7 +75,7 @@ function blendChannel(
   return inputValue + (blendedValue - inputValue) * influence * strength;
 }
 
-const colorShiftNodeDef = implementComputeNode('colorShift', {
+const colorShiftNodeImplementation = implementComputeNode('colorShift', {
   isTimeDependant: false,
   defaults: {
     inputPoints: [],
@@ -111,4 +111,4 @@ const colorShiftNodeDef = implementComputeNode('colorShift', {
   },
 });
 
-export default colorShiftNodeDef;
+export default colorShiftNodeImplementation;

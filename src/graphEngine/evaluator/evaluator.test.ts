@@ -3,20 +3,17 @@ import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { compile } from '../compiler/compiler';
 import { tick } from './evaluator';
 import type { EvalContext } from './EvalContext';
-import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeDefinitions';
-import { computeRegistry } from '../../nodes/compute/registry';
-import { renderRegistry } from '../../nodes/render/registry';
-import { controlRegistry } from '../../nodes/control/registry';
-import { convertRenderNodeDefToLegacy, implementRenderNode } from '../../nodes/render/implementRenderNode';
+
+// I think what we're saying is that this import is ok for the purpose of the test.
+// or you could create fake version of it for tests. 
+// eslint-disable-next-line import/no-restricted-paths
+import { realNodeRegistry, convertRenderNodeImplementationToLegacy, implementRenderNode } from '../exports';
+// eslint-disable-next-line import/no-restricted-paths
+import type { LegacyNodeRegistry } from '../exports';
 import type { NodeInputsDeclared, NodeInputsResolved } from '../../schema/typeHelpers';
 import { fColorPoint } from '../../constants';
 
 
-const realNodeRegistry: LegacyNodeRegistry = {
-  computeRegistry: computeRegistry,
-  renderRegistry: renderRegistry,
-  controlRegistry: controlRegistry
-}
 
 // ---------------------------------------------------------------------------
 // Canvas mock factory
@@ -377,7 +374,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
       });
 
-      const legacyCircleDef = convertRenderNodeDefToLegacy(mockCircleDef)
+      const legacyCircleDef = convertRenderNodeImplementationToLegacy(mockCircleDef)
 
       // Create a custom registry with the mocked circle node
       const customRegistry: LegacyNodeRegistry = {
@@ -445,7 +442,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
       });
 
-      const legacyCircleDef = convertRenderNodeDefToLegacy(mockLinesThroughPoint)
+      const legacyCircleDef = convertRenderNodeImplementationToLegacy(mockLinesThroughPoint)
 
       // Create a custom registry with the mocked circle node
       const customRegistry: LegacyNodeRegistry = {

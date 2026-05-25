@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import polygonNodeDef from "./polygon";
+import polygonNodeImplementation from "./polygon";
 
-describe("polygonNodeDef", () => {
+describe("polygonNodeImplementation", () => {
 
   it("draws polygon from points", () => {
 
     const fakeContext = createFakeContext();
 
-    polygonNodeDef.evaluate({
+    polygonNodeImplementation.evaluate({
       points: [
         {
           x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
@@ -83,7 +83,7 @@ describe("polygonNodeDef", () => {
   it("does nothing with less than 3 points", () => {
     const fakeContext = createFakeContext();
 
-    polygonNodeDef.evaluate({
+    polygonNodeImplementation.evaluate({
       points: [
         {
           x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,

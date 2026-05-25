@@ -28,7 +28,7 @@ function calculateDistanceBasedT(curve: ResolvedValue<'colorPointArrayValue'>): 
 }
 
 
-const curveModulatorNodeDef = implementComputeNode('curveModulator', {
+const curveModulatorNodeImplementation = implementComputeNode('curveModulator', {
   defaults: {
     curve: [],
     modulator: null,
@@ -117,4 +117,4 @@ const curveModulatorNodeDef = implementComputeNode('curveModulator', {
   },
 });
 
-export default curveModulatorNodeDef;
+export default curveModulatorNodeImplementation;

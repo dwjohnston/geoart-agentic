@@ -1,6 +1,6 @@
 import type { Value } from '../../schema/types';
 import type { ComputeNodeKinds, NodeInputsResolved, NodeOutputsResolved } from '../../schema/typeHelpers';
-import type { LegacyComputeNodePortDef, LegacyComputeNodeDef, ComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
+import type { LegacyComputeNodePortImplementation, LegacyComputeNodeImplementation, ComputeNodeImplementation } from '../../graphEngine/externalInterfaces/ComputeNodeImplementation';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
@@ -15,7 +15,7 @@ export function implementComputeNodeLegacy<K extends DefineableComputeNodeKind>(
     defaults: NodeInputsResolved<K>,
     evaluate: (inputs: NodeInputsResolved<K>) => NodeOutputsResolved<K>;
   }
-): LegacyComputeNodeDef {
+): LegacyComputeNodeImplementation {
   const inputEntries = objectEntries(nodeInputs[kind]);
   const outputItems = nodeOutputMeta[kind];
   const inputPortNames = inputEntries.map(([name]) => name);
@@ -59,7 +59,7 @@ export function implementComputeNodeLegacy<K extends DefineableComputeNodeKind>(
 }
 
 
-export function convertComputeNodeDefinitionToLegacyDefinition<T extends ComputeNodeKinds>(value: ComputeNodeDef<T>): LegacyComputeNodeDef {
+export function convertComputeNodeImplementationToLegacy<T extends ComputeNodeKinds>(value: ComputeNodeImplementation<T>): LegacyComputeNodeImplementation {
 
 
 
@@ -77,7 +77,7 @@ export function implementComputeNode<K extends ComputeNodeKinds>(
     defaults: NodeInputsResolved<K>,
     evaluate: (inputs: NodeInputsResolved<K>) => NodeOutputsResolved<K>;
   }
-): ComputeNodeDef<K> {
+): ComputeNodeImplementation<K> {
   return {
     nodeKind: kind,
     isTimeDependant: def.isTimeDependant,
@@ -88,8 +88,8 @@ export function implementComputeNode<K extends ComputeNodeKinds>(
 
 
 //@legacy - we are trying to get rid of this
-function valueTypeToPortType(valueType: string): LegacyComputeNodePortDef['type'] {
-  const map: Record<string, LegacyComputeNodePortDef['type']> = {
+function valueTypeToPortType(valueType: string): LegacyComputeNodePortImplementation['type'] {
+  const map: Record<string, LegacyComputeNodePortImplementation['type']> = {
     numberValue: 'number',
     stringValue: 'string',
     stringArrayValue: 'string',

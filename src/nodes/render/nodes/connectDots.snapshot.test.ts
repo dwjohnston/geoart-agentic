@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import connectDotsNodeDef from "./connectDots";
+import connectDotsNodeImplementation from "./connectDots";
 
-describe("connectDotsNodeDef", () => {
+describe("connectDotsNodeImplementation", () => {
 
   it("draws lines between consecutive points", () => {
 
     const fakeContext = createFakeContext();
 
-    connectDotsNodeDef.evaluate({
+    connectDotsNodeImplementation.evaluate({
       colorPointsArray: [
         {
           x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
@@ -109,7 +109,7 @@ describe("connectDotsNodeDef", () => {
   it("does nothing with less than 2 points", () => {
     const fakeContext = createFakeContext();
 
-    connectDotsNodeDef.evaluate({
+    connectDotsNodeImplementation.evaluate({
       colorPointsArray: [
         {
           x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,
@@ -130,7 +130,7 @@ describe("connectDotsNodeDef", () => {
   it("draws catmull-rom curves through points", () => {
     const fakeContext = createFakeContext();
 
-    connectDotsNodeDef.evaluate({
+    connectDotsNodeImplementation.evaluate({
       colorPointsArray: [
         {
           x: -10, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,

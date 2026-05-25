@@ -14,17 +14,17 @@ export function generateComputeRegistryContent(nodeBasenames: string[]): string 
   const moduleList = nodeBasenames.join(', ');
 
   return `// AUTO-GENERATED — do not edit by hand. Run \`bun generate:registries\` to regenerate.
-import { convertComputeNodeDefinitionToLegacyDefinition } from './implementComputeNode';
-import type { ComputeNodeDef, LegacyComputeNodeDef } from '../../graphEngine/externalInterfaces/ComputeNodeDefinition';
+import { convertComputeNodeImplementationToLegacy } from './implementComputeNode';
+import type { ComputeNodeImplementation, LegacyComputeNodeImplementation } from '../../graphEngine/externalInterfaces/ComputeNodeImplementation';
 import type { ComputeNodeKinds } from '../../schema/typeHelpers';
 ${imports}
 
-export const computeRegistry = new Map<string, LegacyComputeNodeDef>(
+export const computeRegistry = new Map<string, LegacyComputeNodeImplementation>(
   [${moduleList}].map((def) => {
     if ('nodeKind' in def) {
-      return [def.nodeKind, convertComputeNodeDefinitionToLegacyDefinition(def as ComputeNodeDef<ComputeNodeKinds>)] as [string, LegacyComputeNodeDef];
+      return [def.nodeKind, convertComputeNodeImplementationToLegacy(def as ComputeNodeImplementation<ComputeNodeKinds>)] as [string, LegacyComputeNodeImplementation];
     }
-    return [(def as LegacyComputeNodeDef).type, def as LegacyComputeNodeDef] as [string, LegacyComputeNodeDef];
+    return [(def as LegacyComputeNodeImplementation).type, def as LegacyComputeNodeImplementation] as [string, LegacyComputeNodeImplementation];
   })
 );
 `;
@@ -37,15 +37,15 @@ export function generateRenderRegistryContent(nodeBasenames: string[]): string {
   const moduleList = nodeBasenames.join(', ');
 
   return `// AUTO-GENERATED — do not edit by hand. Run \`bun generate:registries\` to regenerate.
-import type { LegacyRenderNodeDef, RenderNodeDef } from '../../graphEngine/externalInterfaces/RenderNodeDefinition';
-import { convertRenderNodeDefToLegacy } from './implementRenderNode';
+import type { LegacyRenderNodeImplementation, RenderNodeImplementation } from '../../graphEngine/externalInterfaces/RenderNodeImplementation';
+import { convertRenderNodeImplementationToLegacy } from './implementRenderNode';
 import type { RenderNodeKinds } from '../../schema/typeHelpers';
 ${imports}
 
-export const renderRegistry = new Map<string, LegacyRenderNodeDef>(
+export const renderRegistry = new Map<string, LegacyRenderNodeImplementation>(
   [${moduleList}].map((def) => {
-    const typedDef = def as RenderNodeDef<RenderNodeKinds>;
-    return [typedDef.nodeKind, convertRenderNodeDefToLegacy(typedDef)] as [string, LegacyRenderNodeDef];
+    const typedDef = def as RenderNodeImplementation<RenderNodeKinds>;
+    return [typedDef.nodeKind, convertRenderNodeImplementationToLegacy(typedDef)] as [string, LegacyRenderNodeImplementation];
   })
 );
 `;
@@ -58,15 +58,15 @@ export function generateControlRegistryContent(nodeBasenames: string[]): string 
   const moduleList = nodeBasenames.join(', ');
 
   return `// AUTO-GENERATED — do not edit by hand. Run \`bun generate:registries\` to regenerate.
-import type { LegacyControlNodeDef, ControlNodeDef } from '../../graphEngine/externalInterfaces/ControlNodeDefinition';
-import { convertControlNodeDefToLegacy } from './implementControlNode';
+import type { LegacyControlNodeImplementation, ControlNodeImplementation } from '../../graphEngine/externalInterfaces/ControlNodeImplementation';
+import { convertControlNodeImplementationToLegacy } from './implementControlNode';
 import type { ControlNodeKinds } from '../../schema/typeHelpers';
 ${imports}
 
-export const controlRegistry = new Map<string, LegacyControlNodeDef>(
+export const controlRegistry = new Map<string, LegacyControlNodeImplementation>(
   [${moduleList}].map((def) => {
-    const typedDef = def as ControlNodeDef<ControlNodeKinds>;
-    return [typedDef.nodeKind, convertControlNodeDefToLegacy(typedDef)] as [string, LegacyControlNodeDef];
+    const typedDef = def as ControlNodeImplementation<ControlNodeKinds>;
+    return [typedDef.nodeKind, convertControlNodeImplementationToLegacy(typedDef)] as [string, LegacyControlNodeImplementation];
   })
 );
 `;

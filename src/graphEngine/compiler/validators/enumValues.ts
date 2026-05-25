@@ -1,14 +1,15 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
-import type { LegacyComputeNodeDef } from '../../../graphEngine/externalInterfaces/ComputeNodeDefinition';
-import type { LegacyRenderNodeDef } from '../../../graphEngine/externalInterfaces/RenderNodeDefinition';
+import type { LegacyComputeNodeImplementation } from '../../../graphEngine/externalInterfaces/ComputeNodeImplementation';
+import type { LegacyRenderNodeImplementation } from '../../../graphEngine/externalInterfaces/RenderNodeImplementation';
 import type { ValidationError } from './types';
 import { buildNodeMap } from './_helpers';
+import type { LegacyNodeRegistry } from '../../externalInterfaces/AllNodeImplementations';
 
 type EnumPortDef = { name: string; type: string; options?: string[] };
 
-export function validateEnumValues(graph: GeoArtGraph): ValidationError[] {
+export function validateEnumValues(graph: GeoArtGraph, registry: LegacyNodeRegistry): ValidationError[] {
   const errors: ValidationError[] = [];
-  const nodeMap = buildNodeMap(graph);
+  const nodeMap = buildNodeMap(graph, registry);
 
   const nodesWithParams = [
     ...graph.compute.nodes,
@@ -20,7 +21,7 @@ export function validateEnumValues(graph: GeoArtGraph): ValidationError[] {
     if (!entry) continue;
 
     const inputs = 'inputs' in entry.def
-      ? ((entry.def as LegacyComputeNodeDef | LegacyRenderNodeDef).inputs as EnumPortDef[])
+      ? ((entry.def as LegacyComputeNodeImplementation | LegacyRenderNodeImplementation).inputs as EnumPortDef[])
       : undefined;
     if (!inputs) continue;
 

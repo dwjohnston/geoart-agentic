@@ -1,25 +1,26 @@
 import type { GeoArtGraph } from '../../../schema/_generated/schema-types';
-import type { LegacyComputeNodeDef } from '../../../graphEngine/externalInterfaces/ComputeNodeDefinition';
-import type { LegacyRenderNodeDef } from '../../../graphEngine/externalInterfaces/RenderNodeDefinition';
+import type { LegacyComputeNodeImplementation } from '../../../graphEngine/externalInterfaces/ComputeNodeImplementation';
+import type { LegacyRenderNodeImplementation } from '../../../graphEngine/externalInterfaces/RenderNodeImplementation';
 import type { ValidationError } from './types';
-import { parseRefs, buildNodeMap, type AnyNodeDef, type NodeLayer } from './_helpers';
+import { parseRefs, buildNodeMap, type AnyNodeImplementation, type NodeLayer } from './_helpers';
+import type { LegacyNodeRegistry } from '../../externalInterfaces/AllNodeImplementations';
 
 const layerOrder: Record<NodeLayer, number> = { control: 0, compute: 1, render: 2 };
 
-function getOutputs(def: AnyNodeDef): { name: string; type: string }[] {
+function getOutputs(def: AnyNodeImplementation): { name: string; type: string }[] {
   return (def.outputs ?? []) as { name: string; type: string }[];
 }
 
-function getInputs(def: AnyNodeDef): { name: string; type: string }[] | undefined {
+function getInputs(def: AnyNodeImplementation): { name: string; type: string }[] | undefined {
   if ('inputs' in def) {
-    return ((def as LegacyComputeNodeDef | LegacyRenderNodeDef).inputs) as { name: string; type: string }[];
+    return ((def as LegacyComputeNodeImplementation | LegacyRenderNodeImplementation).inputs) as { name: string; type: string }[];
   }
   return undefined;
 }
 
-export function validateRefs(graph: GeoArtGraph): ValidationError[] {
+export function validateRefs(graph: GeoArtGraph, registry: LegacyNodeRegistry): ValidationError[] {
   const errors: ValidationError[] = [];
-  const nodeMap = buildNodeMap(graph);
+  const nodeMap = buildNodeMap(graph, registry);
   const edges = parseRefs(graph);
 
   for (const { fromNodeId, fromPortName, toNodeId, toPortName } of edges) {

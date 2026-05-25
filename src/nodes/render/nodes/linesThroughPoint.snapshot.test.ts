@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import linesThroughPointNodeDef from "./linesThroughPoint";
+import linesThroughPointNodeImplementation from "./linesThroughPoint";
 
-describe("linesThroughPointNodeDef", () => {
+describe("linesThroughPointNodeImplementation", () => {
 
   it("draws lines through points at specified degrees", () => {
 
     const fakeContext = createFakeContext();
 
-    linesThroughPointNodeDef.evaluate({
+    linesThroughPointNodeImplementation.evaluate({
       points: [
         {
           x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 1,
@@ -115,7 +115,7 @@ describe("linesThroughPointNodeDef", () => {
 
     const fakeContext = createFakeContext();
 
-    linesThroughPointNodeDef.evaluate({
+    linesThroughPointNodeImplementation.evaluate({
       points: [
         {
           x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0,

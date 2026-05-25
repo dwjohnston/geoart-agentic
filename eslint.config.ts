@@ -39,7 +39,7 @@ export default defineConfig([
           message: 'Inline import() types are not allowed. Use a top-level import statement instead.',
         },
       ],
-      "import/no-restricted-paths": ["warn", {
+      "import/no-restricted-paths": ["error", {
         "zones": [
           ...createImportNoRestrictedPathsZones({
             "application": "src/application",
@@ -53,12 +53,13 @@ export default defineConfig([
             "compiler": "src/graphEngine/compiler",
             "evaluator": "src/graphEngine/evaluator",
             "graphEngine": "src/graphEngine/graphEngine",
+            "graphEngineExports": "src/graphEngine/exports",
           }, {
             "application": {
-              allowedZones: ["common-tooling", "ui-tooling", "theSchema", "graphEngine", "algorithms"]
+              allowedZones: ["common-tooling", "ui-tooling", "theSchema", "graphEngineExports", "algorithms"]
             },
             "algorithms": {
-              allowedZones: ["common-tooling", "theSchema"]
+              allowedZones: ["common-tooling", "theSchema", "graphEngineExports"]
             },
             "common-tooling": {
               allowedZones: []
@@ -76,7 +77,10 @@ export default defineConfig([
               allowedZones: ["common-tooling", "theSchema", "compiler"]
             },
             "graphEngine": {
-              allowedZones: ["common-tooling", "theSchema", "compiler", "evaluator", "algorithms"]
+              allowedZones: ["common-tooling", "theSchema", "compiler", "evaluator", "algorithms", "nodesCompute", "nodesRender", "nodesControl"]
+            },
+            "graphEngineExports": {
+              allowedZones: ["common-tooling", "theSchema", "compiler", "evaluator", "graphEngine", "nodesCompute", "nodesRender", "nodesControl"]
             },
             "nodesCompute": {
               allowedZones: ["common-tooling", "theSchema"],

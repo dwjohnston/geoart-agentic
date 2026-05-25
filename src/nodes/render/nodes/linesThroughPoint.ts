@@ -1,7 +1,7 @@
 import { toSolidColorPoint } from '../../../domain-helpers/colorPoint';
 import { implementRenderNode } from '../implementRenderNode';
 
-const linesThroughPointNodeDef = implementRenderNode('linesThroughPoint', {
+const linesThroughPointNodeImplementation = implementRenderNode('linesThroughPoint', {
   defaults: {
     points: [],
     degrees: [0, 90],
@@ -62,4 +62,4 @@ const linesThroughPointNodeDef = implementRenderNode('linesThroughPoint', {
   },
 });
 
-export default linesThroughPointNodeDef;
+export default linesThroughPointNodeImplementation;

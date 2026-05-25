@@ -1,20 +1,16 @@
 import { describe, expect, test, mock } from 'bun:test';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { createGraphEngine } from './graphEngine';
-import { implementRenderNode, convertRenderNodeDefToLegacy } from '../../nodes/render/implementRenderNode';
-import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeDefinitions';
+import { createFakeContext } from '../../common-tooling/test-tooling/fakeContext';
+import { implementRenderNode, convertRenderNodeImplementationToLegacy } from '../../nodes/render/implementRenderNode';
+import { implementComputeNode, convertComputeNodeImplementationToLegacy } from '../../nodes/compute/implementComputeNode';
+import { implementControlNode, convertControlNodeImplementationToLegacy } from '../../nodes/control/implementControlNode';
 import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
 import { controlRegistry } from '../../nodes/control/registry';
-import { createFakeContext } from '../../common-tooling/test-tooling/fakeContext';
-import { convertComputeNodeDefinitionToLegacyDefinition, implementComputeNode } from '../../nodes/compute/implementComputeNode';
-import { convertControlNodeDefToLegacy, implementControlNode } from '../../nodes/control/implementControlNode';
+import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeImplementations';
 
-const realNodeRegistry: LegacyNodeRegistry = {
-    computeRegistry: computeRegistry,
-    renderRegistry: renderRegistry,
-    controlRegistry: controlRegistry,
-};
+const realNodeRegistry: LegacyNodeRegistry = { computeRegistry, renderRegistry, controlRegistry };
 
 
 describe("graph engine - unnecessary node evaluation", () => {
@@ -48,15 +44,15 @@ describe("graph engine - unnecessary node evaluation", () => {
             },
         });
 
-        const legacyCircleDef = convertRenderNodeDefToLegacy(mockChangingCircleDef);
-        const legacyPolygonDef = convertRenderNodeDefToLegacy(mockUnchangingPolygonDef);
+        const legacyCircleDef = convertRenderNodeImplementationToLegacy(mockChangingCircleDef);
+        const legacyPolygonDef = convertRenderNodeImplementationToLegacy(mockUnchangingPolygonDef);
 
         const renderRegistry = new Map(realNodeRegistry.renderRegistry);
         renderRegistry.set('circle', legacyCircleDef);
         renderRegistry.set('polygon', legacyPolygonDef);
 
         const computeRegistry = new Map(realNodeRegistry.computeRegistry);
-        computeRegistry.set("add", convertComputeNodeDefinitionToLegacyDefinition(implementComputeNode("add", {
+        computeRegistry.set("add", convertComputeNodeImplementationToLegacy(implementComputeNode("add", {
             isTimeDependant: false,
             "defaults": {
                 a: 0,
@@ -72,7 +68,7 @@ describe("graph engine - unnecessary node evaluation", () => {
 
         const controlRegistry = new Map(realNodeRegistry.controlRegistry);
 
-        controlRegistry.set("slider", convertControlNodeDefToLegacy(implementControlNode("slider", {
+        controlRegistry.set("slider", convertControlNodeImplementationToLegacy(implementControlNode("slider", {
             "defaults": {
                 min: 0,
                 max: 0,
@@ -195,7 +191,7 @@ describe('graph engine — render node toggling', () => {
             },
         });
 
-        const legacyCircleDef = convertRenderNodeDefToLegacy(mockCircleDef);
+        const legacyCircleDef = convertRenderNodeImplementationToLegacy(mockCircleDef);
 
         const customRegistry: LegacyNodeRegistry = {
             computeRegistry: realNodeRegistry.computeRegistry,

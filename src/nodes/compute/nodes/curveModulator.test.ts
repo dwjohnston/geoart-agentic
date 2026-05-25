@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import curveModulatorNodeDef from './curveModulator';
+import curveModulatorNodeImplementation from './curveModulator';
 import type { Sampler } from '../../../schema/typeHelpers';
 
 describe('CurveModulator', () => {
@@ -14,7 +14,7 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.1),
     };
 
-    const { points } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeImplementation.evaluate({
       curve,
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
@@ -37,7 +37,7 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.5),
     };
 
-    const { points } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeImplementation.evaluate({
       curve,
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
@@ -57,7 +57,7 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.1),
     };
 
-    const { points } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeImplementation.evaluate({
       curve: [],
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
@@ -72,7 +72,7 @@ describe('CurveModulator', () => {
       { x: 1, y: 0, r: 0, g: 0, b: 1, a: 1, dx: 1, dy: 0 },
     ];
 
-    const { points } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeImplementation.evaluate({
       curve,
       modulator: null,
       "cycleLengthMode": "arrayLength",
@@ -93,7 +93,7 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.1),
     };
 
-    const { points } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeImplementation.evaluate({
       curve,
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
@@ -116,7 +116,7 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.1),
     };
 
-    const { points } = curveModulatorNodeDef.evaluate({
+    const { points } = curveModulatorNodeImplementation.evaluate({
       curve,
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
@@ -142,7 +142,7 @@ describe('CurveModulator', () => {
       sampleMany: (ts: number[]) => ts.map(() => 0.1),
     };
 
-    curveModulatorNodeDef.evaluate({
+    curveModulatorNodeImplementation.evaluate({
       curve,
       modulator: sampler,
       "cycleLengthMode": "arrayLength",

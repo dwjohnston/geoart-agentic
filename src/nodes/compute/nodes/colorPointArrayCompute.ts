@@ -9,7 +9,7 @@ import { implementComputeNode } from '../implementComputeNode';
  * channel" in a colour shift. We must preserve them as-is and never coerce
  * nulls.
  */
-const colorPointArrayNodeDef = implementComputeNode('colorPointArrayCompute', {
+const colorPointArrayNodeImplementation = implementComputeNode('colorPointArrayCompute', {
   isTimeDependant: false,
   defaults: {
     points: [],
@@ -21,4 +21,4 @@ const colorPointArrayNodeDef = implementComputeNode('colorPointArrayCompute', {
   },
 });
 
-export default colorPointArrayNodeDef;
+export default colorPointArrayNodeImplementation;

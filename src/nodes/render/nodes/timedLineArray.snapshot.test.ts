@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import { createFakeContext } from "../../../common-tooling/test-tooling/fakeContext"
-import timedLineArrayNodeDef from "./timedLineArray";
+import timedLineArrayNodeImplementation from "./timedLineArray";
 import type { NodeInputsResolved } from '../../../schema/typeHelpers';
 
 function createCtxWithState(fakeContext: ReturnType<typeof createFakeContext>) {
@@ -14,13 +14,13 @@ function createCtxWithState(fakeContext: ReturnType<typeof createFakeContext>) {
   };
 }
 
-describe("timedLineArrayNodeDef", () => {
+describe("timedLineArrayNodeImplementation", () => {
 
   it("mode: 'all-to-all' draws all A×B links", () => {
 
     const fakeContext = createFakeContext();
 
-    timedLineArrayNodeDef.evaluate({
+    timedLineArrayNodeImplementation.evaluate({
       intervalTicks: 6,
       mode: 'all-to-all',
       intervalMode: 'all',
@@ -282,7 +282,7 @@ describe("timedLineArrayNodeDef", () => {
     const fakeContext = createFakeContext();
 
     // A[0]→B[0], A[1]→B[1]
-    timedLineArrayNodeDef.evaluate({
+    timedLineArrayNodeImplementation.evaluate({
       intervalTicks: 6,
       mode: 'interleave',
       intervalMode: 'all',
@@ -434,7 +434,7 @@ describe("timedLineArrayNodeDef", () => {
     // floor(0*2/4)=0, floor(1*2/4)=0, floor(2*2/4)=1, floor(3*2/4)=1
     // A[0](-0.75,0)→B[0](0,0.5), A[1](-0.25,0)→B[0](0,0.5)
     // A[2](0.25,0)→B[1](0,-0.5), A[3](0.75,0)→B[1](0,-0.5)
-    timedLineArrayNodeDef.evaluate({
+    timedLineArrayNodeImplementation.evaluate({
       intervalTicks: 6,
       mode: 'distribute',
       intervalMode: 'all',
@@ -722,8 +722,8 @@ describe("timedLineArrayNodeDef", () => {
     const ctx1 = createCtxWithState(fakeContext1);
     const ctx2 = createCtxWithState(fakeContext2);
 
-    timedLineArrayNodeDef.evaluate(sharedInputs, ctx1);
-    timedLineArrayNodeDef.evaluate(sharedInputs, ctx1);
+    timedLineArrayNodeImplementation.evaluate(sharedInputs, ctx1);
+    timedLineArrayNodeImplementation.evaluate(sharedInputs, ctx1);
 
     // Call 1: counter=0 → link[0]: A[0](50,50)→B[0](75,25)
     // Call 2: counter=1 → link[1]: A[0](50,50)→B[1](25,75)
@@ -857,7 +857,7 @@ describe("timedLineArrayNodeDef", () => {
     `);
 
     // Independent second context gets fresh state — draws link 0 only
-    timedLineArrayNodeDef.evaluate(sharedInputs, ctx2);
+    timedLineArrayNodeImplementation.evaluate(sharedInputs, ctx2);
     expect(fakeContext2.getCalls()).toMatchInlineSnapshot(`
       [
         {
@@ -950,10 +950,10 @@ describe("timedLineArrayNodeDef", () => {
     // Call 2: counter=1 → getPingPong(1,3)=1 → link[1]: A[0](50,50)→B[1](50,25)
     // Call 3: counter=2 → getPingPong(2,3)=2 → link[2]: A[0](50,50)→B[2](75,50)
     // Call 4: counter=3 → getPingPong(3,3)=1 → link[1]: A[0](50,50)→B[1](50,25)
-    timedLineArrayNodeDef.evaluate(inputs, ctx);
-    timedLineArrayNodeDef.evaluate(inputs, ctx);
-    timedLineArrayNodeDef.evaluate(inputs, ctx);
-    timedLineArrayNodeDef.evaluate(inputs, ctx);
+    timedLineArrayNodeImplementation.evaluate(inputs, ctx);
+    timedLineArrayNodeImplementation.evaluate(inputs, ctx);
+    timedLineArrayNodeImplementation.evaluate(inputs, ctx);
+    timedLineArrayNodeImplementation.evaluate(inputs, ctx);
 
     expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
@@ -1236,9 +1236,9 @@ describe("timedLineArrayNodeDef", () => {
 
     // B pixel x coords: -0.75→12.5, -0.25→37.5, 0.25→62.5, 0.75→87.5; y=0→50
     // A: (50,50)
-    timedLineArrayNodeDef.evaluate(inputs, ctx); // step0 → links[1,2]
-    timedLineArrayNodeDef.evaluate(inputs, ctx); // step1 → links[0,3]
-    timedLineArrayNodeDef.evaluate(inputs, ctx); // step0 again → links[1,2]
+    timedLineArrayNodeImplementation.evaluate(inputs, ctx); // step0 → links[1,2]
+    timedLineArrayNodeImplementation.evaluate(inputs, ctx); // step1 → links[0,3]
+    timedLineArrayNodeImplementation.evaluate(inputs, ctx); // step0 again → links[1,2]
 
     expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [
@@ -1627,9 +1627,9 @@ describe("timedLineArrayNodeDef", () => {
       ],
     } satisfies NodeInputsResolved<"timedLineArray">;
 
-    timedLineArrayNodeDef.evaluate(inputs, ctx); // step0 → links[1,2]
-    timedLineArrayNodeDef.evaluate(inputs, ctx); // step1 → links[0,3]
-    timedLineArrayNodeDef.evaluate(inputs, ctx); // getPingPong(2,2)=0 → links[1,2]
+    timedLineArrayNodeImplementation.evaluate(inputs, ctx); // step0 → links[1,2]
+    timedLineArrayNodeImplementation.evaluate(inputs, ctx); // step1 → links[0,3]
+    timedLineArrayNodeImplementation.evaluate(inputs, ctx); // getPingPong(2,2)=0 → links[1,2]
 
     expect(fakeContext.getCalls()).toMatchInlineSnapshot(`
       [

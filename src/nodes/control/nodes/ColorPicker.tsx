@@ -1,7 +1,7 @@
 import { implementControlNode } from '../implementControlNode';
 import { ColorPickerControl } from '../ui/ColorPickerControl';
 
-const colorPickerNodeDef = implementControlNode('colorPicker', {
+const colorPickerNodeImplementation = implementControlNode('colorPicker', {
   defaults: {
     label: '',
     value: { r: 1, g: 1, b: 1, a: 1 },
@@ -18,4 +18,4 @@ const colorPickerNodeDef = implementControlNode('colorPicker', {
   },
 });
 
-export default colorPickerNodeDef;
+export default colorPickerNodeImplementation;
