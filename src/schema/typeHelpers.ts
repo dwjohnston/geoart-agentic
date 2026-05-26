@@ -107,8 +107,15 @@ export type ValidPortReferenceForNodeInputPort<
   : never;
 export type NodeAccumulator = { nodeType: keyof typeof nodeOutputMeta; nodeId: string };
 
-// For array ports: the top-level ref is constrained, but items within { v: [...] } follow
-// the unconstrained ValueDeclared (items may be static or any ref string).
+// Any valid nodeId.portName across all accumulated nodes, regardless of value type.
+// Used to constrain refs within array items.
+export type ValidPortReferenceForAnyOutput<Acc extends NodeAccumulator> =
+  Acc extends { nodeType: infer NT extends keyof typeof nodeOutputMeta; nodeId: infer NId extends string }
+  ? `${NId}.${typeof nodeOutputMeta[NT][number]['name']}`
+  : never;
+
+// Top-level ref: type-matched via ValidPortReferenceForNodeInputPort.
+// Array item refs: any valid nodeId.portName in Acc (existence check, no type matching).
 type ConstrainedValueDeclared<
   Kind extends ValueTypeNames,
   K extends keyof typeof nodeInputs,
@@ -116,7 +123,7 @@ type ConstrainedValueDeclared<
   Acc extends NodeAccumulator
 > = IsArrayValueType<Kind> extends true
   ? { ref: ValidPortReferenceForNodeInputPort<K, Port, Acc> }
-    | { v: Array<ValueDeclared<ArrayItemType<Kind>>> }
+    | { v: Array<{ ref: ValidPortReferenceForAnyOutput<Acc> } | StaticValueDeclared<ArrayItemType<Kind>>> }
   : StaticValueDeclared<Kind>
     | { ref: ValidPortReferenceForNodeInputPort<K, Port, Acc> };
 

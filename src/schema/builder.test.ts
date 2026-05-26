@@ -383,6 +383,14 @@ describe(AlgorithmBuilder, () => {
                                     ref: 'earthOrbit1.point',
                                 },
                                 {
+                                    //@ts-expect-error - garbage shouldn't be valid
+                                    ref: 'asdsad.point',
+                                },
+                                {
+                                    //@ts-expect-error - garbage shouldn't be valid
+                                    ref: 'earthOrbit1.asdasd',
+                                },
+                                {
                                     v: { x: 0.8, y: 0.2, dx: 0, dy: 0, r: 0, g: 0, b: 1, a: 1 },
                                 },
                             ],
