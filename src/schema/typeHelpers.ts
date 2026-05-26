@@ -83,6 +83,67 @@ export type ValueDeclared<T extends ValueTypeNames> =
 
 
 
+/**
+ * Produces the valid ref strings for a given node type and instance id.
+ * e.g. PortReferenceForNodeType<'orbit', 'myOrbit'> = 'myOrbit.point' | 'myOrbit.points'
+ * Render nodes (no outputs) resolve to never.
+ */
+export type PortReferenceForNodeType<
+  NodeType extends keyof typeof nodeOutputMeta,
+  NodeId extends string
+> = `${NodeId}.${typeof nodeOutputMeta[NodeType][number]['name']}`
+
+type InputPortValueType<
+  K extends keyof typeof nodeInputs,
+  Port extends keyof typeof nodeInputs[K]
+> = typeof nodeInputs[K][Port] extends { valueType: infer VT extends string } ? VT : never;
+
+export type ValidPortReferenceForNodeInputPort<
+  TargetNodeType extends keyof typeof nodeInputs,
+  Port extends keyof typeof nodeInputs[TargetNodeType],
+  AvailableNodes extends { nodeType: keyof typeof nodeOutputMeta; nodeId: string }
+> = AvailableNodes extends { nodeType: infer NT extends keyof typeof nodeOutputMeta; nodeId: infer NId extends string }
+  ? `${NId}.${Extract<typeof nodeOutputMeta[NT][number], { valueType: InputPortValueType<TargetNodeType, Port> }>['name']}`
+  : never;
+export type NodeAccumulator = { nodeType: keyof typeof nodeOutputMeta; nodeId: string };
+
+// Any valid nodeId.portName across all accumulated nodes, regardless of value type.
+// Used to constrain refs within array items.
+export type ValidPortReferenceForAnyOutput<Acc extends NodeAccumulator> =
+  Acc extends { nodeType: infer NT extends keyof typeof nodeOutputMeta; nodeId: infer NId extends string }
+  ? `${NId}.${typeof nodeOutputMeta[NT][number]['name']}`
+  : never;
+
+// Top-level ref: type-matched via ValidPortReferenceForNodeInputPort.
+// Array item refs: any valid nodeId.portName in Acc (existence check, no type matching).
+type ConstrainedValueDeclared<
+  Kind extends ValueTypeNames,
+  K extends keyof typeof nodeInputs,
+  Port extends keyof typeof nodeInputs[K],
+  Acc extends NodeAccumulator
+> = IsArrayValueType<Kind> extends true
+  ? { ref: ValidPortReferenceForNodeInputPort<K, Port, Acc> }
+    | { v: Array<{ ref: ValidPortReferenceForAnyOutput<Acc> } | StaticValueDeclared<ArrayItemType<Kind>>> }
+  : StaticValueDeclared<Kind>
+    | { ref: ValidPortReferenceForNodeInputPort<K, Port, Acc> };
+
+export type ConstrainedNodeInputsDeclared<
+  K extends keyof typeof nodeInputs,
+  Acc extends NodeAccumulator
+> = {
+  [Port in keyof typeof nodeInputs[K]]?:
+    typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
+    ? K extends ControlNodeKinds
+      ? StaticValueDeclared<VT extends `${infer Kind}Value` ? Kind : never>
+      : ConstrainedValueDeclared<
+          VT extends `${infer Kind}Value` ? Kind extends ValueTypeNames ? Kind : never : never,
+          K,
+          Port,
+          Acc
+        >
+    : never
+}
+
 // Remember, Control nodes inputs can not be refererenced values.
 export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
   [Port in keyof typeof nodeInputs[K]]?: typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }

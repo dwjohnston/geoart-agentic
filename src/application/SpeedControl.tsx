@@ -1,4 +1,4 @@
-const SPEED_VALUES = [1/8, 1/6, 1/4, 1/3, 1/2, 1, 2, 3, 4, 6, 8];
+const SPEED_VALUES = [1 / 8, 1 / 6, 1 / 4, 1 / 3, 1 / 2, 1, 2, 3, 4, 6, 8, 16, 32, 64, 128, 256, 512, 1024];
 
 function formatSpeed(v: number): string {
   if (v < 1) return `1/${Math.round(1 / v)}×`;

@@ -3,7 +3,7 @@ import { describe, it, expect } from 'bun:test';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function assertType<T>(_value: T) { }
-import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared } from './typeHelpers';
+import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType, type ValidPortReferenceForNodeInputPort, type ConstrainedNodeInputsDeclared } from './typeHelpers';
 import type { GeoArtGraph } from './_generated/schema-types';
 import { fColorPoint } from '../constants';
 
@@ -557,5 +557,169 @@ describe("NodeInputsDeclared", () => {
         assertType<NodeInputsDeclared<"add">>({});
 
         assertType<NodeInputsDeclared<"slider">>({});
+    });
+});
+
+describe("PortReferenceForNodeType", () => {
+    it("single-output node produces nodeId.portName", () => {
+        assertType<PortReferenceForNodeType<"slider", "s1">>("s1.value");
+        assertType<PortReferenceForNodeType<"time", "t">>("t.time");
+        assertType<PortReferenceForNodeType<"add", "adder">>("adder.sum");
+
+        //@ts-expect-error - wrong port name
+        assertType<PortReferenceForNodeType<"add", "adder">>("adder.value");
+
+        //@ts-expect-error - wrong node id prefix
+        assertType<PortReferenceForNodeType<"add", "adder">>("other.sum");
+    });
+
+    it("multi-output node produces a union of all port refs", () => {
+        assertType<PortReferenceForNodeType<"orbit", "o">>("o.point");
+        assertType<PortReferenceForNodeType<"orbit", "o">>("o.points");
+
+        //@ts-expect-error - not a valid orbit output port
+        assertType<PortReferenceForNodeType<"orbit", "o">>("o.value");
+    });
+
+    it("render node (no outputs) resolves to never", () => {
+        // @ts-expect-error - render nodes have no outputs, so this is never
+        assertType<PortReferenceForNodeType<"circle", "c">>("c.anything");
+    });
+
+    it("constraint rejects non-node-kinds", () => {
+        // @ts-expect-error - not a valid node kind
+        assertType<PortReferenceForNodeType<"notANode", "x">>("x.value");
+    });
+});
+
+describe("ConstrainedNodeInputsDeclared", () => {
+    type WithSlider = { nodeType: "slider"; nodeId: "s1" };
+    type WithOrbit  = { nodeType: "orbit";  nodeId: "o1" };
+    type WithBoth   = WithSlider | WithOrbit;
+
+    describe("with Acc = never (no prior nodes)", () => {
+        it("accepts static values", () => {
+            assertType<ConstrainedNodeInputsDeclared<"add", never>>({ a: { v: 1 }, b: { v: 2 } });
+        });
+
+        it("rejects any ref string", () => {
+            assertType<ConstrainedNodeInputsDeclared<"add", never>>({
+                // @ts-expect-error - no prior nodes, so no valid refs exist
+                a: { ref: "anything.value" },
+            });
+        });
+    });
+
+    describe("compute node with accumulated nodes", () => {
+        it("accepts a ref to a matching output port", () => {
+            // slider outputs numberValue; orbit.radius expects numberValue
+            assertType<ConstrainedNodeInputsDeclared<"orbit", WithSlider>>({
+                radius: { ref: "s1.value" },
+            });
+        });
+
+        it("rejects a ref to an unknown node id", () => {
+            assertType<ConstrainedNodeInputsDeclared<"orbit", WithSlider>>({
+                // @ts-expect-error - "xyz" is not a declared node id
+                radius: { ref: "xyz.value" },
+            });
+        });
+
+        it("rejects a ref whose output type does not match the input port", () => {
+            // orbit outputs pointValue / colorPointArrayValue, not numberValue
+            assertType<ConstrainedNodeInputsDeclared<"orbit", WithOrbit>>({
+                // @ts-expect-error - orbit.points is colorPointArrayValue, not numberValue
+                radius: { ref: "o1.points" },
+            });
+        });
+
+        it("accepts static values alongside valid refs", () => {
+            assertType<ConstrainedNodeInputsDeclared<"orbit", WithBoth>>({
+                time:   { v: 0 },
+                radius: { ref: "s1.value" },
+                speed:  { v: 1 },
+            });
+        });
+
+        it("all ports are optional", () => {
+            assertType<ConstrainedNodeInputsDeclared<"orbit", WithBoth>>({});
+        });
+    });
+
+    describe("array-type port", () => {
+        it("accepts a ref to the whole array", () => {
+            // orbit.points is colorPointArrayValue — matches circle.centerPoints
+            assertType<ConstrainedNodeInputsDeclared<"circle", WithOrbit>>({
+                centerPoints: { ref: "o1.points" },
+            });
+        });
+
+        it("accepts a static array of static values", () => {
+            assertType<ConstrainedNodeInputsDeclared<"circle", WithBoth>>({
+                centerPoints: { v: [{ v: fColorPoint() }] },
+            });
+        });
+
+        it("accepts a static array of mixed static and ref items", () => {
+            assertType<ConstrainedNodeInputsDeclared<"circle", WithBoth>>({
+                centerPoints: { v: [{ v: fColorPoint() }, { ref: "o1.points" }] },
+            });
+        });
+
+        it("rejects a top-level ref to a non-matching output", () => {
+            // slider outputs numberValue, not colorPointArrayValue
+            assertType<ConstrainedNodeInputsDeclared<"circle", WithSlider>>({
+                // @ts-expect-error - s1.value is numberValue, not colorPointArrayValue
+                centerPoints: { ref: "s1.value" },
+            });
+        });
+    });
+
+    describe("control node", () => {
+        it("only accepts static values regardless of Acc", () => {
+            assertType<ConstrainedNodeInputsDeclared<"slider", WithSlider>>({ value: { v: 5 } });
+        });
+
+        it("rejects refs even when Acc has matching nodes", () => {
+            assertType<ConstrainedNodeInputsDeclared<"slider", WithSlider>>({
+                // @ts-expect-error - control nodes never accept refs
+                value: { ref: "s1.value" },
+            });
+        });
+    });
+});
+
+describe("ValidPortReferenceForNodeInputPort", () => {
+    type AvailableNodes =
+        | { nodeType: "orbit";  nodeId: "myorbit" }
+        | { nodeType: "slider"; nodeId: "myslider" }
+        | { nodeType: "slider"; nodeId: "myotherslider" };
+
+    it("returns only refs whose output type matches the input port", () => {
+        // orbit.radius is numberValue — only slider outputs match
+        assertType<ValidPortReferenceForNodeInputPort<"orbit", "radius", AvailableNodes>>("myslider.value");
+        assertType<ValidPortReferenceForNodeInputPort<"orbit", "radius", AvailableNodes>>("myotherslider.value");
+
+        // @ts-expect-error - orbit outputs pointValue / colorPointArrayValue, not numberValue
+        assertType<ValidPortReferenceForNodeInputPort<"orbit", "radius", AvailableNodes>>("myorbit.points");
+    });
+
+    it("matches on port value type, not node kind", () => {
+        type OnlyOrbit = { nodeType: "orbit"; nodeId: "o" };
+        // orbit outputs pointValue — matches orbit.center (pointValue input)
+        assertType<ValidPortReferenceForNodeInputPort<"circle", "center", OnlyOrbit>>("o.point");
+
+        // @ts-expect-error - orbit.points is colorPointArrayValue, not pointValue
+        assertType<ValidPortReferenceForNodeInputPort<"circle", "center", OnlyOrbit>>("o.points");
+    });
+
+    it("resolves to never when no available node has a matching output", () => {
+        type OnlyTime = { nodeType: "time"; nodeId: "t" };
+        // circle.center expects pointValue; time outputs numberValue — no match
+        type Result = ValidPortReferenceForNodeInputPort<"circle", "center", OnlyTime>;
+        assertType<Result>(
+            // @ts-expect-error - never
+            "t.time"
+        );
     });
 });

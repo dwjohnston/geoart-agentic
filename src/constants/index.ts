@@ -13,3 +13,12 @@ export function fColorPoint(partial: Partial<ResolvedValue<"colorPointValue">> =
         ...partial
     }
 }
+
+
+export function wrapInV<T extends Record<string, unknown>>(
+    obj: T
+): { [K in keyof T]: { v: T[K] } } {
+    return Object.fromEntries(
+        Object.entries(obj).map(([key, value]) => [key, { v: value }])
+    ) as { [K in keyof T]: { v: T[K] } };
+}
