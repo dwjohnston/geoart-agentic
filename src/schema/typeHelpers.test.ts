@@ -3,7 +3,7 @@ import { describe, it, expect } from 'bun:test';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function assertType<T>(_value: T) { }
-import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared } from './typeHelpers';
+import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType } from './typeHelpers';
 import type { GeoArtGraph } from './_generated/schema-types';
 import { fColorPoint } from '../constants';
 
@@ -557,5 +557,37 @@ describe("NodeInputsDeclared", () => {
         assertType<NodeInputsDeclared<"add">>({});
 
         assertType<NodeInputsDeclared<"slider">>({});
+    });
+});
+
+describe("PortReferenceForNodeType", () => {
+    it("single-output node produces nodeId.portName", () => {
+        assertType<PortReferenceForNodeType<"slider", "s1">>("s1.value");
+        assertType<PortReferenceForNodeType<"time", "t">>("t.time");
+        assertType<PortReferenceForNodeType<"add", "adder">>("adder.sum");
+
+        //@ts-expect-error - wrong port name
+        assertType<PortReferenceForNodeType<"add", "adder">>("adder.value");
+
+        //@ts-expect-error - wrong node id prefix
+        assertType<PortReferenceForNodeType<"add", "adder">>("other.sum");
+    });
+
+    it("multi-output node produces a union of all port refs", () => {
+        assertType<PortReferenceForNodeType<"orbit", "o">>("o.point");
+        assertType<PortReferenceForNodeType<"orbit", "o">>("o.points");
+
+        //@ts-expect-error - not a valid orbit output port
+        assertType<PortReferenceForNodeType<"orbit", "o">>("o.value");
+    });
+
+    it("render node (no outputs) resolves to never", () => {
+        // @ts-expect-error - render nodes have no outputs, so this is never
+        assertType<PortReferenceForNodeType<"circle", "c">>("c.anything");
+    });
+
+    it("constraint rejects non-node-kinds", () => {
+        // @ts-expect-error - not a valid node kind
+        assertType<PortReferenceForNodeType<"notANode", "x">>("x.value");
     });
 });

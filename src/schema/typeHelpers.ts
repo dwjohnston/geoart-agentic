@@ -84,18 +84,14 @@ export type ValueDeclared<T extends ValueTypeNames> =
 
 
 /**
- * POC: hardcoded for orbit, slider, time only.
  * Produces the valid ref strings for a given node type and instance id.
  * e.g. PortReferenceForNodeType<'orbit', 'myOrbit'> = 'myOrbit.point' | 'myOrbit.points'
+ * Render nodes (no outputs) resolve to never.
  */
 export type PortReferenceForNodeType<
-    NodeType extends 'orbit' | 'slider' | 'time',
+    NodeType extends keyof typeof nodeOutputMeta,
     NodeId extends string
-> =
-    NodeType extends 'orbit'  ? `${NodeId}.point` | `${NodeId}.points` :
-    NodeType extends 'slider' ? `${NodeId}.value` :
-    NodeType extends 'time'   ? `${NodeId}.time` :
-    never;
+> = `${NodeId}.${typeof nodeOutputMeta[NodeType][number]['name']}`
 
 // Remember, Control nodes inputs can not be refererenced values.
 export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
