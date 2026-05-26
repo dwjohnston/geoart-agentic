@@ -89,10 +89,22 @@ export type ValueDeclared<T extends ValueTypeNames> =
  * Render nodes (no outputs) resolve to never.
  */
 export type PortReferenceForNodeType<
-    NodeType extends keyof typeof nodeOutputMeta,
-    NodeId extends string
+  NodeType extends keyof typeof nodeOutputMeta,
+  NodeId extends string
 > = `${NodeId}.${typeof nodeOutputMeta[NodeType][number]['name']}`
 
+type InputPortValueType<
+  K extends keyof typeof nodeInputs,
+  Port extends keyof typeof nodeInputs[K]
+> = typeof nodeInputs[K][Port] extends { valueType: infer VT extends string } ? VT : never;
+
+export type ValidPortReferenceForNodeInputPort<
+  TargetNodeType extends keyof typeof nodeInputs,
+  Port extends keyof typeof nodeInputs[TargetNodeType],
+  AvailableNodes extends { nodeType: keyof typeof nodeOutputMeta; nodeId: string }
+> = AvailableNodes extends { nodeType: infer NT extends keyof typeof nodeOutputMeta; nodeId: infer NId extends string }
+  ? `${NId}.${Extract<typeof nodeOutputMeta[NT][number], { valueType: InputPortValueType<TargetNodeType, Port> }>['name']}`
+  : never;
 // Remember, Control nodes inputs can not be refererenced values.
 export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
   [Port in keyof typeof nodeInputs[K]]?: typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }

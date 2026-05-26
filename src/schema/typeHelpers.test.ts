@@ -3,7 +3,7 @@ import { describe, it, expect } from 'bun:test';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function assertType<T>(_value: T) { }
-import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType } from './typeHelpers';
+import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType, type ValidPortReferenceForNodeInputPort } from './typeHelpers';
 import type { GeoArtGraph } from './_generated/schema-types';
 import { fColorPoint } from '../constants';
 
@@ -589,5 +589,40 @@ describe("PortReferenceForNodeType", () => {
     it("constraint rejects non-node-kinds", () => {
         // @ts-expect-error - not a valid node kind
         assertType<PortReferenceForNodeType<"notANode", "x">>("x.value");
+    });
+});
+
+describe("ValidPortReferenceForNodeInputPort", () => {
+    type AvailableNodes =
+        | { nodeType: "orbit";  nodeId: "myorbit" }
+        | { nodeType: "slider"; nodeId: "myslider" }
+        | { nodeType: "slider"; nodeId: "myotherslider" };
+
+    it("returns only refs whose output type matches the input port", () => {
+        // orbit.radius is numberValue — only slider outputs match
+        assertType<ValidPortReferenceForNodeInputPort<"orbit", "radius", AvailableNodes>>("myslider.value");
+        assertType<ValidPortReferenceForNodeInputPort<"orbit", "radius", AvailableNodes>>("myotherslider.value");
+
+        // @ts-expect-error - orbit outputs pointValue / colorPointArrayValue, not numberValue
+        assertType<ValidPortReferenceForNodeInputPort<"orbit", "radius", AvailableNodes>>("myorbit.points");
+    });
+
+    it("matches on port value type, not node kind", () => {
+        type OnlyOrbit = { nodeType: "orbit"; nodeId: "o" };
+        // orbit outputs pointValue — matches orbit.center (pointValue input)
+        assertType<ValidPortReferenceForNodeInputPort<"circle", "center", OnlyOrbit>>("o.point");
+
+        // @ts-expect-error - orbit.points is colorPointArrayValue, not pointValue
+        assertType<ValidPortReferenceForNodeInputPort<"circle", "center", OnlyOrbit>>("o.points");
+    });
+
+    it("resolves to never when no available node has a matching output", () => {
+        type OnlyTime = { nodeType: "time"; nodeId: "t" };
+        // circle.center expects pointValue; time outputs numberValue — no match
+        type Result = ValidPortReferenceForNodeInputPort<"circle", "center", OnlyTime>;
+        assertType<Result>(
+            // @ts-expect-error - never
+            "t.time"
+        );
     });
 });
