@@ -61,8 +61,6 @@ const colorPointNodeImplementation = implementComputeNode('colorPointCompute', {
       dy,
     };
 
-    console.log(pointProvided, colorProvided, colorPoint)
-
     return {
       colorPoint,
       // `colorPoints` must always be an array containing exactly one point.

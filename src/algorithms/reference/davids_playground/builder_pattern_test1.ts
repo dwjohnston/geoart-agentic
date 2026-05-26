@@ -1,4 +1,3 @@
-import { fColorPoint, wrapInV } from "../../../constants";
 import { AlgorithmBuilder } from "../../../schema/builder";
 
 
@@ -14,10 +13,74 @@ const graph = new AlgorithmBuilder({
         params: {
             label: { v: "num points" },
             "min": { v: 1 },
-            max: { v: 100 },
+            max: { v: 5000 },
             "step": { v: 1 },
             value: {
                 v: 25,
+            }
+        }
+    })
+    .addControlNode({
+        "id": "temporalImpact1",
+        type: "slider",
+        params: {
+            label: { v: "temporal impact1" },
+            "min": { v: 0 },
+            max: { v: 1 },
+            "step": { v: 0.01 },
+            value: {
+                v: 0.1,
+            }
+        }
+    })
+    .addControlNode({
+        "id": "temporalImpact2",
+        type: "slider",
+        params: {
+            label: { v: "temporal impact2" },
+            "min": { v: 0 },
+            max: { v: 1 },
+            "step": { v: 0.01 },
+            value: {
+                v: 0.1,
+            }
+        }
+    })
+    .addControlNode({
+        type: "timedLineArrayModeSelector",
+        id: "tl-mode",
+        params: {
+            label: {
+                "v": "interval mode"
+            },
+            "value": {
+                v: "distribute"
+            }
+        }
+    })
+
+    .addControlNode({
+        type: "timedLineArrayIntervalModeSelector",
+        id: "tl-mode-b",
+        params: {
+            label: {
+                "v": "interval mode"
+            },
+            "value": {
+                v: "inside-out"
+            }
+        }
+    })
+    .addControlNode({
+        "id": "opacity",
+        type: "slider",
+        params: {
+            label: { v: "opacity" },
+            "min": { v: 0 },
+            max: { v: 1 },
+            "step": { v: 0.001 },
+            value: {
+                v: 0.01,
             }
         }
     })
@@ -41,7 +104,7 @@ const graph = new AlgorithmBuilder({
         params: {
             label: { v: "freq1" },
             "min": { v: 0.01 },
-            max: { v: 5 },
+            max: { v: 50 },
             "step": { v: 0.01 },
             value: {
                 v: 1,
@@ -53,6 +116,59 @@ const graph = new AlgorithmBuilder({
         type: "slider",
         params: {
             label: { v: "amp1" },
+            "min": { v: 0 },
+            max: { v: 10 },
+            "step": { v: 0.01 },
+            value: {
+                v: 0.3,
+            }
+        }
+    })
+    .addControlNode({
+        "id": "wave1FMFreq",
+        type: "slider",
+        params: {
+            label: { v: "FM freq" },
+            "min": { v: 0.01 },
+            max: { v: 50 },
+            "step": { v: 0.01 },
+            value: {
+                v: 1,
+            }
+        }
+    })
+    .addControlNode({
+        "id": "wave1FMSamp",
+        type: "slider",
+        params: {
+            label: { v: "FM amp" },
+            "min": { v: 0 },
+            max: { v: 10 },
+            "step": { v: 0.01 },
+            value: {
+                v: 0.3,
+            }
+        }
+    })
+
+    .addControlNode({
+        "id": "freq2",
+        type: "slider",
+        params: {
+            label: { v: "freq2" },
+            "min": { v: 0.01 },
+            max: { v: 50 },
+            "step": { v: 0.01 },
+            value: {
+                v: 1,
+            }
+        }
+    })
+    .addControlNode({
+        "id": "amp2",
+        type: "slider",
+        params: {
+            label: { v: "amp2" },
             "min": { v: 0 },
             max: { v: 1 },
             "step": { v: 0.01 },
@@ -66,6 +182,8 @@ const graph = new AlgorithmBuilder({
         id: "time",
         params: {}
     })
+
+
     .addComputeNode({
         type: "wave",
         id: "wave-1",
@@ -78,12 +196,28 @@ const graph = new AlgorithmBuilder({
             },
             amplitude: { ref: "amp1.value" },
             "samplerTemporalImpact": {
-                v: 0.1
+                ref: "temporalImpact1.value"
             }
 
         }
     })
+    .addComputeNode({
+        type: "wave",
+        id: "wave-2",
+        "params": {
+            frequency: {
+                ref: "freq2.value"
+            },
+            "time": {
+                ref: "time.time"
+            },
+            amplitude: { ref: "amp2.value" },
+            "samplerTemporalImpact": {
+                ref: "temporalImpact2.value"
+            }
 
+        }
+    })
     .addComputeNode({
         "type": "colorPointCompute",
         "id": "cp1",
@@ -98,7 +232,7 @@ const graph = new AlgorithmBuilder({
                 v: 0,
             },
             a: {
-                v: 0.2,
+                ref: "opacity.value"
             },
             x: {
                 v: -0.8
@@ -122,7 +256,7 @@ const graph = new AlgorithmBuilder({
                 v: 0,
             },
             a: {
-                v: 0.2,
+                ref: "opacity.value"
             },
             x: {
                 v: 0.8
@@ -147,7 +281,7 @@ const graph = new AlgorithmBuilder({
                 v: 1,
             },
             a: {
-                v: 0.2,
+                ref: "opacity.value"
             },
             x: {
                 v: 0
@@ -232,6 +366,45 @@ const graph = new AlgorithmBuilder({
             },
             "curve": {
                 ref: "line-c.points"
+            }
+        }
+    })
+
+    .addComputeNode({
+        'type': "curveModulator",
+        id: 'curve-mod-1-b',
+        params: {
+            "modulator": {
+                "ref": "wave-2.sampler"
+            },
+            "curve": {
+                ref: "curve-mod-1.points"
+            },
+
+        }
+    })
+    .addComputeNode({
+        'type': "curveModulator",
+        id: 'curve-mod-2-b',
+        params: {
+            "modulator": {
+                "ref": "wave-2.sampler"
+            },
+            "curve": {
+                ref: "curve-mod-2.points"
+            },
+
+        }
+    })
+    .addComputeNode({
+        'type': "curveModulator",
+        id: 'curve-mod-3-b',
+        params: {
+            "modulator": {
+                "ref": "wave-2.sampler"
+            },
+            "curve": {
+                ref: "curve-mod-3.points"
             }
         }
     })
@@ -351,27 +524,122 @@ const graph = new AlgorithmBuilder({
         }
     })
     .addRenderNode({
+        type: "circle",
+        id: "dot-marks-curve-a-b",
+        renderConfig: {
+            layer: "live"
+        },
+        params: {
+            radius: {
+                v: 0.005
+            },
+            centerPoints: {
+                ref: "curve-mod-1-b.points"
+            }
+        }
+    })
+    .addRenderNode({
+        type: "circle",
+        id: "dot-marks-curve-b-b",
+        renderConfig: {
+            layer: "live"
+        },
+        params: {
+            radius: {
+                v: 0.005
+            },
+            centerPoints: {
+                ref: "curve-mod-2-b.points"
+            }
+        }
+    })
+    .addRenderNode({
+        type: "circle",
+        id: "dot-marks-curve-c-b",
+        renderConfig: {
+            layer: "live"
+        },
+        params: {
+            radius: {
+                v: 0.005
+            },
+            centerPoints: {
+                ref: "curve-mod-3-b.points"
+            }
+        }
+    })
+    .addRenderNode({
         type: "timedLineArray",
-        "id": "link-a",
+        "id": "link-a-b",
         renderConfig: {
             layer: "paint"
         },
         params: {
             "colorPointsA": {
-                "ref": "curve-mod-1.points"
+                "ref": "curve-mod-1-b.points"
             },
             "intervalMode": {
-                "v": "cycle"
+                ref: "tl-mode-b.value"
             },
             "mode": {
-                "v": "distribute"
+                ref: "tl-mode.value"
             },
             "intervalTicks": {
                 ref: "tickRate.value"
             },
 
             "colorPointsB": {
-                "ref": "curve-mod-2.points"
+                "ref": "curve-mod-2-b.points"
+            }
+        }
+
+    }).addRenderNode({
+        type: "timedLineArray",
+        "id": "link-b-b",
+        renderConfig: {
+            layer: "paint"
+        },
+        params: {
+            "colorPointsA": {
+                "ref": "curve-mod-2-b.points"
+            },
+            "intervalMode": {
+                ref: "tl-mode-b.value"
+            },
+            "mode": {
+                ref: "tl-mode.value"
+            },
+            "intervalTicks": {
+                ref: "tickRate.value"
+            },
+
+            "colorPointsB": {
+                "ref": "curve-mod-3-b.points"
+            }
+        }
+
+    }).addRenderNode({
+        type: "timedLineArray",
+        "id": "link-c-b",
+        renderConfig: {
+            layer: "paint"
+        },
+        params: {
+            "colorPointsA": {
+                "ref": "curve-mod-3-b.points"
+            },
+            "intervalMode": {
+                ref: "tl-mode-b.value"
+            },
+            "mode": {
+                ref: "tl-mode.value"
+            },
+            "intervalTicks": {
+                ref: "tickRate.value"
+            },
+
+            "colorPointsB": {
+                "ref": "curve-mod-1-b.points"
             }
         }
 
