@@ -129,7 +129,7 @@ describe(AlgorithmBuilder, () => {
         })
     })
 
-    describe("type errors", () => {
+    describe("type errors - node type names and param names", () => {
         it("Adds a control node - invalid node type ", () => {
             const result = new AlgorithmBuilder()
                 .addControlNode({
@@ -230,6 +230,38 @@ describe(AlgorithmBuilder, () => {
 
             expect(validateGeoArtGraph(result)).toBe(false)
         })
+    });
+
+
+    describe("type errors - references", () => {
+        it("Builds a graph with cross-layer refs", () => {
+            const result = new AlgorithmBuilder()
+                .addControlNode({
+                    id: 'radius',
+                    type: 'slider',
+                    params: {
+
+                    },
+                })
+
+                .addComputeNode({
+                    id: 'earthOrbit',
+                    type: 'orbit',
+                    params: {
+                        //@ts-expect-error xyz is not a valid previous node name
+                        radius: { ref: 'xyz.value' },
+                        speed: { v: 1 },
+                    },
+                })
+
+                .construct();
+
+
+            // Note it's still a valid graph
+            expect(validateGeoArtGraph(result)).toBe(true)
+
+        })
+
     });
 
 

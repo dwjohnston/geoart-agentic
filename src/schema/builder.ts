@@ -1,3 +1,22 @@
+/**
+ * AlgorithmBuilder — fluent builder for declaring GeoArt algorithms in TypeScript.
+ *
+ * ## Layer ordering
+ * Nodes must be added in layer order: control → compute → render.
+ * This is enforced at the type level via three stage interfaces:
+ *   - ControlStageBuilder  — exposes all three addXNode methods
+ *   - ComputeStageBuilder  — exposes addComputeNode and addRenderNode only
+ *   - RenderStageBuilder   — exposes addRenderNode only
+ * Each addXNode method returns the appropriate stage interface, so calling
+ * an out-of-order method (e.g. addControlNode after addComputeNode) is a
+ * compile-time error on the call itself rather than a cascading never error.
+ *
+ * ## Ref validation (in progress)
+ * The next step is to thread declared node ids and types through the builder's
+ * generic type parameters, and use PortReferenceForNodeType (see typeHelpers.ts)
+ * to restrict ref strings to ports that actually exist on previously declared nodes.
+ * This is a POC currently hardcoded for orbit, slider, and time node types.
+ */
 import type { GeoArtGraph, ControlNode, ComputeNode, RenderNode } from "./_generated/schema-types";
 
 interface AlgorithmBuilderOptions {

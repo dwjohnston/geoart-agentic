@@ -83,6 +83,20 @@ export type ValueDeclared<T extends ValueTypeNames> =
 
 
 
+/**
+ * POC: hardcoded for orbit, slider, time only.
+ * Produces the valid ref strings for a given node type and instance id.
+ * e.g. PortReferenceForNodeType<'orbit', 'myOrbit'> = 'myOrbit.point' | 'myOrbit.points'
+ */
+export type PortReferenceForNodeType<
+    NodeType extends 'orbit' | 'slider' | 'time',
+    NodeId extends string
+> =
+    NodeType extends 'orbit'  ? `${NodeId}.point` | `${NodeId}.points` :
+    NodeType extends 'slider' ? `${NodeId}.value` :
+    NodeType extends 'time'   ? `${NodeId}.time` :
+    never;
+
 // Remember, Control nodes inputs can not be refererenced values.
 export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
   [Port in keyof typeof nodeInputs[K]]?: typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
