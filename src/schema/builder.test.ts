@@ -244,8 +244,17 @@ describe(AlgorithmBuilder, () => {
                     },
                 })
 
+                // valid 
                 .addComputeNode({
-                    id: 'earthOrbit',
+                    id: 'earthOrbit1',
+                    type: 'orbit',
+                    params: {
+                        radius: { ref: 'radius.value' },
+                        speed: { v: 1 },
+                    },
+                })
+                .addComputeNode({
+                    id: 'earthOrbit2',
                     type: 'orbit',
                     params: {
                         //@ts-expect-error xyz is not a valid previous node name
@@ -253,11 +262,142 @@ describe(AlgorithmBuilder, () => {
                         speed: { v: 1 },
                     },
                 })
+                .addComputeNode({
+                    id: 'earthOrbit3',
+                    type: 'orbit',
+                    params: {
+                        //@ts-expect-error zzz is not a valid param value
+                        radius: { ref: 'radius.zzz' },
+                        speed: { v: 1 },
+                    },
+                })
+                .addComputeNode({
+                    id: 'earthOrbit4',
+                    type: 'orbit',
+                    params: {
+                        // This is valid!
+                        centerPoints: { ref: "earthOrbit1.points" },
+
+
+                        // @ts-expect-error - mismatched types
+                        radius: { ref: "earthOrbit1.points" },
+
+                        speed: { v: 1 },
+                    },
+                })
+                .addComputeNode({
+                    id: 'earthOrbit5',
+                    type: 'orbit',
+                    params: {
+
+
+                        // Typings are failing here 
+                        centerPoints: {
+                            v: [
+                                {
+                                    "ref": "earthOrbit1.point"
+                                }
+                            ]
+                        },
+
+
+
+
+                        speed: { v: 1 },
+                    },
+                })
+
 
                 .construct();
 
 
-            // Note it's still a valid graph
+            // Note it's still a valid graph - this is because the AJV json schema validation is 
+            // looser than what typescript is giving us
+            // This graph _would_ fail compile time validation
+            expect(validateGeoArtGraph(result)).toBe(true)
+
+        })
+
+        it("Static array of value references works", () => {
+            const result = new AlgorithmBuilder()
+                .addControlNode({
+                    id: 'radius',
+                    type: 'slider',
+                    params: {
+
+                    },
+                })
+
+                .addComputeNode({
+                    "id": "cp1",
+                    "type": "colorPointCompute",
+                    params: {},
+                })
+                .addComputeNode({
+                    "id": "cp2",
+                    "type": "colorPointCompute",
+                    params: {},
+                })
+                // Static array of static values
+                .addComputeNode({
+                    id: 'earthOrbit1',
+                    type: 'orbit',
+                    params: {
+                        centerPoints: {
+                            v: [
+                                {
+                                    v: {
+                                        "r": 1,
+                                        'g': 1,
+                                        'b': 1,
+                                        'a': 1,
+                                        'dx': 0,
+                                        'dy': 0,
+                                        'x': 0,
+                                        y: 0
+                                    }
+                                }
+                            ]
+                        },
+                        speed: { v: 1 },
+                    },
+                })
+
+
+                .addRenderNode({
+                    id: 'circle',
+                    type: 'circle',
+                    renderConfig: { layer: 'live' },
+                    params: {
+                        center: {
+                            // valid here 
+                            ref: "earthOrbit1.point"
+                        },
+                        centerPoints: {
+                            v: [
+                                {
+                                    v: { x: 0.2, y: 0.2, dx: 0, dy: 0, r: 1, g: 0, b: 0, a: 1 },
+                                },
+                                {
+                                    // should also be valid here 
+                                    ref: 'earthOrbit1.point',
+                                },
+                                {
+                                    v: { x: 0.8, y: 0.2, dx: 0, dy: 0, r: 0, g: 0, b: 1, a: 1 },
+                                },
+                            ],
+                        },
+                        radius: { v: 0.02 },
+                    },
+                },)
+
+
+                .construct();
+
+
+            // Note it's still a valid graph - this is because the AJV json schema validation is 
+            // looser than what typescript is giving us
+            // This graph _would_ fail compile time validation
             expect(validateGeoArtGraph(result)).toBe(true)
 
         })

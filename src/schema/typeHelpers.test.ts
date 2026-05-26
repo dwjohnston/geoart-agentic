@@ -3,7 +3,7 @@ import { describe, it, expect } from 'bun:test';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function assertType<T>(_value: T) { }
-import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType, type ValidPortReferenceForNodeInputPort } from './typeHelpers';
+import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType, type ValidPortReferenceForNodeInputPort, type ConstrainedNodeInputsDeclared } from './typeHelpers';
 import type { GeoArtGraph } from './_generated/schema-types';
 import { fColorPoint } from '../constants';
 
@@ -589,6 +589,103 @@ describe("PortReferenceForNodeType", () => {
     it("constraint rejects non-node-kinds", () => {
         // @ts-expect-error - not a valid node kind
         assertType<PortReferenceForNodeType<"notANode", "x">>("x.value");
+    });
+});
+
+describe("ConstrainedNodeInputsDeclared", () => {
+    type WithSlider = { nodeType: "slider"; nodeId: "s1" };
+    type WithOrbit  = { nodeType: "orbit";  nodeId: "o1" };
+    type WithBoth   = WithSlider | WithOrbit;
+
+    describe("with Acc = never (no prior nodes)", () => {
+        it("accepts static values", () => {
+            assertType<ConstrainedNodeInputsDeclared<"add", never>>({ a: { v: 1 }, b: { v: 2 } });
+        });
+
+        it("rejects any ref string", () => {
+            assertType<ConstrainedNodeInputsDeclared<"add", never>>({
+                // @ts-expect-error - no prior nodes, so no valid refs exist
+                a: { ref: "anything.value" },
+            });
+        });
+    });
+
+    describe("compute node with accumulated nodes", () => {
+        it("accepts a ref to a matching output port", () => {
+            // slider outputs numberValue; orbit.radius expects numberValue
+            assertType<ConstrainedNodeInputsDeclared<"orbit", WithSlider>>({
+                radius: { ref: "s1.value" },
+            });
+        });
+
+        it("rejects a ref to an unknown node id", () => {
+            assertType<ConstrainedNodeInputsDeclared<"orbit", WithSlider>>({
+                // @ts-expect-error - "xyz" is not a declared node id
+                radius: { ref: "xyz.value" },
+            });
+        });
+
+        it("rejects a ref whose output type does not match the input port", () => {
+            // orbit outputs pointValue / colorPointArrayValue, not numberValue
+            assertType<ConstrainedNodeInputsDeclared<"orbit", WithOrbit>>({
+                // @ts-expect-error - orbit.points is colorPointArrayValue, not numberValue
+                radius: { ref: "o1.points" },
+            });
+        });
+
+        it("accepts static values alongside valid refs", () => {
+            assertType<ConstrainedNodeInputsDeclared<"orbit", WithBoth>>({
+                time:   { v: 0 },
+                radius: { ref: "s1.value" },
+                speed:  { v: 1 },
+            });
+        });
+
+        it("all ports are optional", () => {
+            assertType<ConstrainedNodeInputsDeclared<"orbit", WithBoth>>({});
+        });
+    });
+
+    describe("array-type port", () => {
+        it("accepts a ref to the whole array", () => {
+            // orbit.points is colorPointArrayValue — matches circle.centerPoints
+            assertType<ConstrainedNodeInputsDeclared<"circle", WithOrbit>>({
+                centerPoints: { ref: "o1.points" },
+            });
+        });
+
+        it("accepts a static array of static values", () => {
+            assertType<ConstrainedNodeInputsDeclared<"circle", WithBoth>>({
+                centerPoints: { v: [{ v: fColorPoint() }] },
+            });
+        });
+
+        it("accepts a static array of mixed static and ref items", () => {
+            assertType<ConstrainedNodeInputsDeclared<"circle", WithBoth>>({
+                centerPoints: { v: [{ v: fColorPoint() }, { ref: "o1.points" }] },
+            });
+        });
+
+        it("rejects a top-level ref to a non-matching output", () => {
+            // slider outputs numberValue, not colorPointArrayValue
+            assertType<ConstrainedNodeInputsDeclared<"circle", WithSlider>>({
+                // @ts-expect-error - s1.value is numberValue, not colorPointArrayValue
+                centerPoints: { ref: "s1.value" },
+            });
+        });
+    });
+
+    describe("control node", () => {
+        it("only accepts static values regardless of Acc", () => {
+            assertType<ConstrainedNodeInputsDeclared<"slider", WithSlider>>({ value: { v: 5 } });
+        });
+
+        it("rejects refs even when Acc has matching nodes", () => {
+            assertType<ConstrainedNodeInputsDeclared<"slider", WithSlider>>({
+                // @ts-expect-error - control nodes never accept refs
+                value: { ref: "s1.value" },
+            });
+        });
     });
 });
 

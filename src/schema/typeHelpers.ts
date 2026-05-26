@@ -105,6 +105,38 @@ export type ValidPortReferenceForNodeInputPort<
 > = AvailableNodes extends { nodeType: infer NT extends keyof typeof nodeOutputMeta; nodeId: infer NId extends string }
   ? `${NId}.${Extract<typeof nodeOutputMeta[NT][number], { valueType: InputPortValueType<TargetNodeType, Port> }>['name']}`
   : never;
+export type NodeAccumulator = { nodeType: keyof typeof nodeOutputMeta; nodeId: string };
+
+// For array ports: the top-level ref is constrained, but items within { v: [...] } follow
+// the unconstrained ValueDeclared (items may be static or any ref string).
+type ConstrainedValueDeclared<
+  Kind extends ValueTypeNames,
+  K extends keyof typeof nodeInputs,
+  Port extends keyof typeof nodeInputs[K],
+  Acc extends NodeAccumulator
+> = IsArrayValueType<Kind> extends true
+  ? { ref: ValidPortReferenceForNodeInputPort<K, Port, Acc> }
+    | { v: Array<ValueDeclared<ArrayItemType<Kind>>> }
+  : StaticValueDeclared<Kind>
+    | { ref: ValidPortReferenceForNodeInputPort<K, Port, Acc> };
+
+export type ConstrainedNodeInputsDeclared<
+  K extends keyof typeof nodeInputs,
+  Acc extends NodeAccumulator
+> = {
+  [Port in keyof typeof nodeInputs[K]]?:
+    typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
+    ? K extends ControlNodeKinds
+      ? StaticValueDeclared<VT extends `${infer Kind}Value` ? Kind : never>
+      : ConstrainedValueDeclared<
+          VT extends `${infer Kind}Value` ? Kind extends ValueTypeNames ? Kind : never : never,
+          K,
+          Port,
+          Acc
+        >
+    : never
+}
+
 // Remember, Control nodes inputs can not be refererenced values.
 export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
   [Port in keyof typeof nodeInputs[K]]?: typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
