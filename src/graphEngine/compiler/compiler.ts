@@ -20,12 +20,17 @@ type AnyNodeImplementation = LegacyComputeNodeImplementation | LegacyRenderNodeI
 /**
  * Internal edge representation — produced by the compiler from inline param refs
  * and used by the evaluator for fast input resolution.
+ *
+ * When `arrayIndex` is set, this edge contributes one element of an array-valued
+ * input assembled from individual refs: `{ v: [{ ref: "a.x" }, { ref: "b.x" }] }`.
  */
 type Edge = {
   fromNode: string;
   fromPort: number;
   toNode: string;
   toPort: number;
+  /** Present when this edge supplies element [arrayIndex] of an array-valued port. */
+  arrayIndex?: number;
 };
 
 /**
@@ -325,36 +330,54 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
 
       if (rawParam === null || rawParam === undefined) continue;
       if (typeof rawParam !== 'object') continue;
-      if (!('ref' in rawParam)) continue;
 
-      const ref = (rawParam as { ref: string }).ref;
-      const dotIndex = ref.indexOf('.');
-      if (dotIndex === -1) {
-        throw new Error(
-          `Invalid ref "${ref}" on "${toNodeId}.${portName}": expected format "nodeId.portName"`,
-        );
+      // Helper to resolve a single ref string into an edge.
+      const resolveRef = (ref: string, context: string, arrayIndex?: number) => {
+        const dotIndex = ref.indexOf('.');
+        if (dotIndex === -1) {
+          throw new Error(
+            `Invalid ref "${ref}" on "${context}": expected format "nodeId.portName"`,
+          );
+        }
+        const fromNodeId = ref.slice(0, dotIndex);
+        const fromPortName = ref.slice(dotIndex + 1);
+
+        const fromCompiledNode = nodes.get(fromNodeId);
+        if (!fromCompiledNode) {
+          throw new Error(`Ref "${ref}" on "${context}": unknown source node "${fromNodeId}"`);
+        }
+
+        const fromDef = fromCompiledNode.def as LegacyComputeNodeImplementation | LegacyControlNodeImplementation | LegacyRenderNodeImplementation;
+        const fromOutputs = fromDef.outputs ?? [];
+        const fromPort = fromOutputs.findIndex((p) => p.name === fromPortName);
+        if (fromPort === -1) {
+          throw new Error(
+            `Ref "${ref}" on "${context}": node "${fromNodeId}" has no output port named "${fromPortName}"`,
+          );
+        }
+
+        allEdges.push({ fromNode: fromNodeId, fromPort, toNode: toNodeId, toPort, arrayIndex });
+      };
+
+      const context = `"${toNodeId}.${portName}"`;
+
+      // Case 1: direct ref — { ref: "nodeId.portName" }
+      if ('ref' in rawParam) {
+        resolveRef((rawParam as { ref: string }).ref, context);
+        continue;
       }
-      const fromNodeId = ref.slice(0, dotIndex);
-      const fromPortName = ref.slice(dotIndex + 1);
 
-      const fromCompiledNode = nodes.get(fromNodeId);
-      if (!fromCompiledNode) {
-        throw new Error(
-          `Ref "${ref}" on "${toNodeId}.${portName}": unknown source node "${fromNodeId}"`,
-        );
+      // Case 2: array of refs — { v: [{ ref: "..." }, ...] }
+      const envelope = rawParam as { v?: unknown };
+      if (Array.isArray(envelope.v)) {
+        const items = envelope.v as Array<unknown>;
+        for (let arrayIndex = 0; arrayIndex < items.length; arrayIndex++) {
+          const item = items[arrayIndex];
+          if (typeof item !== 'object' || item === null || !('ref' in item)) continue;
+          resolveRef((item as { ref: string }).ref, `${context}[${arrayIndex}]`, arrayIndex);
+        }
+        continue;
       }
-
-      const fromDef = fromCompiledNode.def as LegacyComputeNodeImplementation | LegacyControlNodeImplementation | LegacyRenderNodeImplementation;
-      const fromOutputs = fromDef.outputs ?? [];
-      const fromPort = fromOutputs.findIndex((p) => p.name === fromPortName);
-      if (fromPort === -1) {
-        throw new Error(
-          `Ref "${ref}" on "${toNodeId}.${portName}": ` +
-          `node "${fromNodeId}" has no output port named "${fromPortName}"`,
-        );
-      }
-
-      allEdges.push({ fromNode: fromNodeId, fromPort, toNode: toNodeId, toPort });
     }
   }
 

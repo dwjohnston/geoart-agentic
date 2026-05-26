@@ -34,10 +34,8 @@ const colorPointNodeImplementation = implementComputeNode('colorPointCompute', {
     //     algorithms keep working unchanged.
     //  2. Otherwise the new flat params (x, y, r, g, b, a).
     const pointProvided =
-      !!point &&
       (point.x !== DEPRECATED_POINT_DEFAULT.x || point.y !== DEPRECATED_POINT_DEFAULT.y);
     const colorProvided =
-      !!color &&
       (color.r !== DEPRECATED_COLOR_DEFAULT.r ||
         color.g !== DEPRECATED_COLOR_DEFAULT.g ||
         color.b !== DEPRECATED_COLOR_DEFAULT.b ||
@@ -62,6 +60,8 @@ const colorPointNodeImplementation = implementComputeNode('colorPointCompute', {
       dx,
       dy,
     };
+
+    console.log(pointProvided, colorProvided, colorPoint)
 
     return {
       colorPoint,

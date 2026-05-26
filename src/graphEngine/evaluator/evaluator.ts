@@ -28,9 +28,31 @@ export function resolveInput(
   portIndex: number,
   cache: Map<string, Value[]>,
 ): Value {
-  // 1. Check for an incoming edge.
+  // 1a. Check for array-assembled edges (from { v: [{ ref }, { ref }] } declarations).
+  const arrayEdges = compiled.edges.filter(
+    (e) => e.toNode === nodeId && e.toPort === portIndex && e.arrayIndex !== undefined,
+  );
+  if (arrayEdges.length > 0) {
+    const sorted = [...arrayEdges].sort((a, b) => a.arrayIndex! - b.arrayIndex!);
+    const items = sorted.map((e) => {
+      const fromOutput = cache.get(e.fromNode);
+      if (!fromOutput) {
+        throw new Error(
+          `resolveInput: no cached output for node "${e.fromNode}" ` +
+          `(needed for array element ${e.arrayIndex} of "${nodeId}" port ${portIndex}). ` +
+          `This indicates a topological sort failure.`,
+        );
+      }
+      return fromOutput[e.fromPort].v;
+    });
+    const firstVal = cache.get(sorted[0].fromNode)![sorted[0].fromPort];
+    const arrayKind = `${firstVal.kind}Array` as unknown as string;
+    return { kind: arrayKind, v: items } as Value;
+  }
+
+  // 1b. Check for a single incoming edge.
   const edge = compiled.edges.find(
-    (e) => e.toNode === nodeId && e.toPort === portIndex,
+    (e) => e.toNode === nodeId && e.toPort === portIndex && e.arrayIndex === undefined,
   );
   if (edge) {
     const fromOutput = cache.get(edge.fromNode);
