@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
+.env
 node_modules
 dist
 dist-ssr
@@ -25,6 +25,7 @@ dist-ssr
 _generated/
 _testGenerated/
 *.generated.ts
+*.generated.json
 docs/
 __screenshots__
 
