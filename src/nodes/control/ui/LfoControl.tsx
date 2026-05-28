@@ -1,4 +1,4 @@
-import { KnobControl } from './KnobControl';
+import { KnobControl } from '../../../ui/KnobControl';
 import { DropdownControl } from './DropdownControl';
 import { DebugPanel } from '../../../ui-tooling/DebugPanel';
 import type { ResolvedValue } from '../../../schema/typeHelpers';

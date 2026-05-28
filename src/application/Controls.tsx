@@ -5,5 +5,16 @@ type Props = {
 };
 
 export function Controls({ renderControlNodes }: Props) {
-  return <>{renderControlNodes()}</>;
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 8,
+      }}
+    >
+      {renderControlNodes()}
+    </div>
+  );
 }

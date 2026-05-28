@@ -11,6 +11,7 @@ type Props = {
   variant?: "regular" | "coarse-fine";
   size?: 'sm' | 'lg';
   label: string;
+  snapTo?: number;
   onChange?: (value: number) => void;
 };
 
@@ -33,10 +34,20 @@ function valueToRotation(value: number, min: number, max: number, scale: "linear
   return ROTATION_MIN + fraction * (ROTATION_MAX - ROTATION_MIN);
 }
 
-export function KnobControl({ initialValue, min, max, scale = "linear", step, size = 'lg', variant = 'regular', label, onChange }: Props) {
+export function KnobControl({ initialValue, min, max, scale = "linear", step, size = 'lg', variant = 'regular', label, snapTo, onChange }: Props) {
   const [value, setValue] = useState(initialValue);
   const [coarseValue, setCoarseValue] = useState(initialValue);
   const [fineValue, setFineValue] = useState(0);
+
+  // Calculate snap values
+  const getSnapValue = (min: number, max: number): number => {
+    if (snapTo !== undefined) return snapTo;
+    return min <= 0 && max >= 0 ? 0 : min;
+  };
+
+  const snapValueRegular = getSnapValue(min, max);
+  const snapValueCoarse = getSnapValue(min, max);
+  const snapValueFine = 0;
 
   const diameter = size === 'lg' ? 64 : 36;
   const strokeWidth = size === 'lg' ? 3 : 2;
@@ -80,8 +91,25 @@ export function KnobControl({ initialValue, min, max, scale = "linear", step, si
     onChange?.(combined);
   };
 
+  const handleDoubleClick = (knobType: 'regular' | 'coarse' | 'fine') => {
+    if (knobType === 'regular') {
+      setValue(snapValueRegular);
+      onChange?.(snapValueRegular);
+    } else if (knobType === 'coarse') {
+      setCoarseValue(snapValueCoarse);
+      updateCombinedValue(snapValueCoarse, fineValue);
+    } else if (knobType === 'fine') {
+      setFineValue(snapValueFine);
+      updateCombinedValue(coarseValue, snapValueFine);
+    }
+  };
+
   const createMouseDownHandler = (knobType: 'regular' | 'coarse' | 'fine') => {
     return (e: React.MouseEvent) => {
+      if (e.detail === 2) {
+        handleDoubleClick(knobType);
+        return;
+      }
       e.preventDefault();
       dragStartY.current = e.clientY;
       dragStartValue.current = knobType === 'coarse' ? coarseValue : knobType === 'fine' ? fineValue : value;
@@ -218,7 +246,7 @@ export function KnobControl({ initialValue, min, max, scale = "linear", step, si
       className="knob-control"
       style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', userSelect: 'none' }}
     >
-      <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', gap: '8px', alignItems: 'center', justifyContent: 'center', width: isCoarseFine ? 160 : 80 }}>
         {isCoarseFine ? (
           <>
             {renderKnob(coarseValue, min, max, 'coarse', `${label} (coarse)`)}
