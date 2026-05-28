@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import type { GeoArtGraph } from "./_generated/schema-types";
-import { validateGeoArtGraph } from "./validateGeoArtGraph";
+import { validateGeoArtGraph, validateGeoArtGraphWithErrors } from "./validateGeoArtGraph";
 
 describe("earth venus example algorithm validates against schema", () => {
 	test("valid graph", () => {
@@ -86,6 +86,7 @@ describe("earth venus example algorithm validates against schema", () => {
 		};
 
 		expect(validateGeoArtGraph(earthVenus)).toBe(true);
+		expect(validateGeoArtGraphWithErrors(earthVenus)).toBeNull();
 	});
 
 	test("invalid graph", () => {
@@ -99,6 +100,11 @@ describe("earth venus example algorithm validates against schema", () => {
 
 		expect(() => validateGeoArtGraph(notMatching)).not.toThrow();
 		expect(validateGeoArtGraph(notMatching)).toBe(false);
+		const result = validateGeoArtGraphWithErrors(notMatching);
+		expect(result).not.toBeNull();
+		expect(result?.errors).toBeDefined();
+		expect(result?.errors.length).toBeGreaterThan(0);
+		expect(result?.errors.some(err => err.includes("render"))).toBe(true);
 	});
 
 	test("compute nodes have params specific to their type", () => {
@@ -122,6 +128,10 @@ describe("earth venus example algorithm validates against schema", () => {
 		};
 
 		expect(validateGeoArtGraph(graph)).toBe(false);
+		const result = validateGeoArtGraphWithErrors(graph);
+		expect(result).not.toBeNull();
+		expect(result?.errors.length).toBeGreaterThan(0);
+		expect(result?.errors.some(err => err.includes("radius") || err.includes("additionalProperties"))).toBe(true);
 	});
 
 	test("controls nodes have params specific to their type", () => {
@@ -147,6 +157,10 @@ describe("earth venus example algorithm validates against schema", () => {
 		};
 
 		expect(validateGeoArtGraph(graph)).toBe(false);
+		const result = validateGeoArtGraphWithErrors(graph);
+		expect(result).not.toBeNull();
+		expect(result?.errors.length).toBeGreaterThan(0);
+		expect(result?.errors.some(err => err.includes("min") || err.includes("max") || err.includes("additionalProperties"))).toBe(true);
 	});
 
 	test("render nodes have params specific to their type", () => {
@@ -171,5 +185,9 @@ describe("earth venus example algorithm validates against schema", () => {
 		};
 
 		expect(validateGeoArtGraph(graph)).toBe(false);
+		const result = validateGeoArtGraphWithErrors(graph);
+		expect(result).not.toBeNull();
+		expect(result?.errors.length).toBeGreaterThan(0);
+		expect(result?.errors.some(err => err.includes("pointA") || err.includes("additionalProperties"))).toBe(true);
 	});
 });

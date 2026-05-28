@@ -32,6 +32,13 @@ export default defineConfig([
 
     rules: {
       "vitest/no-focused-tests": "error",
+      // allow unused vars that start with underscore
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_'
+      }],
       'no-restricted-syntax': [
         'error',
         {

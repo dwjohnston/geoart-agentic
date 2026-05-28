@@ -23,12 +23,14 @@ export function Canvas({ orbitCanvasRef, trailCanvasRef, size }: Props) {
         ref={trailCanvasRef}
         width={size}
         height={size}
+        data-testid="paint-canvas"
         style={{ position: 'absolute', top: 0, left: 0 }}
       />
       <canvas
         ref={orbitCanvasRef}
         width={size}
         height={size}
+        data-testid="live-canvas"
         style={{ position: 'absolute', top: 0, left: 0 }}
       />
     </div>

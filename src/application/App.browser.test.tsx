@@ -1,8 +1,28 @@
-import { render } from '@testing-library/react'
-import { expect, test } from 'vitest'
-import { App } from './App'
+import { expect, test } from 'vitest';
+import { render } from 'vitest-browser-react';
+import { page } from 'vitest/browser';
+import { App } from './App';
+import { AlgorithmStorageProvider } from './algorithmStorage/AlgorithmStorageProvider';
+import type { IAlgorithmStorageService, StoredAlgorithmEntry } from './algorithmStorage/IAlgorithmStorageService';
+import type { GeoArtGraph } from '../schema/_generated/schema-types';
 
-test('renders without crashing', () => {
-  const { container } = render(<App />)
-  expect(container).toBeTruthy()
-})
+const stubStorageService: IAlgorithmStorageService = {
+  saveAlgorithm: async (_: GeoArtGraph): Promise<StoredAlgorithmEntry> => {
+    throw new Error('not implemented in test');
+  },
+  listSavedAlgorithms: async () => [],
+  getSavedAlgorithm: async (_: string): Promise<GeoArtGraph> => {
+    throw new Error('not implemented in test');
+  },
+};
+
+test('renders without crashing', async () => {
+  await render(
+    <AlgorithmStorageProvider service={stubStorageService}>
+      <App />
+    </AlgorithmStorageProvider>,
+  );
+
+  const canvas = page.getByTestId('live-canvas');
+  expect(canvas).toBeInTheDocument();
+});

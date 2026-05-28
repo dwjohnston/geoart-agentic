@@ -32,6 +32,7 @@ export function ColorPickerControl({ id, label, initialValue, onChange }: Props)
       <input
         id={id}
         type="color"
+        data-testid={`${id}-color`}
         value={toHex(value)}
         onChange={e => {
           const v = fromHex(e.target.value, value.a);
@@ -42,6 +43,7 @@ export function ColorPickerControl({ id, label, initialValue, onChange }: Props)
       <input
         id={`${id}-opacity`}
         type="range"
+        data-testid={`${id}-opacity`}
         min={0}
         max={1}
         step={0.01}
