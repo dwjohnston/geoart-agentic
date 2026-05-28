@@ -26,3 +26,38 @@ export function validateGeoArtGraph(value: unknown): boolean {
 		return false;
 	}
 }
+
+export type ValidationErrorResult = {
+	errors: string[];
+};
+
+/**
+ * Validate a serialized GeoArt graph against `src/schema/schema.json`.
+ * Returns `null` if valid, or an object with detailed error messages if invalid.
+ * Never throws.
+ */
+export function validateGeoArtGraphWithErrors(value: unknown): null | ValidationErrorResult {
+	try {
+		if (!validateFn) {
+			return {
+				errors: ["Schema validator not initialized"],
+			};
+		}
+		const valid = validateFn(value);
+		if (!valid) {
+			const errors = validateFn.errors || [];
+			const messages = errors.map(err => {
+				const path = err.instancePath || "/";
+				const keyword = err.keyword;
+				const message = err.message || "validation failed";
+				return `${path}: ${message} (${keyword})`;
+			});
+			return { errors: messages };
+		}
+		return null;
+	} catch (e) {
+		return {
+			errors: [`Schema validation error: ${String(e)}`],
+		};
+	}
+}
