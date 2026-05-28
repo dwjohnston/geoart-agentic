@@ -28,3 +28,6 @@ jobs:
 
       - name: Test
         run: bun test
+
+      - name: Test Browser
+        run: bun test:browser:headless
