@@ -1,5 +1,6 @@
 import type { Value } from '../../schema/types';
 import type { RenderNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
+import type { RenderRepresentationFn } from './graphViewTypes';
 
 //@legacy - we are trying to get rid of this
 export type LegacyRenderNodePortImplementation = {
@@ -32,4 +33,5 @@ export type RenderNodeImplementation<K extends RenderNodeKinds> = {
   nodeKind: K;
   defaultValues: NodeInputsResolved<K>;
   evaluate: (inputs: NodeInputsResolved<K>, ctx: RenderEvalContext) => void;
+  renderRepresentation?: RenderRepresentationFn;
 };

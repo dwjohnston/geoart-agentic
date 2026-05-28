@@ -10,12 +10,14 @@ export function implementControlNode<K extends ControlNodeKinds>(
   def: {
     defaults: NodeInputsResolved<K>;
     renderControl: (node: NodeWithDefaults<K>, set: ControlSetter<K>) => React.ReactNode;
+    renderRepresentation?: ControlNodeImplementation<K>['renderRepresentation'];
   }
 ): ControlNodeImplementation<K> {
   return {
     nodeKind: kind,
     defaultValues: def.defaults,
     renderControl: def.renderControl,
+    renderRepresentation: def.renderRepresentation,
   };
 }
 

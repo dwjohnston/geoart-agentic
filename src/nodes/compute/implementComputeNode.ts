@@ -76,13 +76,15 @@ export function implementComputeNode<K extends ComputeNodeKinds>(
     isTimeDependant?: boolean;
     defaults: NodeInputsResolved<K>,
     evaluate: (inputs: NodeInputsResolved<K>) => NodeOutputsResolved<K>;
+    renderRepresentation?: ComputeNodeImplementation<K>['renderRepresentation'];
   }
 ): ComputeNodeImplementation<K> {
   return {
     nodeKind: kind,
     isTimeDependant: def.isTimeDependant,
     evaluate: def.evaluate,
-    defaultValues: def.defaults
+    defaultValues: def.defaults,
+    renderRepresentation: def.renderRepresentation,
   }
 }
 
