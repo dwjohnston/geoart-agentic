@@ -26,6 +26,7 @@ export function SliderControl({ id, label, min, max, step, initialValue, onChang
       <input
         id={id}
         type="range"
+        data-testid={`${id}-slider`}
         min={min}
         max={max}
         step={step}
@@ -36,7 +37,7 @@ export function SliderControl({ id, label, min, max, step, initialValue, onChang
           onChange(v);
         }}
       />
-      <output htmlFor={id}>{value.toFixed(decimals)}</output>
+      <output htmlFor={id} data-testid={`${id}-output`}>{value.toFixed(decimals)}</output>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { expect, test } from 'vitest';
 import { render } from 'vitest-browser-react';
+import { page } from 'vitest/browser';
 import { App } from './App';
 import { AlgorithmStorageProvider } from './algorithmStorage/AlgorithmStorageProvider';
 import type { IAlgorithmStorageService, StoredAlgorithmEntry } from './algorithmStorage/IAlgorithmStorageService';
@@ -22,6 +23,6 @@ test('renders without crashing', async () => {
     </AlgorithmStorageProvider>,
   );
 
-  const canvas = document.body.querySelector('canvas');
-  expect(canvas).toBeTruthy();
+  const canvas = page.getByTestId('live-canvas');
+  expect(canvas).toBeInTheDocument();
 });
