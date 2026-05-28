@@ -7,26 +7,6 @@ import type { GeoArtGraph } from '../schema/_generated/schema-types';
 import minimalGraph from '../algorithms/reference/minimal/minimalThreeNodeReferenceGraph';
 import { page } from 'vitest/browser'
 
-async function waitForElement(selector: string, timeout = 3000) {
-  const startTime = Date.now();
-  while (Date.now() - startTime < timeout) {
-    const element = document.querySelector(selector);
-    if (element) return element;
-    await new Promise(r => setTimeout(r, 50));
-  }
-  throw new Error(`Timeout waiting for element: ${selector}`);
-}
-
-function setTextareaValue(textarea: HTMLTextAreaElement, value: string) {
-  textarea.value = value;
-  const inputEvent = new Event('input', { bubbles: true });
-  Object.defineProperty(inputEvent, 'target', { value: textarea, enumerable: true });
-  textarea.dispatchEvent(inputEvent);
-
-  const changeEvent = new Event('change', { bubbles: true });
-  Object.defineProperty(changeEvent, 'target', { value: textarea, enumerable: true });
-  textarea.dispatchEvent(changeEvent);
-}
 
 test('Happy path: imports valid graph and saves to storage', async () => {
   const mockSaveAlgorithm = vi.fn().mockResolvedValue({
@@ -103,7 +83,7 @@ test('Unhappy path: invalid JSON displays error message', async () => {
 
 });
 
-test.skip('Unhappy path: valid JSON that does not match schema displays error message', async () => {
+test('Unhappy path: valid JSON that does not match schema displays error message', async () => {
   const mockOnImported = vi.fn();
   const mockOnClose = vi.fn();
 
@@ -124,20 +104,22 @@ test.skip('Unhappy path: valid JSON that does not match schema displays error me
     </AlgorithmStorageProvider>,
   );
 
-  const textarea = (await waitForElement('textarea')) as HTMLTextAreaElement;
-  setTextareaValue(textarea, JSON.stringify(notAGraph));
+  await (expect.element(page.getByRole("textbox")).toBeInTheDocument())
+  const textarea = page.getByRole("textbox");
 
-  const buttons = Array.from(document.body.querySelectorAll('button'));
-  const importButton = buttons.find(b => b.textContent?.includes('Import')) as HTMLButtonElement;
-  importButton.click();
+  await textarea.fill(JSON.stringify(notAGraph));
 
-  const alert = await waitForElement('[role="alert"]') as HTMLElement;
-  expect(alert.textContent).toContain('does not match schema');
+  const importButton = page.getByRole("button", { name: "Import" });
+  await importButton.click();
+
+  const alert = page.getByRole("alert");
+  expect(alert).toBeInTheDocument();
+  expect(alert).toHaveTextContent(/does not match schema/i);
   expect(mockOnImported).not.toHaveBeenCalled();
   expect(mockOnClose).not.toHaveBeenCalled();
 });
 
-test.skip('Unhappy path: valid JSON that passes schema but fails compilation', async () => {
+test('Unhappy path: valid JSON that passes schema but fails compilation', async () => {
   const mockOnImported = vi.fn();
   const mockOnClose = vi.fn();
 
@@ -173,15 +155,17 @@ test.skip('Unhappy path: valid JSON that passes schema but fails compilation', a
     </AlgorithmStorageProvider>,
   );
 
-  const textarea = (await waitForElement('textarea')) as HTMLTextAreaElement;
-  setTextareaValue(textarea, JSON.stringify(invalidGraph));
+  await (expect.element(page.getByRole("textbox")).toBeInTheDocument())
+  const textarea = page.getByRole("textbox");
 
-  const buttons = Array.from(document.body.querySelectorAll('button'));
-  const importButton = buttons.find(b => b.textContent?.includes('Import')) as HTMLButtonElement;
-  importButton.click();
+  await textarea.fill(JSON.stringify(invalidGraph));
 
-  const alert = await waitForElement('[role="alert"]') as HTMLElement;
-  expect(alert.textContent).toContain('unknown source node');
+  const importButton = page.getByRole("button", { name: "Import" });
+  await importButton.click();
+
+  const alert = page.getByRole("alert");
+  expect(alert).toBeInTheDocument();
+  expect(alert).toHaveTextContent(/unknown source node/i);
   expect(mockOnImported).not.toHaveBeenCalled();
   expect(mockOnClose).not.toHaveBeenCalled();
 });
