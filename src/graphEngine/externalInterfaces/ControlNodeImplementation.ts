@@ -4,6 +4,7 @@ import type { ValueTypes } from '../../schema/_generated/value-kinds-2';
 import type { ControlNode } from '../../schema/_generated/schema-types';
 import type { ControlNodeKinds, NodeInputsResolved } from '../../schema/typeHelpers';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
+import type { RenderRepresentationFn } from './graphViewTypes';
 
 
 // @legacy - this should have the possible value types derived from the schema
@@ -44,4 +45,5 @@ export type ControlNodeImplementation<K extends ControlNodeKinds> = {
   nodeKind: K;
   defaultValues: NodeInputsResolved<K>;
   renderControl: (node: NodeWithDefaults<K>, set: ControlSetter<K>) => React.ReactNode;
+  renderRepresentation?: RenderRepresentationFn;
 };

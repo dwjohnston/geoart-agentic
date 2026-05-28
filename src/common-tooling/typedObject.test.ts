@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'bun:test';
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function assertType<T>(_value: T) { }
 import { objectEntries } from './typedObject';
 

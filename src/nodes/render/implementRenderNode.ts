@@ -10,12 +10,14 @@ export function implementRenderNode<K extends RenderNodeKinds>(
   def: {
     defaults: NodeInputsResolved<K>;
     evaluate: (inputs: NodeInputsResolved<K>, ctx: RenderEvalContext) => void;
+    renderRepresentation?: RenderNodeImplementation<K>['renderRepresentation'];
   }
 ): RenderNodeImplementation<K> {
   return {
     nodeKind: kind,
     defaultValues: def.defaults,
     evaluate: def.evaluate,
+    renderRepresentation: def.renderRepresentation,
   };
 }
 

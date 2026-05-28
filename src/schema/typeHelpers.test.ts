@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'bun:test';
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function assertType<T>(_value: T) { }
 import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType, type ValidPortReferenceForNodeInputPort, type ConstrainedNodeInputsDeclared } from './typeHelpers';
 import type { GeoArtGraph } from './_generated/schema-types';
@@ -594,8 +593,8 @@ describe("PortReferenceForNodeType", () => {
 
 describe("ConstrainedNodeInputsDeclared", () => {
     type WithSlider = { nodeType: "slider"; nodeId: "s1" };
-    type WithOrbit  = { nodeType: "orbit";  nodeId: "o1" };
-    type WithBoth   = WithSlider | WithOrbit;
+    type WithOrbit = { nodeType: "orbit"; nodeId: "o1" };
+    type WithBoth = WithSlider | WithOrbit;
 
     describe("with Acc = never (no prior nodes)", () => {
         it("accepts static values", () => {
@@ -635,9 +634,9 @@ describe("ConstrainedNodeInputsDeclared", () => {
 
         it("accepts static values alongside valid refs", () => {
             assertType<ConstrainedNodeInputsDeclared<"orbit", WithBoth>>({
-                time:   { v: 0 },
+                time: { v: 0 },
                 radius: { ref: "s1.value" },
-                speed:  { v: 1 },
+                speed: { v: 1 },
             });
         });
 
@@ -691,7 +690,7 @@ describe("ConstrainedNodeInputsDeclared", () => {
 
 describe("ValidPortReferenceForNodeInputPort", () => {
     type AvailableNodes =
-        | { nodeType: "orbit";  nodeId: "myorbit" }
+        | { nodeType: "orbit"; nodeId: "myorbit" }
         | { nodeType: "slider"; nodeId: "myslider" }
         | { nodeType: "slider"; nodeId: "myotherslider" };
 
