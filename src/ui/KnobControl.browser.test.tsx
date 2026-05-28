@@ -82,3 +82,22 @@ test('renders with logarithmic scale', async () => {
   expect(knob).toHaveAttribute('aria-valuemin', '1');
   expect(knob).toHaveAttribute('aria-valuemax', '100');
 });
+
+test("behaviour of 3.7 value when step is 1", async () => {
+  await render(
+    <KnobControl
+      initialValue={3.7}
+      min={1}
+      max={10}
+      step={1}
+      size="lg"
+      label="foo"
+    />
+  );
+
+  const knob = page.getByRole('slider', { name: 'foo' });
+  expect(knob).toBeInTheDocument();
+  expect(knob).toHaveAttribute('aria-valuenow', '3.7');
+  expect(knob).toHaveAttribute('aria-valuemin', '1');
+  expect(knob).toHaveAttribute('aria-valuemax', '10');
+});

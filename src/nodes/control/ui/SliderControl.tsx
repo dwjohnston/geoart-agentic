@@ -12,14 +12,15 @@ type Props = {
 
 export function SliderControl({ id, label, min, max, step, initialValue, onChange }: Props) {
   return (
-    <div className="slider-control">
+    <div className="slider-control" data-testid={`${id}-output`}
+    >
       <KnobControl
+
         label={label}
         min={min}
         max={max}
         step={step}
         initialValue={initialValue}
-        data-testid={`${id}-output`}
         onChange={onChange}
       />
     </div >
