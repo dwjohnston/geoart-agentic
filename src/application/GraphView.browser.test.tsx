@@ -1,24 +1,25 @@
-import { render } from '@testing-library/react';
-import { test } from 'vitest';
+import { expect, test } from 'vitest';
+import { render } from 'vitest-browser-react';
 import { GraphView } from './GraphView';
 import minimalThreeNodeGraph from '../algorithms/reference/minimal/minimalThreeNodeReferenceGraph';
+import { page } from 'vitest/browser';
 
-test('renders a card for each node', () => {
-  const { getByTestId } = render(<GraphView graph={minimalThreeNodeGraph} />);
+test('renders a card for each node', async () => {
+  await render(<GraphView graph={minimalThreeNodeGraph} />);
 
-  getByTestId('node-card-radius');
-  getByTestId('node-card-time');
-  getByTestId('node-card-earthOrbit');
-  getByTestId('node-card-circle');
+  expect(page.getByTestId('node-card-radius')).toBeDefined();
+  expect(page.getByTestId('node-card-time')).toBeDefined();
+  expect(page.getByTestId('node-card-earthOrbit')).toBeDefined();
+  expect(page.getByTestId('node-card-circle')).toBeDefined();
 });
 
-test('renders edges for each connection', () => {
-  const { getByTestId } = render(<GraphView graph={minimalThreeNodeGraph} />);
+test('renders edges for each connection', async () => {
+  await render(<GraphView graph={minimalThreeNodeGraph} />);
 
   // time.time → earthOrbit
-  getByTestId('edge-time-earthOrbit');
+  expect(page.getByTestId('edge-time-earthOrbit')).toBeDefined();
   // radius.value → earthOrbit
-  getByTestId('edge-radius-earthOrbit');
+  expect(page.getByTestId('edge-radius-earthOrbit')).toBeDefined();
   // earthOrbit.points → circle
-  getByTestId('edge-earthOrbit-circle');
+  expect(page.getByTestId('edge-earthOrbit-circle')).toBeDefined();
 });
