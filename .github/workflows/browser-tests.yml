@@ -25,6 +25,10 @@ jobs:
       - name: Install playwright browsers
         run: bunx playwright install --with-deps
 
+
+      - name: Generate
+        run: bun generate           
+
       - name: Test Browser
         # https://github.com/oven-sh/bun/issues/31497
         run: npm run test:browser:headless --force
