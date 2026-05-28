@@ -1,12 +1,17 @@
 import { useRef, useState } from 'react';
 
+
+const DEFAULT_NUM_TICKS = 100;
 type Props = {
-  value: number;
+  initialValue: number;
   min: number;
   max: number;
-  size: 'sm' | 'lg';
+  step?: number;
+  scale?: "linear" | "log";
+  variant?: "regular" | "coarse-fine";
+  size?: 'sm' | 'lg';
   label: string;
-  onChange: (value: number) => void;
+  onChange?: (value: number) => void;
 };
 
 // 200 px of vertical drag covers the full range
@@ -16,12 +21,23 @@ const DRAG_TRAVEL_PX = 200;
 const ROTATION_MIN = -135;
 const ROTATION_MAX = 135;
 
-function valueToRotation(value: number, min: number, max: number): number {
-  const fraction = (value - min) / (max - min);
+function valueToRotation(value: number, min: number, max: number, scale: "linear" | "log" = "linear"): number {
+  let fraction: number;
+
+  if (scale === "log" && min > 0 && max > 0) {
+    fraction = (Math.log(value) - Math.log(min)) / (Math.log(max) - Math.log(min));
+  } else {
+    fraction = (value - min) / (max - min);
+  }
+
   return ROTATION_MIN + fraction * (ROTATION_MAX - ROTATION_MIN);
 }
 
-export function KnobControl({ value, min, max, size, label, onChange }: Props) {
+export function KnobControl({ initialValue, min, max, scale = "linear", step, size = 'lg', variant = 'regular', label, onChange }: Props) {
+  const [value, setValue] = useState(initialValue);
+  const [coarseValue, setCoarseValue] = useState(initialValue);
+  const [fineValue, setFineValue] = useState(0);
+
   const diameter = size === 'lg' ? 64 : 36;
   const strokeWidth = size === 'lg' ? 3 : 2;
   const indicatorLength = diameter / 2 - strokeWidth - 2;
@@ -29,60 +45,139 @@ export function KnobControl({ value, min, max, size, label, onChange }: Props) {
   const dragStartY = useRef<number | null>(null);
   const dragStartValue = useRef<number>(value);
   const [isDragging, setIsDragging] = useState(false);
+  const [draggingKnob, setDraggingKnob] = useState<'regular' | 'coarse' | 'fine' | null>(null);
 
-  const rotation = valueToRotation(value, min, max);
+  const range = max - min;
 
-  function handleMouseDown(e: React.MouseEvent) {
-    e.preventDefault();
-    dragStartY.current = e.clientY;
-    dragStartValue.current = value;
-    setIsDragging(true);
+  // Calculate step sizes based on whether step is provided
+  let stepSize: number;
+  let coarseStepSize: number;
+  let fineStepSize: number;
 
-    function handleMouseMove(moveEvent: MouseEvent) {
-      if (dragStartY.current === null) return;
-      const dy = dragStartY.current - moveEvent.clientY; // dragging up increases value
-      const fraction = dy / DRAG_TRAVEL_PX;
-      const newValue = Math.min(max, Math.max(min, dragStartValue.current + fraction * (max - min)));
-      onChange(newValue);
-    }
-
-    function handleMouseUp() {
-      dragStartY.current = null;
-      setIsDragging(false);
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    }
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+  if (step !== undefined) {
+    const numTicks = range / step;
+    const ticksPerKnob = Math.sqrt(numTicks);
+    coarseStepSize = step * ticksPerKnob;
+    fineStepSize = step;
+    stepSize = step;
+  } else {
+    const numTicks = DEFAULT_NUM_TICKS;
+    const ticksPerKnob = Math.sqrt(numTicks);
+    stepSize = range / DEFAULT_NUM_TICKS;
+    coarseStepSize = range / ticksPerKnob;
+    fineStepSize = coarseStepSize / ticksPerKnob;
   }
+
+  const isCoarseFine = variant === 'coarse-fine';
+
+  const snapToStep = (val: number, stepVal: number): number => {
+    return Math.round(val / stepVal) * stepVal;
+  };
+
+  const updateCombinedValue = (coarse: number, fine: number) => {
+    const combined = Math.min(max, Math.max(min, coarse + fine));
+    setValue(combined);
+    onChange?.(combined);
+  };
+
+  const createMouseDownHandler = (knobType: 'regular' | 'coarse' | 'fine') => {
+    return (e: React.MouseEvent) => {
+      e.preventDefault();
+      dragStartY.current = e.clientY;
+      dragStartValue.current = knobType === 'coarse' ? coarseValue : knobType === 'fine' ? fineValue : value;
+      setIsDragging(true);
+      setDraggingKnob(knobType);
+
+      function handleMouseMove(moveEvent: MouseEvent) {
+        if (dragStartY.current === null) return;
+        const dy = dragStartY.current - moveEvent.clientY;
+        const fraction = dy / DRAG_TRAVEL_PX;
+
+        const calculateNewValue = (startVal: number, minVal: number, maxVal: number, frac: number): number => {
+          if (scale === 'log' && minVal > 0 && maxVal > 0) {
+            const logMin = Math.log(minVal);
+            const logMax = Math.log(maxVal);
+            const logStart = Math.log(startVal);
+            const logRange = logMax - logMin;
+            const newLogVal = logStart + frac * logRange;
+            return Math.exp(newLogVal);
+          } else {
+            return startVal + frac * (maxVal - minVal);
+          }
+        };
+
+        if (knobType === 'regular') {
+          const newValue = calculateNewValue(dragStartValue.current, min, max, fraction);
+          const clampedValue = Math.min(max, Math.max(min, newValue));
+          const snappedValue = snapToStep(clampedValue, stepSize);
+          setValue(snappedValue);
+          onChange?.(snappedValue);
+        } else if (knobType === 'coarse') {
+          const newValue = calculateNewValue(dragStartValue.current, min, max, fraction);
+          const clampedValue = Math.min(max, Math.max(min, newValue));
+          const newCoarse = snapToStep(clampedValue, coarseStepSize);
+          setCoarseValue(newCoarse);
+          updateCombinedValue(newCoarse, fineValue);
+        } else if (knobType === 'fine') {
+          const newValue = calculateNewValue(dragStartValue.current, 0, coarseStepSize, fraction);
+          const clampedValue = Math.min(coarseStepSize, Math.max(0, newValue));
+          const newFine = snapToStep(clampedValue, fineStepSize);
+          setFineValue(newFine);
+          updateCombinedValue(coarseValue, newFine);
+        }
+      }
+
+      function handleMouseUp() {
+        dragStartY.current = null;
+        setIsDragging(false);
+        setDraggingKnob(null);
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      }
+
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    };
+  };
 
   const cx = diameter / 2;
   const cy = diameter / 2;
   const radius = diameter / 2 - strokeWidth;
 
-  // Indicator line from centre towards the edge at the current rotation
-  const angleRad = ((rotation - 90) * Math.PI) / 180;
-  const x2 = cx + indicatorLength * Math.cos(angleRad);
-  const y2 = cy + indicatorLength * Math.sin(angleRad);
+  // Format value to max 5 digits
+  const formatValue = (num: number): string => {
+    let str = num.toFixed(2);
+    if (str.length > 5) {
+      str = num.toFixed(1);
+      if (str.length > 5) {
+        str = Math.round(num).toString();
+      }
+    }
+    return str;
+  };
 
-  return (
-    <div
-      className="knob-control"
-      style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', userSelect: 'none' }}
-    >
+  const renderKnob = (knobValue: number, knobMin: number, knobMax: number, knobType: 'regular' | 'coarse' | 'fine', label?: string) => {
+    const knobRotation = valueToRotation(knobValue, knobMin, knobMax, scale);
+    const angleRad = ((knobRotation - 90) * Math.PI) / 180;
+    const knobX2 = cx + indicatorLength * Math.cos(angleRad);
+    const knobY2 = cy + indicatorLength * Math.sin(angleRad);
+
+    const labelLetter = knobType === 'coarse' ? 'C' : knobType === 'fine' ? 'F' : '';
+    const labelFontSize = size === 'lg' ? 10 : 6;
+
+    return (
       <svg
+        key={knobType}
         width={diameter}
         height={diameter}
-        onMouseDown={handleMouseDown}
-        style={{ cursor: isDragging ? 'ns-resize' : 'pointer' }}
-        aria-label={label}
+        onMouseDown={createMouseDownHandler(knobType)}
+        style={{ cursor: isDragging && draggingKnob === knobType ? 'ns-resize' : 'pointer' }}
+        aria-label={label || ''}
         role="slider"
-        aria-valuenow={value}
-        aria-valuemin={min}
-        aria-valuemax={max}
+        aria-valuenow={knobValue}
+        aria-valuemin={knobMin}
+        aria-valuemax={knobMax}
       >
-        {/* Knob body */}
         <circle
           cx={cx}
           cy={cy}
@@ -91,17 +186,51 @@ export function KnobControl({ value, min, max, size, label, onChange }: Props) {
           stroke="#555"
           strokeWidth={strokeWidth}
         />
-        {/* Indicator line */}
         <line
           x1={cx}
           y1={cy}
-          x2={x2}
-          y2={y2}
+          x2={knobX2}
+          y2={knobY2}
           stroke="#e0e0e0"
           strokeWidth={strokeWidth}
           strokeLinecap="round"
         />
+        {isCoarseFine && labelLetter && (
+          <text
+            x={diameter - 2}
+            y={2}
+            textAnchor="end"
+            dominantBaseline="text-before-edge"
+            fontSize={labelFontSize}
+            fill="#999"
+            fontWeight="bold"
+            pointerEvents="none"
+          >
+            {labelLetter}
+          </text>
+        )}
       </svg>
+    );
+  };
+
+  return (
+    <div
+      className="knob-control"
+      style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', userSelect: 'none' }}
+    >
+      <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+        {isCoarseFine ? (
+          <>
+            {renderKnob(coarseValue, min, max, 'coarse', `${label} (coarse)`)}
+            {renderKnob(fineValue, 0, coarseStepSize, 'fine', `${label} (fine)`)}
+          </>
+        ) : (
+          renderKnob(value, min, max, 'regular', label)
+        )}
+      </div>
+      <span style={{ fontSize: '0.6rem', color: '#666', marginTop: 4, fontFamily: 'monospace', minHeight: '1em' }}>
+        {formatValue(value)}
+      </span>
       <span style={{ fontSize: size === 'lg' ? '0.75rem' : '0.65rem', color: '#aaa', marginTop: 2 }}>
         {label}
       </span>
