@@ -1,5 +1,11 @@
 [run]
-bun = true
+bun = false
+
+[run."test:browser"]
+bun = false
+
+[run."test:browser:headless"]
+bun = false
 
 [test]
 pathIgnorePatterns = "**/*.browser.test.*"
