@@ -35,11 +35,12 @@ export function Modal({ title, onClose, children }: Props) {
           background: '#1a1a26',
           borderRadius: 8,
           padding: 24,
-          minWidth: 480,
-          maxWidth: 600,
           width: '90%',
+          maxHeight: '90vh',
+          maxWidth: '90vw',
           border: '1px solid #333',
           boxShadow: '0 4px 24px rgba(0,0,0,0.5)',
+          overflow: 'auto',
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>

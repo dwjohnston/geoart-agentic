@@ -13,8 +13,6 @@ import { SpeedControl } from './SpeedControl';
 import { RenderToggles } from './RenderToggles';
 import { ImportAlgorithmModal } from './ImportAlgorithmModal';
 import { useAlgorithmStorage } from './algorithmStorage/AlgorithmStorageContext';
-import { GraphView } from './GraphView';
-import { Modal } from './Modal';
 import { NeverShouldHappenError } from '../common-tooling/errors/NeverShouldHappenError';
 
 const CANVAS_SIZE = 800;
@@ -42,7 +40,6 @@ export function App() {
   };
 
   const [selectedGraphId, setSelectedGraphId] = useState(getInitialGraphId);
-  const [showGraphView, setShowGraphView] = useState(false);
 
   const currentGraph = algorithms.find(a => a.id === selectedGraphId);
   const [speed, setSpeed] = useState(() => currentGraph?.graph.speed ?? 1.0);
@@ -115,21 +112,6 @@ export function App() {
         <RenderToggles renderingNodes={payload.renderingNodes} onToggle={handleRenderNodeToggle} />
       </SidePanel>
       <Canvas orbitCanvasRef={orbitCanvasRef} trailCanvasRef={trailCanvasRef} size={CANVAS_SIZE} />
-      <button
-        onClick={() => setShowGraphView(v => !v)}
-        style={{
-          padding: '6px 16px',
-          background: showGraphView ? '#4fc3f7' : '#333',
-          color: showGraphView ? '#000' : '#ccc',
-          border: '1px solid #555',
-          borderRadius: 4,
-          cursor: 'pointer',
-          fontSize: 12,
-          fontFamily: 'monospace',
-        }}
-      >
-        {showGraphView ? 'Hide graph view' : 'Show graph view'}
-      </button>
       <SidePanel>
         <AlgorithmPicker
           algorithms={algorithms}
@@ -146,12 +128,6 @@ export function App() {
           onImported={handleImported}
         />
       )}
-
-      {showGraphView && currentGraph && (
-        <Modal onClose={() => setShowGraphView(false)}>
-          <GraphView graph={currentGraph.graph} />
-        </Modal>)}
-
     </div>
   );
 }

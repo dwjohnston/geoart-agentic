@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import type { GRAPHS } from '../algorithms/index';
+import { GraphView } from './GraphView';
+import { Modal } from './Modal';
 
 type BundledGraphEntry = (typeof GRAPHS)[number];
 
@@ -14,6 +16,7 @@ type Props = {
 
 export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick }: Props) {
   const [selectedId, setSelectedId] = useState(defaultId);
+  const [showGraphView, setShowGraphView] = useState(false);
   const current = algorithms.find(g => g.id === selectedId);
   const currentName = current?.name ?? selectedId;
 
@@ -79,6 +82,22 @@ export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick
           >
             Import
           </button>
+          <button
+            onClick={() => setShowGraphView(true)}
+            title="View graph structure"
+            style={{
+              background: '#1a1a26',
+              border: '1px solid #333',
+              borderRadius: 4,
+              color: '#aaa',
+              padding: '4px 10px',
+              cursor: 'pointer',
+              fontSize: 13,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            View graph
+          </button>
         </div>
       </div>
 
@@ -90,6 +109,12 @@ export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick
           </span>
         )}
       </h2>
+
+      {showGraphView && current && (
+        <Modal onClose={() => setShowGraphView(false)}>
+          <GraphView graph={current.graph} />
+        </Modal>
+      )}
     </>
   );
 }
