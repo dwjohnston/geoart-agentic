@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Modal } from './Modal';
-import { validateGeoArtGraph } from '../schema/validateGeoArtGraph';
-import { tryCompileGraph } from '../graphEngine/graphEngine/tryCompileGraph';
+import { tryCompileGraph } from '../graphEngine/exports';
 import { useAlgorithmStorage } from './algorithmStorage/AlgorithmStorageContext';
 import type { GeoArtGraph } from '../schema/_generated/schema-types';
 import type { StoredAlgorithmEntry } from './algorithmStorage/IAlgorithmStorageService';
@@ -30,16 +29,9 @@ export function ImportAlgorithmModal({ onClose, onImported }: Props) {
       return;
     }
 
-    // const schemaResult = validateGeoArtGraph(parsed);
-    // if (!schemaResult) {
-    //   setErrors(['has errors']);
-    //   setSubmitting(false);
-    //   return;
-    // }
-
-    const compileResult = tryCompileGraph(parsed as GeoArtGraph);
+    const compileResult = tryCompileGraph(parsed);
     if (!compileResult.success) {
-      setErrors([`Compiler error: ${compileResult.error}`]);
+      setErrors([`${compileResult.error}`]);
       setSubmitting(false);
       return;
     }

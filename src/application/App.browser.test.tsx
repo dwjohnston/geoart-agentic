@@ -1,7 +1,7 @@
-import { render } from '@testing-library/react';
 import { expect, test } from 'vitest';
+import { render } from 'vitest-browser-react';
 import { App } from './App';
-import { AlgorithmStorageProvider } from './algorithmStorage/AlgorithmStorageContext';
+import { AlgorithmStorageProvider } from './algorithmStorage/AlgorithmStorageProvider';
 import type { IAlgorithmStorageService, StoredAlgorithmEntry } from './algorithmStorage/IAlgorithmStorageService';
 import type { GeoArtGraph } from '../schema/_generated/schema-types';
 
@@ -15,11 +15,13 @@ const stubStorageService: IAlgorithmStorageService = {
   },
 };
 
-test('renders without crashing', () => {
-  const { container } = render(
+test('renders without crashing', async () => {
+  await render(
     <AlgorithmStorageProvider service={stubStorageService}>
       <App />
     </AlgorithmStorageProvider>,
   );
-  expect(container).toBeTruthy();
+
+  const canvas = document.body.querySelector('canvas');
+  expect(canvas).toBeTruthy();
 });
