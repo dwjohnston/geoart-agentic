@@ -12,8 +12,10 @@ export function DropdownControl<T extends string>({ id, label, options, initialV
   const [value, setValue] = useState(initialValue);
 
   return (
-    <div className="dropdown-control">
-      <label htmlFor={id}>{label}</label>
+    <div
+      className="dropdown-control"
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', userSelect: 'none', gap: 4 }}
+    >
       <select
         id={id}
         value={value}
@@ -22,11 +24,15 @@ export function DropdownControl<T extends string>({ id, label, options, initialV
           setValue(v);
           onChange(v);
         }}
+        style={{ width: 80 }}
       >
         {options.map(opt => (
           <option key={opt} value={opt}>{opt}</option>
         ))}
       </select>
+      <label htmlFor={id} style={{ fontSize: '0.75rem', color: '#aaa' }}>
+        {label}
+      </label>
     </div>
   );
 }

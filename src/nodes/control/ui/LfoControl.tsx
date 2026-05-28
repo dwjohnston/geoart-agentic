@@ -1,4 +1,4 @@
-import { KnobControl } from './KnobControl';
+import { KnobControl } from '../../../ui/KnobControl';
 import { DropdownControl } from './DropdownControl';
 import { DebugPanel } from '../../../ui-tooling/DebugPanel';
 import type { ResolvedValue } from '../../../schema/typeHelpers';
@@ -38,7 +38,7 @@ export function LfoControl({
     >
       {/* Large base knob */}
       <KnobControl
-        value={baseValue}
+        initialValue={baseValue}
         min={-1}
         max={1}
         size="lg"
@@ -58,7 +58,7 @@ export function LfoControl({
         />
         <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
           <KnobControl
-            value={frequency}
+            initialValue={frequency}
             min={0.001}
             max={1}
             size="sm"
@@ -66,7 +66,7 @@ export function LfoControl({
             onChange={onFrequencyChange}
           />
           <KnobControl
-            value={amplitude}
+            initialValue={amplitude}
             min={0}
             max={1}
             size="sm"
