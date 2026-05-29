@@ -24,7 +24,7 @@ export function generateOutputs(schema: JSONSchema7): string {
 
     const entries: Record<string, NodeOutputEntry[]> = {};
 
-    for (const sectionKey of ["controlNode", "computeNode", "renderNode"]) {
+    for (const sectionKey of ["controlNode", "computeNode", "renderNode", "moduleNode"]) {
         const section = definitions[sectionKey];
         if (!section?.oneOf) continue;
 
@@ -166,6 +166,7 @@ interface Schema {
         controlNode: SectionDef;
         computeNode: SectionDef;
         renderNode: SectionDef;
+        moduleNode?: SectionDef;
     };
 }
 
@@ -191,13 +192,16 @@ function serializeNodeInputs(nodeInputs: NodeInputMap): string {
 export function buildNodeInputs(schema: Schema): string {
     const nodeInputs: NodeInputMap = {};
 
-    const sectionDefs: SectionDef[] = [
+    const sectionDefs: (SectionDef | undefined)[] = [
         schema.definitions.controlNode,
         schema.definitions.computeNode,
         schema.definitions.renderNode,
+        schema.definitions.moduleNode,
     ];
 
     for (const sectionDef of sectionDefs) {
+        if (!sectionDef?.oneOf) continue;
+
         for (const variant of sectionDef.oneOf) {
             const nodeType = variant.properties.type.enum[0];
             const params = variant.properties.params?.properties ?? {};

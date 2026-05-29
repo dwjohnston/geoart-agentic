@@ -136,7 +136,9 @@
       "properties": {
         "sourceType": {
           "type": "string",
-          "enum": ["module"]
+          "enum": [
+            "module"
+          ]
         },
         "sourceId": {
           "type": "string",
@@ -1428,16 +1430,8 @@
           ],
           "x-outputs": [
             {
-              "name": "point",
-              "valueType": "pointValue"
-            },
-            {
               "name": "points",
               "valueType": "colorPointArrayValue"
-            },
-            {
-              "name": "time",
-              "valueType": "numberValue"
             }
           ],
           "properties": {
@@ -1486,13 +1480,27 @@
               "description": "Boolean flags to enable/disable control generation for module parameters",
               "additionalProperties": false,
               "properties": {
-                "speed": { "type": "boolean" },
-                "radius": { "type": "boolean" },
-                "numPoints": { "type": "boolean" },
-                "centerPoints": { "type": "boolean" },
-                "phase": { "type": "boolean" },
-                "eccentricity": { "type": "boolean" },
-                "tilt": { "type": "boolean" }
+                "speed": {
+                  "type": "boolean"
+                },
+                "radius": {
+                  "type": "boolean"
+                },
+                "numPoints": {
+                  "type": "boolean"
+                },
+                "centerPoints": {
+                  "type": "boolean"
+                },
+                "phase": {
+                  "type": "boolean"
+                },
+                "eccentricity": {
+                  "type": "boolean"
+                },
+                "tilt": {
+                  "type": "boolean"
+                }
               }
             },
             "render": {
@@ -1506,8 +1514,12 @@
                   "title": "Live Layer Renders",
                   "additionalProperties": false,
                   "properties": {
-                    "point": { "type": "boolean" },
-                    "path": { "type": "boolean" }
+                    "point": {
+                      "type": "boolean"
+                    },
+                    "path": {
+                      "type": "boolean"
+                    }
                   }
                 },
                 "paint": {
@@ -1515,7 +1527,9 @@
                   "title": "Paint Layer Renders",
                   "additionalProperties": false,
                   "properties": {
-                    "trace": { "type": "boolean" }
+                    "trace": {
+                      "type": "boolean"
+                    }
                   }
                 }
               }

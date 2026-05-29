@@ -80,3 +80,42 @@ eg.
 
 Value references allow a node input to be wired to the output of another node. They are defined in `refable-value-kinds.schema.json`, which extends each value primitive to also accept `{ ref: "nodeId.portName" }`.
 
+## Module Nodes
+
+Module nodes are reusable groups of nodes that get expanded during compilation. They are defined in the schema similarly to control, compute, and render nodes, but live under `definitions.moduleNode`. 
+
+Module nodes have:
+- Inputs (params) that can be static values or references
+- Outputs declared via `x-outputs`
+
+When adding a new module node type:
+1. Add the type string to the `enum` in `definitions.moduleNode` in `schema.json`
+2. Add input parameters to the `params.properties` block
+3. Add output types in the `x-outputs` property
+4. Update `generate-derived-types.ts` and test it with `extract.test.ts`
+
+## Scripts & Testing
+
+### When updating `generate-derived-types.ts`
+
+Update `src/schema/scripts/extract.test.ts`:
+- Add the new node kind to `minimalNodeSchema` if testing a new node section
+- Update test snapshots for `generateOutputs()` and `buildNodeInputs()`
+- Include both positive and negative test cases
+
+### When making schema structural changes
+
+Update `src/schema/typeHelpers.ts`:
+- Add new node kind exports (e.g., `ModuleNodeKinds`)
+
+Update `src/schema/typeHelpers.test.ts`:
+- Add type tests for the new node kind
+- Test both positive cases (valid types) and negative cases (`@ts-expect-error`)
+- For array value assertions, use concrete values, never empty arrays `[]`
+- Include tests across all relevant describe blocks:
+  - Node kind recognition
+  - Node outputs 
+  - Node inputs
+  - Constrained inputs with accumulated nodes
+  - Port references
+

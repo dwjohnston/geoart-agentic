@@ -1,4 +1,4 @@
-import type { ControlNode, RenderNode, ComputeNode } from "./_generated/schema-types";
+import type { ControlNode, RenderNode, ComputeNode, ModuleNode } from "./_generated/schema-types";
 import { nodeInputs } from "./_generated/node-inputs-2"
 import { nodeOutputMeta } from "./_generated/node-outputs-2"
 
@@ -14,6 +14,7 @@ import type { ValueTypes } from "./_generated/value-kinds-2";
 export type ControlNodeKinds = ControlNode['type'];
 export type ComputeNodeKinds = ComputeNode['type']
 export type RenderNodeKinds = RenderNode['type']
+export type ModuleNodeKinds = ModuleNode['type']
 
 
 export type ValueTypeNames = ValueTypes['kind'];
