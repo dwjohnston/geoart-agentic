@@ -45,6 +45,8 @@ type CompiledNode = {
   params: Record<string, Value>;
   /** Which canvas layer to draw to — only set for render nodes. */
   renderConfig?: { layer: 'paint' | 'live' };
+  /** For marker nodes: maps output port names to internal node refs. */
+  outputRefs?: Record<string, { ref: string }>;
 };
 
 /** Per-node mutable evaluation state, reset/updated on each tick. */
@@ -409,6 +411,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       def: markerDef,
       layer: 'compute',
       params: buildParams(markerParams),
+      outputRefs: markerNode.outputRefs,
     });
 
     // Remove this module from remaining modules
@@ -452,6 +455,18 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
         const fromCompiledNode = nodes.get(fromNodeId);
         if (!fromCompiledNode) {
           throw new Error(`Ref "${ref}" on "${context}": unknown source node "${fromNodeId}"`);
+        }
+
+        // If the source is a marker node, follow its outputRefs to the actual source
+        if (fromCompiledNode.def.type === 'module-marker' && fromCompiledNode.outputRefs) {
+          const outputRef = fromCompiledNode.outputRefs[fromPortName];
+          if (!outputRef) {
+            throw new Error(
+              `Ref "${ref}" on "${context}": marker node "${fromNodeId}" has no output ref for port "${fromPortName}"`,
+            );
+          }
+          // Recursively resolve the internal ref
+          return resolveRef(outputRef.ref, context, arrayIndex);
         }
 
         const fromDef = fromCompiledNode.def as LegacyComputeNodeImplementation | LegacyControlNodeImplementation | LegacyRenderNodeImplementation;

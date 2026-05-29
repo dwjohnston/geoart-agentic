@@ -26,7 +26,7 @@ function needsControl<NodeKind extends ModuleNodeKinds>(params: NodeInputsDeclar
 
 
 function pushControlNodeIfNeed<NodeKind extends ModuleNodeKinds, NodeInputKey extends keyof NodeInputsDeclared<NodeKind>>(
-  controlNodes: ModuleExpansionResult['controlNodes'],
+  controlNodes: ModuleExpansionResult<NodeKind>['controlNodes'],
   params: NodeInputsDeclared<NodeKind>,
   defaultValues: NodeInputsResolved<NodeKind>,
   key: NodeInputKey,
@@ -49,22 +49,22 @@ function pushControlNodeIfNeed<NodeKind extends ModuleNodeKinds, NodeInputKey ex
 const orbitModuleImplementation = implementModule({
   _kind: "orbit-module",
   defaultValues: {
-    speed: 0.01,
+    speed: 0.3,
 
     "centerPoints": [fColorPoint()],
-    "eccentricity": 1,
+    "eccentricity": 0,
     "tilt": 0,
     "phase": 0,
     numPoints: 1,
     time: 0,
-    "radius": 1,
+    "radius": 0.5,
 
 
   },
   fn: (params, moduleId, defaultValues) => {
-    const controlNodes: ModuleExpansionResult['controlNodes'] = [];
-    const computeNodes: ModuleExpansionResult['computeNodes'] = [];
-    const renderNodes: ModuleExpansionResult['renderNodes'] = [];
+    const controlNodes: ModuleExpansionResult<"orbit-module">['controlNodes'] = [];
+    const computeNodes: ModuleExpansionResult<"orbit-module">['computeNodes'] = [];
+    const renderNodes: ModuleExpansionResult<"orbit-module">['renderNodes'] = [];
 
 
     // Generate control nodes based on config
@@ -74,8 +74,8 @@ const orbitModuleImplementation = implementModule({
         type: 'slider',
         params: {
           label: { v: 'Speed' },
-          min: { v: -0.1 },
-          max: { v: 0.1 },
+          min: { v: -1 },
+          max: { v: 1 },
           step: { v: 0.01 },
           value,
         },
@@ -179,21 +179,6 @@ const orbitModuleImplementation = implementModule({
       },
     });
 
-    computeNodes.push({
-      id: orbitNodeId,
-      type: 'orbit',
-      params: {
-        time: params.time,
-        speed: buildParamRef('speed'),
-        radius: buildParamRef('radius'),
-        numPoints: buildParamRef("numPoints"),
-        centerPoints: params.centerPoints,
-        phase: buildParamRef('phase'),
-        eccentricity: buildParamRef('eccentricity'),
-        tilt: buildParamRef('tilt'),
-      },
-    });
-
 
     // Generate render nodes based on config
     renderNodes.push({
@@ -239,7 +224,7 @@ const orbitModuleImplementation = implementModule({
     });
 
     // Create marker node
-    const result: ModuleExpansionResult = {
+    const result: ModuleExpansionResult<"orbit-module"> = {
       controlNodes,
       computeNodes,
       renderNodes,
@@ -247,6 +232,11 @@ const orbitModuleImplementation = implementModule({
         id: moduleId,
         type: 'module-marker',
         params: {},
+        outputRefs: {
+          points: {
+            "ref": `${orbitNodeId}.points`
+          }
+        },
         nodeSource: {
           sourceType: 'module',
           sourceId: moduleId,

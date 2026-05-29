@@ -232,22 +232,19 @@ describe('module expansion', () => {
 
     const compiled = compile(graph, realNodeRegistry);
 
-    const marker = compiled.nodes.get('my-orbit');
-
     // Marker should exist and be a module-marker
-    expect(marker).toBeDefined();
-    expect(marker?.def.type).toBe('module-marker');
-
-    // Compilation should succeed and have both the module and the downstream node
     expect(compiled.nodes.has('my-orbit')).toBe(true);
+    expect(compiled.nodes.get('my-orbit')?.def.type).toBe('module-marker');
+
+    // Downstream node should exist
     expect(compiled.nodes.has('use-orbit')).toBe(true);
 
-    // Check that 'use-orbit' has an edge coming from 'my-orbit'
+    // The ref 'my-orbit.points' should resolve to an edge from the internal orbit node
+    // (the compiler follows outputRefs to resolve through the marker)
     const useOrbitEdges = compiled.edges.filter((edge) => edge.toNode === 'use-orbit');
-    const hasOrbitRef = useOrbitEdges.some((edge) => edge.fromNode === 'my-orbit');
-    expect(hasOrbitRef).toBe(true);
-
-
+    const internalOrbitNode = 'my-orbit:orbit';
+    const hasInternalOrbitRef = useOrbitEdges.some((edge) => edge.fromNode === internalOrbitNode);
+    expect(hasInternalOrbitRef).toBe(true);
   });
 
 
@@ -355,16 +352,13 @@ describe('module expansion', () => {
 
     const compiled = compile(graph, realNodeRegistry);
 
-    // Should have both markers
+    // Both marker nodes should exist
     expect(compiled.nodes.has('orbit-a')).toBe(true);
     expect(compiled.nodes.has('orbit-b')).toBe(true);
+    expect(compiled.nodes.get('orbit-a')?.def.type).toBe('module-marker');
+    expect(compiled.nodes.get('orbit-b')?.def.type).toBe('module-marker');
 
-
-    expect(compiled.nodes.get('orbit-a')?.def.type).toBe("module-marker")
-    expect(compiled.nodes.get('orbit-b')?.def.type).toBe("module-marker")
-
-
-    // Should have internal nodes for both, with separate namespaces
+    // Both modules should have internal nodes with separate namespaces
     const orbitAInternals = Array.from(compiled.nodes.keys()).filter((id) =>
       id.startsWith('orbit-a:')
     );
@@ -374,16 +368,22 @@ describe('module expansion', () => {
 
     expect(orbitAInternals.length).toBeGreaterThan(0);
     expect(orbitBInternals.length).toBeGreaterThan(0);
+    expect(orbitAInternals.some((id) => id.startsWith('orbit-b:'))).toBe(false);
+    expect(orbitBInternals.some((id) => id.startsWith('orbit-a:'))).toBe(false);
 
-    // Check that orbit-b's internal orbit node has a ref to orbit-a marker
-    const orbitBNode = orbitBInternals.find((id) => {
-      const node = compiled.nodes.get(id);
-      return node?.def.type === 'orbit';
-    });
-    expect(orbitBNode).toBeDefined();
+    // When orbit-b references orbit-a's output via the marker, the compiler resolves
+    // through the marker's outputRefs to create an edge from orbit-a's internal node
+    const orbitBOrbitNode = orbitBInternals.find(
+      (id) => compiled.nodes.get(id)?.def.type === 'orbit'
+    );
+    expect(orbitBOrbitNode).toBeDefined();
 
-    const orbitBNodeEdges = compiled.edges.filter((edge) => edge.toNode === orbitBNode);
-    const hasOrbitARef = orbitBNodeEdges.some((edge) => edge.fromNode === 'orbit-a');
-    expect(hasOrbitARef).toBe(true);
+    const edgesToOrbitB = compiled.edges.filter(
+      (edge) => edge.toNode === orbitBOrbitNode
+    );
+    const hasEdgeFromOrbitA = edgesToOrbitB.some(
+      (edge) => edge.fromNode === 'orbit-a:orbit'
+    );
+    expect(hasEdgeFromOrbitA).toBe(true);
   });
 });

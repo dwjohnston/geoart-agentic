@@ -16,7 +16,7 @@ import type { ModuleExpansionResult, ModuleImplementationFn } from '../../graphE
 
 export function implementModule<K extends ModuleNodeKinds>(options: {
   _kind: K,
-  fn: (params: NodeInputsDeclared<K>, moduleId: string, defaultValues: NodeInputsResolved<K>) => ModuleExpansionResult,
+  fn: (params: NodeInputsDeclared<K>, moduleId: string, defaultValues: NodeInputsResolved<K>) => ModuleExpansionResult<K>,
   defaultValues: NodeInputsResolved<K>
 }
 ): ModuleImplementationFn<K> {

@@ -6,7 +6,7 @@
  */
 
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
-import type { ModuleNodeKinds, NodeInputsDeclared } from '../../schema/typeHelpers';
+import type { ModuleNodeKinds, NodeInputsDeclared, NodeOutputAsRefs } from '../../schema/typeHelpers';
 
 
 
@@ -14,7 +14,7 @@ import type { ModuleNodeKinds, NodeInputsDeclared } from '../../schema/typeHelpe
  * Result of expanding a module node — the complete set of internal nodes
  * plus the marker node that serves as the public interface.
  */
-export interface ModuleExpansionResult {
+export interface ModuleExpansionResult<K extends ModuleNodeKinds> {
   /** Internal control nodes (prefixed with {moduleId}:) */
   controlNodes: GeoArtGraph['control']['nodes'];
   /** Internal compute nodes (prefixed with {moduleId}:) */
@@ -26,6 +26,7 @@ export interface ModuleExpansionResult {
     id: string;
     type: 'module-marker';
     params: Record<string, never>; // Marker nodes have no params
+    outputRefs: NodeOutputAsRefs<K>;
     nodeSource: {
       sourceType: 'module';
       sourceId: string;
@@ -37,6 +38,6 @@ export interface ModuleExpansionResult {
 /**
  * Registry mapping module type names to their implementation functions.
  */
-export type ModuleImplementationFn<K extends ModuleNodeKinds> = (params: NodeInputsDeclared<K>, moduleId: string) => ModuleExpansionResult;
+export type ModuleImplementationFn<K extends ModuleNodeKinds> = (params: NodeInputsDeclared<K>, moduleId: string) => ModuleExpansionResult<K>;
 
 export type ModuleRegistry = Map<string, ModuleImplementationFn<ModuleNodeKinds>>;

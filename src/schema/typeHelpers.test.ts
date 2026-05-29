@@ -2,7 +2,7 @@ import { describe, it, expect } from 'bun:test';
 
 
 function assertType<T>(_value: T) { }
-import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ModuleNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType, type ValidPortReferenceForNodeInputPort, type ConstrainedNodeInputsDeclared } from './typeHelpers';
+import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ModuleNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType, type ValidPortReferenceForNodeInputPort, type ConstrainedNodeInputsDeclared, type NodeOutputKeys, type NodeOutputAsRefs } from './typeHelpers';
 import type { GeoArtGraph } from './_generated/schema-types';
 import { fColorPoint } from '../constants';
 
@@ -192,6 +192,27 @@ describe("NodeOutputsRecord", () => {
 
         //@ts-expect-error - missing 'points' port
         assertType<NodeOutputsResolved<"orbit-module">>({});
+    });
+});
+
+describe("NodeOutputKeys", () => {
+    assertType<NodeOutputKeys<"orbit-module">>("points");
+});
+describe("NodeOutputsAsRefs", () => {
+
+    it("works with module nodes", () => {
+
+
+        assertType<NodeOutputAsRefs<"orbit-module">>({
+            points: { ref: "somenode.port" }
+        });
+
+        // All outputs need to be included
+        //@ts-expect-error - need points
+        assertType<NodeOutputAsRefs<"orbit-module">>({
+        });
+
+
     });
 });
 
