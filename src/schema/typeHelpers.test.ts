@@ -563,7 +563,6 @@ describe("NodeInputsDeclared", () => {
         );
 
 
-        type _X = Required<NodeInputsDeclared<"add">>['a'];
         assertType<NodeInputsDeclared<"add">>({
             a: { v: 1 },
         });
