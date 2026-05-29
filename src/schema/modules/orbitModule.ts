@@ -133,6 +133,7 @@ export const orbitModule: ModuleDef = {
       layer: 'compute',
       type: 'orbit',
       params: {
+
         time: { ref: resolvedInputs.get('time')! },
         radius: { ref: resolvedInputs.get('radius')! },
         speed: { ref: resolvedInputs.get('speed')! },
