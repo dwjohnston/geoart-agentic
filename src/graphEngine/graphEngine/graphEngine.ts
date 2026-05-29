@@ -109,13 +109,38 @@ export function createGraphEngine(
     }
 
     return {
-      renderControlNodes: () => graph.control.nodes.map(node => {
-        const def = (registry?.controlRegistry ?? controlRegistry).get(node.type);
-        if (!def) return null;
-        //@ts-expect-error - ignore for now
-        const element = def.renderControl(node, (paramKey, value) => mutateControl(node.id, paramKey, value));
-        return React.createElement(React.Fragment, { key: node.id }, element);
-      }),
+      renderControlNodes: () => {
+        const controlNodeIds: string[] = [];
+
+        // Collect control node IDs from compiled graph (includes both original and module-generated)
+        if (compiled) {
+          for (const nodeId of compiled.sortedNodes) {
+            const compiledNode = compiled.nodes.get(nodeId);
+            if (compiledNode && compiledNode.layer === 'control') {
+              controlNodeIds.push(nodeId);
+            }
+          }
+        }
+
+        return controlNodeIds.map(nodeId => {
+          const compiledNode = compiled?.nodes.get(nodeId);
+          if (!compiledNode) return null;
+
+          const def = (registry?.controlRegistry ?? controlRegistry).get(compiledNode.def.type);
+          if (!def) return null;
+
+          // Build node descriptor for renderControl
+          const node = {
+            id: nodeId,
+            type: compiledNode.def.type,
+            params: compiledNode.params,
+          };
+
+          //@ts-expect-error - ignore for now
+          const element = def.renderControl(node, (paramKey, value) => mutateControl(nodeId, paramKey, value));
+          return React.createElement(React.Fragment, { key: nodeId }, element);
+        });
+      },
       renderingNodes,
     };
   }

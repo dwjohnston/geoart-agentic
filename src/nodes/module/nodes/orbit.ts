@@ -227,6 +227,9 @@ const orbitModuleImplementation = implementModule({
       },
     };
 
+
+    console.log(result)
+
     return result;
   }
 });
