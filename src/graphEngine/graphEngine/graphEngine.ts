@@ -8,6 +8,7 @@ import type { Value } from '../../schema/types';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
+import { moduleRegistry } from '../../nodes/module/registry';
 
 export type GraphLoadPayload = {
   renderControlNodes: () => React.ReactNode;
@@ -29,6 +30,7 @@ export function createGraphEngine(
     computeRegistry?: typeof computeRegistry;
     renderRegistry?: typeof renderRegistry;
     controlRegistry?: typeof controlRegistry;
+    moduleRegistry?: typeof moduleRegistry;
   },
 ): GraphEngine {
   let compiled: CompiledGraph | null = null;
@@ -85,7 +87,8 @@ export function createGraphEngine(
     compiled = compile(graph, {
       computeRegistry: registry?.computeRegistry ?? computeRegistry,
       controlRegistry: registry?.controlRegistry ?? controlRegistry,
-      renderRegistry: registry?.renderRegistry ?? renderRegistry
+      renderRegistry: registry?.renderRegistry ?? renderRegistry,
+      moduleRegistry: registry?.moduleRegistry ?? moduleRegistry
     });
 
     // Extract render nodes and initialize enabled set

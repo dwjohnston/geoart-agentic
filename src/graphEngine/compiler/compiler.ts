@@ -10,6 +10,7 @@ import type { LegacyRenderNodeImplementation } from '../../graphEngine/externalI
 import type { LegacyControlNodeImplementation } from '../../graphEngine/externalInterfaces/ControlNodeImplementation';
 
 import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeImplementations';
+import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
 
 /** Layer tag used to enforce direction constraints at compile time. */
 type Layer = 'control' | 'compute' | 'render';
@@ -307,6 +308,112 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       params: buildParams(rawParams),
       renderConfig: { layer: node.renderConfig.layer },
     });
+  }
+
+  // ------------------------------------------------------------------
+  // 3.5 Expand module nodes
+  // ------------------------------------------------------------------
+  // Create a map to track original module node declarations by ID
+  const moduleNodesByIdBeforeExpansion = new Map<string, unknown>();
+  const moduleNodes = graph.module?.nodes ?? [];
+  for (const node of moduleNodes) {
+    moduleNodesByIdBeforeExpansion.set(node.id, node);
+  }
+
+  // Expand modules until none remain
+  let remainingModules = Array.from(moduleNodesByIdBeforeExpansion.keys());
+  while (remainingModules.length > 0) {
+    const moduleId = remainingModules.shift()!;
+    const moduleNode = moduleNodesByIdBeforeExpansion.get(moduleId) as {
+      type: string;
+      params?: Record<string, unknown>;
+    };
+
+    const impl = nodeRegistry.moduleRegistry.get(moduleNode.type);
+    if (!impl) {
+      throw new Error(`Unknown module node type: "${moduleNode.type}" (id: "${moduleId}")`);
+    }
+
+    const rawParams = (moduleNode.params ?? {}) as Record<string, unknown>;
+    const expansion = impl(rawParams as never, moduleId);
+
+    // Register all control nodes from expansion
+    for (const controlNode of expansion.controlNodes) {
+      const def = nodeRegistry.controlRegistry.get(controlNode.type);
+      if (!def) {
+        throw new Error(`Unknown control node type in module expansion: "${controlNode.type}" (id: "${controlNode.id}")`);
+      }
+      const controlParams = (controlNode.params ?? {}) as Record<string, unknown>;
+      rawParamsByNodeId.set(controlNode.id, controlParams);
+      nodes.set(controlNode.id, {
+        def,
+        layer: 'control',
+        params: buildParams(controlParams),
+      });
+    }
+
+    // Register all compute nodes from expansion
+    for (const computeNode of expansion.computeNodes) {
+      const def = nodeRegistry.computeRegistry.get(computeNode.type);
+      if (!def) {
+        throw new Error(`Unknown compute node type in module expansion: "${computeNode.type}" (id: "${computeNode.id}")`);
+      }
+      const computeParams = (computeNode.params ?? {}) as Record<string, unknown>;
+      rawParamsByNodeId.set(computeNode.id, computeParams);
+      nodes.set(computeNode.id, {
+        def,
+        layer: 'compute',
+        params: buildParams(computeParams),
+      });
+    }
+
+    // Register all render nodes from expansion
+    for (const renderNode of expansion.renderNodes) {
+      const def = nodeRegistry.renderRegistry.get(renderNode.type);
+      if (!def) {
+        throw new Error(`Unknown render node type in module expansion: "${renderNode.type}" (id: "${renderNode.id}")`);
+      }
+      const renderParams = (renderNode.params ?? {}) as Record<string, unknown>;
+      rawParamsByNodeId.set(renderNode.id, renderParams);
+      nodes.set(renderNode.id, {
+        def,
+        layer: 'render',
+        params: buildParams(renderParams),
+        renderConfig: { layer: renderNode.renderConfig.layer },
+      });
+    }
+
+    // Register marker node (treated as compute layer for ref resolution)
+    const markerNode = expansion.markerNode;
+    const markerParams = (markerNode.params ?? {}) as Record<string, unknown>;
+    rawParamsByNodeId.set(markerNode.id, markerParams);
+
+    // Get the module outputs from the schema using the original module type
+    const moduleOutputs = nodeOutputMeta[moduleNode.type as keyof typeof nodeOutputMeta] ?? [];
+    const markerOutputPorts: LegacyComputeNodePortImplementation[] = moduleOutputs.map(
+      (output) => ({
+        name: output.name,
+        type: output.valueType.replace('Value', '') as LegacyComputeNodePortImplementation['type'],
+      })
+    );
+
+    // Marker nodes need a synthetic implementation to expose module outputs
+    const markerDef: LegacyComputeNodeImplementation = {
+      type: 'module-marker',
+      inputs: [],
+      outputs: markerOutputPorts,
+      evaluate: () => [], // Marker nodes don't actually execute
+    };
+
+    nodes.set(markerNode.id, {
+      def: markerDef,
+      layer: 'compute',
+      params: buildParams(markerParams),
+    });
+
+    // Remove this module from remaining modules
+    moduleNodesByIdBeforeExpansion.delete(moduleId);
+    remainingModules = Array.from(moduleNodesByIdBeforeExpansion.keys());
   }
 
   // ------------------------------------------------------------------

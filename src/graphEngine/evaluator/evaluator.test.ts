@@ -381,6 +381,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
         computeRegistry: realNodeRegistry.computeRegistry,
         renderRegistry: new Map([['circle', legacyCircleDef]]),
         controlRegistry: realNodeRegistry.controlRegistry,
+        moduleRegistry: realNodeRegistry.moduleRegistry,
       };
 
 
@@ -449,6 +450,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
         computeRegistry: realNodeRegistry.computeRegistry,
         renderRegistry: new Map([['linesThroughPoint', legacyCircleDef]]),
         controlRegistry: realNodeRegistry.controlRegistry,
+        moduleRegistry: realNodeRegistry.moduleRegistry,
       };
 
 

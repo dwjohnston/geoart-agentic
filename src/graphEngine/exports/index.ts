@@ -17,12 +17,14 @@ export { implementControlNode, convertControlNodeImplementationToLegacy } from '
 export { computeRegistry } from '../../nodes/compute/registry';
 export { renderRegistry } from '../../nodes/render/registry';
 export { controlRegistry } from '../../nodes/control/registry';
+export { moduleRegistry } from '../../nodes/module/registry';
 
 export type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeImplementations';
 
 import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
 import { controlRegistry } from '../../nodes/control/registry';
+import { moduleRegistry } from '../../nodes/module/registry';
 import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeImplementations';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { validateGeoArtGraph } from '../../schema/validateGeoArtGraph';
@@ -31,6 +33,7 @@ export const realNodeRegistry: LegacyNodeRegistry = {
   computeRegistry,
   renderRegistry,
   controlRegistry,
+  moduleRegistry,
 };
 
 export type CompileResult = { success: true } | { success: false; error: string };
@@ -41,7 +44,7 @@ export function tryCompileGraph(graph: unknown): CompileResult {
   }
 
   try {
-    compile(graph as GeoArtGraph, { computeRegistry, renderRegistry, controlRegistry });
+    compile(graph as GeoArtGraph, { computeRegistry, renderRegistry, controlRegistry, moduleRegistry });
     return { success: true };
   } catch (e) {
     return { success: false, error: e instanceof Error ? e.message : String(e) };
