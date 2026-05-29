@@ -245,7 +245,7 @@ describe('module expansion', () => {
     // Check that 'use-orbit' has an edge coming from 'my-orbit'
     const useOrbitEdges = compiled.edges.filter((edge) => edge.toNode === 'use-orbit');
     const hasOrbitRef = useOrbitEdges.some((edge) => edge.fromNode === 'my-orbit');
-    expect(hasOrbitRef).toBe(true); 
+    expect(hasOrbitRef).toBe(true);
 
 
   });
@@ -358,6 +358,11 @@ describe('module expansion', () => {
     // Should have both markers
     expect(compiled.nodes.has('orbit-a')).toBe(true);
     expect(compiled.nodes.has('orbit-b')).toBe(true);
+
+
+    expect(compiled.nodes.get('orbit-a')?.def.type).toBe("module-marker")
+    expect(compiled.nodes.get('orbit-b')?.def.type).toBe("module-marker")
+
 
     // Should have internal nodes for both, with separate namespaces
     const orbitAInternals = Array.from(compiled.nodes.keys()).filter((id) =>

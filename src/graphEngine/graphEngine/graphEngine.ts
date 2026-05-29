@@ -91,6 +91,8 @@ export function createGraphEngine(
       moduleRegistry: registry?.moduleRegistry ?? moduleRegistry
     });
 
+    console.log(compiled)
+
     // Extract render nodes and initialize enabled set
     const renderingNodes: Array<{ nodeId: string; label: string; layer: 'live' | 'paint' }> = [];
     enabledRenderNodes.clear();

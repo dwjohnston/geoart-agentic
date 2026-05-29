@@ -49,7 +49,7 @@ function pushControlNodeIfNeed<NodeKind extends ModuleNodeKinds, NodeInputKey ex
 const orbitModuleImplementation = implementModule({
   _kind: "orbit-module",
   defaultValues: {
-    speed: 0.9,
+    speed: 0.01,
 
     "centerPoints": [fColorPoint()],
     "eccentricity": 1,
@@ -74,9 +74,23 @@ const orbitModuleImplementation = implementModule({
         type: 'slider',
         params: {
           label: { v: 'Speed' },
-          min: { v: 0 },
-          max: { v: 2 },
+          min: { v: -0.1 },
+          max: { v: 0.1 },
           step: { v: 0.01 },
+          value,
+        },
+      }
+    });
+
+    pushControlNodeIfNeed(controlNodes, params, defaultValues, "numPoints", (value) => {
+      return {
+        id: createInternalId(moduleId, 'numPoints-slider'),
+        type: 'slider',
+        params: {
+          label: { v: 'Num points' },
+          min: { v: 1 },
+          max: { v: 100 },
+          step: { v: 1 },
           value,
         },
       }
@@ -142,7 +156,7 @@ const orbitModuleImplementation = implementModule({
     const orbitNodeId = createInternalId(moduleId, 'orbit');
 
     // Build orbit params, using generated sliders or provided values
-    const buildParamRef = (key: 'speed' | 'radius' | 'phase' | 'eccentricity' | 'tilt') => {
+    const buildParamRef = (key: 'speed' | 'radius' | 'phase' | 'eccentricity' | 'tilt' | 'numPoints') => {
       const sliderId = createInternalId(moduleId, `${key}-slider`);
       if (needsControl(params, key)) {
         return { ref: `${sliderId}.value` };
@@ -150,7 +164,6 @@ const orbitModuleImplementation = implementModule({
       return params[key];
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     computeNodes.push({
       id: orbitNodeId,
       type: 'orbit',
@@ -158,43 +171,58 @@ const orbitModuleImplementation = implementModule({
         time: params.time,
         speed: buildParamRef('speed'),
         radius: buildParamRef('radius'),
-        numPoints: params.numPoints,
+        numPoints: buildParamRef("numPoints"),
         centerPoints: params.centerPoints,
         phase: buildParamRef('phase'),
         eccentricity: buildParamRef('eccentricity'),
         tilt: buildParamRef('tilt'),
-        center: { v: { x: 0, y: 0 } },
       },
     });
 
+    computeNodes.push({
+      id: orbitNodeId,
+      type: 'orbit',
+      params: {
+        time: params.time,
+        speed: buildParamRef('speed'),
+        radius: buildParamRef('radius'),
+        numPoints: buildParamRef("numPoints"),
+        centerPoints: params.centerPoints,
+        phase: buildParamRef('phase'),
+        eccentricity: buildParamRef('eccentricity'),
+        tilt: buildParamRef('tilt'),
+      },
+    });
+
+
     // Generate render nodes based on config
-    const circleId = createInternalId(moduleId, 'point-circle');
     renderNodes.push({
-      id: circleId,
+      id: createInternalId(moduleId, 'point-circle'),
       type: 'circle',
       params: {
         intervalTicks: { v: 0 },
-        center: { v: { x: 0, y: 0 } },
-        radius: { v: 0.015 },
+        radius: { v: 0.025 },
         eccentricity: { v: 0 },
         tilt: { v: 0 },
-        color: { v: { r: 1, g: 1, b: 1, a: 1 } },
         centerPoints: { ref: `${orbitNodeId}.points` }
       },
       renderConfig: { layer: 'live' },
     });
 
-    const pathId = createInternalId(moduleId, 'orbit-path');
+    const circleId = createInternalId(moduleId, 'orbit-path');
     renderNodes.push({
-      id: pathId,
-      type: 'connect-dots',
+      id: circleId,
+      type: 'circle',
       params: {
-        colorPointsArray: { ref: `${orbitNodeId}.points` },
-        lineWidth: { v: 1 },
-        mode: { v: 'catmull-rom' },
+        intervalTicks: { v: 1 },
+        radius: buildParamRef("radius"),
+        eccentricity: buildParamRef('eccentricity'),
+        tilt: buildParamRef('tilt'),
+        centerPoints: params.centerPoints
       },
       renderConfig: { layer: 'live' },
     });
+
 
     const traceId = createInternalId(moduleId, 'orbit-trace');
     renderNodes.push({
@@ -202,8 +230,7 @@ const orbitModuleImplementation = implementModule({
       type: 'circle',
       params: {
         intervalTicks: { v: 1 },
-        center: { v: { x: 0, y: 0 } },
-        radius: { v: 0.01 },
+        radius: { v: 0.0025 },
         eccentricity: { v: 0 },
         tilt: { v: 0 },
         centerPoints: { ref: `${orbitNodeId}.points` }
