@@ -113,20 +113,29 @@ Understanding these four layers and how they relate is fundamental to the projec
     - A node declaration that represents a reusable group of nodes
     - **module declaration** (Algorithm Layer) — what the user writes: `{ id: 'my-osc', type: 'oscillator-module', params: {...} }`
     - Declared in the `module` section of an algorithm
-    - Gets expanded by the compiler into constituent nodes + a module marker node
+    - Gets expanded by the compiler into constituent nodes + marker nodes
     - Does not exist in the compiled graph (it's consumed during expansion)
 
-- **module marker node**
+- **module input marker node**
     - A synthetic node created during module expansion
-    - Serves as the interface/reference point for the module's outputs
+    - Serves as the data source for all the module's inputs
+    - Internal nodes within the module reference this node's outputs when they need input values
     - Exists in the compiled graph (the flat array), with `nodeSource: { sourceType: "module", sourceId: "..." }`
     - Cannot be declared directly by users — only created by module implementations
-    - Other nodes reference module outputs via the marker node (e.g., `{ ref: "my-osc.point" }`)
+    - Has output ports matching each of the module's declared input parameters
+
+- **module output marker node**
+    - A synthetic node created during module expansion
+    - Serves as the public interface/reference point for the module's outputs
+    - Exists in the compiled graph (the flat array), with `nodeSource: { sourceType: "module", sourceId: "..." }`
+    - Cannot be declared directly by users — only created by module implementations
+    - Other nodes reference module outputs via the output marker node (e.g., `{ ref: "my-osc.point" }`)
+    - Has output ports matching each of the module's declared x-outputs
 
 - **module implementation** (Code Layer)
     - The logic that generates a module's constituent nodes
     - Signature: `implementModule(name, (params, moduleId) => [nodes])`
-    - Responsible for creating control nodes, compute nodes, render nodes, and the module marker node
+    - Responsible for creating control nodes, compute nodes, render nodes, and the module marker nodes (input and output)
     - Internal node IDs are namespaced: `{moduleId}:{internalNodeId}`
 
 ---
@@ -202,7 +211,7 @@ Understanding these four layers and how they relate is fundamental to the projec
             - Validates port type compatibility
             - Enforces layer direction (Control → Compute → Render, never backwards)
         2. Expands modules iteratively until the graph contains only primitive nodes
-        3. Returns flat array of compiled nodes (control, compute, render, and module-marker nodes)
+        3. Returns flat array of compiled nodes (control, compute, render, module input marker nodes, and module output marker nodes)
     - Lives in `src/graphEngine/compiler/`
 
 - **module expansion**
