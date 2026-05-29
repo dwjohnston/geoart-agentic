@@ -107,6 +107,27 @@ Understanding these four layers and how they relate is fundamental to the projec
     - compute node
     - render node
     - control node
+    - module node (see Modules section below)
+
+- **module node** 
+    - A node declaration that represents a reusable group of nodes
+    - **module declaration** (Algorithm Layer) — what the user writes: `{ id: 'my-osc', type: 'oscillator-module', params: {...} }`
+    - Declared in the `module` section of an algorithm
+    - Gets expanded by the compiler into constituent nodes + a module marker node
+    - Does not exist in the compiled graph (it's consumed during expansion)
+
+- **module marker node**
+    - A synthetic node created during module expansion
+    - Serves as the interface/reference point for the module's outputs
+    - Exists in the compiled graph (the flat array), with `nodeSource: { sourceType: "module", sourceId: "..." }`
+    - Cannot be declared directly by users — only created by module implementations
+    - Other nodes reference module outputs via the marker node (e.g., `{ ref: "my-osc.point" }`)
+
+- **module implementation** (Code Layer)
+    - The logic that generates a module's constituent nodes
+    - Signature: `implementModule(name, (params, moduleId) => [nodes])`
+    - Responsible for creating control nodes, compute nodes, render nodes, and the module marker node
+    - Internal node IDs are namespaced: `{moduleId}:{internalNodeId}`
 
 ---
 
@@ -174,12 +195,27 @@ Understanding these four layers and how they relate is fundamental to the projec
 ## Engine
 
 - **compiler**
-    - Takes a validated algorithm and produces a `CompiledGraph`. Verifies topology during compilation:
-        - Detects circular references
-        - Checks every reference points to a real node and port
-        - Validates port type compatibility
-        - Enforces layer direction (Control → Compute → Render, never backwards)
+    - Takes a validated algorithm and produces a `CompiledGraph`. Workflow:
+        1. Validates topology against the algorithm as-is (before module expansion):
+            - Detects circular references
+            - Checks every reference points to a real node or module's x-outputs
+            - Validates port type compatibility
+            - Enforces layer direction (Control → Compute → Render, never backwards)
+        2. Expands modules iteratively until the graph contains only primitive nodes
+        3. Returns flat array of compiled nodes (control, compute, render, and module-marker nodes)
     - Lives in `src/graphEngine/compiler/`
+
+- **module expansion**
+    - The process of converting module declarations into their constituent nodes
+    - Iterative: while the compiled graph contains module nodes, expand them
+    - For each module node, the compiler calls its implementation with `(params, moduleId)` to get the node bundle
+    - Internal nodes are namespaced with colons: `{moduleId}:{internalNodeId}`
+    - Produces a flat array with no remaining module nodes
+
+- **nodeSource**
+    - Metadata field added to compiled nodes to track their origin
+    - Structure: `{ sourceType: "module", sourceId: "..." }` or absent for top-level nodes
+    - Used by the graph view to group/hide internal nodes under their parent module
 
 - **evaluator**
     - Runs each tick (driven by `requestAnimationFrame`). Each evaluation:
@@ -223,9 +259,14 @@ Understanding these four layers and how they relate is fundamental to the projec
 - **param** 
     - This term is not problematic, but is already well covered by 'node input'
 
-- **width** If talking about the thickness of a line, use *thickness* instead. 
-## Terms not yet documented
+- **width** If talking about the thickness of a line, use *thickness* instead.
 
+- **dots and colons in node IDs**
+    - Node IDs may not contain dots (`.`) or colons (`:`).
+    - Colons are reserved for internal namespacing: `{moduleId}:{internalNodeId}`.
+    - Dots would create ambiguity with the dot notation used in refs.
+
+## Terms not yet documented
 
 - array values
 
