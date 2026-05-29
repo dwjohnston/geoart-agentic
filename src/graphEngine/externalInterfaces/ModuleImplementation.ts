@@ -6,7 +6,9 @@
  */
 
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
-import type { ModuleNodeKinds, NodeInputsDeclared, NodeOutputAsRefs } from '../../schema/typeHelpers';
+import type { ModuleNodeKinds, NodeInputsDeclared, NodeOutputAsRefs, ResolvedValue, ValueTypeNamesSuffixed } from '../../schema/typeHelpers';
+import type { ControlSetter } from './ControlNodeImplementation';
+import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 
 
 
@@ -27,13 +29,29 @@ export interface ModuleExpansionResult<K extends ModuleNodeKinds> {
     type: 'module-marker';
     params: Record<string, never>; // Marker nodes have no params
     outputRefs: NodeOutputAsRefs<K>;
+
+
     nodeSource: {
       sourceType: 'module';
       sourceId: string;
     };
   };
+
+  inputMarkerNode: {
+    id: string;
+    type: "input-module-marker",
+    params: NodeInputsDeclared<K>,
+    renderControl: (params: StaticModuleNodeParams<K>, set: ControlSetter<K>) => React.ReactNode;
+  },
+
+
 }
 
+export type StaticModuleNodeParams<K extends ModuleNodeKinds> = {
+  [Port in keyof typeof nodeInputs[K]]?: typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
+  ? ResolvedValue<VT>
+  : never
+};
 
 /**
  * Registry mapping module type names to their implementation functions.

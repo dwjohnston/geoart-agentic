@@ -61,6 +61,7 @@ const orbitModuleImplementation = implementModule({
 
 
   },
+
   fn: (params, moduleId, defaultValues) => {
     const controlNodes: ModuleExpansionResult<"orbit-module">['controlNodes'] = [];
     const computeNodes: ModuleExpansionResult<"orbit-module">['computeNodes'] = [];
@@ -242,10 +243,17 @@ const orbitModuleImplementation = implementModule({
           sourceId: moduleId,
         },
       },
+      inputMarkerNode: {
+        id: createInternalId(moduleId, 'input-marker'),
+        type: "input-module-marker",
+        params,
+        renderControl: (params, set) => {
+          return <div>Hello world! </div>
+        },
+      }
+
+
     };
-
-
-    console.log(result)
 
     return result;
   }
