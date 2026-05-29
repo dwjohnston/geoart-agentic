@@ -37,6 +37,24 @@
       "description": "Global playback speed. Values >= 1 run that many ticks per frame. Values < 1 must be unit fractions (1/2, 1/3, …) — one tick every n frames. Default 1.",
       "minimum": 0.125
     },
+    "module": {
+      "title": "Module Section",
+      "description": "Reusable groups of nodes",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "nodes"
+      ],
+      "properties": {
+        "nodes": {
+          "title": "Module Nodes",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/moduleNode"
+          }
+        }
+      }
+    },
     "control": {
       "title": "Control Section",
       "description": "User-facing input nodes — sliders, colour pickers, and dropdowns",
@@ -107,6 +125,41 @@
           "description": "Reference in the form 'nodeId.portName'",
           "type": "string",
           "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*\\.[a-zA-Z][a-zA-Z0-9_-]*$"
+        }
+      }
+    },
+    "moduleControlsConfig": {
+      "title": "Module Controls Configuration",
+      "type": "object",
+      "description": "Boolean flags to enable/disable control generation for module parameters",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "moduleRenderConfig": {
+      "title": "Module Render Configuration",
+      "type": "object",
+      "description": "Configuration for render node generation within a module. Maps render layer names to output port names.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "boolean"
+        }
+      }
+    },
+    "nodeSource": {
+      "title": "Node Source",
+      "type": "object",
+      "description": "Metadata tracking the origin of a compiled node (e.g., from module expansion)",
+      "additionalProperties": false,
+      "properties": {
+        "sourceType": {
+          "type": "string",
+          "enum": ["module"]
+        },
+        "sourceId": {
+          "type": "string",
+          "description": "ID of the source module node"
         }
       }
     },
@@ -1377,6 +1430,122 @@
           }
         }
       ]
+    },
+    "moduleNode": {
+      "title": "Module Node",
+      "description": "A reusable group of nodes that gets expanded during compilation",
+      "oneOf": [
+        {
+          "title": "Orbit Module Node",
+          "type": "object",
+          "description": "Module that generates orbital motion with optional control and render configuration",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "point",
+              "valueType": "pointValue"
+            },
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            },
+            {
+              "name": "time",
+              "valueType": "numberValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "orbit-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "speed": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "radius": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "numPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "centerPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "phase": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "eccentricity": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "tilt": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            },
+            "controls": {
+              "$ref": "#/definitions/moduleControlsConfig",
+              "description": "Boolean flags to enable/disable control generation for module parameters"
+            },
+            "render": {
+              "$ref": "#/definitions/moduleRenderConfig",
+              "description": "Configuration for render node generation (live layer, paint layer, etc.)"
+            }
+          }
+        }
+      ]
+    },
+    "moduleMarkerNode": {
+      "title": "Module Marker Node",
+      "description": "Synthetic internal node created during module expansion. Cannot be declared directly by users.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "params"
+      ],
+      "x-outputs": [],
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "string",
+          "description": "Module instance identifier matching the original module declaration"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "module-marker"
+          ],
+          "description": "Internal marker node type — not user-declarable"
+        },
+        "params": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {}
+        },
+        "nodeSource": {
+          "$ref": "#/definitions/nodeSource",
+          "description": "Metadata tracking the module that generated this marker node"
+        }
+      }
     }
   }
 }
