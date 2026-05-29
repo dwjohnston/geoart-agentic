@@ -554,6 +554,16 @@ describe("NodeInputsDeclared", () => {
             b: { ref: "other.output" },
         });
 
+        assertType<NodeInputsDeclared<"add">['a']>(
+            { v: 1 },
+        );
+
+        assertType<NodeInputsDeclared<"add">['a']>(
+            { ref: "somenode.port " },
+        );
+
+
+        type _X = Required<NodeInputsDeclared<"add">>['a'];
         assertType<NodeInputsDeclared<"add">>({
             a: { v: 1 },
         });

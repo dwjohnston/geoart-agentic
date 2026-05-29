@@ -1,0 +1,42 @@
+/**
+ * Module Implementation Interface
+ *
+ * Defines how module implementations generate internal nodes and expose
+ * a public interface via marker nodes.
+ */
+
+import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+import type { ModuleNodeKinds, NodeInputsDeclared } from '../../schema/typeHelpers';
+
+
+
+/**
+ * Result of expanding a module node — the complete set of internal nodes
+ * plus the marker node that serves as the public interface.
+ */
+export interface ModuleExpansionResult {
+  /** Internal control nodes (prefixed with {moduleId}:) */
+  controlNodes: GeoArtGraph['control']['nodes'];
+  /** Internal compute nodes (prefixed with {moduleId}:) */
+  computeNodes: GeoArtGraph['compute']['nodes'];
+  /** Internal render nodes (prefixed with {moduleId}:) */
+  renderNodes: GeoArtGraph['render']['nodes'];
+  /** Marker node exposing the module's public outputs */
+  markerNode: {
+    id: string;
+    type: 'module-marker';
+    params: Record<string, never>; // Marker nodes have no params
+    nodeSource: {
+      sourceType: 'module';
+      sourceId: string;
+    };
+  };
+}
+
+
+/**
+ * Registry mapping module type names to their implementation functions.
+ */
+export type ModuleImplementationFn<K extends ModuleNodeKinds> = (params: NodeInputsDeclared<K>, moduleId: string) => ModuleExpansionResult;
+
+export type ModuleRegistry = Map<string, ModuleImplementationFn<ModuleNodeKinds>>;
