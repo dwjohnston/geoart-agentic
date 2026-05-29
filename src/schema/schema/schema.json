@@ -128,25 +128,6 @@
         }
       }
     },
-    "moduleControlsConfig": {
-      "title": "Module Controls Configuration",
-      "type": "object",
-      "description": "Boolean flags to enable/disable control generation for module parameters",
-      "additionalProperties": {
-        "type": "boolean"
-      }
-    },
-    "moduleRenderConfig": {
-      "title": "Module Render Configuration",
-      "type": "object",
-      "description": "Configuration for render node generation within a module. Maps render layer names to output port names.",
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": {
-          "type": "boolean"
-        }
-      }
-    },
     "nodeSource": {
       "title": "Node Source",
       "type": "object",
@@ -1500,12 +1481,44 @@
               }
             },
             "controls": {
-              "$ref": "#/definitions/moduleControlsConfig",
-              "description": "Boolean flags to enable/disable control generation for module parameters"
+              "type": "object",
+              "title": "Controls Configuration",
+              "description": "Boolean flags to enable/disable control generation for module parameters",
+              "additionalProperties": false,
+              "properties": {
+                "speed": { "type": "boolean" },
+                "radius": { "type": "boolean" },
+                "numPoints": { "type": "boolean" },
+                "centerPoints": { "type": "boolean" },
+                "phase": { "type": "boolean" },
+                "eccentricity": { "type": "boolean" },
+                "tilt": { "type": "boolean" }
+              }
             },
             "render": {
-              "$ref": "#/definitions/moduleRenderConfig",
-              "description": "Configuration for render node generation (live layer, paint layer, etc.)"
+              "type": "object",
+              "title": "Render Configuration",
+              "description": "Configuration for render node generation (live layer, paint layer, etc.)",
+              "additionalProperties": false,
+              "properties": {
+                "live": {
+                  "type": "object",
+                  "title": "Live Layer Renders",
+                  "additionalProperties": false,
+                  "properties": {
+                    "point": { "type": "boolean" },
+                    "path": { "type": "boolean" }
+                  }
+                },
+                "paint": {
+                  "type": "object",
+                  "title": "Paint Layer Renders",
+                  "additionalProperties": false,
+                  "properties": {
+                    "trace": { "type": "boolean" }
+                  }
+                }
+              }
             }
           }
         }

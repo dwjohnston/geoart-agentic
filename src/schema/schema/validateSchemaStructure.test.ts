@@ -599,4 +599,162 @@ describe("validateSchemaStructure", () => {
 			expect(result.valid).toBe(true);
 		});
 	});
+
+	describe("module structure", () => {
+		describe("valid module structure", () => {
+			test("module params use refable values (like compute/render nodes)", () => {
+				// Module node params reference refable-value-kinds.schema.json, allowing
+				// both static values and references to other node outputs in algorithm declarations.
+				// Example: a module param can be { v: 0.5 } or { ref: "slider.value" }
+				const schemas: SchemaSet = {
+					"schema.json": {
+						definitions: {
+							controlNode: {
+								oneOf: [{ title: "Slider Control Node", "x-outputs": [{ name: "value", valueType: "numberValue" }], params: { properties: {} } }],
+							},
+							computeNode: { oneOf: [{ title: "Tick Compute Node", "x-outputs": [{ name: "time", valueType: "numberValue" }], params: { properties: {} } }] },
+							renderNode: { oneOf: [{ title: "Circle Render Node", "x-outputs": [], params: { properties: {} } }] },
+							moduleNode: {
+								oneOf: [
+									{
+										title: "Custom Module Node",
+										"x-outputs": [{ name: "result", valueType: "numberValue" }],
+										required: ["id", "type", "params"],
+										properties: {
+											id: { type: "string" },
+											type: { enum: ["custom-module"] },
+											params: {
+												type: "object",
+												properties: {
+													amplitude: { "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef" },
+													frequency: { "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef" },
+												},
+											},
+										},
+									},
+								],
+							},
+						},
+					},
+					"value-kinds.schema.json": {
+						definitions: {
+							numberValue: { title: "Number Value" },
+						},
+					},
+					"refable-value-kinds.schema.json": {
+						definitions: {
+							numberValueOrRef: { title: "Number Value Or Ref" },
+						},
+					},
+				};
+				const result = validateSchemaStructure(schemas);
+				expect(result.valid).toBe(true);
+			});
+		});
+
+		describe("invalid module structure", () => {
+			test("fails when module controls property has non-boolean type", () => {
+				const schemas: SchemaSet = {
+					"schema.json": {
+						definitions: {
+							controlNode: {
+								oneOf: [{ title: "Slider Control Node", "x-outputs": [{ name: "value", valueType: "numberValue" }], params: { properties: {} } }],
+							},
+							computeNode: { oneOf: [{ title: "Tick Compute Node", "x-outputs": [{ name: "time", valueType: "numberValue" }], params: { properties: {} } }] },
+							renderNode: { oneOf: [{ title: "Circle Render Node", "x-outputs": [], params: { properties: {} } }] },
+							moduleNode: {
+								oneOf: [
+									{
+										title: "Bad Module Node",
+										"x-outputs": [{ name: "value", valueType: "numberValue" }],
+										required: ["id", "type", "params"],
+										properties: {
+											id: { type: "string" },
+											type: { enum: ["bad-module"] },
+											params: { type: "object", properties: {} },
+											controls: {
+												type: "object",
+												additionalProperties: false,
+												properties: {
+													speed: { type: "number" }, // Invalid: should be boolean
+												},
+											},
+										},
+									},
+								],
+							},
+						},
+					},
+					"value-kinds.schema.json": {
+						definitions: {
+							numberValue: { title: "Number Value" },
+						},
+					},
+					"refable-value-kinds.schema.json": {
+						definitions: {
+							numberValueOrRef: { title: "Number Value Or Ref" },
+						},
+					},
+				};
+				const result = validateSchemaStructure(schemas);
+				expect(result.valid).toBe(false);
+				expect(result.errors.some((e) => e.includes("controls") && e.includes("speed") && e.includes("boolean"))).toBe(true);
+			});
+
+			test("fails when module render property has non-boolean type in nested layer", () => {
+				const schemas: SchemaSet = {
+					"schema.json": {
+						definitions: {
+							controlNode: {
+								oneOf: [{ title: "Slider Control Node", "x-outputs": [{ name: "value", valueType: "numberValue" }], params: { properties: {} } }],
+							},
+							computeNode: { oneOf: [{ title: "Tick Compute Node", "x-outputs": [{ name: "time", valueType: "numberValue" }], params: { properties: {} } }] },
+							renderNode: { oneOf: [{ title: "Circle Render Node", "x-outputs": [], params: { properties: {} } }] },
+							moduleNode: {
+								oneOf: [
+									{
+										title: "Bad Render Module Node",
+										"x-outputs": [{ name: "value", valueType: "numberValue" }],
+										required: ["id", "type", "params"],
+										properties: {
+											id: { type: "string" },
+											type: { enum: ["bad-module"] },
+											params: { type: "object", properties: {} },
+											render: {
+												type: "object",
+												additionalProperties: false,
+												properties: {
+													live: {
+														type: "object",
+														additionalProperties: false,
+														properties: {
+															trail: { type: "string" }, // Invalid: should be boolean
+														},
+													},
+												},
+											},
+										},
+									},
+								],
+							},
+						},
+					},
+					"value-kinds.schema.json": {
+						definitions: {
+							numberValue: { title: "Number Value" },
+						},
+					},
+					"refable-value-kinds.schema.json": {
+						definitions: {
+							numberValueOrRef: { title: "Number Value Or Ref" },
+						},
+					},
+				};
+				const result = validateSchemaStructure(schemas);
+				expect(result.valid).toBe(false);
+				expect(result.errors.some((e) => e.includes("render") && e.includes("live") && e.includes("trail") && e.includes("boolean"))).toBe(true);
+			});
+		});
+
+	});
 });

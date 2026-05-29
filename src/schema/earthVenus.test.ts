@@ -190,4 +190,92 @@ describe("earth venus example algorithm validates against schema", () => {
 		expect(result?.errors.length).toBeGreaterThan(0);
 		expect(result?.errors.some(err => err.includes("pointA") || err.includes("additionalProperties"))).toBe(true);
 	});
+
+	test("module declaration with orbit-module", () => {
+		const graph: GeoArtGraph = {
+			version: "2.0",
+			control: { nodes: [] },
+			compute: { nodes: [] },
+			module: {
+				nodes: [
+					{
+						id: "my-orbit",
+						type: "orbit-module",
+						params: {
+							speed: { v: 0.01 },
+							radius: { v: 0.4 },
+							numPoints: { v: 100 },
+							centerPoints: { v: [{ v: { x: 0.5, y: 0.5, r: 1, g: 1, b: 1, a: 1 } }] },
+							phase: { v: 0 },
+							eccentricity: { v: 0 },
+							tilt: { v: 0 },
+						},
+						controls: {
+							speed: true,
+							radius: true,
+
+						},
+						render: {
+							live: {
+								point: true,
+								path: true,
+							},
+							paint: {
+								trace: false,
+							},
+						},
+					},
+				],
+			},
+			render: { nodes: [] },
+		};
+
+		expect(validateGeoArtGraph(graph)).toBe(true);
+		expect(validateGeoArtGraphWithErrors(graph)).toBeNull();
+	});
+
+	test("module declaration with orbit-module - with type errors", () => {
+		const graph: GeoArtGraph = {
+			version: "2.0",
+			control: { nodes: [] },
+			compute: { nodes: [] },
+			module: {
+				nodes: [
+					{
+						id: "my-orbit",
+						type: "orbit-module",
+						params: {
+							// @ts-expect-error - invalid type
+							speed: { v: "aaaa" },
+							radius: { v: 0.4 },
+							numPoints: { v: 100 },
+							centerPoints: { v: [{ v: { x: 0.5, y: 0.5, r: 1, g: 1, b: 1, a: 1 } }] },
+							phase: { v: 0 },
+							eccentricity: { v: 0 },
+							tilt: { v: 0 },
+						},
+						controls: {
+							speed: true,
+							radius: true,
+						},
+						render: {
+							live: {
+								// @ts-expect-error - invalid type
+								path: 1,
+							},
+							paint: {
+								trace: false,
+							},
+						},
+					},
+				],
+			},
+			render: { nodes: [] },
+		};
+
+		expect(validateGeoArtGraph(graph)).toBe(false);
+		const result = validateGeoArtGraphWithErrors(graph);
+		expect(result).not.toBeNull();
+		expect(result?.errors.length).toBeGreaterThan(0);
+	});
 });
