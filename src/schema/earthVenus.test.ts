@@ -210,20 +210,7 @@ describe("earth venus example algorithm validates against schema", () => {
 							eccentricity: { v: 0 },
 							tilt: { v: 0 },
 						},
-						controls: {
-							speed: true,
-							radius: true,
 
-						},
-						render: {
-							live: {
-								point: true,
-								path: true,
-							},
-							paint: {
-								trace: false,
-							},
-						},
 					},
 				],
 			},
@@ -254,19 +241,7 @@ describe("earth venus example algorithm validates against schema", () => {
 							eccentricity: { v: 0 },
 							tilt: { v: 0 },
 						},
-						controls: {
-							speed: true,
-							radius: true,
-						},
-						render: {
-							live: {
-								// @ts-expect-error - invalid type
-								path: 1,
-							},
-							paint: {
-								trace: false,
-							},
-						},
+
 					},
 				],
 			},

@@ -212,21 +212,19 @@ describe('module expansion', () => {
     const compiled = compile(moduleToModuleReferenceGraph, realNodeRegistry);
 
     // After expansion, the compiled graph should contain:
-    // First module (orbit1):
-    // 1. orbit1:input-marker
-    // 2. orbit1:orbit
-    // 3. orbit1:point-circle
-    // 4. orbit1:orbit-path
-    // 5. orbit1:orbit-trace
-    // 6. orbit1 - module output marker
-
-    // Second module (orbit2, refs first module):
-    // 7. orbit2:input-marker
-    // 8. orbit2:orbit
-    // 9. orbit2:point-circle
-    // 10. orbit2:orbit-path
-    // 11. orbit2:orbit-trace
-    // 12. orbit2 - module output marker
+    // 1. time - compute node
+    // 2. orbit1:input-marker
+    // 3. orbit1:orbit
+    // 4. orbit1:point-circle
+    // 5. orbit1:orbit-path
+    // 6. orbit1:orbit-trace
+    // 7. orbit1 - module output marker
+    // 8. orbit2:input-marker
+    // 9. orbit2:orbit
+    // 10. orbit2:point-circle
+    // 11. orbit2:orbit-path
+    // 12. orbit2:orbit-trace
+    // 13. orbit2 - module output marker
 
     expect(compiled.nodes.size).toBe(13);
 
@@ -263,7 +261,6 @@ describe('module expansion', () => {
       arrayIndex: undefined,
     });
 
-    console.log(compiled.edges)
   });
 });
 

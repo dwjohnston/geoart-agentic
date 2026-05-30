@@ -648,6 +648,4 @@ const graph = new AlgorithmBuilder({
 
     .construct();
 
-console.log(graph)
-
 export default graph

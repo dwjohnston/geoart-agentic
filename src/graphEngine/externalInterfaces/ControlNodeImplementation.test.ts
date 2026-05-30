@@ -2,7 +2,6 @@
 function assertType<T>(_v: T) { }
 
 import { describe, it } from 'bun:test';
-import type { ControlNodeKinds } from '../../schema/typeHelpers';
 import type { NodeWithDefaults } from './ControlNodeImplementation';
 
 describe('NodeWithDefaults', () => {
