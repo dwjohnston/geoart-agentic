@@ -6,8 +6,9 @@ import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 // eslint-disable-next-line import/no-restricted-paths
 import { realNodeRegistry } from '../exports';
 import { compile } from './compiler';
-import { fColorPoint } from '../../constants';
-
+import controlNodeToModuleReferenceGraph from "../../algorithms/reference/module/controlNodeToModule";
+import moduleToRenderNodeReferenceGraph from "../../algorithms/reference/module/moduleToRenderNode";
+import moduleToModuleReferenceGraph from "../../algorithms/reference/module/moduleToModule";
 
 /**
  * nb. there is an amount of implementation details being testing that is going on here
@@ -80,50 +81,9 @@ describe('compiler param conversion', () => {
 
 describe('module expansion', () => {
   test('scenario 1: expands a module node with input from a regular node', () => {
-    const graph: GeoArtGraph = {
-      version: '2.0',
-      control: {
-        nodes: [
-          {
-            id: 'radiusSlider',
-            type: 'slider',
-            params: {
-              min: { v: 0, },
-              max: { v: 0.01 },
-              label: { v: "Radius" },
-              value: { v: 0.1 },
-            }
-          }
-        ]
-      },
-      compute: {
-        nodes: [
-          {
-            id: 'globalTime',
-            type: 'time',
-            params: {}
-          },
 
-        ]
-      },
-      module: {
-        nodes: [
-          {
-            id: 'myOrbit',
-            type: 'orbit-module',
-            params: {
-              time: { ref: 'globalTime.time' },
-              radius: { ref: "radiusSlider.value" },
-              numPoints: { v: 8 },
-              centerPoints: { v: [{ v: fColorPoint() }] }
-            }
-          }
-        ]
-      },
-      render: { nodes: [] }
-    };
 
-    const compiled = compile(graph, realNodeRegistry);
+    const compiled = compile(controlNodeToModuleReferenceGraph, realNodeRegistry);
 
     // After expansion, the compiled graph should contain:
     // 1. globalTime - regular compute node (unchanged)
@@ -212,38 +172,8 @@ describe('module expansion', () => {
   });
 
   test('scenario 2: expands a module node whose output is used by a regular compute node', () => {
-    const graph: GeoArtGraph = {
-      version: '2.0',
-      control: { nodes: [] },
-      compute: {
-        nodes: [
-          {
-            id: 'display',
-            type: 'colorPointArrayCompute',
-            params: {
-              points: { ref: 'myOrbit.points' }  // refs module output
-            }
-          }
-        ]
-      },
-      module: {
-        nodes: [
-          {
-            id: 'myOrbit',
-            type: 'orbit-module',
-            params: {
-              time: { v: 0 },
-              radius: { v: 0.2 },
-              numPoints: { v: 5 },
-              centerPoints: { v: [{ v: fColorPoint() }] }
-            }
-          }
-        ]
-      },
-      render: { nodes: [] }
-    };
 
-    const compiled = compile(graph, realNodeRegistry);
+    const compiled = compile(moduleToRenderNodeReferenceGraph, realNodeRegistry);
 
     // After expansion, the compiled graph should contain:
     // 1. myOrbit:input-marker - module input marker
@@ -252,7 +182,7 @@ describe('module expansion', () => {
     // 4. myOrbit:orbit-path - internal render node
     // 5. myOrbit:orbit-trace - internal render node
     // 6. myOrbit - module output marker (exposes module outputs like 'points')
-    // 7. display - regular compute node (now can reference myOrbit.points)
+    // 7. display - regular render node (now can reference myOrbit.points)
 
     expect(compiled.nodes.size).toBe(7);
 
@@ -263,7 +193,7 @@ describe('module expansion', () => {
 
     // Regular compute node should exist and reference module output marker
     expect(compiled.nodes.has('display')).toBe(true);
-    expect(compiled.nodes.get('display')?.def.type).toBe('colorPointArrayCompute');
+    expect(compiled.nodes.get('display')?.def.type).toBe('polygon');
 
     // ☝️ This isn't great. 
     // Verify edge from module's internal orbit output to display node
@@ -278,38 +208,8 @@ describe('module expansion', () => {
   });
 
   test('scenario 3: expands modules where one module refs another module output', () => {
-    const graph: GeoArtGraph = {
-      version: '2.0',
-      control: { nodes: [] },
-      compute: { nodes: [] },
-      module: {
-        nodes: [
-          {
-            id: 'orbit1',
-            type: 'orbit-module',
-            params: {
-              time: { v: 0 },
-              radius: { v: 0.1 },
-              numPoints: { v: 8 },
-              centerPoints: { v: [{ v: fColorPoint() }] }
-            }
-          },
-          {
-            id: 'orbit2',
-            type: 'orbit-module',
-            params: {
-              time: { v: 0 },
-              radius: { ref: 'orbit1.points' },  // refs another module's output
-              numPoints: { v: 8 },
-              centerPoints: { v: [{ v: fColorPoint() }] }
-            }
-          }
-        ]
-      },
-      render: { nodes: [] }
-    };
 
-    const compiled = compile(graph, realNodeRegistry);
+    const compiled = compile(moduleToModuleReferenceGraph, realNodeRegistry);
 
     // After expansion, the compiled graph should contain:
     // First module (orbit1):
@@ -328,7 +228,7 @@ describe('module expansion', () => {
     // 11. orbit2:orbit-trace
     // 12. orbit2 - module output marker
 
-    expect(compiled.nodes.size).toBe(12);
+    expect(compiled.nodes.size).toBe(13);
 
     // First module should be expanded
     expect(compiled.nodes.has('orbit1:input-marker')).toBe(true);
@@ -351,7 +251,7 @@ describe('module expansion', () => {
       fromNode: "orbit1:orbit",
       fromPort: 1,
       toNode: "orbit2:input-marker",
-      toPort: 2,
+      toPort: 4,
       arrayIndex: undefined,
     })
     // The internal orbit node of the second module should ref its input marker
