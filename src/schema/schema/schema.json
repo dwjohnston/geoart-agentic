@@ -1476,106 +1476,10 @@
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
-            },
-            "controls": {
-              "type": "object",
-              "title": "Controls Configuration",
-              "description": "Boolean flags to enable/disable control generation for module parameters",
-              "additionalProperties": false,
-              "properties": {
-                "speed": {
-                  "type": "boolean"
-                },
-                "radius": {
-                  "type": "boolean"
-                },
-                "numPoints": {
-                  "type": "boolean"
-                },
-                "centerPoints": {
-                  "type": "boolean"
-                },
-                "phase": {
-                  "type": "boolean"
-                },
-                "eccentricity": {
-                  "type": "boolean"
-                },
-                "tilt": {
-                  "type": "boolean"
-                }
-              }
-            },
-            "render": {
-              "type": "object",
-              "title": "Render Configuration",
-              "description": "Configuration for render node generation (live layer, paint layer, etc.)",
-              "additionalProperties": false,
-              "properties": {
-                "live": {
-                  "type": "object",
-                  "title": "Live Layer Renders",
-                  "additionalProperties": false,
-                  "properties": {
-                    "point": {
-                      "type": "boolean"
-                    },
-                    "path": {
-                      "type": "boolean"
-                    }
-                  }
-                },
-                "paint": {
-                  "type": "object",
-                  "title": "Paint Layer Renders",
-                  "additionalProperties": false,
-                  "properties": {
-                    "trace": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
             }
           }
         }
       ]
-    },
-    "moduleMarkerNode": {
-      "title": "Module Marker Node",
-      "description": "Synthetic internal node created during module expansion. Cannot be declared directly by users.",
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "id",
-        "type",
-        "params"
-      ],
-      "x-outputs": [],
-      "properties": {
-        "id": {
-          "title": "ID",
-          "type": "string",
-          "description": "Module instance identifier matching the original module declaration"
-        },
-        "type": {
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "module-marker"
-          ],
-          "description": "Internal marker node type — not user-declarable"
-        },
-        "params": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {}
-        },
-        "nodeSource": {
-          "$ref": "#/definitions/nodeSource",
-          "description": "Metadata tracking the module that generated this marker node"
-        }
-      }
     }
   }
 }

@@ -24,9 +24,9 @@ export interface ModuleExpansionResult<K extends ModuleNodeKinds> {
   /** Internal render nodes (prefixed with {moduleId}:) */
   renderNodes: GeoArtGraph['render']['nodes'];
   /** Marker node exposing the module's public outputs */
-  markerNode: {
+  outputMarkerNode: {
     id: string;
-    type: 'module-marker';
+    type: 'module-output-marker';
     params: Record<string, never>; // Marker nodes have no params
     outputRefs: NodeOutputAsRefs<K>;
 
@@ -39,7 +39,7 @@ export interface ModuleExpansionResult<K extends ModuleNodeKinds> {
 
   inputMarkerNode: {
     id: string;
-    type: "input-module-marker",
+    type: "module-input-marker",
     params: NodeInputsDeclared<K>,
     renderControl: (params: StaticModuleNodeParams<K>, set: ControlSetter<K>) => React.ReactNode;
   },

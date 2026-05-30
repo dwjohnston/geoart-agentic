@@ -11,6 +11,7 @@ import type { LegacyControlNodeImplementation } from '../../graphEngine/external
 
 import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeImplementations';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
+import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 
 /** Layer tag used to enforce direction constraints at compile time. */
 type Layer = 'control' | 'compute' | 'render';
@@ -385,8 +386,36 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       });
     }
 
-    // Register marker node (treated as compute layer for ref resolution)
-    const markerNode = expansion.markerNode;
+    // Register input marker node (treated as compute layer for ref resolution)
+    const inputMarkerNode = expansion.inputMarkerNode;
+    const inputMarkerParams = (inputMarkerNode.params ?? {}) as Record<string, unknown>;
+    rawParamsByNodeId.set(inputMarkerNode.id, inputMarkerParams);
+
+    // Get the module inputs from the schema using the original module type
+    const moduleInputDefs = nodeInputs[moduleNode.type as keyof typeof nodeInputs] ?? {};
+    const inputMarkerOutputPorts: LegacyComputeNodePortImplementation[] = Object.entries(moduleInputDefs).map(
+      ([name, def]) => ({
+        name,
+        type: (def as { valueType: string }).valueType.replace('Value', '') as LegacyComputeNodePortImplementation['type'],
+      })
+    );
+
+    // Input marker nodes need a synthetic implementation to expose module inputs to internal nodes
+    const inputMarkerDef: LegacyComputeNodeImplementation = {
+      type: 'module-input-marker',
+      inputs: [],
+      outputs: inputMarkerOutputPorts,
+      evaluate: () => [], // Marker nodes don't actually execute
+    };
+
+    nodes.set(inputMarkerNode.id, {
+      def: inputMarkerDef,
+      layer: 'compute',
+      params: buildParams(inputMarkerParams),
+    });
+
+    // Register output marker node (treated as compute layer for ref resolution)
+    const markerNode = expansion.outputMarkerNode;
     const markerParams = (markerNode.params ?? {}) as Record<string, unknown>;
     rawParamsByNodeId.set(markerNode.id, markerParams);
 
@@ -401,7 +430,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
 
     // Marker nodes need a synthetic implementation to expose module outputs
     const markerDef: LegacyComputeNodeImplementation = {
-      type: 'module-marker',
+      type: 'module-output-marker',
       inputs: [],
       outputs: markerOutputPorts,
       evaluate: () => [], // Marker nodes don't actually execute
@@ -458,7 +487,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
         }
 
         // If the source is a marker node, follow its outputRefs to the actual source
-        if (fromCompiledNode.def.type === 'module-marker' && fromCompiledNode.outputRefs) {
+        if (fromCompiledNode.def.type === 'module-output-marker' && fromCompiledNode.outputRefs) {
           const outputRef = fromCompiledNode.outputRefs[fromPortName];
           if (!outputRef) {
             throw new Error(

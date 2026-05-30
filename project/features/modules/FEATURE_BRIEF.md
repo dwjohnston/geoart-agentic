@@ -22,7 +22,7 @@ This creates friction and cognitive load. Modules let us package all of this int
 
 **Module Node** (user-declarable, pre-expansion)
 - Declared in the algorithm's `module` section
-- Has `id`, `type`, `params`, optional `controls` and `render` configuration
+- Has `id`, `type`, and `params`
 - Gets expanded during compilation
 
 **Module Input Marker Node** (synthetic, post-expansion)
@@ -55,19 +55,6 @@ module: {
       speed: { v: 0.01 },
       radius: { ref: "someSlider.value" },
       // ... other params
-    },
-    controls: {
-      speed: true,    // generate control for this param
-      radius: false,  // don't generate (getting value from ref instead)
-    },
-    render: {
-      live: {
-        point: true,  // render current position
-        path: true,   // render orbit path
-      },
-      paint: {
-        trace: false, // don't render trail
-      }
     }
   }]
 }
@@ -78,26 +65,21 @@ module: {
 Module node definition in schema includes:
 - `params` - input parameters (refable values, like compute nodes)
 - `x-outputs` - what the module exposes to downstream nodes
-- `controls` - which params get auto-generated control nodes (boolean flags)
-- `render` - which render layers and outputs to generate (nested boolean flags)
-
-All properties in `controls` and `render` must be booleans (enforced by validation).
 
 ### Compiler Pipeline
 
 1. **Validate algorithm** — Check refs against node x-outputs and module x-outputs
-2. **Iteratively expand modules** — For each module in graph, call implementation to get node bundle (including input/output marker nodes)
-3. **Return compiled graph** — Flat array of primitive nodes + module input marker nodes + module output marker nodes
+2. **Iteratively expand modules** — For each module in graph, call implementation to get node bundle
+3. **Return compiled graph** — Flat array of primitive nodes + marker nodes
 
 No re-validation after expansion (if step 1 passes, expansion is valid by construction).
 
 ### Graph View
 
-- Recognize module output marker nodes and render them as modules (not primitive nodes)
+- Recognize module marker nodes and render them as modules (not primitive nodes)
 - Group internal nodes under their parent module (using `nodeSource` metadata)
 - Hide internal nodes from default view, allow drilling down to see internals
-- Module output marker nodes are visually distinct from other node types
-- Module input marker nodes are typically hidden (internal implementation detail)
+- Module marker nodes are visually distinct from other node types
 
 ## Scenarios and Examples
 
@@ -284,16 +266,13 @@ Final compiled graph contains only primitive (non-module) nodes. Internal wiring
 ### ✅ Completed
 - **Task #3**: Schema definition
   - Module structure defined in schema with orbit-module example
-  - controls and render sections with explicit boolean properties
-  - Validation rules enforcing boolean-only properties in controls/render
-  - Test cases for both valid and invalid module structures
+  - Test cases for module structures
 
 ### Pending
 
 **Task #4**: Design module implementation interface
 - Signature: `implementModule(name, (params, moduleId) => [nodes])`
 - Define return value structure (array of nodes + marker node)
-- How implementations handle controls/render configuration
 - How marker node is created and linked to internal outputs
 
 **Task #5**: Implement orbit-module
@@ -320,7 +299,7 @@ Final compiled graph contains only primitive (non-module) nodes. Internal wiring
 | Colon namespacing for internal nodes (`{moduleId}:{nodeId}`) | Clear, unambiguous, easy to parse |
 | No dots or colons in user node IDs | Avoids confusion with module namespace syntax |
 | Single validation pass before expansion | Simpler architecture; expansion is deterministic |
-| Module input/output marker nodes in compiled graph | Clean boundary; input markers provide data to internal nodes, output markers expose module's interface |
+| Marker nodes in compiled graph | Clean boundary; expose module's outputs to external nodes |
 | nodeSource metadata on all generated nodes | Graph view can trace provenance without special logic |
 | Iterative (not recursive) expansion | Simpler implementation; easier to reason about |
 
@@ -338,5 +317,4 @@ See `projectDocs/terminology.md` for canonical definitions of:
 
 - `src/schema/schema/schema.json` — Added `module` section and moduleNode definition
 - `projectDocs/terminology.md` — Added module-specific terminology
-- `src/schema/schema/validateSchemaStructure.ts` — Added validation for boolean-only properties in controls/render
 - Test files — Added test coverage for module declarations

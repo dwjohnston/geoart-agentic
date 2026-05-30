@@ -65,32 +65,43 @@ A declaration of a color point value arrays as a static array of static values:
 
 ```
           colorPointsA: {
-            v: {
-                items: [
-                    
-                    { v: { r: 0.2, g: 0.6, b: 1, a: 0.7, x: 1, y: 1 } },
-                    { v: { r: 0.2, g: 0.6, b: 1, a: 0.7, x: 0, y: 0 } }
-                    
-                ]
-            }
+            v: [
+              { v: { r: 0.2, g: 0.6, b: 1, a: 0.7, x: 1, y: 1 } },
+              { v: { r: 0.2, g: 0.6, b: 1, a: 0.7, x: 0, y: 0 } }
+            ]
           }
 ```
 
-A declaration of a color point value arrays as a static array  of mixed static and reffed values
-
+A declaration of a color point value arrays as a static array of mixed static and reffed values:
 
 ```
           colorPointsA: {
+            v: [
+              { v: { r: 0.2, g: 0.6, b: 1, a: 0.7, x: 1, y: 1 } },
+              { ref: "someNode.point" }
+            ]
+          }
+```
+
+### Common Mistake: Array Values
+
+**Wrong** — using an object with `items` property:
+```
+          colorPointsA: {
             v: {
-                items: [
-                    
-                    { v: { r: 0.2, g: 0.6, b: 1, a: 0.7, x: 1, y: 1 } },
-                    { ref: "someNode.point" } 
-                    
-                ]
+              items: [{ v: { ... } }]  // ❌ Don't do this
             }
           }
 ```
+
+**Correct** — `v` holds the array directly:
+```
+          colorPointsA: {
+            v: [{ v: { ... } }]  // ✅ Correct
+          }
+```
+
+The `v` property must contain the array `[...]`, not an object with an `items` property.
 
 ## Enum values
 

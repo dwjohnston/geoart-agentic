@@ -68,101 +68,19 @@ const orbitModuleImplementation = implementModule({
     const renderNodes: ModuleExpansionResult<"orbit-module">['renderNodes'] = [];
 
 
-    // Generate control nodes based on config
-    pushControlNodeIfNeed(controlNodes, params, defaultValues, "speed", (value) => {
-      return {
-        id: createInternalId(moduleId, 'speed-slider'),
-        type: 'slider',
-        params: {
-          label: { v: 'Speed' },
-          min: { v: -1 },
-          max: { v: 1 },
-          step: { v: 0.01 },
-          value,
-        },
-      }
-    });
 
-    pushControlNodeIfNeed(controlNodes, params, defaultValues, "numPoints", (value) => {
-      return {
-        id: createInternalId(moduleId, 'numPoints-slider'),
-        type: 'slider',
-        params: {
-          label: { v: 'Num points' },
-          min: { v: 1 },
-          max: { v: 100 },
-          step: { v: 1 },
-          value,
-        },
-      }
-    });
+    const inputMarkerNodeId = createInternalId(moduleId, 'input-marker');
 
-    pushControlNodeIfNeed(controlNodes, params, defaultValues, "radius", (value) => {
-      return {
-        id: createInternalId(moduleId, 'radius-slider'),
-        type: 'slider',
-        params: {
-          label: { v: 'Radius' },
-          min: { v: 0 },
-          max: { v: 0.5 },
-          value,
-          step: { v: 0.01 },
-        },
-      }
-    });
-
-    pushControlNodeIfNeed(controlNodes, params, defaultValues, "phase", (value) => {
-      return {
-        id: createInternalId(moduleId, 'phase-slider'),
-        type: 'slider',
-        params: {
-          label: { v: 'Phase' },
-          min: { v: 0 },
-          max: { v: 1 },
-          value,
-          step: { v: 0.01 },
-        },
-      }
-    });
-
-    pushControlNodeIfNeed(controlNodes, params, defaultValues, "eccentricity", (value) => {
-      return {
-        id: createInternalId(moduleId, 'eccentricity-slider'),
-        type: 'slider',
-        params: {
-          label: { v: 'Eccentricity' },
-          min: { v: 0 },
-          max: { v: 0.99 },
-          value,
-          step: { v: 0.01 },
-        },
-      }
-    });
-
-    pushControlNodeIfNeed(controlNodes, params, defaultValues, "tilt", (value) => {
-      return {
-        id: createInternalId(moduleId, 'tilt-slider'),
-        type: 'slider',
-        params: {
-          label: { v: 'Tilt' },
-          min: { v: 0 },
-          max: { v: 1 },
-          value,
-          step: { v: 0.01 },
-        },
-      }
-    });
 
     // Create orbit compute node
     const orbitNodeId = createInternalId(moduleId, 'orbit');
 
-    // Build orbit params, using generated sliders or provided values
-    const buildParamRef = (key: 'speed' | 'radius' | 'phase' | 'eccentricity' | 'tilt' | 'numPoints') => {
-      const sliderId = createInternalId(moduleId, `${key}-slider`);
-      if (needsControl(params, key)) {
-        return { ref: `${sliderId}.value` };
+
+    const buildParamRef = (key: keyof NodeInputsDeclared<"orbit-module">) => {
+      const inputMarkerOutputPort = inputMarkerNodeId + "." + key;
+      return {
+        ref: inputMarkerOutputPort
       }
-      return params[key];
     };
 
     computeNodes.push({
@@ -229,9 +147,17 @@ const orbitModuleImplementation = implementModule({
       controlNodes,
       computeNodes,
       renderNodes,
-      markerNode: {
+      inputMarkerNode: {
+        id: createInternalId(moduleId, 'input-marker'),
+        type: "module-input-marker",
+        params,
+        renderControl: (params, set) => {
+          return <div>Hello world! </div>
+        },
+      },
+      outputMarkerNode: {
         id: moduleId,
-        type: 'module-marker',
+        type: 'module-output-marker',
         params: {},
         outputRefs: {
           points: {
@@ -243,16 +169,6 @@ const orbitModuleImplementation = implementModule({
           sourceId: moduleId,
         },
       },
-      inputMarkerNode: {
-        id: createInternalId(moduleId, 'input-marker'),
-        type: "input-module-marker",
-        params,
-        renderControl: (params, set) => {
-          return <div>Hello world! </div>
-        },
-      }
-
-
     };
 
     return result;

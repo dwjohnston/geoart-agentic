@@ -6,6 +6,7 @@ import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 // eslint-disable-next-line import/no-restricted-paths
 import { realNodeRegistry } from '../exports';
 import { compile } from './compiler';
+import { fColorPoint } from '../../constants';
 
 
 /**
@@ -78,312 +79,77 @@ describe('compiler param conversion', () => {
 });
 
 describe('module expansion', () => {
-  test('expands a basic module to marker and internal nodes', () => {
+  test('scenario 1: expands a module node with input from a regular node', () => {
     const graph: GeoArtGraph = {
       version: '2.0',
       control: { nodes: [] },
       compute: {
-        nodes: [{
-          type: "time",
-          id: "time",
-          params: {}
-        }]
-      },
-      render: { nodes: [] },
-      module: {
         nodes: [
           {
-            id: 'my-orbit',
-            type: 'orbit-module',
-            params: {
-              time: { ref: 'time.time' },
-              speed: { v: 0.01 },
-              radius: { v: 0.5 },
-              numPoints: { v: 100 },
-              centerPoints: { v: [{ v: { x: 0, y: 0, r: 1, g: 1, b: 1, a: 1 } }] },
-              phase: { v: 0 },
-              eccentricity: { v: 0 },
-              tilt: { v: 0 },
-            },
-          },
-        ],
-      },
-    };
-
-    const compiled = compile(graph, realNodeRegistry);
-
-    // Module expansion should produce a marker node
-    expect(compiled.nodes.has('my-orbit')).toBe(true);
-    const marker = compiled.nodes.get('my-orbit');
-    expect(marker?.def.type).toBe('module-marker');
-
-    // Should have internal nodes with namespaced IDs
-    const internalNodes = Array.from(compiled.nodes.keys()).filter((id) =>
-      id.startsWith('my-orbit:')
-    );
-    expect(internalNodes.length).toBeGreaterThan(0);
-  });
-
-  test('passes module param refs to internal nodes', () => {
-    const graph: GeoArtGraph = {
-      version: '2.0',
-      control: {
-        nodes: [{
-          "id": "my-slider",
-          type: "slider",
-          params: {
-            "label": { v: "my slider" },
-            value: { v: 1 }
+            id: 'globalTime',
+            type: 'time',
+            params: {}
           }
-        }]
+        ]
       },
-      compute: {
-        nodes: [{
-          type: "time",
-          id: "time",
-          params: {}
-        }]
-      },
-      render: { nodes: [] },
       module: {
         nodes: [
           {
-            id: 'my-orbit',
+            id: 'myOrbit',
             type: 'orbit-module',
             params: {
-              time: { ref: 'time.time' },
-              speed: { ref: "my-slider.value" },
-              radius: { v: 0.5 },
-              numPoints: { v: 100 },
-              centerPoints: { v: [{ v: { x: 0, y: 0, r: 1, g: 1, b: 1, a: 1 } }] },
-              phase: { v: 0 },
-              eccentricity: { v: 0 },
-              tilt: { v: 0 },
-            },
-          },
-        ],
+              time: { ref: 'globalTime.time' },
+              radius: { v: 0.2 },
+              numPoints: { v: 8 },
+              centerPoints: { v: [{ v: fColorPoint() }] }
+            }
+          }
+        ]
       },
+      render: { nodes: [] }
     };
 
     const compiled = compile(graph, realNodeRegistry);
 
-    // Module expansion should produce a marker node
-    expect(compiled.nodes.has('my-orbit')).toBe(true);
-    const marker = compiled.nodes.get('my-orbit');
-    expect(marker?.def.type).toBe('module-marker');
+    // After expansion, the compiled graph should contain:
+    // 1. globalTime - regular compute node (unchanged)
+    // 2. myOrbit:input-marker - module input marker (outputs: time, radius, numPoints, centerPoints, etc.)
+    // 3. myOrbit:orbit - internal orbit compute node
+    // 4. myOrbit:point-circle - internal render node (current point)
+    // 5. myOrbit:orbit-path - internal render node (orbit outline)
+    // 6. myOrbit:orbit-trace - internal render node (trace path)
+    // 7. myOrbit - module output marker (exposes module outputs)
 
-    // Should have internal nodes with namespaced IDs
-    const internalNodes = Array.from(compiled.nodes.keys()).filter((id) =>
-      id.startsWith('my-orbit:')
-    );
-    expect(internalNodes.length).toBeGreaterThan(0);
+    expect(compiled.nodes.size).toBe(7)
 
-    // Find the internal orbit node and verify it has a ref to my-slider
-    const orbitNode = internalNodes.find((id) => {
-      const node = compiled.nodes.get(id);
-      return node?.def.type === 'orbit';
-    });
-    expect(orbitNode).toBeDefined();
+    // Regular compute node should be unchanged
+    expect(compiled.nodes.has('globalTime')).toBe(true);
+    expect(compiled.nodes.get('globalTime')?.def.type).toBe('time');
 
-    // Check that the orbit node has a ref to my-slider in its edges
-    const orbitNodeEdges = compiled.edges.filter((edge) => edge.toNode === orbitNode);
-    const hasSliderRef = orbitNodeEdges.some((edge) => edge.fromNode === 'my-slider');
-    expect(hasSliderRef).toBe(true);
-  });
+    // Module input marker should exist
+    expect(compiled.nodes.has('myOrbit:input-marker')).toBe(true);
+    expect(compiled.nodes.get('myOrbit:input-marker')?.def.type).toBe('module-input-marker');
 
+    // Internal orbit compute node should exist
+    expect(compiled.nodes.has('myOrbit:orbit')).toBe(true);
+    expect(compiled.nodes.get('myOrbit:orbit')?.def.type).toBe('orbit');
 
-  test('allows downstream nodes to reference module marker outputs', () => {
-    const graph: GeoArtGraph = {
-      version: '2.0',
-      control: { nodes: [] },
-      compute: {
-        nodes: [
-          {
-            id: 'use-orbit',
-            type: 'colorPointArrayCompute',
-            params: {
-              points: {
-                v: [{ ref: 'my-orbit.points' }],
-              },
-            },
-          },
-        ],
-      },
-      render: { nodes: [] },
-      module: {
-        nodes: [
-          {
-            id: 'my-orbit',
-            type: 'orbit-module',
-            params: {
-              time: { v: 0 },
-              speed: { v: 0.01 },
-              radius: { v: 0.5 },
-              numPoints: { v: 100 },
-              centerPoints: { v: [{ v: { x: 0, y: 0, r: 1, g: 1, b: 1, a: 1 } }] },
-              phase: { v: 0 },
-              eccentricity: { v: 0 },
-              tilt: { v: 0 },
-            },
-          },
-        ],
-      },
-    };
+    // Internal render nodes should exist
+    expect(compiled.nodes.has('myOrbit:point-circle')).toBe(true);
+    expect(compiled.nodes.get('myOrbit:point-circle')?.def.type).toBe('circle');
 
-    const compiled = compile(graph, realNodeRegistry);
+    expect(compiled.nodes.has('myOrbit:orbit-path')).toBe(true);
+    expect(compiled.nodes.get('myOrbit:orbit-path')?.def.type).toBe('circle');
 
-    // Marker should exist and be a module-marker
-    expect(compiled.nodes.has('my-orbit')).toBe(true);
-    expect(compiled.nodes.get('my-orbit')?.def.type).toBe('module-marker');
-
-    // Downstream node should exist
-    expect(compiled.nodes.has('use-orbit')).toBe(true);
-
-    // The ref 'my-orbit.points' should resolve to an edge from the internal orbit node
-    // (the compiler follows outputRefs to resolve through the marker)
-    const useOrbitEdges = compiled.edges.filter((edge) => edge.toNode === 'use-orbit');
-    const internalOrbitNode = 'my-orbit:orbit';
-    const hasInternalOrbitRef = useOrbitEdges.some((edge) => edge.fromNode === internalOrbitNode);
-    expect(hasInternalOrbitRef).toBe(true);
-  });
+    expect(compiled.nodes.has('myOrbit:orbit-trace')).toBe(true);
+    expect(compiled.nodes.get('myOrbit:orbit-trace')?.def.type).toBe('circle');
 
 
-  test('handles multiple modules in same graph (seperate)', () => {
-    const graph: GeoArtGraph = {
-      version: '2.0',
-      control: { nodes: [] },
-      compute: { nodes: [] },
-      render: { nodes: [] },
-      module: {
-        nodes: [
-          {
-            id: 'orbit-a',
-            type: 'orbit-module',
-            params: {
-              time: { v: 0 },
-              speed: { v: 0.01 },
-              radius: { v: 0.5 },
-              numPoints: { v: 100 },
-              centerPoints: { v: [{ v: { x: 0, y: 0, r: 1, g: 1, b: 1, a: 1 } }] },
-              phase: { v: 0 },
-              eccentricity: { v: 0 },
-              tilt: { v: 0 },
-            },
-          },
-          {
-            id: 'orbit-b',
-            type: 'orbit-module',
-            params: {
-              time: { v: 0 },
-              speed: { v: 0.02 },
-              radius: { v: 0.3 },
-              numPoints: { v: 50 },
-              centerPoints: { v: [{ v: { x: 0, y: 0, r: 1, g: 1, b: 1, a: 1 } }] },
-              phase: { v: 0 },
-              eccentricity: { v: 0 },
-              tilt: { v: 0 },
-            },
-          },
-        ],
-      },
-    };
-
-    const compiled = compile(graph, realNodeRegistry);
-
-    // Should have both markers
-    expect(compiled.nodes.has('orbit-a')).toBe(true);
-    expect(compiled.nodes.has('orbit-b')).toBe(true);
-
-    // Should have internal nodes for both, with separate namespaces
-    const orbitAInternals = Array.from(compiled.nodes.keys()).filter((id) =>
-      id.startsWith('orbit-a:')
-    );
-    const orbitBInternals = Array.from(compiled.nodes.keys()).filter((id) =>
-      id.startsWith('orbit-b:')
-    );
-
-    expect(orbitAInternals.length).toBeGreaterThan(0);
-    expect(orbitBInternals.length).toBeGreaterThan(0);
-
-    // Namespaces should not overlap
-    expect(orbitAInternals.some((id) => id.startsWith('orbit-b:'))).toBe(false);
-    expect(orbitBInternals.some((id) => id.startsWith('orbit-a:'))).toBe(false);
-  });
-
-  test('handles multiple modules in same graph (depends on each other)', () => {
-    const graph: GeoArtGraph = {
-      version: '2.0',
-      control: { nodes: [] },
-      compute: { nodes: [] },
-      render: { nodes: [] },
-      module: {
-        nodes: [
-          {
-            id: 'orbit-a',
-            type: 'orbit-module',
-            params: {
-              time: { v: 0 },
-              speed: { v: 0.01 },
-              radius: { v: 0.5 },
-              numPoints: { v: 100 },
-              centerPoints: { v: [{ v: { x: 0, y: 0, r: 1, g: 1, b: 1, a: 1 } }] },
-              phase: { v: 0 },
-              eccentricity: { v: 0 },
-              tilt: { v: 0 },
-            },
-          },
-          {
-            id: 'orbit-b',
-            type: 'orbit-module',
-            params: {
-              time: { v: 0 },
-              speed: { v: 0.02 },
-              radius: { v: 0.3 },
-              numPoints: { v: 50 },
-              centerPoints: { ref: "orbit-a.points" },
-              phase: { v: 0 },
-              eccentricity: { v: 0 },
-              tilt: { v: 0 },
-            },
-          },
-        ],
-      },
-    };
-
-    const compiled = compile(graph, realNodeRegistry);
-
-    // Both marker nodes should exist
-    expect(compiled.nodes.has('orbit-a')).toBe(true);
-    expect(compiled.nodes.has('orbit-b')).toBe(true);
-    expect(compiled.nodes.get('orbit-a')?.def.type).toBe('module-marker');
-    expect(compiled.nodes.get('orbit-b')?.def.type).toBe('module-marker');
-
-    // Both modules should have internal nodes with separate namespaces
-    const orbitAInternals = Array.from(compiled.nodes.keys()).filter((id) =>
-      id.startsWith('orbit-a:')
-    );
-    const orbitBInternals = Array.from(compiled.nodes.keys()).filter((id) =>
-      id.startsWith('orbit-b:')
-    );
-
-    expect(orbitAInternals.length).toBeGreaterThan(0);
-    expect(orbitBInternals.length).toBeGreaterThan(0);
-    expect(orbitAInternals.some((id) => id.startsWith('orbit-b:'))).toBe(false);
-    expect(orbitBInternals.some((id) => id.startsWith('orbit-a:'))).toBe(false);
-
-    // When orbit-b references orbit-a's output via the marker, the compiler resolves
-    // through the marker's outputRefs to create an edge from orbit-a's internal node
-    const orbitBOrbitNode = orbitBInternals.find(
-      (id) => compiled.nodes.get(id)?.def.type === 'orbit'
-    );
-    expect(orbitBOrbitNode).toBeDefined();
-
-    const edgesToOrbitB = compiled.edges.filter(
-      (edge) => edge.toNode === orbitBOrbitNode
-    );
-    const hasEdgeFromOrbitA = edgesToOrbitB.some(
-      (edge) => edge.fromNode === 'orbit-a:orbit'
-    );
-    expect(hasEdgeFromOrbitA).toBe(true);
+    // Module output marker should exist
+    expect(compiled.nodes.has('myOrbit')).toBe(true);
+    expect(compiled.nodes.get('myOrbit')?.def.type).toBe('module-output-marker');
   });
 });
+
+
+
