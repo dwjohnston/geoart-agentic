@@ -129,8 +129,11 @@ export function createGraphEngine(
 
           // Handle module input marker nodes specially
           if (compiledNode.def.type === 'module-input-marker' && compiledNode.moduleInputMarkerRenderControl) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const element = compiledNode.moduleInputMarkerRenderControl(compiledNode.params, (paramKey, value) => mutateControl(nodeId, paramKey, value as any));
+            const element = compiledNode.moduleInputMarkerRenderControl(compiledNode.params, (paramKey, value) => {
+              console.log(paramKey, value)
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              return mutateControl(nodeId, paramKey, value as any)
+            });
             return React.createElement(React.Fragment, { key: nodeId }, element);
           }
 
@@ -143,9 +146,13 @@ export function createGraphEngine(
             type: compiledNode.def.type,
             params: compiledNode.params,
           };
-
           //@ts-expect-error - ignore for now
-          const element = def.renderControl(node, (paramKey, value) => mutateControl(nodeId, paramKey, value));
+
+          const element = def.renderControl(node, (paramKey, value) => {
+            console.log(paramKey, value)
+            //@ts-expect-error - ignore for now
+            return mutateControl(nodeId, paramKey, value)
+          });
           return React.createElement(React.Fragment, { key: nodeId }, element);
         });
       },

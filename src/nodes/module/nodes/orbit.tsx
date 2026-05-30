@@ -11,8 +11,22 @@ import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfa
 import type { ModuleNodeKinds, NodeInputsDeclared, NodeInputsResolved, ReferencedValueDeclared } from '../../../schema/typeHelpers';
 import type { ControlNode } from '../../../schema/_generated/schema-types';
 import { fColorPoint } from '../../../constants';
-// Helpers
+import { KnobControl } from '../../../ui/KnobControl';
+
+
+/**
+ * Where I'm leaving this. 
+ * it looks like the compiler already omits values that are already provided via ref. 
+ * 
+ * so needsControl neeeds to be reworked. 
+ * 
+ * And we need a full rework of the types.   
+
+ */
+
 function needsControl<NodeKind extends ModuleNodeKinds>(params: NodeInputsDeclared<NodeKind>, key: keyof NodeInputsDeclared<NodeKind>): boolean {
+
+  console.log(params)
   if (!params[key]) {
     return true;
   }
@@ -45,6 +59,21 @@ function pushControlNodeIfNeed<NodeKind extends ModuleNodeKinds, NodeInputKey ex
 
 }
 
+
+function renderIfNeeded<NodeKind extends ModuleNodeKinds, NodeInputKey extends keyof NodeInputsDeclared<NodeKind>>
+  (
+    params: NodeInputsDeclared<NodeKind>,
+    key: keyof NodeInputsDeclared<NodeKind>,
+    defaultValues: NodeInputsResolved<NodeKind>,
+    renderControl: (param: Exclude<Required<NodeInputsDeclared<NodeKind>>[NodeInputKey], ReferencedValueDeclared>) => React.ReactNode) {
+  if (needsControl(params, key)) {
+
+    const param = params[key] as Exclude<Required<NodeInputsDeclared<NodeKind>>[NodeInputKey], ReferencedValueDeclared> ?? { v: defaultValues[key] };
+
+    return renderControl(param.v);
+  }
+  return null;
+}
 
 function createInputMarkerParams<NodeKind extends ModuleNodeKinds>(params: NodeInputsDeclared<NodeKind>, defaultValues: NodeInputsResolved<NodeKind>): NodeInputsDeclared<NodeKind> {
   const result: Record<string, unknown> = {};
@@ -161,6 +190,7 @@ const orbitModuleImplementation = implementModule({
     // Create marker node
     // For each module input, use the provided param (ref or static value) or fall back to the default value
 
+    console.log(moduleId)
     const inputMarkerId = createInternalId(moduleId, 'input-marker')
 
     const result: ModuleExpansionResult<"orbit-module"> = {
@@ -171,8 +201,21 @@ const orbitModuleImplementation = implementModule({
         id: inputMarkerId,
         type: "module-input-marker",
         params: createInputMarkerParams(params, defaultValues),
-        renderControl: (_params, _set) => {
-          return <div data-testid={`${inputMarkerId}-controls`}>Hello world! </div>
+        renderControl: (params, set) => {
+          return <div data-testid={`${inputMarkerId}-controls`}>
+            {renderIfNeeded(params, 'speed', defaultValues, (param, onChange) => {
+              console.log(param)
+              return <KnobControl label="Speed" min={-1} max={1} initialValue={param} onChange={(v) => set("speed", { v })} />
+            })}
+
+            {renderIfNeeded(params, 'radius', defaultValues, (param, onChange) => {
+              console.log(param)
+              return <KnobControl label="raasssdius" min={0} max={1} initialValue={param ?? 0.5} onChange={(v) => set("radius", { v })} />
+            })}
+
+
+
+          </div>
         },
       },
       defaultValues,

@@ -10,7 +10,8 @@ const graph: GeoArtGraph = {
                 type: 'slider',
                 params: {
                     min: { v: 0, },
-                    max: { v: 0.01 },
+                    max: { v: 1 },
+                    step: { v: 0.01 },
                     label: { v: "Radius" },
                     value: { v: 0.1 },
                 }
