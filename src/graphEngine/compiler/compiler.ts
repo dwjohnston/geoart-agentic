@@ -400,10 +400,17 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       })
     );
 
-    // Input marker nodes need a synthetic implementation to expose module inputs to internal nodes
+    // Input marker nodes need inputs (to accept external refs) and outputs (to expose to internal nodes)
+    const inputMarkerInputPorts: LegacyComputeNodePortImplementation[] = Object.entries(moduleInputDefs).map(
+      ([name, def]) => ({
+        name,
+        type: (def as { valueType: string }).valueType.replace('Value', '') as LegacyComputeNodePortImplementation['type'],
+      })
+    );
+
     const inputMarkerDef: LegacyComputeNodeImplementation = {
       type: 'module-input-marker',
-      inputs: [],
+      inputs: inputMarkerInputPorts,
       outputs: inputMarkerOutputPorts,
       evaluate: () => [], // Marker nodes don't actually execute
     };

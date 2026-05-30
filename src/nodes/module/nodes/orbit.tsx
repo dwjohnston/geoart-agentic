@@ -62,7 +62,7 @@ const orbitModuleImplementation = implementModule({
 
   },
 
-  fn: (params, moduleId, defaultValues) => {
+  provideNodes: (params, moduleId, defaultValues) => {
     const controlNodes: ModuleExpansionResult<"orbit-module">['controlNodes'] = [];
     const computeNodes: ModuleExpansionResult<"orbit-module">['computeNodes'] = [];
     const renderNodes: ModuleExpansionResult<"orbit-module">['renderNodes'] = [];
@@ -87,11 +87,11 @@ const orbitModuleImplementation = implementModule({
       id: orbitNodeId,
       type: 'orbit',
       params: {
-        time: params.time,
+        time: buildParamRef('time'),
         speed: buildParamRef('speed'),
         radius: buildParamRef('radius'),
         numPoints: buildParamRef("numPoints"),
-        centerPoints: params.centerPoints,
+        centerPoints: buildParamRef('centerPoints'),
         phase: buildParamRef('phase'),
         eccentricity: buildParamRef('eccentricity'),
         tilt: buildParamRef('tilt'),
@@ -155,6 +155,7 @@ const orbitModuleImplementation = implementModule({
           return <div>Hello world! </div>
         },
       },
+      defaultValues,
       outputMarkerNode: {
         id: moduleId,
         type: 'module-output-marker',

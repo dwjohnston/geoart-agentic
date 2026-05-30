@@ -6,7 +6,7 @@
  */
 
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
-import type { ModuleNodeKinds, NodeInputsDeclared, NodeOutputAsRefs, ResolvedValue, ValueTypeNamesSuffixed } from '../../schema/typeHelpers';
+import type { ModuleNodeKinds, NodeInputsDeclared, NodeInputsResolved, NodeOutputAsRefs, ResolvedValue, ValueTypeNamesSuffixed } from '../../schema/typeHelpers';
 import type { ControlSetter } from './ControlNodeImplementation';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 
@@ -43,6 +43,8 @@ export interface ModuleExpansionResult<K extends ModuleNodeKinds> {
     params: NodeInputsDeclared<K>,
     renderControl: (params: StaticModuleNodeParams<K>, set: ControlSetter<K>) => React.ReactNode;
   },
+
+  defaultValues: NodeInputsResolved<K>
 
 
 }
