@@ -7,6 +7,7 @@ type Props = {
 export function Controls({ renderControlNodes }: Props) {
   return (
     <div
+      data-testid="controls-container"
       style={{
         display: 'flex',
         flexDirection: 'row',

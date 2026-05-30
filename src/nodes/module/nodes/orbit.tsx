@@ -161,17 +161,18 @@ const orbitModuleImplementation = implementModule({
     // Create marker node
     // For each module input, use the provided param (ref or static value) or fall back to the default value
 
+    const inputMarkerId = createInternalId(moduleId, 'input-marker')
 
     const result: ModuleExpansionResult<"orbit-module"> = {
       controlNodes,
       computeNodes,
       renderNodes,
       inputMarkerNode: {
-        id: createInternalId(moduleId, 'input-marker'),
+        id: inputMarkerId,
         type: "module-input-marker",
         params: createInputMarkerParams(params, defaultValues),
         renderControl: (_params, _set) => {
-          return <div>Hello world! </div>
+          return <div data-testid={`${inputMarkerId}-controls`}>Hello world! </div>
         },
       },
       defaultValues,
