@@ -412,7 +412,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       type: 'module-input-marker',
       inputs: inputMarkerInputPorts,
       outputs: inputMarkerOutputPorts,
-      evaluate: () => [], // Marker nodes don't actually execute
+      evaluate: (inputs) => inputs, // Pass inputs through as outputs
     };
 
     nodes.set(inputMarkerNode.id, {

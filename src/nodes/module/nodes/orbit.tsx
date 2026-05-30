@@ -143,6 +143,18 @@ const orbitModuleImplementation = implementModule({
     });
 
     // Create marker node
+    // For each module input, use the provided param (ref or static value) or fall back to the default value
+    const inputMarkerParams: Record<string, any> = {};
+    for (const [key, defaultValue] of Object.entries(defaultValues)) {
+      if (key in params && params[key as keyof typeof params] !== undefined) {
+        // Use the provided param (which could be a ref or a static value)
+        inputMarkerParams[key] = params[key as keyof typeof params];
+      } else {
+        // Use the default value as a static param
+        inputMarkerParams[key] = { v: defaultValue };
+      }
+    }
+
     const result: ModuleExpansionResult<"orbit-module"> = {
       controlNodes,
       computeNodes,
@@ -150,7 +162,7 @@ const orbitModuleImplementation = implementModule({
       inputMarkerNode: {
         id: createInternalId(moduleId, 'input-marker'),
         type: "module-input-marker",
-        params,
+        params: inputMarkerParams,
         renderControl: (params, set) => {
           return <div>Hello world! </div>
         },
