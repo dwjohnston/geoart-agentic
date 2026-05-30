@@ -116,7 +116,8 @@ export function createGraphEngine(
         if (compiled) {
           for (const nodeId of compiled.sortedNodes) {
             const compiledNode = compiled.nodes.get(nodeId);
-            if (compiledNode && compiledNode.layer === 'control') {
+            // Include both control layer nodes and module input marker nodes
+            if (compiledNode && (compiledNode.layer === 'control' || compiledNode.def.type === 'module-input-marker')) {
               controlNodeIds.push(nodeId);
             }
           }
@@ -125,6 +126,13 @@ export function createGraphEngine(
         return controlNodeIds.map(nodeId => {
           const compiledNode = compiled?.nodes.get(nodeId);
           if (!compiledNode) return null;
+
+          // Handle module input marker nodes specially
+          if (compiledNode.def.type === 'module-input-marker' && compiledNode.moduleInputMarkerRenderControl) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const element = compiledNode.moduleInputMarkerRenderControl(compiledNode.params, (paramKey, value) => mutateControl(nodeId, paramKey, value as any));
+            return React.createElement(React.Fragment, { key: nodeId }, element);
+          }
 
           const def = (registry?.controlRegistry ?? controlRegistry).get(compiledNode.def.type);
           if (!def) return null;

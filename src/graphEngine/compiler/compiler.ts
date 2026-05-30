@@ -2,7 +2,7 @@
  * CANONICAL LEVEL: 🗑️ - 2026-05-14
  */
 
-
+import type React from 'react';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { Value } from '../../schema/types';
 import type { LegacyComputeNodeImplementation, LegacyComputeNodePortImplementation } from '../../graphEngine/externalInterfaces/ComputeNodeImplementation';
@@ -48,6 +48,8 @@ type CompiledNode = {
   renderConfig?: { layer: 'paint' | 'live' };
   /** For marker nodes: maps output port names to internal node refs. */
   outputRefs?: Record<string, { ref: string }>;
+  /** For module input marker nodes: the render function for controls. */
+  moduleInputMarkerRenderControl?: (params: Record<string, unknown>, set: (key: string, value: unknown) => void) => React.ReactNode;
 };
 
 /** Per-node mutable evaluation state, reset/updated on each tick. */
@@ -419,6 +421,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       def: inputMarkerDef,
       layer: 'compute',
       params: buildParams(inputMarkerParams),
+      moduleInputMarkerRenderControl: inputMarkerNode.renderControl as (params: Record<string, unknown>, set: (key: string, value: unknown) => void) => React.ReactNode,
     });
 
     // Register output marker node (treated as compute layer for ref resolution)
