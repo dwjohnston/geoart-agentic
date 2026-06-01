@@ -87,11 +87,34 @@ describe('ResolvedValue', () => {
 
 
     })
+
+    it("resolves colorPointArrayValue to an array of color points", () => {
+        const colorPointArray = [
+            fColorPoint(),
+            fColorPoint(),
+        ];
+        assertType<ResolvedValue<"colorPointArrayValue">>(colorPointArray);
+
+        //@ts-expect-error - wrong item type
+        assertType<ResolvedValue<"colorPointArrayValue">>([1, 2]);
+    });
+
+    it("resolves empty colorPointArray", () => {
+        assertType<ResolvedValue<"colorPointArrayValue">>([]);
+    });
+
+    it("resolves single color point in array", () => {
+        assertType<ResolvedValue<"colorPointArrayValue">>([fColorPoint()]);
+    });
 })
 
-describe("NodeInputsRecord", () => {
+describe("NodeInputsResolved", () => {
     it("maps 'add' inputs to named ports without kind", () => {
         assertType<NodeInputsResolved<"add">>({ a: 1, b: 2 });
+
+        //@ts-expect-error - missing property
+        assertType<NodeInputsResolved<"add">>({ a: 1, });
+
 
         //@ts-expect-error - wrong key name
         assertType<NodeInputsResolved<"add">>({ x: 1, b: 2 });
@@ -131,6 +154,50 @@ describe("NodeInputsRecord", () => {
         "numberOfPoints": 1,
 
     })
+
+    it("resolves colorPointArray inputs on orbit node", () => {
+        assertType<NodeInputsResolved<"orbit">>({
+            time: 0,
+            radius: 0.3,
+            speed: 1,
+            numPoints: 50,
+            center: { x: 0, y: 0 },
+            phase: 0,
+            eccentricity: 0,
+            tilt: 0,
+            centerPoints: [
+                { r: 1, g: 1, b: 1, a: 1, x: 0, y: 0, dx: 0, dy: 0 },
+                { r: 0.5, g: 0.5, b: 0.5, a: 0.5, x: 1, y: 1, dx: 0, dy: 0 },
+            ],
+        });
+
+        //@ts-expect-error - missing properties is not ok
+        assertType<NodeInputsResolved<"orbit">>({
+            time: 0,
+            speed: 1,
+
+        });
+
+
+        assertType<NodeInputsResolved<"orbit">>({
+            time: 0,
+            radius: 0.3,
+            speed: 1,
+            numPoints: 50,
+            center: { x: 0, y: 0 },
+            phase: 0,
+            eccentricity: 0,
+            tilt: 0,
+            centerPoints: [
+                //@ts-expect-error - missing properties
+                { r: 1, g: 1 },
+
+                //@ts-expect-error - garbage value
+                "garbage"
+            ],
+        });
+    });
+
 });
 
 describe("NodeOutputsRecord", () => {

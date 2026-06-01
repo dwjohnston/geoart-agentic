@@ -36,7 +36,7 @@ const graph: GeoArtGraph = {
                 params: {
                     time: { ref: 'globalTime.time' },
                     radius: { ref: "radiusSlider.value" },
-                    numPoints: { v: 8 },
+                    numPoints: { v: 1 },
                     centerPoints: { v: [{ v: fColorPoint() }] }
                 }
             }

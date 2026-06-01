@@ -160,7 +160,23 @@ export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
   : never
 }
 
-// Function type for setting module control parameters with type-safe port names and values
+/**
+ * Function type for setting module node input values during rendering.
+ * Constrains parameter names to valid input port names and values to their resolved types.
+ *
+ * @example
+ * ```ts
+ * const fn: ModuleControlSetter<"orbit-module"> = (paramKey, value) => {
+ *   // paramKey can be "speed", "radius", "numPoints"
+ *   // value must match the resolved type for that parameter
+ * }
+ *
+ * fn("radius", 0.3);     // ✓ number
+ * fn("speed", 1);        // ✓ number
+ * fn("radius", "0.3");   // ✗ type error: expects number
+ * fn("invalid", 1);      // ✗ type error: invalid parameter name
+ * ```
+ */
 export type ModuleControlSetter<K extends ModuleNodeKinds> = <
   Port extends keyof typeof nodeInputs[K]
 >(
