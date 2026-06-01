@@ -9,6 +9,7 @@ import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { ModuleNodeKinds, NodeInputsDeclared, NodeInputsResolved, NodeOutputAsRefs, ResolvedValue, ValueTypeNamesSuffixed } from '../../schema/typeHelpers';
 import type { ControlSetter } from './ControlNodeImplementation';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
+import type { ModuleNode } from 'vite';
 
 
 
@@ -47,19 +48,8 @@ export interface ModuleExpansionResult<K extends ModuleNodeKinds> {
   defaultValues: NodeInputsResolved<K>
 }
 
+export type StaticModuleNodeParams<K extends ModuleNodeKinds> = Partial<NodeInputsResolved<K>>
 
-
-/**
- * Resolved input port values for a module node — raw .v types as an optional record.
- * If a module's input values are provided by ref, they will not be included here.
- *
- * @example
- * ```ts
- * type X = StaticModuleNodeParams<"orbit-module">;
- * // ^ { speed?: number; radius?: number; numPoints?: number; centerPoints?: ColorPoint[] }
- * ```
- */
-export type StaticModuleNodeParams<K extends ModuleNodeKinds> = Partial<NodeInputsResolved<K>>;
 /**
  * Registry mapping module type names to their implementation functions.
  */

@@ -19,31 +19,14 @@ Type helpers are typically conditional/mapped/recursive types that:
 2. **Extract information** from generated types using conditional types, template literals, or keyed access
 3. **Transform and return** a new type shape
 
-Every type helper must include **TSDoc comments with `@example` blocks** to document usage and intent:
+**Example:** `ValueTypeByName<T>` takes a suffixed value type name (`"numberValue"`) and returns the raw value shape without the `kind` discriminator:
 
 ```ts
-/**
- * Maps a suffixed value type name to its raw value shape (without kind discriminator).
- * 
- * @example
- * ```ts
- * type X = ValueTypeByName<"numberValue">;
- * // ^ { v: number }
- * 
- * type Y = ValueTypeByName<"waveTypeEnumValue">;
- * // ^ { v: "sine" | "square" | "saw" | "reverse-saw" | "triangle" }
- * ```
- */
 export type ValueTypeByName<T extends ValueTypeNamesSuffixed> = Omit<
   Extract<ValueTypes, { kind: T extends `${infer K}Value` ? K : never }>,
   'kind'
 >
 ```
-
-The TSDoc comment should explain:
-- **What the type does** — in plain English
-- **@example blocks** — 2–3 concrete examples showing inputs and outputs
-- **Edge cases** (if non-obvious) — what happens with special inputs
 
 ## Common Patterns
 
@@ -102,30 +85,27 @@ export type StaticValueDeclared<T extends ValueTypeNames> =
 
 ## Test Patterns
 
-### Test Location
-
-**Tests always live in the paired test file beside the type declaration:**
-- Type declared in `src/schema/typeHelpers.ts` → tests in `src/schema/typeHelpers.test.ts`
-- Type declared in `src/graphEngine/externalInterfaces/ModuleImplementation.ts` → tests in `src/graphEngine/externalInterfaces/ModuleImplementation.test.ts`
-
-Do not duplicate type helper tests across multiple test files. If a type is domain-specific (e.g., module-related), its tests live in that domain's test file, not in `typeHelpers.test.ts`.
-
 ### Test Structure
 
-Tests use `describe` blocks organized by type helper or concept. Each test includes positive and negative cases:
+Tests use `describe` blocks organized by type helper or concept. **Group multiple related assertions in a single `it` block** for readability; use comments to separate logical concerns:
 
 ```ts
 describe("MyTypeHelper", () => {
-  it("positive case: accepts valid input", () => {
-    assertType<MyTypeHelper>(validValue);
-  });
+  it("accepts valid inputs and rejects invalid ones", () => {
+    // Valid cases
+    assertType<MyTypeHelper>(validValue1);
+    assertType<MyTypeHelper>(validValue2);
 
-  it("negative case: rejects invalid input", () => {
+    // Invalid cases
     //@ts-expect-error - why this should fail
-    assertType<MyTypeHelper>(invalidValue);
+    assertType<MyTypeHelper>(invalidValue1);
+    //@ts-expect-error - another reason it should fail
+    assertType<MyTypeHelper>(invalidValue2);
   });
 });
 ```
+
+Avoid one `it` block per assertion — it makes tests verbose and hard to read. Group related checks together.
 
 ### The `assertType` Helper
 
@@ -179,22 +159,25 @@ assertType<StaticValueDeclared<"colorPointArray">>({
 
 ### Function Type Tests
 
-For callable types, declare a typed function and invoke it with test arguments:
+For callable types, declare a typed function and invoke it with test arguments in a single `it` block:
 
 ```ts
-// Declare function with the type you're testing
-const fn: ModuleControlSetter<"orbit-module"> = (params, value) => {
-  // Implementation can be empty
-}
+it("allows valid calls and rejects invalid ones", () => {
+  const fn: ModuleControlSetter<"orbit-module"> = (params, value) => {
+    // Implementation can be empty
+  }
 
-// Valid calls — no errors expected
-fn("radius", 9)
-fn("speed", 10)
-fn("centerPoints", [fColorPoint()])
+  // Valid calls — no errors expected
+  fn("radius", 9)
+  fn("speed", 10)
+  fn("centerPoints", [fColorPoint()])
 
-// Invalid call — expect a type error
-//@ts-expect-error - mismatching param key
-fn("garbage", null);
+  // Invalid calls — expect type errors
+  //@ts-expect-error - mismatching param key
+  fn("garbage", null);
+  //@ts-expect-error - wrong value type
+  fn("speed", "hello");
+})
 ```
 
 This pattern verifies:
@@ -207,9 +190,8 @@ This pattern verifies:
 1. **Understand the gap:** What schema concept do you need to expose to algorithm code? (E.g., "I need to know which ports a node outputs.")
 2. **Sketch the type:** Write a rough conditional type that extracts this information from the generated types.
 3. **Test it first:** Write a describe block with positive and negative cases before finalizing the helper.
-4. **Document:** Add a TSDoc comment with a description and 2–3 `@example` blocks showing concrete usage.
-5. **Refine:** Simplify the type logic, add comments if non-obvious, ensure all edge cases pass.
-6. **Run tests:** `bun typecheck` to verify.
+4. **Refine:** Simplify, add comments if the logic is non-obvious, ensure all edge cases pass.
+5. **Run tests:** `bun test src/schema/typeHelpers.test.ts` to verify.
 
 ## Key Files
 

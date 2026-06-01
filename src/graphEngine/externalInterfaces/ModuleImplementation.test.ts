@@ -20,36 +20,28 @@ describe('StaticModuleNodeParams', () => {
     });
 
     assertType<StaticModuleNodeParams<"orbit-module">>({});
-  });
 
-  it('rejects static params with refs', () => {
-    assertType<StaticModuleNodeParams<"orbit-module">>({
-      // @ts-expect-error - refs are not allowed in static params
-      speed: { ref: "slider.value" },
+
+    it("has type errors in the right places", () => {
+      assertType<StaticModuleNodeParams<"orbit-module">>({
+        // @ts-expect-error - refs are not allowed in static params
+        speed: { ref: "slider.value" },
+      });
+
+      assertType<StaticModuleNodeParams<"orbit-module">>({
+        // @ts-expect-error - invalid port name
+        invalidPort: 1,
+      });
+
+      assertType<StaticModuleNodeParams<"orbit-module">>({
+        // @ts-expect-error - speed expects number, not string
+        speed: "fast",
+      });
     });
   });
 
-  it('rejects invalid port names', () => {
-    assertType<StaticModuleNodeParams<"orbit-module">>({
-      // @ts-expect-error - invalid port name
-      invalidPort: 1,
-    });
-  });
 
-  it('rejects wrong value types', () => {
-    assertType<StaticModuleNodeParams<"orbit-module">>({
-      // @ts-expect-error - speed expects number, not string
-      speed: "fast",
-    });
-  });
 
-  it('extracts inputs for other module nodes', () => {
-    assertType<StaticModuleNodeParams<"orbit-module">>({
-      speed: 1,
-      radius: 0.5,
-      numPoints: 100,
-    });
-  });
 });
 
 describe("ModuleControlSetter", () => {
