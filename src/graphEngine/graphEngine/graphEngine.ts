@@ -10,6 +10,14 @@ import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
 import { moduleRegistry } from '../../nodes/module/registry';
 
+function flattenParams(params: Record<string, Value>): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(params)) {
+    result[key] = value.v;
+  }
+  return result;
+}
+
 export type GraphLoadPayload = {
   renderControlNodes: () => React.ReactNode;
   renderingNodes: Array<{ nodeId: string; label: string; layer: 'live' | 'paint' }>;
@@ -129,11 +137,12 @@ export function createGraphEngine(
 
           // Handle module input marker nodes specially
           if (compiledNode.def.type === 'module-input-marker' && compiledNode.moduleInputMarkerRenderControl) {
-            const element = compiledNode.moduleInputMarkerRenderControl(compiledNode.params, (paramKey, value) => {
-              console.log(paramKey, value)
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              return mutateControl(nodeId, paramKey, value as any)
-            });
+            const element = compiledNode.moduleInputMarkerRenderControl(
+              flattenParams(compiledNode.params), (paramKey, value) => {
+                console.log(paramKey, value)
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                return mutateControl(nodeId, paramKey, value as any)
+              });
             return React.createElement(React.Fragment, { key: nodeId }, element);
           }
 

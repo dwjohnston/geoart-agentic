@@ -98,6 +98,24 @@ describe("NodeInputsRecord", () => {
 
         //@ts-expect-error - wrong v type on port a
         assertType<NodeInputsResolved<"add">>({ a: "foo", b: 0 });
+
+
+
+        assertType<Partial<NodeInputsResolved<"add">>['a']>(1)
+        // this is ok
+        assertType<Partial<NodeInputsResolved<"add">>['a']>(undefined)
+
+        assertType<NodeInputsResolved<"add">['a']>(1)
+        //@ts-expect-error - this is not
+        assertType<NodeInputsResolved<"add">['a']>(undefined)
+
+
+        assertType<Required<Partial<NodeInputsResolved<"add">>['a']>>(1)
+        //@ts-expect-error - this is also not ok
+        assertType<Required<Partial<NodeInputsResolved<"add">>>['a']>(undefined)
+
+
+
     });
 
     assertType<NodeInputsResolved<"pointsOnALine">>({

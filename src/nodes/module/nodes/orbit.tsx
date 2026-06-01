@@ -7,74 +7,51 @@
 
 import { implementModule } from '../implementModule';
 import { createInternalId } from '../moduleUtils';
-import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfaces/ModuleImplementation';
-import type { ModuleNodeKinds, NodeInputsDeclared, NodeInputsResolved, ReferencedValueDeclared } from '../../../schema/typeHelpers';
-import type { ControlNode } from '../../../schema/_generated/schema-types';
+import type { ModuleControlSetter, ModuleExpansionResult, StaticModuleNodeParams } from '../../../graphEngine/externalInterfaces/ModuleImplementation';
+import type { ModuleNodeKinds, NodeInputsDeclared, NodeInputsResolved } from '../../../schema/typeHelpers';
 import { fColorPoint } from '../../../constants';
 import { KnobControl } from '../../../ui/KnobControl';
 
 
-/**
- * Where I'm leaving this. 
- * it looks like the compiler already omits values that are already provided via ref. 
- * 
- * so needsControl neeeds to be reworked. 
- * 
- * And we need a full rework of the types.   
 
- */
+// nb. the typing on the onChange handler - NodeInputsResolved, not StaticModuleNodeParams which is a partial - basically we are kind of asserting that all values will exist and then can access via key of.
+// The render if needed already does a check to see that the value definitely will exist. 
 
-function needsControl<NodeKind extends ModuleNodeKinds>(params: NodeInputsDeclared<NodeKind>, key: keyof NodeInputsDeclared<NodeKind>): boolean {
+type RenderControlFn<NodeKind extends ModuleNodeKinds, NodeInputKey extends keyof NodeInputsDeclared<NodeKind>> = (initialValue: Required<StaticModuleNodeParams<NodeKind>>[NodeInputKey], onChange: (value: NodeInputsResolved<NodeKind>[NodeInputKey]) => void) => React.ReactNode
 
-  console.log(params)
-  if (!params[key]) {
-    return true;
-  }
-
-  if ("ref" in params[key]) {
-    return false;
-  }
-
-  return true;
-}
-
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function pushControlNodeIfNeed<NodeKind extends ModuleNodeKinds, NodeInputKey extends keyof NodeInputsDeclared<NodeKind>>(
-  controlNodes: ModuleExpansionResult<NodeKind>['controlNodes'],
-  params: NodeInputsDeclared<NodeKind>,
-  defaultValues: NodeInputsResolved<NodeKind>,
-  key: NodeInputKey,
-  controlNode: (value: Exclude<Required<NodeInputsDeclared<NodeKind>>[NodeInputKey], ReferencedValueDeclared>) => ControlNode
-): void {
-  if (needsControl(params, key)) {
-
-
-    const param = params[key] as Exclude<Required<NodeInputsDeclared<NodeKind>>[NodeInputKey], ReferencedValueDeclared>;
-
-
-    //@ts-expect-error I'm pretty sure this is right
-    controlNodes.push(controlNode(param ?? { v: defaultValues[key] }))
-  }
-
-}
-
-
-function renderIfNeeded<NodeKind extends ModuleNodeKinds, NodeInputKey extends keyof NodeInputsDeclared<NodeKind>>
+function renderIfNeeded<
+  NodeKind extends ModuleNodeKinds,
+  NodeInputKey extends keyof NodeInputsDeclared<NodeKind>>
   (
-    params: NodeInputsDeclared<NodeKind>,
-    key: keyof NodeInputsDeclared<NodeKind>,
-    defaultValues: NodeInputsResolved<NodeKind>,
-    renderControl: (param: Exclude<Required<NodeInputsDeclared<NodeKind>>[NodeInputKey], ReferencedValueDeclared>) => React.ReactNode) {
-  if (needsControl(params, key)) {
+    params: StaticModuleNodeParams<NodeKind>,
+    key: NodeInputKey,
+    controlSetter: ModuleControlSetter<NodeKind>,
+    renderControl: RenderControlFn<NodeKind, NodeInputKey>) {
 
-    const param = params[key] as Exclude<Required<NodeInputsDeclared<NodeKind>>[NodeInputKey], ReferencedValueDeclared> ?? { v: defaultValues[key] };
-
-    return renderControl(param.v);
+  if (Object.hasOwn(params, key)) {
+    const initialValue = (params as Required<typeof params>)[key];
+    return renderControl(initialValue, (v) => controlSetter(key, v));
   }
   return null;
 }
 
+
+
+// I'm going to leave this here for now. 
+// The point of it is to curry in the params and the set function, 
+// but the typings are not playing nicely
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function createRenderIfNeeded<
+  NodeKind extends ModuleNodeKinds,
+  NodeInputKey extends keyof NodeInputsDeclared<NodeKind>>(
+    params: StaticModuleNodeParams<NodeKind>,
+    controlSetter: ModuleControlSetter<NodeKind>,
+  ) {
+  return (key: NodeInputKey, renderControl: RenderControlFn<NodeKind, NodeInputKey>) => {
+    return renderIfNeeded(params, key, controlSetter, renderControl)
+  }
+}
 function createInputMarkerParams<NodeKind extends ModuleNodeKinds>(params: NodeInputsDeclared<NodeKind>, defaultValues: NodeInputsResolved<NodeKind>): NodeInputsDeclared<NodeKind> {
   const result: Record<string, unknown> = {};
 
@@ -202,15 +179,17 @@ const orbitModuleImplementation = implementModule({
         type: "module-input-marker",
         params: createInputMarkerParams(params, defaultValues),
         renderControl: (params, set) => {
+
           return <div data-testid={`${inputMarkerId}-controls`}>
-            {renderIfNeeded(params, 'speed', defaultValues, (param, onChange) => {
-              console.log(param)
-              return <KnobControl label="Speed" min={-1} max={1} initialValue={param} onChange={(v) => set("speed", { v })} />
+
+            {renderIfNeeded(params, 'speed', set, (initialValue, onChange) => {
+              console.log(initialValue)
+              return <KnobControl label="Speed" min={-1} max={1} initialValue={initialValue} onChange={onChange} />
             })}
 
-            {renderIfNeeded(params, 'radius', defaultValues, (param, onChange) => {
-              console.log(param)
-              return <KnobControl label="raasssdius" min={0} max={1} initialValue={param ?? 0.5} onChange={(v) => set("radius", { v })} />
+            {renderIfNeeded(params, 'radius', set, (initialValue, onChange) => {
+              console.log(initialValue)
+              return <KnobControl label="raasssdius" min={0} max={1} initialValue={initialValue} onChange={onChange} />
             })}
 
 
