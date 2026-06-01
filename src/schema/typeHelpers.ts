@@ -160,4 +160,14 @@ export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
   : never
 }
 
+// Function type for setting module control parameters with type-safe port names and values
+export type ModuleControlSetter<K extends ModuleNodeKinds> = <
+  Port extends keyof typeof nodeInputs[K]
+>(
+  param: Port,
+  value: typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
+    ? ResolvedValue<VT>
+    : never
+) => void;
+
 

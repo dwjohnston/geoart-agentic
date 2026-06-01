@@ -9,6 +9,7 @@ import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { ModuleNodeKinds, NodeInputsDeclared, NodeInputsResolved, NodeOutputAsRefs, ResolvedValue, ValueTypeNamesSuffixed } from '../../schema/typeHelpers';
 import type { ControlSetter } from './ControlNodeImplementation';
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
+import type { ModuleNode } from 'vite';
 
 
 
@@ -45,8 +46,6 @@ export interface ModuleExpansionResult<K extends ModuleNodeKinds> {
   },
 
   defaultValues: NodeInputsResolved<K>
-
-
 }
 
 export type StaticModuleNodeParams<K extends ModuleNodeKinds> = {

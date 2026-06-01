@@ -1,5 +1,7 @@
 import { describe, it } from 'bun:test';
 import type { StaticModuleNodeParams } from './ModuleImplementation';
+import type { ModuleControlSetter } from '../../schema/typeHelpers';
+import { fColorPoint } from '../../constants';
 
 function assertType<T>(_value: T) { }
 
@@ -49,3 +51,20 @@ describe('StaticModuleNodeParams', () => {
     });
   });
 });
+
+describe("ModuleControlSetter", () => {
+  it("allows all of the modules inputs as the first param, with correct value param", () => {
+    const fn: ModuleControlSetter<"orbit-module"> = (_params, _value) => {
+
+    }
+
+    fn("radius", 9)
+    fn("speed", 10)
+    fn("centerPoints", [fColorPoint()])
+
+    //@ts-expect-error - mis matching param key
+    fn("garbage", null);
+    //@ts-expect-error - mis matching param key
+    fn("speed", "hello");
+  })
+})
