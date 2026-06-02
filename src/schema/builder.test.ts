@@ -127,6 +127,128 @@ describe(AlgorithmBuilder, () => {
             expect(result.author).toBe('Test Author')
             expect(result.description).toBe('A test description')
         })
+
+        describe("module nodes", () => {
+            it("Module referring to control node", () => {
+                const result = new AlgorithmBuilder()
+                    .addControlNode({
+                        id: 'speed',
+                        type: 'slider',
+                        params: {
+                            label: { v: 'Speed' },
+                            min: { v: 0 },
+                            max: { v: 5 },
+                            value: { v: 1 },
+                        },
+                    })
+                    .addModuleNode({
+                        id: 'myModule',
+                        type: 'orbit-module',
+                        params: {
+                            time: { v: 0 },
+                            speed: { ref: 'speed.value' },
+                            radius: { v: 0.1 },
+                            numPoints: { v: 50 },
+                        },
+                    })
+                    .construct();
+
+                expect(validateGeoArtGraph(result)).toBe(true)
+                expect(result.module?.nodes).toHaveLength(1)
+                expect(result.module?.nodes.some(n => n.id === 'myModule')).toBe(true)
+            })
+
+            it("Module referring to module node", () => {
+                const result = new AlgorithmBuilder()
+                    .addModuleNode({
+                        id: 'innerOrbit',
+                        type: 'orbit-module',
+                        params: {
+                            time: { v: 0 },
+                            speed: { v: 1 },
+                            radius: { v: 0.1 },
+                            numPoints: { v: 50 },
+                        },
+                    })
+                    .addModuleNode({
+                        id: 'outerOrbit',
+                        type: 'orbit-module',
+                        params: {
+                            time: { v: 0 },
+                            speed: { v: 0.5 },
+                            radius: { v: 0.2 },
+                            numPoints: { v: 30 },
+                            centerPoints: { ref: 'innerOrbit.points' },
+                        },
+                    })
+                    .construct();
+
+                expect(validateGeoArtGraph(result)).toBe(true)
+                expect(result.module?.nodes).toHaveLength(2)
+                expect(result.module?.nodes.some(n => n.id === 'innerOrbit')).toBe(true)
+                expect(result.module?.nodes.some(n => n.id === 'outerOrbit')).toBe(true)
+            })
+
+            it("Compute node referring to module node", () => {
+                const result = new AlgorithmBuilder()
+                    .addModuleNode({
+                        id: 'myModule',
+                        type: 'orbit-module',
+                        params: {
+                            time: { v: 0 },
+                            speed: { v: 1 },
+                            radius: { v: 0.1 },
+                            numPoints: { v: 50 },
+                        },
+                    })
+                    .addComputeNode({
+                        id: 'derived',
+                        type: 'orbit',
+                        params: {
+                            time: { v: 0 },
+                            radius: { v: 0.15 },
+                            speed: { v: 2 },
+                            centerPoints: { ref: 'myModule.points' },
+                        },
+                    })
+                    .construct();
+
+                expect(validateGeoArtGraph(result)).toBe(true)
+                expect(result.module?.nodes).toHaveLength(1)
+                expect(result.compute.nodes).toHaveLength(1)
+                expect(result.compute.nodes.some(n => n.id === 'derived')).toBe(true)
+            })
+
+            it("Render node referring to module node", () => {
+                const result = new AlgorithmBuilder()
+                    .addModuleNode({
+                        id: 'myModule',
+                        type: 'orbit-module',
+                        params: {
+                            time: { v: 0 },
+                            speed: { v: 1 },
+                            radius: { v: 0.1 },
+                            numPoints: { v: 50 },
+                        },
+                    })
+                    .addRenderNode({
+                        id: 'rendered',
+                        type: 'circle',
+                        renderConfig: { layer: 'live' },
+                        params: {
+                            radius: { v: 0.02 },
+                            centerPoints: { ref: 'myModule.points' },
+                            color: { v: { r: 0.5, g: 0.5, b: 0.5, a: 1 } },
+                        },
+                    })
+                    .construct();
+
+                expect(validateGeoArtGraph(result)).toBe(true)
+                expect(result.module?.nodes).toHaveLength(1)
+                expect(result.render.nodes).toHaveLength(1)
+                expect(result.render.nodes.some(n => n.id === 'rendered')).toBe(true)
+            })
+        })
     })
 
     describe("type errors - node type names and param names", () => {
@@ -224,6 +346,43 @@ describe(AlgorithmBuilder, () => {
                         //@ts-expect-error -- 'aaaa' is not a valid param for add node
                         aaaa: { v: 1 },
                         b: { v: 2 },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(false)
+        })
+
+        it("Adds a module node - invalid node type", () => {
+            const result = new AlgorithmBuilder()
+                .addModuleNode({
+                    id: 'myModule',
+                    //@ts-expect-error - 'invalid-module' is not a valid module node type
+                    type: 'invalid-module',
+                    params: {
+                        time: { v: 0 },
+                        speed: { v: 1 },
+                        radius: { v: 0.1 },
+                        numPoints: { v: 50 },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(false)
+        })
+
+        it("Adds a module node - invalid param name", () => {
+            const result = new AlgorithmBuilder()
+                .addModuleNode({
+                    id: 'myModule',
+                    type: 'orbit-module',
+                    params: {
+                        time: { v: 0 },
+                        speed: { v: 1 },
+                        radius: { v: 0.1 },
+                        numPoints: { v: 50 },
+                        //@ts-expect-error - 'invalidParam' is not a valid param for orbit-module
+                        invalidParam: { v: 99 },
                     },
                 })
                 .construct();
@@ -403,11 +562,95 @@ describe(AlgorithmBuilder, () => {
                 .construct();
 
 
-            // Note it's still a valid graph - this is because the AJV json schema validation is 
+            // Note it's still a valid graph - this is because the AJV json schema validation is
             // looser than what typescript is giving us
             // This graph _would_ fail compile time validation
             expect(validateGeoArtGraph(result)).toBe(true)
 
+        })
+
+        it("Module node with invalid ref to control node", () => {
+            const result = new AlgorithmBuilder()
+                .addControlNode({
+                    id: 'speed',
+                    type: 'slider',
+                    params: {
+                        label: { v: 'Speed' },
+                        min: { v: 0 },
+                        max: { v: 5 },
+                        value: { v: 1 },
+                    },
+                })
+                .addModuleNode({
+                    id: 'myModule',
+                    type: 'orbit-module',
+                    params: {
+                        time: { v: 0 },
+                        //@ts-expect-error - 'unknownControl.value' is not a valid ref
+                        speed: { ref: 'unknownControl.value' },
+                        radius: { v: 0.1 },
+                        numPoints: { v: 50 },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(true)
+        })
+
+        it("Module node with invalid ref to module output port", () => {
+            const result = new AlgorithmBuilder()
+                .addModuleNode({
+                    id: 'innerModule',
+                    type: 'orbit-module',
+                    params: {
+                        time: { v: 0 },
+                        speed: { v: 1 },
+                        radius: { v: 0.1 },
+                        numPoints: { v: 50 },
+                    },
+                })
+                .addModuleNode({
+                    id: 'outerModule',
+                    type: 'orbit-module',
+                    params: {
+                        time: { v: 0 },
+                        speed: { v: 1 },
+                        radius: { v: 0.1 },
+                        numPoints: { v: 50 },
+                        //@ts-expect-error - 'innerModule.invalidPort' is not a valid port
+                        centerPoints: { ref: 'innerModule.invalidPort' },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(true)
+        })
+
+        it("Compute node with type-mismatched ref from module node", () => {
+            const result = new AlgorithmBuilder()
+                .addModuleNode({
+                    id: 'myModule',
+                    type: 'orbit-module',
+                    params: {
+                        time: { v: 0 },
+                        speed: { v: 1 },
+                        radius: { v: 0.1 },
+                        numPoints: { v: 50 },
+                    },
+                })
+                .addComputeNode({
+                    id: 'derived',
+                    type: 'orbit',
+                    params: {
+                        time: { v: 0 },
+                        speed: { v: 2 },
+                        //@ts-expect-error - myModule.points outputs colorPointArrayValue, not numberValue
+                        radius: { ref: 'myModule.points' },
+                    },
+                })
+                .construct();
+
+            expect(validateGeoArtGraph(result)).toBe(true)
         })
 
     });
@@ -499,7 +742,7 @@ describe(AlgorithmBuilder, () => {
                     renderConfig: { layer: 'live' },
 
                 })
-                //@ts-expect-error - out of order 
+                //@ts-expect-error - out of order
                 .addComputeNode({
                     id: 'add',
                     type: 'add',
@@ -521,10 +764,6 @@ describe(AlgorithmBuilder, () => {
             // But note that we've lost typings at this point
             expect(validateGeoArtGraph(result)).toBe(true)
         })
-
-
-
-
     })
 
 

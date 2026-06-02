@@ -17,13 +17,14 @@
  * added, Acc grows. Ref strings in params are constrained to ports that
  * actually exist on prior nodes and whose output type matches the input port.
  */
-import type { GeoArtGraph, ControlNode, ComputeNode, RenderNode, RenderLayerConfig } from "./_generated/schema-types";
+import type { GeoArtGraph, ControlNode, ComputeNode, RenderNode, ModuleNode, RenderLayerConfig } from "./_generated/schema-types";
 import type {
     NodeAccumulator,
     ConstrainedNodeInputsDeclared,
     ControlNodeKinds,
     ComputeNodeKinds,
     RenderNodeKinds,
+    ModuleNodeKinds,
 } from "./typeHelpers";
 
 interface AlgorithmBuilderOptions {
@@ -51,6 +52,12 @@ type ConstrainedRenderNode<K extends RenderNodeKinds, Id extends string, Acc ext
     params: ConstrainedNodeInputsDeclared<K, Acc>;
 };
 
+type ConstrainedModuleNode<K extends ModuleNodeKinds, Id extends string, Acc extends NodeAccumulator> = {
+    id: Id;
+    type: K;
+    params: ConstrainedNodeInputsDeclared<K, Acc>;
+};
+
 interface ControlStageBuilder<Acc extends NodeAccumulator> {
     addControlNode<K extends ControlNodeKinds, Id extends string>(
         node: ConstrainedControlNode<K, Id, Acc>
@@ -61,6 +68,9 @@ interface ControlStageBuilder<Acc extends NodeAccumulator> {
     addRenderNode<K extends RenderNodeKinds, Id extends string>(
         node: ConstrainedRenderNode<K, Id, Acc>
     ): RenderStageBuilder<Acc | { nodeType: K; nodeId: Id }>;
+    addModuleNode<K extends ModuleNodeKinds, Id extends string>(
+        node: ConstrainedModuleNode<K, Id, Acc>
+    ): ControlStageBuilder<Acc | { nodeType: K; nodeId: Id }>;
     construct(): GeoArtGraph;
 }
 
@@ -71,6 +81,9 @@ interface ComputeStageBuilder<Acc extends NodeAccumulator> {
     addRenderNode<K extends RenderNodeKinds, Id extends string>(
         node: ConstrainedRenderNode<K, Id, Acc>
     ): RenderStageBuilder<Acc | { nodeType: K; nodeId: Id }>;
+    addModuleNode<K extends ModuleNodeKinds, Id extends string>(
+        node: ConstrainedModuleNode<K, Id, Acc>
+    ): ComputeStageBuilder<Acc | { nodeType: K; nodeId: Id }>;
     construct(): GeoArtGraph;
 }
 
@@ -78,11 +91,15 @@ interface RenderStageBuilder<Acc extends NodeAccumulator> {
     addRenderNode<K extends RenderNodeKinds, Id extends string>(
         node: ConstrainedRenderNode<K, Id, Acc>
     ): RenderStageBuilder<Acc | { nodeType: K; nodeId: Id }>;
+    addModuleNode<K extends ModuleNodeKinds, Id extends string>(
+        node: ConstrainedModuleNode<K, Id, Acc>
+    ): RenderStageBuilder<Acc | { nodeType: K; nodeId: Id }>;
     construct(): GeoArtGraph;
 }
 
 export class AlgorithmBuilder implements ControlStageBuilder<never> {
     private readonly options: AlgorithmBuilderOptions;
+    private readonly moduleNodes: ModuleNode[] = [];
     private readonly controlNodes: ControlNode[] = [];
     private readonly computeNodes: ComputeNode[] = [];
     private readonly renderNodes: RenderNode[] = [];
@@ -112,13 +129,26 @@ export class AlgorithmBuilder implements ControlStageBuilder<never> {
         return this as unknown as RenderStageBuilder<{ nodeType: K; nodeId: Id }>;
     }
 
+    public addModuleNode<K extends ModuleNodeKinds, Id extends string>(
+        node: ConstrainedModuleNode<K, Id, never>
+    ): ControlStageBuilder<{ nodeType: K; nodeId: Id }> {
+        this.moduleNodes.push(node as ModuleNode);
+        return this as unknown as ControlStageBuilder<{ nodeType: K; nodeId: Id }>;
+    }
+
     public construct(): GeoArtGraph {
-        return {
+        const graph: GeoArtGraph = {
             version: '2.0',
             ...this.options,
             control: { nodes: [...this.controlNodes] },
             compute: { nodes: [...this.computeNodes] },
             render: { nodes: [...this.renderNodes] },
         };
+
+        if (this.moduleNodes.length > 0) {
+            graph.module = { nodes: [...this.moduleNodes] };
+        }
+
+        return graph;
     }
 }
