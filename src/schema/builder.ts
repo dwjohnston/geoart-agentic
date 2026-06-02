@@ -143,11 +143,11 @@ export class AlgorithmBuilder implements ControlStageBuilder<never> {
             control: { nodes: [...this.controlNodes] },
             compute: { nodes: [...this.computeNodes] },
             render: { nodes: [...this.renderNodes] },
-        };
-
-        if (this.moduleNodes.length > 0) {
-            graph.module = { nodes: [...this.moduleNodes] };
+            module: {
+                nodes: [...this.moduleNodes]
+            }
         }
+
 
         return graph;
     }

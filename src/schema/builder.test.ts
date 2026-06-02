@@ -764,6 +764,36 @@ describe(AlgorithmBuilder, () => {
             // But note that we've lost typings at this point
             expect(validateGeoArtGraph(result)).toBe(true)
         })
+
+        it("Adding module and control nodes after compute shows a type error", () => {
+            const result = new AlgorithmBuilder()
+                .addComputeNode({
+                    id: 'add',
+                    type: 'add',
+                    params: {},
+                })
+                .addModuleNode({
+                    id: 'myModule',
+                    type: 'orbit-module',
+                    params: {
+                        time: { v: 0 },
+                        speed: { v: 1 },
+                        radius: { v: 0.1 },
+                        numPoints: { v: 50 },
+                    },
+                })
+                //@ts-expect-error - out of order
+                .addControlNode({
+                    id: 'speedSlider',
+                    type: 'slider',
+                    params: {},
+                })
+                .construct();
+
+            // graph is still valid despite type errors
+            // But we've lost typings at this point
+            expect(validateGeoArtGraph(result)).toBe(true)
+        })
     })
 
 
