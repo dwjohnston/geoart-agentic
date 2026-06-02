@@ -17,7 +17,7 @@ import { KnobControl } from '../../../ui/KnobControl';
 // nb. the typing on the onChange handler - NodeInputsResolved, not StaticModuleNodeParams which is a partial - basically we are kind of asserting that all values will exist and then can access via key of.
 // The render if needed already does a check to see that the value definitely will exist. 
 
-type RenderControlFn<NodeKind extends ModuleNodeKinds, NodeInputKey extends keyof NodeInputsDeclared<NodeKind>> = (initialValue: Required<StaticModuleNodeParams<NodeKind>>[NodeInputKey], onChange: (value: NodeInputsResolved<NodeKind>[NodeInputKey]) => void) => React.ReactNode
+export type RenderControlFn<NodeKind extends ModuleNodeKinds, NodeInputKey extends keyof NodeInputsDeclared<NodeKind>> = (initialValue: Required<StaticModuleNodeParams<NodeKind>>[NodeInputKey], onChange: (value: NodeInputsResolved<NodeKind>[NodeInputKey]) => void) => React.ReactNode
 
 function renderIfNeeded<
   NodeKind extends ModuleNodeKinds,
@@ -52,7 +52,7 @@ function createRenderIfNeeded<
     return renderIfNeeded(params, key, controlSetter, renderControl)
   }
 }
-function createInputMarkerParams<NodeKind extends ModuleNodeKinds>(params: NodeInputsDeclared<NodeKind>, defaultValues: NodeInputsResolved<NodeKind>): NodeInputsDeclared<NodeKind> {
+export function createInputMarkerParams<NodeKind extends ModuleNodeKinds>(params: NodeInputsDeclared<NodeKind>, defaultValues: NodeInputsResolved<NodeKind>): NodeInputsDeclared<NodeKind> {
   const result: Record<string, unknown> = {};
 
   for (const key in defaultValues) {

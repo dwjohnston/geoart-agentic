@@ -1,4 +1,4 @@
-import { describe, expect, test, mock } from 'bun:test';
+import { describe, expect, test, mock, it } from 'bun:test';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { compile } from '../compiler/compiler';
 import { tick } from './evaluator';
@@ -7,11 +7,18 @@ import type { EvalContext } from './EvalContext';
 // I think what we're saying is that this import is ok for the purpose of the test.
 // or you could create fake version of it for tests. 
 // eslint-disable-next-line import/no-restricted-paths
-import { realNodeRegistry, convertRenderNodeImplementationToLegacy, implementRenderNode } from '../exports';
+import { realNodeRegistry, convertRenderNodeImplementationToLegacy, convertComputeNodeImplementationToLegacy, convertControlNodeImplementationToLegacy, implementComputeNode, implementControlNode, implementRenderNode, createGraphEngine } from '../exports';
 // eslint-disable-next-line import/no-restricted-paths
 import type { LegacyNodeRegistry } from '../exports';
 import type { NodeInputsDeclared, NodeInputsResolved } from '../../schema/typeHelpers';
 import { fColorPoint } from '../../constants';
+import type { ControlSetter } from '../externalInterfaces/ControlNodeImplementation';
+import { createFakeContext } from '../../common-tooling/test-tooling/fakeContext';
+import { AlgorithmBuilder } from '../../schema/builder';
+import { implementModule } from '../../nodes/module/implementModule';
+import type { ModuleControlSetter, ModuleExpansionResult } from '../externalInterfaces/ModuleImplementation';
+import { createInternalId } from '../../nodes/module/moduleUtils';
+import { createInputMarkerParams, type RenderControlFn } from '../../nodes/module/nodes/orbit';
 
 
 
@@ -488,6 +495,452 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
 
   })
+
+
+
+  describe("regular control nodes update their downstream correctly", () => {
+
+
+
+
+    function prepareGraphEngine() {
+      const captureControlSet = { fn: null } as {
+        fn: ControlSetter<"slider"> | null
+      }
+
+      const captureModuleSet = { fn: null } as {
+        fn: ModuleControlSetter<"orbit-module"> | null
+      }
+
+
+      const controlFn = mock();
+      const computeFn = mock();
+      const renderFn = mock();
+
+
+
+      // Note that we are mutating the module export here, so these changes _will_ carry over to other tests
+      realNodeRegistry.controlRegistry.set('slider', convertControlNodeImplementationToLegacy(implementControlNode("slider", {
+        defaults: {
+          label: '',
+          min: 0,
+          max: 1,
+          value: 0,
+          step: 0.01,
+        },
+        renderControl: (node, set) => {
+
+
+          controlFn(node);
+          captureControlSet.fn = set;
+        }
+
+
+      })))
+
+      realNodeRegistry.computeRegistry.set("add", convertComputeNodeImplementationToLegacy(implementComputeNode("add", {
+        defaults: {
+          a: 0,
+          b: 0,
+        },
+        evaluate: (inputs) => {
+
+          computeFn(inputs)
+          return { sum: inputs.a + inputs.b }
+        }
+      })))
+
+
+      realNodeRegistry.renderRegistry.set("circle", convertRenderNodeImplementationToLegacy(implementRenderNode("circle", {
+        "defaults": {
+          intervalTicks: 0,
+          center: { x: 0, y: 0 },
+          radius: 0.02,
+          eccentricity: 0,
+          tilt: 0,
+          color: { r: 1, g: 1, b: 1, a: 1 },
+          centerPoints: []
+        },
+
+        evaluate: (inputs, _ctx) => {
+          renderFn(inputs);
+        }
+      })))
+
+
+      /**
+       * This is obviously not great. 
+       * I think it probably demonstrates that a lot of this logic can be captured in the 'implementModule' function. 
+       * 
+       * But I think this test will serve its purpose as we do the refactor
+       */
+      realNodeRegistry.moduleRegistry.set("orbit", implementModule({
+        "_kind": "orbit-module",
+        defaultValues: {
+          speed: 0.3,
+
+          "centerPoints": [fColorPoint()],
+          "eccentricity": 0,
+          "tilt": 0,
+          "phase": 0,
+          numPoints: 1,
+          time: 0,
+          "radius": 0.5,
+
+
+        },
+        provideNodes: (params, moduleId, defaultValues) => {
+          const controlNodes: ModuleExpansionResult<"orbit-module">['controlNodes'] = [];
+          const computeNodes: ModuleExpansionResult<"orbit-module">['computeNodes'] = [];
+          const renderNodes: ModuleExpansionResult<"orbit-module">['renderNodes'] = [];
+
+          const inputMarkerId = createInternalId(moduleId, 'input-marker')
+          const result: ModuleExpansionResult<"orbit-module"> = {
+            controlNodes,
+            computeNodes,
+            renderNodes,
+            inputMarkerNode: {
+              id: inputMarkerId,
+              type: "module-input-marker",
+              params: createInputMarkerParams(params, defaultValues),
+              renderControl: (params, set) => {
+                captureModuleSet.fn = set;
+              },
+            },
+            defaultValues,
+            outputMarkerNode: {
+              id: moduleId,
+              type: 'module-output-marker',
+              params: {},
+              outputRefs: {
+                points: {
+                  "ref": `${inputMarkerId}.centerPoints`
+                }
+              },
+              nodeSource: {
+                sourceType: 'module',
+                sourceId: moduleId,
+              },
+            },
+          };
+
+          return result;
+
+
+        }
+      }))
+
+      const paintContext = createFakeContext();
+      const liveContext = createFakeContext();
+
+      const graphEngine = createGraphEngine(liveContext, paintContext, 100, realNodeRegistry)
+
+      return {
+        captureControlSet, captureModuleSet, controlFn, computeFn, renderFn, graphEngine
+      }
+
+    }
+
+
+
+
+    it("Scenario 1 - slider->add->render(live)", () => {
+
+      const { captureControlSet: captureSet, controlFn, computeFn, renderFn, graphEngine
+      } = prepareGraphEngine()
+
+      const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
+        "type": "slider",
+        id: "my-slider",
+        params: {
+          "value": {
+            v: 1
+          }
+        }
+      }).addComputeNode({
+        type: "add",
+        id: "my-add",
+        params: {
+          a: {
+            ref: "my-slider.value",
+
+          },
+          b: {
+            v: 1
+          }
+        }
+      }).addRenderNode({
+        "id": "my-circle",
+        type: "circle",
+        params: {
+          "radius": {
+            ref: "my-add.sum"
+          }
+        },
+        "renderConfig": {
+          "layer": "live"
+        }
+      }).construct()
+
+      )
+
+
+      expect(captureSet.fn).toBeNull()
+
+      expect(controlFn).not.toHaveBeenCalled()
+      result.renderControlNodes();
+
+      expect(captureSet.fn).not.toBeNull()
+
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(controlFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        params: expect.objectContaining({
+
+          //ew 🗑️
+          min: 0,
+          value: expect.objectContaining({
+            v: 1,
+          })
+        })
+      }))
+      expect(computeFn).not.toHaveBeenCalled();
+      expect(renderFn).not.toHaveBeenCalled();
+
+      graphEngine.tick();
+
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(computeFn).toHaveBeenCalledTimes(1);
+      expect(computeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        // This is much better looking
+        a: 1,
+        b: 1
+      }))
+      expect(renderFn).toHaveBeenCalledTimes(1);
+      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        radius: 2,
+      }))
+      graphEngine.tick();
+
+      // In this scenario the compute  node isn't recalled because it's not attached to anything changing  
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(computeFn).toHaveBeenCalledTimes(1);
+
+      // The render node does, because it's attached to the live layer
+      expect(renderFn).toHaveBeenCalledTimes(2);
+
+      captureSet.fn!("value", { "v": 2 })
+
+      graphEngine.tick()
+
+      // Compute node fires because its inputs have changed
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(computeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        a: 2,
+        b: 1
+      }))
+      expect(computeFn).toHaveBeenCalledTimes(2);
+      expect(renderFn).toHaveBeenCalledTimes(3);
+      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        radius: 3,
+      }))
+    });
+
+
+    it("Scenario 2 - slider+time->add->render(live)", () => {
+
+      const { captureControlSet: captureSet, controlFn, computeFn, renderFn, graphEngine
+      } = prepareGraphEngine()
+
+      const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
+        "type": "slider",
+        id: "my-slider",
+        params: {
+          "value": {
+            v: 1
+          }
+        }
+      })
+        .addComputeNode({
+          type: "time",
+          id: "time",
+          params: {}
+        })
+        .addComputeNode({
+          type: "add",
+          id: "my-add",
+          params: {
+            a: {
+              ref: "my-slider.value",
+
+            },
+            b: {
+              ref: "time.time"
+            }
+          }
+        })
+        .addRenderNode({
+          "id": "my-circle",
+          type: "circle",
+          params: {
+            "radius": {
+              ref: "my-add.sum"
+            }
+          },
+          "renderConfig": {
+            "layer": "live"
+          }
+        }).construct()
+
+      )
+
+
+      expect(captureSet.fn).toBeNull()
+
+      expect(controlFn).not.toHaveBeenCalled()
+      result.renderControlNodes();
+
+      expect(captureSet.fn).not.toBeNull()
+
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(computeFn).not.toHaveBeenCalled();
+      expect(renderFn).not.toHaveBeenCalled();
+
+      graphEngine.tick();
+
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(computeFn).toHaveBeenCalledTimes(1);
+      expect(renderFn).toHaveBeenCalledTimes(1);
+
+      graphEngine.tick();
+
+      // In this scenario the compute changes because it has a time node that always changes
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(computeFn).toHaveBeenCalledTimes(2);
+
+      expect(renderFn).toHaveBeenCalledTimes(2);
+
+      captureSet.fn!("value", { "v": 2 })
+
+      graphEngine.tick()
+
+      // Compute node fires because its inputs have changed
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(computeFn).toHaveBeenCalledTimes(3);
+      expect(renderFn).toHaveBeenCalledTimes(3);
+    });
+
+
+    it("Scenario 3 - slider->add-render(paint)", () => {
+
+      const { captureControlSet: captureSet, controlFn, computeFn, renderFn, graphEngine
+      } = prepareGraphEngine()
+
+      const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
+        "type": "slider",
+        id: "my-slider",
+        params: {
+          "value": {
+            v: 1
+          }
+        }
+      })
+
+        .addComputeNode({
+          type: "add",
+          id: "my-add",
+          params: {
+            a: {
+              ref: "my-slider.value",
+
+            },
+            b: {
+              v: 1
+            }
+          }
+        })
+        .addRenderNode({
+          "id": "my-circle",
+          type: "circle",
+          params: {
+            "radius": {
+              ref: "my-add.sum"
+            }
+          },
+          "renderConfig": {
+            "layer": "paint"
+          }
+        }).construct()
+
+      )
+
+
+      expect(captureSet.fn).toBeNull()
+
+      expect(controlFn).not.toHaveBeenCalled()
+      result.renderControlNodes();
+
+      expect(captureSet.fn).not.toBeNull()
+
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(computeFn).not.toHaveBeenCalled();
+      expect(renderFn).not.toHaveBeenCalled();
+
+      graphEngine.tick();
+
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(computeFn).toHaveBeenCalledTimes(1);
+      expect(renderFn).toHaveBeenCalledTimes(1);
+
+      graphEngine.tick();
+
+      // In this scenario the render node does not refire, because it's on the paint layer
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(computeFn).toHaveBeenCalledTimes(1);
+      expect(renderFn).toHaveBeenCalledTimes(1);
+
+    });
+
+
+    it.only("Scenario 4 - module -> render", () => {
+
+      const { captureControlSet, captureModuleSet, controlFn, computeFn, renderFn, graphEngine
+      } = prepareGraphEngine()
+
+      const result = graphEngine.load(new AlgorithmBuilder().addModuleNode({
+        "id": "my-orbit-module",
+        "params": {
+
+        },
+        "type": "orbit-module"
+      }).addRenderNode({
+        "id": "my-circle",
+        "type": "circle",
+        "renderConfig": {
+          "layer": "paint"
+        },
+        "params": {
+          "centerPoints": {
+            ref: "my-orbit-module.points"
+          }
+        }
+      }).construct()
+
+      );
+
+      expect(captureControlSet.fn).toBeNull()
+      expect(captureModuleSet.fn).toBeNull()
+      expect(captureModuleSet.fn)
+      expect(controlFn).not.toHaveBeenCalled()
+      result.renderControlNodes();
+
+
+      expect(captureControlSet.fn).toBeNull()
+      expect(captureModuleSet.fn).not.toBeNull()
+
+
+    })
+
+  });
 
 
 
