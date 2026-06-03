@@ -1092,7 +1092,7 @@ describe("regular control nodes update their downstream correctly", () => {
   });
 
 
-  it.only("Scenario 5 - module -> render", () => {
+  it("Scenario 5 - module -> render", () => {
 
     const { captureControlSet, moduleFn, captureModuleSet, controlFn, addComputeFn, orbitComputeFn, renderFn, graphEngine
     } = prepareGraphEngine()
