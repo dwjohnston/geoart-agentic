@@ -498,218 +498,363 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
 
 
-  describe("regular control nodes update their downstream correctly", () => {
 
 
 
 
-    function prepareGraphEngine() {
-      const captureControlSet = { fn: null } as {
-        fn: ControlSetter<"slider"> | null
-      }
 
-      const captureModuleSet = { fn: null } as {
-        fn: ModuleControlSetter<"orbit-module"> | null
-      }
-
-
-      const controlFn = mock();
-      const addComputeFn = mock();
-      const orbitComputeFn = mock();
-      const renderFn = mock();
-      const moduleFn = mock();
+});
 
 
 
-      // Note that we are mutating the module export here, so these changes _will_ carry over to other tests
-      realNodeRegistry.controlRegistry.set('slider', convertControlNodeImplementationToLegacy(implementControlNode("slider", {
-        defaults: {
-          label: '',
-          min: 0,
-          max: 1,
-          value: 0,
-          step: 0.01,
-        },
-        renderControl: (node, set) => {
 
-
-          controlFn(node);
-          captureControlSet.fn = set;
-        }
-
-
-      })))
-
-      realNodeRegistry.computeRegistry.set("add", convertComputeNodeImplementationToLegacy(implementComputeNode("add", {
-        defaults: {
-          a: 0,
-          b: 0,
-        },
-        evaluate: (inputs) => {
-
-          addComputeFn(inputs)
-          return { sum: inputs.a + inputs.b }
-        }
-      })))
-
-      realNodeRegistry.computeRegistry.set("orbit", convertComputeNodeImplementationToLegacy(implementComputeNode("orbit", {
-        defaults: {
-          radius: 0.5,
-          speed: 0.5,
-          center: { x: 0, y: 0 },
-          centerPoints: [],
-          numPoints: 1,
-          phase: 0,
-          time: 0,
-          eccentricity: 0,
-          tilt: 0,
-        },
-        evaluate: (inputs) => {
-
-          orbitComputeFn(inputs)
-          return { points: inputs.centerPoints, point: { x: 0, y: 0 } }
-        }
-      })))
+/**
+ * There's a lot that I'm not loving about these tests
+ * 
+ * 
+ * - Absolutely do not like that we're reimplenting the orbit module
+ * - Don't like that the tests with orbit aren't real orbit implmentations (we just pass the centerPoints through again)
+ *    - The fake implementations were fine when it was add nodes, that all made sense
+ *    - But the orbit-module case was catching a bug where the inputs weren't updating properly
+ *    - It's an amount of lazyness, I didn't want to have to redo the math of the orbit as well. 
+ * 
+ * Really, this demonstrates where a meta schema approach would shine, because I just declare really simple nodes and module nodes and implement them here for the tests. 
+ * 
+ * 
+ * But: what I do like about these tests: 
+ * 
+ * - Does capture really well the data as it flows through the application, including whether the node needed to be evaluated that tick or not
+ */
+describe("regular control nodes update their downstream correctly", () => {
 
 
 
-      realNodeRegistry.renderRegistry.set("circle", convertRenderNodeImplementationToLegacy(implementRenderNode("circle", {
-        "defaults": {
-          intervalTicks: 0,
-          center: { x: 0, y: 0 },
-          radius: 0.02,
-          eccentricity: 0,
-          tilt: 0,
-          color: { r: 1, g: 1, b: 1, a: 1 },
-          centerPoints: []
-        },
 
-        evaluate: (inputs, _ctx) => {
-          renderFn(inputs);
-        }
-      })))
+  function prepareGraphEngine() {
+    const captureControlSet = { fn: null } as {
+      fn: ControlSetter<"slider"> | null
+    }
 
-
-      /**
-       * This is obviously not great. 
-       * I think it probably demonstrates that a lot of this logic can be captured in the 'implementModule' function. 
-       * 
-       * But I think this test will serve its purpose as we do the refactor
-       */
-      realNodeRegistry.moduleRegistry.set("orbit-module", implementModule({
-        "_kind": "orbit-module",
-        defaultValues: {
-          speed: 0.3,
-
-          "centerPoints": [fColorPoint()],
-          "eccentricity": 0,
-          "tilt": 0,
-          "phase": 0,
-          numPoints: 1,
-          time: 0,
-          "radius": 0.5,
-
-
-        },
-        provideNodes: (params, moduleId, defaultValues) => {
-
-          moduleFn();
-          const controlNodes: ModuleExpansionResult<"orbit-module">['controlNodes'] = [];
-          const computeNodes: ModuleExpansionResult<"orbit-module">['computeNodes'] = [];
-          const renderNodes: ModuleExpansionResult<"orbit-module">['renderNodes'] = [];
-
-
-          const inputMarkerNodeId = createInternalId(moduleId, 'input-marker');
-          // Create orbit compute node
-          const orbitNodeId = createInternalId(moduleId, 'orbit');
-
-
-
-          const buildParamRef = (key: keyof NodeInputsDeclared<"orbit-module">) => {
-            const inputMarkerOutputPort = inputMarkerNodeId + "." + key;
-            return {
-              ref: inputMarkerOutputPort
-            }
-          };
-
-          computeNodes.push({
-            id: orbitNodeId,
-            type: 'orbit',
-            params: {
-              time: buildParamRef('time'),
-              speed: buildParamRef('speed'),
-              radius: buildParamRef('radius'),
-              numPoints: buildParamRef("numPoints"),
-              centerPoints: buildParamRef('centerPoints'),
-              phase: buildParamRef('phase'),
-              eccentricity: buildParamRef('eccentricity'),
-              tilt: buildParamRef('tilt'),
-            },
-          });
-
-          const result: ModuleExpansionResult<"orbit-module"> = {
-            controlNodes,
-            computeNodes,
-            renderNodes,
-            inputMarkerNode: {
-              id: inputMarkerNodeId,
-              type: "module-input-marker",
-              params: createInputMarkerParams(params, defaultValues),
-              renderControl: (params, set) => {
-                captureModuleSet.fn = set;
-              },
-            },
-            defaultValues,
-            outputMarkerNode: {
-              id: moduleId,
-              type: 'module-output-marker',
-              params: {},
-              outputRefs: {
-                points: {
-                  "ref": `${orbitNodeId}.points`
-                }
-              },
-              nodeSource: {
-                sourceType: 'module',
-                sourceId: moduleId,
-              },
-            },
-          };
-
-          return result;
-
-
-        }
-      }))
-
-      const paintContext = createFakeContext();
-      const liveContext = createFakeContext();
-
-      const graphEngine = createGraphEngine(liveContext, paintContext, 100, realNodeRegistry)
-
-      return {
-        captureControlSet, captureModuleSet, controlFn, addComputeFn, orbitComputeFn, renderFn, graphEngine, moduleFn
-      }
-
+    const captureModuleSet = { fn: null } as {
+      fn: ModuleControlSetter<"orbit-module"> | null
     }
 
 
+    const controlFn = mock();
+    const addComputeFn = mock();
+    const orbitComputeFn = mock();
+    const renderFn = mock();
+    const moduleFn = mock();
 
 
-    it("Scenario 1 - slider->add->render(live)", () => {
+    const fakeNodeRegistry = {
+      "computeRegistry": new Map(),
+      "controlRegistry": new Map(),
+      "moduleRegistry": new Map(),
+      "renderRegistry": new Map()
+    } satisfies typeof realNodeRegistry
 
-      const { captureControlSet: captureSet, controlFn, addComputeFn: computeFn, renderFn, graphEngine
-      } = prepareGraphEngine()
 
-      const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
-        "type": "slider",
-        id: "my-slider",
-        params: {
-          "value": {
-            v: 1
+    fakeNodeRegistry.computeRegistry.set("time", realNodeRegistry.computeRegistry.get("time"))
+
+
+    // Note that we are mutating the module export here, so these changes _will_ carry over to other tests
+    fakeNodeRegistry.controlRegistry.set('slider', convertControlNodeImplementationToLegacy(implementControlNode("slider", {
+      defaults: {
+        label: '',
+        min: 0,
+        max: 1,
+        value: 0,
+        step: 0.01,
+      },
+      renderControl: (node, set) => {
+
+
+        controlFn(node);
+        captureControlSet.fn = set;
+      }
+
+
+    })))
+
+    fakeNodeRegistry.computeRegistry.set("add", convertComputeNodeImplementationToLegacy(implementComputeNode("add", {
+      defaults: {
+        a: 0,
+        b: 0,
+      },
+      evaluate: (inputs) => {
+
+        addComputeFn(inputs)
+        return { sum: inputs.a + inputs.b }
+      }
+    })))
+
+    fakeNodeRegistry.computeRegistry.set("orbit", convertComputeNodeImplementationToLegacy(implementComputeNode("orbit", {
+      defaults: {
+        radius: 0.5,
+        speed: 0.5,
+        center: { x: 0, y: 0 },
+        centerPoints: [],
+        numPoints: 1,
+        phase: 0,
+        time: 0,
+        eccentricity: 0,
+        tilt: 0,
+      },
+      evaluate: (inputs) => {
+
+        orbitComputeFn(inputs)
+        return { points: inputs.centerPoints, point: { x: 0, y: 0 } }
+      }
+    })))
+
+
+
+    fakeNodeRegistry.renderRegistry.set("circle", convertRenderNodeImplementationToLegacy(implementRenderNode("circle", {
+      "defaults": {
+        intervalTicks: 0,
+        center: { x: 0, y: 0 },
+        radius: 0.02,
+        eccentricity: 0,
+        tilt: 0,
+        color: { r: 1, g: 1, b: 1, a: 1 },
+        centerPoints: []
+      },
+
+      evaluate: (inputs, _ctx) => {
+        renderFn(inputs);
+      }
+    })))
+
+
+    /**
+     * This is obviously not great. 
+     * I think it probably demonstrates that a lot of this logic can be captured in the 'implementModule' function. 
+     * 
+     * But I think this test will serve its purpose as we do the refactor
+     */
+    fakeNodeRegistry.moduleRegistry.set("orbit-module", implementModule({
+      "_kind": "orbit-module",
+      defaultValues: {
+        speed: 0.3,
+
+        "centerPoints": [fColorPoint()],
+        "eccentricity": 0,
+        "tilt": 0,
+        "phase": 0,
+        numPoints: 1,
+        time: 0,
+        "radius": 0.5,
+
+
+      },
+      provideNodes: (params, moduleId, defaultValues) => {
+
+        moduleFn();
+        const controlNodes: ModuleExpansionResult<"orbit-module">['controlNodes'] = [];
+        const computeNodes: ModuleExpansionResult<"orbit-module">['computeNodes'] = [];
+        const renderNodes: ModuleExpansionResult<"orbit-module">['renderNodes'] = [];
+
+
+        const inputMarkerNodeId = createInternalId(moduleId, 'input-marker');
+        // Create orbit compute node
+        const orbitNodeId = createInternalId(moduleId, 'orbit');
+
+
+
+        const buildParamRef = (key: keyof NodeInputsDeclared<"orbit-module">) => {
+          const inputMarkerOutputPort = inputMarkerNodeId + "." + key;
+          return {
+            ref: inputMarkerOutputPort
           }
+        };
+
+        computeNodes.push({
+          id: orbitNodeId,
+          type: 'orbit',
+          params: {
+            time: buildParamRef('time'),
+            speed: buildParamRef('speed'),
+            radius: buildParamRef('radius'),
+            numPoints: buildParamRef("numPoints"),
+            centerPoints: buildParamRef('centerPoints'),
+            phase: buildParamRef('phase'),
+            eccentricity: buildParamRef('eccentricity'),
+            tilt: buildParamRef('tilt'),
+          },
+        });
+
+        const result: ModuleExpansionResult<"orbit-module"> = {
+          controlNodes,
+          computeNodes,
+          renderNodes,
+          inputMarkerNode: {
+            id: inputMarkerNodeId,
+            type: "module-input-marker",
+            params: createInputMarkerParams(params, defaultValues),
+            renderControl: (params, set) => {
+              captureModuleSet.fn = set;
+            },
+          },
+          defaultValues,
+          outputMarkerNode: {
+            id: moduleId,
+            type: 'module-output-marker',
+            params: {},
+            outputRefs: {
+              points: {
+                "ref": `${orbitNodeId}.points`
+              }
+            },
+            nodeSource: {
+              sourceType: 'module',
+              sourceId: moduleId,
+            },
+          },
+        };
+
+        return result;
+
+
+      }
+    }))
+
+    const paintContext = createFakeContext();
+    const liveContext = createFakeContext();
+
+    const graphEngine = createGraphEngine(liveContext, paintContext, 100, fakeNodeRegistry)
+
+    return {
+      captureControlSet, captureModuleSet, controlFn, addComputeFn, orbitComputeFn, renderFn, graphEngine, moduleFn
+    }
+
+  }
+
+
+
+
+  it("Scenario 1 - slider->add->render(live)", () => {
+
+    const { captureControlSet: captureSet, controlFn, addComputeFn: computeFn, renderFn, graphEngine
+    } = prepareGraphEngine()
+
+    const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
+      "type": "slider",
+      id: "my-slider",
+      params: {
+        "value": {
+          v: 1
         }
-      }).addComputeNode({
+      }
+    }).addComputeNode({
+      type: "add",
+      id: "my-add",
+      params: {
+        a: {
+          ref: "my-slider.value",
+
+        },
+        b: {
+          v: 1
+        }
+      }
+    }).addRenderNode({
+      "id": "my-circle",
+      type: "circle",
+      params: {
+        "radius": {
+          ref: "my-add.sum"
+        }
+      },
+      "renderConfig": {
+        "layer": "live"
+      }
+    }).construct()
+
+    )
+
+
+    expect(captureSet.fn).toBeNull()
+
+    expect(controlFn).not.toHaveBeenCalled()
+    result.renderControlNodes();
+
+    expect(captureSet.fn).not.toBeNull()
+
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(controlFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      params: expect.objectContaining({
+
+        //ew 🗑️
+        min: 0,
+        value: expect.objectContaining({
+          v: 1,
+        })
+      })
+    }))
+    expect(computeFn).not.toHaveBeenCalled();
+    expect(renderFn).not.toHaveBeenCalled();
+
+    graphEngine.tick();
+
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(computeFn).toHaveBeenCalledTimes(1);
+    expect(computeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      // This is much better looking
+      a: 1,
+      b: 1
+    }))
+    expect(renderFn).toHaveBeenCalledTimes(1);
+    expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      radius: 2,
+    }))
+    graphEngine.tick();
+
+    // In this scenario the compute  node isn't recalled because it's not attached to anything changing  
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(computeFn).toHaveBeenCalledTimes(1);
+
+    // The render node does, because it's attached to the live layer
+    expect(renderFn).toHaveBeenCalledTimes(2);
+
+    captureSet.fn!("value", { "v": 2 })
+
+    graphEngine.tick()
+
+    // Compute node fires because its inputs have changed
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(computeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      a: 2,
+      b: 1
+    }))
+    expect(computeFn).toHaveBeenCalledTimes(2);
+    expect(renderFn).toHaveBeenCalledTimes(3);
+    expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      radius: 3,
+    }))
+  });
+
+
+  it("Scenario 2 - slider+time->add->render(live)", () => {
+
+    const { captureControlSet: captureSet, controlFn, addComputeFn: computeFn, renderFn, graphEngine
+    } = prepareGraphEngine()
+
+    const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
+      "type": "slider",
+      id: "my-slider",
+      params: {
+        "value": {
+          v: 1
+        }
+      }
+    })
+      .addComputeNode({
+        type: "time",
+        id: "time",
+        params: {}
+      })
+      .addComputeNode({
         type: "add",
         id: "my-add",
         params: {
@@ -718,10 +863,11 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
           },
           b: {
-            v: 1
+            ref: "time.time"
           }
         }
-      }).addRenderNode({
+      })
+      .addRenderNode({
         "id": "my-circle",
         type: "circle",
         params: {
@@ -734,410 +880,294 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
         }
       }).construct()
 
-      )
+    )
 
 
-      expect(captureSet.fn).toBeNull()
+    expect(captureSet.fn).toBeNull()
 
-      expect(controlFn).not.toHaveBeenCalled()
-      result.renderControlNodes();
+    expect(controlFn).not.toHaveBeenCalled()
+    result.renderControlNodes();
 
-      expect(captureSet.fn).not.toBeNull()
+    expect(captureSet.fn).not.toBeNull()
 
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(controlFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        params: expect.objectContaining({
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(computeFn).not.toHaveBeenCalled();
+    expect(renderFn).not.toHaveBeenCalled();
 
-          //ew 🗑️
-          min: 0,
-          value: expect.objectContaining({
-            v: 1,
-          })
-        })
-      }))
-      expect(computeFn).not.toHaveBeenCalled();
-      expect(renderFn).not.toHaveBeenCalled();
+    graphEngine.tick();
 
-      graphEngine.tick();
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(computeFn).toHaveBeenCalledTimes(1);
+    expect(renderFn).toHaveBeenCalledTimes(1);
 
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(computeFn).toHaveBeenCalledTimes(1);
-      expect(computeFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        // This is much better looking
-        a: 1,
-        b: 1
-      }))
-      expect(renderFn).toHaveBeenCalledTimes(1);
-      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        radius: 2,
-      }))
-      graphEngine.tick();
+    graphEngine.tick();
 
-      // In this scenario the compute  node isn't recalled because it's not attached to anything changing  
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(computeFn).toHaveBeenCalledTimes(1);
+    // In this scenario the compute changes because it has a time node that always changes
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(computeFn).toHaveBeenCalledTimes(2);
 
-      // The render node does, because it's attached to the live layer
-      expect(renderFn).toHaveBeenCalledTimes(2);
+    expect(renderFn).toHaveBeenCalledTimes(2);
 
-      captureSet.fn!("value", { "v": 2 })
+    captureSet.fn!("value", { "v": 2 })
 
-      graphEngine.tick()
+    graphEngine.tick()
 
-      // Compute node fires because its inputs have changed
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(computeFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        a: 2,
-        b: 1
-      }))
-      expect(computeFn).toHaveBeenCalledTimes(2);
-      expect(renderFn).toHaveBeenCalledTimes(3);
-      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        radius: 3,
-      }))
-    });
+    // Compute node fires because its inputs have changed
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(computeFn).toHaveBeenCalledTimes(3);
+    expect(renderFn).toHaveBeenCalledTimes(3);
+  });
 
 
-    it("Scenario 2 - slider+time->add->render(live)", () => {
+  it("Scenario 3 - slider+time->orbit->render(live)", () => {
 
-      const { captureControlSet: captureSet, controlFn, addComputeFn: computeFn, renderFn, graphEngine
-      } = prepareGraphEngine()
+    const { captureControlSet: captureSet, controlFn, orbitComputeFn, renderFn, graphEngine
+    } = prepareGraphEngine()
 
-      const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
-        "type": "slider",
-        id: "my-slider",
-        params: {
-          "value": {
-            v: 1
-          }
+    const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
+      "type": "slider",
+      id: "my-slider",
+      params: {
+        "value": {
+          v: 0.5
         }
+      }
+    })
+      .addComputeNode({
+        type: "time",
+        id: "time",
+        params: {}
       })
-        .addComputeNode({
-          type: "time",
-          id: "time",
-          params: {}
-        })
-        .addComputeNode({
-          type: "add",
-          id: "my-add",
-          params: {
-            a: {
-              ref: "my-slider.value",
-
-            },
-            b: {
-              ref: "time.time"
-            }
-          }
-        })
-        .addRenderNode({
-          "id": "my-circle",
-          type: "circle",
-          params: {
-            "radius": {
-              ref: "my-add.sum"
-            }
-          },
-          "renderConfig": {
-            "layer": "live"
-          }
-        }).construct()
-
-      )
-
-
-      expect(captureSet.fn).toBeNull()
-
-      expect(controlFn).not.toHaveBeenCalled()
-      result.renderControlNodes();
-
-      expect(captureSet.fn).not.toBeNull()
-
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(computeFn).not.toHaveBeenCalled();
-      expect(renderFn).not.toHaveBeenCalled();
-
-      graphEngine.tick();
-
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(computeFn).toHaveBeenCalledTimes(1);
-      expect(renderFn).toHaveBeenCalledTimes(1);
-
-      graphEngine.tick();
-
-      // In this scenario the compute changes because it has a time node that always changes
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(computeFn).toHaveBeenCalledTimes(2);
-
-      expect(renderFn).toHaveBeenCalledTimes(2);
-
-      captureSet.fn!("value", { "v": 2 })
-
-      graphEngine.tick()
-
-      // Compute node fires because its inputs have changed
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(computeFn).toHaveBeenCalledTimes(3);
-      expect(renderFn).toHaveBeenCalledTimes(3);
-    });
-
-
-    it("Scenario 3 - slider+time->orbit->render(live)", () => {
-
-      const { captureControlSet: captureSet, controlFn, orbitComputeFn, renderFn, graphEngine
-      } = prepareGraphEngine()
-
-      const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
-        "type": "slider",
-        id: "my-slider",
+      .addComputeNode({
+        type: "orbit",
+        id: "my-orbit",
         params: {
-          "value": {
-            v: 0.5
-          }
-        }
-      })
-        .addComputeNode({
-          type: "time",
-          id: "time",
-          params: {}
-        })
-        .addComputeNode({
-          type: "orbit",
-          id: "my-orbit",
-          params: {
-            time: {
-              ref: "time.time"
-            },
-            radius: {
-              v: 0.4
-            },
-            speed: {
-              ref: "my-slider.value"
-            },
-            centerPoints: {
-              v: [{ v: fColorPoint() }]
-            }
-          }
-        })
-        .addRenderNode({
-          "id": "my-circle",
-          type: "circle",
-          params: {
-            "centerPoints": {
-              ref: "my-orbit.points",
-            }
+          time: {
+            ref: "time.time"
           },
-          "renderConfig": {
-            "layer": "live"
-          }
-        }).construct()
-
-      )
-
-
-      expect(captureSet.fn).toBeNull()
-
-      expect(controlFn).not.toHaveBeenCalled()
-      result.renderControlNodes();
-
-      expect(captureSet.fn).not.toBeNull()
-
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(orbitComputeFn).not.toHaveBeenCalled();
-      expect(renderFn).not.toHaveBeenCalled();
-
-      graphEngine.tick();
-
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(orbitComputeFn).toHaveBeenCalledTimes(1);
-      expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        centerPoints: expect.arrayContaining([fColorPoint()])
-      }))
-      expect(renderFn).toHaveBeenCalledTimes(1);
-
-      // nb. for this test we are not actually position the nodes like a regular orbit would
-      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        centerPoints: expect.arrayContaining([fColorPoint()])
-      }))
-      graphEngine.tick();
-
-      // In this scenario the compute changes because it has a time node that always changes
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(orbitComputeFn).toHaveBeenCalledTimes(2);
-
-      expect(renderFn).toHaveBeenCalledTimes(2);
-
-      captureSet.fn!("value", { "v": 0.7 })
-
-      graphEngine.tick()
-
-      // Compute node fires because its inputs have changed
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(orbitComputeFn).toHaveBeenCalledTimes(3);
-      expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        centerPoints: expect.arrayContaining([fColorPoint()])
-      }))
-      expect(renderFn).toHaveBeenCalledTimes(3);
-      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        centerPoints: expect.arrayContaining([fColorPoint()])
-      }))
-    });
-
-
-    it("Scenario 4 - slider->add-render(paint)", () => {
-
-      const { captureControlSet: captureSet, controlFn, addComputeFn: computeFn, renderFn, graphEngine
-      } = prepareGraphEngine()
-
-      const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
-        "type": "slider",
-        id: "my-slider",
-        params: {
-          "value": {
-            v: 1
-          }
-        }
-      })
-
-        .addComputeNode({
-          type: "add",
-          id: "my-add",
-          params: {
-            a: {
-              ref: "my-slider.value",
-
-            },
-            b: {
-              v: 1
-            }
-          }
-        })
-        .addRenderNode({
-          "id": "my-circle",
-          type: "circle",
-          params: {
-            "radius": {
-              ref: "my-add.sum"
-            }
+          radius: {
+            v: 0.4
           },
-          "renderConfig": {
-            "layer": "paint"
-          }
-        }).construct()
-
-      )
-
-
-      expect(captureSet.fn).toBeNull()
-
-      expect(controlFn).not.toHaveBeenCalled()
-      result.renderControlNodes();
-
-      expect(captureSet.fn).not.toBeNull()
-
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(computeFn).not.toHaveBeenCalled();
-      expect(renderFn).not.toHaveBeenCalled();
-
-      graphEngine.tick();
-
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(computeFn).toHaveBeenCalledTimes(1);
-      expect(renderFn).toHaveBeenCalledTimes(1);
-
-      graphEngine.tick();
-
-      // In this scenario the render node does not refire, because it's on the paint layer
-      expect(controlFn).toHaveBeenCalledTimes(1)
-      expect(computeFn).toHaveBeenCalledTimes(1);
-      expect(renderFn).toHaveBeenCalledTimes(1);
-
-    });
-
-
-    it.only("Scenario 5 - module -> render", () => {
-
-      const { captureControlSet, moduleFn, captureModuleSet, controlFn, addComputeFn, orbitComputeFn, renderFn, graphEngine
-      } = prepareGraphEngine()
-
-
-      expect(moduleFn).not.toHaveBeenCalled();
-
-      const result = graphEngine.load(new AlgorithmBuilder().addModuleNode({
-        "id": "my-orbit-module",
-        "params": {
+          speed: {
+            ref: "my-slider.value"
+          },
           centerPoints: {
             v: [{ v: fColorPoint() }]
-          },
-        },
-        "type": "orbit-module",
-
-      }).addRenderNode({
+          }
+        }
+      })
+      .addRenderNode({
         "id": "my-circle",
-        "type": "circle",
+        type: "circle",
+        params: {
+          "centerPoints": {
+            ref: "my-orbit.points",
+          }
+        },
         "renderConfig": {
           "layer": "live"
-        },
-        "params": {
-          "centerPoints": {
-            ref: "my-orbit-module.points"
-          }
         }
       }).construct()
 
-      );
-      expect(moduleFn).toHaveBeenCalledTimes(1)
-
-      expect(captureControlSet.fn).toBeNull()
-      expect(captureModuleSet.fn).toBeNull()
-
-      result.renderControlNodes();
-
-      expect(captureControlSet.fn).toBeNull()
-      expect(captureModuleSet.fn).not.toBeNull()
+    )
 
 
-      expect(addComputeFn).toHaveBeenCalledTimes(0)
-      expect(controlFn).toHaveBeenCalledTimes(0);
-      expect(renderFn).toHaveBeenCalledTimes(0);
-      expect(orbitComputeFn).toHaveBeenCalledTimes(0)
+    expect(captureSet.fn).toBeNull()
 
-      graphEngine.tick();
+    expect(controlFn).not.toHaveBeenCalled()
+    result.renderControlNodes();
 
-      expect(moduleFn).toHaveBeenCalledTimes(1)
-      expect(orbitComputeFn).toHaveBeenCalledTimes(1)
-      expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        centerPoints: expect.arrayContaining([fColorPoint()]),
-        radius: 0.5
-      }))
-      expect(renderFn).toHaveBeenCalledTimes(1);
-      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        centerPoints: expect.arrayContaining([fColorPoint()])
-      }))
+    expect(captureSet.fn).not.toBeNull()
 
-      captureModuleSet.fn!("radius", 2)
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(orbitComputeFn).not.toHaveBeenCalled();
+    expect(renderFn).not.toHaveBeenCalled();
 
-      graphEngine.tick();
+    graphEngine.tick();
 
-      expect(moduleFn).toHaveBeenCalledTimes(1)
-      expect(orbitComputeFn).toHaveBeenCalledTimes(2)
-      expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        centerPoints: expect.arrayContaining([fColorPoint()]),
-        radius: 2
-      }))
-      expect(renderFn).toHaveBeenCalledTimes(2);
-      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
-        centerPoints: expect.arrayContaining([fColorPoint()])
-      }))
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(orbitComputeFn).toHaveBeenCalledTimes(1);
+    expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      centerPoints: expect.arrayContaining([fColorPoint()])
+    }))
+    expect(renderFn).toHaveBeenCalledTimes(1);
+
+    // nb. for this test we are not actually position the nodes like a regular orbit would
+    expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      centerPoints: expect.arrayContaining([fColorPoint()])
+    }))
+    graphEngine.tick();
+
+    // In this scenario the compute changes because it has a time node that always changes
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(orbitComputeFn).toHaveBeenCalledTimes(2);
+
+    expect(renderFn).toHaveBeenCalledTimes(2);
+
+    captureSet.fn!("value", { "v": 0.7 })
+
+    graphEngine.tick()
+
+    // Compute node fires because its inputs have changed
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(orbitComputeFn).toHaveBeenCalledTimes(3);
+    expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      centerPoints: expect.arrayContaining([fColorPoint()])
+    }))
+    expect(renderFn).toHaveBeenCalledTimes(3);
+    expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      centerPoints: expect.arrayContaining([fColorPoint()])
+    }))
+  });
 
 
+  it("Scenario 4 - slider->add-render(paint)", () => {
+
+    const { captureControlSet: captureSet, controlFn, addComputeFn: computeFn, renderFn, graphEngine
+    } = prepareGraphEngine()
+
+    const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
+      "type": "slider",
+      id: "my-slider",
+      params: {
+        "value": {
+          v: 1
+        }
+      }
     })
+
+      .addComputeNode({
+        type: "add",
+        id: "my-add",
+        params: {
+          a: {
+            ref: "my-slider.value",
+
+          },
+          b: {
+            v: 1
+          }
+        }
+      })
+      .addRenderNode({
+        "id": "my-circle",
+        type: "circle",
+        params: {
+          "radius": {
+            ref: "my-add.sum"
+          }
+        },
+        "renderConfig": {
+          "layer": "paint"
+        }
+      }).construct()
+
+    )
+
+
+    expect(captureSet.fn).toBeNull()
+
+    expect(controlFn).not.toHaveBeenCalled()
+    result.renderControlNodes();
+
+    expect(captureSet.fn).not.toBeNull()
+
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(computeFn).not.toHaveBeenCalled();
+    expect(renderFn).not.toHaveBeenCalled();
+
+    graphEngine.tick();
+
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(computeFn).toHaveBeenCalledTimes(1);
+    expect(renderFn).toHaveBeenCalledTimes(1);
+
+    graphEngine.tick();
+
+    // In this scenario the render node does not refire, because it's on the paint layer
+    expect(controlFn).toHaveBeenCalledTimes(1)
+    expect(computeFn).toHaveBeenCalledTimes(1);
+    expect(renderFn).toHaveBeenCalledTimes(1);
 
   });
 
 
+  it.only("Scenario 5 - module -> render", () => {
+
+    const { captureControlSet, moduleFn, captureModuleSet, controlFn, addComputeFn, orbitComputeFn, renderFn, graphEngine
+    } = prepareGraphEngine()
 
 
+    expect(moduleFn).not.toHaveBeenCalled();
 
+    const result = graphEngine.load(new AlgorithmBuilder().addModuleNode({
+      "id": "my-orbit-module",
+      "params": {
+        centerPoints: {
+          v: [{ v: fColorPoint() }]
+        },
+      },
+      "type": "orbit-module",
+
+    }).addRenderNode({
+      "id": "my-circle",
+      "type": "circle",
+      "renderConfig": {
+        "layer": "live"
+      },
+      "params": {
+        "centerPoints": {
+          ref: "my-orbit-module.points"
+        }
+      }
+    }).construct()
+
+    );
+    expect(moduleFn).toHaveBeenCalledTimes(1)
+
+    expect(captureControlSet.fn).toBeNull()
+    expect(captureModuleSet.fn).toBeNull()
+
+    result.renderControlNodes();
+
+    expect(captureControlSet.fn).toBeNull()
+    expect(captureModuleSet.fn).not.toBeNull()
+
+
+    expect(addComputeFn).toHaveBeenCalledTimes(0)
+    expect(controlFn).toHaveBeenCalledTimes(0);
+    expect(renderFn).toHaveBeenCalledTimes(0);
+    expect(orbitComputeFn).toHaveBeenCalledTimes(0)
+
+    graphEngine.tick();
+
+    expect(moduleFn).toHaveBeenCalledTimes(1)
+    expect(orbitComputeFn).toHaveBeenCalledTimes(1)
+    expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      centerPoints: expect.arrayContaining([fColorPoint()]),
+      radius: 0.5
+    }))
+    expect(renderFn).toHaveBeenCalledTimes(1);
+    expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      centerPoints: expect.arrayContaining([fColorPoint()])
+    }))
+
+    captureModuleSet.fn!("radius", 2)
+
+    graphEngine.tick();
+
+    expect(moduleFn).toHaveBeenCalledTimes(1)
+    expect(orbitComputeFn).toHaveBeenCalledTimes(2)
+    expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      centerPoints: expect.arrayContaining([fColorPoint()]),
+      radius: 2
+    }))
+    expect(renderFn).toHaveBeenCalledTimes(2);
+    expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+      centerPoints: expect.arrayContaining([fColorPoint()])
+    }))
+
+
+  })
 
 });
