@@ -183,13 +183,11 @@ const orbitModuleImplementation = implementModule({
           return <div data-testid={`${inputMarkerId}-controls`}>
 
             {renderIfNeeded(params, 'speed', set, (initialValue, onChange) => {
-              console.log(initialValue)
               return <KnobControl label="Speed" min={-1} max={1} initialValue={initialValue} onChange={onChange} />
             })}
 
             {renderIfNeeded(params, 'radius', set, (initialValue, onChange) => {
-              console.log(initialValue)
-              return <KnobControl label="raasssdius" min={0} max={1} initialValue={initialValue} onChange={onChange} />
+              return <KnobControl label="Radius" min={0} max={1} initialValue={initialValue} onChange={onChange} />
             })}
 
 

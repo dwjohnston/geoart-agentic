@@ -145,7 +145,6 @@ export function createGraphEngine(
           if (compiledNode.def.type === 'module-input-marker' && compiledNode.moduleInputMarkerRenderControl) {
             const element = compiledNode.moduleInputMarkerRenderControl(
               flattenParams(compiledNode.params), (paramKey, value) => {
-                console.log(paramKey, value)
                 const portDef = ((compiledNode.def) as LegacyComputeNodeImplementation).outputs?.find((p) => p.name === paramKey);
                 if (!portDef) {
                   console.error(`Port ${paramKey} not found`);
@@ -169,7 +168,6 @@ export function createGraphEngine(
           //@ts-expect-error - ignore for now
 
           const element = def.renderControl(node, (paramKey, value) => {
-            console.log(paramKey, value)
             //@ts-expect-error - ignore for now
             return mutateControl(nodeId, paramKey, value)
           });
