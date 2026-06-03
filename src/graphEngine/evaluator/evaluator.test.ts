@@ -18,7 +18,7 @@ import { AlgorithmBuilder } from '../../schema/builder';
 import { implementModule } from '../../nodes/module/implementModule';
 import type { ModuleControlSetter, ModuleExpansionResult } from '../externalInterfaces/ModuleImplementation';
 import { createInternalId } from '../../nodes/module/moduleUtils';
-import { createInputMarkerParams, type RenderControlFn } from '../../nodes/module/nodes/orbit';
+import { createInputMarkerParams, } from '../../nodes/module/nodes/orbit';
 
 
 
@@ -514,8 +514,10 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
 
       const controlFn = mock();
-      const computeFn = mock();
+      const addComputeFn = mock();
+      const orbitComputeFn = mock();
       const renderFn = mock();
+      const moduleFn = mock();
 
 
 
@@ -545,10 +547,30 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
         },
         evaluate: (inputs) => {
 
-          computeFn(inputs)
+          addComputeFn(inputs)
           return { sum: inputs.a + inputs.b }
         }
       })))
+
+      realNodeRegistry.computeRegistry.set("orbit", convertComputeNodeImplementationToLegacy(implementComputeNode("orbit", {
+        defaults: {
+          radius: 0.5,
+          speed: 0.5,
+          center: { x: 0, y: 0 },
+          centerPoints: [],
+          numPoints: 1,
+          phase: 0,
+          time: 0,
+          eccentricity: 0,
+          tilt: 0,
+        },
+        evaluate: (inputs) => {
+
+          orbitComputeFn(inputs)
+          return { points: inputs.centerPoints, point: { x: 0, y: 0 } }
+        }
+      })))
+
 
 
       realNodeRegistry.renderRegistry.set("circle", convertRenderNodeImplementationToLegacy(implementRenderNode("circle", {
@@ -574,7 +596,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
        * 
        * But I think this test will serve its purpose as we do the refactor
        */
-      realNodeRegistry.moduleRegistry.set("orbit", implementModule({
+      realNodeRegistry.moduleRegistry.set("orbit-module", implementModule({
         "_kind": "orbit-module",
         defaultValues: {
           speed: 0.3,
@@ -590,17 +612,47 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
         },
         provideNodes: (params, moduleId, defaultValues) => {
+
+          moduleFn();
           const controlNodes: ModuleExpansionResult<"orbit-module">['controlNodes'] = [];
           const computeNodes: ModuleExpansionResult<"orbit-module">['computeNodes'] = [];
           const renderNodes: ModuleExpansionResult<"orbit-module">['renderNodes'] = [];
 
-          const inputMarkerId = createInternalId(moduleId, 'input-marker')
+
+          const inputMarkerNodeId = createInternalId(moduleId, 'input-marker');
+          // Create orbit compute node
+          const orbitNodeId = createInternalId(moduleId, 'orbit');
+
+
+
+          const buildParamRef = (key: keyof NodeInputsDeclared<"orbit-module">) => {
+            const inputMarkerOutputPort = inputMarkerNodeId + "." + key;
+            return {
+              ref: inputMarkerOutputPort
+            }
+          };
+
+          computeNodes.push({
+            id: orbitNodeId,
+            type: 'orbit',
+            params: {
+              time: buildParamRef('time'),
+              speed: buildParamRef('speed'),
+              radius: buildParamRef('radius'),
+              numPoints: buildParamRef("numPoints"),
+              centerPoints: buildParamRef('centerPoints'),
+              phase: buildParamRef('phase'),
+              eccentricity: buildParamRef('eccentricity'),
+              tilt: buildParamRef('tilt'),
+            },
+          });
+
           const result: ModuleExpansionResult<"orbit-module"> = {
             controlNodes,
             computeNodes,
             renderNodes,
             inputMarkerNode: {
-              id: inputMarkerId,
+              id: inputMarkerNodeId,
               type: "module-input-marker",
               params: createInputMarkerParams(params, defaultValues),
               renderControl: (params, set) => {
@@ -614,7 +666,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
               params: {},
               outputRefs: {
                 points: {
-                  "ref": `${inputMarkerId}.centerPoints`
+                  "ref": `${orbitNodeId}.points`
                 }
               },
               nodeSource: {
@@ -636,7 +688,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
       const graphEngine = createGraphEngine(liveContext, paintContext, 100, realNodeRegistry)
 
       return {
-        captureControlSet, captureModuleSet, controlFn, computeFn, renderFn, graphEngine
+        captureControlSet, captureModuleSet, controlFn, addComputeFn, orbitComputeFn, renderFn, graphEngine, moduleFn
       }
 
     }
@@ -646,7 +698,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
     it("Scenario 1 - slider->add->render(live)", () => {
 
-      const { captureControlSet: captureSet, controlFn, computeFn, renderFn, graphEngine
+      const { captureControlSet: captureSet, controlFn, addComputeFn: computeFn, renderFn, graphEngine
       } = prepareGraphEngine()
 
       const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
@@ -748,7 +800,7 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
 
     it("Scenario 2 - slider+time->add->render(live)", () => {
 
-      const { captureControlSet: captureSet, controlFn, computeFn, renderFn, graphEngine
+      const { captureControlSet: captureSet, controlFn, addComputeFn: computeFn, renderFn, graphEngine
       } = prepareGraphEngine()
 
       const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
@@ -830,9 +882,111 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
     });
 
 
-    it("Scenario 3 - slider->add-render(paint)", () => {
+    it("Scenario 3 - slider+time->orbit->render(live)", () => {
 
-      const { captureControlSet: captureSet, controlFn, computeFn, renderFn, graphEngine
+      const { captureControlSet: captureSet, controlFn, orbitComputeFn, renderFn, graphEngine
+      } = prepareGraphEngine()
+
+      const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
+        "type": "slider",
+        id: "my-slider",
+        params: {
+          "value": {
+            v: 0.5
+          }
+        }
+      })
+        .addComputeNode({
+          type: "time",
+          id: "time",
+          params: {}
+        })
+        .addComputeNode({
+          type: "orbit",
+          id: "my-orbit",
+          params: {
+            time: {
+              ref: "time.time"
+            },
+            radius: {
+              v: 0.4
+            },
+            speed: {
+              ref: "my-slider.value"
+            },
+            centerPoints: {
+              v: [{ v: fColorPoint() }]
+            }
+          }
+        })
+        .addRenderNode({
+          "id": "my-circle",
+          type: "circle",
+          params: {
+            "centerPoints": {
+              ref: "my-orbit.points",
+            }
+          },
+          "renderConfig": {
+            "layer": "live"
+          }
+        }).construct()
+
+      )
+
+
+      expect(captureSet.fn).toBeNull()
+
+      expect(controlFn).not.toHaveBeenCalled()
+      result.renderControlNodes();
+
+      expect(captureSet.fn).not.toBeNull()
+
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(orbitComputeFn).not.toHaveBeenCalled();
+      expect(renderFn).not.toHaveBeenCalled();
+
+      graphEngine.tick();
+
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(orbitComputeFn).toHaveBeenCalledTimes(1);
+      expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        centerPoints: expect.arrayContaining([fColorPoint()])
+      }))
+      expect(renderFn).toHaveBeenCalledTimes(1);
+
+      // nb. for this test we are not actually position the nodes like a regular orbit would
+      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        centerPoints: expect.arrayContaining([fColorPoint()])
+      }))
+      graphEngine.tick();
+
+      // In this scenario the compute changes because it has a time node that always changes
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(orbitComputeFn).toHaveBeenCalledTimes(2);
+
+      expect(renderFn).toHaveBeenCalledTimes(2);
+
+      captureSet.fn!("value", { "v": 0.7 })
+
+      graphEngine.tick()
+
+      // Compute node fires because its inputs have changed
+      expect(controlFn).toHaveBeenCalledTimes(1)
+      expect(orbitComputeFn).toHaveBeenCalledTimes(3);
+      expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        centerPoints: expect.arrayContaining([fColorPoint()])
+      }))
+      expect(renderFn).toHaveBeenCalledTimes(3);
+      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        centerPoints: expect.arrayContaining([fColorPoint()])
+      }))
+    });
+
+
+    it("Scenario 4 - slider->add-render(paint)", () => {
+
+      const { captureControlSet: captureSet, controlFn, addComputeFn: computeFn, renderFn, graphEngine
       } = prepareGraphEngine()
 
       const result = graphEngine.load(new AlgorithmBuilder().addControlNode({
@@ -901,22 +1055,28 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
     });
 
 
-    it.only("Scenario 4 - module -> render", () => {
+    it.only("Scenario 5 - module -> render", () => {
 
-      const { captureControlSet, captureModuleSet, controlFn, computeFn, renderFn, graphEngine
+      const { captureControlSet, moduleFn, captureModuleSet, controlFn, addComputeFn, orbitComputeFn, renderFn, graphEngine
       } = prepareGraphEngine()
+
+
+      expect(moduleFn).not.toHaveBeenCalled();
 
       const result = graphEngine.load(new AlgorithmBuilder().addModuleNode({
         "id": "my-orbit-module",
         "params": {
-
+          centerPoints: {
+            v: [{ v: fColorPoint() }]
+          },
         },
-        "type": "orbit-module"
+        "type": "orbit-module",
+
       }).addRenderNode({
         "id": "my-circle",
         "type": "circle",
         "renderConfig": {
-          "layer": "paint"
+          "layer": "live"
         },
         "params": {
           "centerPoints": {
@@ -926,16 +1086,49 @@ describe('graph compiler and evaluator — Earth-Venus integration', () => {
       }).construct()
 
       );
+      expect(moduleFn).toHaveBeenCalledTimes(1)
 
       expect(captureControlSet.fn).toBeNull()
       expect(captureModuleSet.fn).toBeNull()
-      expect(captureModuleSet.fn)
-      expect(controlFn).not.toHaveBeenCalled()
-      result.renderControlNodes();
 
+      result.renderControlNodes();
 
       expect(captureControlSet.fn).toBeNull()
       expect(captureModuleSet.fn).not.toBeNull()
+
+
+      expect(addComputeFn).toHaveBeenCalledTimes(0)
+      expect(controlFn).toHaveBeenCalledTimes(0);
+      expect(renderFn).toHaveBeenCalledTimes(0);
+      expect(orbitComputeFn).toHaveBeenCalledTimes(0)
+
+      graphEngine.tick();
+
+      expect(moduleFn).toHaveBeenCalledTimes(1)
+      expect(orbitComputeFn).toHaveBeenCalledTimes(1)
+      expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        centerPoints: expect.arrayContaining([fColorPoint()]),
+        radius: 0.5
+      }))
+      expect(renderFn).toHaveBeenCalledTimes(1);
+      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        centerPoints: expect.arrayContaining([fColorPoint()])
+      }))
+
+      captureModuleSet.fn!("radius", 2)
+
+      graphEngine.tick();
+
+      expect(moduleFn).toHaveBeenCalledTimes(1)
+      expect(orbitComputeFn).toHaveBeenCalledTimes(2)
+      expect(orbitComputeFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        centerPoints: expect.arrayContaining([fColorPoint()]),
+        radius: 2
+      }))
+      expect(renderFn).toHaveBeenCalledTimes(2);
+      expect(renderFn).toHaveBeenLastCalledWith(expect.objectContaining({
+        centerPoints: expect.arrayContaining([fColorPoint()])
+      }))
 
 
     })

@@ -9,6 +9,7 @@ import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
 import { moduleRegistry } from '../../nodes/module/registry';
+import type { LegacyComputeNodeImplementation } from '../externalInterfaces/ComputeNodeImplementation';
 
 function flattenParams(params: Record<string, Value>): Record<string, unknown> {
   const result: Record<string, unknown> = {};
@@ -16,6 +17,11 @@ function flattenParams(params: Record<string, Value>): Record<string, unknown> {
     result[key] = value.v;
   }
   return result;
+}
+
+function rawValueToValue(portType: string, rawValue: unknown): Value {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return { kind: portType, v: rawValue } as any;
 }
 
 export type GraphLoadPayload = {
@@ -140,8 +146,13 @@ export function createGraphEngine(
             const element = compiledNode.moduleInputMarkerRenderControl(
               flattenParams(compiledNode.params), (paramKey, value) => {
                 console.log(paramKey, value)
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                return mutateControl(nodeId, paramKey, value as any)
+                const portDef = ((compiledNode.def) as LegacyComputeNodeImplementation).outputs?.find((p) => p.name === paramKey);
+                if (!portDef) {
+                  console.error(`Port ${paramKey} not found`);
+                  return;
+                }
+                const valueObj = rawValueToValue(portDef.type, value);
+                return mutateControl(nodeId, paramKey, valueObj)
               });
             return React.createElement(React.Fragment, { key: nodeId }, element);
           }

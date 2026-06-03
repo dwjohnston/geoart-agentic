@@ -513,7 +513,8 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
         const fromPort = fromOutputs.findIndex((p) => p.name === fromPortName);
         if (fromPort === -1) {
           throw new Error(
-            `Ref "${ref}" on "${context}": node "${fromNodeId}" has no output port named "${fromPortName}"`,
+            `Ref "${ref}" for node input "${context}":
+node "${fromNodeId}" has no output port named "${fromPortName}"`,
           );
         }
 
