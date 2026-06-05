@@ -208,61 +208,6 @@ export function validateSchemaStructure(schemas: SchemaSet): SchemaValidationRes
 		}
 	}
 
-	// ── 4b. Module controls and render structure ──────────────────────────────
-	// Validate that module nodes only have boolean properties in controls/render
-	if ('moduleNode' in defs) {
-		const moduleDef = defs['moduleNode'] as Record<string, unknown>;
-		if (Array.isArray(moduleDef['oneOf'])) {
-			for (const [index, item] of moduleDef['oneOf'].entries()) {
-				if (typeof item !== 'object' || item === null) continue;
-				const itemObj = item as Record<string, unknown>;
-				const itemProps = itemObj['properties'] as Record<string, unknown> | undefined;
-				if (!itemProps) continue;
-
-				// Check controls section
-				const controls = itemProps['controls'] as Record<string, unknown> | undefined;
-				if (controls && typeof controls === 'object') {
-					const controlProps = controls['properties'] as Record<string, unknown> | undefined;
-					if (controlProps) {
-						for (const [propName, propDef] of Object.entries(controlProps)) {
-							if (typeof propDef !== 'object' || propDef === null) continue;
-							const propObj = propDef as Record<string, unknown>;
-							if (propObj['type'] !== 'boolean') {
-								errors.push(
-									`moduleNode.oneOf[${index}].properties.controls.properties.${propName} must have type "boolean", got "${propObj['type']}"`
-								);
-							}
-						}
-					}
-				}
-
-				// Check render section
-				const render = itemProps['render'] as Record<string, unknown> | undefined;
-				if (render && typeof render === 'object') {
-					const renderProps = render['properties'] as Record<string, unknown> | undefined;
-					if (renderProps) {
-						for (const [layerName, layerDef] of Object.entries(renderProps)) {
-							if (typeof layerDef !== 'object' || layerDef === null) continue;
-							const layerObj = layerDef as Record<string, unknown>;
-							const layerProps = layerObj['properties'] as Record<string, unknown> | undefined;
-							if (layerProps) {
-								for (const [propName, propDef] of Object.entries(layerProps)) {
-									if (typeof propDef !== 'object' || propDef === null) continue;
-									const propObj = propDef as Record<string, unknown>;
-									if (propObj['type'] !== 'boolean') {
-										errors.push(
-											`moduleNode.oneOf[${index}].properties.render.properties.${layerName}.properties.${propName} must have type "boolean", got "${propObj['type']}"`
-										);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
 	// ── 5. Param origin by layer ──────────────────────────────────────────────
 	// Only run if both auxiliary schemas are present (cross-file checks require them)
 	if (valueKinds !== undefined && refableValueKinds !== undefined) {
@@ -308,6 +253,44 @@ export function validateSchemaStructure(schemas: SchemaSet): SchemaValidationRes
 							`${nodeType}.oneOf[${index}].params.properties.${paramName}: ` +
 							`$ref "${ref}" must resolve into ${expectedFile}, but points to ${filename}`
 						);
+					}
+				}
+			}
+		}
+
+		// Module nodes should use refable-value-kinds like compute/render nodes
+		if ('moduleNode' in defs) {
+			const moduleDef = defs['moduleNode'] as Record<string, unknown>;
+			if (Array.isArray(moduleDef['oneOf'])) {
+				for (const [index, item] of moduleDef['oneOf'].entries()) {
+					if (typeof item !== 'object' || item === null) continue;
+					const itemObj = item as Record<string, unknown>;
+
+					const itemProps = itemObj['properties'] as Record<string, unknown> | undefined;
+					if (!itemProps) continue;
+
+					const params = itemProps['params'] as Record<string, unknown> | undefined;
+					if (!params) continue;
+
+					const properties = params['properties'] as Record<string, unknown> | undefined;
+					if (!properties) continue;
+
+					for (const [paramName, paramDef] of Object.entries(properties)) {
+						if (typeof paramDef !== 'object' || paramDef === null) continue;
+						const paramObj = paramDef as Record<string, unknown>;
+						const ref = paramObj['$ref'];
+						if (typeof ref !== 'string') continue;
+
+						// Only check cross-file refs (those with a filename before `#`)
+						const filename = refFilename(ref);
+						if (filename === null) continue; // bare fragment — skip
+
+						if (filename !== computeRenderLayerFile) {
+							errors.push(
+								`moduleNode.oneOf[${index}].params.properties.${paramName}: ` +
+								`$ref "${ref}" must resolve into ${computeRenderLayerFile}, but points to ${filename}`
+							);
+						}
 					}
 				}
 			}
