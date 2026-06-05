@@ -18,7 +18,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, readdirSync
 import { resolve, dirname, relative, extname, join } from "path";
 
 const ROOT = resolve(import.meta.dir, "..");
-const TEMPLATES_DIR = resolve(ROOT, "templates");
+const TEMPLATES_DIR = resolve(ROOT, "projectDocs/templates");
 
 export function extractSection(content: string, sectionName: string, sourcePath: string): string {
   const lines = content.split("\n");
