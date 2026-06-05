@@ -16,3 +16,9 @@ You are implementing a render node.
 - Write tests using `.toMatchInlineSnapshot`
 
 <!-- include: projectDocs/node_anatomy.md -->
+
+<!-- include: projectDocs/skill_feature_name.md -->
+
+<!-- include: projectDocs/skill_input_handoff.md -->
+
+<!-- include: projectDocs/render_node_skill.md -->

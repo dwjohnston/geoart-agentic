@@ -10,6 +10,24 @@ See [ADR 0001](adr/0001-composed-prompt-files.md) for the full technical decisio
 
 ---
 
+## Philosophy
+
+**Single source of truth via fragments.** Knowledge lives once in `projectDocs/` and is composed into wherever it's needed via `<!-- include: -->`. No content is duplicated inline across templates or skill files. When a fragment changes, all approaches and skills that include it update automatically.
+
+**Thin skill files.** A SKILL.md contains only the envelope — frontmatter, role, file scope, responsibilities. All instructional depth (domain knowledge, test conventions, handoff instructions) lives as named fragments. This makes skills reusable across approaches and keeps each layer of abstraction at the right altitude.
+
+**Explicit handoffs over implicit knowledge.** Skills that depend on each other communicate through written artefacts at `project/features/[featureName]/handoffs/`. Each skill writes what it knows; the next reads it before starting. Nothing is passed implicitly through shared context — this is what makes the workflow usable in headless mode where there is no human to bridge the gap.
+
+---
+
+## Fragment Pool and Skill Authoring
+
+Skill SKILL.md files should be thin — frontmatter, role, file scope, and responsibilities only. All instructional content lives as fragments in `projectDocs/` and is pulled in via `<!-- include: -->` directives. This keeps skills reusable across approaches without duplication.
+
+See [CLAUDE.md](CLAUDE.md) for authoring guidance when working in this directory.
+
+---
+
 ## Experiments
 
 ### `default` — Sub-agents

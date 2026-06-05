@@ -15,11 +15,17 @@ You are declaring a new algorithm.
 - Declare new algorithms that are compliant with the schema
 - Create reference algorithms that demonstrate a node's capabilities
 
-## Handoff
+<!-- include: projectDocs/skill_feature_name.md -->
 
-Before writing the algorithm, check whether a handoff file exists at `project/features/[featureName]/handoffs/compute-node.md`.
+## Input handoff
 
-If it exists, use the partial algorithm skeleton and input values from that file as the basis for your node declarations. This ensures the algorithm uses the same values that were verified in the node's tests.
+Before writing the algorithm, check for handoff files at `project/features/[featureName]/handoffs/`. Read whichever of these exist:
+
+- `compute-node.md` — use the algorithm skeleton and test values as the basis for your node declarations
+- `render-node.md` — use the algorithm skeleton for render node declarations
+- `control-node.md` — use the algorithm skeleton for control node declarations
+
+If none exist, proceed without a handoff.
 
 <!-- include: projectDocs/declaring_an_algorithm.md -->
 

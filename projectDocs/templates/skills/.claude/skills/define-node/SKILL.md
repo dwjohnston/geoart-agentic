@@ -17,3 +17,11 @@ You are defining a new node type or value primitive in the schema.
 - Ensure forward compatibility of existing algorithms
 
 <!-- include: projectDocs/node_anatomy.md -->
+
+<!-- include: projectDocs/schema_guidelines.md -->
+
+<!-- include: projectDocs/skill_feature_name.md -->
+
+<!-- include: projectDocs/value_kinds.md -->
+
+<!-- include: projectDocs/define_node_skill.md -->

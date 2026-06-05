@@ -11,3 +11,7 @@ This project is a generative art engine. Graphs of connected nodes are evaluated
 <!-- include: projectDocs/canonical_levels.md -->
 
 <!-- include: projectDocs/skills_index.md -->
+
+<!-- include: projectDocs/workflow.md -->
+
+<!-- include: projectDocs/committing_philosophy.md -->

@@ -16,3 +16,9 @@ You are implementing a control node.
 - Write at least one test
 
 <!-- include: projectDocs/node_anatomy.md -->
+
+<!-- include: projectDocs/skill_feature_name.md -->
+
+<!-- include: projectDocs/skill_input_handoff.md -->
+
+<!-- include: projectDocs/control_node_skill.md -->
