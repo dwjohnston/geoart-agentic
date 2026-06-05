@@ -21,5 +21,8 @@ export function implementModule<K extends ModuleNodeKinds>(options: {
 }
 ): ModuleImplementationFn<K> {
 
-  return (params: NodeInputsDeclared<K>, moduleId: string) => options.provideNodes(params, moduleId, options.defaultValues);
+  const fn = (params: NodeInputsDeclared<K>, moduleId: string) => options.provideNodes(params, moduleId, options.defaultValues);
+  // _kind is exposed so it can be asserted to match the implementation's filename.
+  fn._kind = options._kind;
+  return fn;
 }

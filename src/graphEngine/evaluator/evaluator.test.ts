@@ -18,7 +18,7 @@ import { AlgorithmBuilder } from '../../schema/builder';
 import { implementModule } from '../../nodes/module/implementModule';
 import type { ModuleControlSetter, ModuleExpansionResult } from '../externalInterfaces/ModuleImplementation';
 import { createInternalId } from '../../nodes/module/moduleUtils';
-import { createInputMarkerParams, } from '../../nodes/module/nodes/orbit';
+import { createInputMarkerParams, } from '../../nodes/module/nodes/orbit-module';
 
 
 

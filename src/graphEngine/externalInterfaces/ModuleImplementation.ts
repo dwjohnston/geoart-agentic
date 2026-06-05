@@ -56,7 +56,10 @@ export type StaticModuleNodeParams<K extends ModuleNodeKinds> = Partial<NodeInpu
 /**
  * Registry mapping module type names to their implementation functions.
  */
-export type ModuleImplementationFn<K extends ModuleNodeKinds> = (params: NodeInputsDeclared<K>, moduleId: string) => ModuleExpansionResult<K>;
+export type ModuleImplementationFn<K extends ModuleNodeKinds> = ((params: NodeInputsDeclared<K>, moduleId: string) => ModuleExpansionResult<K>) & {
+  /** The module kind this implementation declares — asserted to match its filename. */
+  _kind: K;
+};
 
 export type ModuleRegistry = Map<string, ModuleImplementationFn<ModuleNodeKinds>>;
 

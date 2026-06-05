@@ -72,6 +72,31 @@ export const controlRegistry = new Map<string, LegacyControlNodeImplementation>(
 `;
 }
 
+// Module node files are named after their module kind (e.g. `orbit-module.tsx`),
+// so the registry key is derived directly from the filename. The hyphenated
+// basename is camelCased to form a valid import identifier.
+function toIdentifier(basename: string): string {
+  return basename.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
+}
+
+export function generateModuleRegistryContent(nodeBasenames: string[]): string {
+  const imports = nodeBasenames
+    .map((b) => `import ${toIdentifier(b)} from './nodes/${b}';`)
+    .join('\n');
+  const entries = nodeBasenames
+    .map((b) => `  ['${b}', ${toIdentifier(b)}],`)
+    .join('\n');
+
+  return `// AUTO-GENERATED — do not edit by hand. Run \`bun generate:registries\` to regenerate.
+import type { ModuleRegistry } from '../../graphEngine/externalInterfaces/ModuleImplementation';
+${imports}
+
+export const moduleRegistry: ModuleRegistry = new Map([
+${entries}
+]);
+`;
+}
+
 function scanNodeFiles(dir: string, ext: string): string[] {
   return fs
     .readdirSync(dir)
@@ -87,6 +112,7 @@ if (isMain) {
   const computeBasenames = scanNodeFiles(path.join(nodesDir, 'compute/nodes'), '.ts');
   const renderBasenames = scanNodeFiles(path.join(nodesDir, 'render/nodes'), '.ts');
   const controlBasenames = scanNodeFiles(path.join(nodesDir, 'control/nodes'), '.tsx');
+  const moduleBasenames = scanNodeFiles(path.join(nodesDir, 'module/nodes'), '.tsx');
 
   fs.writeFileSync(
     path.join(nodesDir, 'compute/registry.generated.ts'),
@@ -99,6 +125,10 @@ if (isMain) {
   fs.writeFileSync(
     path.join(nodesDir, 'control/registry.generated.ts'),
     generateControlRegistryContent(controlBasenames)
+  );
+  fs.writeFileSync(
+    path.join(nodesDir, 'module/registry.generated.ts'),
+    generateModuleRegistryContent(moduleBasenames)
   );
 
   console.log('Generated registry files.');
