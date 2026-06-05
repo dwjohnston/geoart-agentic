@@ -1,77 +1,73 @@
 --- 
-canon: CANONICAL STATUS 👑 - 2026-05-16
+canon: CANONICAL STATUS 👑 - 2026-06-06
 ---
 
-## Workflow 
+## Workflow
 
 ### Projects folder
 
-the projects folder structure looks like this: 
-
 ```
 /projects
-   /complete-features - features move here when they are done
+   /completed-features  - features move here when done
    /features
       /[feature name]
          FEATURE_BRIEF.md
-         FEATURE_PLAN.md 
-         task_xx_agent_name_task_name 
+         FEATURE_PLAN.md
+         task_xx_skill_name_task_name.md
+         /handoffs        - artefacts passed between skills
 
-   /feedback - execution agents can leave notes here
-   /human - human only notes area
+   /feedback            - skills can leave notes here
+   /human               - human-only notes area
 ```
 
 ### Workflow Phases
 
+---
 
-The workflow loop looks like this: 
+#### Phase 1 — `/workflow-feature`
 
-1. Phase 1 - Ideating on a feature 
+**HITL:** Conversational ideation. Ask clarifying questions, suggest alternatives, flag potential problems. This is not a jump-straight-into-action phase.
 
-Feature ideation starts with the human giving a 'FEATURE' command. 
-Immediately ask for name for the feature. 
+Ask for a feature name at the start. If a folder for this feature already exists in `projects/features`, tell the user.
 
-If this feature folder already exists in `src/projects/features`tell the human user. 
+Output: `FEATURE_BRIEF.md` in `projects/features/[feature name]/`.
 
-Create an FEATURE_BRIEF.md 
+**Headless:** The GitHub issue body *is* the brief. Copy it verbatim into `FEATURE_BRIEF.md` and proceed directly to Phase 2.
 
-This should resemble a regular claude chat session, with a helpful back and forth, asking clarifying questions, suggesting alternatives or potential problems, etc - this isnot a ‘jump straight into action’. 
+---
 
-The artifact you will create out of this is a FEATURE_BRIEF.md in the appropriate feature folder. 
+#### Phase 2 — `/workflow-plan`
 
-2. Phase 2 - Planning and delgation 
+Read the `FEATURE_BRIEF.md`. This phase should not require reading project files beyond that.
 
-Phase 2 starts with the 'PLAN' command. 
-Immediately ask, or give a list of features. 
+Produce a `FEATURE_PLAN.md` containing:
 
-This phase should not require reading project files. Delegation should be possible via just reading the feature brief. 
+- A dependency graph showing which tasks can be parallelised and which depend on prior tasks (informational — in headless mode tasks run sequentially; in HITL the human may run independent tasks in parallel sessions)
+- An ordered task list, each entry mapping to a named skill from the skills index
+- One task file per task: `task_xx_skill_name_task_name.md`, containing the prompt for that skill invocation
 
-The purpose of this phase is to chop the feature into sub tasks and:
+If a task requires a skill that does not exist, **stop and inform the user**. Do not create a generic task file as a workaround.
 
-- Create a dependency graph demonstrating which steps can be worked on in parallel and which depend on a previous
-- Assign each step to a sub agent.
-   - The available sub agents are listed in `.claude/agents` folder
-   - If an appropriate subagent does not exist, then inform the user and suggest creating or ask for guidance what to do next.  
+---
 
-The output of this phase is the FEATURE_PLAN.md which contains: 
-- The dependency graph of the tasks to be done, and the sub agent to to do it. 
-- A prompt for each sub agent for that task.
-- Initialising the .md file with a kind of status panel. 
+#### Phase 3 — `/workflow-execute`
 
-You do not need to repeat instructions that written in the CLAUDE.mds - the sub agents will already have these instructions. 
+Invoke each task's skill in dependency order, reading its task file for the prompt.
 
-If you do not have requisite information to create the plan, then spawn subagents in readonly mode to ask them for advice. 
+Skills that feed into each other hand off via written artefacts at `projects/features/[feature name]/handoffs/`. See [agent_prompt_experiments.md](agent_prompt_experiments.md) for the handoff pattern.
 
-3. Phase 3 - Execution 
+Commit after each task completes. Commit at stable checkpoints within a task. See [committing_philosophy.md](committing_philosophy.md).
 
-When the human user gives the EXECUTE command, spawn sub agents for each `projects/[feature name]/task*` .md file. 
+**HITL:** Before invoking each task, prompt the user: "Run [task name] now?" The user may skip or defer individual tasks.
 
-IMPORTANT: Use the subagent pattern. 
+**Headless:** Run all tasks sequentially without prompting.
 
-IMPORTANT: Do not explore the codebase yourself before spawning subagents. The feature brief and execution plan contain sufficient context. Subagents will read what they need. Pre-reading duplicates their work and wastes context.
+---
 
-3. Phase 4 - Acceptance
+#### Phase 4 — `/workflow-accept`
 
-When the human user gives a ACCEPT command propose a commit message, and if this is accepted then move the feature folder into `projects/completed-features` and  current changes. 
+**HITL:** Propose moving the feature folder from `projects/features/` to `projects/completed-features/`. Wait for confirmation before proceeding.
 
+**Headless:** Move the folder automatically.
 
+No commit step — commits have already been made throughout execution.
