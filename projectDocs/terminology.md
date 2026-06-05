@@ -1,5 +1,5 @@
 --- 
-canon: CANONICAL STATUS 👑 - 2026-05-16
+canon: CANONICAL STATUS 👑 - 2026-06-05
 ---
 
 ⚠️ This document defines terminology _as it should be_. However, this document was created _after_ a lot of code was already written, and so in the code some terms may not be compliant with the definitions as they are here. 
@@ -134,9 +134,10 @@ Understanding these four layers and how they relate is fundamental to the projec
 
 - **module implementation** (Code Layer)
     - The logic that generates a module's constituent nodes
-    - Signature: `implementModule(name, (params, moduleId) => [nodes])`
+    - Declared with `implementModule({ _kind, defaultValues, provideNodes })`, where `provideNodes(params, moduleId, defaultValues)` returns the node bundle
     - Responsible for creating control nodes, compute nodes, render nodes, and the module marker nodes (input and output)
     - Internal node IDs are namespaced: `{moduleId}:{internalNodeId}`
+    - See [node_anatomy.md](node_anatomy.md#modules) for the full shape
 
 ---
 
@@ -147,6 +148,17 @@ Understanding these four layers and how they relate is fundamental to the projec
     - An atomic data type that the engine passes around
     - The only things that can be passed via node ports
     - Defined in `src/schema/schema/value-kinds.schema.json`
+
+- **array value**
+    - A value primitive whose `v` is an array of other value primitives.
+    - Defined in `value-kinds.schema.json` with `v` as `{ "type": "array", "items": { "$ref": ... } }`.
+    - Named with the `Array` suffix: `numberArrayValue`, `colorPointArrayValue`, `stringArrayValue`.
+    - Distinct from how an array input is _declared_ — see **static array of static or referenced values**.
+
+- **enum value**
+    - A value primitive whose `v` is a string constrained to a fixed set of allowed strings.
+    - Defined in `value-kinds.schema.json` with `v` as `{ "type": "string", "enum": [...] }`.
+    - Named with the `Enum` suffix: `waveTypeEnumValue`, `curveModeEnumValue`, `cycleLengthModeEnumValue`.
 
 - **point** (common parlance)
     - When contributors or agents say 'point', they mean a `colorPointValue` — the rich coloured point shape:
@@ -195,6 +207,12 @@ Understanding these four layers and how they relate is fundamental to the projec
 
 - **referenced value**
     - A node input filled with a reference to another node's output: `{ref: "node.output"}`
+
+- **static array of static or referenced values**
+    - A way of _declaring_ an array-valued node input where the array itself is written out literally — its length and structure are static — while each element is independently either a static value or a referenced value.
+    - Example: `degrees: { v: [ { v: 0 }, { ref: 'spin.angle' } ] }`
+    - Contrast with a **referenced array value**, where the whole array is a single ref to another node's array output: `points: { ref: 'orbit.points' }`.
+    - The `OrRef` schema for an array input permits either form (see the `oneOf` in `refable-value-kinds.schema.json`).
 
 - **resolved value**
     - A value primitive as it exists at runtime. What a node input resolves to during evaluation, whether it was declared as a static value or a referenced value.
@@ -276,10 +294,6 @@ Understanding these four layers and how they relate is fundamental to the projec
     - Dots would create ambiguity with the dot notation used in refs.
 
 ## Terms not yet documented
-
-- array values
-
-- enum values
 
 - registry  
 
