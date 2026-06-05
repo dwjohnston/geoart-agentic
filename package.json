@@ -14,7 +14,8 @@
     }
   },
   "scripts": {
-    "validate": "bun clean && bun generate && concurrently    \"bun test\" \"bun typecheck\"  \"bunx lint-staged\"",
+    "validate": "bun clean && bun generate && concurrently    \"bun validate:schema\" \"bun test\" \"bun typecheck\"  \"bunx lint-staged\"",
+    "validate:schema": "bun src/schema/scripts/validateSchemaStructure.ts",
     "dev": "vite",
     "build": "tsgo -b && vite build",
     "lint": "eslint .",

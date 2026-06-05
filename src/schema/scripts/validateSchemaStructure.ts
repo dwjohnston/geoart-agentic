@@ -299,3 +299,30 @@ export function validateSchemaStructure(schemas: SchemaSet): SchemaValidationRes
 
 	return { valid: errors.length === 0, errors };
 }
+
+if (import.meta.main) {
+	const fs = await import('fs');
+	const path = await import('path');
+
+	const schemaDir = path.join(import.meta.dir, '..', 'schema');
+	const schemaPath = path.join(schemaDir, 'schema.json');
+	const valueKindsPath = path.join(schemaDir, 'value-kinds.schema.json');
+	const refableValueKindsPath = path.join(schemaDir, 'refable-value-kinds.schema.json');
+
+	const schemas: SchemaSet = {
+		'schema.json': JSON.parse(fs.readFileSync(schemaPath, 'utf-8')),
+		'value-kinds.schema.json': JSON.parse(fs.readFileSync(valueKindsPath, 'utf-8')),
+		'refable-value-kinds.schema.json': JSON.parse(fs.readFileSync(refableValueKindsPath, 'utf-8')),
+	};
+
+	const result = validateSchemaStructure(schemas);
+
+	if (result.valid) {
+		console.log('✓ Schema validation passed');
+		process.exit(0);
+	} else {
+		console.error('✗ Schema validation failed:');
+		result.errors.forEach(err => console.error(`  - ${err}`));
+		process.exit(1);
+	}
+}
