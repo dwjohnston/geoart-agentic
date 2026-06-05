@@ -24,6 +24,7 @@ Before writing the algorithm, check for handoff files at `project/features/[feat
 - `compute-node.md` — use the algorithm skeleton and test values as the basis for your node declarations
 - `render-node.md` — use the algorithm skeleton for render node declarations
 - `control-node.md` — use the algorithm skeleton for control node declarations
+- `module-node.md` — use the algorithm skeleton to declare the module node
 
 If none exist, proceed without a handoff.
 

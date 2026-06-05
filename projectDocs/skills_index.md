@@ -20,4 +20,5 @@ The following skills are available for task-specific work. Invoke the appropriat
 | `compute-node` | Implement a compute node in `src/nodes/compute` |
 | `render-node` | Implement a render node in `src/nodes/render` |
 | `control-node` | Implement a control node in `src/nodes/control` |
+| `module-node` | Implement a module node in `src/nodes/module` |
 | `algorithm` | Declare a new algorithm in `src/algorithms` |
