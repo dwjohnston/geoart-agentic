@@ -8,9 +8,10 @@ import { implementControlNode, convertControlNodeImplementationToLegacy } from '
 import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
 import { controlRegistry } from '../../nodes/control/registry';
+import { moduleRegistry } from '../../nodes/module/registry';
 import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeImplementations';
 
-const realNodeRegistry: LegacyNodeRegistry = { computeRegistry, renderRegistry, controlRegistry };
+const realNodeRegistry: LegacyNodeRegistry = { computeRegistry, renderRegistry, controlRegistry, moduleRegistry };
 
 
 describe("graph engine - unnecessary node evaluation", () => {
@@ -86,6 +87,7 @@ describe("graph engine - unnecessary node evaluation", () => {
             computeRegistry: computeRegistry,
             renderRegistry: renderRegistry,
             controlRegistry: controlRegistry,
+            moduleRegistry: moduleRegistry,
         };
 
         const graph: GeoArtGraph = {
@@ -197,6 +199,7 @@ describe('graph engine — render node toggling', () => {
             computeRegistry: realNodeRegistry.computeRegistry,
             renderRegistry: new Map([['circle', legacyCircleDef]]),
             controlRegistry: realNodeRegistry.controlRegistry,
+            moduleRegistry: realNodeRegistry.moduleRegistry,
         };
 
         const graph: GeoArtGraph = {

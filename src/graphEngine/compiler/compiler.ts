@@ -2,7 +2,7 @@
  * CANONICAL LEVEL: 🗑️ - 2026-05-14
  */
 
-
+import type React from 'react';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import type { Value } from '../../schema/types';
 import type { LegacyComputeNodeImplementation, LegacyComputeNodePortImplementation } from '../../graphEngine/externalInterfaces/ComputeNodeImplementation';
@@ -10,6 +10,8 @@ import type { LegacyRenderNodeImplementation } from '../../graphEngine/externalI
 import type { LegacyControlNodeImplementation } from '../../graphEngine/externalInterfaces/ControlNodeImplementation';
 
 import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeImplementations';
+import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
+import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 
 /** Layer tag used to enforce direction constraints at compile time. */
 type Layer = 'control' | 'compute' | 'render';
@@ -44,6 +46,10 @@ type CompiledNode = {
   params: Record<string, Value>;
   /** Which canvas layer to draw to — only set for render nodes. */
   renderConfig?: { layer: 'paint' | 'live' };
+  /** For marker nodes: maps output port names to internal node refs. */
+  outputRefs?: Record<string, { ref: string }>;
+  /** For module input marker nodes: the render function for controls. */
+  moduleInputMarkerRenderControl?: (params: Record<string, unknown>, set: (key: string, value: unknown) => void) => React.ReactNode;
 };
 
 /** Per-node mutable evaluation state, reset/updated on each tick. */
@@ -310,6 +316,149 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
   }
 
   // ------------------------------------------------------------------
+  // 3.5 Expand module nodes
+  // ------------------------------------------------------------------
+  // Create a map to track original module node declarations by ID
+  const moduleNodesByIdBeforeExpansion = new Map<string, unknown>();
+  const moduleNodes = graph.module?.nodes ?? [];
+  for (const node of moduleNodes) {
+    moduleNodesByIdBeforeExpansion.set(node.id, node);
+  }
+
+  // Expand modules until none remain
+  let remainingModules = Array.from(moduleNodesByIdBeforeExpansion.keys());
+  while (remainingModules.length > 0) {
+    const moduleId = remainingModules.shift()!;
+    const moduleNode = moduleNodesByIdBeforeExpansion.get(moduleId) as {
+      type: string;
+      params?: Record<string, unknown>;
+    };
+
+    const impl = nodeRegistry.moduleRegistry.get(moduleNode.type);
+    if (!impl) {
+      throw new Error(`Unknown module node type: "${moduleNode.type}" (id: "${moduleId}")`);
+    }
+
+    const rawParams = (moduleNode.params ?? {}) as Record<string, unknown>;
+    const expansion = impl(rawParams as never, moduleId);
+
+    // Register all control nodes from expansion
+    for (const controlNode of expansion.controlNodes) {
+      const def = nodeRegistry.controlRegistry.get(controlNode.type);
+      if (!def) {
+        throw new Error(`Unknown control node type in module expansion: "${controlNode.type}" (id: "${controlNode.id}")`);
+      }
+      const controlParams = (controlNode.params ?? {}) as Record<string, unknown>;
+      rawParamsByNodeId.set(controlNode.id, controlParams);
+      nodes.set(controlNode.id, {
+        def,
+        layer: 'control',
+        params: buildParams(controlParams),
+      });
+    }
+
+    // Register all compute nodes from expansion
+    for (const computeNode of expansion.computeNodes) {
+      const def = nodeRegistry.computeRegistry.get(computeNode.type);
+      if (!def) {
+        throw new Error(`Unknown compute node type in module expansion: "${computeNode.type}" (id: "${computeNode.id}")`);
+      }
+      const computeParams = (computeNode.params ?? {}) as Record<string, unknown>;
+      rawParamsByNodeId.set(computeNode.id, computeParams);
+      nodes.set(computeNode.id, {
+        def,
+        layer: 'compute',
+        params: buildParams(computeParams),
+      });
+    }
+
+    // Register all render nodes from expansion
+    for (const renderNode of expansion.renderNodes) {
+      const def = nodeRegistry.renderRegistry.get(renderNode.type);
+      if (!def) {
+        throw new Error(`Unknown render node type in module expansion: "${renderNode.type}" (id: "${renderNode.id}")`);
+      }
+      const renderParams = (renderNode.params ?? {}) as Record<string, unknown>;
+      rawParamsByNodeId.set(renderNode.id, renderParams);
+      nodes.set(renderNode.id, {
+        def,
+        layer: 'render',
+        params: buildParams(renderParams),
+        renderConfig: { layer: renderNode.renderConfig.layer },
+      });
+    }
+
+    // Register input marker node (treated as compute layer for ref resolution)
+    const inputMarkerNode = expansion.inputMarkerNode;
+    const inputMarkerParams = (inputMarkerNode.params ?? {}) as Record<string, unknown>;
+    rawParamsByNodeId.set(inputMarkerNode.id, inputMarkerParams);
+
+    // Get the module inputs from the schema using the original module type
+    const moduleInputDefs = nodeInputs[moduleNode.type as keyof typeof nodeInputs] ?? {};
+    const inputMarkerOutputPorts: LegacyComputeNodePortImplementation[] = Object.entries(moduleInputDefs).map(
+      ([name, def]) => ({
+        name,
+        type: (def as { valueType: string }).valueType.replace('Value', '') as LegacyComputeNodePortImplementation['type'],
+      })
+    );
+
+    // Input marker nodes need inputs (to accept external refs) and outputs (to expose to internal nodes)
+    const inputMarkerInputPorts: LegacyComputeNodePortImplementation[] = Object.entries(moduleInputDefs).map(
+      ([name, def]) => ({
+        name,
+        type: (def as { valueType: string }).valueType.replace('Value', '') as LegacyComputeNodePortImplementation['type'],
+      })
+    );
+
+    const inputMarkerDef: LegacyComputeNodeImplementation = {
+      type: 'module-input-marker',
+      inputs: inputMarkerInputPorts,
+      outputs: inputMarkerOutputPorts,
+      evaluate: (inputs) => inputs, // Pass inputs through as outputs
+    };
+
+    nodes.set(inputMarkerNode.id, {
+      def: inputMarkerDef,
+      layer: 'compute',
+      params: buildParams(inputMarkerParams),
+      moduleInputMarkerRenderControl: inputMarkerNode.renderControl as (params: Record<string, unknown>, set: (key: string, value: unknown) => void) => React.ReactNode,
+    });
+
+    // Register output marker node (treated as compute layer for ref resolution)
+    const markerNode = expansion.outputMarkerNode;
+    const markerParams = (markerNode.params ?? {}) as Record<string, unknown>;
+    rawParamsByNodeId.set(markerNode.id, markerParams);
+
+    // Get the module outputs from the schema using the original module type
+    const moduleOutputs = nodeOutputMeta[moduleNode.type as keyof typeof nodeOutputMeta] ?? [];
+    const markerOutputPorts: LegacyComputeNodePortImplementation[] = moduleOutputs.map(
+      (output) => ({
+        name: output.name,
+        type: output.valueType.replace('Value', '') as LegacyComputeNodePortImplementation['type'],
+      })
+    );
+
+    // Marker nodes need a synthetic implementation to expose module outputs
+    const markerDef: LegacyComputeNodeImplementation = {
+      type: 'module-output-marker',
+      inputs: [],
+      outputs: markerOutputPorts,
+      evaluate: () => [], // Marker nodes don't actually execute
+    };
+
+    nodes.set(markerNode.id, {
+      def: markerDef,
+      layer: 'compute',
+      params: buildParams(markerParams),
+      outputRefs: markerNode.outputRefs,
+    });
+
+    // Remove this module from remaining modules
+    moduleNodesByIdBeforeExpansion.delete(moduleId);
+    remainingModules = Array.from(moduleNodesByIdBeforeExpansion.keys());
+  }
+
+  // ------------------------------------------------------------------
   // 4. Scan params for {ref: "nodeId.portName"} and build internal edges
   // ------------------------------------------------------------------
   const allEdges: Edge[] = [];
@@ -347,12 +496,25 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
           throw new Error(`Ref "${ref}" on "${context}": unknown source node "${fromNodeId}"`);
         }
 
+        // If the source is a marker node, follow its outputRefs to the actual source
+        if (fromCompiledNode.def.type === 'module-output-marker' && fromCompiledNode.outputRefs) {
+          const outputRef = fromCompiledNode.outputRefs[fromPortName];
+          if (!outputRef) {
+            throw new Error(
+              `Ref "${ref}" on "${context}": marker node "${fromNodeId}" has no output ref for port "${fromPortName}"`,
+            );
+          }
+          // Recursively resolve the internal ref
+          return resolveRef(outputRef.ref, context, arrayIndex);
+        }
+
         const fromDef = fromCompiledNode.def as LegacyComputeNodeImplementation | LegacyControlNodeImplementation | LegacyRenderNodeImplementation;
         const fromOutputs = fromDef.outputs ?? [];
         const fromPort = fromOutputs.findIndex((p) => p.name === fromPortName);
         if (fromPort === -1) {
           throw new Error(
-            `Ref "${ref}" on "${context}": node "${fromNodeId}" has no output port named "${fromPortName}"`,
+            `Ref "${ref}" for node input "${context}":
+node "${fromNodeId}" has no output port named "${fromPortName}"`,
           );
         }
 

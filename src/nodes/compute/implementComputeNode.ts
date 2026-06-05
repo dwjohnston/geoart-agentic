@@ -4,6 +4,7 @@ import type { LegacyComputeNodePortImplementation, LegacyComputeNodeImplementati
 import { nodeInputs } from '../../schema/_generated/node-inputs-2';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
 import { objectEntries } from '../../common-tooling/typedObject';
+import { definitelyAnError } from '../../common-tooling/definitelyAnError';
 
 type DefineableComputeNodeKind = ComputeNodeKinds;
 
@@ -44,7 +45,19 @@ export function implementComputeNodeLegacy<K extends DefineableComputeNodeKind>(
     })),
     evaluate(inputs: Value[]) {
       const namedInputs = Object.fromEntries(
-        inputPortNames.map((name, i) => [name, inputs[i]['v']])
+        inputPortNames.map((name, i) => {
+          try {
+            return [name, inputs[i]['v']]
+          } catch (err) {
+
+            const definiteError = definitelyAnError(err);
+
+            throw new Error(`${definiteError.message}
+Failed to resolve input '${name as string}' at index ${i}: ${err}
+  ${JSON.stringify(inputs, null, 2)}
+              `)
+          }
+        })
       ) as unknown as NodeInputsResolved<K>;
 
       const result = def.evaluate(namedInputs);

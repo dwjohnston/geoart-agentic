@@ -2,13 +2,13 @@ import { describe, it, expect } from 'bun:test';
 
 
 function assertType<T>(_value: T) { }
-import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType, type ValidPortReferenceForNodeInputPort, type ConstrainedNodeInputsDeclared } from './typeHelpers';
+import { type ComputeNodeKinds, type ControlNodeKinds, type RenderNodeKinds, type ModuleNodeKinds, type ValueTypeByName, type NodeInputsResolved, type NodeOutputsResolved, type ResolvedValue, type ReferencedValueDeclared, type StaticValueDeclared, type ValueDeclared, type NodeInputsDeclared, type PortReferenceForNodeType, type ValidPortReferenceForNodeInputPort, type ConstrainedNodeInputsDeclared, type NodeOutputKeys, type NodeOutputAsRefs } from './typeHelpers';
 import type { GeoArtGraph } from './_generated/schema-types';
 import { fColorPoint } from '../constants';
 
 
 
-describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds", () => {
+describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds, ModuleNodeKinds", () => {
     it("are correctly typed", () => {
 
         assertType<ControlNodeKinds>("slider");
@@ -25,6 +25,10 @@ describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds", () => {
         assertType<RenderNodeKinds>("circle");
         //@ts-expect-error - mismatching types
         assertType<RenderNodeKinds>("add");
+
+        assertType<ModuleNodeKinds>("orbit-module");
+        //@ts-expect-error - mismatching types
+        assertType<ModuleNodeKinds>("add");
     });
 })
 
@@ -94,6 +98,24 @@ describe("NodeInputsRecord", () => {
 
         //@ts-expect-error - wrong v type on port a
         assertType<NodeInputsResolved<"add">>({ a: "foo", b: 0 });
+
+
+
+        assertType<Partial<NodeInputsResolved<"add">>['a']>(1)
+        // this is ok
+        assertType<Partial<NodeInputsResolved<"add">>['a']>(undefined)
+
+        assertType<NodeInputsResolved<"add">['a']>(1)
+        //@ts-expect-error - this is not
+        assertType<NodeInputsResolved<"add">['a']>(undefined)
+
+
+        assertType<Required<Partial<NodeInputsResolved<"add">>['a']>>(1)
+        //@ts-expect-error - this is also not ok
+        assertType<Required<Partial<NodeInputsResolved<"add">>>['a']>(undefined)
+
+
+
     });
 
     assertType<NodeInputsResolved<"pointsOnALine">>({
@@ -143,7 +165,7 @@ describe("NodeOutputsRecord", () => {
     it("maps multi-output node 'orbit' to both port names", () => {
         assertType<NodeOutputsResolved<"orbit">>({
             point: { x: 0, y: 0 },
-            points: [],
+            points: [{ r: 1, g: 1, b: 1, a: 1, x: 0, y: 0, dx: 0, dy: 0 }],
         });
 
         //@ts-expect-error - missing 'points' port
@@ -167,6 +189,48 @@ describe("NodeOutputsRecord", () => {
                 }
             ]
         })
+    });
+
+    it("orbit-module (module node) with multiple outputs", () => {
+        assertType<NodeOutputsResolved<"orbit-module">>({
+            "points": [
+                {
+                    r: 1,
+                    g: 1,
+                    b: 1,
+                    a: 1,
+                    x: 1,
+                    y: 1,
+                    dx: 0,
+                    dy: 0,
+
+                }
+            ],
+        });
+
+        //@ts-expect-error - missing 'points' port
+        assertType<NodeOutputsResolved<"orbit-module">>({});
+    });
+});
+
+describe("NodeOutputKeys", () => {
+    assertType<NodeOutputKeys<"orbit-module">>("points");
+});
+describe("NodeOutputsAsRefs", () => {
+
+    it("works with module nodes", () => {
+
+
+        assertType<NodeOutputAsRefs<"orbit-module">>({
+            points: { ref: "somenode.port" }
+        });
+
+        // All outputs need to be included
+        //@ts-expect-error - need points
+        assertType<NodeOutputAsRefs<"orbit-module">>({
+        });
+
+
     });
 });
 
@@ -529,6 +593,15 @@ describe("NodeInputsDeclared", () => {
             b: { ref: "other.output" },
         });
 
+        assertType<NodeInputsDeclared<"add">['a']>(
+            { v: 1 },
+        );
+
+        assertType<NodeInputsDeclared<"add">['a']>(
+            { ref: "somenode.port " },
+        );
+
+
         assertType<NodeInputsDeclared<"add">>({
             a: { v: 1 },
         });
@@ -552,10 +625,23 @@ describe("NodeInputsDeclared", () => {
         });
     });
 
+    it("module nodes accept both static and referenced values", () => {
+        assertType<NodeInputsDeclared<"orbit-module">>({
+            speed: { v: 1 },
+            radius: { ref: "speedSlider.value" },
+        });
+
+        assertType<NodeInputsDeclared<"orbit-module">>({
+            speed: { v: 1 },
+        });
+    });
+
     it("all inputs are optional", () => {
         assertType<NodeInputsDeclared<"add">>({});
 
         assertType<NodeInputsDeclared<"slider">>({});
+
+        assertType<NodeInputsDeclared<"orbit-module">>({});
     });
 });
 
@@ -686,6 +772,26 @@ describe("ConstrainedNodeInputsDeclared", () => {
             });
         });
     });
+
+    describe("module node", () => {
+        it("accepts a ref to a matching output port", () => {
+            // slider outputs numberValue; orbit-module.speed expects numberValue
+            assertType<ConstrainedNodeInputsDeclared<"orbit-module", WithSlider>>({
+                speed: { ref: "s1.value" },
+            });
+        });
+
+        it("accepts static values alongside valid refs", () => {
+            assertType<ConstrainedNodeInputsDeclared<"orbit-module", WithBoth>>({
+                speed: { v: 1 },
+                radius: { ref: "s1.value" },
+            });
+        });
+
+        it("all ports are optional", () => {
+            assertType<ConstrainedNodeInputsDeclared<"orbit-module", WithBoth>>({});
+        });
+    });
 });
 
 describe("ValidPortReferenceForNodeInputPort", () => {
@@ -720,5 +826,16 @@ describe("ValidPortReferenceForNodeInputPort", () => {
             // @ts-expect-error - never
             "t.time"
         );
+    });
+
+    it("matches module node outputs", () => {
+        type OnlyOrbitModule = { nodeType: "orbit-module"; nodeId: "m" };
+
+        // orbit-module outputs colorPointArrayValue — matches circle.centerPoints
+        assertType<ValidPortReferenceForNodeInputPort<"circle", "centerPoints", OnlyOrbitModule>>("m.points");
+
+        //@ts-expect-error - invalid port
+        assertType<ValidPortReferenceForNodeInputPort<"orbit", "speed", OnlyOrbitModule>>("m.sdfsdf");
+
     });
 });

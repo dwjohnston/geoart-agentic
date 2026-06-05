@@ -1,10 +1,16 @@
 # Geometric Art Engine
 
+## CONTEXT.md
+
+If you are looking for CONTEXT.md what you'll need is in `src/terminology.md`
+
 ## Instructions for all agents: 
 
 - Some promps might request or encourage feedback. This can be left in `project/feedback`. This is an exception to any file scope restrictions. 
 
 - Some .md files may contain lines with a 🖊️ emoji. You can ignore these unless you are the `md-file-agent`. 
+
+
 
 ## General Instructions 
 

@@ -78,7 +78,7 @@ export default defineConfig([
               allowedZones: ["common-tooling"]
             },
             "compiler": {
-              allowedZones: ["common-tooling", "theSchema"]
+              allowedZones: ["common-tooling", "theSchema", "algorithms"]
             },
             "evaluator": {
               allowedZones: ["common-tooling", "theSchema", "compiler"]

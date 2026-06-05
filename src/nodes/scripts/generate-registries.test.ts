@@ -3,7 +3,9 @@ import {
   generateComputeRegistryContent,
   generateRenderRegistryContent,
   generateControlRegistryContent,
+  generateModuleRegistryContent,
 } from './generate-registries';
+import { moduleRegistry } from '../module/registry';
 
 describe('generateComputeRegistryContent', () => {
   test('includes imports and computeRegistry export', () => {
@@ -33,4 +35,25 @@ describe('generateControlRegistryContent', () => {
     expect(content).toContain('[Slider, ColorPicker]');
     expect(content).toContain('controlRegistry');
   });
+});
+
+describe('generateModuleRegistryContent', () => {
+  test('keys the registry by filename, camelCasing the import identifier', () => {
+    const content = generateModuleRegistryContent(['orbit-module']);
+    expect(content).toContain("import orbitModule from './nodes/orbit-module';");
+    expect(content).toContain("['orbit-module', orbitModule],");
+    expect(content).toContain('moduleRegistry');
+  });
+});
+
+describe('module implementation filenames', () => {
+  // The registry is keyed by filename; the implementation independently declares
+  // its own `_kind`. These must agree, otherwise the file is named after the
+  // wrong kind (or vice versa).
+  test.each([...moduleRegistry.entries()])(
+    'module file "%s" declares a matching _kind',
+    (filename, impl) => {
+      expect(impl._kind as string).toBe(filename);
+    }
+  );
 });

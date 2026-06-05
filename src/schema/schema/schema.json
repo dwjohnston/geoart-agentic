@@ -37,6 +37,24 @@
       "description": "Global playback speed. Values >= 1 run that many ticks per frame. Values < 1 must be unit fractions (1/2, 1/3, …) — one tick every n frames. Default 1.",
       "minimum": 0.125
     },
+    "module": {
+      "title": "Module Section",
+      "description": "Reusable groups of nodes",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "nodes"
+      ],
+      "properties": {
+        "nodes": {
+          "title": "Module Nodes",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/moduleNode"
+          }
+        }
+      }
+    },
     "control": {
       "title": "Control Section",
       "description": "User-facing input nodes — sliders, colour pickers, and dropdowns",
@@ -107,6 +125,24 @@
           "description": "Reference in the form 'nodeId.portName'",
           "type": "string",
           "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*\\.[a-zA-Z][a-zA-Z0-9_-]*$"
+        }
+      }
+    },
+    "nodeSource": {
+      "title": "Node Source",
+      "type": "object",
+      "description": "Metadata tracking the origin of a compiled node (e.g., from module expansion)",
+      "additionalProperties": false,
+      "properties": {
+        "sourceType": {
+          "type": "string",
+          "enum": [
+            "module"
+          ]
+        },
+        "sourceId": {
+          "type": "string",
+          "description": "ID of the source module node"
         }
       }
     },
@@ -1370,6 +1406,73 @@
                 "lineLength": {
                   "title": "Line Length",
                   "description": "Length of each line",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "moduleNode": {
+      "title": "Module Node",
+      "description": "A reusable group of nodes that gets expanded during compilation",
+      "oneOf": [
+        {
+          "title": "Orbit Module Node",
+          "type": "object",
+          "description": "Module that generates orbital motion with optional control and render configuration",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "orbit-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "time": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "speed": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "radius": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "numPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "centerPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "phase": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "eccentricity": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "tilt": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }

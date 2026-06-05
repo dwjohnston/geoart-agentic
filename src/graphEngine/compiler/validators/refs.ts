@@ -43,7 +43,8 @@ export function validateRefs(graph: GeoArtGraph, registry: LegacyNodeRegistry): 
       errors.push({
         code: 'UNKNOWN_REF_PORT',
         severity: 'error',
-        message: `Ref "${fromNodeId}.${fromPortName}" on "${toNodeId}.${toPortName}": node "${fromNodeId}" has no output port named "${fromPortName}"`,
+        message: `Ref "${fromNodeId}.${fromPortName}" for node input "${toNodeId}.${toPortName}":
+           node "${fromNodeId}" has no output port named "${fromPortName}"`,
         nodeId: toNodeId,
         paramName: toPortName,
       });

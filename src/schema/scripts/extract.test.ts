@@ -93,6 +93,25 @@ const minimalNodeSchema: any = {
 				},
 			],
 		},
+		moduleNode: {
+			oneOf: [
+				{
+					properties: {
+						type: { enum: ['test-module'] },
+						params: {
+							properties: {
+								speed: { $ref: 'refable-value-kinds.schema.json#/definitions/numberValueOrRef' },
+								scale: { $ref: 'refable-value-kinds.schema.json#/definitions/numberValueOrRef' },
+							},
+						},
+					},
+					'x-outputs': [
+						{ name: 'result', valueType: 'numberValue' },
+						{ name: 'points', valueType: 'numberArrayValue' },
+					],
+				},
+			],
+		},
 	},
 };
 
@@ -193,6 +212,14 @@ describe('extract-node-inputs', () => {
 		      "radius": {
 		        "valueType": "numberValue"
 		      } as const
+		    },
+		    "test-module": {
+		      "speed": {
+		        "valueType": "numberValue"
+		      } as const,
+		      "scale": {
+		        "valueType": "numberValue"
+		      } as const
 		    }
 		  };
 		  "
@@ -209,6 +236,7 @@ describe('extract-node-outputs', () => {
 		    "slider": [] as const,
 		    "add": [{"name":"sum","valueType":"numberValue"}] as const,
 		    "circle": [{"name":"drawn","valueType":"numberValue"}] as const,
+		    "test-module": [{"name":"result","valueType":"numberValue"},{"name":"points","valueType":"numberArrayValue"}] as const,
 		  } as const;
 		  "
 		`);

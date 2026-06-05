@@ -1,3 +1,7 @@
+--- 
+canon: CANONICAL STATUS 👑 - 2026-06-05
+---
+
 # Conceptual Architecture
 
 This project is a generative art engine. Graphs of connected nodes are evaluated each frame to produce animations drawn to a canvas.
@@ -48,13 +52,15 @@ eg.
 
 ## Node Types
 
-There are three kinds of node, corresponding to three layers of the architecture:
+There are **four kinds of node**. Three of them are the layers of the architecture, with data flowing in one direction only:
 
 ```
 Control → Compute → Render
 ```
 
-Data flows in one direction only. A render node may never feed back into a compute node; a compute node may never feed back into a control node.
+A render node may never feed back into a compute node; a compute node may never feed back into a control node.
+
+The fourth kind — the **module node** — is *orthogonal* to this flow. It is not a layer; it is a single node that expands into a bundle of control/compute/render nodes during compilation.
 
 ### Control Nodes
 
@@ -67,6 +73,10 @@ Pure mathematical transformation nodes. They take inputs and emit outputs. No ca
 ### Render Nodes
 
 Responsible for drawing to the canvas. They have no node-level output — they are the end of the data flow. Examples: `timedLine`, `circle`. Each render node runs on its own schedule (`intervalTicks`) rather than every frame.
+
+### Module Nodes
+
+A reusable bundle of control/compute/render nodes packaged as one declarable node — for example `orbit-module` provides the orbit calculation together with its knobs and the render nodes that draw it. A module declares refable `params` and `x-outputs` like a compute node, and the compiler **expands** it into its constituent nodes (plus an input and output marker node) before evaluation. Modules can be nested. Reach for a module whenever the same cluster of nodes recurs across algorithms. See [Node Anatomy](node_anatomy.md#modules) for how they are defined and implemented.
 
 ## Inputs and Outputs
 

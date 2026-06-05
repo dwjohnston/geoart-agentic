@@ -8,6 +8,21 @@ import type { Value } from '../../schema/types';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
+import { moduleRegistry } from '../../nodes/module/registry';
+import type { LegacyComputeNodeImplementation } from '../externalInterfaces/ComputeNodeImplementation';
+
+function flattenParams(params: Record<string, Value>): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(params)) {
+    result[key] = value.v;
+  }
+  return result;
+}
+
+function rawValueToValue(portType: string, rawValue: unknown): Value {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return { kind: portType, v: rawValue } as any;
+}
 
 export type GraphLoadPayload = {
   renderControlNodes: () => React.ReactNode;
@@ -29,6 +44,7 @@ export function createGraphEngine(
     computeRegistry?: typeof computeRegistry;
     renderRegistry?: typeof renderRegistry;
     controlRegistry?: typeof controlRegistry;
+    moduleRegistry?: typeof moduleRegistry;
   },
 ): GraphEngine {
   let compiled: CompiledGraph | null = null;
@@ -85,7 +101,8 @@ export function createGraphEngine(
     compiled = compile(graph, {
       computeRegistry: registry?.computeRegistry ?? computeRegistry,
       controlRegistry: registry?.controlRegistry ?? controlRegistry,
-      renderRegistry: registry?.renderRegistry ?? renderRegistry
+      renderRegistry: registry?.renderRegistry ?? renderRegistry,
+      moduleRegistry: registry?.moduleRegistry ?? moduleRegistry
     });
 
     // Extract render nodes and initialize enabled set
@@ -106,13 +123,57 @@ export function createGraphEngine(
     }
 
     return {
-      renderControlNodes: () => graph.control.nodes.map(node => {
-        const def = (registry?.controlRegistry ?? controlRegistry).get(node.type);
-        if (!def) return null;
-        //@ts-expect-error - ignore for now
-        const element = def.renderControl(node, (paramKey, value) => mutateControl(node.id, paramKey, value));
-        return React.createElement(React.Fragment, { key: node.id }, element);
-      }),
+      renderControlNodes: () => {
+        const controlNodeIds: string[] = [];
+
+        // Collect control node IDs from compiled graph (includes both original and module-generated)
+        if (compiled) {
+          for (const nodeId of compiled.sortedNodes) {
+            const compiledNode = compiled.nodes.get(nodeId);
+            // Include both control layer nodes and module input marker nodes
+            if (compiledNode && (compiledNode.layer === 'control' || compiledNode.def.type === 'module-input-marker')) {
+              controlNodeIds.push(nodeId);
+            }
+          }
+        }
+
+        return controlNodeIds.map(nodeId => {
+          const compiledNode = compiled?.nodes.get(nodeId);
+          if (!compiledNode) return null;
+
+          // Handle module input marker nodes specially
+          if (compiledNode.def.type === 'module-input-marker' && compiledNode.moduleInputMarkerRenderControl) {
+            const element = compiledNode.moduleInputMarkerRenderControl(
+              flattenParams(compiledNode.params), (paramKey, value) => {
+                const portDef = ((compiledNode.def) as LegacyComputeNodeImplementation).outputs?.find((p) => p.name === paramKey);
+                if (!portDef) {
+                  console.error(`Port ${paramKey} not found`);
+                  return;
+                }
+                const valueObj = rawValueToValue(portDef.type, value);
+                return mutateControl(nodeId, paramKey, valueObj)
+              });
+            return React.createElement(React.Fragment, { key: nodeId }, element);
+          }
+
+          const def = (registry?.controlRegistry ?? controlRegistry).get(compiledNode.def.type);
+          if (!def) return null;
+
+          // Build node descriptor for renderControl
+          const node = {
+            id: nodeId,
+            type: compiledNode.def.type,
+            params: compiledNode.params,
+          };
+          //@ts-expect-error - ignore for now
+
+          const element = def.renderControl(node, (paramKey, value) => {
+            //@ts-expect-error - ignore for now
+            return mutateControl(nodeId, paramKey, value)
+          });
+          return React.createElement(React.Fragment, { key: nodeId }, element);
+        });
+      },
       renderingNodes,
     };
   }

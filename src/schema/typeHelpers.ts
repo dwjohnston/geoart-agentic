@@ -1,4 +1,4 @@
-import type { ControlNode, RenderNode, ComputeNode } from "./_generated/schema-types";
+import type { ControlNode, RenderNode, ComputeNode, ModuleNode } from "./_generated/schema-types";
 import { nodeInputs } from "./_generated/node-inputs-2"
 import { nodeOutputMeta } from "./_generated/node-outputs-2"
 
@@ -14,6 +14,7 @@ import type { ValueTypes } from "./_generated/value-kinds-2";
 export type ControlNodeKinds = ControlNode['type'];
 export type ComputeNodeKinds = ComputeNode['type']
 export type RenderNodeKinds = RenderNode['type']
+export type ModuleNodeKinds = ModuleNode['type']
 
 
 export type ValueTypeNames = ValueTypes['kind'];
@@ -32,6 +33,12 @@ export type ValueTypeByName<T extends ValueTypeNamesSuffixed> = Omit<
 export type ResolvedValue<T extends ValueTypeNamesSuffixed> = ValueTypeByName<T> extends { v: infer V } ? V : never
 
 export type InputDefsAsObject<T extends keyof typeof nodeInputs> = typeof nodeInputs[T]
+
+export type NodeOutputKeys<K extends ModuleNodeKinds> = typeof nodeOutputMeta[K][number]['name'];
+
+export type NodeOutputAsRefs<K extends ModuleNodeKinds> = {
+  [Key in NodeOutputKeys<K>]: ReferencedValueDeclared;
+}
 
 // Given a compute node kind (e.g. "add"), produces a record of output port names
 // to the raw .v type of each port: { sum: number }
@@ -123,26 +130,26 @@ type ConstrainedValueDeclared<
   Acc extends NodeAccumulator
 > = IsArrayValueType<Kind> extends true
   ? { ref: ValidPortReferenceForNodeInputPort<K, Port, Acc> }
-    | { v: Array<{ ref: ValidPortReferenceForAnyOutput<Acc> } | StaticValueDeclared<ArrayItemType<Kind>>> }
+  | { v: Array<{ ref: ValidPortReferenceForAnyOutput<Acc> } | StaticValueDeclared<ArrayItemType<Kind>>> }
   : StaticValueDeclared<Kind>
-    | { ref: ValidPortReferenceForNodeInputPort<K, Port, Acc> };
+  | { ref: ValidPortReferenceForNodeInputPort<K, Port, Acc> };
 
 export type ConstrainedNodeInputsDeclared<
   K extends keyof typeof nodeInputs,
   Acc extends NodeAccumulator
 > = {
-  [Port in keyof typeof nodeInputs[K]]?:
+    [Port in keyof typeof nodeInputs[K]]?:
     typeof nodeInputs[K][Port] extends { valueType: infer VT extends ValueTypeNamesSuffixed }
     ? K extends ControlNodeKinds
-      ? StaticValueDeclared<VT extends `${infer Kind}Value` ? Kind : never>
-      : ConstrainedValueDeclared<
-          VT extends `${infer Kind}Value` ? Kind extends ValueTypeNames ? Kind : never : never,
-          K,
-          Port,
-          Acc
-        >
+    ? StaticValueDeclared<VT extends `${infer Kind}Value` ? Kind : never>
+    : ConstrainedValueDeclared<
+      VT extends `${infer Kind}Value` ? Kind extends ValueTypeNames ? Kind : never : never,
+      K,
+      Port,
+      Acc
+    >
     : never
-}
+  }
 
 // Remember, Control nodes inputs can not be refererenced values.
 export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
@@ -152,5 +159,3 @@ export type NodeInputsDeclared<K extends keyof typeof nodeInputs> = {
   : ValueDeclared<VT extends `${infer Kind}Value` ? Kind : never>
   : never
 }
-
-

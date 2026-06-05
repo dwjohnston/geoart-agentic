@@ -23,3 +23,5 @@ test('renders edges for each connection', async () => {
   // earthOrbit.points → circle
   expect(page.getByTestId('edge-earthOrbit-circle')).toBeDefined();
 });
+
+
