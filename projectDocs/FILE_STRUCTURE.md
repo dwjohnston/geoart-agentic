@@ -9,6 +9,7 @@ Project management and feature tracking.
   - `[featureName]/` — Individual feature folders
     - `FEATURE_BRIEF.md` — High-level feature overview and requirements
     - `FEATURE_PLAN.md` — Implementation plan and technical details
+    - `handoffs/` — Ephemeral inter-skill handoff artifacts written during task execution
 - **`feedback/`** — User feedback, suggestions, and notes
 
 ### `/projectDocs/`
