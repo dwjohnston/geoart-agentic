@@ -37,7 +37,7 @@ describe("processIncludes", () => {
   it("splices in an entire fragment file", () => {
     // Uses a real projectDocs file since processIncludes resolves paths from project ROOT
     const result = processIncludes(
-      `Before\n<!-- include: projectDocs/terminology.md -->\nAfter`,
+      `Before\n<!-- include: projectDocs/architecture/terminology.md -->\nAfter`,
       "template.md",
     );
     expect(result).toContain("Before");
@@ -59,7 +59,7 @@ describe("processIncludes", () => {
     // Use a file in the actual project
     expect(() =>
       processIncludes(
-        `<!-- include: projectDocs/terminology.md#NonExistentSection -->`,
+        `<!-- include: projectDocs/architecture/terminology.md#NonExistentSection -->`,
         "template.md",
       ),
     ).toThrow('Section "#NonExistentSection" not found');

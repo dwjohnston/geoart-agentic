@@ -230,7 +230,7 @@ You never declare them, but during compilation each module expands into its inte
 - **Module input marker** — the single data source for the module's inputs. The module's internal nodes ref this marker, so whatever you passed into the module's params flows in through one place.
 - **Module output marker** — the public face of the module. It carries the module's `x-outputs`, and it is what `{ ref: 'myOrbit.points' }` actually resolves to once expanded.
 
-So when you ref `myOrbit.points`, you are really referencing the output marker that compilation produced for `myOrbit`. Internal nodes are namespaced `{moduleId}:{internalId}` and are hidden behind the module abstraction. See [terminology.md](terminology.md) for the precise definitions and [node_anatomy.md](node_anatomy.md#modules) for how a module is implemented.
+So when you ref `myOrbit.points`, you are really referencing the output marker that compilation produced for `myOrbit`. Internal nodes are namespaced `{moduleId}:{internalId}` and are hidden behind the module abstraction. See [terminology.md](../architecture/terminology.md) for the precise definitions and [node_anatomy.md](node_anatomy.md#modules) for how a module is implemented.
 
 ---
 
@@ -267,7 +267,7 @@ Registration is **automatic**. The algorithm index ([src/algorithms/index.genera
 1. Drop the file in `src/algorithms/` with the graph as its **default export**.
 2. Run `bun generate` (it runs `generate:algorithms-index`, and also runs automatically before tests via `pretest`).
 
-The `id` is derived from the filename, so renaming the file changes the serialisation id — pick the name deliberately. Reference algorithms follow an extra naming convention — see [src/algorithms/reference/CLAUDE.md](../src/algorithms/reference/CLAUDE.md).
+The `id` is derived from the filename, so renaming the file changes the serialisation id — pick the name deliberately. Reference algorithms follow an extra naming convention — see [src/algorithms/reference/CLAUDE.md](../../src/algorithms/reference/CLAUDE.md).
 
 
 # Sensible Defaults

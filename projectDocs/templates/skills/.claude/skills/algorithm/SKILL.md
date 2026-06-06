@@ -15,7 +15,7 @@ You are declaring a new algorithm.
 - Declare new algorithms that are compliant with the schema
 - Create reference algorithms that demonstrate a node's capabilities
 
-<!-- include: projectDocs/skill_feature_name.md -->
+<!-- include: projectDocs/skill-fragments/skill_feature_name.md -->
 
 ## Input handoff
 
@@ -28,6 +28,6 @@ Before writing the algorithm, check for handoff files at `project/features/[feat
 
 If none exist, proceed without a handoff.
 
-<!-- include: projectDocs/declaring_an_algorithm.md -->
+<!-- include: projectDocs/node-development/declaring_an_algorithm.md -->
 
-<!-- include: projectDocs/sensible_defaults.md -->
+<!-- include: projectDocs/node-development/sensible_defaults.md -->
