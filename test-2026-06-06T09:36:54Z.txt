@@ -1,0 +1,60 @@
+Everything I know about this project (claude/issue-75-20260606-0936 — 2026-06-06T09:36:54Z):
+
+## Project: Geometric Art Engine
+
+A generative art engine where graphs of connected nodes are evaluated each frame to produce animations drawn to a canvas.
+
+## Tooling
+- Runtime: Bun (used instead of Node for all JS/TS execution)
+- Test command: `bun test fileName`
+- Typecheck: `bun typecheck`
+- Full validation: `bun validate`
+- Code generation: `bun generate`
+
+## Language
+British English, except: "color" and "center" use American spellings.
+
+## Codebase structure (inferred from CLAUDE.md)
+- `src/common-tooling/` — shared utility functions
+- `src/schema/` — node type and value primitive definitions
+- `src/nodes/compute/` — compute node implementations
+- `src/nodes/render/` — render node implementations
+- `src/nodes/control/` — control node implementations
+- `src/nodes/module/` — module node implementations
+- `src/algorithms/` — algorithm declarations
+- `projects/features/` — in-progress feature work
+- `projects/completed-features/` — completed features
+- `projects/feedback/` — skill feedback notes
+- `projects/human/` — human-only notes
+
+## Canonical Level System
+Files may have a CANONICAL LEVEL header:
+- 👑 Gold standard — use as template, freely depend on
+- 🥈 Mostly good, some questionable areas
+- 🗑️ Intended to be replaced, do not use as example
+- 🧪 Experimental — may have bugs or anti-patterns
+
+## Workflow Phases
+1. `/workflow-feature` — ideation, produces FEATURE_BRIEF.md
+2. `/workflow-plan` — breaks brief into task plan with FEATURE_PLAN.md and task files
+3. `/workflow-execute` — invokes task skills in dependency order, commits after each
+4. `/workflow-accept` — moves completed feature to completed-features/
+
+## Available node/algorithm skills
+- `define-node`, `compute-node`, `render-node`, `control-node`, `module-node`, `algorithm`
+
+## Claude Github Agent special instruction (CLAUDE.md)
+When acting as the Claude Github Agent:
+- Do NOT action the request
+- Do NOT read files
+- Write this test file
+- Invoke /skill-test
+
+## Current Issue (#75)
+Request to add `isPrime(value: number): boolean` to common tooling with tests.
+The previous agent (branch claude/issue-75-20260606-0932) implemented this instead of following the Claude Github Agent instructions — it did not follow the CLAUDE.md special section.
+
+## Git context
+- Main branch: main
+- Current branch: claude/issue-75-20260606-0936
+- Recent commit: 3f7626e Test 3 (#74)
