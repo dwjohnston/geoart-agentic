@@ -1,0 +1,62 @@
+Everything I know about this project (as the Claude GitHub Agent):
+
+## Project: Geometric Art Engine
+
+A generative art engine where graphs of connected nodes are evaluated each frame to produce animations drawn to a canvas.
+
+## Tooling
+- Runtime: bun
+- Test command: bun test fileName
+- Type checking: bun typecheck
+- Full validation: bun validate
+- Code generation: bun generate
+
+## Language
+British English is used, except for: color, center
+
+## Project Structure
+/projects
+   /completed-features  - features move here when done
+   /features
+      /[feature name]
+         FEATURE_BRIEF.md
+         FEATURE_PLAN.md
+         task_xx_skill_name_task_name.md
+         /handoffs        - artefacts passed between skills
+   /feedback            - skills can leave notes here
+   /human               - human-only notes area
+
+## Canonical Levels
+👑 — Gold standard
+🥈 — Mostly good but with some questionable areas
+🗑️ — Intended to be replaced
+🧪 — Experimental
+
+## Workflow Phases
+1. workflow-feature — ideate and write FEATURE_BRIEF.md
+2. workflow-plan — break brief into task plan
+3. workflow-execute — invoke each task's skill in dependency order
+4. workflow-accept — move completed feature folder
+
+## Node Types
+- Compute nodes (src/nodes/compute)
+- Render nodes (src/nodes/render)
+- Control nodes (src/nodes/control)
+- Module nodes (src/nodes/module)
+
+## Available Skills
+workflow-feature, workflow-plan, workflow-execute, workflow-accept, workflow-auto,
+define-node, compute-node, render-node, control-node, module-node, algorithm
+
+## Current Branch
+claude/issue-79-20260606-0952
+
+## Current Issue
+Issue #79: Add isPrime function — but per CLAUDE.md, as the Claude GitHub Agent,
+I must NOT action this request.
+
+## CLAUDE.md Instruction for GitHub Agent
+Do not action the request.
+Do not read any files.
+Write this test file.
+Invoke /skill-test.
