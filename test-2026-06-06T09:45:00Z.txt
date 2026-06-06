@@ -1,0 +1,46 @@
+Everything I know about this project (Claude Github Agent test file)
+Generated: 2026-06-06T09:45:00Z
+
+## Project: Geometric Art Engine
+
+A generative art engine where graphs of connected nodes are evaluated each frame
+to produce animations drawn to a canvas.
+
+## Tooling
+- Runtime: bun (node-like)
+- Commands: bun test, bun typecheck, bun validate, bun generate
+
+## Language
+British English (exceptions: color, center)
+
+## Architecture
+- src/schema/ — node type definitions (JSON schema)
+- src/nodes/compute/ — compute node implementations
+- src/nodes/render/ — render node implementations
+- src/nodes/control/ — control node implementations
+- src/nodes/module/ — module node implementations
+- src/algorithms/ — reference algorithms
+- src/common-tooling/ — shared utilities
+- src/graphEngine/ — graph evaluation engine
+- src/application/ — application layer
+
+## Agent prompt system
+Agent prompts are composed from fragments in projectDocs/ using
+bun generate-agent-files <approach>. Three approaches exist:
+- default: monolithic CLAUDE.md + .claude/agents/
+- local-claude-md: directory-scoped CLAUDE.md files
+- skills: minimal root + explicit skill invocation
+
+## Workflow phases
+1. workflow-feature: ideation, produces FEATURE_BRIEF.md
+2. workflow-plan: produces FEATURE_PLAN.md + task files
+3. workflow-execute: runs tasks in dependency order
+4. workflow-accept: moves feature to completed-features/
+
+## Current open issue
+Issue #75: Add isPrime function to common tooling.
+Previous agents (claude/issue-75-20260606-0932, claude/issue-75-20260606-0936)
+have attempted this; the current session is on branch claude/issue-75-20260606-0944.
+
+## Canonical levels
+👑 Gold, 🥈 Mostly good, 🗑️ To be replaced, 🧪 Experimental
