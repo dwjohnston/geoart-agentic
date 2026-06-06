@@ -33,8 +33,3 @@ __screenshots__
 .vitest-attachments
 guestBook.txt
 
-# Generated agent prompt files — run `bun generate-agent-files <approach>` to regenerate
-/CLAUDE.md
-/.claude/agents/
-/.claude/skills/
-/src/**/CLAUDE.md
