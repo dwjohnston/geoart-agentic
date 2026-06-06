@@ -1,0 +1,104 @@
+Project Knowledge File — Geoart Agentic
+Generated: 2026-06-06T09:59:00Z
+Source: Context only (no project files read per CLAUDE.md override)
+
+== Project Overview ==
+
+This is a generative art engine called "Geometric Art Engine" (geoart-agentic).
+Graphs of connected nodes are evaluated each frame to produce animations drawn to a canvas.
+
+== Tooling ==
+
+- Runtime: Bun (used for node-like commands)
+- Test command: bun test <fileName>
+- Type checking: bun typecheck
+- Full validation: bun validate (runs all tests and static checks)
+- Code generation: bun generate (runs code generation scripts)
+
+== Language ==
+
+British English is used throughout, with exceptions:
+- "color" (not "colour")
+- "center" (not "centre")
+
+== Architecture ==
+
+The project uses a node-based graph architecture. Node types include:
+- Compute nodes (src/nodes/compute)
+- Render nodes (src/nodes/render)
+- Control nodes (src/nodes/control)
+- Module nodes (src/nodes/module)
+- Schema definitions (src/schema)
+- Algorithms (src/algorithms)
+
+== Workflow System ==
+
+Four-phase workflow:
+1. workflow-feature — Phase 1: Ideate, write FEATURE_BRIEF.md
+2. workflow-plan — Phase 2: Break brief into task plan (FEATURE_PLAN.md + task files)
+3. workflow-execute — Phase 3: Invoke each task skill in dependency order
+4. workflow-accept — Phase 4: Move feature folder to projects/completed-features
+5. workflow-auto — Headless orchestrator (all four phases in sequence)
+
+Projects folder structure:
+  /projects
+    /completed-features
+    /features
+      /[feature name]
+        FEATURE_BRIEF.md
+        FEATURE_PLAN.md
+        task_xx_skill_name_task_name.md
+        /handoffs
+    /feedback
+    /human
+
+== Available Skills ==
+
+Workflow: workflow-feature, workflow-plan, workflow-execute, workflow-accept, workflow-auto
+Node development: define-node, compute-node, render-node, control-node, module-node, algorithm
+Other: deep-research, update-config, code-review, simplify, verify, run, init, review, security-review
+Testing: skill-test (debug agent behavior)
+
+== Canonical Levels ==
+
+Files may have CANONICAL LEVEL headers:
+👑 — Gold standard (use as template)
+🥈 — Mostly good but with questionable areas
+🗑️ — Intended to be replaced
+🧪 — Experimental (may have bugs/patterns to avoid)
+
+== GitHub Agent Override ==
+
+When running via GitHub Actions integration:
+- Do NOT action the issue or PR request
+- Do NOT read project files
+- Do NOT implement code or make commits
+- Write a test-[iso-date-time].txt file with project knowledge
+- Invoke /skill-test skill
+
+== Committing Philosophy ==
+
+- Commit after each task completes
+- Commit after each workflow phase completes
+- Commit at stable checkpoints within a task
+- Do not batch commits across tasks or phases
+- Reference task/phase name in commit messages
+
+== Current Issue Context ==
+
+Issue #81: Add isPrime
+Request: Add `isPrime(value: number): boolean` to common tooling with tests.
+However, per CLAUDE.md override, this is not being implemented — only this knowledge file is being created.
+
+== Inferred Tech Stack ==
+
+- TypeScript (based on .ts file references, type hints in issue)
+- Bun runtime
+- Canvas-based rendering (generative art)
+- Graph/node evaluation system
+
+== Repository ==
+
+david-johnston-org/geoart-agentic
+Branch in use: claude/issue-81-20260606-0959
+Main branch: main

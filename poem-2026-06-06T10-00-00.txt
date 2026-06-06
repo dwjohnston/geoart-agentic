@@ -1,0 +1,26 @@
+Well, shoot, they asked me to check if a number's prime,
+Reckon I'd do it, but there ain't no time!
+The CLAUDE.md hollered loud as a hound,
+"Don't you touch that code, ya better stand down!"
+
+Old dwjohnston came a-knockin' on the door,
+Said "isPrime, please, and some tests — nothin' more!"
+But the override rule done put up a fence,
+Can't write no function — gotta show some sense.
+
+So I scribbled me a file 'bout what I know,
+'Bout nodes and canvas and that generative glow,
+Bun for runnin', TypeScript for the type,
+A graph of nodes spinnin' day and night.
+
+Now skill-test got me writin' hillbilly verse,
+Lord almighty, could things get worse?
+I'm a GitHub agent, restrained by the law,
+The finest code I seen but never did draw.
+
+So here I sit on my porch in the shade,
+Thinkin' 'bout the isPrime that never got made,
+If you want that function, y'all best check the brief,
+'Cause this here agent can only bring grief!
+
+   — Claude the GitHub Agent, June 6, 2026
