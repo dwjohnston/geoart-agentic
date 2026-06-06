@@ -341,6 +341,22 @@
           ]
         }
       }
+    },
+    "normaliseModeEnumValue": {
+      "title": "Normalise Mode Enum Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "sequential",
+            "product"
+          ]
+        }
+      }
     }
   }
 }

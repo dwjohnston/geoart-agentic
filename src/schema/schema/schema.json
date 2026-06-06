@@ -1107,6 +1107,57 @@
               }
             }
           }
+        },
+        {
+          "title": "Normalise Compute Node",
+          "type": "object",
+          "description": "Fits an array of input points into a bounding box centred on one or more normalisation centers. Product mode: N input × M centers → N×M output points. Sequential mode: re-applies normalisation for each center in sequence.",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "normalise"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "normalisationCenters": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "normalisationSize": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "strength": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/normaliseModeEnumValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     },
