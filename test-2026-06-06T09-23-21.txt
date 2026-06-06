@@ -1,0 +1,73 @@
+Everything I know about this project (as the Claude GitHub Agent):
+
+## Project: Geometric Art Engine (geoart-agentic)
+
+Repository: david-johnston-org/geoart-agentic
+
+### Purpose
+A generative art engine. Graphs of connected nodes are evaluated each frame to produce animations drawn to a canvas.
+
+### Tooling
+- Runtime: bun (node-compatible)
+- Commands:
+  - `bun test fileName` — run tests on a single file
+  - `bun typecheck` — type-check entire project
+  - `bun validate` — run all tests and static checks
+  - `bun generate` — run all code generation scripts
+
+### Language
+British English, except: "color" and "center" use American spelling.
+
+### Project Structure
+- `src/schema` — node type and value primitive definitions
+- `src/nodes/compute` — compute node implementations
+- `src/nodes/render` — render node implementations
+- `src/nodes/control` — control node implementations
+- `src/nodes/module` — module node implementations
+- `src/algorithms` — algorithm declarations
+- `projects/` — feature workflow artefacts
+  - `projects/features/` — active features
+  - `projects/completed-features/` — finished features
+  - `projects/feedback/` — skill feedback notes
+  - `projects/human/` — human-only notes
+
+### Canonical Levels System
+Files may have a CANONICAL LEVEL header:
+- 👑 Gold standard — use as template, freely depend on
+- 🥈 Mostly good — some questionable areas
+- 🗑️ To be replaced — do not use as example
+- 🧪 Experimental — may contain bugs or discouraged patterns
+
+### Workflow Skills
+Phase 1: workflow-feature — ideate, write FEATURE_BRIEF.md
+Phase 2: workflow-plan — break brief into task plan
+Phase 3: workflow-execute — invoke skills in dependency order
+Phase 4: workflow-accept — move feature to completed-features
+workflow-auto — headless orchestrator for all four phases
+
+### Node Development Skills
+- define-node — new node types / value primitives in src/schema
+- compute-node — compute nodes in src/nodes/compute
+- render-node — render nodes in src/nodes/render
+- control-node — control nodes in src/nodes/control
+- module-node — module nodes in src/nodes/module
+- algorithm — new algorithms in src/algorithms
+
+### Committing Philosophy
+- Commit after each task completes
+- Commit after each workflow phase completes
+- Commit at stable checkpoints within a task
+- Do not batch commits across tasks or phases
+- Reference task/phase name in commit message
+
+### Current Branch
+claude/issue-72-20260606-0922
+
+### Issue #72 Context
+The open issue requested adding an `isPrime(value: number): boolean` function to common tooling with tests. Per CLAUDE.md instructions for the Claude GitHub Agent, I am not actioning that request but writing this file instead.
+
+### Git State
+- Main branch: main
+- Current branch: claude/issue-72-20260606-0922
+- Last commit: 8a64d2d Test 2 (#73)
+- Status: clean at session start
