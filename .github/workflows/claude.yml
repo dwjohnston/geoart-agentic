@@ -44,9 +44,13 @@ jobs:
           additional_permissions: |
             actions: read
           prompt: |
-            /workflow-auto
+            I am testing the claude github integration. 
 
-            The feature name must include the GitHub issue number. Use the format: issue-${{ github.event.issue.number }}-<short-descriptive-name>
+            Do not action the pull request. Add the single comment telling a joke. 
+
+            Do not read any files. 
+
+            Tell me what you know about the project
       - name: Generate token usage summary
         if: always()
         env:
