@@ -41,19 +41,10 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          claude_args: 
-           --allowedTools "Skill,Glob,Grep,LS,Read,mcp__github_comment__update_claude_comment,mcp__github_inline_comment__create_inline_comment,mcp__github_ci__get_ci_status,mcp__github_ci__get_workflow_run_details,mcp__github_ci__download_job_log,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
 
           additional_permissions: |
             actions: read
-          prompt: |
-            I am testing the claude github integration. 
 
-            Do not action the pull request. Add the single comment telling a joke. 
-
-            Do not read any files. 
-
-            Tell me what you know about the project
       - name: Generate token usage summary
         if: always()
         env:
