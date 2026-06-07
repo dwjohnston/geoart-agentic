@@ -18,9 +18,9 @@ A node is one of **four kinds**: `control`, `compute`, `render`, or `module`. Pi
 
 A module is a node that bundles other nodes — use one when a cluster of control/compute/render nodes recurs. The shape is the same (schema definition + implementation + registry), but it expands at compile time instead of running an `evaluate`:
 
-1. Define the module under `definitions.moduleNode` in `schema.json` (refable `params` + `x-outputs`), then run `bun generate` and update the type helpers — see [src/schema/CLAUDE.md](../src/schema/CLAUDE.md)
+1. Define the module under `definitions.moduleNode` in `schema.json` (refable `params` + `x-outputs`), then run `bun generate` and update the type helpers — see [src/schema/CLAUDE.md](../../src/schema/CLAUDE.md)
 2. Implement it with `implementModule` in `src/nodes/module/nodes/` — see [Node Anatomy → Modules](node_anatomy.md#modules)
 3. Register it in `src/nodes/module/registry.ts`
 
-For any kind, add a minimal reference algorithm so it gets snapshot-tested — see [src/algorithms/reference/CLAUDE.md](../src/algorithms/reference/CLAUDE.md).
+For any kind, add a minimal reference algorithm so it gets snapshot-tested — see [src/algorithms/reference/CLAUDE.md](../../src/algorithms/reference/CLAUDE.md).
 

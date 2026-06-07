@@ -61,7 +61,7 @@ If a task requires a skill that does not exist, **stop and inform the user**. Do
 
 Invoke each task's skill in dependency order, reading its task file for the prompt.
 
-Skills that feed into each other hand off via written artefacts at `projects/features/[feature name]/handoffs/`. See [agent_prompt_experiments.md](agent_prompt_experiments.md) for the handoff pattern.
+Skills that feed into each other hand off via written artefacts at `projects/features/[feature name]/handoffs/`. See [agent_prompt_experiments.md](../agent_prompt_experiments.md) for the handoff pattern.
 
 Commit after each task completes. Commit at stable checkpoints within a task. See [committing_philosophy.md](committing_philosophy.md).
 

@@ -4,4 +4,4 @@ description: Author and maintain agent prompt fragments, skill templates, and CL
 ---
 
 <!-- include: projectDocs/agent_prompt_experiments.md -->
-<!-- include: projectDocs/committing_philosophy.md -->
+<!-- include: projectDocs/workflow/committing_philosophy.md -->

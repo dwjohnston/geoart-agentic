@@ -1,5 +1,5 @@
 # Schema
 
-<!-- include: projectDocs/schema_guidelines.md -->
+<!-- include: projectDocs/node-development/schema_guidelines.md -->
 
-<!-- include: projectDocs/value_kinds.md -->
+<!-- include: projectDocs/node-development/value_kinds.md -->

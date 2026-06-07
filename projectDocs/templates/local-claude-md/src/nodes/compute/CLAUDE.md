@@ -12,4 +12,4 @@ You are working in the compute node implementation directory.
 - Implement compute node runtime logic
 - Write tests using round-number input/output values that clearly demonstrate what the node does
 
-<!-- include: projectDocs/node_anatomy.md -->
+<!-- include: projectDocs/node-development/node_anatomy.md -->

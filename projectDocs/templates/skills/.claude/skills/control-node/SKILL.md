@@ -15,10 +15,10 @@ You are implementing a control node.
 - Implement the control node runtime logic
 - Write at least one test
 
-<!-- include: projectDocs/node_anatomy.md -->
+<!-- include: projectDocs/node-development/node_anatomy.md -->
 
-<!-- include: projectDocs/skill_feature_name.md -->
+<!-- include: projectDocs/skill-fragments/skill_feature_name.md -->
 
-<!-- include: projectDocs/skill_input_handoff.md -->
+<!-- include: projectDocs/skill-fragments/skill_input_handoff.md -->
 
-<!-- include: projectDocs/control_node_skill.md -->
+<!-- include: projectDocs/skill-fragments/control_node_skill.md -->

@@ -1,1 +1,1 @@
-<!-- include: projectDocs/schema_guidelines.md -->
+<!-- include: projectDocs/node-development/schema_guidelines.md -->

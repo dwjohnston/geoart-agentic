@@ -4,7 +4,9 @@
 
 Agent prompt files (CLAUDE.md, agent files, skill files) are generated from a single fragment pool rather than maintained by hand. Fragments live in `projectDocs/` as standalone `.md` files. Templates in `projectDocs/templates/<approach>/` compose fragments using `<!-- include: path -->` directives.
 
-Running `bun generate-agent-files <approach>` writes the composed files to their output locations (gitignored). Switching approaches is a single command. The fragment pool is shared — an approach experiment changes composition and structure, not the underlying knowledge.
+Running `bun generate-agent-files <approach>` writes the composed files to their output locations (committed to source control). Switching approaches is a single command. The fragment pool is shared — an approach experiment changes composition and structure, not the underlying knowledge.
+
+> Previously these outputs were gitignored; they are now committed because the GitHub Actions integration requires the generated files to be present in the repository.
 
 See [ADR 0001](adr/0001-composed-prompt-files.md) for the full technical decision.
 
@@ -25,6 +27,18 @@ See [ADR 0001](adr/0001-composed-prompt-files.md) for the full technical decisio
 Skill SKILL.md files should be thin — frontmatter, role, file scope, and responsibilities only. All instructional content lives as fragments in `projectDocs/` and is pulled in via `<!-- include: -->` directives. This keeps skills reusable across approaches without duplication.
 
 See [CLAUDE.md](CLAUDE.md) for authoring guidance when working in this directory.
+
+---
+
+## Terminology
+
+**Composable doc (fragment):** A standalone `.md` file in `projectDocs/` that holds a self-contained piece of project knowledge. Fragments are the single source of truth — they are composed into agent prompt files via `<!-- include: -->` directives and never duplicated across templates or skill files.
+
+**Template:** A file in `projectDocs/templates/<approach>/` that defines the structure of a generated output file (CLAUDE.md, skill file, or agent file) using `<!-- include: path -->` directives to splice fragments.
+
+**Approach:** A named composition strategy under `projectDocs/templates/`. Each approach assembles the same fragment pool differently to test a different agent architecture hypothesis (e.g. `skills`, `default`, `local-claude-md`).
+
+**Generated file:** The output of `bun generate-agent-files <approach>` — CLAUDE.md, skill files, and agent files written to their final locations. These files are committed to source control.
 
 ---
 

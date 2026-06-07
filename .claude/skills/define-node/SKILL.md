@@ -229,7 +229,7 @@ The compiler and evaluator look up node definitions by type string from these ma
 
 ## Modules
 
-A **module** is a node that expands, at compile time, into a bundle of control/compute/render nodes plus two synthetic marker nodes. It has no `evaluate` function — instead of *computing*, it *generates other nodes*. See [terminology.md](terminology.md) for the canonical definitions of the terms used here.
+A **module** is a node that expands, at compile time, into a bundle of control/compute/render nodes plus two synthetic marker nodes. It has no `evaluate` function — instead of *computing*, it *generates other nodes*. See [terminology.md](../architecture/terminology.md) for the canonical definitions of the terms used here.
 
 ### Part 1: Define a module
 
@@ -251,7 +251,7 @@ Module types are defined in `schema.json` under `definitions.moduleNode` rather 
 }
 ```
 
-After editing the schema, run `bun generate` and update the type helpers — see the "Module Nodes" section of [src/schema/CLAUDE.md](../src/schema/CLAUDE.md) for the exact `typeHelpers.ts` / generator steps.
+After editing the schema, run `bun generate` and update the type helpers — see the "Module Nodes" section of [src/schema/CLAUDE.md](../../src/schema/CLAUDE.md) for the exact `typeHelpers.ts` / generator steps.
 
 ### Part 2: Implement a module
 

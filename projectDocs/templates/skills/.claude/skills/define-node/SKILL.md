@@ -16,12 +16,12 @@ You are defining a new node type or value primitive in the schema.
 - Run `bun generate` after schema changes to regenerate derived types
 - Ensure forward compatibility of existing algorithms
 
-<!-- include: projectDocs/node_anatomy.md -->
+<!-- include: projectDocs/node-development/node_anatomy.md -->
 
-<!-- include: projectDocs/schema_guidelines.md -->
+<!-- include: projectDocs/node-development/schema_guidelines.md -->
 
-<!-- include: projectDocs/skill_feature_name.md -->
+<!-- include: projectDocs/skill-fragments/skill_feature_name.md -->
 
-<!-- include: projectDocs/value_kinds.md -->
+<!-- include: projectDocs/node-development/value_kinds.md -->
 
-<!-- include: projectDocs/define_node_skill.md -->
+<!-- include: projectDocs/skill-fragments/define_node_skill.md -->
