@@ -35,7 +35,8 @@
     "docs": "bun run docs:generate && vite --config vite.config.docs.ts",
     "docs:build": "bun run docs:generate && vite build --config vite.config.docs.ts",
     "docs:server": "vite preview --config vite.config.docs.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "claude": "bash scripts/claude.sh"
   },
   "dependencies": {
     "react": "^19.2.4",

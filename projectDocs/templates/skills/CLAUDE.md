@@ -1,3 +1,6 @@
+<!-- include: projectDocs/claude_github.md -->
+
+
 # Geometric Art Engine
 
 This project is a generative art engine. Graphs of connected nodes are evaluated each frame to produce animations drawn to a canvas.
@@ -16,4 +19,3 @@ This project is a generative art engine. Graphs of connected nodes are evaluated
 
 <!-- include: projectDocs/committing_philosophy.md -->
 
-<!-- include: projectDocs/claude_github.md -->
