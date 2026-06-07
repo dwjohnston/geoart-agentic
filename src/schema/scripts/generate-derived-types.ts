@@ -227,13 +227,34 @@ if (isMain) {
     const valueKindsPath = resolve(import.meta.dirname, "../_generated/value-kinds-2.ts");
     const inPath = resolve(import.meta.dirname, "../_generated/node-inputs-2.ts");
 
-    const schema = await import("../schema/schema.json", { with: { type: "json" } });
+    // Unified schema has all $refs inlined — use it for generateOutputs so enum control nodes are visible.
+    const unifiedSchema = await import("../schema/schema-unified.generated.json", { with: { type: "json" } });
+    // buildNodeInputs needs $ref strings in params to extract valueType, so use original + merged enum entries.
+    const originalSchema = await import("../schema/schema.json", { with: { type: "json" } });
+    const enumControlsSchema = await import("../schema/enum-controls.schema.generated.json", { with: { type: "json" } });
     const valueKindsSchema = await import("../schema/value-kinds.schema.json", { with: { type: "json" } });
 
-    const outputString = generateOutputs(schema.default as unknown as JSONSchema7);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const enumEntries = Object.values((enumControlsSchema.default as any).definitions ?? {});
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const baseSchema = originalSchema.default as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const nonRefControlEntries = baseSchema.definitions.controlNode.oneOf.filter((e: any) => !e['$ref']);
+    const mergedForInputs = {
+        ...baseSchema,
+        definitions: {
+            ...baseSchema.definitions,
+            controlNode: {
+                ...baseSchema.definitions.controlNode,
+                oneOf: [...nonRefControlEntries, ...enumEntries],
+            },
+        },
+    };
+
+    const outputString = generateOutputs(unifiedSchema.default as unknown as JSONSchema7);
     const valueString = jsonSchemaValueKindsToTypeScript(valueKindsSchema);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const inputObj = buildNodeInputs(schema as any);
+    const inputObj = buildNodeInputs(mergedForInputs as any);
 
     writeFileSync(outPath, outputString);
     writeFileSync(valueKindsPath, valueString);

@@ -309,46 +309,7 @@
           }
         },
         {
-          "title": "Wave Selector Control Node",
-          "type": "object",
-          "description": "Wave Selector",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "value",
-              "valueType": "waveTypeEnumValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "waveSelector"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
-                },
-                "value": {
-                  "$ref": "value-kinds.schema.json#/definitions/waveTypeEnumValue"
-                }
-              }
-            }
-          }
+          "$ref": "enum-controls.schema.generated.json#/definitions/waveTypeSelector"
         },
         {
           "title": "LFO Control Node",
@@ -412,172 +373,16 @@
           }
         },
         {
-          "title": "Curve Mode Selector Control Node",
-          "type": "object",
-          "description": "Dropdown selector for curve interpolation mode",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "value",
-              "valueType": "curveModeEnumValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "curveModeSelector"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
-                },
-                "value": {
-                  "$ref": "value-kinds.schema.json#/definitions/curveModeEnumValue"
-                }
-              }
-            }
-          }
+          "$ref": "enum-controls.schema.generated.json#/definitions/curveModeSelector"
         },
         {
-          "title": "Cycle Length Mode Selector Control Node",
-          "type": "object",
-          "description": "Dropdown selector for cycle length mode",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "value",
-              "valueType": "cycleLengthModeEnumValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "cycleLengthModeSelector"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
-                },
-                "value": {
-                  "$ref": "value-kinds.schema.json#/definitions/cycleLengthModeEnumValue"
-                }
-              }
-            }
-          }
+          "$ref": "enum-controls.schema.generated.json#/definitions/cycleLengthModeSelector"
         },
         {
-          "title": "Timed Line Array Mode Selector Control Node",
-          "type": "object",
-          "description": "Dropdown selector for timed line array mode",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "value",
-              "valueType": "timedLineArrayModeEnumValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "timedLineArrayModeSelector"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
-                },
-                "value": {
-                  "$ref": "value-kinds.schema.json#/definitions/timedLineArrayModeEnumValue"
-                }
-              }
-            }
-          }
+          "$ref": "enum-controls.schema.generated.json#/definitions/timedLineArrayModeSelector"
         },
         {
-          "title": "Timed Line Array Interval Mode Selector Control Node",
-          "type": "object",
-          "description": "Dropdown selector for timed line array interval mode",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "value",
-              "valueType": "timedLineArrayIntervalModeEnumValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "timedLineArrayIntervalModeSelector"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "label": {
-                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
-                },
-                "value": {
-                  "$ref": "value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValue"
-                }
-              }
-            }
-          }
+          "$ref": "enum-controls.schema.generated.json#/definitions/timedLineArrayIntervalModeSelector"
         }
       ]
     },

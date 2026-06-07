@@ -5,12 +5,13 @@ type SchemaValidationResult = {
 
 /**
  * A map of schema filename → parsed JSON content.
- * The expected keys are:
- *   - "schema.json"
- *   - "value-kinds.schema.json"
- *   - "refable-value-kinds.schema.json"
  */
-export type SchemaSet = Record<"schema.json" | "value-kinds.schema.json" | "refable-value-kinds.schema.json", unknown>;
+export type SchemaSet = {
+	"schema.json": unknown;
+	"value-kinds.schema.json": unknown;
+	"refable-value-kinds.schema.json": unknown;
+	"enum-controls.schema.generated.json"?: unknown;
+};
 
 const NODE_TYPES = ['controlNode', 'computeNode', 'renderNode'] as const;
 type NodeType = (typeof NODE_TYPES)[number];
@@ -23,6 +24,21 @@ const REQUIRED_SUFFIX: Record<NodeType, string> = {
 
 
 
+
+function resolveRef(ref: string, schemas: SchemaSet): unknown {
+	const hashIndex = ref.indexOf('#');
+	const filename = hashIndex > 0 ? ref.slice(0, hashIndex) : null;
+	const fragment = hashIndex >= 0 ? ref.slice(hashIndex + 1) : ref;
+	const target = filename ? (schemas as Record<string, unknown>)[filename] : schemas['schema.json'];
+	if (!target) return undefined;
+	const parts = fragment.split('/').filter(Boolean);
+	let current: unknown = target;
+	for (const part of parts) {
+		if (typeof current !== 'object' || current === null) return undefined;
+		current = (current as Record<string, unknown>)[part];
+	}
+	return current;
+}
 
 /**
  * Extract the filename portion from a `$ref` string.
@@ -75,7 +91,15 @@ export function validateSchemaStructure(schemas: SchemaSet): SchemaValidationRes
 				errors.push(`${nodeType}.oneOf[${index}] must be an object`);
 				continue;
 			}
-			const itemObj = item as Record<string, unknown>;
+			const rawObj = item as Record<string, unknown>;
+			const itemObj = (rawObj['$ref'] && typeof rawObj['$ref'] === 'string'
+				? resolveRef(rawObj['$ref'], schemas)
+				: item) as Record<string, unknown> | null;
+
+			if (typeof itemObj !== 'object' || itemObj === null) {
+				errors.push(`${nodeType}.oneOf[${index}] must be an object`);
+				continue;
+			}
 			if (typeof itemObj['title'] !== 'string') {
 				errors.push(`${nodeType}.oneOf[${index}] must have a title string`);
 				continue;
@@ -176,7 +200,12 @@ export function validateSchemaStructure(schemas: SchemaSet): SchemaValidationRes
 
 		for (const [index, item] of nodeDef['oneOf'].entries()) {
 			if (typeof item !== 'object' || item === null) continue;
-			const itemObj = item as Record<string, unknown>;
+			const rawObj = item as Record<string, unknown>;
+			const itemObj = (rawObj['$ref'] && typeof rawObj['$ref'] === 'string'
+				? resolveRef(rawObj['$ref'], schemas)
+				: item) as Record<string, unknown> | null;
+
+			if (typeof itemObj !== 'object' || itemObj === null) continue;
 
 			// Check x-outputs exists and is an array
 			if (!Array.isArray(itemObj['x-outputs'])) {
@@ -308,11 +337,17 @@ if (import.meta.main) {
 	const schemaPath = path.join(schemaDir, 'schema.json');
 	const valueKindsPath = path.join(schemaDir, 'value-kinds.schema.json');
 	const refableValueKindsPath = path.join(schemaDir, 'refable-value-kinds.schema.json');
+	const enumControlsPath = path.join(schemaDir, 'enum-controls.schema.generated.json');
+
+	const enumControlsRaw = fs.existsSync(enumControlsPath)
+		? JSON.parse(fs.readFileSync(enumControlsPath, 'utf-8'))
+		: undefined;
 
 	const schemas: SchemaSet = {
 		'schema.json': JSON.parse(fs.readFileSync(schemaPath, 'utf-8')),
 		'value-kinds.schema.json': JSON.parse(fs.readFileSync(valueKindsPath, 'utf-8')),
 		'refable-value-kinds.schema.json': JSON.parse(fs.readFileSync(refableValueKindsPath, 'utf-8')),
+		...(enumControlsRaw ? { 'enum-controls.schema.generated.json': enumControlsRaw } : {}),
 	};
 
 	const result = validateSchemaStructure(schemas);

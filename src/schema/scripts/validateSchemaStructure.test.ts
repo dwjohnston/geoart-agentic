@@ -4,6 +4,7 @@ import type { SchemaSet } from "./validateSchemaStructure";
 import productionSchema from "../schema/schema.json";
 import productionValueKinds from "../schema/value-kinds.schema.json";
 import productionRefableValueKinds from "../schema/refable-value-kinds.schema.json";
+import productionEnumControls from "../schema/enum-controls.schema.generated.json";
 
 // Minimal valid fixture where every oneOf title ends with the correct layer suffix.
 // Nodes have x-outputs arrays as required by the new rules.
@@ -63,6 +64,7 @@ const productionSchemaSet: SchemaSet = {
 	"schema.json": productionSchema,
 	"value-kinds.schema.json": productionValueKinds,
 	"refable-value-kinds.schema.json": productionRefableValueKinds,
+	"enum-controls.schema.generated.json": productionEnumControls,
 };
 
 /** Minimal value-kinds fixture with the definitions referenced in validStructuredSchema. */
