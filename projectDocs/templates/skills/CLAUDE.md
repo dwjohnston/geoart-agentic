@@ -1,4 +1,4 @@
-<!-- include: projectDocs/conventions/claude_github.md -->
+<!-- include: projectDocs/headless/headless_real.md -->
 
 
 # Geometric Art Engine
@@ -14,8 +14,6 @@ This project is a generative art engine. Graphs of connected nodes are evaluated
 <!-- include: projectDocs/conventions/canonical_levels.md -->
 
 <!-- include: projectDocs/workflow/skills_index.md -->
-
-<!-- include: projectDocs/workflow/workflow.md -->
 
 <!-- include: projectDocs/workflow/committing_philosophy.md -->
 
