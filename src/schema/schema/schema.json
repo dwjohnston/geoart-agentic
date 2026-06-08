@@ -674,6 +674,18 @@
                 "samplerTemporalImpact": {
                   "description": "Temporal impact factor for the wave sampler (0-1) - controls intensity of time component in phaseShift calculation",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "frequencyModulator": {
+                  "description": "Optional sampler for space-based modulation of wave frequency",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "amplitudeModulator": {
+                  "description": "Optional sampler for space-based modulation of wave amplitude",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "modulatorTemporalImpact": {
+                  "description": "Temporal impact factor for the modulators (0-1) — controls intensity of time component in modulator phase",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
             }

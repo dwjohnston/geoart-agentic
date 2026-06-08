@@ -46,6 +46,9 @@ const waveNodeImplementation = implementComputeNode("wave", {
     "time": 0,
     "waveType": "sine",
     "samplerTemporalImpact": 1,
+    "frequencyModulator": null,
+    "amplitudeModulator": null,
+    "modulatorTemporalImpact": 1,
   },
   evaluate: (inputs) => {
     const t = inputs.time;
