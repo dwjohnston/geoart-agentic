@@ -682,10 +682,6 @@
                 "amplitudeModulator": {
                   "description": "Optional sampler for space-based modulation of wave amplitude",
                   "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
-                },
-                "modulatorTemporalImpact": {
-                  "description": "Temporal impact factor for the modulators (0-1) — controls intensity of time component in modulator phase",
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
             }

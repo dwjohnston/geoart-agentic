@@ -48,7 +48,6 @@ const waveNodeImplementation = implementComputeNode("wave", {
     "samplerTemporalImpact": 1,
     "frequencyModulator": null,
     "amplitudeModulator": null,
-    "modulatorTemporalImpact": 0,
   },
   evaluate: (inputs) => {
     const t = inputs.time;
@@ -59,7 +58,6 @@ const waveNodeImplementation = implementComputeNode("wave", {
     const samplerTemporalImpact = inputs.samplerTemporalImpact;
     const frequencyModulator = inputs.frequencyModulator as Sampler | null;
     const amplitudeModulator = inputs.amplitudeModulator as Sampler | null;
-    const modulatorTemporalImpact = inputs.modulatorTemporalImpact;
 
     // Create sampler object for lazy evaluation at arbitrary positions
     const sampler: Sampler = {
@@ -72,9 +70,7 @@ const waveNodeImplementation = implementComputeNode("wave", {
         const phaseShift = (t * samplerTemporalImpact * frequency * 2 * Math.PI) / 60; // time is tick count, convert to phase
         const arg = frequency * fractionOfOneCycle * 2 * Math.PI + phaseShift + phase * 2 * Math.PI;
 
-        // Compute the spatial position used to sample modulators, with its own temporal phase offset
-        const modulatorPhaseShift = (t * modulatorTemporalImpact * frequency * 2 * Math.PI) / 60;
-        const modulatorFraction = fractionOfOneCycle + modulatorPhaseShift / (2 * Math.PI * frequency);
+        const modulatorFraction = fractionOfOneCycle + phaseShift / (2 * Math.PI * frequency);
 
         const effectiveFrequency = frequencyModulator
           ? frequency * (1 + frequencyModulator.sample(modulatorFraction))

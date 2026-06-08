@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test';
 import waveNodeImplementation from './wave';
 import type { NodeInputsResolved } from '../../../schema/typeHelpers';
 
-const base = { time: 0, waveType: 'sine' as const, frequency: 1, amplitude: 1, phase: 0, samplerTemporalImpact: 0, frequencyModulator: null, amplitudeModulator: null, modulatorTemporalImpact: 0 } satisfies NodeInputsResolved<"wave">;
+const base = { time: 0, waveType: 'sine' as const, frequency: 1, amplitude: 1, phase: 0, samplerTemporalImpact: 0, frequencyModulator: null, amplitudeModulator: null } satisfies NodeInputsResolved<"wave">;
 
 describe('waveNodeImplementation', () => {
   describe('sine', () => {
@@ -141,7 +141,6 @@ describe('waveNodeImplementation', () => {
         amplitude: 1,
         time: 0,
         samplerTemporalImpact: 0,
-        modulatorTemporalImpact: 0,
         frequencyModulator: constantPlusOne as unknown as null,
       }) as { value: number; sampler: { sample: (t: number) => number } };
 
@@ -172,7 +171,6 @@ describe('waveNodeImplementation', () => {
         amplitude: 1,
         time: 0,
         samplerTemporalImpact: 0,
-        modulatorTemporalImpact: 0,
         amplitudeModulator: constantPlusOne as unknown as null,
       }) as { value: number; sampler: { sample: (t: number) => number } };
 
