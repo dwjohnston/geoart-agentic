@@ -68,25 +68,18 @@ const waveNodeImplementation = implementComputeNode("wave", {
         // spatialPosition is a normalised spatial position (0–1)
         // Incorporate time as a phase offset for animation
         const phaseShift = (t * samplerTemporalImpact * frequency * 2 * Math.PI) / 60; // time is tick count, convert to phase
-        const arg = frequency * fractionOfOneCycle * 2 * Math.PI + phaseShift + phase * 2 * Math.PI;
 
-        const modulatorFraction = fractionOfOneCycle + phaseShift / (2 * Math.PI * frequency);
 
-        const effectiveFrequency = frequencyModulator
-          ? frequency * (1 + frequencyModulator.sample(modulatorFraction))
-          : frequency;
+        const sampledModFreq = frequencyModulator?.sample(fractionOfOneCycle) ?? 0
+        const sampledModAmp = amplitudeModulator?.sample(fractionOfOneCycle) ?? 0;
 
-        const effectiveAmplitude = amplitudeModulator
-          ? amplitude * (1 + amplitudeModulator.sample(modulatorFraction))
-          : amplitude;
+        const effectiveFrequency = frequency + sampledModFreq;
+        const effectiveAmplitude = amplitude + sampledModAmp;
 
-        // If neither modulator is present the effective values equal the originals so
-        // we can reuse `arg`; otherwise recompute with the effective frequency.
-        const effectiveArg = (frequencyModulator)
-          ? effectiveFrequency * fractionOfOneCycle * 2 * Math.PI + phaseShift + phase * 2 * Math.PI
-          : arg;
 
-        return effectiveAmplitude * evaluateWaveAtAngle(waveType, effectiveArg);
+
+        const effectiveAngle = effectiveFrequency * fractionOfOneCycle * 2 * Math.PI + phaseShift;
+        return effectiveAmplitude * evaluateWaveAtAngle(waveType, effectiveAngle);
       },
       sampleMany: (spatialPositions: number[]): number[] => {
         return spatialPositions.map(sp => sampler.sample(sp));
