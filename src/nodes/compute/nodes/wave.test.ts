@@ -126,6 +126,63 @@ describe('waveNodeImplementation', () => {
 
     });
 
+    test('frequencyModulator: constant +1 doubles effective frequency', () => {
+      // A modulator that always returns 1 causes effectiveFrequency = frequency * (1 + 1) = 2.
+      // With base frequency=1, samplerTemporalImpact=0, time=0, this should behave like frequency=2.
+      const constantPlusOne: { sample: (t: number) => number; sampleMany: (ts: number[]) => number[] } = {
+        sample: () => 1,
+        sampleMany: (ts) => ts.map(() => 1),
+      };
+
+      // With frequencyModulator returning 1 and base frequency=1, effective frequency=2.
+      const modulated = waveNodeImplementation.evaluate({
+        ...base,
+        frequency: 1,
+        amplitude: 1,
+        time: 0,
+        samplerTemporalImpact: 0,
+        modulatorTemporalImpact: 0,
+        frequencyModulator: constantPlusOne as unknown as null,
+      }) as { value: number; sampler: { sample: (t: number) => number } };
+
+      // Baseline with no modulator and frequency=2 (expected result)
+      const unmodulated = waveNodeImplementation.evaluate({
+        ...base,
+        frequency: 2,
+        amplitude: 1,
+        time: 0,
+        samplerTemporalImpact: 0,
+      }) as { value: number; sampler: { sample: (t: number) => number } };
+
+      expect(modulated.sampler.sample(0)).toBeCloseTo(unmodulated.sampler.sample(0));
+      expect(modulated.sampler.sample(0.25)).toBeCloseTo(unmodulated.sampler.sample(0.25));
+      expect(modulated.sampler.sample(0.5)).toBeCloseTo(unmodulated.sampler.sample(0.5));
+    });
+
+    test('amplitudeModulator: constant +1 doubles effective amplitude', () => {
+      // A modulator that always returns 1 causes effectiveAmplitude = amplitude * (1 + 1) = 2.
+      const constantPlusOne: { sample: (t: number) => number; sampleMany: (ts: number[]) => number[] } = {
+        sample: () => 1,
+        sampleMany: (ts) => ts.map(() => 1),
+      };
+
+      const modulated = waveNodeImplementation.evaluate({
+        ...base,
+        frequency: 1,
+        amplitude: 1,
+        time: 0,
+        samplerTemporalImpact: 0,
+        modulatorTemporalImpact: 0,
+        amplitudeModulator: constantPlusOne as unknown as null,
+      }) as { value: number; sampler: { sample: (t: number) => number } };
+
+      // At fractionOfOneCycle=0.25, sine=1; with effectiveAmplitude=2 result should be 2.
+      expect(modulated.sampler.sample(0.25)).toBeCloseTo(2);
+      // At fractionOfOneCycle=0.75, sine=-1; with effectiveAmplitude=2 result should be -2.
+      expect(modulated.sampler.sample(0.75)).toBeCloseTo(-2);
+      // Zero crossing is unaffected by amplitude.
+      expect(modulated.sampler.sample(0)).toBeCloseTo(0);
+    });
 
   });
 });

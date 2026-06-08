@@ -48,7 +48,7 @@ const waveNodeImplementation = implementComputeNode("wave", {
     "samplerTemporalImpact": 1,
     "frequencyModulator": null,
     "amplitudeModulator": null,
-    "modulatorTemporalImpact": 1,
+    "modulatorTemporalImpact": 0,
   },
   evaluate: (inputs) => {
     const t = inputs.time;
@@ -57,18 +57,40 @@ const waveNodeImplementation = implementComputeNode("wave", {
     const amplitude = inputs.amplitude;
     const phase = inputs.phase;
     const samplerTemporalImpact = inputs.samplerTemporalImpact;
+    const frequencyModulator = inputs.frequencyModulator as Sampler | null;
+    const amplitudeModulator = inputs.amplitudeModulator as Sampler | null;
+    const modulatorTemporalImpact = inputs.modulatorTemporalImpact;
 
     // Create sampler object for lazy evaluation at arbitrary positions
     const sampler: Sampler = {
 
       // To be abundantly clear what this value is
-      // 0.5 = half way through 'one second' or 30 ticks. 
+      // 0.5 = half way through 'one second' or 30 ticks.
       sample: (fractionOfOneCycle: number): number => {
         // spatialPosition is a normalised spatial position (0–1)
         // Incorporate time as a phase offset for animation
         const phaseShift = (t * samplerTemporalImpact * frequency * 2 * Math.PI) / 60; // time is tick count, convert to phase
         const arg = frequency * fractionOfOneCycle * 2 * Math.PI + phaseShift + phase * 2 * Math.PI;
-        return amplitude * evaluateWaveAtAngle(waveType, arg);
+
+        // Compute the spatial position used to sample modulators, with its own temporal phase offset
+        const modulatorPhaseShift = (t * modulatorTemporalImpact * frequency * 2 * Math.PI) / 60;
+        const modulatorFraction = fractionOfOneCycle + modulatorPhaseShift / (2 * Math.PI * frequency);
+
+        const effectiveFrequency = frequencyModulator
+          ? frequency * (1 + frequencyModulator.sample(modulatorFraction))
+          : frequency;
+
+        const effectiveAmplitude = amplitudeModulator
+          ? amplitude * (1 + amplitudeModulator.sample(modulatorFraction))
+          : amplitude;
+
+        // If neither modulator is present the effective values equal the originals so
+        // we can reuse `arg`; otherwise recompute with the effective frequency.
+        const effectiveArg = (frequencyModulator)
+          ? effectiveFrequency * fractionOfOneCycle * 2 * Math.PI + phaseShift + phase * 2 * Math.PI
+          : arg;
+
+        return effectiveAmplitude * evaluateWaveAtAngle(waveType, effectiveArg);
       },
       sampleMany: (spatialPositions: number[]): number[] => {
         return spatialPositions.map(sp => sampler.sample(sp));
