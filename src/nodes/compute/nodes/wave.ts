@@ -1,7 +1,34 @@
 import { UnreachableError } from '../../../common-tooling/errors/UnreachableError';
 import type { V_waveTypeEnumValue } from '../../../schema/_generated/value-kinds-2';
 import { implementComputeNode } from '../implementComputeNode';
-import type { Sampler } from '../../../schema/typeHelpers';
+import type { NodeInputsResolved, Sampler } from '../../../schema/typeHelpers';
+
+export function sampleWave(
+  t: number,
+  fractionOfOneCycle: number,
+  samplerTemporalImpact: number,
+  frequency: number,
+  amplitude: number,
+  phase: number,
+  waveType: NodeInputsResolved<"wave">['waveType'],
+  frequencyModulator: Sampler | null,
+  amplitudeModulator: Sampler | null,
+
+
+): number {
+  const sampledModFreq = frequencyModulator?.sample(fractionOfOneCycle) ?? 0
+  const sampledModAmp = amplitudeModulator?.sample(fractionOfOneCycle) ?? 0;
+
+  const effectiveFrequency = frequency + sampledModFreq;
+  const effectiveAmplitude = amplitude + sampledModAmp;
+
+  const phaseShift = (effectiveFrequency * t * samplerTemporalImpact * 2 * Math.PI) / 60;
+
+
+  const effectiveAngle = effectiveFrequency * fractionOfOneCycle * 2 * Math.PI + phaseShift + phase;
+  return effectiveAmplitude * evaluateWaveAtAngle(waveType, effectiveAngle);
+
+}
 
 function evaluateWave(
   waveType: V_waveTypeEnumValue['v'],
@@ -46,6 +73,8 @@ const waveNodeImplementation = implementComputeNode("wave", {
     "time": 0,
     "waveType": "sine",
     "samplerTemporalImpact": 1,
+    "frequencyModulator": null,
+    "amplitudeModulator": null,
   },
   evaluate: (inputs) => {
     const t = inputs.time;
@@ -54,18 +83,16 @@ const waveNodeImplementation = implementComputeNode("wave", {
     const amplitude = inputs.amplitude;
     const phase = inputs.phase;
     const samplerTemporalImpact = inputs.samplerTemporalImpact;
+    const frequencyModulator = inputs.frequencyModulator as Sampler | null;
+    const amplitudeModulator = inputs.amplitudeModulator as Sampler | null;
 
     // Create sampler object for lazy evaluation at arbitrary positions
     const sampler: Sampler = {
 
       // To be abundantly clear what this value is
-      // 0.5 = half way through 'one second' or 30 ticks. 
+      // 0.5 = half way through 'one second' or 30 ticks.
       sample: (fractionOfOneCycle: number): number => {
-        // spatialPosition is a normalised spatial position (0–1)
-        // Incorporate time as a phase offset for animation
-        const phaseShift = (t * samplerTemporalImpact * frequency * 2 * Math.PI) / 60; // time is tick count, convert to phase
-        const arg = frequency * fractionOfOneCycle * 2 * Math.PI + phaseShift + phase * 2 * Math.PI;
-        return amplitude * evaluateWaveAtAngle(waveType, arg);
+        return sampleWave(t, fractionOfOneCycle, samplerTemporalImpact, frequency, amplitude, phase, waveType, frequencyModulator, amplitudeModulator)
       },
       sampleMany: (spatialPositions: number[]): number[] => {
         return spatialPositions.map(sp => sampler.sample(sp));
@@ -82,7 +109,7 @@ const waveNodeImplementation = implementComputeNode("wave", {
 export default waveNodeImplementation;
 
 function evaluateWaveAtAngle(
-  waveType: string,
+  waveType: NodeInputsResolved<'wave'>['waveType'],
   angleInRadians: number,
 ): number {
   function frac(x: number): number {
