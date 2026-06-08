@@ -6,21 +6,21 @@ This project is a generative art engine. Graphs of connected nodes are evaluated
 
 If you are looking for CONTEXT.md, what you'll need is in `src/terminology.md`.
 
-<!-- include: projectDocs/tooling.md -->
+<!-- include: projectDocs/conventions/tooling.md -->
 
-<!-- include: projectDocs/language.md -->
+<!-- include: projectDocs/conventions/language.md -->
 
-<!-- include: projectDocs/agent_instructions.md -->
+<!-- include: projectDocs/conventions/agent_instructions.md -->
 
-<!-- include: projectDocs/canonical_levels.md -->
+<!-- include: projectDocs/conventions/canonical_levels.md -->
 
-<!-- include: projectDocs/conceptual_architecture.md -->
+<!-- include: projectDocs/architecture/conceptual_architecture.md -->
 
-<!-- include: projectDocs/terminology.md -->
+<!-- include: projectDocs/architecture/terminology.md -->
 
-<!-- include: projectDocs/FILE_STRUCTURE.md -->
+<!-- include: projectDocs/architecture/FILE_STRUCTURE.md -->
 
-<!-- include: projectDocs/adding_a_new_node_type.md -->
+<!-- include: projectDocs/node-development/adding_a_new_node_type.md -->
 
 ## Sub Agents
 

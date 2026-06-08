@@ -229,7 +229,7 @@ The compiler and evaluator look up node definitions by type string from these ma
 
 ## Modules
 
-A **module** is a node that expands, at compile time, into a bundle of control/compute/render nodes plus two synthetic marker nodes. It has no `evaluate` function — instead of *computing*, it *generates other nodes*. See [terminology.md](terminology.md) for the canonical definitions of the terms used here.
+A **module** is a node that expands, at compile time, into a bundle of control/compute/render nodes plus two synthetic marker nodes. It has no `evaluate` function — instead of *computing*, it *generates other nodes*. See [terminology.md](../architecture/terminology.md) for the canonical definitions of the terms used here.
 
 ### Part 1: Define a module
 
@@ -251,7 +251,7 @@ Module types are defined in `schema.json` under `definitions.moduleNode` rather 
 }
 ```
 
-After editing the schema, run `bun generate` and update the type helpers — see the "Module Nodes" section of [src/schema/CLAUDE.md](../src/schema/CLAUDE.md) for the exact `typeHelpers.ts` / generator steps.
+After editing the schema, run `bun generate` and update the type helpers — see the "Module Nodes" section of [src/schema/CLAUDE.md](../../src/schema/CLAUDE.md) for the exact `typeHelpers.ts` / generator steps.
 
 ### Part 2: Implement a module
 
@@ -596,9 +596,7 @@ An example enum primitive declaration
     }
 ```
 
-note: Right now there is a tension where for something like a Dropdown component - we would want to be able to declare a Dropdown Control Node and say this has the Foo Enum Value - which should determine both its optoins, as well as its `x-output`. 
-
-However, we don't currently have a way of doing that. The current strategy is to just declare new versions of the dropdown for each enum type we have. 
+**When you define a new enum value type, you must also define a corresponding enum selector control node** using the `/control-node` skill. Each enum type needs its own dropdown control node — for example, `waveTypeValue` has `WaveSelectorControl`. The control node wraps `DropdownControl` with the enum's options hardcoded and outputs the enum value type. This is a mandatory follow-on task whenever a new enum value primitive is introduced.
 
 
 

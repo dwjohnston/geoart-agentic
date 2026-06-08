@@ -1,1 +1,1 @@
-<!-- include: projectDocs/node_implementation_guidelines.md -->
+<!-- include: projectDocs/node-development/node_implementation_guidelines.md -->

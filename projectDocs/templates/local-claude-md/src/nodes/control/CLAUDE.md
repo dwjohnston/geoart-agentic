@@ -12,4 +12,4 @@ You are working in the control node implementation directory.
 - Implement control node runtime logic
 - Write at least one test
 
-<!-- include: projectDocs/node_anatomy.md -->
+<!-- include: projectDocs/node-development/node_anatomy.md -->

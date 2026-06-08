@@ -15,10 +15,10 @@ You are implementing a render node.
 - Implement the render node runtime logic
 - Write tests using `.toMatchInlineSnapshot`
 
-<!-- include: projectDocs/node_anatomy.md -->
+<!-- include: projectDocs/node-development/node_anatomy.md -->
 
-<!-- include: projectDocs/skill_feature_name.md -->
+<!-- include: projectDocs/skill-fragments/skill_feature_name.md -->
 
-<!-- include: projectDocs/skill_input_handoff.md -->
+<!-- include: projectDocs/skill-fragments/skill_input_handoff.md -->
 
-<!-- include: projectDocs/render_node_skill.md -->
+<!-- include: projectDocs/skill-fragments/render_node_skill.md -->

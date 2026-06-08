@@ -137,7 +137,7 @@ Understanding these four layers and how they relate is fundamental to the projec
     - Declared with `implementModule({ _kind, defaultValues, provideNodes })`, where `provideNodes(params, moduleId, defaultValues)` returns the node bundle
     - Responsible for creating control nodes, compute nodes, render nodes, and the module marker nodes (input and output)
     - Internal node IDs are namespaced: `{moduleId}:{internalNodeId}`
-    - See [node_anatomy.md](node_anatomy.md#modules) for the full shape
+    - See [node_anatomy.md](../node-development/node_anatomy.md#modules) for the full shape
 
 ---
 

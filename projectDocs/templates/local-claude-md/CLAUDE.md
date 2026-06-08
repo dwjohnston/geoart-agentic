@@ -2,14 +2,14 @@
 
 This project is a generative art engine. Graphs of connected nodes are evaluated each frame to produce animations drawn to a canvas.
 
-<!-- include: projectDocs/tooling.md -->
+<!-- include: projectDocs/conventions/tooling.md -->
 
-<!-- include: projectDocs/language.md -->
+<!-- include: projectDocs/conventions/language.md -->
 
-<!-- include: projectDocs/agent_instructions.md -->
+<!-- include: projectDocs/conventions/agent_instructions.md -->
 
-<!-- include: projectDocs/canonical_levels.md -->
+<!-- include: projectDocs/conventions/canonical_levels.md -->
 
-<!-- include: projectDocs/conceptual_architecture.md -->
+<!-- include: projectDocs/architecture/conceptual_architecture.md -->
 
-<!-- include: projectDocs/terminology.md -->
+<!-- include: projectDocs/architecture/terminology.md -->

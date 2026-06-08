@@ -5,8 +5,8 @@ description: Headless orchestrator — runs all four workflow phases in sequence
 
 You are the headless workflow orchestrator. Run all four phases in sequence without prompting.
 
-<!-- include: projectDocs/workflow.md -->
+<!-- include: projectDocs/workflow/workflow.md -->
 
-<!-- include: projectDocs/skills_index.md -->
+<!-- include: projectDocs/workflow/skills_index.md -->
 
-<!-- include: projectDocs/committing_philosophy.md -->
+<!-- include: projectDocs/workflow/committing_philosophy.md -->

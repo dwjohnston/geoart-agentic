@@ -76,7 +76,7 @@ Responsible for drawing to the canvas. They have no node-level output — they a
 
 ### Module Nodes
 
-A reusable bundle of control/compute/render nodes packaged as one declarable node — for example `orbit-module` provides the orbit calculation together with its knobs and the render nodes that draw it. A module declares refable `params` and `x-outputs` like a compute node, and the compiler **expands** it into its constituent nodes (plus an input and output marker node) before evaluation. Modules can be nested. Reach for a module whenever the same cluster of nodes recurs across algorithms. See [Node Anatomy](node_anatomy.md#modules) for how they are defined and implemented.
+A reusable bundle of control/compute/render nodes packaged as one declarable node — for example `orbit-module` provides the orbit calculation together with its knobs and the render nodes that draw it. A module declares refable `params` and `x-outputs` like a compute node, and the compiler **expands** it into its constituent nodes (plus an input and output marker node) before evaluation. Modules can be nested. Reach for a module whenever the same cluster of nodes recurs across algorithms. See [Node Anatomy](../node-development/node_anatomy.md#modules) for how they are defined and implemented.
 
 ## Inputs and Outputs
 

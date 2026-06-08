@@ -1,10 +1,16 @@
 # Project Docs
 
-- [Workflow](workflow.md) — feature ideation, planning, execution, and acceptance phases
-- [Conceptual Architecture](conceptual_architecture.md) — nodes, layers, the schema, and how refs connect them
-- [Algorithm Lifecycle](algorithm_lifecycle.md) — from schema definition to pixels on screen
-- [Node Anatomy](node_anatomy.md) — schema definition and `implement*Node` runtime implementation
-- [Sensible Defaults](sensible_defaults.md) — coordinates, colours, orbit display, LFO ranges, and port defaults
-- [Declaring an Algorithm](declaring_an_algorithm.md) — wiring nodes into a `GeoArtGraph` and registering it
-- [Adding a New Node Type](adding_a_new_node_type.md)
-- [Code Style](code_style.md)
+## Subfolders
+
+- [architecture/](_index.md) — conceptual architecture, algorithm lifecycle, terminology, file structure
+- [node-development/](node-development/_index.md) — node anatomy, schema guidelines, value kinds, algorithms, sensible defaults
+- [workflow/](workflow/_index.md) — workflow phases, committing philosophy, skills index
+- [skill-fragments/](skill-fragments/_index.md) — handoff formats and test conventions for each node skill
+- [conventions/](conventions/_index.md) — tooling, language, code style, canonical levels, agent instructions
+- [audits/](audits/_index.md) — working-note audits (not composable docs)
+- [adr/](adr/0001-composed-prompt-files.md) — architecture decision records
+
+## System files (root)
+
+- [Agent Prompt Experiments](agent_prompt_experiments.md) — composition system overview, terminology, and approach experiments
+- [CLAUDE.md](CLAUDE.md) — same content as above; auto-loaded when working in this directory
