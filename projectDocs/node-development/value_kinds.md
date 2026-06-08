@@ -133,3 +133,4 @@ An example enum primitive declaration
 
 **When you define a new enum value type, you must also define a corresponding enum selector control node** using the `/control-node` skill. Each enum type needs its own dropdown control node — for example, `waveTypeValue` has `WaveSelectorControl`. The control node wraps `DropdownControl` with the enum's options hardcoded and outputs the enum value type. This is a mandatory follow-on task whenever a new enum value primitive is introduced.
 
+

@@ -10,7 +10,8 @@ A node is one of **four kinds**: `control`, `compute`, `render`, or `module`. Pi
 
 1. Define the node in `schema.json`
     - If you need a new value type, define it in `value-kinds.schema.json` first
-    - **New enum type → extra task:** every new enum value type also needs a dropdown selector control node so users can set it from the UI. `/define-node` adds the enum type and the control node's schema entry together, but the control node runtime implementation is a separate step — plan a `/control-node` task for it
+    - **New enum type → extra task:** every new enum value type also needs a dropdown selector control node so users can set it from the UI. The define-node step adds the enum type and the control node's schema entry together, but the control node runtime implementation is a separate step — plan a `control-node` task for it
+
 2. Implement the node in the appropriate `src/nodes/[compute|control|render]/nodes/` folder using the `implement*Node` function — see [Node Anatomy](node_anatomy.md)
     - Set port defaults that produce visible output with no params wired — see [Sensible Defaults](sensible_defaults.md)
 3. Register it in that layer's `registry.ts`

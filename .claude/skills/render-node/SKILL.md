@@ -353,13 +353,13 @@ The canonical, working example is [src/nodes/module/nodes/orbit.tsx](../src/node
 ## Feature name
 
 Determine the feature name from your task context:
-- If invoked via the workflow, read it from the task file path (`project/features/[featureName]/task_...md`)
-- If invoked directly, ask the user
+- If launched via the workflow, read it from the task file path (`project/features/[featureName]/task_...md`)
+- If launched directly, ask the user
 
 
 ## Input handoff
 
-Before starting, check for a handoff from `/define-node` at `project/features/[featureName]/handoffs/define-node.md`.
+Before starting, check for a handoff from the define-node step at `project/features/[featureName]/handoffs/define-node.md`.
 
 If it exists, use it as your primary reference for port names, value types, and behaviour. Do not re-read the schema to re-derive what is already summarised there.
 

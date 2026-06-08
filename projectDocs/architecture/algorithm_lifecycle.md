@@ -24,7 +24,7 @@ Implementations are registered in each layer's registry, which is what the compi
 
 ### Enum types require a selector control node
 
-Every new enum value type (e.g. `normaliseModeEnumValue`) needs a corresponding **dropdown selector control node** so users can set it from the UI. The `/define-node` skill adds both the enum value type and the control node's schema entry, but the runtime implementation of that control node is a separate task — it must be planned as a `/control-node` task in the feature plan.
+Every new enum value type (e.g. `normaliseModeEnumValue`) needs a corresponding **dropdown selector control node** so users can set it from the UI. The define-node step adds both the enum value type and the control node's schema entry, but the runtime implementation of that control node is a separate task — it must be planned as a `control-node` task in the feature plan.
 
 **When planning a feature that introduces a new enum:** add a `control-node` task for the selector after the `define-node` task and before `algorithm`. The implementation task reads the define-node handoff to get the enum values and wraps `DropdownControl` with them hardcoded.
 

@@ -459,8 +459,8 @@ Update `src/schema/typeHelpers.test.ts`:
 ## Feature name
 
 Determine the feature name from your task context:
-- If invoked via the workflow, read it from the task file path (`project/features/[featureName]/task_...md`)
-- If invoked directly, ask the user
+- If launched via the workflow, read it from the task file path (`project/features/[featureName]/task_...md`)
+- If launched directly, ask the user
 
 
 `value-kinds.schema.json` contains a registry of the value primitives that exist. Call these 'value primitive'
@@ -597,7 +597,6 @@ An example enum primitive declaration
 ```
 
 **When you define a new enum value type, you must also define a corresponding enum selector control node** using the `/control-node` skill. Each enum type needs its own dropdown control node — for example, `waveTypeValue` has `WaveSelectorControl`. The control node wraps `DropdownControl` with the enum's options hardcoded and outputs the enum value type. This is a mandatory follow-on task whenever a new enum value primitive is introduced.
-
 
 
 ## Handoff
