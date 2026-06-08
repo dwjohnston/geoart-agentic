@@ -21,15 +21,15 @@ See [ADR 0001](adr/0001-composed-prompt-files.md) for the full technical decisio
 
 **Single source of truth via fragments.** Knowledge lives once in `projectDocs/` and is composed into wherever it's needed via `<!-- include: -->`. No content is duplicated inline across templates or skill files. When a fragment changes, all approaches and skills that include it update automatically.
 
-**Thin skill files.** A SKILL.md contains only the envelope — frontmatter, role, file scope, responsibilities. All instructional depth (domain knowledge, test conventions, handoff instructions) lives as named fragments. This makes skills reusable across approaches and keeps each layer of abstraction at the right altitude.
+**Thin task handler files.** A SKILL.md or agent file contains only the envelope — frontmatter, role, file scope, responsibilities. All instructional depth (domain knowledge, test conventions, handoff instructions) lives as named fragments. This makes task handlers reusable across approaches and keeps each layer of abstraction at the right altitude.
 
 **Explicit handoffs over implicit knowledge.** Skills that depend on each other communicate through written artefacts at `project/features/[featureName]/handoffs/`. Each skill writes what it knows; the next reads it before starting. Nothing is passed implicitly through shared context — this is what makes the workflow usable in headless mode where there is no human to bridge the gap.
 
 ---
 
-## Fragment Pool and Skill Authoring
+## Fragment Pool and Task Handler Authoring
 
-Skill SKILL.md files should be thin — frontmatter, role, file scope, and responsibilities only. All instructional content lives as fragments in `projectDocs/` and is pulled in via `<!-- include: -->` directives. This keeps skills reusable across approaches without duplication.
+Skill SKILL.md and agent files should be thin — frontmatter, role, file scope, and responsibilities only. All instructional content lives as fragments in `projectDocs/` and is pulled in via `<!-- include: -->` directives. This keeps task handlers reusable across approaches without duplication.
 
 See [CLAUDE.md](CLAUDE.md) for authoring guidance when working in this directory.
 
@@ -105,14 +105,43 @@ In headless mode (`/workflow-auto`), the GitHub issue body is the feature brief.
 
 ---
 
+### `subagents` — Explicit Task Agents
+
+A minimal root `CLAUDE.md` (tooling, language, agent instructions, canonical levels, agents index) with no domain knowledge. Context is carried by task-specific agent files (`.claude/agents/*.md`) that are spawned by the orchestrating agent.
+
+Each agent bundles:
+- Role and file scope restrictions
+- Relevant domain fragments via `<!-- include: -->`
+- Reporting instructions (what to hand off when done)
+
+The root agent spawns the appropriate sub-agent rather than invoking a skill, handing the task prompt directly. Sub-agents share the same handoff pattern as skills — written artefacts at `project/features/[featureName]/handoffs/`.
+
+**Hypothesis:** Agent spawning gives the orchestrator finer control over context isolation and tool restrictions per task. The agents index in the root CLAUDE.md guides the orchestrator on what to spawn.
+
+#### Example: Introducing a New Node Type
+
+Same dependency chain as `skills`, expressed as agent spawns:
+
+```
+define-node-agent  →  compute-node-agent (or render/control)  →  algorithm-agent
+```
+
+1. **`define-node-agent`** — adds the node type to `src/schema/schema/schema.json`, runs `bun generate`, writes a handoff
+2. **`compute-node-agent`** (or `render-node-agent`/`control-node-agent`) — implements runtime logic and tests; reads the define-node handoff; writes a handoff with test values
+3. **`algorithm-agent`** — writes a reference algorithm; reads the implementation handoff to keep test values in sync
+
+---
+
 ## Planned Experiment Variants
 
 | Variant | Based on | Difference |
 |---|---|---|
 | `skills` | — | Skills index included in root CLAUDE.md |
 | `skills-without-index` | `skills` | Skills index omitted — agent must know which skill to invoke |
+| `subagents` | `skills` | Agents spawned instead of skills invoked; agents index instead of skills index |
+| `subagents-without-index` | `subagents` | Agents index omitted — orchestrator must infer which agent to spawn |
 
-The `skills-without-index` variant tests whether an explicit skill menu in the root is necessary, or whether the orchestrator can reason about which skill to use without it.
+The `*-without-index` variants test whether an explicit task-handler menu in the root is necessary, or whether the orchestrator can reason about what to invoke without it.
 
 ---
 canon: CANONICAL STATUS 👑 - 2026-06-06
