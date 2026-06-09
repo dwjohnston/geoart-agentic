@@ -61,7 +61,7 @@ export type ModuleImplementationFn<K extends ModuleNodeKinds> = ((params: NodeIn
   _kind: K;
 };
 
-export type ModuleRegistry = Map<string, ModuleImplementationFn<ModuleNodeKinds>>;
+export type ModuleRegistry = Map<string, { [K in ModuleNodeKinds]: ModuleImplementationFn<K> }[ModuleNodeKinds]>;
 
 
 // Function type for setting module control parameters with type-safe port names and values

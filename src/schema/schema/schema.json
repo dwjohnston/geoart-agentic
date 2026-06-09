@@ -1486,6 +1486,56 @@
               }
             }
           }
+        },
+        {
+          "title": "Wave Module Node",
+          "type": "object",
+          "description": "Module that encapsulates a wave oscillator with optional FM and AM modulation",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "value",
+              "valueType": "numberValue"
+            },
+            {
+              "name": "sampler",
+              "valueType": "samplerValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "wave-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "frequency": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "amplitude": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "phase": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     }
