@@ -21,9 +21,11 @@ const waveModuleImplementation = implementModule({
     // Internal control node IDs
     const waveShapeId = createInternalId(moduleId, 'wave-shape');
     const samplerTemporalImpactId = createInternalId(moduleId, 'sampler-temporal-impact');
+    const fmWaveShapeId = createInternalId(moduleId, 'fm-wave-shape');
     const fmFrequencyId = createInternalId(moduleId, 'fm-frequency');
     const fmAmountId = createInternalId(moduleId, 'fm-amount');
     const fmTemporalImpactId = createInternalId(moduleId, 'fm-temporal-impact');
+    const amWaveShapeId = createInternalId(moduleId, 'am-wave-shape');
     const amFrequencyId = createInternalId(moduleId, 'am-frequency');
     const amAmountId = createInternalId(moduleId, 'am-amount');
     const amTemporalImpactId = createInternalId(moduleId, 'am-temporal-impact');
@@ -58,6 +60,14 @@ const waveModuleImplementation = implementModule({
           },
         },
         {
+          id: fmWaveShapeId,
+          type: 'waveSelector',
+          params: {
+            label: { v: 'FM wave shape' },
+            value: { v: 'sine' },
+          },
+        },
+        {
           id: fmFrequencyId,
           type: 'slider',
           params: {
@@ -88,6 +98,14 @@ const waveModuleImplementation = implementModule({
             max: { v: 1 },
             step: { v: 0.01 },
             value: { v: 0 },
+          },
+        },
+        {
+          id: amWaveShapeId,
+          type: 'waveSelector',
+          params: {
+            label: { v: 'AM wave shape' },
+            value: { v: 'sine' },
           },
         },
         {
@@ -136,7 +154,7 @@ const waveModuleImplementation = implementModule({
           type: 'wave',
           params: {
             time: ref(timeId, 'time'),
-            waveType: ref(waveShapeId, 'value'),
+            waveType: ref(fmWaveShapeId, 'value'),
             frequency: ref(fmFrequencyId, 'value'),
             amplitude: ref(fmAmountId, 'value'),
             samplerTemporalImpact: ref(fmTemporalImpactId, 'value'),
@@ -147,7 +165,7 @@ const waveModuleImplementation = implementModule({
           type: 'wave',
           params: {
             time: ref(timeId, 'time'),
-            waveType: ref(waveShapeId, 'value'),
+            waveType: ref(amWaveShapeId, 'value'),
             frequency: ref(amFrequencyId, 'value'),
             amplitude: ref(amAmountId, 'value'),
             samplerTemporalImpact: ref(amTemporalImpactId, 'value'),
