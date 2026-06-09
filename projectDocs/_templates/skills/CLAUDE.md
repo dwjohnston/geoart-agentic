@@ -1,3 +1,6 @@
+<!-- include: projectDocs/headless/headless_real.md -->
+
+
 # Geometric Art Engine
 
 This project is a generative art engine. Graphs of connected nodes are evaluated each frame to produce animations drawn to a canvas.
@@ -6,10 +9,11 @@ This project is a generative art engine. Graphs of connected nodes are evaluated
 
 <!-- include: projectDocs/conventions/language.md -->
 
-<!-- include: projectDocs/conventions/agent_instructions.md -->
+<!-- include: projectDocs/ai-instructions/agent_instructions.md -->
 
 <!-- include: projectDocs/conventions/canonical_levels.md -->
 
-<!-- include: projectDocs/architecture/conceptual_architecture.md -->
+<!-- include: projectDocs/workflow/skills_index.md -->
 
-<!-- include: projectDocs/architecture/terminology.md -->
+<!-- include: projectDocs/workflow/committing_philosophy.md -->
+

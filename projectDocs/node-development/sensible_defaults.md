@@ -1,3 +1,8 @@
+---
+title: "Sensible Defaults"
+description: "coordinates, colours, orbit display, LFO ranges, and port defaults"
+---
+
 # Sensible Defaults
 
 ## Canvas coordinates

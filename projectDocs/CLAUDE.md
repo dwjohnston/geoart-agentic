@@ -1,3 +1,8 @@
+---
+title: "Agent Prompt Composition"
+description: "composition system overview, philosophy, terminology, and experiments"
+---
+
 # Agent Prompt Composition Experiments
 
 ## The Approach

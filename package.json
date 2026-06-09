@@ -26,6 +26,7 @@
     "test:browser": "npx vitest --browser=chromium",
     "test:browser:headless": "vitest --browser.headless",
     "generate:agents": "bun scripts/generate-agent-files.ts",
+    "generate:doc-indexes": "bun scripts/generate-doc-indexes.ts",
     "generate": "bun generate:derived-schema && bun generate:derived-types && bun generate:registries && bun generate:algorithms-index",
     "generate:registries": "bun src/nodes/scripts/generate-registries.ts",
     "generate:algorithms-index": "bun src/algorithms/scripts/generate-algorithms-index.ts",

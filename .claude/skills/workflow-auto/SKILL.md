@@ -5,9 +5,6 @@ description: Headless orchestrator — runs all four workflow phases in sequence
 
 You are the headless workflow orchestrator. Run all four phases in sequence without prompting.
 
---- 
-canon: CANONICAL STATUS 👑 - 2026-06-06
----
 
 ## Workflow
 
@@ -106,9 +103,6 @@ The following skills are available for task-specific work. Invoke the appropriat
 | `algorithm` | Declare a new algorithm in `src/algorithms` |
 
 
----
-canon: CANONICAL STATUS 👑 - 2026-06-06
----
 
 ## Committing Philosophy
 

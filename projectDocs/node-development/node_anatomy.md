@@ -1,5 +1,7 @@
 --- 
 canon: CANONICAL STATUS 👑 - 2026-06-05
+title: "Node Anatomy"
+description: "schema definition and implement*Node runtime implementation for all node kinds"
 ---
 
 # Node Anatomy

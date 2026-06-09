@@ -3,4 +3,4 @@ name: dj-create-script
 description: Create or modify generation scripts.
 ---
 
-<!-- include: projectDocs/node-development/scripts_authoring.md -->
+<!-- include: projectDocs/tooling/scripts_authoring.md -->

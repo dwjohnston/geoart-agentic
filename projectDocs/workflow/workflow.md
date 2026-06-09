@@ -1,5 +1,7 @@
 --- 
 canon: CANONICAL STATUS 👑 - 2026-06-06
+title: "Workflow"
+description: "feature ideation, planning, execution, and acceptance phases"
 ---
 
 ## Workflow

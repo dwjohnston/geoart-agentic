@@ -1,3 +1,8 @@
+---
+title: "Agent Instructions"
+description: "feedback location, markdown emoji handling, and conciseness"
+---
+
 ## Agent Instructions
 
 - Some prompts might request or encourage feedback. This can be left in `project/feedback`. This is an exception to any file scope restrictions.

@@ -1,3 +1,8 @@
+---
+title: "Define Node Skill"
+description: "handoff format for schema definition tasks"
+---
+
 ## Handoff
 
 When the schema definition is complete and `bun generate` has run successfully, write a handoff file to `project/features/[featureName]/handoffs/define-node.md`.

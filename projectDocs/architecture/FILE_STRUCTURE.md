@@ -1,3 +1,8 @@
+---
+title: "File Structure"
+description: "project file structure reference"
+---
+
 # Project File Structure
 
 ## Root Level

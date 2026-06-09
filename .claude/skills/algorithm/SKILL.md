@@ -33,9 +33,6 @@ Before writing the algorithm, check for handoff files at `project/features/[feat
 
 If none exist, proceed without a handoff.
 
---- 
-canon: CANONICAL STATUS 👑 - 2026-06-05
----
 
 # Declaring an Algorithm
 

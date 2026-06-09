@@ -10,7 +10,7 @@ If you are looking for CONTEXT.md, what you'll need is in `src/terminology.md`.
 
 <!-- include: projectDocs/conventions/language.md -->
 
-<!-- include: projectDocs/conventions/agent_instructions.md -->
+<!-- include: projectDocs/ai-instructions/agent_instructions.md -->
 
 <!-- include: projectDocs/conventions/canonical_levels.md -->
 

@@ -15,9 +15,6 @@ You are implementing a control node.
 - Implement the control node runtime logic
 - Write at least one test
 
---- 
-canon: CANONICAL STATUS 👑 - 2026-06-05
----
 
 # Node Anatomy
 

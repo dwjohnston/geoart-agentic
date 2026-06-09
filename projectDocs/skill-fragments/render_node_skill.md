@@ -1,3 +1,8 @@
+---
+title: "Render Node Skill"
+description: "tests and handoff format for render node implementations"
+---
+
 ## Tests
 
 Write at least one test using `.toMatchInlineSnapshot`. Tests should cover the node's drawing output or state changes.

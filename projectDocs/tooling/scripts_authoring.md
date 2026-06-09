@@ -1,3 +1,8 @@
+---
+title: "Scripts Authoring"
+description: "how to author generation scripts"
+---
+
 ## Authoring Generation Scripts
 
 This project makes frequent use of scripts that derive code or structured data from other code or structured data.

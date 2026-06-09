@@ -37,9 +37,6 @@ Once questions are answered, write the brief and stop.
 
 
 
---- 
-canon: CANONICAL STATUS 👑 - 2026-06-06
----
 
 ## Workflow
 

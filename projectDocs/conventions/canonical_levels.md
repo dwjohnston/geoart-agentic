@@ -1,3 +1,8 @@
+---
+title: "Canonical Levels"
+description: "👑 / 🥈 / 🗑️ / 🧪 quality indicators with dates"
+---
+
 ## Canonical Levels
 
 Some files will have a `CANONICAL LEVEL` header at the top. This gives an indication of how seriously the code in that file should be treated.

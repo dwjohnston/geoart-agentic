@@ -5,9 +5,6 @@ description: Phase 3 — invoke each task skill in dependency order.
 
 You are running Phase 3 of the workflow: execution.
 
---- 
-canon: CANONICAL STATUS 👑 - 2026-06-06
----
 
 ## Workflow
 
@@ -80,9 +77,6 @@ Commit after each task completes. Commit at stable checkpoints within a task. Se
 No commit step — commits have already been made throughout execution.
 
 
----
-canon: CANONICAL STATUS 👑 - 2026-06-06
----
 
 ## Committing Philosophy
 

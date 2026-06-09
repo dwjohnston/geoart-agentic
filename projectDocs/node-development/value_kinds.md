@@ -1,3 +1,8 @@
+---
+title: "Value Kinds"
+description: "value primitives, array values, enum values, and common mistakes"
+---
+
 `value-kinds.schema.json` contains a registry of the value primitives that exist. Call these 'value primitive'
 
 These are the shapes of the values that can communicated to and from nodes via their input and output ports. 

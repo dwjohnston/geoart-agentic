@@ -15,9 +15,6 @@ You are implementing a render node.
 - Implement the render node runtime logic
 - Write tests using `.toMatchInlineSnapshot`
 
---- 
-canon: CANONICAL STATUS 👑 - 2026-06-05
----
 
 # Node Anatomy
 

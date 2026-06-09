@@ -72,7 +72,7 @@ describe("generateApproach", () => {
 
   it("throws for a non-existent approach", () => {
     expect(() => generateApproach("__nonexistent__")).toThrow(
-      "Approach not found: templates/__nonexistent__/",
+      "Approach not found: _templates/__nonexistent__/",
     );
   });
 });

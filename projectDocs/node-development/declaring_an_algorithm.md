@@ -1,5 +1,7 @@
 --- 
 canon: CANONICAL STATUS 👑 - 2026-06-05
+title: "Declaring an Algorithm"
+description: "wiring nodes into a GeoArtGraph and registering it"
 ---
 
 # Declaring an Algorithm

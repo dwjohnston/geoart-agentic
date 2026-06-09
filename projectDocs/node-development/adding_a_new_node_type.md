@@ -1,5 +1,7 @@
 --- 
 canon: CANONICAL STATUS 👑 - 2026-06-05
+title: "Adding a New Node Type"
+description: "step-by-step guide for control, compute, render, and module nodes"
 ---
 
 ## Adding a New Node Type

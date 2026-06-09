@@ -1,3 +1,8 @@
+---
+title: "Compute Node Patterns"
+description: "taxonomy of compute node categories and algorithm composition patterns"
+---
+
 # Compute Node Patterns
 
 A taxonomy of compute node patterns for use during ideation, implementation, and algorithm authoring. This list is non-exhaustive — miscellaneous scalar utility nodes (`add`, `multiplier`, `time`) exist outside these categories. The taxonomy is general in nature and not a non-contradictory definition; nodes may exhibit characteristics of more than one category.

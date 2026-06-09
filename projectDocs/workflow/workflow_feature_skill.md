@@ -1,3 +1,8 @@
+---
+title: "Workflow Feature Skill"
+description: "feature skill instructions for the workflow-feature phase"
+---
+
 ## Phase 1 is conversational, not investigative
 
 The `workflow-feature` skill is **Phase 1 only**: ideation and clarification. It ends when a `FEATURE_BRIEF.md` is written.

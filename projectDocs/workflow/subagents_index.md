@@ -1,3 +1,8 @@
+---
+title: "Subagents Index"
+description: "available workflow and node development subagents"
+---
+
 ## Available Agents
 
 The following sub-agents are available for task-specific work. Spawn the appropriate agent for each scoped task.

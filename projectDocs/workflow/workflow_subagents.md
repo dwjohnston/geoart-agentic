@@ -1,5 +1,7 @@
 --- 
 canon: CANONICAL STATUS 👑 - 2026-06-06
+title: "Workflow Subagents"
+description: "subagent instructions for workflow phases"
 ---
 
 ## Workflow

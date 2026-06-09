@@ -1,5 +1,7 @@
 --- 
 canon: CANONICAL STATUS 👑 - 2026-05-16
+title: "Code Style"
+description: "ES modules, no enums, assertion style"
 ---
 
 ## Tooling 

@@ -1,3 +1,8 @@
+---
+title: "Skill Feature Name"
+description: "how a skill determines the current feature name"
+---
+
 ## Feature name
 
 Determine the feature name from your task context:

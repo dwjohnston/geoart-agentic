@@ -15,9 +15,6 @@ You are implementing a compute node.
 - Implement the compute node runtime logic
 - Write tests using round-number input/output values that clearly demonstrate what the node does
 
---- 
-canon: CANONICAL STATUS 👑 - 2026-06-05
----
 
 # Node Anatomy
 
