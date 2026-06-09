@@ -15,14 +15,6 @@ const waveModuleImplementation = implementModule({
     phase: 0,
     waveShape: 'sine',
     samplerTemporalImpact: 0,
-    fmWaveShape: 'sine',
-    fmFrequency: 1,
-    fmAmount: 0,
-    fmTemporalImpact: 0,
-    amWaveShape: 'sine',
-    amFrequency: 1,
-    amAmount: 0,
-    amTemporalImpact: 0,
   },
 
   provideNodes: (params, moduleId, defaultValues) => {
@@ -32,8 +24,6 @@ const waveModuleImplementation = implementModule({
     });
 
     const timeId = createInternalId(moduleId, 'time');
-    const fmWaveId = createInternalId(moduleId, 'fm-wave');
-    const amWaveId = createInternalId(moduleId, 'am-wave');
     const primaryWaveId = createInternalId(moduleId, 'primary-wave');
 
     const ref = (nodeId: string, port: string) => ({ ref: `${nodeId}.${port}` });
@@ -48,28 +38,6 @@ const waveModuleImplementation = implementModule({
           params: {},
         },
         {
-          id: fmWaveId,
-          type: 'wave',
-          params: {
-            time: ref(timeId, 'time'),
-            waveType: fromInput('fmWaveShape'),
-            frequency: fromInput('fmFrequency'),
-            amplitude: fromInput('fmAmount'),
-            samplerTemporalImpact: fromInput('fmTemporalImpact'),
-          },
-        },
-        {
-          id: amWaveId,
-          type: 'wave',
-          params: {
-            time: ref(timeId, 'time'),
-            waveType: fromInput('amWaveShape'),
-            frequency: fromInput('amFrequency'),
-            amplitude: fromInput('amAmount'),
-            samplerTemporalImpact: fromInput('amTemporalImpact'),
-          },
-        },
-        {
           id: primaryWaveId,
           type: 'wave',
           params: {
@@ -79,8 +47,6 @@ const waveModuleImplementation = implementModule({
             amplitude: fromInput('amplitude'),
             phase: fromInput('phase'),
             samplerTemporalImpact: fromInput('samplerTemporalImpact'),
-            frequencyModulator: ref(fmWaveId, 'sampler'),
-            amplitudeModulator: ref(amWaveId, 'sampler'),
           },
         },
       ],
@@ -107,30 +73,6 @@ const waveModuleImplementation = implementModule({
             ))}
             {renderIfNeeded(markerParams, 'samplerTemporalImpact', set, (v, onChange) => (
               <KnobControl label="Temporal impact" min={0} max={1} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'fmWaveShape', set, (v, onChange) => (
-              <DropdownControl id={`${inputMarkerId}-fm-wave-shape`} label="FM shape" options={WAVE_TYPES} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'fmFrequency', set, (v, onChange) => (
-              <KnobControl label="FM freq" min={0.01} max={20} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'fmAmount', set, (v, onChange) => (
-              <KnobControl label="FM amount" min={0} max={10} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'fmTemporalImpact', set, (v, onChange) => (
-              <KnobControl label="FM temporal" min={0} max={1} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'amWaveShape', set, (v, onChange) => (
-              <DropdownControl id={`${inputMarkerId}-am-wave-shape`} label="AM shape" options={WAVE_TYPES} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'amFrequency', set, (v, onChange) => (
-              <KnobControl label="AM freq" min={0.01} max={20} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'amAmount', set, (v, onChange) => (
-              <KnobControl label="AM amount" min={0} max={1} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'amTemporalImpact', set, (v, onChange) => (
-              <KnobControl label="AM temporal" min={0} max={1} initialValue={v} onChange={onChange} />
             ))}
           </div>
         ),

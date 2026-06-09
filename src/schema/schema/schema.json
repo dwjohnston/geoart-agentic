@@ -1538,30 +1538,6 @@
                 },
                 "samplerTemporalImpact": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "fmWaveShape": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/waveTypeEnumValueOrRef"
-                },
-                "fmFrequency": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "fmAmount": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "fmTemporalImpact": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "amWaveShape": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/waveTypeEnumValueOrRef"
-                },
-                "amFrequency": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "amAmount": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "amTemporalImpact": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
             }
