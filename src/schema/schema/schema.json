@@ -578,6 +578,48 @@
               }
             }
           }
+        },
+        {
+          "title": "Normalise Mode Selector Control Node",
+          "type": "object",
+          "description": "Dropdown selector for normalise mode",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "value",
+              "valueType": "normaliseModeEnumValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "normaliseModeSelector"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
+                },
+                "value": {
+                  "$ref": "value-kinds.schema.json#/definitions/normaliseModeEnumValue"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -1111,6 +1153,57 @@
                 },
                 "strength": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Normalise Compute Node",
+          "type": "object",
+          "description": "Normalises a point cloud into a square bounding box centred on one or more target points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "normalise"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "normalisationCenters": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "normalisationSize": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "strength": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/normaliseModeEnumValueOrRef"
                 }
               }
             }

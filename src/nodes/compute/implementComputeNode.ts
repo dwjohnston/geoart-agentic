@@ -117,6 +117,7 @@ function valueTypeToPortType(valueType: string): LegacyComputeNodePortImplementa
     cycleLengthModeEnumValue: 'string',
     timedLineArrayModeEnumValue: 'string',
     timedLineArrayIntervalModeEnumValue: 'string',
+    normaliseModeEnumValue: 'string',
     samplerValue: 'number',
   };
   return map[valueType] ?? 'number';
