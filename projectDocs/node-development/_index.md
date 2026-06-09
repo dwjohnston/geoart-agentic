@@ -2,6 +2,7 @@
 
 How-to and reference fragments for implementing node types, algorithms, schemas, and generation scripts.
 
+- [Compute Node Patterns](compute_node_patterns.md) — taxonomy of compute node categories and algorithm composition patterns
 - [Node Anatomy](node_anatomy.md) — schema definition and `implement*Node` runtime implementation for all node kinds
 - [Adding a New Node Type](adding_a_new_node_type.md) — step-by-step guide for control / compute / render / module nodes
 - [Schema Guidelines](schema_guidelines.md) — value primitives, array values, enum values, module nodes, testing
