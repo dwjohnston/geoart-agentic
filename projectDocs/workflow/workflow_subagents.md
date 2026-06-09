@@ -1,7 +1,7 @@
 --- 
 canon: CANONICAL STATUS 👑 - 2026-06-06
 title: "Workflow Subagents"
-description: "four-phase workflow for the subagents approach, covering HITL and headless modes"
+description: "subagent instructions for workflow phases"
 ---
 
 ## Workflow

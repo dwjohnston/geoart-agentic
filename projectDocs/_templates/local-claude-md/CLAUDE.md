@@ -16,6 +16,7 @@ This project is a generative art engine. Graphs of connected nodes are evaluated
 
 <!-- include: projectDocs/conventions/language.md -->
 
+<!-- include: projectDocs/ai-instructions/agent_instructions.md -->
 
 
 

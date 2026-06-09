@@ -1,6 +1,6 @@
 ---
 title: "Agent Prompt Composition"
-description: "composition system authority — philosophy, terminology, and approach experiments; only needed when working on prompt authoring"
+description: "composition system overview, philosophy, terminology, and experiments"
 ---
 
 # Agent Prompt Composition Experiments

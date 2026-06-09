@@ -1,6 +1,6 @@
 ---
-title: "Headless Test"
-description: "test override halting headless agents and invoking skill-test"
+title: "Claude GitHub"
+description: "headless agent and GitHub Actions override"
 ---
 
 ## ⚠️ STOP — Headless agents and Claude GitHub Agent Override

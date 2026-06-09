@@ -1,6 +1,6 @@
 ---
 title: "Agent Prompt Experiments"
-description: "composition system reference — only needed when working on prompt authoring or approach experiments"
+description: "composition system overview, terminology, and approach experiments"
 ---
 
 # Agent Prompt Composition Experiments

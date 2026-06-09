@@ -601,7 +601,6 @@ An example enum primitive declaration
 
 
 
-
 ## Handoff
 
 When the schema definition is complete and `bun generate` has run successfully, write a handoff file to `project/features/[featureName]/handoffs/define-node.md`.

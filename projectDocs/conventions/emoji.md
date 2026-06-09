@@ -1,7 +1,9 @@
 ---
 title: "Emoji"
-description: "🧽 (cleanup) and 💪 (good pattern, more could be added) — emoji used in code comments"
+description: "🧽 / 💪 in-doc markers"
 ---
+
+  🧽 - Clean up. 
 
 🧽 - Clean up.
 
