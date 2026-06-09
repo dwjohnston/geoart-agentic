@@ -1,5 +1,7 @@
 --- 
 canon: CANONICAL STATUS 👑 - 2026-06-05
+title: "Adding a New Node Type"
+description: "step-by-step guide for control, compute, render, and module nodes"
 ---
 
 ## Adding a New Node Type
@@ -13,7 +15,7 @@ A node is one of **four kinds**: `control`, `compute`, `render`, or `module`. Pi
     - **New enum type → extra task:** every new enum value type also needs a dropdown selector control node so users can set it from the UI. The define-node step adds the enum type and the control node's schema entry together, but the control node runtime implementation is a separate step — plan a `control-node` task for it
 
 2. Implement the node in the appropriate `src/nodes/[compute|control|render]/nodes/` folder using the `implement*Node` function — see [Node Anatomy](node_anatomy.md)
-    - Set port defaults that produce visible output with no params wired — see [Sensible Defaults](sensible_defaults.md)
+    - Set port defaults that produce visible output with no params wired — see [Declaring an Algorithm — Sensible Defaults](declaring_an_algorithm.md#sensible-defaults)
 3. Register it in that layer's `registry.ts`
 
 ### A module node

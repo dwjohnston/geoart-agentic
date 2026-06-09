@@ -1,3 +1,8 @@
+---
+title: "Skill Input Handoff"
+description: "pattern for reading a handoff from a prior skill"
+---
+
 ## Input handoff
 
 Before starting, check for a handoff from the define-node step at `project/features/[featureName]/handoffs/define-node.md`.

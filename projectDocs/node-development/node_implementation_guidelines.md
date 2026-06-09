@@ -1,3 +1,8 @@
+---
+title: "Node Implementation Guidelines"
+description: "file structure, export format, and testing patterns"
+---
+
 ## Node Implementation Guidelines
 
 ### File Structure, Export Format

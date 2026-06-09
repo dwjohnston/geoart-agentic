@@ -1,5 +1,7 @@
 --- 
 canon: CANONICAL STATUS 👑 - 2026-06-05
+title: Conceptual Architecture
+description: nodes, layers, the schema, and how refs connect them
 ---
 
 # Conceptual Architecture

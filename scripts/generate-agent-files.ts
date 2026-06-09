@@ -18,7 +18,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync, readdirSync
 import { resolve, dirname, relative, extname, join } from "path";
 
 const ROOT = resolve(import.meta.dir, "..");
-const TEMPLATES_DIR = resolve(ROOT, "projectDocs/templates");
+const TEMPLATES_DIR = resolve(ROOT, "projectDocs/_templates");
 
 export function extractSection(content: string, sectionName: string, sourcePath: string): string {
   const lines = content.split("\n");
@@ -62,7 +62,8 @@ export function processIncludes(content: string, templateFilePath: string): stri
       throw new Error(`Include file not found: ${filePath} (referenced in ${templateFilePath})`);
     }
 
-    const fileContent = readFileSync(fullPath, "utf-8");
+    const raw = readFileSync(fullPath, "utf-8");
+    const fileContent = raw.replace(/^---[ \t]*\n[\s\S]*?\n---[ \t]*\n/, "");
     if (!section) return fileContent;
 
     return extractSection(fileContent, section, filePath);
@@ -133,7 +134,7 @@ export function getAllOutputPaths(): string[] {
 export function generateApproach(approach: string): void {
   const approachDir = resolve(TEMPLATES_DIR, approach);
   if (!existsSync(approachDir)) {
-    throw new Error(`Approach not found: templates/${approach}/`);
+    throw new Error(`Approach not found: _templates/${approach}/`);
   }
 
   for (const outputPath of getAllOutputPaths()) {

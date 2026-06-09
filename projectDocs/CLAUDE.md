@@ -1,3 +1,8 @@
+---
+title: "Agent Prompt Composition"
+description: "composition system authority — philosophy, terminology, and approach experiments; only needed when working on prompt authoring"
+---
+
 # Agent Prompt Composition Experiments
 
 ## The Approach

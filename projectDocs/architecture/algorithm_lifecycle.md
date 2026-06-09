@@ -1,5 +1,7 @@
 --- 
 canon: CANONICAL STATUS 👑 - 2026-05-16
+title: "Algorithm Lifecycle"
+description: "from schema definition to pixels on screen"
 ---
 
 # Algorithm Lifecycle

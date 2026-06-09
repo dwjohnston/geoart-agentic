@@ -1,3 +1,8 @@
+---
+title: "Workflow Feature Skill"
+description: "Phase 1 skill constraints — conversational ideation only, no file exploration, outputs FEATURE_BRIEF.md"
+---
+
 ## Phase 1 is conversational, not investigative
 
 The `workflow-feature` skill is **Phase 1 only**: ideation and clarification. It ends when a `FEATURE_BRIEF.md` is written.

@@ -1,3 +1,8 @@
+---
+title: "Module Node Skill"
+description: "tests and handoff format for module node implementations"
+---
+
 ## Notes
 
 Do not use deprecated properties of any nodes you provide inside the module.

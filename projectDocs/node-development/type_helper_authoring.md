@@ -1,3 +1,8 @@
+---
+title: "Type Helper Authoring"
+description: "how to write TypeScript type helpers"
+---
+
 ## Authoring Type Helpers
 
 Type helpers are conditional TypeScript utility types that map between schema concepts and runtime TypeScript.

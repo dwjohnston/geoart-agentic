@@ -1,3 +1,8 @@
+---
+title: "Compute Node Skill"
+description: "tests and handoff format for compute node implementations"
+---
+
 ## Tests
 
 Write at least one test. Choose input values that produce round-number outputs — these values will be reused in the reference algorithm.

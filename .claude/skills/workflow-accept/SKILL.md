@@ -5,9 +5,6 @@ description: Phase 4 — move a completed feature to projects/completed-features
 
 You are running Phase 4 of the workflow: acceptance.
 
---- 
-canon: CANONICAL STATUS 👑 - 2026-06-06
----
 
 ## Workflow
 

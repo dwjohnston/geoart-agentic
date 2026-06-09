@@ -20,27 +20,6 @@ You are implementing a module node.
 
 A **module** is a node that expands, at compile time, into a bundle of control/compute/render nodes plus two synthetic marker nodes. It has no `evaluate` function — instead of *computing*, it *generates other nodes*. See [terminology.md](../architecture/terminology.md) for the canonical definitions of the terms used here.
 
-### Part 1: Define a module
-
-Module types are defined in `schema.json` under `definitions.moduleNode` rather than the three layer `oneOf` arrays. The shape mirrors a compute node — refable `params` plus `x-outputs`:
-
-```json
-{
-  "title": "Orbit Module",
-  "x-outputs": [{ "name": "points", "valueType": "colorPointArrayValue" }],
-  "properties": {
-    "type": { "enum": ["orbit-module"] },
-    "params": {
-      "properties": {
-        "time":   { "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef" },
-        "radius": { "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef" }
-      }
-    }
-  }
-}
-```
-
-After editing the schema, run `bun generate` and update the type helpers — see the "Module Nodes" section of [src/schema/CLAUDE.md](../../src/schema/CLAUDE.md) for the exact `typeHelpers.ts` / generator steps.
 
 ### Part 2: Implement a module
 
@@ -126,6 +105,7 @@ Key rules:
 - **Pass array outputs straight through** (`{ ref: '...points' }`); only wrap when assembling an array from scalars (`{ v: [{ ref: '...' }] }`).
 - A module may itself declare other module nodes — the compiler expands iteratively until no module nodes remain (nested modules).
 
+
 ### Registering a module
 
 Add the implementation to the module registry:
@@ -140,11 +120,13 @@ export const moduleRegistry: ModuleRegistry = new Map([
 The canonical, working example is [src/nodes/module/nodes/orbit.tsx](../src/nodes/module/nodes/orbit.tsx).
 
 
+
 ## Feature name
 
 Determine the feature name from your task context:
 - If launched via the workflow, read it from the task file path (`project/features/[featureName]/task_...md`)
 - If launched directly, ask the user
+
 
 
 ## Input handoff
@@ -154,6 +136,7 @@ Before starting, check for a handoff from the define-node step at `project/featu
 If it exists, use it as your primary reference for port names, value types, and behaviour. Do not re-read the schema to re-derive what is already summarised there.
 
 If it does not exist, read `src/schema/schema/schema.json` directly.
+
 
 
 ## Notes

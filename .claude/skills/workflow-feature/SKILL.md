@@ -6,6 +6,7 @@ description: Phase 1 — ideate and write a FEATURE_BRIEF.md. Use when starting 
 You are running Phase 1 of the workflow: feature ideation.
 
 
+
 ## Phase 1 is conversational, not investigative
 
 The `workflow-feature` skill is **Phase 1 only**: ideation and clarification. It ends when a `FEATURE_BRIEF.md` is written.
@@ -37,9 +38,6 @@ Once questions are answered, write the brief and stop.
 
 
 
---- 
-canon: CANONICAL STATUS 👑 - 2026-06-06
----
 
 ## Workflow
 

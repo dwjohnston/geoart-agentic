@@ -1,5 +1,7 @@
 ---
 canon: CANONICAL STATUS 👑 - 2026-06-06
+title: "Committing Philosophy"
+description: "when to commit and at what granularity"
 ---
 
 ## Committing Philosophy

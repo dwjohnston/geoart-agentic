@@ -1,3 +1,8 @@
+---
+title: "Skills Index"
+description: "available workflow and node development skills"
+---
+
 ## Available Skills
 
 The following skills are available for task-specific work. Invoke the appropriate skill before starting a scoped task.

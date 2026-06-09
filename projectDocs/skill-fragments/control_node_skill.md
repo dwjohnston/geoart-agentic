@@ -1,3 +1,8 @@
+---
+title: "Control Node Skill"
+description: "tests and handoff format for control node implementations"
+---
+
 ## Tests
 
 Write at least one test.

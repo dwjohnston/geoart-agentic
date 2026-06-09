@@ -1,3 +1,8 @@
+---
+title: "Tooling"
+description: "bun commands for test, typecheck, validate, and generate"
+---
+
 ## Tooling
 
 Use `bun` to execute node-like commands.

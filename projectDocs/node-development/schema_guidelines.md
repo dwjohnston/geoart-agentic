@@ -1,3 +1,8 @@
+---
+title: "Schema Guidelines"
+description: "value primitives, array values, enum values, module nodes, and testing"
+---
+
 ## Schema Guidelines
 
 `schema/schema.json` is the JSON Schema (draft-19) for all serialised algorithms. It is the source of truth for valid node types, node input shapes, and algorithm structure.

@@ -3,6 +3,7 @@ name: compose-docs
 description: Author and maintain agent prompt fragments, skill templates, and CLAUDE.md files in the projectDocs composition system
 ---
 
+
 # Agent Prompt Composition Experiments
 
 ## The Approach
@@ -143,9 +144,6 @@ define-node-agent  →  compute-node-agent (or render/control)  →  algorithm-a
 
 The `*-without-index` variants test whether an explicit task-handler menu in the root is necessary, or whether the orchestrator can reason about what to invoke without it.
 
----
-canon: CANONICAL STATUS 👑 - 2026-06-06
----
 
 ## Committing Philosophy
 
