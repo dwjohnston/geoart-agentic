@@ -13,9 +13,11 @@ describe('wave-module', () => {
     expect(controlTypes).toEqual([
       { id: 'myWave:wave-shape', type: 'waveSelector' },
       { id: 'myWave:sampler-temporal-impact', type: 'slider' },
+      { id: 'myWave:fm-wave-shape', type: 'waveSelector' },
       { id: 'myWave:fm-frequency', type: 'slider' },
       { id: 'myWave:fm-amount', type: 'slider' },
       { id: 'myWave:fm-temporal-impact', type: 'slider' },
+      { id: 'myWave:am-wave-shape', type: 'waveSelector' },
       { id: 'myWave:am-frequency', type: 'slider' },
       { id: 'myWave:am-amount', type: 'slider' },
       { id: 'myWave:am-temporal-impact', type: 'slider' },
