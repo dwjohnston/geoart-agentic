@@ -1,0 +1,58 @@
+/* 12-column grid system */
+.grid[data-grid-container='true'] {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  width: 100%;
+}
+
+/* Grid item responsive sizing */
+.grid:not([data-grid-container='true']) {
+  /* Default to xs breakpoint (mobile first) */
+  grid-column: span var(--grid-xs, 12);
+}
+
+/* xs breakpoint (mobile) - default values */
+.grid[data-grid-xs='1'] { --grid-xs: 1; }
+.grid[data-grid-xs='2'] { --grid-xs: 2; }
+.grid[data-grid-xs='3'] { --grid-xs: 3; }
+.grid[data-grid-xs='4'] { --grid-xs: 4; }
+.grid[data-grid-xs='5'] { --grid-xs: 5; }
+.grid[data-grid-xs='6'] { --grid-xs: 6; }
+.grid[data-grid-xs='7'] { --grid-xs: 7; }
+.grid[data-grid-xs='8'] { --grid-xs: 8; }
+.grid[data-grid-xs='9'] { --grid-xs: 9; }
+.grid[data-grid-xs='10'] { --grid-xs: 10; }
+.grid[data-grid-xs='11'] { --grid-xs: 11; }
+.grid[data-grid-xs='12'] { --grid-xs: 12; }
+
+/* lg breakpoint (1024px and up) */
+@media (min-width: 1024px) {
+  .grid[data-grid-lg='1'] { grid-column: span 1; }
+  .grid[data-grid-lg='2'] { grid-column: span 2; }
+  .grid[data-grid-lg='3'] { grid-column: span 3; }
+  .grid[data-grid-lg='4'] { grid-column: span 4; }
+  .grid[data-grid-lg='5'] { grid-column: span 5; }
+  .grid[data-grid-lg='6'] { grid-column: span 6; }
+  .grid[data-grid-lg='7'] { grid-column: span 7; }
+  .grid[data-grid-lg='8'] { grid-column: span 8; }
+  .grid[data-grid-lg='9'] { grid-column: span 9; }
+  .grid[data-grid-lg='10'] { grid-column: span 10; }
+  .grid[data-grid-lg='11'] { grid-column: span 11; }
+  .grid[data-grid-lg='12'] { grid-column: span 12; }
+}
+
+/* xl breakpoint (1280px and up) */
+@media (min-width: 1280px) {
+  .grid[data-grid-xl='1'] { grid-column: span 1; }
+  .grid[data-grid-xl='2'] { grid-column: span 2; }
+  .grid[data-grid-xl='3'] { grid-column: span 3; }
+  .grid[data-grid-xl='4'] { grid-column: span 4; }
+  .grid[data-grid-xl='5'] { grid-column: span 5; }
+  .grid[data-grid-xl='6'] { grid-column: span 6; }
+  .grid[data-grid-xl='7'] { grid-column: span 7; }
+  .grid[data-grid-xl='8'] { grid-column: span 8; }
+  .grid[data-grid-xl='9'] { grid-column: span 9; }
+  .grid[data-grid-xl='10'] { grid-column: span 10; }
+  .grid[data-grid-xl='11'] { grid-column: span 11; }
+  .grid[data-grid-xl='12'] { grid-column: span 12; }
+}
