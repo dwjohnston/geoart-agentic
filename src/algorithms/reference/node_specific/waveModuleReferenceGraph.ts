@@ -1,21 +1,7 @@
 import { AlgorithmBuilder } from '../../../schema/builder';
 
 const graph = new AlgorithmBuilder({ title: 'Wave Module Reference' })
-	.addControlNode({
-		id: 'frequency',
-		type: 'slider',
-		params: { label: { v: 'Frequency' }, min: { v: 0.1 }, max: { v: 10 }, step: { v: 0.1 }, value: { v: 1 } },
-	})
-	.addControlNode({
-		id: 'amplitude',
-		type: 'slider',
-		params: { label: { v: 'Amplitude' }, min: { v: 0 }, max: { v: 1 }, step: { v: 0.01 }, value: { v: 0.3 } },
-	})
-	.addControlNode({
-		id: 'phase',
-		type: 'slider',
-		params: { label: { v: 'Phase' }, min: { v: 0 }, max: { v: 1 }, step: { v: 0.01 }, value: { v: 0 } },
-	})
+
 	.addControlNode({
 		id: 'numPoints',
 		type: 'slider',
@@ -25,9 +11,7 @@ const graph = new AlgorithmBuilder({ title: 'Wave Module Reference' })
 		id: 'wave',
 		type: 'wave-module',
 		params: {
-			frequency: { ref: 'frequency.value' },
-			amplitude: { ref: 'amplitude.value' },
-			phase: { ref: 'phase.value' },
+
 		},
 	})
 	.addComputeNode({

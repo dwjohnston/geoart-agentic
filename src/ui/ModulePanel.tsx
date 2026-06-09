@@ -11,7 +11,7 @@ export function ModulePanel({ children, gap = 16, title }: Props) {
   return (
     <div
       style={{
-        backgroundColor: '#e8e8e8',
+        backgroundColor: '#3A3A3A',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
         padding: title ? '12px' : '0',
         borderRadius: '4px',
@@ -22,7 +22,7 @@ export function ModulePanel({ children, gap = 16, title }: Props) {
           margin: '0 0 12px 0',
           fontSize: '0.875rem',
           fontWeight: '600',
-          color: '#333',
+          color: '#e8e8e8',
         }}>
           {title}
         </h2>
