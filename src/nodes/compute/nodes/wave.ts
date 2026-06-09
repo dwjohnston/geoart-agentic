@@ -16,18 +16,20 @@ export function sampleWave(
 
 
 ): number {
-  const sampledModFreq = frequencyModulator?.sample(fractionOfOneCycle) ?? 0
+
+
+  const phaseShift = t * samplerTemporalImpact + phase;
+
+  const sampledModFreq = frequencyModulator?.sample(fractionOfOneCycle) ?? 0;
   const sampledModAmp = amplitudeModulator?.sample(fractionOfOneCycle) ?? 0;
 
-  const effectiveFrequency = frequency + sampledModFreq;
   const effectiveAmplitude = amplitude + sampledModAmp;
 
-  const phaseShift = (effectiveFrequency * t * samplerTemporalImpact * 2 * Math.PI) / 60;
+  const phaseModulation = sampledModFreq;
 
+  const effectiveAngle = frequency * fractionOfOneCycle * 2 * Math.PI + phaseModulation + phaseShift;
 
-  const effectiveAngle = effectiveFrequency * fractionOfOneCycle * 2 * Math.PI + phaseShift + phase;
   return effectiveAmplitude * evaluateWaveAtAngle(waveType, effectiveAngle);
-
 }
 
 function evaluateWave(
