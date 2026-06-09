@@ -16,7 +16,7 @@ You are implementing a module node.
 - Wire internal nodes via the input marker pattern
 - Write tests
 
-<!-- include: projectDocs/node-development/node_anatomy.md#Modules -->
+<!-- include: projectDocs/node-development/implementing_a_module.md -->
 
 <!-- include: projectDocs/skill-fragments/skill_feature_name.md -->
 
