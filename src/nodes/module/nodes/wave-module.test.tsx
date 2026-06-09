@@ -6,22 +6,13 @@ describe('wave-module', () => {
     expect(waveModule._kind).toBe('wave-module');
   });
 
-  it('returns the expected internal node ids and types', () => {
+  it('has no internal control nodes', () => {
     const result = waveModule({}, 'myWave');
+    expect(result.controlNodes).toHaveLength(0);
+  });
 
-    const controlTypes = result.controlNodes.map(n => ({ id: n.id, type: n.type }));
-    expect(controlTypes).toEqual([
-      { id: 'myWave:wave-shape', type: 'waveSelector' },
-      { id: 'myWave:sampler-temporal-impact', type: 'slider' },
-      { id: 'myWave:fm-wave-shape', type: 'waveSelector' },
-      { id: 'myWave:fm-frequency', type: 'slider' },
-      { id: 'myWave:fm-amount', type: 'slider' },
-      { id: 'myWave:fm-temporal-impact', type: 'slider' },
-      { id: 'myWave:am-wave-shape', type: 'waveSelector' },
-      { id: 'myWave:am-frequency', type: 'slider' },
-      { id: 'myWave:am-amount', type: 'slider' },
-      { id: 'myWave:am-temporal-impact', type: 'slider' },
-    ]);
+  it('returns the expected internal compute nodes', () => {
+    const result = waveModule({}, 'myWave');
 
     const computeTypes = result.computeNodes.map(n => ({ id: n.id, type: n.type }));
     expect(computeTypes).toEqual([
@@ -34,7 +25,21 @@ describe('wave-module', () => {
     expect(result.renderNodes).toHaveLength(0);
   });
 
-  it('wires primary wave outputs to the output marker', () => {
+  it('wires FM and AM wave nodes to input marker ports', () => {
+    const result = waveModule({}, 'myWave');
+
+    const fmWave = result.computeNodes.find(n => n.id === 'myWave:fm-wave')!;
+    const fmParams = fmWave.params as unknown as Record<string, unknown>;
+    expect(fmParams.waveType).toEqual({ ref: 'myWave:input-marker.fmWaveShape' });
+    expect(fmParams.frequency).toEqual({ ref: 'myWave:input-marker.fmFrequency' });
+    expect(fmParams.amplitude).toEqual({ ref: 'myWave:input-marker.fmAmount' });
+
+    const amWave = result.computeNodes.find(n => n.id === 'myWave:am-wave')!;
+    const amParams = amWave.params as unknown as Record<string, unknown>;
+    expect(amParams.waveType).toEqual({ ref: 'myWave:input-marker.amWaveShape' });
+  });
+
+  it('wires primary wave to the output marker', () => {
     const result = waveModule({}, 'myWave');
 
     expect(result.outputMarkerNode.outputRefs).toEqual({
@@ -44,18 +49,9 @@ describe('wave-module', () => {
     expect(result.outputMarkerNode.id).toBe('myWave');
   });
 
-  it('uses external frequency input from the input marker', () => {
-    const result = waveModule({ frequency: { ref: 'freqSlider.value' } }, 'myWave');
-
-    const primaryWave = result.computeNodes.find(n => n.id === 'myWave:primary-wave')!;
-    const primaryParams = primaryWave.params as unknown as Record<string, unknown>;
-    expect(primaryParams.frequency).toEqual({ ref: 'myWave:input-marker.frequency' });
-  });
-
   it('namespaces all internal ids with the module id', () => {
     const result = waveModule({}, 'waveA');
     const allIds = [
-      ...result.controlNodes.map(n => n.id),
       ...result.computeNodes.map(n => n.id),
       result.inputMarkerNode.id,
     ];
@@ -67,15 +63,18 @@ describe('wave-module', () => {
   it('applies default values when no params are supplied', () => {
     const result = waveModule({}, 'myWave');
 
-    expect(result.defaultValues).toEqual({
+    expect(result.defaultValues).toMatchObject({
       frequency: 1,
       amplitude: 0.5,
       phase: 0,
+      waveShape: 'sine',
+      fmAmount: 0,
+      amAmount: 0,
     });
 
     const inputMarkerParams = result.inputMarkerNode.params as unknown as Record<string, { v: unknown }>;
     expect(inputMarkerParams.frequency?.v).toBe(1);
-    expect(inputMarkerParams.amplitude?.v).toBe(0.5);
-    expect(inputMarkerParams.phase?.v).toBe(0);
+    expect(inputMarkerParams.waveShape?.v).toBe('sine');
+    expect(inputMarkerParams.fmAmount?.v).toBe(0);
   });
 });
