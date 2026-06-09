@@ -1,6 +1,6 @@
 ---
 title: "Agent Instructions"
-description: "feedback location, markdown emoji handling, and conciseness"
+description: "behavioural rules every agent must follow — feedback location, markdown emoji handling, and conciseness"
 ---
 
 ## Agent Instructions

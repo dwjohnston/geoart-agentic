@@ -1,6 +1,6 @@
 ---
 title: "Skill Test"
-description: "test skill content"
+description: "skill invocation test fragment — writes a hillbilly poem; only used when testing the skill machinery"
 ---
 
 In the style of a hill billy, write create a poem about your current request. 
