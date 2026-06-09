@@ -3,6 +3,7 @@ name: compose-docs
 description: Author and maintain agent prompt fragments, skill templates, and CLAUDE.md files in the projectDocs composition system
 ---
 
+
 # Agent Prompt Composition Experiments
 
 ## The Approach

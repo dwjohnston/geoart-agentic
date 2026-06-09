@@ -77,6 +77,7 @@ Commit after each task completes. Commit at stable checkpoints within a task. Se
 No commit step — commits have already been made throughout execution.
 
 
+
 ## Available Skills
 
 The following skills are available for task-specific work. Invoke the appropriate skill before starting a scoped task.

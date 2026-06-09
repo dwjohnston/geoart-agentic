@@ -347,11 +347,13 @@ export const moduleRegistry: ModuleRegistry = new Map([
 The canonical, working example is [src/nodes/module/nodes/orbit.tsx](../src/nodes/module/nodes/orbit.tsx).
 
 
+
 ## Feature name
 
 Determine the feature name from your task context:
 - If launched via the workflow, read it from the task file path (`project/features/[featureName]/task_...md`)
 - If launched directly, ask the user
+
 
 
 ## Input handoff
@@ -361,6 +363,7 @@ Before starting, check for a handoff from the define-node step at `project/featu
 If it exists, use it as your primary reference for port names, value types, and behaviour. Do not re-read the schema to re-derive what is already summarised there.
 
 If it does not exist, read `src/schema/schema/schema.json` directly.
+
 
 
 ## Tests

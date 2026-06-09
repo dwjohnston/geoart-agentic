@@ -3,6 +3,7 @@ name: generate-type-helper
 description: Write new TypeScript type helpers for the schema system; includes test patterns
 ---
 
+
 ## Authoring Type Helpers
 
 Type helpers are conditional TypeScript utility types that map between schema concepts and runtime TypeScript.

@@ -5,6 +5,7 @@
 
 This project is a generative art engine. Graphs of connected nodes are evaluated each frame to produce animations drawn to a canvas.
 
+
 ## Tooling
 
 Use `bun` to execute node-like commands.
@@ -18,12 +19,14 @@ After making a series of changes run `bun validate` to run all tests and static 
 Use `bun generate` to run all code generation scripts.
 
 
+
 ## Language
 
 Always use British English, with the exception of the following words:
 
 - color
 - center
+
 
 
 ## Agent Instructions
@@ -35,6 +38,7 @@ Always use British English, with the exception of the following words:
 - Be very concise in creating .md files, commit messages, etc.
 
 - If you ask a question and it doesn't get an answer — re-ask the question.
+
 
 
 ## Canonical Levels
@@ -60,6 +64,7 @@ The levels are:
 🧪 — Experimental. Working when committed but may contain bugs or patterns that should not be repeated. If relying on this code, prompt the user for clarification before proceeding. Ask the user if they want you to add a matching canonical header to any file you write.
 
 The canonical header also contains a `YYYY-MM-DD` date — a more recent 👑 header takes precedence over an older one.
+
 
 
 ## Available Skills

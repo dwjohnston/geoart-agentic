@@ -193,6 +193,7 @@ GraphEngine.tick()   ← called each requestAnimationFrame, draws to canvas
 ```
 
 
+
 ## Available Skills
 
 The following skills are available for task-specific work. Invoke the appropriate skill before starting a scoped task.

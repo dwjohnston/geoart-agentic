@@ -348,6 +348,7 @@ export const moduleRegistry: ModuleRegistry = new Map([
 The canonical, working example is [src/nodes/module/nodes/orbit.tsx](../src/nodes/module/nodes/orbit.tsx).
 
 
+
 ## Schema Guidelines
 
 `schema/schema.json` is the JSON Schema (draft-19) for all serialised algorithms. It is the source of truth for valid node types, node input shapes, and algorithm structure.
@@ -453,11 +454,13 @@ Update `src/schema/typeHelpers.test.ts`:
   - Port references
 
 
+
 ## Feature name
 
 Determine the feature name from your task context:
 - If launched via the workflow, read it from the task file path (`project/features/[featureName]/task_...md`)
 - If launched directly, ask the user
+
 
 
 `value-kinds.schema.json` contains a registry of the value primitives that exist. Call these 'value primitive'
@@ -594,6 +597,7 @@ An example enum primitive declaration
 ```
 
 **When you define a new enum value type, you must also define a corresponding enum selector control node** using the `/control-node` skill. Each enum type needs its own dropdown control node — for example, `waveTypeValue` has `WaveSelectorControl`. The control node wraps `DropdownControl` with the enum's options hardcoded and outputs the enum value type. This is a mandatory follow-on task whenever a new enum value primitive is introduced.
+
 
 
 
