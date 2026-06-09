@@ -20,27 +20,6 @@ You are implementing a module node.
 
 A **module** is a node that expands, at compile time, into a bundle of control/compute/render nodes plus two synthetic marker nodes. It has no `evaluate` function — instead of *computing*, it *generates other nodes*. See [terminology.md](../architecture/terminology.md) for the canonical definitions of the terms used here.
 
-### Part 1: Define a module
-
-Module types are defined in `schema.json` under `definitions.moduleNode` rather than the three layer `oneOf` arrays. The shape mirrors a compute node — refable `params` plus `x-outputs`:
-
-```json
-{
-  "title": "Orbit Module",
-  "x-outputs": [{ "name": "points", "valueType": "colorPointArrayValue" }],
-  "properties": {
-    "type": { "enum": ["orbit-module"] },
-    "params": {
-      "properties": {
-        "time":   { "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef" },
-        "radius": { "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef" }
-      }
-    }
-  }
-}
-```
-
-After editing the schema, run `bun generate` and update the type helpers — see the "Module Nodes" section of [src/schema/CLAUDE.md](../../src/schema/CLAUDE.md) for the exact `typeHelpers.ts` / generator steps.
 
 ### Part 2: Implement a module
 
@@ -125,6 +104,7 @@ Key rules:
 - **The output marker's id is the module id** (`moduleId`), and its `outputRefs` wire each declared `x-output` to the internal port that produces it. Outside refs like `{ ref: 'myOrbit.points' }` resolve here.
 - **Pass array outputs straight through** (`{ ref: '...points' }`); only wrap when assembling an array from scalars (`{ v: [{ ref: '...' }] }`).
 - A module may itself declare other module nodes — the compiler expands iteratively until no module nodes remain (nested modules).
+
 
 ### Registering a module
 
