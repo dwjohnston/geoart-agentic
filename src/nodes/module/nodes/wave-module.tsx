@@ -3,6 +3,7 @@ import { createInternalId, createInputMarkerParams, renderIfNeeded } from '../mo
 import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfaces/ModuleImplementation';
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { KnobControl } from '../../../ui/KnobControl';
+import { ModulePanel } from '../../../ui/ModulePanel';
 import { DropdownControl } from '../../control/ui/DropdownControl';
 
 const WAVE_TYPES = ['sine', 'square', 'triangle', 'saw', 'reverse-saw'] as const;
@@ -58,7 +59,7 @@ const waveModuleImplementation = implementModule({
         type: 'module-input-marker',
         params: createInputMarkerParams(params, defaultValues),
         renderControl: (markerParams, set) => (
-          <div data-testid={`${inputMarkerId}-controls`}>
+          <ModulePanel title="Wave" data-testid={`${inputMarkerId}-controls`}>
             {renderIfNeeded(markerParams, 'frequency', set, (v, onChange) => (
               <KnobControl label="Frequency" min={0.01} max={20} initialValue={v} onChange={onChange} />
             ))}
@@ -74,7 +75,7 @@ const waveModuleImplementation = implementModule({
             {renderIfNeeded(markerParams, 'samplerTemporalImpact', set, (v, onChange) => (
               <KnobControl label="Temporal impact" min={0} max={1} initialValue={v} onChange={onChange} />
             ))}
-          </div>
+          </ModulePanel>
         ),
       },
 

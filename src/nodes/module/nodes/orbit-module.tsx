@@ -11,6 +11,7 @@ import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfa
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { fColorPoint } from '../../../constants';
 import { KnobControl } from '../../../ui/KnobControl';
+import { ModulePanel } from '../../../ui/ModulePanel';
 
 export { createInputMarkerParams, renderIfNeeded } from '../moduleUtils';
 export type { RenderControlFn } from '../moduleUtils';
@@ -116,7 +117,6 @@ const orbitModuleImplementation = implementModule({
     // Create marker node
     // For each module input, use the provided param (ref or static value) or fall back to the default value
 
-    console.log(moduleId)
     const inputMarkerId = createInternalId(moduleId, 'input-marker')
 
     const result: ModuleExpansionResult<"orbit-module"> = {
@@ -127,22 +127,17 @@ const orbitModuleImplementation = implementModule({
         id: inputMarkerId,
         type: "module-input-marker",
         params: createInputMarkerParams(params, defaultValues),
-        renderControl: (params, set) => {
+        renderControl: (params, set) => (
+          <ModulePanel title="Orbit" data-testid={`${inputMarkerId}-controls`}>
+            {renderIfNeeded(params, 'speed', set, (initialValue, onChange) => (
+              <KnobControl label="Speed" min={-1} max={1} initialValue={initialValue} onChange={onChange} />
+            ))}
 
-          return <div data-testid={`${inputMarkerId}-controls`}>
-
-            {renderIfNeeded(params, 'speed', set, (initialValue, onChange) => {
-              return <KnobControl label="Speed" min={-1} max={1} initialValue={initialValue} onChange={onChange} />
-            })}
-
-            {renderIfNeeded(params, 'radius', set, (initialValue, onChange) => {
-              return <KnobControl label="Radius" min={0} max={1} initialValue={initialValue} onChange={onChange} />
-            })}
-
-
-
-          </div>
-        },
+            {renderIfNeeded(params, 'radius', set, (initialValue, onChange) => (
+              <KnobControl label="Radius" min={0} max={1} initialValue={initialValue} onChange={onChange} />
+            ))}
+          </ModulePanel>
+        ),
       },
       defaultValues,
       outputMarkerNode: {
