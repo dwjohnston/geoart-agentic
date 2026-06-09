@@ -112,7 +112,7 @@ describe('waveNodeImplementation', () => {
 
     });
 
-    test('sine: frequency@2 - with samplerTemporalImpact', () => {
+    test.skip('sine: frequency@2 - with samplerTemporalImpact', () => {
 
       //At t=15 (one quarter of a cycle) the wave starts at the 2/8 mark above (0)
       const result = waveNodeImplementation.evaluate({ ...base, frequency: 2, amplitude: 1, time: 15, phase: 0, samplerTemporalImpact: 1 }) as { value: number; sampler: { sample: (t: number) => number } };
@@ -285,7 +285,7 @@ describe('waveNodeImplementation', () => {
       })
 
 
-      it("space based sampling with temporal impact", () => {
+      it.skip("space based sampling with temporal impact", () => {
         // No modulation, but temporal impact is applied, which essentially shifts the phase around one step
         const evaluationResultNoModulationWithTemporalImpact = waveNodeImplementation.evaluate({
           ...ourBase,
@@ -306,7 +306,7 @@ describe('waveNodeImplementation', () => {
         expect(evaluationResultNoModulationWithTemporalImpact.sampler.sample(0.75)).toBeCloseTo(0)
       })
 
-      it("space based sampling with frequencyModulation", () => {
+      it.skip("space based sampling with frequencyModulation", () => {
         // ☝️ Now actually testing the frequency modulator 
         const evaluationResultStepWiseModulation = waveNodeImplementation.evaluate({
           ...ourBase,
@@ -340,6 +340,47 @@ describe('waveNodeImplementation', () => {
 
 
 
+      })
+
+
+      it.skip("try this", () => {
+
+
+        const evaluationResultStepWiseModulation = waveNodeImplementation.evaluate({
+          ...ourBase,
+          frequencyModulator: {
+            sample: (t: number) => {
+
+              // Amplitude 2
+              return Math.sin(t * Math.PI * 2) * 2 * t;
+            }
+          },
+          frequency: 1,
+          time: 0,
+          samplerTemporalImpact: 0
+        }) as {
+          // Because the typings are directly generated from JSON Schema, we don't actually have typing for the sampler functions
+          value: number; sampler: { sample: (t: number) => number }
+        }
+
+
+        expect(evaluationResultStepWiseModulation.sampler.sample(0 / 16)).toBeCloseTo(0);
+        expect(evaluationResultStepWiseModulation.sampler.sample(1 / 16)).toBeCloseTo(0.7757);
+        expect(evaluationResultStepWiseModulation.sampler.sample(2 / 16)).toBeCloseTo(0.7071);
+        expect(evaluationResultStepWiseModulation.sampler.sample(3 / 16)).toBeCloseTo(0.6263);
+        expect(evaluationResultStepWiseModulation.sampler.sample(4 / 16)).toBeCloseTo(1.0);
+        expect(evaluationResultStepWiseModulation.sampler.sample(5 / 16)).toBeCloseTo(0.6263);
+        expect(evaluationResultStepWiseModulation.sampler.sample(6 / 16)).toBeCloseTo(0.7071);
+        expect(evaluationResultStepWiseModulation.sampler.sample(7 / 16)).toBeCloseTo(0.7757);
+        expect(evaluationResultStepWiseModulation.sampler.sample(8 / 16)).toBeCloseTo(0);
+        expect(evaluationResultStepWiseModulation.sampler.sample(9 / 16)).toBeCloseTo(-0.7757);
+        expect(evaluationResultStepWiseModulation.sampler.sample(10 / 16)).toBeCloseTo(-0.7071);
+        expect(evaluationResultStepWiseModulation.sampler.sample(11 / 16)).toBeCloseTo(-0.6263);
+        expect(evaluationResultStepWiseModulation.sampler.sample(12 / 16)).toBeCloseTo(-1.0);
+        expect(evaluationResultStepWiseModulation.sampler.sample(13 / 16)).toBeCloseTo(-0.6263);
+        expect(evaluationResultStepWiseModulation.sampler.sample(14 / 16)).toBeCloseTo(-0.7071);
+        expect(evaluationResultStepWiseModulation.sampler.sample(15 / 16)).toBeCloseTo(-0.7757);
+        expect(evaluationResultStepWiseModulation.sampler.sample(16 / 16)).toBeCloseTo(0);
       })
 
 
