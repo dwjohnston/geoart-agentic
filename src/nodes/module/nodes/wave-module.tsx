@@ -3,6 +3,9 @@ import { createInternalId, createInputMarkerParams, renderIfNeeded } from '../mo
 import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfaces/ModuleImplementation';
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { KnobControl } from '../../../ui/KnobControl';
+import { DropdownControl } from '../../control/ui/DropdownControl';
+
+const WAVE_TYPES = ['sine', 'square', 'triangle', 'saw', 'reverse-saw'] as const;
 
 const waveModuleImplementation = implementModule({
   _kind: 'wave-module',
@@ -10,6 +13,16 @@ const waveModuleImplementation = implementModule({
     frequency: 1,
     amplitude: 0.5,
     phase: 0,
+    waveShape: 'sine',
+    samplerTemporalImpact: 0,
+    fmWaveShape: 'sine',
+    fmFrequency: 1,
+    fmAmount: 0,
+    fmTemporalImpact: 0,
+    amWaveShape: 'sine',
+    amFrequency: 1,
+    amAmount: 0,
+    amTemporalImpact: 0,
   },
 
   provideNodes: (params, moduleId, defaultValues) => {
@@ -18,19 +31,6 @@ const waveModuleImplementation = implementModule({
       ref: `${inputMarkerId}.${key}`,
     });
 
-    // Internal control node IDs
-    const waveShapeId = createInternalId(moduleId, 'wave-shape');
-    const samplerTemporalImpactId = createInternalId(moduleId, 'sampler-temporal-impact');
-    const fmWaveShapeId = createInternalId(moduleId, 'fm-wave-shape');
-    const fmFrequencyId = createInternalId(moduleId, 'fm-frequency');
-    const fmAmountId = createInternalId(moduleId, 'fm-amount');
-    const fmTemporalImpactId = createInternalId(moduleId, 'fm-temporal-impact');
-    const amWaveShapeId = createInternalId(moduleId, 'am-wave-shape');
-    const amFrequencyId = createInternalId(moduleId, 'am-frequency');
-    const amAmountId = createInternalId(moduleId, 'am-amount');
-    const amTemporalImpactId = createInternalId(moduleId, 'am-temporal-impact');
-
-    // Internal compute node IDs
     const timeId = createInternalId(moduleId, 'time');
     const fmWaveId = createInternalId(moduleId, 'fm-wave');
     const amWaveId = createInternalId(moduleId, 'am-wave');
@@ -39,109 +39,7 @@ const waveModuleImplementation = implementModule({
     const ref = (nodeId: string, port: string) => ({ ref: `${nodeId}.${port}` });
 
     const result: ModuleExpansionResult<'wave-module'> = {
-      controlNodes: [
-        {
-          id: waveShapeId,
-          type: 'waveSelector',
-          params: {
-            label: { v: 'Wave shape' },
-            value: { v: 'sine' },
-          },
-        },
-        {
-          id: samplerTemporalImpactId,
-          type: 'slider',
-          params: {
-            label: { v: 'Temporal impact' },
-            min: { v: 0 },
-            max: { v: 1 },
-            step: { v: 0.01 },
-            value: { v: 0 },
-          },
-        },
-        {
-          id: fmWaveShapeId,
-          type: 'waveSelector',
-          params: {
-            label: { v: 'FM wave shape' },
-            value: { v: 'sine' },
-          },
-        },
-        {
-          id: fmFrequencyId,
-          type: 'slider',
-          params: {
-            label: { v: 'FM freq' },
-            min: { v: 0.01 },
-            max: { v: 20 },
-            step: { v: 0.01 },
-            value: { v: 1 },
-          },
-        },
-        {
-          id: fmAmountId,
-          type: 'slider',
-          params: {
-            label: { v: 'FM amount' },
-            min: { v: 0 },
-            max: { v: 10 },
-            step: { v: 0.01 },
-            value: { v: 0 },
-          },
-        },
-        {
-          id: fmTemporalImpactId,
-          type: 'slider',
-          params: {
-            label: { v: 'FM temporal impact' },
-            min: { v: 0 },
-            max: { v: 1 },
-            step: { v: 0.01 },
-            value: { v: 0 },
-          },
-        },
-        {
-          id: amWaveShapeId,
-          type: 'waveSelector',
-          params: {
-            label: { v: 'AM wave shape' },
-            value: { v: 'sine' },
-          },
-        },
-        {
-          id: amFrequencyId,
-          type: 'slider',
-          params: {
-            label: { v: 'AM freq' },
-            min: { v: 0.01 },
-            max: { v: 20 },
-            step: { v: 0.01 },
-            value: { v: 1 },
-          },
-        },
-        {
-          id: amAmountId,
-          type: 'slider',
-          params: {
-            label: { v: 'AM amount' },
-            min: { v: 0 },
-            max: { v: 1 },
-            step: { v: 0.01 },
-            value: { v: 0 },
-          },
-        },
-        {
-          id: amTemporalImpactId,
-          type: 'slider',
-          params: {
-            label: { v: 'AM temporal impact' },
-            min: { v: 0 },
-            max: { v: 1 },
-            step: { v: 0.01 },
-            value: { v: 0 },
-          },
-        },
-      ],
+      controlNodes: [],
 
       computeNodes: [
         {
@@ -154,10 +52,10 @@ const waveModuleImplementation = implementModule({
           type: 'wave',
           params: {
             time: ref(timeId, 'time'),
-            waveType: ref(fmWaveShapeId, 'value'),
-            frequency: ref(fmFrequencyId, 'value'),
-            amplitude: ref(fmAmountId, 'value'),
-            samplerTemporalImpact: ref(fmTemporalImpactId, 'value'),
+            waveType: fromInput('fmWaveShape'),
+            frequency: fromInput('fmFrequency'),
+            amplitude: fromInput('fmAmount'),
+            samplerTemporalImpact: fromInput('fmTemporalImpact'),
           },
         },
         {
@@ -165,10 +63,10 @@ const waveModuleImplementation = implementModule({
           type: 'wave',
           params: {
             time: ref(timeId, 'time'),
-            waveType: ref(amWaveShapeId, 'value'),
-            frequency: ref(amFrequencyId, 'value'),
-            amplitude: ref(amAmountId, 'value'),
-            samplerTemporalImpact: ref(amTemporalImpactId, 'value'),
+            waveType: fromInput('amWaveShape'),
+            frequency: fromInput('amFrequency'),
+            amplitude: fromInput('amAmount'),
+            samplerTemporalImpact: fromInput('amTemporalImpact'),
           },
         },
         {
@@ -176,11 +74,11 @@ const waveModuleImplementation = implementModule({
           type: 'wave',
           params: {
             time: ref(timeId, 'time'),
-            waveType: ref(waveShapeId, 'value'),
+            waveType: fromInput('waveShape'),
             frequency: fromInput('frequency'),
             amplitude: fromInput('amplitude'),
             phase: fromInput('phase'),
-            samplerTemporalImpact: ref(samplerTemporalImpactId, 'value'),
+            samplerTemporalImpact: fromInput('samplerTemporalImpact'),
             frequencyModulator: ref(fmWaveId, 'sampler'),
             amplitudeModulator: ref(amWaveId, 'sampler'),
           },
@@ -195,14 +93,44 @@ const waveModuleImplementation = implementModule({
         params: createInputMarkerParams(params, defaultValues),
         renderControl: (markerParams, set) => (
           <div data-testid={`${inputMarkerId}-controls`}>
-            {renderIfNeeded(markerParams, 'frequency', set, (initialValue, onChange) => (
-              <KnobControl label="Frequency" min={0.01} max={20} initialValue={initialValue} onChange={onChange} />
+            {renderIfNeeded(markerParams, 'frequency', set, (v, onChange) => (
+              <KnobControl label="Frequency" min={0.01} max={20} initialValue={v} onChange={onChange} />
             ))}
-            {renderIfNeeded(markerParams, 'amplitude', set, (initialValue, onChange) => (
-              <KnobControl label="Amplitude" min={0} max={2} initialValue={initialValue} onChange={onChange} />
+            {renderIfNeeded(markerParams, 'amplitude', set, (v, onChange) => (
+              <KnobControl label="Amplitude" min={0} max={2} initialValue={v} onChange={onChange} />
             ))}
-            {renderIfNeeded(markerParams, 'phase', set, (initialValue, onChange) => (
-              <KnobControl label="Phase" min={0} max={1} initialValue={initialValue} onChange={onChange} />
+            {renderIfNeeded(markerParams, 'phase', set, (v, onChange) => (
+              <KnobControl label="Phase" min={0} max={1} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'waveShape', set, (v, onChange) => (
+              <DropdownControl id={`${inputMarkerId}-wave-shape`} label="Wave shape" options={WAVE_TYPES} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'samplerTemporalImpact', set, (v, onChange) => (
+              <KnobControl label="Temporal impact" min={0} max={1} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'fmWaveShape', set, (v, onChange) => (
+              <DropdownControl id={`${inputMarkerId}-fm-wave-shape`} label="FM shape" options={WAVE_TYPES} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'fmFrequency', set, (v, onChange) => (
+              <KnobControl label="FM freq" min={0.01} max={20} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'fmAmount', set, (v, onChange) => (
+              <KnobControl label="FM amount" min={0} max={10} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'fmTemporalImpact', set, (v, onChange) => (
+              <KnobControl label="FM temporal" min={0} max={1} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'amWaveShape', set, (v, onChange) => (
+              <DropdownControl id={`${inputMarkerId}-am-wave-shape`} label="AM shape" options={WAVE_TYPES} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'amFrequency', set, (v, onChange) => (
+              <KnobControl label="AM freq" min={0.01} max={20} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'amAmount', set, (v, onChange) => (
+              <KnobControl label="AM amount" min={0} max={1} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'amTemporalImpact', set, (v, onChange) => (
+              <KnobControl label="AM temporal" min={0} max={1} initialValue={v} onChange={onChange} />
             ))}
           </div>
         ),
