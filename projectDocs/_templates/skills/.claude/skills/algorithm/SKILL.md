@@ -29,5 +29,3 @@ Before writing the algorithm, check for handoff files at `project/features/[feat
 If none exist, proceed without a handoff.
 
 <!-- include: projectDocs/node-development/declaring_an_algorithm.md -->
-
-<!-- include: projectDocs/node-development/sensible_defaults.md -->
