@@ -7,14 +7,23 @@ import type { GeoArtGraph } from "../../../schema/_generated/schema-types";
 const graph: GeoArtGraph = {
   version: '2.0',
   control: { nodes: [] },
-  compute: { nodes: [] },
+  compute: {
+    nodes: [
+      {
+        id: "time",
+        type: "time",
+        params: {}
+      },
+    ]
+  },
   module: {
     nodes: [
+
       {
         id: 'orbit',
         type: 'orbit-module',
         params: {
-          time: { v: 0 },
+          time: { ref: "time.time" },
           speed: { v: 0.3 },
           radius: { v: 0.4 },
           numPoints: { v: 8 },
