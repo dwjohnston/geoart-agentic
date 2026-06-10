@@ -10,7 +10,7 @@ describe('ModulePanel component', () => {
   it('renders with knob controls and dropdown controls', () => {
     const { container } = render(
       <TestPanel center>
-        <ModulePanel title="Controls Module">
+        <ModulePanel moduleName="Controls Module" moduleId="test-module-001">
           <KnobControl
             initialValue={50}
             min={0}
