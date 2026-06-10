@@ -1665,11 +1665,20 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
+                "intervalTicks": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
                 "pointsFrom": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "pointsTo": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeEnumValueOrRef"
+                },
+                "intervalMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValueOrRef"
                 }
               }
             }
