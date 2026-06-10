@@ -136,6 +136,22 @@ const orbitModuleImplementation = implementModule({
             {renderIfNeeded(params, 'radius', set, (initialValue, onChange) => (
               <KnobControl label="Radius" min={0} max={1} initialValue={initialValue} onChange={onChange} />
             ))}
+
+            {renderIfNeeded(params, 'numPoints', set, (initialValue, onChange) => (
+              <KnobControl label="Points" min={0} max={100} initialValue={initialValue} onChange={onChange} />
+            ))}
+
+            {renderIfNeeded(params, 'phase', set, (initialValue, onChange) => (
+              <KnobControl label="Phase" min={0} max={1} initialValue={initialValue} onChange={onChange} />
+            ))}
+
+            {renderIfNeeded(params, 'eccentricity', set, (initialValue, onChange) => (
+              <KnobControl label="Eccentricity" min={0} max={1} initialValue={initialValue} onChange={onChange} />
+            ))}
+
+            {renderIfNeeded(params, 'tilt', set, (initialValue, onChange) => (
+              <KnobControl label="Tilt" min={0} max={1} initialValue={initialValue} onChange={onChange} />
+            ))}
           </ModulePanel>
         ),
       },
