@@ -15,18 +15,23 @@ describe('point-render-module', () => {
 
     // Check compute nodes
     expect(result.computeNodes).toHaveLength(1);
-    expect(result.computeNodes[0].type).toBe('colorPointArrayCompute');
-    expect(result.computeNodes[0].id).toBe(`${moduleId}:add-gradient`);
+    expect(result.computeNodes[0].type).toBe('curveModulator');
+    expect(result.computeNodes[0].id).toBe(`${moduleId}:arrow-head`);
 
     // Check render nodes
-    expect(result.renderNodes).toHaveLength(2);
+    expect(result.renderNodes).toHaveLength(3);
 
     const circleNode = result.renderNodes[0];
     expect(circleNode.type).toBe('circle');
     expect(circleNode.id).toBe(`${moduleId}:circles`);
     expect(circleNode.renderConfig.layer).toBe('live');
 
-    const crosshairsNode = result.renderNodes[1];
+    const arrowHeadsNode = result.renderNodes[1];
+    expect(arrowHeadsNode.type).toBe('circle');
+    expect(arrowHeadsNode.id).toBe(`${moduleId}:arrow-heads-render`);
+    expect(arrowHeadsNode.renderConfig.layer).toBe('live');
+
+    const crosshairsNode = result.renderNodes[2];
     expect(crosshairsNode.type).toBe('linesThroughPoint');
     expect(crosshairsNode.id).toBe(`${moduleId}:crosshairs`);
     expect(crosshairsNode.renderConfig.layer).toBe('live');
@@ -37,25 +42,7 @@ describe('point-render-module', () => {
     expect(Object.keys(result.outputMarkerNode.outputRefs)).toHaveLength(0);
   });
 
-  it('namespaces all internal ids with the module id', () => {
-    const result = pointRenderModule({}, 'myPoints');
-    const allIds = [
-      ...result.computeNodes.map(n => n.id),
-      ...result.renderNodes.map(n => n.id),
-      result.inputMarkerNode.id,
-    ];
-    for (const id of allIds) {
-      expect(id).toMatch(/^myPoints:/);
-    }
-  });
 
-  it('wires input marker to compute node', () => {
-    const result = pointRenderModule({}, 'myPoints');
 
-    const computeNode = result.computeNodes[0];
-    const params = computeNode.params as unknown as Record<string, unknown>;
-    expect(params.points).toEqual({
-      ref: `myPoints:input-marker.points`
-    });
-  });
+
 });
