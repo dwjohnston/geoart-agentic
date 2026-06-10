@@ -1636,6 +1636,44 @@
               }
             }
           }
+        },
+        {
+          "title": "Linker Module Node",
+          "type": "object",
+          "description": "Module that renders animated lines between two sets of points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "linker-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "pointsFrom": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "pointsTo": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     }
