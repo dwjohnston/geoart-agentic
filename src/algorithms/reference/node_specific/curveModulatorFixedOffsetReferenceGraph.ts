@@ -25,6 +25,7 @@ const graph = new AlgorithmBuilder({
 			step: { v: 0.01 },
 		},
 	})
+
 	.addComputeNode({
 		id: 'time',
 		type: 'time',
@@ -36,7 +37,7 @@ const graph = new AlgorithmBuilder({
 		params: {
 			time: { ref: 'time.time' },
 			speed: { v: 0.5 },
-			radius: { v: 0.15 },
+			radius: { v: 0.45 },
 			numPoints: { v: 20 },
 			centerPoints: { v: [] },
 			phase: { v: 0 },
@@ -78,6 +79,24 @@ const graph = new AlgorithmBuilder({
 			colorPointsArray: { ref: 'modulated.points' },
 			lineWidth: { v: 2 },
 		},
+	})
+	.addModuleNode({
+		id: "dotsOriginal",
+		type: "point-render-module",
+		params: {
+			points: {
+				ref: "orbitPoints.points"
+			}
+		}
+	})
+	.addModuleNode({
+		id: "dotsModulated",
+		type: "point-render-module",
+		params: {
+			points: {
+				ref: "modulated.points"
+			}
+		}
 	})
 	.construct();
 

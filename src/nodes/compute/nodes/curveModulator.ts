@@ -40,8 +40,8 @@ const curveModulatorNodeImplementation = implementComputeNode('curveModulator', 
     const curve = inputs.curve
     const modulator = inputs.modulator as Sampler | null;
     const cycleLengthMode = inputs.cycleLengthMode;
-    const modulationAngle = inputs.modulationAngle as number ?? 0.25;
-    const fixedOffset = inputs.fixedOffset as number ?? 0;
+    const modulationAngle = inputs.modulationAngle;
+    const fixedOffset = inputs.fixedOffset;
 
     if (!curve || curve.length === 0) {
       // No curve: pass through unchanged
