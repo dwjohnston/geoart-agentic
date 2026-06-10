@@ -3,18 +3,6 @@ import { fColorPoint } from '../../../constants';
 
 const graph = new AlgorithmBuilder({ title: 'Linker Module Reference' })
 
-	.addControlNode({
-		id: 'linkRate',
-		type: 'slider',
-		params: {
-			label: { v: 'Link Rate' },
-			min: { v: 1 },
-			max: { v: 60 },
-			step: { v: 1 },
-			value: { v: 10 },
-		},
-	})
-
 	.addComputeNode({ id: 'time', type: 'time', params: {} })
 
 	.addModuleNode({
@@ -45,7 +33,6 @@ const graph = new AlgorithmBuilder({ title: 'Linker Module Reference' })
 		id: 'linker',
 		type: 'linker-module',
 		params: {
-			intervalTicks: { ref: 'linkRate.value' },
 			pointsFrom: { ref: 'orbitA.points' },
 			pointsTo: { ref: 'orbitB.points' },
 		},
