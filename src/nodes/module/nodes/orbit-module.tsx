@@ -128,7 +128,7 @@ const orbitModuleImplementation = implementModule({
         type: "module-input-marker",
         params: createInputMarkerParams(params, defaultValues),
         renderControl: (params, set) => (
-          <ModulePanel title="Orbit" data-testid={`${inputMarkerId}-controls`}>
+          <ModulePanel moduleName="Orbit" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
             {renderIfNeeded(params, 'speed', set, (initialValue, onChange) => (
               <KnobControl label="Speed" min={-1} max={1} initialValue={initialValue} onChange={onChange} />
             ))}

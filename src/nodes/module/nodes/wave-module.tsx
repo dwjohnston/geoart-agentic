@@ -59,7 +59,7 @@ const waveModuleImplementation = implementModule({
         type: 'module-input-marker',
         params: createInputMarkerParams(params, defaultValues),
         renderControl: (markerParams, set) => (
-          <ModulePanel title="Wave" data-testid={`${inputMarkerId}-controls`}>
+          <ModulePanel moduleName="Wave" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
             {renderIfNeeded(markerParams, 'frequency', set, (v, onChange) => (
               <KnobControl label="Frequency" min={0.01} max={20} initialValue={v} onChange={onChange} />
             ))}
