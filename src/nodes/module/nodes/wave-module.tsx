@@ -60,6 +60,9 @@ const waveModuleImplementation = implementModule({
         params: createInputMarkerParams(params, defaultValues),
         renderControl: (markerParams, set) => (
           <ModulePanel moduleName="Wave" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
+            {renderIfNeeded(markerParams, 'waveShape', set, (v, onChange) => (
+              <DropdownControl id={`${inputMarkerId}-wave-shape`} label="Wave shape" options={WAVE_TYPES} initialValue={v} onChange={onChange} />
+            ))}
             {renderIfNeeded(markerParams, 'frequency', set, (v, onChange) => (
               <KnobControl label="Frequency" min={0.01} max={20} initialValue={v} onChange={onChange} />
             ))}
@@ -69,9 +72,7 @@ const waveModuleImplementation = implementModule({
             {renderIfNeeded(markerParams, 'phase', set, (v, onChange) => (
               <KnobControl label="Phase" min={0} max={1} initialValue={v} onChange={onChange} />
             ))}
-            {renderIfNeeded(markerParams, 'waveShape', set, (v, onChange) => (
-              <DropdownControl id={`${inputMarkerId}-wave-shape`} label="Wave shape" options={WAVE_TYPES} initialValue={v} onChange={onChange} />
-            ))}
+
             {renderIfNeeded(markerParams, 'samplerTemporalImpact', set, (v, onChange) => (
               <KnobControl label="Temporal impact" min={0} max={1} initialValue={v} onChange={onChange} />
             ))}
