@@ -8,8 +8,11 @@
 
 | Port | Type |
 |---|---|
+| `intervalTicks` | `numberValueOrRef` |
 | `pointsFrom` | `colorPointArrayValueOrRef` |
 | `pointsTo` | `colorPointArrayValueOrRef` |
+| `mode` | `timedLineArrayModeEnumValueOrRef` |
+| `intervalMode` | `timedLineArrayIntervalModeEnumValueOrRef` |
 
 ## Outputs
 
@@ -17,4 +20,4 @@ None — render module (`x-outputs: []`).
 
 ## Behaviour
 
-Expands at compile time into a `timedLineArray` render node that draws animated lines from each point in `pointsFrom` to the corresponding point in `pointsTo`. The remaining `timedLineArray` inputs (`intervalTicks`, `mode`, `intervalMode`) are exposed as internal controls.
+Expands at compile time into a `timedLineArray` render node. All five ports are connectable from outside; when not connected, `mode` and `intervalMode` are rendered as dropdowns inside the module panel via `renderControl`.

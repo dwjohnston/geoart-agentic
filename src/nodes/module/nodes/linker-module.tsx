@@ -4,6 +4,10 @@ import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfa
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { KnobControl } from '../../../ui/KnobControl';
 import { ModulePanel } from '../../../ui/ModulePanel';
+import { DropdownControl } from '../../control/ui/DropdownControl';
+
+const TIMED_LINE_ARRAY_MODES = ['all-to-all', 'distribute', 'interleave'] as const;
+const TIMED_LINE_ARRAY_INTERVAL_MODES = ['all', 'cycle', 'back-and-forth', 'inside-out', 'inside-out-and-forth'] as const;
 
 const linkerModuleImplementation = implementModule({
   _kind: 'linker-module',
@@ -11,6 +15,8 @@ const linkerModuleImplementation = implementModule({
     intervalTicks: 6,
     pointsFrom: [],
     pointsTo: [],
+    mode: 'all-to-all',
+    intervalMode: 'all',
   },
 
   provideNodes: (params, moduleId, defaultValues) => {
@@ -19,29 +25,10 @@ const linkerModuleImplementation = implementModule({
       ref: `${inputMarkerId}.${key}`,
     });
 
-    const modeSelectorId = createInternalId(moduleId, 'mode-selector');
-    const intervalModeSelectorId = createInternalId(moduleId, 'interval-mode-selector');
     const timedLineArrayId = createInternalId(moduleId, 'timed-line-array');
 
     const result: ModuleExpansionResult<'linker-module'> = {
-      controlNodes: [
-        {
-          id: modeSelectorId,
-          type: 'timedLineArrayModeSelector',
-          params: {
-            label: { v: 'Mode' },
-            value: { v: 'all-to-all' },
-          },
-        },
-        {
-          id: intervalModeSelectorId,
-          type: 'timedLineArrayIntervalModeSelector',
-          params: {
-            label: { v: 'Interval mode' },
-            value: { v: 'all' },
-          },
-        },
-      ],
+      controlNodes: [],
       computeNodes: [],
       renderNodes: [
         {
@@ -52,8 +39,8 @@ const linkerModuleImplementation = implementModule({
             intervalTicks: fromInput('intervalTicks'),
             colorPointsA: fromInput('pointsFrom'),
             colorPointsB: fromInput('pointsTo'),
-            mode: { ref: `${modeSelectorId}.value` },
-            intervalMode: { ref: `${intervalModeSelectorId}.value` },
+            mode: fromInput('mode'),
+            intervalMode: fromInput('intervalMode'),
           },
         },
       ],
@@ -65,6 +52,12 @@ const linkerModuleImplementation = implementModule({
           <ModulePanel moduleName="Linker" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
             {renderIfNeeded(markerParams, 'intervalTicks', set, (initialValue, onChange) => (
               <KnobControl label="Interval ticks" min={0} max={60} initialValue={initialValue} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'mode', set, (initialValue, onChange) => (
+              <DropdownControl id={`${inputMarkerId}-mode`} label="Mode" options={TIMED_LINE_ARRAY_MODES} initialValue={initialValue} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'intervalMode', set, (initialValue, onChange) => (
+              <DropdownControl id={`${inputMarkerId}-interval-mode`} label="Interval mode" options={TIMED_LINE_ARRAY_INTERVAL_MODES} initialValue={initialValue} onChange={onChange} />
             ))}
           </ModulePanel>
         ),

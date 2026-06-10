@@ -4,24 +4,21 @@
 
 ## Internal nodes
 
-- 2 control nodes: `timedLineArrayModeSelector` and `timedLineArrayIntervalModeSelector`
+- 0 control nodes
 - 0 compute nodes
 - 1 render node: `timedLineArray` on the `paint` layer
 
-## Connectable input ports
+## Input ports
 
-| Port | Type |
-|---|---|
-| `intervalTicks` | `numberValueOrRef` |
-| `pointsFrom` | `colorPointArrayValueOrRef` → wired to `colorPointsA` |
-| `pointsTo` | `colorPointArrayValueOrRef` → wired to `colorPointsB` |
-
-## Internal controls
-
-| Control | Node type | Default |
+| Port | Type | Default |
 |---|---|---|
-| `mode` | `timedLineArrayModeSelector` | `all-to-all` |
-| `intervalMode` | `timedLineArrayIntervalModeSelector` | `all` |
+| `intervalTicks` | `numberValueOrRef` | `6` |
+| `pointsFrom` | `colorPointArrayValueOrRef` → wired to `colorPointsA` | `[]` |
+| `pointsTo` | `colorPointArrayValueOrRef` → wired to `colorPointsB` | `[]` |
+| `mode` | `timedLineArrayModeEnumValueOrRef` | `all-to-all` |
+| `intervalMode` | `timedLineArrayIntervalModeEnumValueOrRef` | `all` |
+
+All ports flow through the input marker. `mode` and `intervalMode` render as dropdowns via `renderControl` when not externally connected.
 
 ## Outputs
 
