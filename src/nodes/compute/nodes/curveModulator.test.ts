@@ -18,7 +18,8 @@ describe('CurveModulator', () => {
       curve,
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
-
+      "modulationAngle": 0.25,
+      "fixedOffset": 0,
     });
 
     // Perpendicular to (1, 0) rotated 90° clockwise is (0, -1)
@@ -41,7 +42,8 @@ describe('CurveModulator', () => {
       curve,
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
-
+      "modulationAngle": 0.25,
+      "fixedOffset": 0,
     });
 
     // No tangent means no displacement
@@ -61,6 +63,8 @@ describe('CurveModulator', () => {
       curve: [],
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
+      "modulationAngle": 0.25,
+      "fixedOffset": 0,
     });
 
     expect(points).toEqual([]);
@@ -76,7 +80,8 @@ describe('CurveModulator', () => {
       curve,
       modulator: null,
       "cycleLengthMode": "arrayLength",
-
+      "modulationAngle": 0.25,
+      "fixedOffset": 0,
     });
 
     // Should pass through unchanged
@@ -97,7 +102,8 @@ describe('CurveModulator', () => {
       curve,
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
-
+      "modulationAngle": 0.25,
+      "fixedOffset": 0,
     });
 
     expect(points[0].r).toBe(1);
@@ -120,7 +126,8 @@ describe('CurveModulator', () => {
       curve,
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
-
+      "modulationAngle": 0.25,
+      "fixedOffset": 0,
     });
 
     expect(points[0].dx).toBe(0.707);
@@ -146,10 +153,54 @@ describe('CurveModulator', () => {
       curve,
       modulator: sampler,
       "cycleLengthMode": "arrayLength",
-
+      "modulationAngle": 0.25,
+      "fixedOffset": 0,
     });
 
     // Last point should be at t=1
     expect(lastSampledT).toBeCloseTo(1, 2);
+  });
+
+  it('applies fixed offset in direction of tangent', () => {
+    const curve = [
+      { x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 1, dy: 0 },
+    ];
+
+    const { points } = curveModulatorNodeImplementation.evaluate({
+      curve,
+      modulator: null,
+      "cycleLengthMode": "arrayLength",
+      "modulationAngle": 0,
+      "fixedOffset": 0.1,
+    });
+
+    // Fixed offset of 0.1 in direction of (1, 0) should move point by (0.1, 0)
+    expect(points[0].x).toBeCloseTo(0.1, 2);
+    expect(points[0].y).toBeCloseTo(0, 2);
+  });
+
+  it('applies both modulator and fixed offset', () => {
+    const curve = [
+      { x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 1, dy: 0 },
+    ];
+
+    const sampler: Sampler = {
+      sample: () => 0.1,
+      sampleMany: (ts: number[]) => ts.map(() => 0.1),
+    };
+
+    const { points } = curveModulatorNodeImplementation.evaluate({
+      curve,
+      modulator: sampler,
+      "cycleLengthMode": "arrayLength",
+      "modulationAngle": 0.25,
+      "fixedOffset": 0.1,
+    });
+
+    // Modulation at 0.25 (90°) with (1, 0) gives (0, -0.1)
+    // Fixed offset 0.1 in direction of (1, 0) gives (0.1, 0)
+    // Total: (0.1, -0.1)
+    expect(points[0].x).toBeCloseTo(0.1, 2);
+    expect(points[0].y).toBeCloseTo(-0.1, 2);
   });
 });
