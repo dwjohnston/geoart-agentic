@@ -28,6 +28,7 @@ describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds, ModuleNodeKinds",
 
         assertType<ModuleNodeKinds>("orbit-module");
         assertType<ModuleNodeKinds>("wave-module");
+        assertType<ModuleNodeKinds>("linker-module");
         //@ts-expect-error - mismatching types
         assertType<ModuleNodeKinds>("add");
     });
@@ -221,6 +222,10 @@ describe("NodeOutputsRecord", () => {
 
         //@ts-expect-error - missing required ports
         assertType<NodeOutputsResolved<"wave-module">>({});
+    });
+
+    it("linker-module has no outputs (render module)", () => {
+        assertType<NodeOutputsResolved<"linker-module">>({});
     });
 });
 
@@ -659,6 +664,17 @@ describe("NodeInputsDeclared", () => {
         });
     });
 
+    it("linker-module accepts both static and referenced array values", () => {
+        assertType<NodeInputsDeclared<"linker-module">>({
+            pointsFrom: { ref: "orbitA.points" },
+            pointsTo: { ref: "orbitB.points" },
+        });
+
+        assertType<NodeInputsDeclared<"linker-module">>({
+            pointsFrom: { v: [{ v: fColorPoint() }] },
+        });
+    });
+
     it("all inputs are optional", () => {
         assertType<NodeInputsDeclared<"add">>({});
 
@@ -666,6 +682,7 @@ describe("NodeInputsDeclared", () => {
 
         assertType<NodeInputsDeclared<"orbit-module">>({});
         assertType<NodeInputsDeclared<"wave-module">>({});
+        assertType<NodeInputsDeclared<"linker-module">>({});
     });
 });
 
