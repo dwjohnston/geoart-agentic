@@ -63,26 +63,27 @@ const curveModulatorNodeImplementation = implementComputeNode('curveModulator', 
       let offsetX = 0;
       let offsetY = 0;
 
-      // Apply modulator displacement (rotated by modulationAngle)
-      if (modulator && tangentMag > 0) {
-        const displacement = modulator.sample(t);
+      if (tangentMag > 0) {
         const normalizedDx = dx / tangentMag;
         const normalizedDy = dy / tangentMag;
-
-        // Rotate by modulationAngle (in turns: 0.25 = 90° clockwise)
-        // Negative angle for clockwise rotation in standard math
         const angleRad = -modulationAngle * 2 * Math.PI;
+
+        // Rotate tangent by modulationAngle
         const rotatedX = normalizedDx * Math.cos(angleRad) - normalizedDy * Math.sin(angleRad);
         const rotatedY = normalizedDx * Math.sin(angleRad) + normalizedDy * Math.cos(angleRad);
 
-        offsetX += rotatedX * displacement;
-        offsetY += rotatedY * displacement;
-      }
+        // Apply modulator displacement in rotated direction
+        if (modulator) {
+          const displacement = modulator.sample(t);
+          offsetX += rotatedX * displacement;
+          offsetY += rotatedY * displacement;
+        }
 
-      // Apply fixed offset in direction of dx,dy
-      if (fixedOffset !== 0 && tangentMag > 0) {
-        offsetX += (dx / tangentMag) * fixedOffset;
-        offsetY += (dy / tangentMag) * fixedOffset;
+        // Apply fixed offset in rotated direction
+        if (fixedOffset !== 0) {
+          offsetX += rotatedX * fixedOffset;
+          offsetY += rotatedY * fixedOffset;
+        }
       }
 
       return {

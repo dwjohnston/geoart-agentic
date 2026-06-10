@@ -179,7 +179,7 @@ describe('CurveModulator', () => {
     expect(points[0].y).toBeCloseTo(0, 2);
   });
 
-  it('applies both modulator and fixed offset', () => {
+  it('applies both modulator and fixed offset in modulation direction', () => {
     const curve = [
       { x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 1, dy: 0 },
     ];
@@ -197,10 +197,11 @@ describe('CurveModulator', () => {
       "fixedOffset": 0.1,
     });
 
-    // Modulation at 0.25 (90°) with (1, 0) gives (0, -0.1)
-    // Fixed offset 0.1 in direction of (1, 0) gives (0.1, 0)
-    // Total: (0.1, -0.1)
-    expect(points[0].x).toBeCloseTo(0.1, 2);
-    expect(points[0].y).toBeCloseTo(-0.1, 2);
+    // Modulation angle 0.25 (90°) rotates (1, 0) to (0, -1)
+    // Modulation 0.1 in direction (0, -1): (0, -0.1)
+    // Fixed offset 0.1 in direction (0, -1): (0, -0.1)
+    // Total: (0, -0.2)
+    expect(points[0].x).toBeCloseTo(0, 2);
+    expect(points[0].y).toBeCloseTo(-0.2, 2);
   });
 });
