@@ -138,7 +138,7 @@ const orbitModuleImplementation = implementModule({
             ))}
 
             {renderIfNeeded(params, 'numPoints', set, (initialValue, onChange) => (
-              <KnobControl label="Points" min={0} max={100} initialValue={initialValue} onChange={onChange} />
+              <KnobControl label="Points" min={0} max={1000} initialValue={initialValue} onChange={onChange} />
             ))}
 
             {renderIfNeeded(params, 'phase', set, (initialValue, onChange) => (

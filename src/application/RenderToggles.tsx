@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { GraphLoadPayload } from '../graphEngine/exports';
 
 type Props = {
@@ -6,25 +7,61 @@ type Props = {
 };
 
 export function RenderToggles({ renderingNodes, onToggle }: Props) {
-
+  const [enabled, setEnabled] = useState<Set<string>>(
+    () => new Set(renderingNodes.map(n => n.nodeId))
+  );
 
   if (renderingNodes.length === 0) {
     return null;
   }
 
+  const allEnabled = renderingNodes.every(n => enabled.has(n.nodeId));
+
+  const handleToggle = (nodeId: string) => {
+    setEnabled(prev => {
+      const next = new Set(prev);
+      if (next.has(nodeId)) next.delete(nodeId);
+      else next.add(nodeId);
+      return next;
+    });
+    onToggle(nodeId);
+  };
+
+  const handleToggleAll = () => {
+    if (allEnabled) {
+      renderingNodes.forEach(node => {
+        if (enabled.has(node.nodeId)) onToggle(node.nodeId);
+      });
+      setEnabled(new Set());
+    } else {
+      renderingNodes.forEach(node => {
+        if (!enabled.has(node.nodeId)) onToggle(node.nodeId);
+      });
+      setEnabled(new Set(renderingNodes.map(n => n.nodeId)));
+    }
+  };
+
   return (
     <div style={{ borderTop: '1px solid #333', paddingTop: 12 }}>
 
-      <div style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-        Render Nodes
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
+        <div style={{ fontSize: 12, fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 0.5, flex: 1 }}>
+          Render Nodes
+        </div>
+        <button
+          onClick={handleToggleAll}
+          style={{ fontSize: 11, cursor: 'pointer', padding: '2px 6px', background: '#333', color: '#ccc', border: '1px solid #555', borderRadius: 3 }}
+        >
+          {allEnabled ? 'Disable All' : 'Enable All'}
+        </button>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {renderingNodes.map(node => (
           <label key={node.nodeId} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 13 }}>
             <input
               type="checkbox"
-              defaultChecked
-              onChange={() => onToggle(node.nodeId)}
+              checked={enabled.has(node.nodeId)}
+              onChange={() => handleToggle(node.nodeId)}
               style={{ cursor: 'pointer' }}
             />
             <span>{node.label}</span>
