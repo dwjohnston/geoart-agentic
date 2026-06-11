@@ -17,24 +17,25 @@ function inverseDistanceWeight(dist: number, falloff: number): number {
 }
 
 /**
- * Cosine of the angle between the input point's velocity and the direction to the target.
- * Returns 1 if the input has no velocity (degrades to proximity behaviour).
+ * Signed [-1, 1] factor based on alignment of the two direction vectors.
+ * +1 when facing the same direction → blend toward target colour.
+ * -1 when facing opposite directions → blend away from target colour.
  */
 function directionalFactor(
   inputPoint: ResolvedValue<'colorPointValue'>,
   targetPoint: ResolvedValue<'colorPointValue'>
 ): number {
-  const vx = inputPoint.dx ?? 0;
-  const vy = inputPoint.dy ?? 0;
-  const velMag = Math.sqrt(vx * vx + vy * vy);
-  if (velMag < 1e-10) return 1;
+  const ix = inputPoint.dx ?? 0;
+  const iy = inputPoint.dy ?? 0;
+  const iMag = Math.sqrt(ix * ix + iy * iy);
 
-  const toX = targetPoint.x - inputPoint.x;
-  const toY = targetPoint.y - inputPoint.y;
-  const toMag = Math.sqrt(toX * toX + toY * toY);
-  if (toMag < 1e-10) return 1;
+  const tx = targetPoint.dx ?? 0;
+  const ty = targetPoint.dy ?? 0;
+  const tMag = Math.sqrt(tx * tx + ty * ty);
 
-  return (vx / velMag) * (toX / toMag) + (vy / velMag) * (toY / toMag);
+  if (iMag < 1e-10 || tMag < 1e-10) return 1;
+
+  return (ix / iMag) * (tx / tMag) + (iy / iMag) * (ty / tMag);
 }
 
 function blendChannel(
@@ -63,23 +64,32 @@ function blendChannel(
     }
   }
 
-  let totalWeight = 0;
+  let totalProximityWeight = 0;
   let weightedShift = 0;
 
   for (const target of validTargets) {
     const dist = distance(inputPoint, target);
-    const weight = inverseDistanceWeight(dist, falloff);
+    const proximityWeight = inverseDistanceWeight(dist, falloff);
     const dirFactor = mode === 'proximity-with-direction'
       ? directionalFactor(inputPoint, target)
       : 1;
-    totalWeight += weight;
-    weightedShift += weight * dirFactor * ((target[channel] as number) - inputValue);
+    // Anti-aligned alpha: fade toward transparent — (target.a - input.a) would be zero
+    // when both are 1, so we need a different target value here.
+    const targetValue = (mode === 'proximity-with-direction' && dirFactor < 0 && channel === 'a')
+      ? 0
+      : (target[channel] as number);
+    const effectiveDirFactor = (mode === 'proximity-with-direction' && dirFactor < 0 && channel === 'a')
+      ? Math.abs(dirFactor)
+      : dirFactor;
+
+    totalProximityWeight += proximityWeight;
+    weightedShift += proximityWeight * effectiveDirFactor * (targetValue - inputValue);
   }
 
-  if (totalWeight <= 0) return inputValue;
+  if (totalProximityWeight <= 0) return inputValue;
 
-  const shift = weightedShift / totalWeight;
-  const influence = totalWeight / (totalWeight + 1);
+  const shift = weightedShift / totalProximityWeight;
+  const influence = totalProximityWeight / (totalProximityWeight + 1);
   return inputValue + shift * influence * strength;
 }
 
