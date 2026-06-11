@@ -232,6 +232,91 @@ So when you ref `myOrbit.points`, you are really referencing the output marker t
 
 ---
 
+## Reference Algorithms
+
+Reference algorithms live in `src/algorithms/reference/` and demonstrate a node or module's capabilities. When writing a reference algorithm, follow these guidelines:
+
+### Use the AlgorithmBuilder
+
+Always use `AlgorithmBuilder` for reference algorithms — never hand-write a `GeoArtGraph` object. The builder enforces layer order and validates refs at compile time:
+
+```ts
+const graph = new AlgorithmBuilder({
+  title: 'My Algorithm',
+  author: 'Claude Haiku 4.5',
+  description: 'Demonstrates something cool',
+})
+  .addControlNode({ /* ... */ })
+  .addComputeNode({ /* ... */ })
+  .addModuleNode({ /* ... */ })
+  .construct();
+
+export default graph;
+```
+
+### Prefer modules over raw nodes
+
+**If a module exists that provides the functionality you need, use it.** Modules bundle nodes and their controls together, reducing clutter and making algorithms easier to read. For example, prefer `orbit-module` over hand-wiring `time` → `orbit` → `circle`.
+
+```ts
+// ✅ Prefer this
+.addModuleNode({
+  id: 'myOrbit',
+  type: 'orbit-module',
+  params: {
+    time: { ref: 'time.time' },
+    radius: { v: 0.3 },
+  },
+})
+
+// ❌ Avoid this
+.addComputeNode({ id: 'time', type: 'time', params: {} })
+.addComputeNode({
+  id: 'orbit',
+  type: 'orbit',
+  params: { time: { ref: 'time.time' }, radius: { v: 0.3 } },
+})
+.addRenderNode({
+  id: 'orbitPath',
+  type: 'circle',
+  renderConfig: { layer: 'live' },
+  params: { centerPoints: { ref: 'orbit.points' } },
+})
+```
+
+### Modules provide their own controls
+
+**Do not declare control nodes for module parameters.** Modules provide their own UI controls via their internal input marker. These controls appear automatically in the UI and let the user adjust parameters directly.
+
+```ts
+// ✅ Correct: no control nodes needed
+.addModuleNode({
+  id: 'modulator',
+  type: 'curve-modulator-module',
+  params: {
+    curve: { ref: 'orbit.points' },
+    modulationAngle: { v: 0.25 },     // static value — user adjusts via module's controls
+    fixedOffset: { v: 0.05 },
+  },
+})
+
+// ❌ Incorrect: redundant control nodes
+.addControlNode({
+  id: 'modulationAngleSlider',
+  type: 'slider',
+  params: { /* ... */ }
+})
+.addModuleNode({
+  id: 'modulator',
+  type: 'curve-modulator-module',
+  params: {
+    modulationAngle: { ref: 'modulationAngleSlider.value' }, // unnecessary — module provides this control
+  },
+})
+```
+
+---
+
 ## Sensible Defaults
 
 ### Canvas coordinates
