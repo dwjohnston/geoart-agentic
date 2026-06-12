@@ -42,7 +42,7 @@ const pointRenderModuleImplementation = implementModule({
       {
         id: createInternalId(moduleId, 'circles'),
         type: 'circle',
-        renderConfig: { layer: 'live' },
+        renderConfig: { layer: 'live', displayByDefault: true, tags: ['point'] },
         params: {
           radius: { v: 0.01 },
           centerPoints: buildParamRef('points')
@@ -51,7 +51,7 @@ const pointRenderModuleImplementation = implementModule({
       {
         id: createInternalId(moduleId, 'arrow-heads-render'),
         type: 'circle',
-        renderConfig: { layer: 'live' },
+        renderConfig: { layer: 'live', displayByDefault: false, tags: ['cross', 'point'] },
         params: {
           radius: { v: 0.008 },
           centerPoints: { ref: `${computeNodeId}.points` }
@@ -60,7 +60,7 @@ const pointRenderModuleImplementation = implementModule({
       {
         id: createInternalId(moduleId, 'crosshairs'),
         type: 'linesThroughPoint',
-        renderConfig: { layer: 'live' },
+        renderConfig: { layer: 'live', displayByDefault: false, tags: ['cross', 'point'] },
         params: {
           points: buildParamRef('points'),
           degrees: { v: [{ v: 0 }, { v: 90 }] },

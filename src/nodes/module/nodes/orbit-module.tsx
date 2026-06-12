@@ -85,7 +85,7 @@ const orbitModuleImplementation = implementModule({
       renderConfig: {
         layer: 'live',
         "displayByDefault": true,
-        "tags": ["orbit", "points"]
+        "tags": ["orbit", "point"]
       },
     });
 

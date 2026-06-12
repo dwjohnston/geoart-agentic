@@ -112,6 +112,22 @@ export function RenderToggles({ renderingNodes, onToggle }: Props) {
       </div>
 
       <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+        {layers.map(layer => {
+          const layerNodes = renderingNodes.filter(n => n.renderConfig.layer === layer);
+          const anyLayerEnabled = layerNodes.some(n => enabled.has(n.nodeId));
+          return (
+            <button
+              key={layer}
+              onClick={() => handleToggleLayer(layer)}
+              style={{ fontSize: 11, cursor: 'pointer', padding: '2px 6px', background: '#333', color: '#ccc', border: '1px solid #555', borderRadius: 3 }}
+            >
+              {anyLayerEnabled ? `Disable ${layer}` : `Enable ${layer}`}
+            </button>
+          );
+        })}
+      </div>
+
+      <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
         {allTags.map(tag => {
           const tagNodes = renderingNodes.filter(n => n.renderConfig.tags?.includes(tag));
           const anyTagEnabled = tagNodes.some(n => enabled.has(n.nodeId));
@@ -127,21 +143,7 @@ export function RenderToggles({ renderingNodes, onToggle }: Props) {
         })}
       </div>
 
-      <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
-        {layers.map(layer => {
-          const layerNodes = renderingNodes.filter(n => n.renderConfig.layer === layer);
-          const anyLayerEnabled = layerNodes.some(n => enabled.has(n.nodeId));
-          return (
-            <button
-              key={layer}
-              onClick={() => handleToggleLayer(layer)}
-              style={{ fontSize: 11, cursor: 'pointer', padding: '2px 6px', background: '#333', color: '#ccc', border: '1px solid #555', borderRadius: 3 }}
-            >
-              {anyLayerEnabled ? `Disable ${layer}` : `Enable ${layer}`}
-            </button>
-          );
-        })}
-      </div>
+
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {renderingNodes.map(node => (

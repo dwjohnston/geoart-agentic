@@ -52,7 +52,7 @@ const curveModulatorModuleImplementation = implementModule({
         {
           id: connectDotsRenderNodeId,
           type: 'connect-dots',
-          renderConfig: { layer: 'live' },
+          renderConfig: { layer: 'live', displayByDefault: true, tags: ['path'] },
           params: {
             colorPointsArray: ref(curveModulatorComputeId, 'points'),
             lineWidth: { v: 1 },
