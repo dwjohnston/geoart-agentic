@@ -6,10 +6,21 @@ type Props = {
   onToggle: (nodeId: string) => void;
 };
 
+
+function createInitialEnabledSet(renderingNodes: GraphLoadPayload['renderingNodes']): Set<string> {
+  return new Set(renderingNodes.filter(n => n.renderConfig.displayByDefault !== false).map(n => n.nodeId));
+}
+
 export function RenderToggles({ renderingNodes, onToggle }: Props) {
+
+
   const [enabled, setEnabled] = useState<Set<string>>(
-    () => new Set(renderingNodes.map(n => n.nodeId))
+    () => createInitialEnabledSet(renderingNodes)
   );
+
+  useEffect(() => {
+    setEnabled(createInitialEnabledSet(renderingNodes));
+  }, [renderingNodes.map(n => n.nodeId).join(',')]);
 
   if (renderingNodes.length === 0) {
     return null;
@@ -41,6 +52,27 @@ export function RenderToggles({ renderingNodes, onToggle }: Props) {
     }
   };
 
+  const handleToggleLayer = (layer: string) => {
+    const layerNodes = renderingNodes.filter(n => n.renderConfig.layer === layer);
+    const allLayerEnabled = layerNodes.every(n => enabled.has(n.nodeId));
+    setEnabled(prev => {
+      const next = new Set(prev);
+      if (allLayerEnabled) {
+        layerNodes.forEach(n => next.delete(n.nodeId));
+      } else {
+        layerNodes.forEach(n => next.add(n.nodeId));
+      }
+      return next;
+    });
+    if (allLayerEnabled) {
+      layerNodes.filter(n => enabled.has(n.nodeId)).forEach(n => onToggle(n.nodeId));
+    } else {
+      layerNodes.filter(n => !enabled.has(n.nodeId)).forEach(n => onToggle(n.nodeId));
+    }
+  };
+
+  const layers = [...new Set(renderingNodes.map(n => n.renderConfig.layer))];
+
   return (
     <div style={{ borderTop: '1px solid #333', paddingTop: 12 }}>
 
@@ -55,6 +87,23 @@ export function RenderToggles({ renderingNodes, onToggle }: Props) {
           {allEnabled ? 'Disable All' : 'Enable All'}
         </button>
       </div>
+
+      <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+        {layers.map(layer => {
+          const layerNodes = renderingNodes.filter(n => n.renderConfig.layer === layer);
+          const allLayerEnabled = layerNodes.every(n => enabled.has(n.nodeId));
+          return (
+            <button
+              key={layer}
+              onClick={() => handleToggleLayer(layer)}
+              style={{ fontSize: 11, cursor: 'pointer', padding: '2px 6px', background: '#333', color: '#ccc', border: '1px solid #555', borderRadius: 3 }}
+            >
+              {allLayerEnabled ? `Disable ${layer}` : `Enable ${layer}`}
+            </button>
+          );
+        })}
+      </div>
+
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {renderingNodes.map(node => (
           <label key={node.nodeId} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 13 }}>
@@ -64,8 +113,8 @@ export function RenderToggles({ renderingNodes, onToggle }: Props) {
               onChange={() => handleToggle(node.nodeId)}
               style={{ cursor: 'pointer' }}
             />
-            <span>{node.label}</span>
-            <span style={{ fontSize: 11, color: '#888', marginLeft: 'auto' }}>({node.layer})</span>
+            <span>{node.nodeId}</span>
+            <span style={{ fontSize: 11, color: '#888', marginLeft: 'auto' }}>({node.renderConfig.layer})</span>
           </label>
         ))}
       </div>
