@@ -5,6 +5,7 @@ import type { GraphEngine, GraphLoadPayload } from '../graphEngine/exports';
 
 import type { GeoArtGraph } from '../schema/_generated/schema-types';
 import { Canvas } from './Canvas';
+import { type FpsCounterHandle } from './FpsCounter';
 import { SidePanel } from './SidePanel';
 import { AlgorithmPicker } from './AlgorithmPicker';
 import type { AlgorithmEntry } from './AlgorithmPicker';
@@ -28,12 +29,11 @@ export function App() {
   const trailCanvasRef = useRef<HTMLCanvasElement>(null);
   const engineRef = useRef<GraphEngine | null>(null);
 
+  const fpsCounterRef = useRef<FpsCounterHandle>(null);
+
   const [algorithms, setAlgorithms] = useState<AlgorithmEntry[]>(toBundledEntries);
   const [showImportModal, setShowImportModal] = useState(false);
   const [payload, setPayload] = useState<GraphLoadPayload>({ renderControlNodes: () => null, renderingNodes: [] });
-  const [fps, setFps] = useState(0);
-  const fpsFrameCount = useRef(0);
-  const fpsLastUpdate = useRef(performance.now());
 
   const getInitialGraphId = () => {
     const params = new URLSearchParams(window.location.search);
@@ -70,26 +70,15 @@ export function App() {
     const engine = createGraphEngine(orbitCtx, trailCtx, CANVAS_SIZE);
     engineRef.current = engine;
 
+
     const graph = getGraph(selectedGraphId);
     engine.setSpeed(graph.speed ?? 1.0);
     setPayload(engine.load(graph));
 
-    fpsFrameCount.current = 0;
-    fpsLastUpdate.current = performance.now();
-
     let rafId: number;
     const frame = () => {
       engine.tick();
-
-      fpsFrameCount.current++;
-      const now = performance.now();
-      const elapsed = now - fpsLastUpdate.current;
-      if (elapsed >= 1000) {
-        setFps(Math.round((fpsFrameCount.current * 1000) / elapsed));
-        fpsFrameCount.current = 0;
-        fpsLastUpdate.current = now;
-      }
-
+      fpsCounterRef.current?.tick();
       rafId = requestAnimationFrame(frame);
     };
     rafId = requestAnimationFrame(frame);
@@ -125,9 +114,9 @@ export function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 24, padding: 24 }}>
       <SidePanel>
-        <RenderToggles renderingNodes={payload.renderingNodes} onToggle={handleRenderNodeToggle} />
+        <RenderToggles key={selectedGraphId} renderingNodes={payload.renderingNodes} onToggle={handleRenderNodeToggle} />
       </SidePanel>
-      <Canvas orbitCanvasRef={orbitCanvasRef} trailCanvasRef={trailCanvasRef} size={CANVAS_SIZE} fps={fps} />
+      <Canvas orbitCanvasRef={orbitCanvasRef} trailCanvasRef={trailCanvasRef} size={CANVAS_SIZE} fpsCounterRef={fpsCounterRef} />
       <SidePanel>
         <AlgorithmPicker
           algorithms={algorithms}

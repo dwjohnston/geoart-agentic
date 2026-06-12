@@ -1,13 +1,14 @@
 import type { RefObject } from 'react';
+import { FpsCounter, type FpsCounterHandle } from './FpsCounter';
 
 type Props = {
   orbitCanvasRef: RefObject<HTMLCanvasElement | null>;
   trailCanvasRef: RefObject<HTMLCanvasElement | null>;
   size: number;
-  fps: number;
+  fpsCounterRef: RefObject<FpsCounterHandle | null>;
 };
 
-export function Canvas({ orbitCanvasRef, trailCanvasRef, size, fps }: Props) {
+export function Canvas({ orbitCanvasRef, trailCanvasRef, size, fpsCounterRef }: Props) {
   return (
     <div
       style={{
@@ -34,20 +35,7 @@ export function Canvas({ orbitCanvasRef, trailCanvasRef, size, fps }: Props) {
         data-testid="live-canvas"
         style={{ position: 'absolute', top: 0, left: 0 }}
       />
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 8,
-          right: 10,
-          color: 'rgba(255,255,255,0.5)',
-          fontSize: 11,
-          fontFamily: 'monospace',
-          pointerEvents: 'none',
-          userSelect: 'none',
-        }}
-      >
-        {fps} fps
-      </div>
+      <FpsCounter ref={fpsCounterRef} />
     </div>
   );
 }
