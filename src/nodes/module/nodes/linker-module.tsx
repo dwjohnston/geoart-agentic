@@ -34,7 +34,7 @@ const linkerModuleImplementation = implementModule({
         {
           id: timedLineArrayId,
           type: 'timedLineArray',
-          renderConfig: { layer: 'paint' },
+          renderConfig: { layer: 'paint', displayByDefault: true, tags: ['link'] },
           params: {
             intervalTicks: fromInput('intervalTicks'),
             colorPointsA: fromInput('pointsFrom'),

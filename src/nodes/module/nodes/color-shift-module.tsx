@@ -46,7 +46,7 @@ const colorShiftModuleImplementation = implementModule({
         {
           id: targetCirclesId,
           type: 'circle',
-          renderConfig: { layer: 'live' },
+          renderConfig: { layer: 'live', displayByDefault: true, tags: ['point'] },
           params: {
             centerPoints: fromInput('targetPoints'),
             radius: { v: 0.01 },
