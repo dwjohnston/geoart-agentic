@@ -14,13 +14,16 @@ function createInitialEnabledSet(renderingNodes: GraphLoadPayload['renderingNode
 export function RenderToggles({ renderingNodes, onToggle }: Props) {
 
 
+  const nodeKey = renderingNodes.map(n => n.nodeId).join(',');
+  const [prevNodeKey, setPrevNodeKey] = useState(nodeKey);
   const [enabled, setEnabled] = useState<Set<string>>(
     () => createInitialEnabledSet(renderingNodes)
   );
 
-  useEffect(() => {
+  if (prevNodeKey !== nodeKey) {
+    setPrevNodeKey(nodeKey);
     setEnabled(createInitialEnabledSet(renderingNodes));
-  }, [renderingNodes.map(n => n.nodeId).join(',')]);
+  }
 
   if (renderingNodes.length === 0) {
     return null;
@@ -54,24 +57,44 @@ export function RenderToggles({ renderingNodes, onToggle }: Props) {
 
   const handleToggleLayer = (layer: string) => {
     const layerNodes = renderingNodes.filter(n => n.renderConfig.layer === layer);
-    const allLayerEnabled = layerNodes.every(n => enabled.has(n.nodeId));
+    const anyLayerEnabled = layerNodes.some(n => enabled.has(n.nodeId));
     setEnabled(prev => {
       const next = new Set(prev);
-      if (allLayerEnabled) {
+      if (anyLayerEnabled) {
         layerNodes.forEach(n => next.delete(n.nodeId));
       } else {
         layerNodes.forEach(n => next.add(n.nodeId));
       }
       return next;
     });
-    if (allLayerEnabled) {
+    if (anyLayerEnabled) {
       layerNodes.filter(n => enabled.has(n.nodeId)).forEach(n => onToggle(n.nodeId));
     } else {
-      layerNodes.filter(n => !enabled.has(n.nodeId)).forEach(n => onToggle(n.nodeId));
+      layerNodes.forEach(n => onToggle(n.nodeId));
+    }
+  };
+
+  const handleToggleTag = (tag: string) => {
+    const tagNodes = renderingNodes.filter(n => n.renderConfig.tags?.includes(tag));
+    const anyTagEnabled = tagNodes.some(n => enabled.has(n.nodeId));
+    setEnabled(prev => {
+      const next = new Set(prev);
+      if (anyTagEnabled) {
+        tagNodes.forEach(n => next.delete(n.nodeId));
+      } else {
+        tagNodes.forEach(n => next.add(n.nodeId));
+      }
+      return next;
+    });
+    if (anyTagEnabled) {
+      tagNodes.filter(n => enabled.has(n.nodeId)).forEach(n => onToggle(n.nodeId));
+    } else {
+      tagNodes.forEach(n => onToggle(n.nodeId));
     }
   };
 
   const layers = [...new Set(renderingNodes.map(n => n.renderConfig.layer))];
+  const allTags = [...new Set(renderingNodes.flatMap(n => n.renderConfig.tags ?? []))];
 
   return (
     <div style={{ borderTop: '1px solid #333', paddingTop: 12 }}>
@@ -89,16 +112,32 @@ export function RenderToggles({ renderingNodes, onToggle }: Props) {
       </div>
 
       <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+        {allTags.map(tag => {
+          const tagNodes = renderingNodes.filter(n => n.renderConfig.tags?.includes(tag));
+          const anyTagEnabled = tagNodes.some(n => enabled.has(n.nodeId));
+          return (
+            <button
+              key={tag}
+              onClick={() => handleToggleTag(tag)}
+              style={{ fontSize: 11, cursor: 'pointer', padding: '2px 6px', background: '#333', color: '#ccc', border: '1px solid #555', borderRadius: 3 }}
+            >
+              {anyTagEnabled ? `Disable ${tag}` : `Enable ${tag}`}
+            </button>
+          );
+        })}
+      </div>
+
+      <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
         {layers.map(layer => {
           const layerNodes = renderingNodes.filter(n => n.renderConfig.layer === layer);
-          const allLayerEnabled = layerNodes.every(n => enabled.has(n.nodeId));
+          const anyLayerEnabled = layerNodes.some(n => enabled.has(n.nodeId));
           return (
             <button
               key={layer}
               onClick={() => handleToggleLayer(layer)}
               style={{ fontSize: 11, cursor: 'pointer', padding: '2px 6px', background: '#333', color: '#ccc', border: '1px solid #555', borderRadius: 3 }}
             >
-              {allLayerEnabled ? `Disable ${layer}` : `Enable ${layer}`}
+              {anyLayerEnabled ? `Disable ${layer}` : `Enable ${layer}`}
             </button>
           );
         })}
