@@ -14,7 +14,7 @@ The following sub-agents are available for task-specific work. Spawn the appropr
 | `workflow-feature-agent` | Phase 1 — ideate and write a `FEATURE_BRIEF.md` |
 | `workflow-plan-agent` | Phase 2 — break a feature brief into a task plan with agent assignments |
 | `workflow-execute-agent` | Phase 3 — spawn each task agent in dependency order |
-| `workflow-accept-agent` | Phase 4 — move a completed feature to `projects/completed-features` |
+| `workflow-accept-agent` | Phase 4 — move a completed feature to `/completed-features` |
 
 ### Node development
 

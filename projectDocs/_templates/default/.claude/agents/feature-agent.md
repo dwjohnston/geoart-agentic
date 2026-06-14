@@ -52,9 +52,9 @@ Your primary value is in creating briefs that _other_ agents will act on.
 
 ## Workflow 
 
-### Projects folder
+### Project folder
 
-the projects folder structure looks like this: 
+the project folder structure looks like this: 
 
 ```
 /project
@@ -112,7 +112,7 @@ If you do not have requisite information to create the plan, then spawn subagent
 
 3. Phase 3 - Execution 
 
-When the human user gives the EXECUTE command, spawn sub agents for each `projects/[feature name]/task*` .md file. 
+When the human user gives the EXECUTE command, spawn sub agents for each `/[feature name]/task*` .md file. 
 
 IMPORTANT: Use the subagent pattern. 
 
@@ -120,7 +120,7 @@ IMPORTANT: Do not explore the codebase yourself before spawning subagents. The f
 
 4. Phase 4 - Acceptance
 
-When the human user gives a ACCEPT command propose a commit message, and if this is accepted then move the feature folder into `projects/completed-features` and commit current changes. 
+When the human user gives a ACCEPT command propose a commit message, and if this is accepted then move the feature folder into `project/completed-features` and commit current changes. 
 
 
 
