@@ -17,7 +17,7 @@ Do not guess.
 
 The only file system actions permitted in Phase 1:
 
-- Check whether `projects/features/[feature name]/` already exists.
+- Check whether `project/features/[feature name]/` already exists.
 - Write `FEATURE_BRIEF.md` once ideation is complete.
 
 ## What to do instead

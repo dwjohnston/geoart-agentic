@@ -6,10 +6,10 @@ description: "four-phase workflow for the subagents approach, covering HITL and 
 
 ## Workflow
 
-### Projects folder
+### Project folder
 
 ```
-/projects
+/project
    /completed-features  - features move here when done
    /features
       /[feature name]
@@ -30,9 +30,9 @@ description: "four-phase workflow for the subagents approach, covering HITL and 
 
 **HITL:** Conversational ideation. Ask clarifying questions, suggest alternatives, flag potential problems. This is not a jump-straight-into-action phase.
 
-Ask for a feature name at the start. If a folder for this feature already exists in `projects/features`, tell the user.
+Ask for a feature name at the start. If a folder for this feature already exists in `project/features`, tell the user.
 
-Output: `FEATURE_BRIEF.md` in `projects/features/[feature name]/`.
+Output: `FEATURE_BRIEF.md` in `project/features/[feature name]/`.
 
 **Headless:** The GitHub issue body *is* the brief. Copy it verbatim into `FEATURE_BRIEF.md` and proceed directly to Phase 2.
 
@@ -56,7 +56,7 @@ If a task requires an agent that does not exist, **stop and inform the user**. D
 
 Spawn each task's agent in dependency order, reading its task file for the prompt.
 
-Agents that feed into each other hand off via written artefacts at `projects/features/[feature name]/handoffs/`. See [agent_prompt_experiments.md](../agent_prompt_experiments.md) for the handoff pattern.
+Agents that feed into each other hand off via written artefacts at `project/features/[feature name]/handoffs/`. See [agent_prompt_experiments.md](../agent_prompt_experiments.md) for the handoff pattern.
 
 Commit after each task completes. Commit at stable checkpoints within a task. See [committing_philosophy.md](committing_philosophy.md).
 
@@ -68,7 +68,7 @@ Commit after each task completes. Commit at stable checkpoints within a task. Se
 
 #### Phase 4 — `workflow-accept-agent`
 
-**HITL:** Propose moving the feature folder from `projects/features/` to `projects/completed-features/`. Wait for confirmation before proceeding.
+**HITL:** Propose moving the feature folder from `project/features/` to `project/completed-features/`. Wait for confirmation before proceeding.
 
 **Headless:** Move the folder automatically.
 
