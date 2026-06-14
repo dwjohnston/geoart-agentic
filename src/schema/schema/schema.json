@@ -1115,6 +1115,49 @@
               }
             }
           }
+        },
+        {
+          "title": "Reflect Compute Node",
+          "type": "object",
+          "description": "Reflects an array of input points about one or more reflection points. Each input point is reflected about every reflection point (product cardinality). The dx/dy tangent field of each reflection point defines the mirror line direction through that point.",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "reflect"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "reflectionPoints": {
+                  "description": "Each point's dx/dy tangent field defines the mirror line direction through that point. dx=dy=0 is a no-op for that reflection point.",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     },
