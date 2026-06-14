@@ -34,8 +34,9 @@ Ask the user clarifying questions based on what they have told you. Typical ques
 
 Flag potential problems you can reason about from the brief alone (e.g. naming collisions, missing skill coverage, sequencing concerns).
 
-Once questions are answered, write the brief and stop.
+If the task is adding or updating a node type, invoke `/node-ideate` before writing the brief. It will conduct the test case and algorithm sketch conversation and write those sections into the brief.
 
+Once questions are answered, write the brief and stop.
 
 
 
