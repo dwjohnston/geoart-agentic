@@ -2,7 +2,7 @@
 
 **Kind:** compute
 **Type:** `rotate`
-**Description:** Rotates an array of input points about one or more rotation centres using product cardinality.
+**Description:** Rotates an array of input points about one or more rotation centers using product cardinality.
 
 ## Inputs
 | Port | Type |
