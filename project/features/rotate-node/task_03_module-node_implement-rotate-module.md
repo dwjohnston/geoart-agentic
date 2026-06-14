@@ -9,10 +9,10 @@ Implement the `rotate-module` module node.
 
 The module contains the `rotate` compute node. It exposes the same inputs as `rotate`:
 - `inputPoints: colorPointArrayValueOrRef`
-- `rotationCentres: colorPointArrayValueOrRef`
+- `rotationCenters: colorPointArrayValueOrRef`
 - `rotationAmount: numberValueOrRef`
 
 And the same output:
 - `points: colorPointArrayValue`
 
-The module's `renderControl` renders a circle outline at each rotation centre point.
+The module's `renderControl` renders a circle outline at each rotation center point.

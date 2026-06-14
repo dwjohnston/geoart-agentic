@@ -13,7 +13,7 @@ Read the feature brief at `project/features/rotate-node/FEATURE_BRIEF.md` for te
 
 Implement the `rotate` compute node.
 
-**Behaviour:** Product cardinality — each input point is rotated about every rotation centre. Output length = `inputPoints.length × rotationCentres.length`. Output colour is taken from `inputPoints`.
+**Behaviour:** Product cardinality — each input point is rotated about every rotation center. Output length = `inputPoints.length × rotationCenters.length`. Output colour is taken from `inputPoints`.
 
 `rotationAmount` is 0–1 where 1.0 = full 360° (2π radians).
 
@@ -21,6 +21,6 @@ Implement the `rotate` compute node.
 
 | Inputs | Expected output |
 |---|---|
-| `inputPoints: [(1,0,red)]`, `rotationCentres: [(0,0,white)]`, `rotationAmount: 0` | `[(1, 0, red)]` — identity |
-| `inputPoints: [(1,0,red)]`, `rotationCentres: [(0,0,white)]`, `rotationAmount: 0.25` | `[(0, 1, red)]` — 90° CCW about origin |
-| `inputPoints: [(1,0,red), (0,1,blue)]`, `rotationCentres: [(0,0,white), (0.5,0,white)]`, `rotationAmount: 0.25` | `[(0,1,red), (-1,0,blue), (0.5,0.5,red), (-0.5,-0.5,blue)]` — 4 outputs |
+| `inputPoints: [(1,0,red)]`, `rotationCenters: [(0,0,white)]`, `rotationAmount: 0` | `[(1, 0, red)]` — identity |
+| `inputPoints: [(1,0,red)]`, `rotationCenters: [(0,0,white)]`, `rotationAmount: 0.25` | `[(0, 1, red)]` — 90° CCW about origin |
+| `inputPoints: [(1,0,red), (0,1,blue)]`, `rotationCenters: [(0,0,white), (0.5,0,white)]`, `rotationAmount: 0.25` | `[(0,1,red), (-1,0,blue), (0.5,0.5,red), (-0.5,-0.5,blue)]` — 4 outputs |
