@@ -104,6 +104,7 @@ The following skills are available for task-specific work. Invoke the appropriat
 
 | Skill | Purpose |
 |---|---|
+| `node-ideate` | Ideate a new or updated node type — elicit test cases and reference algorithm sketch for the brief |
 | `define-node` | Define a new node type or value primitive in `src/schema` |
 | `compute-node` | Implement a compute node in `src/nodes/compute` |
 | `render-node` | Implement a render node in `src/nodes/render` |
