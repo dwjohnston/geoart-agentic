@@ -38,6 +38,7 @@ const reflectNodeImplementation = implementComputeNode('reflect', {
   defaults: {
     inputPoints: [],
     reflectionPoints: [],
+    colorShiftOperation: 'none' as const,
   },
   evaluate: (inputs) => {
     const points: ColorPoint[] = [];

@@ -28,6 +28,7 @@ const rotateNodeImplementation = implementComputeNode('rotate', {
     inputPoints: [],
     rotationCenters: [],
     rotationAmount: 0,
+    colorShiftOperation: 'none' as const,
   },
   evaluate: (inputs) => {
     const theta = inputs.rotationAmount * 2 * Math.PI;

@@ -10,6 +10,7 @@ const rotateModuleImplementation = implementModule({
     inputPoints: [],
     rotationCenters: [],
     rotationAmount: 0,
+    colorShiftOperation: 'none' as const,
   },
 
   provideNodes: (params, moduleId, defaultValues) => {
