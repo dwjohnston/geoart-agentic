@@ -75,6 +75,25 @@ describe('rotate-module', () => {
     expect(result.inputMarkerNode.params.rotationAmount).toEqual({ v: 0 });
   });
 
+  it('wires colorShiftOperation to the rotate compute node', () => {
+    const moduleId = 'rotateColorShiftTest';
+    const result = rotateModule({}, moduleId);
+    const marker = `${moduleId}:input-marker`;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const p = result.computeNodes[0].params as any;
+    expect(p.colorShiftOperation).toEqual({ ref: `${marker}.colorShiftOperation` });
+  });
+
+  it('defaults colorShiftOperation to none', () => {
+    const result = rotateModule({}, 'rotateDefaultOpTest');
+    expect(result.inputMarkerNode.params.colorShiftOperation).toEqual({ v: 'none' });
+  });
+
+  it('accepts a provided colorShiftOperation param', () => {
+    const result = rotateModule({ colorShiftOperation: { v: 'hue-shift' } }, 'rotateHueTest');
+    expect(result.inputMarkerNode.params.colorShiftOperation).toEqual({ v: 'hue-shift' });
+  });
+
   it('render node is on the live layer and tagged', () => {
     const result = rotateModule({}, 'rotateTagTest');
 
