@@ -1,5 +1,6 @@
 import type { ResolvedValue } from '../../../schema/typeHelpers';
 import { implementComputeNode } from '../implementComputeNode';
+import { applyColorShiftOperation, computeDriver } from '../colorShiftOperations';
 
 type ColorPoint = ResolvedValue<'colorPointValue'>;
 
@@ -35,8 +36,22 @@ const rotateNodeImplementation = implementComputeNode('rotate', {
     const points: ColorPoint[] = [];
 
     for (const center of inputs.rotationCenters) {
+      const axisX = center.dx ?? 1;
+      const axisY = center.dy ?? 0;
       for (const p of inputs.inputPoints) {
-        points.push(rotatePoint(p, center, theta));
+        const rotated = rotatePoint(p, center, theta);
+        if (inputs.colorShiftOperation !== 'none') {
+          const driver = computeDriver(p.x, p.y, center.x, center.y, axisX, axisY);
+          const shifted = applyColorShiftOperation(
+            { r: rotated.r, g: rotated.g, b: rotated.b, a: rotated.a },
+            { r: center.r, g: center.g, b: center.b, a: center.a },
+            driver,
+            inputs.colorShiftOperation,
+          );
+          points.push({ ...rotated, ...shifted });
+        } else {
+          points.push(rotated);
+        }
       }
     }
 
