@@ -9,6 +9,7 @@ const reflectModuleImplementation = implementModule({
   defaultValues: {
     inputPoints: [],
     reflectionPoints: [],
+    colorShiftOperation: 'none' as const,
   },
 
   provideNodes: (params, moduleId, defaultValues) => {
