@@ -64,7 +64,7 @@ const waveModuleImplementation = implementModule({
               <DropdownControl id={`${inputMarkerId}-wave-shape`} label="Wave shape" options={WAVE_TYPES} initialValue={v} onChange={onChange} />
             ))}
             {renderIfNeeded(markerParams, 'frequency', set, (v, onChange) => (
-              <KnobControl label="Frequency" min={0.01} max={20} initialValue={v} onChange={onChange} />
+              <KnobControl label="Frequency" min={0.01} max={20} initialValue={v} step={0.01} onChange={onChange} />
             ))}
             {renderIfNeeded(markerParams, 'amplitude', set, (v, onChange) => (
               <KnobControl label="Amplitude" min={0} max={2} initialValue={v} onChange={onChange} />
