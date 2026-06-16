@@ -62,6 +62,8 @@ Skills that feed into each other hand off via written artefacts at `project/feat
 
 Commit after each task completes. Commit at stable checkpoints within a task. See [committing_philosophy.md](committing_philosophy.md).
 
+Run `/sign-off` after each task completes to capture handoffs, feedback, and prompt-improvement notes before moving to the next task.
+
 **HITL:** Before invoking each task, prompt the user: "Run [task name] now?" The user may skip or defer individual tasks.
 
 **Headless:** Run all tasks sequentially without prompting.
