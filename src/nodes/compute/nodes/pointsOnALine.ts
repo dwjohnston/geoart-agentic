@@ -1,10 +1,11 @@
-import type { ResolvedValue } from "../../../schema/typeHelpers";
+import type { ColorSampler, ResolvedValue } from "../../../schema/typeHelpers";
 import { implementComputeNode } from '../implementComputeNode';
 
 function pointsOnALine(
   pointA: ResolvedValue<"colorPointValue">,
   pointB: ResolvedValue<"colorPointValue">,
   numberOfPoints: number,
+  colorSampler: ColorSampler | null,
 ): ResolvedValue<"colorPointValue">[] {
   const count = Math.max(1, Math.round(numberOfPoints));
   if (count === 1) return [{ ...pointA }];
@@ -12,13 +13,21 @@ function pointsOnALine(
     a === null || b === null ? null : a + t * (b - a);
   return Array.from({ length: count }, (_, i) => {
     const t = i / (count - 1);
+    const color = colorSampler
+      ? colorSampler.sample(t)
+      : {
+          r: lerpChannel(pointA.r, pointB.r, t),
+          g: lerpChannel(pointA.g, pointB.g, t),
+          b: lerpChannel(pointA.b, pointB.b, t),
+          a: lerpChannel(pointA.a, pointB.a, t),
+        };
     return {
       x: pointA.x + t * (pointB.x - pointA.x),
       y: pointA.y + t * (pointB.y - pointA.y),
-      r: lerpChannel(pointA.r, pointB.r, t),
-      g: lerpChannel(pointA.g, pointB.g, t),
-      b: lerpChannel(pointA.b, pointB.b, t),
-      a: lerpChannel(pointA.a, pointB.a, t),
+      r: color.r,
+      g: color.g,
+      b: color.b,
+      a: color.a,
       dx: pointB.x - pointA.x,
       dy: pointB.y - pointA.y,
     };
@@ -52,7 +61,8 @@ const pointsOnALineNodeImplementation = implementComputeNode("pointsOnALine", {
     "colorSampler": null,
   },
   evaluate: (inputs) => {
-    const points = pointsOnALine(inputs.pointA, inputs.pointB, inputs.numberOfPoints)
+    const colorSampler = inputs.colorSampler as ColorSampler | null;
+    const points = pointsOnALine(inputs.pointA, inputs.pointB, inputs.numberOfPoints, colorSampler)
     return {
       points: points
     }
