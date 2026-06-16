@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import orbitNodeImplementation from './orbit';
-import type { NodeInputsResolved } from '../../../schema/typeHelpers';
+import type { ColorSampler, NodeInputsResolved } from '../../../schema/typeHelpers';
 
 // speed=1 → 1 orbit per 600 ticks. Tick values for clean positions:
 //   t=0    → angle=0    (rightmost point)
@@ -221,6 +221,63 @@ describe('orbitNodeImplementation', () => {
       const { point } = orbitNodeImplementation.evaluate({ ...base, time: 150, eccentricity: 0.5, tilt: 0.25 });
       expect(point.x).toBeCloseTo(-0.25);
       expect(point.y).toBeCloseTo(0);
+    });
+  });
+
+  describe('colorSampler', () => {
+    // A sampler that maps t linearly: r=t, g=1-t, b=0, a=1
+    const makeLinearSampler = (): ColorSampler => ({
+      sample(t: number) {
+        return { r: t, g: 1 - t, b: 0, a: 1 };
+      },
+    });
+
+    it('without colorSampler, colours are inherited from centre point', () => {
+      const { points } = orbitNodeImplementation.evaluate({ ...base, numPoints: 1 });
+      expect(points[0]).toMatchObject({ r: 1, g: 1, b: 1, a: 1 });
+    });
+
+    it('with colorSampler, t=0 gives r=0, g=1 for first of 4 points', () => {
+      // i=0, numPoints=4 → t = 0/4 = 0 → { r:0, g:1, b:0, a:1 }
+      const sampler = makeLinearSampler();
+      const { points } = orbitNodeImplementation.evaluate({ ...base, numPoints: 4, colorSampler: sampler as unknown });
+      expect(points[0]).toMatchObject({ r: 0, g: 1, b: 0, a: 1 });
+    });
+
+    it('with colorSampler, t=0.5 for the third of 4 points', () => {
+      // i=2, numPoints=4 → t = 2/4 = 0.5 → { r:0.5, g:0.5, b:0, a:1 }
+      const sampler = makeLinearSampler();
+      const { points } = orbitNodeImplementation.evaluate({ ...base, numPoints: 4, colorSampler: sampler as unknown });
+      expect(points[2].r).toBeCloseTo(0.5);
+      expect(points[2].g).toBeCloseTo(0.5);
+      expect(points[2].b).toBeCloseTo(0);
+      expect(points[2].a).toBeCloseTo(1);
+    });
+
+    it('with colorSampler and multiple centre points, each sub-orbit uses per-point t values', () => {
+      // 2 centre points × 2 orbit points = 4 total points
+      // Global indices: centre[0]: i=0 (t=0), i=1 (t=0.5); centre[1]: i=0 (t=0), i=1 (t=0.5)
+      const centres = [
+        { x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0, dy: 0 },
+        { x: 0.5, y: 0.5, r: 0, g: 1, b: 0, a: 1, dx: 0, dy: 0 },
+      ];
+      const sampler = makeLinearSampler();
+      const { points } = orbitNodeImplementation.evaluate({ ...base, centerPoints: centres, numPoints: 2, colorSampler: sampler as unknown });
+      // Each centre produces 2 points; both centres use the same sampler at i=0 and i=1
+      expect(points[0]).toMatchObject({ r: 0, g: 1, b: 0, a: 1 }); // t=0
+      expect(points[1]).toMatchObject({ r: 0.5, g: 0.5, b: 0, a: 1 }); // t=0.5
+      expect(points[2]).toMatchObject({ r: 0, g: 1, b: 0, a: 1 }); // t=0
+      expect(points[3]).toMatchObject({ r: 0.5, g: 0.5, b: 0, a: 1 }); // t=0.5
+    });
+
+    it('colorSampler overrides centre point colour, not position', () => {
+      const sampler: ColorSampler = { sample: () => ({ r: 0, g: 0, b: 1, a: 0.5 }) };
+      const { points } = orbitNodeImplementation.evaluate({ ...base, colorSampler: sampler as unknown });
+      // Position unchanged: at t=0, x≈0.5, y≈0
+      expect(points[0].x).toBeCloseTo(0.5);
+      expect(points[0].y).toBeCloseTo(0);
+      // Colour comes from sampler
+      expect(points[0]).toMatchObject({ r: 0, g: 0, b: 1, a: 0.5 });
     });
   });
 });
