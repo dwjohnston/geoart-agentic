@@ -6,7 +6,7 @@ import type { NodeInputsResolved } from '../../../schema/typeHelpers';
 //   t=0    → angle=0    (rightmost point)
 //   t=150  → angle=π/2  (quarter turn, top)
 //   t=300  → angle=π    (half turn, leftmost)
-const base = { time: 0, radius: 0.5, speed: 1, center: { x: 0, y: 0 }, numPoints: 1, phase: 0, eccentricity: 0, tilt: 0, centerPoints: [] } satisfies NodeInputsResolved<"orbit">;
+const base = { time: 0, radius: 0.5, speed: 1, center: { x: 0, y: 0 }, numPoints: 1, phase: 0, eccentricity: 0, tilt: 0, centerPoints: [], "colorSampler": null } satisfies NodeInputsResolved<"orbit">;
 
 describe('orbitNodeImplementation', () => {
   it('at t=0, point is at (radius, 0)', () => {

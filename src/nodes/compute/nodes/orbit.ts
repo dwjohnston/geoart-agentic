@@ -44,6 +44,7 @@ const orbitNodeImplementation = implementComputeNode("orbit", {
     time: 0,
     eccentricity: 0,
     tilt: 0,
+    "colorSampler": null,
   },
   evaluate: (inputs) => {
     const t = inputs.time;

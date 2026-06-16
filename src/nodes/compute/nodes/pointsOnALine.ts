@@ -49,6 +49,7 @@ const pointsOnALineNodeImplementation = implementComputeNode("pointsOnALine", {
       dy: 0,
     },
     "numberOfPoints": 1,
+    "colorSampler": null,
   },
   evaluate: (inputs) => {
     const points = pointsOnALine(inputs.pointA, inputs.pointB, inputs.numberOfPoints)
