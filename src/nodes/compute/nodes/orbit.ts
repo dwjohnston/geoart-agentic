@@ -1,4 +1,4 @@
-import type { ResolvedValue } from '../../../schema/typeHelpers';
+import type { ColorSampler, ResolvedValue } from '../../../schema/typeHelpers';
 import { implementComputeNode } from '../implementComputeNode';
 
 function evaluateOrbitPoints(
@@ -67,6 +67,8 @@ const orbitNodeImplementation = implementComputeNode("orbit", {
           ? [{ ...DEFAULT_CENTER_POINT, ...DEFAULT_CENTER_COLOR, x: inputs.center.x, y: inputs.center.y, dx: 0, dy: 0 }]
           : [{ ...DEFAULT_CENTER_POINT, ...DEFAULT_CENTER_COLOR, dx: 0, dy: 0 }];
 
+    const colorSampler = inputs.colorSampler as ColorSampler | null;
+
     // Precompute shared angle values once
     const phaseRadians = phase * 2 * Math.PI;
     const baseAngle = speed * (t / 600) * 2 * Math.PI + phaseRadians;
@@ -85,16 +87,20 @@ const orbitNodeImplementation = implementComputeNode("orbit", {
         const dx = -Math.sin(pointAngle);
         const dy = Math.cos(pointAngle);
 
-        allPoints.push({
-          x: p.x,
-          y: p.y,
-          r: centre.r,
-          g: centre.g,
-          b: centre.b,
-          a: centre.a,
-          dx,
-          dy,
-        });
+        let r = centre.r;
+        let g = centre.g;
+        let b = centre.b;
+        let a = centre.a;
+
+        if (colorSampler !== null) {
+          const sampledColor = colorSampler.sample(i / numPoints);
+          r = sampledColor.r;
+          g = sampledColor.g;
+          b = sampledColor.b;
+          a = sampledColor.a;
+        }
+
+        allPoints.push({ x: p.x, y: p.y, r, g, b, a, dx, dy });
       }
     }
 
