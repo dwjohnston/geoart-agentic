@@ -623,7 +623,7 @@
                 "label": {
                   "$ref": "value-kinds.schema.json#/definitions/stringValue"
                 },
-                "value": {
+                "mode": {
                   "$ref": "value-kinds.schema.json#/definitions/colorSamplerModeEnumValue"
                 }
               }
