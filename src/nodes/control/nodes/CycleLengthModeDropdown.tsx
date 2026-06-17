@@ -1,7 +1,7 @@
 import { implementControlNode } from '../implementControlNode';
 import { DropdownControl } from '../ui/DropdownControl';
 
-const CYCLE_LENGTH_MODES = ['arrayLength', 'linearOne'] as const;
+const CYCLE_LENGTH_MODES = ['arrayLength', 'linearOne', 'linearTotal'] as const;
 
 export default implementControlNode('cycleLengthModeSelector', {
   defaults: {
