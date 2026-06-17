@@ -416,11 +416,20 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
     );
 
     // Input marker nodes need inputs (to accept external refs) and outputs (to expose to internal nodes)
+    // Runtime-object types (colorSampler, sampler) cannot be serialised as static params — they can
+    // only arrive via edges. Give them a null default so the evaluator doesn't throw when no edge
+    // is wired.
+    const RUNTIME_OBJECT_PORT_TYPES = new Set(['colorSampler', 'sampler']);
     const inputMarkerInputPorts: LegacyComputeNodePortImplementation[] = Object.entries(moduleInputDefs).map(
-      ([name, def]) => ({
-        name,
-        type: (def as { valueType: string }).valueType.replace('Value', '') as LegacyComputeNodePortImplementation['type'],
-      })
+      ([name, def]) => {
+        const portType = (def as { valueType: string }).valueType.replace('Value', '') as LegacyComputeNodePortImplementation['type'];
+        return {
+          name,
+          type: portType,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ...(RUNTIME_OBJECT_PORT_TYPES.has(portType) ? { default: { v: null } as any } : {}),
+        };
+      }
     );
 
     const inputMarkerDef: LegacyComputeNodeImplementation = {

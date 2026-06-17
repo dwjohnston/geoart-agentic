@@ -1737,6 +1737,10 @@
                 },
                 "tilt": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorSampler": {
+                  "description": "Optional color sampler — overrides point colours when provided",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
                 }
               }
             }
