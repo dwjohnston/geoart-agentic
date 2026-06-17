@@ -34,7 +34,7 @@ function valueToRotation(value: number, min: number, max: number, scale: "linear
   return ROTATION_MIN + fraction * (ROTATION_MAX - ROTATION_MIN);
 }
 
-export function KnobControl({ initialValue, min, max, scale = "linear", step, size = 'lg', variant = 'regular', label, snapTo, onChange }: Props) {
+export function KnobControl({ initialValue, min, max, scale = "log", step, size = 'lg', variant = 'regular', label, snapTo, onChange }: Props) {
   const [value, setValue] = useState(initialValue);
   const [coarseValue, setCoarseValue] = useState(initialValue);
   const [fineValue, setFineValue] = useState(0);
