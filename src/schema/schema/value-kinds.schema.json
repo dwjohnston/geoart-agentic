@@ -301,7 +301,8 @@
           "type": "string",
           "enum": [
             "arrayLength",
-            "linearOne"
+            "linearOne",
+            "linearTotal"
           ]
         }
       }
