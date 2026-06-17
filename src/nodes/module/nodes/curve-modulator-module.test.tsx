@@ -83,16 +83,32 @@ describe('curve-modulator-module', () => {
     });
   });
 
-  it('wires wave params from input marker to wave-module', () => {
+  it('passes static default values to wave-module when wave params are not wired', () => {
     const result = curveModulatorModule({}, 'myModulator');
 
     const waveModule = result.moduleNodes?.find(m => m.type === 'wave-module');
     const params = waveModule?.params as Record<string, unknown>;
+    expect(params?.frequency).toEqual({ v: 1 });
+    expect(params?.amplitude).toEqual({ v: 0.5 });
+    expect(params?.phase).toEqual({ v: 0 });
+    expect(params?.waveShape).toEqual({ v: 'sine' });
+    expect(params?.samplerTemporalImpact).toEqual({ v: 0 });
+  });
+
+  it('routes wave params through input marker when explicitly wired', () => {
+    const result = curveModulatorModule({
+      frequency: { ref: 'someNode.value' },
+      waveShape: { ref: 'shapeNode.value' },
+    }, 'myModulator');
+
+    const waveModule = result.moduleNodes?.find(m => m.type === 'wave-module');
+    const params = waveModule?.params as Record<string, unknown>;
     expect(params?.frequency).toEqual({ ref: 'myModulator:input-marker.frequency' });
-    expect(params?.amplitude).toEqual({ ref: 'myModulator:input-marker.amplitude' });
-    expect(params?.phase).toEqual({ ref: 'myModulator:input-marker.phase' });
     expect(params?.waveShape).toEqual({ ref: 'myModulator:input-marker.waveShape' });
-    expect(params?.samplerTemporalImpact).toEqual({ ref: 'myModulator:input-marker.samplerTemporalImpact' });
+    // unwired params stay static
+    expect(params?.amplitude).toEqual({ v: 0.5 });
+    expect(params?.phase).toEqual({ v: 0 });
+    expect(params?.samplerTemporalImpact).toEqual({ v: 0 });
   });
 
   it('wires wave module sampler to curve modulator compute node', () => {

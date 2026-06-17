@@ -7,7 +7,6 @@ import { ModulePanel } from '../../../ui/ModulePanel';
 import { DropdownControl } from '../../control/ui/DropdownControl';
 
 const CYCLE_LENGTH_MODES = ['arrayLength', 'linearOne', 'linearTotal'] as const;
-const WAVE_TYPES = ['sine', 'square', 'triangle', 'saw', 'reverse-saw'] as const;
 
 const curveModulatorModuleImplementation = implementModule({
   _kind: 'curve-modulator-module',
@@ -28,6 +27,14 @@ const curveModulatorModuleImplementation = implementModule({
     const fromInput = (key: keyof NodeInputsDeclared<'curve-modulator-module'>) => ({
       ref: `${inputMarkerId}.${key}`,
     });
+
+    // Only route through the input marker if the caller explicitly wired this param.
+    // Otherwise pass a static value so the wave-module renders its own controls.
+    type WaveNumberKey = 'frequency' | 'amplitude' | 'phase' | 'samplerTemporalImpact';
+    const waveNumberParam = (key: WaveNumberKey) =>
+      key in params ? fromInput(key) : { v: defaultValues[key] as number };
+    const waveShapeParam = () =>
+      'waveShape' in params ? fromInput('waveShape') : { v: defaultValues.waveShape };
 
     const waveModuleId = 'wave-module';
     const waveModuleFullId = createInternalId(moduleId, waveModuleId);
@@ -72,11 +79,11 @@ const curveModulatorModuleImplementation = implementModule({
           id: waveModuleId,
           type: 'wave-module',
           params: {
-            frequency: fromInput('frequency'),
-            amplitude: fromInput('amplitude'),
-            phase: fromInput('phase'),
-            waveShape: fromInput('waveShape'),
-            samplerTemporalImpact: fromInput('samplerTemporalImpact'),
+            frequency: waveNumberParam('frequency'),
+            amplitude: waveNumberParam('amplitude'),
+            phase: waveNumberParam('phase'),
+            waveShape: waveShapeParam(),
+            samplerTemporalImpact: waveNumberParam('samplerTemporalImpact'),
           },
         },
         {
@@ -102,21 +109,6 @@ const curveModulatorModuleImplementation = implementModule({
             ))}
             {renderIfNeeded(markerParams, 'fixedOffset', set, (v, onChange) => (
               <KnobControl label="Fixed offset" min={0} max={1} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'waveShape', set, (v, onChange) => (
-              <DropdownControl id={`${inputMarkerId}-wave-shape`} label="Wave shape" options={WAVE_TYPES} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'frequency', set, (v, onChange) => (
-              <KnobControl label="Frequency" min={0.01} max={20} step={0.01} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'amplitude', set, (v, onChange) => (
-              <KnobControl label="Amplitude" min={0} max={2} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'phase', set, (v, onChange) => (
-              <KnobControl label="Phase" min={0} max={1} initialValue={v} onChange={onChange} />
-            ))}
-            {renderIfNeeded(markerParams, 'samplerTemporalImpact', set, (v, onChange) => (
-              <KnobControl label="Temporal impact" min={0} max={0.1} step={0.001} initialValue={v} onChange={onChange} />
             ))}
           </ModulePanel>
         ),
