@@ -6,7 +6,7 @@ import { KnobControl } from '../../../ui/KnobControl';
 import { ModulePanel } from '../../../ui/ModulePanel';
 import { DropdownControl } from '../../control/ui/DropdownControl';
 
-const CYCLE_LENGTH_MODES = ['arrayLength', 'linearOne'] as const;
+const CYCLE_LENGTH_MODES = ['arrayLength', 'linearOne', 'linearTotal'] as const;
 
 const curveModulatorModuleImplementation = implementModule({
   _kind: 'curve-modulator-module',
@@ -92,7 +92,7 @@ const curveModulatorModuleImplementation = implementModule({
               <DropdownControl id={`${inputMarkerId}-cycle-length-mode`} label="Cycle length mode" options={CYCLE_LENGTH_MODES} initialValue={v} onChange={onChange} />
             ))}
             {renderIfNeeded(markerParams, 'modulationAngle', set, (v, onChange) => (
-              <KnobControl label="Modulation angle" min={0} max={1} initialValue={v} onChange={onChange} />
+              <KnobControl label="Modulation angle" min={0} max={1} snapTo={0.25} initialValue={v} onChange={onChange} />
             ))}
             {renderIfNeeded(markerParams, 'fixedOffset', set, (v, onChange) => (
               <KnobControl label="Fixed offset" min={0} max={1} initialValue={v} onChange={onChange} />
