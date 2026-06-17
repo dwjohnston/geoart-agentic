@@ -93,8 +93,32 @@ export function RenderToggles({ renderingNodes, onToggle }: Props) {
     }
   };
 
+  const handleToggleModule = (moduleId: string) => {
+    const moduleNodes = renderingNodes.filter(n => n.nodeId.startsWith(`${moduleId}:`));
+    const anyModuleEnabled = moduleNodes.some(n => enabled.has(n.nodeId));
+    setEnabled(prev => {
+      const next = new Set(prev);
+      if (anyModuleEnabled) {
+        moduleNodes.forEach(n => next.delete(n.nodeId));
+      } else {
+        moduleNodes.forEach(n => next.add(n.nodeId));
+      }
+      return next;
+    });
+    if (anyModuleEnabled) {
+      moduleNodes.filter(n => enabled.has(n.nodeId)).forEach(n => onToggle(n.nodeId));
+    } else {
+      moduleNodes.forEach(n => onToggle(n.nodeId));
+    }
+  };
+
   const layers = [...new Set(renderingNodes.map(n => n.renderConfig.layer))];
   const allTags = [...new Set(renderingNodes.flatMap(n => n.renderConfig.tags ?? []))];
+  const allModules = [...new Set(
+    renderingNodes
+      .map(n => n.nodeId.includes(':') ? n.nodeId.split(':')[0] : null)
+      .filter((m): m is string => m !== null)
+  )];
 
   return (
     <div style={{ borderTop: '1px solid #333', paddingTop: 12 }}>
@@ -127,7 +151,25 @@ export function RenderToggles({ renderingNodes, onToggle }: Props) {
         })}
       </div>
 
-      <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
+      {allModules.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+          {allModules.map(moduleId => {
+            const moduleNodes = renderingNodes.filter(n => n.nodeId.startsWith(`${moduleId}:`));
+            const anyModuleEnabled = moduleNodes.some(n => enabled.has(n.nodeId));
+            return (
+              <button
+                key={moduleId}
+                onClick={() => handleToggleModule(moduleId)}
+                style={{ fontSize: 11, cursor: 'pointer', padding: '2px 6px', background: '#333', color: '#ccc', border: '1px solid #555', borderRadius: 3 }}
+              >
+                {anyModuleEnabled ? `Disable ${moduleId}` : `Enable ${moduleId}`}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
         {allTags.map(tag => {
           const tagNodes = renderingNodes.filter(n => n.renderConfig.tags?.includes(tag));
           const anyTagEnabled = tagNodes.some(n => enabled.has(n.nodeId));
