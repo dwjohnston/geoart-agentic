@@ -30,6 +30,7 @@ const graph = new AlgorithmBuilder({
     type: 'curve-modulator-module',
     params: {
       curve: { ref: 'orbit.points' },
+
       cycleLengthMode: { v: 'linearOne' },
       modulationAngle: { v: 0.25 },
       fixedOffset: { v: 0.05 },

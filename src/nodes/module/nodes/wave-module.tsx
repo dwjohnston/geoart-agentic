@@ -74,7 +74,7 @@ const waveModuleImplementation = implementModule({
             ))}
 
             {renderIfNeeded(markerParams, 'samplerTemporalImpact', set, (v, onChange) => (
-              <KnobControl label="Temporal impact" min={0} max={1} initialValue={v} onChange={onChange} />
+              <KnobControl label="Temporal impact" min={0} max={0.1} step={0.001} initialValue={v} onChange={onChange} />
             ))}
           </ModulePanel>
         ),
