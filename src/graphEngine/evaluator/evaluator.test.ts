@@ -646,6 +646,7 @@ describe("regular control nodes update their downstream correctly", () => {
         numPoints: 1,
         time: 0,
         "radius": 0.5,
+        "colorSampler": null,
 
 
       },

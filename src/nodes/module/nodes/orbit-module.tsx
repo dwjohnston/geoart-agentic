@@ -30,6 +30,7 @@ const orbitModuleImplementation = implementModule({
     numPoints: 1,
     time: 0,
     "radius": 0.5,
+    "colorSampler": null,
 
 
   },
@@ -67,6 +68,7 @@ const orbitModuleImplementation = implementModule({
         phase: buildParamRef('phase'),
         eccentricity: buildParamRef('eccentricity'),
         tilt: buildParamRef('tilt'),
+        colorSampler: buildParamRef('colorSampler'),
       },
     });
 
