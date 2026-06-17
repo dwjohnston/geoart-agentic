@@ -7,6 +7,7 @@ import { ModulePanel } from '../../../ui/ModulePanel';
 import { DropdownControl } from '../../control/ui/DropdownControl';
 
 const CYCLE_LENGTH_MODES = ['arrayLength', 'linearOne', 'linearTotal'] as const;
+const WAVE_TYPES = ['sine', 'square', 'triangle', 'saw', 'reverse-saw'] as const;
 
 const curveModulatorModuleImplementation = implementModule({
   _kind: 'curve-modulator-module',
@@ -15,6 +16,11 @@ const curveModulatorModuleImplementation = implementModule({
     cycleLengthMode: 'arrayLength',
     modulationAngle: 0,
     fixedOffset: 0,
+    frequency: 1,
+    amplitude: 0.5,
+    phase: 0,
+    waveShape: 'sine',
+    samplerTemporalImpact: 0,
   },
 
   provideNodes: (params, moduleId, defaultValues) => {
@@ -66,11 +72,11 @@ const curveModulatorModuleImplementation = implementModule({
           id: waveModuleId,
           type: 'wave-module',
           params: {
-            frequency: { v: 1 },
-            amplitude: { v: 0.5 },
-            phase: { v: 0 },
-            waveShape: { v: 'sine' },
-            samplerTemporalImpact: { v: 0 },
+            frequency: fromInput('frequency'),
+            amplitude: fromInput('amplitude'),
+            phase: fromInput('phase'),
+            waveShape: fromInput('waveShape'),
+            samplerTemporalImpact: fromInput('samplerTemporalImpact'),
           },
         },
         {
@@ -96,6 +102,21 @@ const curveModulatorModuleImplementation = implementModule({
             ))}
             {renderIfNeeded(markerParams, 'fixedOffset', set, (v, onChange) => (
               <KnobControl label="Fixed offset" min={0} max={1} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'waveShape', set, (v, onChange) => (
+              <DropdownControl id={`${inputMarkerId}-wave-shape`} label="Wave shape" options={WAVE_TYPES} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'frequency', set, (v, onChange) => (
+              <KnobControl label="Frequency" min={0.01} max={20} step={0.01} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'amplitude', set, (v, onChange) => (
+              <KnobControl label="Amplitude" min={0} max={2} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'phase', set, (v, onChange) => (
+              <KnobControl label="Phase" min={0} max={1} initialValue={v} onChange={onChange} />
+            ))}
+            {renderIfNeeded(markerParams, 'samplerTemporalImpact', set, (v, onChange) => (
+              <KnobControl label="Temporal impact" min={0} max={0.1} step={0.001} initialValue={v} onChange={onChange} />
             ))}
           </ModulePanel>
         ),

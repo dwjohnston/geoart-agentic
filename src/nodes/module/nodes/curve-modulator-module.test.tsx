@@ -75,7 +75,24 @@ describe('curve-modulator-module', () => {
       cycleLengthMode: 'arrayLength',
       modulationAngle: 0,
       fixedOffset: 0,
+      frequency: 1,
+      amplitude: 0.5,
+      phase: 0,
+      waveShape: 'sine',
+      samplerTemporalImpact: 0,
     });
+  });
+
+  it('wires wave params from input marker to wave-module', () => {
+    const result = curveModulatorModule({}, 'myModulator');
+
+    const waveModule = result.moduleNodes?.find(m => m.type === 'wave-module');
+    const params = waveModule?.params as Record<string, unknown>;
+    expect(params?.frequency).toEqual({ ref: 'myModulator:input-marker.frequency' });
+    expect(params?.amplitude).toEqual({ ref: 'myModulator:input-marker.amplitude' });
+    expect(params?.phase).toEqual({ ref: 'myModulator:input-marker.phase' });
+    expect(params?.waveShape).toEqual({ ref: 'myModulator:input-marker.waveShape' });
+    expect(params?.samplerTemporalImpact).toEqual({ ref: 'myModulator:input-marker.samplerTemporalImpact' });
   });
 
   it('wires wave module sampler to curve modulator compute node', () => {
