@@ -3,4 +3,4 @@ bun = false
 
 
 [test]
-pathIgnorePatterns = "**/*.browser.test.*"
+pathIgnorePatterns = ["**/*.browser.test.*", "bench/**"]
