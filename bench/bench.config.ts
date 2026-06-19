@@ -7,7 +7,7 @@ export default defineConfig({
     setup: 'bun install',
     beforeRun: 'bun scripts/generate-agent-files.ts {approachName}',
     harnesses: {
-      'claude-code': 'bash scripts/claude.sh "$THUNDERJAR_PROMPT" --model {modelName}',
+      'claude-code': 'claude -p "$THUNDERJAR_PROMPT" --model {modelName} --append-system-prompt "You are running in headless (non-interactive) mode. Follow the headless agent instructions in CLAUDE.md exactly."',
     },
   },
 
