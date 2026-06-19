@@ -4,6 +4,7 @@ export default defineConfig({
   commands: {
     testRunner: 'bun test',
     promptFiles: ['CLAUDE.md', '.claude/'],
+    setup: 'bun install',
     beforeRun: 'bun scripts/generate-agent-files.ts {approachName}',
   },
 
