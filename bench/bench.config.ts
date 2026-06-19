@@ -6,6 +6,9 @@ export default defineConfig({
     promptFiles: ['CLAUDE.md', '.claude/'],
     setup: 'bun install',
     beforeRun: 'bun scripts/generate-agent-files.ts {approachName}',
+    harnesses: {
+      'claude-code': 'bash scripts/claude.sh "$THUNDERJAR_PROMPT" --model {modelName}',
+    },
   },
 
   tasks: {
