@@ -12,6 +12,21 @@ export default defineConfig({
   },
 
   tasks: {
+    'fizzyfoo-algorithm': {
+      description: 'Generate the fizzyFoo algorithm — five chained orbit modules, one node-count slider',
+      prompt: `Generate an algorithm. Call it fizzyFoo, save it in general. There are five orbits, each is centred on the previous. The number of nodes on the orbits is controlled by a single slider.`,
+      measurements: [
+        { type: 'command', run: 'bun generate', expectExitCode: 0 },
+        { type: 'command', run: 'bun typecheck', expectExitCode: 0 },
+        { type: 'command', run: 'bun test', expectExitCode: 0 },
+        { type: 'command', run: 'bun lint', expectExitCode: 0 },
+
+        { type: 'fileCreated', path: 'src/algorithms/reference/general/fizzyFooReferenceGraph.ts' },
+        { type: 'grep', glob: 'src/algorithms/reference/general/fizzyFooReferenceGraph.ts', pattern: 'AlgorithmBuilder', expect: 'present', scope: 'worktree' },
+        { type: 'correctness-test', templatePath: 'bench/templates/fizzyfoo-correctness.test.ts' },
+      ],
+    },
+
     'normalise-compute-node': {
       description: 'Add a normalise compute node',
       prompt: `Add a normalise compute node. It fits an array of input points into a square bounding box centred on one or more normalisation centers.
