@@ -155,6 +155,13 @@
         "layer"
       ],
       "properties": {
+        "displayByDefault": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
         "layer": {
           "title": "Layer",
           "description": "paint = accumulates on trail canvas; live = cleared-each-frame orbit canvas",
