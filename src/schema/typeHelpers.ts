@@ -66,6 +66,10 @@ export type Sampler = {
   sampleMany(ts: number[]): number[];
 }
 
+export type ColorSampler = {
+  sample(t: number): { r: number; g: number; b: number; a: number }
+}
+
 export type ReferencedValueDeclared = { ref: string };
 
 // Detect if a value type name is an array type (e.g., "colorPointArray", "stringArray")

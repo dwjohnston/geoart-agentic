@@ -30,6 +30,7 @@ const orbitModuleImplementation = implementModule({
     numPoints: 1,
     time: 0,
     "radius": 0.5,
+    "colorSampler": null,
 
 
   },
@@ -67,6 +68,7 @@ const orbitModuleImplementation = implementModule({
         phase: buildParamRef('phase'),
         eccentricity: buildParamRef('eccentricity'),
         tilt: buildParamRef('tilt'),
+        colorSampler: buildParamRef('colorSampler'),
       },
     });
 
@@ -150,7 +152,7 @@ const orbitModuleImplementation = implementModule({
             ))}
 
             {renderIfNeeded(params, 'numPoints', set, (initialValue, onChange) => (
-              <KnobControl label="Points" min={0} max={1000} initialValue={initialValue} onChange={onChange} />
+              <KnobControl label="Points" min={0} step={1} max={250} initialValue={initialValue} onChange={onChange} />
             ))}
 
             {renderIfNeeded(params, 'phase', set, (initialValue, onChange) => (
