@@ -21,7 +21,7 @@ Do not guess.
 
 The only file system actions permitted in Phase 1:
 
-- Check whether `projects/features/[feature name]/` already exists.
+- Check whether `project/features/[feature name]/` already exists.
 - Write `FEATURE_BRIEF.md` once ideation is complete.
 
 ## What to do instead
@@ -34,17 +34,18 @@ Ask the user clarifying questions based on what they have told you. Typical ques
 
 Flag potential problems you can reason about from the brief alone (e.g. naming collisions, missing skill coverage, sequencing concerns).
 
-Once questions are answered, write the brief and stop.
+If the task is adding or updating a node type, invoke `/node-ideate` before writing the brief. It will conduct the test case and algorithm sketch conversation and write those sections into the brief.
 
+Once questions are answered, write the brief and stop.
 
 
 
 ## Workflow
 
-### Projects folder
+### Project folder
 
 ```
-/projects
+/project
    /completed-features  - features move here when done
    /features
       /[feature name]
@@ -65,9 +66,9 @@ Once questions are answered, write the brief and stop.
 
 **HITL:** Conversational ideation. Ask clarifying questions, suggest alternatives, flag potential problems. This is not a jump-straight-into-action phase.
 
-Ask for a feature name at the start. If a folder for this feature already exists in `projects/features`, tell the user.
+Ask for a feature name at the start. If a folder for this feature already exists in `project/features`, tell the user.
 
-Output: `FEATURE_BRIEF.md` in `projects/features/[feature name]/`.
+Output: `FEATURE_BRIEF.md` in `project/features/[feature name]/`.
 
 **Headless:** The GitHub issue body *is* the brief. Copy it verbatim into `FEATURE_BRIEF.md` and proceed directly to Phase 2.
 
@@ -91,9 +92,11 @@ If a task requires a skill that does not exist, **stop and inform the user**. Do
 
 Invoke each task's skill in dependency order, reading its task file for the prompt.
 
-Skills that feed into each other hand off via written artefacts at `projects/features/[feature name]/handoffs/`. See [agent_prompt_experiments.md](../agent_prompt_experiments.md) for the handoff pattern.
+Skills that feed into each other hand off via written artefacts at `project/features/[feature name]/handoffs/`. See [agent_prompt_experiments.md](../agent_prompt_experiments.md) for the handoff pattern.
 
 Commit after each task completes. Commit at stable checkpoints within a task. See [committing_philosophy.md](committing_philosophy.md).
+
+Run `/sign-off` after each task completes to capture handoffs, feedback, and prompt-improvement notes before moving to the next task.
 
 **HITL:** Before invoking each task, prompt the user: "Run [task name] now?" The user may skip or defer individual tasks.
 
@@ -103,7 +106,7 @@ Commit after each task completes. Commit at stable checkpoints within a task. Se
 
 #### Phase 4 — `/workflow-accept`
 
-**HITL:** Propose moving the feature folder from `projects/features/` to `projects/completed-features/`. Wait for confirmation before proceeding.
+**HITL:** Propose moving the feature folder from `project/features/` to `project/completed-features/`. Wait for confirmation before proceeding.
 
 **Headless:** Move the folder automatically.
 

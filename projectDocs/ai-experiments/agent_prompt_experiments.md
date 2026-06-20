@@ -142,3 +142,13 @@ define-node-agent  →  compute-node-agent (or render/control)  →  algorithm-a
 | `subagents-without-index` | `subagents` | Agents index omitted — orchestrator must infer which agent to spawn |
 
 The `*-without-index` variants test whether an explicit task-handler menu in the root is necessary, or whether the orchestrator can reason about what to invoke without it.
+
+---
+
+## Prompt Testing — Observations
+
+### Language exception compliance (2026-06-14)
+
+The CLAUDE.md instructs agents to use British English with specific American English exceptions (`color`, `center`). An agent was caught writing `centre` instead of `center` — it defaulted to British English and did not honour the exception.
+
+**Useful signal for prompt evaluation:** check that the American English exceptions are respected in generated output. A simple grep for `colour`, `centre` in agent-written files is a reliable canary for whether the language instruction was followed.
