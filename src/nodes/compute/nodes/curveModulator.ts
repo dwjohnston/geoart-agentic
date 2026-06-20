@@ -33,14 +33,18 @@ const curveModulatorNodeImplementation = implementComputeNode('curveModulator', 
     curve: [],
     modulator: null,
     cycleLengthMode: 'arrayLength',
+    modulationAngle: 0.25,
+    fixedOffset: 0,
   },
   evaluate: (inputs) => {
     const curve = inputs.curve
     const modulator = inputs.modulator as Sampler | null;
     const cycleLengthMode = inputs.cycleLengthMode;
+    const modulationAngle = inputs.modulationAngle;
+    const fixedOffset = inputs.fixedOffset;
 
-    if (!curve || curve.length === 0 || !modulator) {
-      // No curve or no modulator: pass through unchanged
+    if (!curve || curve.length === 0) {
+      // No curve: pass through unchanged
       return { points: curve };
     }
 
@@ -49,30 +53,42 @@ const curveModulatorNodeImplementation = implementComputeNode('curveModulator', 
       ? calculateDistanceBasedT(curve)
       : calculateArrayLengthT(curve);
 
-    // First pass: displace each point based on its input tangent
+    // First pass: displace each point based on input tangent and parameters
     const displacedCurve = curve.map((point, i) => {
       const t = tValues[i];
-      const displacement = modulator.sample(t);
-
-      // Use input dx/dy to calculate perpendicular
       const dx = point.dx ?? 0;
       const dy = point.dy ?? 0;
       const tangentMag = Math.sqrt(dx * dx + dy * dy);
-      let perpX: number, perpY: number;
+
+      let offsetX = 0;
+      let offsetY = 0;
 
       if (tangentMag > 0) {
-        // Normalise tangent and rotate 90°
-        perpX = dy / tangentMag;
-        perpY = -dx / tangentMag;
-      } else {
-        // No tangent: no displacement
-        perpX = 0;
-        perpY = 0;
+        const normalizedDx = dx / tangentMag;
+        const normalizedDy = dy / tangentMag;
+        const angleRad = -modulationAngle * 2 * Math.PI;
+
+        // Rotate tangent by modulationAngle
+        const rotatedX = normalizedDx * Math.cos(angleRad) - normalizedDy * Math.sin(angleRad);
+        const rotatedY = normalizedDx * Math.sin(angleRad) + normalizedDy * Math.cos(angleRad);
+
+        // Apply modulator displacement in rotated direction
+        if (modulator) {
+          const displacement = modulator.sample(t);
+          offsetX += rotatedX * displacement;
+          offsetY += rotatedY * displacement;
+        }
+
+        // Apply fixed offset in rotated direction
+        if (fixedOffset !== 0) {
+          offsetX += rotatedX * fixedOffset;
+          offsetY += rotatedY * fixedOffset;
+        }
       }
 
       return {
-        x: point.x + perpX * displacement,
-        y: point.y + perpY * displacement,
+        x: point.x + offsetX,
+        y: point.y + offsetY,
         r: point.r,
         g: point.g,
         b: point.b,
