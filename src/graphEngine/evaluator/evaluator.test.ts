@@ -1250,6 +1250,11 @@ describe("regular control nodes update their downstream correctly", () => {
           cycleLengthMode: 'arrayLength',
           modulationAngle: 0,
           fixedOffset: 0,
+          frequency: 1,
+          amplitude: 0.5,
+          phase: 0,
+          waveShape: 'sine',
+          samplerTemporalImpact: 0,
         },
         provideNodes: (params, moduleId, defaultValues) => {
           const inputMarkerId = createInternalId(moduleId, 'input-marker');

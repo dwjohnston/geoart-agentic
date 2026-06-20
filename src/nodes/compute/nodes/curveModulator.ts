@@ -7,24 +7,35 @@ function calculateArrayLengthT(curve: ResolvedValue<'colorPointArrayValue'>): nu
   return curve.map((_, i) => i / (curve.length - 1));
 }
 
-function calculateDistanceBasedT(curve: ResolvedValue<'colorPointArrayValue'>): number[] {
+function calculateLinearTotalT(curve: ResolvedValue<'colorPointArrayValue'>): number[] {
   if (curve.length === 0) return [];
   if (curve.length === 1) return [0];
 
-  // Calculate cumulative distance along the curve
   const distances: number[] = [0];
   for (let i = 1; i < curve.length; i++) {
     const dx = curve[i].x - curve[i - 1].x;
     const dy = curve[i].y - curve[i - 1].y;
-    const euclideanDistance = Math.sqrt(dx * dx + dy * dy);
-    distances.push(distances[i - 1] + euclideanDistance);
+    distances.push(distances[i - 1] + Math.sqrt(dx * dx + dy * dy));
   }
 
-  // Normalize distances to [0, 1]
   const totalDistance = distances[distances.length - 1];
   return totalDistance === 0
     ? distances.map(() => 0)
     : distances.map(d => d / totalDistance);
+}
+
+function calculateLinearOneT(curve: ResolvedValue<'colorPointArrayValue'>): number[] {
+  if (curve.length === 0) return [];
+  if (curve.length === 1) return [0];
+
+  const distances: number[] = [0];
+  for (let i = 1; i < curve.length; i++) {
+    const dx = curve[i].x - curve[i - 1].x;
+    const dy = curve[i].y - curve[i - 1].y;
+    distances.push(distances[i - 1] + Math.sqrt(dx * dx + dy * dy));
+  }
+
+  return distances;
 }
 
 
@@ -50,8 +61,10 @@ const curveModulatorNodeImplementation = implementComputeNode('curveModulator', 
 
     // Calculate t values based on cycle length mode
     const tValues = cycleLengthMode === 'linearOne'
-      ? calculateDistanceBasedT(curve)
-      : calculateArrayLengthT(curve);
+      ? calculateLinearOneT(curve)
+      : cycleLengthMode === 'linearTotal'
+        ? calculateLinearTotalT(curve)
+        : calculateArrayLengthT(curve);
 
     // First pass: displace each point based on input tangent and parameters
     const displacedCurve = curve.map((point, i) => {

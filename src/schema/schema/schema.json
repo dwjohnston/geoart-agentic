@@ -1928,6 +1928,21 @@
                 },
                 "fixedOffset": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "frequency": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "amplitude": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "phase": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "waveShape": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/waveTypeEnumValueOrRef"
+                },
+                "samplerTemporalImpact": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
             }

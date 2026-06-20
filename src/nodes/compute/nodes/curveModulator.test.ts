@@ -205,3 +205,121 @@ describe('CurveModulator', () => {
     expect(points[0].y).toBeCloseTo(-0.2, 2);
   });
 });
+
+describe('cycle length modes', () => {
+  const makeRecordingSampler = () => {
+    const tValues: number[] = [];
+    const sampler: Sampler = {
+      sample: (t: number) => { tValues.push(t); return 0; },
+      sampleMany: (ts: number[]) => ts.map(() => 0),
+    };
+    return { sampler, tValues };
+  };
+
+  const collinearCurve = (xs: number[]) =>
+    xs.map(x => ({ x, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 1, dy: 0 }));
+
+  it('linearOne: t values are raw cumulative distances', () => {
+    const { sampler, tValues } = makeRecordingSampler();
+    curveModulatorNodeImplementation.evaluate({
+      curve: collinearCurve([0, 1, 2]),
+      modulator: sampler,
+      cycleLengthMode: 'linearOne',
+      modulationAngle: 0,
+      fixedOffset: 0,
+    });
+    expect(tValues[0]).toBeCloseTo(0, 3);
+    expect(tValues[1]).toBeCloseTo(1, 3);
+    expect(tValues[2]).toBeCloseTo(2, 3);
+  });
+
+  it('linearTotal: t values are normalised to [0, 1]', () => {
+    const { sampler, tValues } = makeRecordingSampler();
+    curveModulatorNodeImplementation.evaluate({
+      curve: collinearCurve([0, 1, 2]),
+      modulator: sampler,
+      cycleLengthMode: 'linearTotal',
+      modulationAngle: 0,
+      fixedOffset: 0,
+    });
+    expect(tValues[0]).toBeCloseTo(0, 3);
+    expect(tValues[1]).toBeCloseTo(0.5, 3);
+    expect(tValues[2]).toBeCloseTo(1, 3);
+  });
+
+  it('linearOne: last t equals total curve length', () => {
+    const { sampler, tValues } = makeRecordingSampler();
+    curveModulatorNodeImplementation.evaluate({
+      curve: collinearCurve([0, 1, 2, 3, 4]),
+      modulator: sampler,
+      cycleLengthMode: 'linearOne',
+      modulationAngle: 0,
+      fixedOffset: 0,
+    });
+    expect(tValues[tValues.length - 1]).toBeCloseTo(4, 3);
+  });
+
+  it('linearTotal: last t is always 1', () => {
+    const { sampler, tValues } = makeRecordingSampler();
+    curveModulatorNodeImplementation.evaluate({
+      curve: collinearCurve([0, 1, 2, 3, 4]),
+      modulator: sampler,
+      cycleLengthMode: 'linearTotal',
+      modulationAngle: 0,
+      fixedOffset: 0,
+    });
+    expect(tValues[tValues.length - 1]).toBeCloseTo(1, 3);
+  });
+
+  it('linearOne: non-uniform spacing', () => {
+    const { sampler, tValues } = makeRecordingSampler();
+    curveModulatorNodeImplementation.evaluate({
+      curve: collinearCurve([0, 2, 3]),
+      modulator: sampler,
+      cycleLengthMode: 'linearOne',
+      modulationAngle: 0,
+      fixedOffset: 0,
+    });
+    expect(tValues[0]).toBeCloseTo(0, 3);
+    expect(tValues[1]).toBeCloseTo(2, 3);
+    expect(tValues[2]).toBeCloseTo(3, 3);
+  });
+
+  it('linearTotal: non-uniform spacing', () => {
+    const { sampler, tValues } = makeRecordingSampler();
+    curveModulatorNodeImplementation.evaluate({
+      curve: collinearCurve([0, 2, 3]),
+      modulator: sampler,
+      cycleLengthMode: 'linearTotal',
+      modulationAngle: 0,
+      fixedOffset: 0,
+    });
+    expect(tValues[0]).toBeCloseTo(0, 3);
+    expect(tValues[1]).toBeCloseTo(2 / 3, 3);
+    expect(tValues[2]).toBeCloseTo(1, 3);
+  });
+
+  it('linearOne: single point samples at t=0', () => {
+    const { sampler, tValues } = makeRecordingSampler();
+    curveModulatorNodeImplementation.evaluate({
+      curve: [{ x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 1, dy: 0 }],
+      modulator: sampler,
+      cycleLengthMode: 'linearOne',
+      modulationAngle: 0,
+      fixedOffset: 0,
+    });
+    expect(tValues[0]).toBeCloseTo(0, 3);
+  });
+
+  it('linearTotal: single point samples at t=0', () => {
+    const { sampler, tValues } = makeRecordingSampler();
+    curveModulatorNodeImplementation.evaluate({
+      curve: [{ x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 1, dy: 0 }],
+      modulator: sampler,
+      cycleLengthMode: 'linearTotal',
+      modulationAngle: 0,
+      fixedOffset: 0,
+    });
+    expect(tValues[0]).toBeCloseTo(0, 3);
+  });
+});

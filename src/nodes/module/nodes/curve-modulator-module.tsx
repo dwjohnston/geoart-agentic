@@ -6,7 +6,7 @@ import { KnobControl } from '../../../ui/KnobControl';
 import { ModulePanel } from '../../../ui/ModulePanel';
 import { DropdownControl } from '../../control/ui/DropdownControl';
 
-const CYCLE_LENGTH_MODES = ['arrayLength', 'linearOne'] as const;
+const CYCLE_LENGTH_MODES = ['arrayLength', 'linearOne', 'linearTotal'] as const;
 
 const curveModulatorModuleImplementation = implementModule({
   _kind: 'curve-modulator-module',
@@ -15,6 +15,11 @@ const curveModulatorModuleImplementation = implementModule({
     cycleLengthMode: 'arrayLength',
     modulationAngle: 0,
     fixedOffset: 0,
+    frequency: 1,
+    amplitude: 0.5,
+    phase: 0,
+    waveShape: 'sine',
+    samplerTemporalImpact: 0,
   },
 
   provideNodes: (params, moduleId, defaultValues) => {
@@ -22,6 +27,14 @@ const curveModulatorModuleImplementation = implementModule({
     const fromInput = (key: keyof NodeInputsDeclared<'curve-modulator-module'>) => ({
       ref: `${inputMarkerId}.${key}`,
     });
+
+    // Only route through the input marker if the caller explicitly wired this param.
+    // Otherwise pass a static value so the wave-module renders its own controls.
+    type WaveNumberKey = 'frequency' | 'amplitude' | 'phase' | 'samplerTemporalImpact';
+    const waveNumberParam = (key: WaveNumberKey) =>
+      key in params ? fromInput(key) : { v: defaultValues[key] as number };
+    const waveShapeParam = () =>
+      'waveShape' in params ? fromInput('waveShape') : { v: defaultValues.waveShape };
 
     const waveModuleId = 'wave-module';
     const waveModuleFullId = createInternalId(moduleId, waveModuleId);
@@ -66,11 +79,11 @@ const curveModulatorModuleImplementation = implementModule({
           id: waveModuleId,
           type: 'wave-module',
           params: {
-            frequency: { v: 1 },
-            amplitude: { v: 0.5 },
-            phase: { v: 0 },
-            waveShape: { v: 'sine' },
-            samplerTemporalImpact: { v: 0 },
+            frequency: waveNumberParam('frequency'),
+            amplitude: waveNumberParam('amplitude'),
+            phase: waveNumberParam('phase'),
+            waveShape: waveShapeParam(),
+            samplerTemporalImpact: waveNumberParam('samplerTemporalImpact'),
           },
         },
         {
@@ -92,7 +105,7 @@ const curveModulatorModuleImplementation = implementModule({
               <DropdownControl id={`${inputMarkerId}-cycle-length-mode`} label="Cycle length mode" options={CYCLE_LENGTH_MODES} initialValue={v} onChange={onChange} />
             ))}
             {renderIfNeeded(markerParams, 'modulationAngle', set, (v, onChange) => (
-              <KnobControl label="Modulation angle" min={0} max={1} initialValue={v} onChange={onChange} />
+              <KnobControl label="Modulation angle" min={0} max={1} snapTo={0.25} initialValue={v} onChange={onChange} />
             ))}
             {renderIfNeeded(markerParams, 'fixedOffset', set, (v, onChange) => (
               <KnobControl label="Fixed offset" min={0} max={1} initialValue={v} onChange={onChange} />
