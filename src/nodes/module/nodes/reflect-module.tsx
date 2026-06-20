@@ -1,14 +1,18 @@
 import { implementModule } from '../implementModule';
-import { createInternalId, createInputMarkerParams } from '../moduleUtils';
+import { createInternalId, createInputMarkerParams, renderIfNeeded } from '../moduleUtils';
 import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfaces/ModuleImplementation';
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { ModulePanel } from '../../../ui/ModulePanel';
+import { DropdownControl } from '../../control/ui/DropdownControl';
+
+const COLOR_SHIFT_OPERATIONS = ['none', 'blend', 'hue-shift', 'lighten', 'saturate'] as const;
 
 const reflectModuleImplementation = implementModule({
   _kind: 'reflect-module',
   defaultValues: {
     inputPoints: [],
     reflectionPoints: [],
+    colorShiftOperation: 'none' as const,
   },
 
   provideNodes: (params, moduleId, defaultValues) => {
@@ -31,6 +35,7 @@ const reflectModuleImplementation = implementModule({
           params: {
             inputPoints: fromInput('inputPoints'),
             reflectionPoints: fromInput('reflectionPoints'),
+            colorShiftOperation: fromInput('colorShiftOperation'),
           },
         },
       ],
@@ -65,8 +70,18 @@ const reflectModuleImplementation = implementModule({
         id: inputMarkerId,
         type: 'module-input-marker',
         params: createInputMarkerParams(params, defaultValues),
-        renderControl: (_markerParams, _set) => (
-          <ModulePanel moduleName="Reflect" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>{null}</ModulePanel>
+        renderControl: (markerParams, set) => (
+          <ModulePanel moduleName="Reflect" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
+            {renderIfNeeded(markerParams, 'colorShiftOperation', set, (initialValue, onChange) => (
+              <DropdownControl
+                id={`${inputMarkerId}-colorShiftOperation`}
+                label="Color Shift"
+                options={COLOR_SHIFT_OPERATIONS}
+                initialValue={initialValue}
+                onChange={onChange}
+              />
+            ))}
+          </ModulePanel>
         ),
       },
 

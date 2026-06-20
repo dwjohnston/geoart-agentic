@@ -10,6 +10,7 @@ const base: NodeInputsResolved<'rotate'> = {
   inputPoints: [],
   rotationCenters: [],
   rotationAmount: 0,
+  colorShiftOperation: 'none',
 };
 
 const pt = (x: number, y: number, color = white, dx = 0, dy = 0) => ({
