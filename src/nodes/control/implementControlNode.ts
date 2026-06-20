@@ -67,6 +67,7 @@ function valueTypeToPortType(valueType: string): LegacyControlNodePortImplementa
     cycleLengthModeEnumValue: 'string',
     timedLineArrayModeEnumValue: 'string',
     timedLineArrayIntervalModeEnumValue: 'string',
+    colorSamplerModeEnumValue: 'string',
   };
   return map[valueType] ?? 'number';
 }
