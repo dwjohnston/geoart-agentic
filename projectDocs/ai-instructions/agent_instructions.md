@@ -12,3 +12,5 @@ description: "behavioural rules every agent must follow — feedback location, m
 - Be very concise in creating .md files, commit messages, etc.
 
 - If you ask a question and it doesn't get an answer — re-ask the question.
+
+- At the end of any task or work session, if `/sign-off` has not been run, offer to run it: "Shall I run `/sign-off` before we wrap up?"

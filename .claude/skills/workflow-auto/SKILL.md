@@ -91,6 +91,7 @@ The following skills are available for task-specific work. Invoke the appropriat
 | `workflow-execute` | Phase 3 — invoke each task skill in dependency order |
 | `workflow-accept` | Phase 4 — move a completed feature to `projects/completed-features` |
 | `workflow-auto` | Headless orchestrator — runs all four phases in sequence (GitHub integration) |
+| `sign-off` | Finalisation checklist — run at the end of any work session |
 
 ### Node development
 
@@ -112,4 +113,5 @@ The following skills are available for task-specific work. Invoke the appropriat
 - Commit at stable checkpoints within a task — working state, tests passing.
 - Do not batch commits across tasks or phases.
 - Reference the task or phase name in the commit message.
+- Feature work and sign-off artefacts (handoffs, feedback, prompt improvement notes) must be separate commits.
 

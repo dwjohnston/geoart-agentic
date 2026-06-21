@@ -5,7 +5,7 @@ import { controlRegistry } from '../../nodes/control/registry';
 import type { CompiledGraph } from '../compiler/compiler';
 import type { EvalContext } from '../evaluator/EvalContext';
 import type { Value } from '../../schema/types';
-import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+import type { GeoArtGraph, RenderLayerConfig } from '../../schema/_generated/schema-types';
 import { computeRegistry } from '../../nodes/compute/registry';
 import { renderRegistry } from '../../nodes/render/registry';
 import { moduleRegistry } from '../../nodes/module/registry';
@@ -26,7 +26,7 @@ function rawValueToValue(portType: string, rawValue: unknown): Value {
 
 export type GraphLoadPayload = {
   renderControlNodes: () => React.ReactNode;
-  renderingNodes: Array<{ nodeId: string; label: string; layer: 'live' | 'paint' }>;
+  renderingNodes: Array<{ nodeId: string; renderConfig: RenderLayerConfig }>;
 };
 
 export type GraphEngine = {
@@ -35,6 +35,9 @@ export type GraphEngine = {
   tick: () => void;
   toggleRenderNode: (nodeId: string) => void;
 };
+
+
+
 
 export function createGraphEngine(
   orbitCtx: CanvasRenderingContext2D,
@@ -106,18 +109,21 @@ export function createGraphEngine(
     });
 
     // Extract render nodes and initialize enabled set
-    const renderingNodes: Array<{ nodeId: string; label: string; layer: 'live' | 'paint' }> = [];
+    const renderingNodes: Array<{ nodeId: string; renderConfig: RenderLayerConfig }> = [];
     enabledRenderNodes.clear();
 
     if (compiled) {
       for (const nodeId of compiled.sortedNodes) {
         const compiledNode = compiled.nodes.get(nodeId);
         if (compiledNode && compiledNode.layer === 'render') {
-          const nodeDecl = graph.render.nodes.find(n => n.id === nodeId);
-          const label = nodeDecl?.id || nodeId;
-          const layer = compiledNode.renderConfig?.layer || 'paint';
-          renderingNodes.push({ nodeId, label, layer });
-          enabledRenderNodes.add(nodeId);
+          const renderConfig: RenderLayerConfig = compiledNode.renderConfig ?? { layer: 'paint' };
+          if (!Object.hasOwn(renderConfig, 'displayByDefault')) {
+            renderConfig.displayByDefault = true;
+          }
+          renderingNodes.push({ nodeId, renderConfig });
+          if (renderConfig.displayByDefault !== false) {
+            enabledRenderNodes.add(nodeId);
+          }
         }
       }
     }

@@ -82,7 +82,11 @@ const orbitModuleImplementation = implementModule({
         tilt: { v: 0 },
         centerPoints: { ref: `${orbitNodeId}.points` }
       },
-      renderConfig: { layer: 'live' },
+      renderConfig: {
+        layer: 'live',
+        "displayByDefault": true,
+        "tags": ["orbit", "point"]
+      },
     });
 
     const circleId = createInternalId(moduleId, 'orbit-path');
@@ -96,7 +100,11 @@ const orbitModuleImplementation = implementModule({
         tilt: buildParamRef('tilt'),
         centerPoints: params.centerPoints
       },
-      renderConfig: { layer: 'live' },
+      renderConfig: {
+        layer: 'live',
+        "displayByDefault": true,
+        "tags": ["orbit", "path"]
+      },
     });
 
 
@@ -111,7 +119,11 @@ const orbitModuleImplementation = implementModule({
         tilt: { v: 0 },
         centerPoints: { ref: `${orbitNodeId}.points` }
       },
-      renderConfig: { layer: 'paint' },
+      renderConfig: {
+        layer: 'paint',
+        "displayByDefault": false,
+        "tags": ["orbit", "trail"]
+      },
     });
 
     // Create marker node
@@ -138,7 +150,7 @@ const orbitModuleImplementation = implementModule({
             ))}
 
             {renderIfNeeded(params, 'numPoints', set, (initialValue, onChange) => (
-              <KnobControl label="Points" min={0} max={100} initialValue={initialValue} onChange={onChange} />
+              <KnobControl label="Points" min={0} max={1000} initialValue={initialValue} onChange={onChange} />
             ))}
 
             {renderIfNeeded(params, 'phase', set, (initialValue, onChange) => (
