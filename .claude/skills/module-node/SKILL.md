@@ -108,16 +108,7 @@ Key rules:
 
 ### Registering a module
 
-Add the implementation to the module registry:
 
-```ts
-// src/nodes/module/registry.ts
-export const moduleRegistry: ModuleRegistry = new Map([
-  ['orbit-module', orbitModuleImplementation],
-]);
-```
-
-The canonical, working example is [src/nodes/module/nodes/orbit.tsx](../src/nodes/module/nodes/orbit.tsx).
 
 
 
