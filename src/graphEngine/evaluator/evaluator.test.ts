@@ -600,6 +600,7 @@ describe("regular control nodes update their downstream correctly", () => {
         time: 0,
         eccentricity: 0,
         tilt: 0,
+        "colorSampler": null,
       },
       evaluate: (inputs) => {
 
@@ -645,6 +646,7 @@ describe("regular control nodes update their downstream correctly", () => {
         numPoints: 1,
         time: 0,
         "radius": 0.5,
+        "colorSampler": null,
 
 
       },

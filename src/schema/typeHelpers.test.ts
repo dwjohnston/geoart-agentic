@@ -149,6 +149,7 @@ describe("NodeInputsRecord", () => {
 
         },
         "numberOfPoints": 1,
+        "colorSampler": null,
 
     })
 });

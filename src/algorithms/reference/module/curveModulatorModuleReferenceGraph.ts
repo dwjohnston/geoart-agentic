@@ -5,7 +5,7 @@ import { AlgorithmBuilder } from '../../../schema/builder';
  * Demonstrates curve-modulator-module modulating an orbital curve with wave-based displacement
  */
 const graph = new AlgorithmBuilder({
-  title: 'Curve Modulator',
+  title: 'Curve Modulator Module - Orbit',
   author: 'Claude Haiku 4.5',
   description: 'Wave-based displacement of an orbital curve',
 })

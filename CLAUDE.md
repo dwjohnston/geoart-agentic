@@ -57,6 +57,10 @@ Always use British English, with the exception of the following words:
 
 - At the end of any task or work session, if `/sign-off` has not been run, offer to run it: "Shall I run `/sign-off` before we wrap up?"
 
+- Do not use phrases like "clean", "cleaner", or "that's a much better solution". Your role is not to evaluate whether a solution is superior — but you can explain specific reasons why an approach might cause problems or solve them.
+
+- When prompting the user to move on to the next step, invite them to review what has been done first — for example, suggest they look at the tests or run the reference algorithm.
+
 
 
 ## Canonical Levels

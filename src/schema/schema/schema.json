@@ -160,7 +160,9 @@
         },
         "tags": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "layer": {
           "title": "Layer",
@@ -585,6 +587,48 @@
               }
             }
           }
+        },
+        {
+          "title": "Color Sampler Mode Selector Control Node",
+          "type": "object",
+          "description": "Dropdown selector for color sampler mode",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "mode",
+              "valueType": "colorSamplerModeEnumValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "colorSamplerModeSelector"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
+                },
+                "mode": {
+                  "$ref": "value-kinds.schema.json#/definitions/colorSamplerModeEnumValue"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -763,6 +807,10 @@
                 "tilt": {
                   "title": "Tilt",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorSampler": {
+                  "description": "Optional color sampler — overrides point colours when provided",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
                 }
               }
             }
@@ -933,6 +981,10 @@
                 },
                 "numberOfPoints": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorSampler": {
+                  "description": "Optional color sampler — overrides point colours when provided",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
                 }
               }
             }
@@ -1224,6 +1276,96 @@
                 },
                 "colorShiftOperation": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Value Sampler Compute Node",
+          "type": "object",
+          "description": "Wraps a static number value as a sampler that always returns that value",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "sampler",
+              "valueType": "samplerValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "valueSampler"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Color Sampler Compute Node",
+          "type": "object",
+          "description": "Combines four channel samplers (R, G, B, A) into a single ColorSampler that returns { r, g, b, a } for any t",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "colorSampler",
+              "valueType": "colorSamplerValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "colorSampler"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "sampleR": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "sampleG": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "sampleB": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "sampleA": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerModeEnumValueOrRef"
                 }
               }
             }
@@ -1595,6 +1737,10 @@
                 },
                 "tilt": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorSampler": {
+                  "description": "Optional color sampler — overrides point colours when provided",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
                 }
               }
             }
