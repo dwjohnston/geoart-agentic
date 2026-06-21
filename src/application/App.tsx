@@ -31,6 +31,9 @@ export function App() {
   const [algorithms, setAlgorithms] = useState<AlgorithmEntry[]>(toBundledEntries);
   const [showImportModal, setShowImportModal] = useState(false);
   const [payload, setPayload] = useState<GraphLoadPayload>({ renderControlNodes: () => null, renderingNodes: [] });
+  const [fps, setFps] = useState(0);
+  const fpsFrameCount = useRef(0);
+  const fpsLastUpdate = useRef(performance.now());
 
   const getInitialGraphId = () => {
     const params = new URLSearchParams(window.location.search);
@@ -71,9 +74,22 @@ export function App() {
     engine.setSpeed(graph.speed ?? 1.0);
     setPayload(engine.load(graph));
 
+    fpsFrameCount.current = 0;
+    fpsLastUpdate.current = performance.now();
+
     let rafId: number;
     const frame = () => {
       engine.tick();
+
+      fpsFrameCount.current++;
+      const now = performance.now();
+      const elapsed = now - fpsLastUpdate.current;
+      if (elapsed >= 1000) {
+        setFps(Math.round((fpsFrameCount.current * 1000) / elapsed));
+        fpsFrameCount.current = 0;
+        fpsLastUpdate.current = now;
+      }
+
       rafId = requestAnimationFrame(frame);
     };
     rafId = requestAnimationFrame(frame);
@@ -111,7 +127,7 @@ export function App() {
       <SidePanel>
         <RenderToggles renderingNodes={payload.renderingNodes} onToggle={handleRenderNodeToggle} />
       </SidePanel>
-      <Canvas orbitCanvasRef={orbitCanvasRef} trailCanvasRef={trailCanvasRef} size={CANVAS_SIZE} />
+      <Canvas orbitCanvasRef={orbitCanvasRef} trailCanvasRef={trailCanvasRef} size={CANVAS_SIZE} fps={fps} />
       <SidePanel>
         <AlgorithmPicker
           algorithms={algorithms}

@@ -1587,6 +1587,102 @@
               }
             }
           }
+        },
+        {
+          "title": "Curve Modulator Module Node",
+          "type": "object",
+          "description": "Module that modulates a curve using a wave oscillator and renders it with connect-the-dots and point visualization",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "curve-modulator-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "curve": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "cycleLengthMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeEnumValueOrRef"
+                },
+                "modulationAngle": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "fixedOffset": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Linker Module Node",
+          "type": "object",
+          "description": "Module that renders animated lines between two sets of points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "linker-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "intervalTicks": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "pointsFrom": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "pointsTo": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeEnumValueOrRef"
+                },
+                "intervalMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     }

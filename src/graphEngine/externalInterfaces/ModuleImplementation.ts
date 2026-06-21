@@ -6,7 +6,7 @@
  */
 
 import type { nodeInputs } from '../../schema/_generated/node-inputs-2';
-import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+import type { GeoArtGraph, ModuleNode } from '../../schema/_generated/schema-types';
 import type { ModuleNodeKinds, NodeInputsDeclared, NodeInputsResolved, NodeOutputAsRefs, ResolvedValue, ValueTypeNamesSuffixed } from '../../schema/typeHelpers';
 
 
@@ -22,6 +22,8 @@ export interface ModuleExpansionResult<K extends ModuleNodeKinds> {
   computeNodes: GeoArtGraph['compute']['nodes'];
   /** Internal render nodes (prefixed with {moduleId}:) */
   renderNodes: GeoArtGraph['render']['nodes'];
+  /** Internal module nodes (prefixed with {moduleId}:) — expanded iteratively during compilation */
+  moduleNodes?: ModuleNode[];
   /** Marker node exposing the module's public outputs */
   outputMarkerNode: {
     id: string;
