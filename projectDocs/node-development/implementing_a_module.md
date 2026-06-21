@@ -90,5 +90,4 @@ Key rules:
 - **The output marker's id is the module id** (`moduleId`), and its `outputRefs` wire each declared `x-output` to the internal port that produces it. Outside refs like `{ ref: 'myOrbit.points' }` resolve here.
 - **Pass array outputs straight through** (`{ ref: '...points' }`); only wrap when assembling an array from scalars (`{ v: [{ ref: '...' }] }`).
 - A module may itself declare other module nodes — the compiler expands iteratively until no module nodes remain (nested modules).
-
-
+- **Do not add control nodes.** This is there to provide flexibility, but all controls should be done  via the `renderControls` 

@@ -27,6 +27,7 @@ describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds, ModuleNodeKinds",
         assertType<RenderNodeKinds>("add");
 
         assertType<ModuleNodeKinds>("orbit-module");
+        assertType<ModuleNodeKinds>("wave-module");
         //@ts-expect-error - mismatching types
         assertType<ModuleNodeKinds>("add");
     });
@@ -211,10 +212,22 @@ describe("NodeOutputsRecord", () => {
         //@ts-expect-error - missing 'points' port
         assertType<NodeOutputsResolved<"orbit-module">>({});
     });
+
+    it("wave-module outputs value and sampler", () => {
+        assertType<NodeOutputsResolved<"wave-module">>({
+            value: 0,
+            sampler: { sample: (t: number) => t, sampleMany: (ts: number[]) => ts },
+        });
+
+        //@ts-expect-error - missing required ports
+        assertType<NodeOutputsResolved<"wave-module">>({});
+    });
 });
 
 describe("NodeOutputKeys", () => {
     assertType<NodeOutputKeys<"orbit-module">>("points");
+    assertType<NodeOutputKeys<"wave-module">>("value");
+    assertType<NodeOutputKeys<"wave-module">>("sampler");
 });
 describe("NodeOutputsAsRefs", () => {
 
@@ -231,6 +244,16 @@ describe("NodeOutputsAsRefs", () => {
         });
 
 
+    });
+
+    it("works with wave-module", () => {
+        assertType<NodeOutputAsRefs<"wave-module">>({
+            value: { ref: "somenode.port" },
+            sampler: { ref: "somenode.port" },
+        });
+
+        //@ts-expect-error - missing required ports
+        assertType<NodeOutputAsRefs<"wave-module">>({});
     });
 });
 
@@ -642,6 +665,7 @@ describe("NodeInputsDeclared", () => {
         assertType<NodeInputsDeclared<"slider">>({});
 
         assertType<NodeInputsDeclared<"orbit-module">>({});
+        assertType<NodeInputsDeclared<"wave-module">>({});
     });
 });
 

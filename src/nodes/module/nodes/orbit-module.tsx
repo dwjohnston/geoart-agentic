@@ -6,65 +6,14 @@
  */
 
 import { implementModule } from '../implementModule';
-import { createInternalId } from '../moduleUtils';
-import type { ModuleControlSetter, ModuleExpansionResult, StaticModuleNodeParams } from '../../../graphEngine/externalInterfaces/ModuleImplementation';
-import type { ModuleNodeKinds, NodeInputsDeclared, NodeInputsResolved } from '../../../schema/typeHelpers';
+import { createInternalId, createInputMarkerParams, renderIfNeeded } from '../moduleUtils';
+import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfaces/ModuleImplementation';
+import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { fColorPoint } from '../../../constants';
 import { KnobControl } from '../../../ui/KnobControl';
 
-
-
-// nb. the typing on the onChange handler - NodeInputsResolved, not StaticModuleNodeParams which is a partial - basically we are kind of asserting that all values will exist and then can access via key of.
-// The render if needed already does a check to see that the value definitely will exist. 
-
-export type RenderControlFn<NodeKind extends ModuleNodeKinds, NodeInputKey extends keyof NodeInputsDeclared<NodeKind>> = (initialValue: Required<StaticModuleNodeParams<NodeKind>>[NodeInputKey], onChange: (value: NodeInputsResolved<NodeKind>[NodeInputKey]) => void) => React.ReactNode
-
-function renderIfNeeded<
-  NodeKind extends ModuleNodeKinds,
-  NodeInputKey extends keyof NodeInputsDeclared<NodeKind>>
-  (
-    params: StaticModuleNodeParams<NodeKind>,
-    key: NodeInputKey,
-    controlSetter: ModuleControlSetter<NodeKind>,
-    renderControl: RenderControlFn<NodeKind, NodeInputKey>) {
-
-  if (Object.hasOwn(params, key)) {
-    const initialValue = (params as Required<typeof params>)[key];
-    return renderControl(initialValue, (v) => controlSetter(key, v));
-  }
-  return null;
-}
-
-
-
-// I'm going to leave this here for now. 
-// The point of it is to curry in the params and the set function, 
-// but the typings are not playing nicely
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function createRenderIfNeeded<
-  NodeKind extends ModuleNodeKinds,
-  NodeInputKey extends keyof NodeInputsDeclared<NodeKind>>(
-    params: StaticModuleNodeParams<NodeKind>,
-    controlSetter: ModuleControlSetter<NodeKind>,
-  ) {
-  return (key: NodeInputKey, renderControl: RenderControlFn<NodeKind, NodeInputKey>) => {
-    return renderIfNeeded(params, key, controlSetter, renderControl)
-  }
-}
-export function createInputMarkerParams<NodeKind extends ModuleNodeKinds>(params: NodeInputsDeclared<NodeKind>, defaultValues: NodeInputsResolved<NodeKind>): NodeInputsDeclared<NodeKind> {
-  const result: Record<string, unknown> = {};
-
-  for (const key in defaultValues) {
-    if (params[key]) {
-      result[key] = params[key];
-    } else {
-      result[key] = { v: defaultValues[key] };
-    }
-  }
-
-  return result as NodeInputsDeclared<NodeKind>;
-}
+export { createInputMarkerParams, renderIfNeeded } from '../moduleUtils';
+export type { RenderControlFn } from '../moduleUtils';
 
 
 

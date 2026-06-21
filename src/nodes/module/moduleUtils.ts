@@ -2,6 +2,9 @@
  * Utility functions for module implementations
  */
 
+import type { ModuleControlSetter, StaticModuleNodeParams } from '../../graphEngine/externalInterfaces/ModuleImplementation';
+import type { ModuleNodeKinds, NodeInputsDeclared, NodeInputsResolved } from '../../schema/typeHelpers';
+
 /**
  * Create a namespaced internal node ID for a module.
  * Format: {moduleId}:{internalId}
@@ -15,4 +18,53 @@
  */
 export function createInternalId(moduleId: string, internalId: string): string {
   return `${moduleId}:${internalId}`;
+}
+
+/**
+ * Fills each input port with the supplied param value, or falls back to { v: default }.
+ * Used to construct the input marker params for a module.
+ */
+export function createInputMarkerParams<NodeKind extends ModuleNodeKinds>(
+  params: NodeInputsDeclared<NodeKind>,
+  defaultValues: NodeInputsResolved<NodeKind>,
+): NodeInputsDeclared<NodeKind> {
+  const result: Record<string, unknown> = {};
+
+  for (const key in defaultValues) {
+    if (params[key]) {
+      result[key] = params[key];
+    } else {
+      result[key] = { v: defaultValues[key] };
+    }
+  }
+
+  return result as NodeInputsDeclared<NodeKind>;
+}
+
+export type RenderControlFn<
+  NodeKind extends ModuleNodeKinds,
+  NodeInputKey extends keyof NodeInputsDeclared<NodeKind>,
+> = (
+  initialValue: Required<StaticModuleNodeParams<NodeKind>>[NodeInputKey],
+  onChange: (value: NodeInputsResolved<NodeKind>[NodeInputKey]) => void,
+) => React.ReactNode;
+
+/**
+ * Renders a control for an input port only when the port has a static (non-ref) value.
+ * Ref-connected ports skip rendering because their value comes from upstream.
+ */
+export function renderIfNeeded<
+  NodeKind extends ModuleNodeKinds,
+  NodeInputKey extends keyof NodeInputsDeclared<NodeKind>,
+>(
+  params: StaticModuleNodeParams<NodeKind>,
+  key: NodeInputKey,
+  controlSetter: ModuleControlSetter<NodeKind>,
+  renderControl: RenderControlFn<NodeKind, NodeInputKey>,
+) {
+  if (Object.hasOwn(params, key)) {
+    const initialValue = (params as Required<typeof params>)[key];
+    return renderControl(initialValue, (v) => controlSetter(key, v));
+  }
+  return null;
 }

@@ -93,7 +93,7 @@ ${imports}
 
 export const moduleRegistry: ModuleRegistry = new Map([
 ${entries}
-]);
+] as Parameters<ModuleRegistry['set']>[]);
 `;
 }
 
