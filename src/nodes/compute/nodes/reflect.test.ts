@@ -7,6 +7,7 @@ const white = { r: 1, g: 1, b: 1, a: 1 };
 const base: NodeInputsResolved<'reflect'> = {
   inputPoints: [],
   reflectionPoints: [],
+  colorShiftOperation: 'none',
 };
 
 const pt = (x: number, y: number, dx = 0, dy = 0) => ({

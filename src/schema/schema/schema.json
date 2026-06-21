@@ -1173,6 +1173,9 @@
                 },
                 "reflectionPoints": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
                 }
               }
             }
@@ -1218,6 +1221,9 @@
                 },
                 "rotationAmount": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
                 }
               }
             }
@@ -1871,6 +1877,9 @@
                 },
                 "reflectionPoints": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
                 }
               }
             }
@@ -1917,6 +1926,9 @@
                 },
                 "rotationAmount": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
                 }
               }
             }

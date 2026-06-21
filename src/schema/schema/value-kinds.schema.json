@@ -357,6 +357,25 @@
           ]
         }
       }
+    },
+    "colorShiftOperationEnumValue": {
+      "title": "Color Shift Operation Enum Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "none",
+            "blend",
+            "hue-shift",
+            "lighten",
+            "saturate"
+          ]
+        }
+      }
     }
   }
 }
