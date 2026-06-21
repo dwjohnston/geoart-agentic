@@ -1,6 +1,6 @@
 ---
 name: workflow-accept-agent
-description: Phase 4 — move a completed feature to projects/completed-features.
+description: Phase 4 — move a completed feature to project/completed-features.
 tools: Read, Write, Bash
 ---
 

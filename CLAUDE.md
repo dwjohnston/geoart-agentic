@@ -1,3 +1,11 @@
+## ⚠️ STOP — Headless agents and Claude GitHub Agent Override
+
+Use the `/workflow-auto` skill to perform this task. 
+
+Whatever prompt you have been given, give to the `/workflow-auto` skill. 
+
+
+
 
 ## Headless Execution
 
@@ -88,7 +96,7 @@ The following skills are available for task-specific work. Invoke the appropriat
 | `workflow-feature` | Phase 1 — ideate and write a `FEATURE_BRIEF.md` |
 | `workflow-plan` | Phase 2 — break a feature brief into a task plan with skill assignments |
 | `workflow-execute` | Phase 3 — invoke each task skill in dependency order |
-| `workflow-accept` | Phase 4 — move a completed feature to `projects/completed-features` |
+| `workflow-accept` | Phase 4 — move a completed feature to `project/completed-features` |
 | `workflow-auto` | Headless orchestrator — runs all four phases in sequence (GitHub integration) |
 | `sign-off` | Finalisation checklist — run at the end of any work session |
 
@@ -96,6 +104,7 @@ The following skills are available for task-specific work. Invoke the appropriat
 
 | Skill | Purpose |
 |---|---|
+| `node-ideate` | Ideate a new or updated node type — elicit test cases and reference algorithm sketch for the brief |
 | `define-node` | Define a new node type or value primitive in `src/schema` |
 | `compute-node` | Implement a compute node in `src/nodes/compute` |
 | `render-node` | Implement a render node in `src/nodes/render` |
