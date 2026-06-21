@@ -1062,6 +1062,16 @@
                   "title": "Cycle Length Mode",
                   "description": "Method for determining cycle length: arrayLength uses array size, linearOne accumulates euclidean distance between points",
                   "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeEnumValueOrRef"
+                },
+                "modulationAngle": {
+                  "title": "Modulation Angle",
+                  "description": "Angle of displacement (0 to 1, where 0.25 = 90 degrees perpendicular)",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "fixedOffset": {
+                  "title": "Fixed Offset",
+                  "description": "Fixed offset distance applied in the direction of dx,dy",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               },
               "required": []
@@ -1538,6 +1548,41 @@
                 },
                 "samplerTemporalImpact": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Point Render Module Node",
+          "type": "object",
+          "description": "Renders circles and crosshairs for an array of points on the live layer",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "point-render-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "points": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 }
               }
             }
