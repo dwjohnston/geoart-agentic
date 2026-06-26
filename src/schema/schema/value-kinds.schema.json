@@ -46,7 +46,7 @@
     "colorValue": {
       "title": "Color Value",
       "type": "object",
-      "description": "RGBA colour with each component in 0–1",
+      "description": "RGBA colour with each component in 0\u20131",
       "additionalProperties": false,
       "required": [
         "v"
@@ -63,28 +63,28 @@
           "properties": {
             "r": {
               "title": "Red",
-              "description": "Red channel (0–1)",
+              "description": "Red channel (0\u20131)",
               "type": "number",
               "minimum": 0,
               "maximum": 1
             },
             "g": {
               "title": "Green",
-              "description": "Green channel (0–1)",
+              "description": "Green channel (0\u20131)",
               "type": "number",
               "minimum": 0,
               "maximum": 1
             },
             "b": {
               "title": "Blue",
-              "description": "Blue channel (0–1)",
+              "description": "Blue channel (0\u20131)",
               "type": "number",
               "minimum": 0,
               "maximum": 1
             },
             "a": {
               "title": "Alpha",
-              "description": "Alpha channel (0–1)",
+              "description": "Alpha channel (0\u20131)",
               "type": "number",
               "minimum": 0,
               "maximum": 1
@@ -163,7 +163,7 @@
             },
             "r": {
               "title": "Red",
-              "description": "Red channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "description": "Red channel (0\u20131) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
               "type": [
                 "number",
                 "null"
@@ -173,7 +173,7 @@
             },
             "g": {
               "title": "Green",
-              "description": "Green channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "description": "Green channel (0\u20131) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
               "type": [
                 "number",
                 "null"
@@ -183,7 +183,7 @@
             },
             "b": {
               "title": "Blue",
-              "description": "Blue channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "description": "Blue channel (0\u20131) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
               "type": [
                 "number",
                 "null"
@@ -193,7 +193,7 @@
             },
             "a": {
               "title": "Alpha",
-              "description": "Alpha channel (0–1) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
+              "description": "Alpha channel (0\u20131) or null. Rendered as 0; in a colour shift means 'ignore this channel'",
               "type": [
                 "number",
                 "null"
@@ -270,7 +270,7 @@
       "properties": {
         "v": {
           "type": "object",
-          "description": "Placeholder object — actual value is a function at runtime"
+          "description": "Placeholder object \u2014 actual value is a function at runtime"
         }
       }
     },
@@ -301,7 +301,8 @@
           "type": "string",
           "enum": [
             "arrayLength",
-            "linearOne"
+            "linearOne",
+            "linearTotal"
           ]
         }
       }
@@ -388,7 +389,7 @@
       "properties": {
         "v": {
           "type": "object",
-          "description": "Placeholder — actual value is a ColorSampler object at runtime"
+          "description": "Placeholder \u2014 actual value is a ColorSampler object at runtime"
         }
       }
     },
