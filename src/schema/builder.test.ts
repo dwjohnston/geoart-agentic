@@ -360,10 +360,7 @@ describe(AlgorithmBuilder, () => {
                     //@ts-expect-error - 'invalid-module' is not a valid module node type
                     type: 'invalid-module',
                     params: {
-                        time: { v: 0 },
-                        speed: { v: 1 },
-                        radius: { v: 0.1 },
-                        numPoints: { v: 50 },
+                        phase: { v: 0 },
                     },
                 })
                 .construct();
