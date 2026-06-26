@@ -23,6 +23,16 @@ export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick
   const bundled = algorithms.filter(a => a.source === 'bundled');
   const imported = algorithms.filter(a => a.source === 'imported');
 
+  const bundledByFolder = bundled.reduce<Record<string, AlgorithmEntry[]>>((acc, entry) => {
+    const f = entry.folder ?? '';
+    (acc[f] ??= []).push(entry);
+    return acc;
+  }, {});
+
+  function formatFolderLabel(folder: string): string {
+    return folder.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  }
+
   function handleChange(id: string) {
     setSelectedId(id);
     onChange(id);
@@ -47,15 +57,15 @@ export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick
               cursor: 'pointer',
             }}
           >
-            {bundled.length > 0 && (
-              <optgroup label="Built-in">
-                {bundled.map(entry => (
+            {Object.entries(bundledByFolder).map(([folder, entries]) => (
+              <optgroup key={folder} label={formatFolderLabel(folder)}>
+                {entries.map(entry => (
                   <option key={entry.id} value={entry.id}>
                     {entry.name}
                   </option>
                 ))}
               </optgroup>
-            )}
+            ))}
             {imported.length > 0 && (
               <optgroup label="Imported">
                 {imported.map(entry => (

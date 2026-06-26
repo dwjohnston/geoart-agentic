@@ -16,6 +16,11 @@ function basenameToIdentifier(basename: string): string {
   return basename.replace(/[^a-zA-Z0-9_$]/g, '_').replace(/^(\d)/, '_$1');
 }
 
+export function filePathToFolder(filePath: string): string {
+  const parts = filePath.split('/');
+  return parts[parts.length - 2] ?? '';
+}
+
 export function generateAlgorithmsIndexContent(relativeFilePaths: string[]): string {
   const entries = relativeFilePaths.map((p) => ({
     identifier: basenameToIdentifier(path.basename(p, '.ts')),
@@ -49,6 +54,7 @@ import type { GeoArtGraph } from '../schema/_generated/schema-types';
 export type GraphEntry = {
   id: string;
   name: string;
+  folder?: string;
   graph: GeoArtGraph;
 };
 
@@ -59,13 +65,19 @@ function filePathToId(filePath: string): string {
   return filename.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
+function filePathToFolder(filePath: string): string {
+  const parts = filePath.split('/');
+  return parts[parts.length - 2] ?? '';
+}
+
 const rawEntries: [string, GeoArtGraph][] = [
 ${rawEntries}
 ];
 
 export const GRAPHS: GraphEntry[] = rawEntries.map(([filePath, graph]) => {
   const id = filePathToId(filePath);
-  return { id, name: graph.title ?? id, graph };
+  const folder = filePathToFolder(filePath);
+  return { id, name: graph.title ?? id, folder, graph };
 });
 
 export const DEFAULT_GRAPH_ID = GRAPHS[0].id;
