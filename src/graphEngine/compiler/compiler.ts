@@ -3,7 +3,7 @@
  */
 
 import type React from 'react';
-import type { GeoArtGraph } from '../../schema/_generated/schema-types';
+import type { GeoArtGraph, RenderLayerConfig } from '../../schema/_generated/schema-types';
 import type { Value } from '../../schema/types';
 import type { LegacyComputeNodeImplementation, LegacyComputeNodePortImplementation } from '../../graphEngine/externalInterfaces/ComputeNodeImplementation';
 import type { LegacyRenderNodeImplementation } from '../../graphEngine/externalInterfaces/RenderNodeImplementation';
@@ -45,7 +45,7 @@ type CompiledNode = {
   /** Static params from the serialised graph, keyed by param name. */
   params: Record<string, Value>;
   /** Which canvas layer to draw to — only set for render nodes. */
-  renderConfig?: { layer: 'paint' | 'live' };
+  renderConfig?: RenderLayerConfig;
   /** For marker nodes: maps output port names to internal node refs. */
   outputRefs?: Record<string, { ref: string }>;
   /** For module input marker nodes: the render function for controls. */
@@ -311,7 +311,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       def,
       layer: 'render',
       params: buildParams(rawParams),
-      renderConfig: { layer: node.renderConfig.layer },
+      renderConfig: node.renderConfig,
     });
   }
 
@@ -384,7 +384,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
         def,
         layer: 'render',
         params: buildParams(renderParams),
-        renderConfig: { layer: renderNode.renderConfig.layer },
+        renderConfig: renderNode.renderConfig,
       });
     }
 
