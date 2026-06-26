@@ -1,4 +1,4 @@
-function roundNumbers(v: unknown, precision = 10): unknown {
+function roundNumbers(v: unknown, precision = 8): unknown {
   if (typeof v === 'number') return parseFloat(v.toFixed(precision));
   if (typeof v === 'string') {
     return v.replace(/\d+\.?\d+/g, (match) => {
