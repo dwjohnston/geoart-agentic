@@ -42,7 +42,7 @@ export function createFakeContext(): FakeContext {
     new Proxy({} as Record<string | symbol, unknown>, {
       get(_t, subProp) {
         return (...subArgs: unknown[]) => {
-          calls.push({ kind: 'method', name: `${prefix}.${String(subProp)}`, args: subArgs });
+          calls.push({ kind: 'method', name: `${prefix}.${String(subProp)}`, args: subArgs.map((v) => roundNumbers(v)) });
         };
       },
     });
