@@ -27,6 +27,8 @@ describe("ControlNodeKinds, ComputeNodeKinds, RenderNodeKinds, ModuleNodeKinds",
         assertType<RenderNodeKinds>("add");
 
         assertType<ModuleNodeKinds>("orbit-module");
+        assertType<ModuleNodeKinds>("wave-module");
+        assertType<ModuleNodeKinds>("linker-module");
         //@ts-expect-error - mismatching types
         assertType<ModuleNodeKinds>("add");
     });
@@ -147,6 +149,7 @@ describe("NodeInputsRecord", () => {
 
         },
         "numberOfPoints": 1,
+        "colorSampler": null,
 
     })
 });
@@ -211,10 +214,26 @@ describe("NodeOutputsRecord", () => {
         //@ts-expect-error - missing 'points' port
         assertType<NodeOutputsResolved<"orbit-module">>({});
     });
+
+    it("wave-module outputs value and sampler", () => {
+        assertType<NodeOutputsResolved<"wave-module">>({
+            value: 0,
+            sampler: { sample: (t: number) => t, sampleMany: (ts: number[]) => ts },
+        });
+
+        //@ts-expect-error - missing required ports
+        assertType<NodeOutputsResolved<"wave-module">>({});
+    });
+
+    it("linker-module has no outputs (render module)", () => {
+        assertType<NodeOutputsResolved<"linker-module">>({});
+    });
 });
 
 describe("NodeOutputKeys", () => {
     assertType<NodeOutputKeys<"orbit-module">>("points");
+    assertType<NodeOutputKeys<"wave-module">>("value");
+    assertType<NodeOutputKeys<"wave-module">>("sampler");
 });
 describe("NodeOutputsAsRefs", () => {
 
@@ -231,6 +250,16 @@ describe("NodeOutputsAsRefs", () => {
         });
 
 
+    });
+
+    it("works with wave-module", () => {
+        assertType<NodeOutputAsRefs<"wave-module">>({
+            value: { ref: "somenode.port" },
+            sampler: { ref: "somenode.port" },
+        });
+
+        //@ts-expect-error - missing required ports
+        assertType<NodeOutputAsRefs<"wave-module">>({});
     });
 });
 
@@ -636,12 +665,25 @@ describe("NodeInputsDeclared", () => {
         });
     });
 
+    it("linker-module accepts both static and referenced array values", () => {
+        assertType<NodeInputsDeclared<"linker-module">>({
+            pointsFrom: { ref: "orbitA.points" },
+            pointsTo: { ref: "orbitB.points" },
+        });
+
+        assertType<NodeInputsDeclared<"linker-module">>({
+            pointsFrom: { v: [{ v: fColorPoint() }] },
+        });
+    });
+
     it("all inputs are optional", () => {
         assertType<NodeInputsDeclared<"add">>({});
 
         assertType<NodeInputsDeclared<"slider">>({});
 
         assertType<NodeInputsDeclared<"orbit-module">>({});
+        assertType<NodeInputsDeclared<"wave-module">>({});
+        assertType<NodeInputsDeclared<"linker-module">>({});
     });
 });
 

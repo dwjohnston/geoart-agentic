@@ -1,4 +1,4 @@
-function roundNumbers(v: unknown, precision = 10): unknown {
+function roundNumbers(v: unknown, precision = 8): unknown {
   if (typeof v === 'number') return parseFloat(v.toFixed(precision));
   if (typeof v === 'string') {
     return v.replace(/\d+\.?\d+/g, (match) => {
@@ -42,7 +42,7 @@ export function createFakeContext(): FakeContext {
     new Proxy({} as Record<string | symbol, unknown>, {
       get(_t, subProp) {
         return (...subArgs: unknown[]) => {
-          calls.push({ kind: 'method', name: `${prefix}.${String(subProp)}`, args: subArgs });
+          calls.push({ kind: 'method', name: `${prefix}.${String(subProp)}`, args: subArgs.map((v) => roundNumbers(v)) });
         };
       },
     });

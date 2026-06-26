@@ -600,6 +600,7 @@ describe("regular control nodes update their downstream correctly", () => {
         time: 0,
         eccentricity: 0,
         tilt: 0,
+        "colorSampler": null,
       },
       evaluate: (inputs) => {
 
@@ -645,6 +646,7 @@ describe("regular control nodes update their downstream correctly", () => {
         numPoints: 1,
         time: 0,
         "radius": 0.5,
+        "colorSampler": null,
 
 
       },
@@ -1169,5 +1171,203 @@ describe("regular control nodes update their downstream correctly", () => {
 
 
   })
+
+  describe("nested module expansion — a module containing another module", () => {
+    test("compiler expands moduleNodes within a module", () => {
+      const fakeNodeRegistry = {
+        "computeRegistry": new Map(),
+        "controlRegistry": new Map(),
+        "moduleRegistry": new Map(),
+        "renderRegistry": new Map()
+      } satisfies typeof realNodeRegistry;
+
+      // Register a simple wave-module
+      fakeNodeRegistry.moduleRegistry.set("wave-module", implementModule({
+        "_kind": "wave-module",
+        defaultValues: {
+          frequency: 1,
+          amplitude: 0.5,
+          phase: 0,
+          waveShape: 'sine',
+          samplerTemporalImpact: 0,
+        },
+        provideNodes: (params, moduleId, defaultValues) => {
+          const inputMarkerId = createInternalId(moduleId, 'input-marker');
+          const timeId = createInternalId(moduleId, 'time');
+          const waveId = createInternalId(moduleId, 'wave');
+
+          return {
+            controlNodes: [],
+            computeNodes: [
+              {
+                id: timeId,
+                type: 'time',
+                params: {},
+              },
+              {
+                id: waveId,
+                type: 'wave',
+                params: {
+                  time: { ref: `${timeId}.time` },
+                  waveType: { ref: `${inputMarkerId}.waveShape` },
+                  frequency: { ref: `${inputMarkerId}.frequency` },
+                  amplitude: { ref: `${inputMarkerId}.amplitude` },
+                  phase: { ref: `${inputMarkerId}.phase` },
+                  samplerTemporalImpact: { ref: `${inputMarkerId}.samplerTemporalImpact` },
+                },
+              },
+            ],
+            renderNodes: [],
+            inputMarkerNode: {
+              id: inputMarkerId,
+              type: 'module-input-marker',
+              params: createInputMarkerParams(params, defaultValues),
+              renderControl: () => null,
+            },
+            outputMarkerNode: {
+              id: moduleId,
+              type: 'module-output-marker',
+              params: {},
+              outputRefs: {
+                value: { ref: `${waveId}.value` },
+                sampler: { ref: `${waveId}.sampler` },
+              },
+              nodeSource: {
+                sourceType: 'module',
+                sourceId: moduleId,
+              },
+            },
+            defaultValues,
+          };
+        },
+      }));
+
+      // Register a curve-modulator-module that contains a wave-module
+      fakeNodeRegistry.moduleRegistry.set("curve-modulator-module", implementModule({
+        "_kind": "curve-modulator-module",
+        defaultValues: {
+          curve: [],
+          cycleLengthMode: 'arrayLength',
+          modulationAngle: 0,
+          fixedOffset: 0,
+          frequency: 1,
+          amplitude: 0.5,
+          phase: 0,
+          waveShape: 'sine',
+          samplerTemporalImpact: 0,
+        },
+        provideNodes: (params, moduleId, defaultValues) => {
+          const inputMarkerId = createInternalId(moduleId, 'input-marker');
+          const waveModuleLocalId = 'wave-module'; // Non-namespaced ID; compiler will namespace it
+          const modulatorId = createInternalId(moduleId, 'modulator');
+          const waveModuleFullId = createInternalId(moduleId, waveModuleLocalId); // For refs
+
+          return {
+            controlNodes: [],
+            // This includes a moduleNode — the wave-module
+            computeNodes: [
+              {
+                id: modulatorId,
+                type: 'curveModulator',
+                params: {
+                  curve: { ref: `${inputMarkerId}.curve` },
+                  modulator: { ref: `${waveModuleFullId}.sampler` },
+                  cycleLengthMode: { ref: `${inputMarkerId}.cycleLengthMode` },
+                  modulationAngle: { ref: `${inputMarkerId}.modulationAngle` },
+                  fixedOffset: { ref: `${inputMarkerId}.fixedOffset` },
+                },
+              },
+            ],
+            renderNodes: [
+              {
+                id: createInternalId(moduleId, 'point-circle'),
+                type: 'circle',
+                renderConfig: { layer: 'live' },
+                params: {
+                  centerPoints: { ref: `${modulatorId}.points` },
+                  radius: { v: 0.01 },
+                },
+              },
+            ],
+            moduleNodes: [
+              {
+                id: waveModuleLocalId, // Non-namespaced; compiler will namespace it
+                type: 'wave-module',
+                params: {
+                  frequency: { v: 1 },
+                  amplitude: { v: 0.5 },
+                },
+              },
+            ],
+            inputMarkerNode: {
+              id: inputMarkerId,
+              type: 'module-input-marker',
+              params: createInputMarkerParams(params, defaultValues),
+              renderControl: () => null,
+            },
+            outputMarkerNode: {
+              id: moduleId,
+              type: 'module-output-marker',
+              params: {},
+              outputRefs: {
+                points: { ref: `${modulatorId}.points` },
+              },
+              nodeSource: {
+                sourceType: 'module',
+                sourceId: moduleId,
+              },
+            },
+            defaultValues,
+          };
+        },
+      }));
+
+      // Register minimal compute and render nodes
+      fakeNodeRegistry.computeRegistry.set("time", realNodeRegistry.computeRegistry.get("time")!);
+      fakeNodeRegistry.computeRegistry.set("wave", realNodeRegistry.computeRegistry.get("wave")!);
+      fakeNodeRegistry.computeRegistry.set("curveModulator", realNodeRegistry.computeRegistry.get("curveModulator")!);
+      fakeNodeRegistry.renderRegistry.set("circle", realNodeRegistry.renderRegistry.get("circle")!);
+
+      // Build a graph that uses the curve-modulator-module
+      const graph = new AlgorithmBuilder()
+        .addModuleNode({
+          id: "my-curve-mod",
+          type: "curve-modulator-module",
+          params: {
+            curve: { v: [] },
+          },
+        })
+        .construct();
+
+      // This should not throw — the compiler should expand all nested modules
+      expect(() => compile(graph, fakeNodeRegistry)).not.toThrow();
+
+      const compiled = compile(graph, fakeNodeRegistry);
+
+      // Verify that the internal nodes of both modules are expanded
+      // Expected nodes:
+      // - my-curve-mod (output marker)
+      // - my-curve-mod:input-marker
+      // - my-curve-mod:wave-module (output marker)
+      // - my-curve-mod:wave-module:input-marker
+      // - my-curve-mod:wave-module:time (compute)
+      // - my-curve-mod:wave-module:wave (compute)
+      // - my-curve-mod:modulator (compute)
+      // - my-curve-mod:connect-dots (render)
+
+      const expectedNodeCount = 8;
+      expect(compiled.sortedNodes).toHaveLength(expectedNodeCount);
+
+      // Verify key internal nodes exist
+      expect(compiled.sortedNodes).toContain("my-curve-mod");
+      expect(compiled.sortedNodes).toContain("my-curve-mod:input-marker");
+      expect(compiled.sortedNodes).toContain("my-curve-mod:wave-module");
+      expect(compiled.sortedNodes).toContain("my-curve-mod:wave-module:input-marker");
+      expect(compiled.sortedNodes).toContain("my-curve-mod:wave-module:time");
+      expect(compiled.sortedNodes).toContain("my-curve-mod:wave-module:wave");
+      expect(compiled.sortedNodes).toContain("my-curve-mod:modulator");
+      expect(compiled.sortedNodes).toContain("my-curve-mod:point-circle");
+    });
+  });
 
 });

@@ -1,3 +1,19 @@
+## ⚠️ STOP — Headless agents and Claude GitHub Agent Override
+
+Use the `/workflow-auto` skill to perform this task. 
+
+Whatever prompt you have been given, give to the `/workflow-auto` skill. 
+
+
+
+
+## Headless Execution
+
+In headless mode (GitHub Actions), the AI runs without a human in the loop.
+
+- Always invoke `/sign-off` at the end of a headless run.
+- Do not prompt for confirmation before committing — commit automatically at each checkpoint per the committing philosophy.
+- Do not prompt before moving feature folders — move automatically during `workflow-accept`.
 
 
 
@@ -39,6 +55,12 @@ Always use British English, with the exception of the following words:
 
 - If you ask a question and it doesn't get an answer — re-ask the question.
 
+- At the end of any task or work session, if `/sign-off` has not been run, offer to run it: "Shall I run `/sign-off` before we wrap up?"
+
+- Do not use phrases like "clean", "cleaner", or "that's a much better solution". Your role is not to evaluate whether a solution is superior — but you can explain specific reasons why an approach might cause problems or solve them.
+
+- When prompting the user to move on to the next step, invite them to review what has been done first — for example, suggest they look at the tests or run the reference algorithm.
+
 
 
 ## Canonical Levels
@@ -78,13 +100,15 @@ The following skills are available for task-specific work. Invoke the appropriat
 | `workflow-feature` | Phase 1 — ideate and write a `FEATURE_BRIEF.md` |
 | `workflow-plan` | Phase 2 — break a feature brief into a task plan with skill assignments |
 | `workflow-execute` | Phase 3 — invoke each task skill in dependency order |
-| `workflow-accept` | Phase 4 — move a completed feature to `projects/completed-features` |
+| `workflow-accept` | Phase 4 — move a completed feature to `project/completed-features` |
 | `workflow-auto` | Headless orchestrator — runs all four phases in sequence (GitHub integration) |
+| `sign-off` | Finalisation checklist — run at the end of any work session |
 
 ### Node development
 
 | Skill | Purpose |
 |---|---|
+| `node-ideate` | Ideate a new or updated node type — elicit test cases and reference algorithm sketch for the brief |
 | `define-node` | Define a new node type or value primitive in `src/schema` |
 | `compute-node` | Implement a compute node in `src/nodes/compute` |
 | `render-node` | Implement a render node in `src/nodes/render` |
@@ -101,5 +125,6 @@ The following skills are available for task-specific work. Invoke the appropriat
 - Commit at stable checkpoints within a task — working state, tests passing.
 - Do not batch commits across tasks or phases.
 - Reference the task or phase name in the commit message.
+- Feature work and sign-off artefacts (handoffs, feedback, prompt improvement notes) must be separate commits.
 
 

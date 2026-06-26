@@ -48,7 +48,7 @@ describe("circleNodeImplementation", () => {
             25,
             0,
             0,
-            6.2831853072,
+            6.28318531,
           ],
           "kind": "method",
           "name": "ellipse",

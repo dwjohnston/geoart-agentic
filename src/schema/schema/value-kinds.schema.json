@@ -301,7 +301,8 @@
           "type": "string",
           "enum": [
             "arrayLength",
-            "linearOne"
+            "linearOne",
+            "linearTotal"
           ]
         }
       }
@@ -338,6 +339,71 @@
             "back-and-forth",
             "inside-out",
             "inside-out-and-forth"
+          ]
+        }
+      }
+    },
+    "colorShiftModeEnumValue": {
+      "title": "Color Shift Mode Enum Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "proximity",
+            "proximity-with-direction"
+          ]
+        }
+      }
+    },
+    "colorShiftOperationEnumValue": {
+      "title": "Color Shift Operation Enum Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "none",
+            "blend",
+            "hue-shift",
+            "lighten",
+            "saturate"
+          ]
+        }
+      }
+    },
+    "colorSamplerValue": {
+      "title": "Color Sampler Value",
+      "type": "object",
+      "description": "Runtime-only function wrapper. Contains sample(t) function returning { r, g, b, a }. Cannot be statically defined in JSON.",
+      "additionalProperties": false,
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "object",
+          "description": "Placeholder — actual value is a ColorSampler object at runtime"
+        }
+      }
+    },
+    "colorSamplerModeEnumValue": {
+      "title": "Color Sampler Mode Enum Value",
+      "type": "object",
+      "required": [
+        "v"
+      ],
+      "properties": {
+        "v": {
+          "type": "string",
+          "enum": [
+            "clobber"
           ]
         }
       }

@@ -11,7 +11,7 @@ describe(createFakeContext, () => {
     // ctx.strokeStyle = gradient;
     ctx.beginPath();
     ctx.moveTo(1, 2);
-    ctx.lineTo(2, 1);
+    ctx.lineTo(561.3438027489, 1);
     ctx.stroke()
 
     expect(ctx.getCalls()).toMatchInlineSnapshot(`
@@ -49,7 +49,7 @@ describe(createFakeContext, () => {
             },
             {
               "args": [
-                2,
+                561.34380275,
                 1,
               ],
               "kind": "method",
@@ -184,8 +184,8 @@ describe(createFakeContext, () => {
     ctx.lineWidth = Math.PI;
 
     expect(ctx.getCalls()).toEqual([
-      { kind: 'method', name: 'moveTo', args: [3.1415926536, 2.7182818285] },
-      { kind: 'property', name: 'lineWidth', value: 3.1415926536 },
+      { kind: 'method', name: 'moveTo', args: [3.14159265, 2.71828183] },
+      { kind: 'property', name: 'lineWidth', value: 3.14159265 },
     ]);
   });
 

@@ -10,9 +10,11 @@ const B = {
   dy: 0,
 };
 
+const baseInputs = { "colorSampler": null };
+
 describe('pointsOnALineNodeImplementation', () => {
   test('numberOfPoints=2 returns both endpoints', () => {
-    const { points } = pointsOnALineNodeImplementation.evaluate({ pointA: A, pointB: B, numberOfPoints: 2 });
+    const { points } = pointsOnALineNodeImplementation.evaluate({ ...baseInputs, pointA: A, pointB: B, numberOfPoints: 2 });
     expect(points).toHaveLength(2);
 
 
@@ -21,7 +23,7 @@ describe('pointsOnALineNodeImplementation', () => {
   });
 
   test('numberOfPoints=3 returns endpoints and correct midpoint', () => {
-    const { points } = pointsOnALineNodeImplementation.evaluate({ pointA: A, pointB: B, numberOfPoints: 3 });
+    const { points } = pointsOnALineNodeImplementation.evaluate({ ...baseInputs, pointA: A, pointB: B, numberOfPoints: 3 });
     expect(points).toHaveLength(3);
     expect(points[0]).toEqual({ ...A, dx: 1, dy: 1 });
     expect(points[2]).toEqual({ ...B, dx: 1, dy: 1 });
@@ -29,19 +31,19 @@ describe('pointsOnALineNodeImplementation', () => {
   });
 
   test('numberOfPoints=1 returns only pointA', () => {
-    const { points } = pointsOnALineNodeImplementation.evaluate({ pointA: A, pointB: B, numberOfPoints: 1 });
+    const { points } = pointsOnALineNodeImplementation.evaluate({ ...baseInputs, pointA: A, pointB: B, numberOfPoints: 1 });
     expect(points).toHaveLength(1);
     expect(points[0]).toEqual(A);
   });
 
   test('numberOfPoints=0 is clamped to 1', () => {
-    const { points } = pointsOnALineNodeImplementation.evaluate({ pointA: A, pointB: B, numberOfPoints: 0 });
+    const { points } = pointsOnALineNodeImplementation.evaluate({ ...baseInputs, pointA: A, pointB: B, numberOfPoints: 0 });
     expect(points).toHaveLength(1);
     expect(points[0]).toEqual(A);
   });
 
   test('negative numberOfPoints is clamped to 1', () => {
-    const { points } = pointsOnALineNodeImplementation.evaluate({ pointA: A, pointB: B, numberOfPoints: -5 });
+    const { points } = pointsOnALineNodeImplementation.evaluate({ ...baseInputs, pointA: A, pointB: B, numberOfPoints: -5 });
     expect(points).toHaveLength(1);
     expect(points[0]).toEqual(A);
   });
@@ -55,18 +57,74 @@ describe('pointsOnALineNodeImplementation', () => {
       x: 0, y: 0, r: 0, g: 0, b: 1, a: 1, dx: 0,
       dy: 0,
     };
-    const { points } = pointsOnALineNodeImplementation.evaluate({ pointA: red, pointB: blue, numberOfPoints: 3 });
+    const { points } = pointsOnALineNodeImplementation.evaluate({ ...baseInputs, pointA: red, pointB: blue, numberOfPoints: 3 });
     expect(points[1].r).toBeCloseTo(0.5);
     expect(points[1].g).toBeCloseTo(0);
     expect(points[1].b).toBeCloseTo(0.5);
   });
 
   test('fractional numberOfPoints is rounded', () => {
-    const { points } = pointsOnALineNodeImplementation.evaluate({ pointA: A, pointB: B, numberOfPoints: 2.7 });
+    const { points } = pointsOnALineNodeImplementation.evaluate({ ...baseInputs, pointA: A, pointB: B, numberOfPoints: 2.7 });
     expect(points).toHaveLength(3);
   });
 
+  describe('colorSampler input', () => {
+    // A sampler that maps t linearly: r=t, g=0, b=1-t, a=1
+    const gradientSampler = {
+      sample: (t: number) => ({ r: t, g: 0, b: 1 - t, a: 1 }),
+    };
 
+    test('colorSampler overrides lerped colour at endpoints', () => {
+      const { points } = pointsOnALineNodeImplementation.evaluate({
+        pointA: A, pointB: B, numberOfPoints: 2, colorSampler: gradientSampler,
+      });
+      // t=0 at first point → r=0, g=0, b=1, a=1
+      expect(points[0].r).toBe(0);
+      expect(points[0].g).toBe(0);
+      expect(points[0].b).toBe(1);
+      expect(points[0].a).toBe(1);
+      // t=1 at last point → r=1, g=0, b=0, a=1
+      expect(points[1].r).toBe(1);
+      expect(points[1].g).toBe(0);
+      expect(points[1].b).toBe(0);
+      expect(points[1].a).toBe(1);
+    });
+
+    test('colorSampler overrides colour at midpoint with correct t', () => {
+      const { points } = pointsOnALineNodeImplementation.evaluate({
+        pointA: A, pointB: B, numberOfPoints: 3, colorSampler: gradientSampler,
+      });
+      // t=0.5 at midpoint → r=0.5, g=0, b=0.5, a=1
+      expect(points[1].r).toBeCloseTo(0.5);
+      expect(points[1].g).toBe(0);
+      expect(points[1].b).toBeCloseTo(0.5);
+      expect(points[1].a).toBe(1);
+    });
+
+    test('colorSampler does not affect position interpolation', () => {
+      const { points } = pointsOnALineNodeImplementation.evaluate({
+        pointA: A, pointB: B, numberOfPoints: 3, colorSampler: gradientSampler,
+      });
+      // Positions still interpolate between A(0,0) and B(1,1)
+      expect(points[0].x).toBe(0);
+      expect(points[0].y).toBe(0);
+      expect(points[1].x).toBeCloseTo(0.5);
+      expect(points[1].y).toBeCloseTo(0.5);
+      expect(points[2].x).toBe(1);
+      expect(points[2].y).toBe(1);
+    });
+
+    test('null colorSampler preserves original lerp colour behaviour', () => {
+      const red = { x: 0, y: 0, r: 1, g: 0, b: 0, a: 1, dx: 0, dy: 0 };
+      const blue = { x: 0, y: 0, r: 0, g: 0, b: 1, a: 1, dx: 0, dy: 0 };
+      const { points } = pointsOnALineNodeImplementation.evaluate({
+        pointA: red, pointB: blue, numberOfPoints: 3, colorSampler: null,
+      });
+      expect(points[1].r).toBeCloseTo(0.5);
+      expect(points[1].g).toBe(0);
+      expect(points[1].b).toBeCloseTo(0.5);
+    });
+  });
 
 
 

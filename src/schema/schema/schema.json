@@ -155,6 +155,15 @@
         "layer"
       ],
       "properties": {
+        "displayByDefault": {
+          "type": "boolean"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "layer": {
           "title": "Layer",
           "description": "paint = accumulates on trail canvas; live = cleared-each-frame orbit canvas",
@@ -578,6 +587,48 @@
               }
             }
           }
+        },
+        {
+          "title": "Color Sampler Mode Selector Control Node",
+          "type": "object",
+          "description": "Dropdown selector for color sampler mode",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "mode",
+              "valueType": "colorSamplerModeEnumValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "colorSamplerModeSelector"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "$ref": "value-kinds.schema.json#/definitions/stringValue"
+                },
+                "mode": {
+                  "$ref": "value-kinds.schema.json#/definitions/colorSamplerModeEnumValue"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -756,6 +807,10 @@
                 "tilt": {
                   "title": "Tilt",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorSampler": {
+                  "description": "Optional color sampler — overrides point colours when provided",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
                 }
               }
             }
@@ -926,6 +981,10 @@
                 },
                 "numberOfPoints": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorSampler": {
+                  "description": "Optional color sampler — overrides point colours when provided",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
                 }
               }
             }
@@ -1062,6 +1121,16 @@
                   "title": "Cycle Length Mode",
                   "description": "Method for determining cycle length: arrayLength uses array size, linearOne accumulates euclidean distance between points",
                   "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeEnumValueOrRef"
+                },
+                "modulationAngle": {
+                  "title": "Modulation Angle",
+                  "description": "Angle of displacement (0 to 1, where 0.25 = 90 degrees perpendicular)",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "fixedOffset": {
+                  "title": "Fixed Offset",
+                  "description": "Fixed offset distance applied in the direction of dx,dy",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               },
               "required": []
@@ -1111,6 +1180,192 @@
                 },
                 "strength": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftModeEnumValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Reflect Compute Node",
+          "type": "object",
+          "description": "Reflects an array of input points about one or more reflection points using product cardinality",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "reflect"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "reflectionPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Rotate Compute Node",
+          "type": "object",
+          "description": "Rotates an array of input points about one or more rotation centers using product cardinality",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "rotate"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "rotationCenters": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "rotationAmount": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Value Sampler Compute Node",
+          "type": "object",
+          "description": "Wraps a static number value as a sampler that always returns that value",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "sampler",
+              "valueType": "samplerValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "valueSampler"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Color Sampler Compute Node",
+          "type": "object",
+          "description": "Combines four channel samplers (R, G, B, A) into a single ColorSampler that returns { r, g, b, a } for any t",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "colorSampler",
+              "valueType": "colorSamplerValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "colorSampler"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "sampleR": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "sampleG": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "sampleB": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "sampleA": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/samplerValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerModeEnumValueOrRef"
                 }
               }
             }
@@ -1482,6 +1737,359 @@
                 },
                 "tilt": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorSampler": {
+                  "description": "Optional color sampler — overrides point colours when provided",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Wave Module Node",
+          "type": "object",
+          "description": "Module that encapsulates a wave oscillator with optional FM and AM modulation",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "value",
+              "valueType": "numberValue"
+            },
+            {
+              "name": "sampler",
+              "valueType": "samplerValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "wave-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "frequency": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "amplitude": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "phase": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "waveShape": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/waveTypeEnumValueOrRef"
+                },
+                "samplerTemporalImpact": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Point Render Module Node",
+          "type": "object",
+          "description": "Renders circles and crosshairs for an array of points on the live layer",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "point-render-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "points": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Curve Modulator Module Node",
+          "type": "object",
+          "description": "Module that modulates a curve using a wave oscillator and renders it with connect-the-dots and point visualization",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "curve-modulator-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "curve": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "cycleLengthMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeEnumValueOrRef"
+                },
+                "modulationAngle": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "fixedOffset": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "frequency": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "amplitude": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "phase": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "waveShape": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/waveTypeEnumValueOrRef"
+                },
+                "samplerTemporalImpact": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Linker Module Node",
+          "type": "object",
+          "description": "Module that renders animated lines between two sets of points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "linker-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "intervalTicks": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "pointsFrom": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "pointsTo": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeEnumValueOrRef"
+                },
+                "intervalMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Color Shift Module Node",
+          "type": "object",
+          "description": "Module that applies inverse-distance weighted colour shifting to an array of points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "color-shift-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "targetPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "falloff": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "strength": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftModeEnumValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Reflect Module Node",
+          "type": "object",
+          "description": "Module that reflects an array of input points about one or more reflection points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "reflect-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "reflectionPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Rotate Module Node",
+          "type": "object",
+          "description": "Module that rotates an array of input points about one or more rotation centers",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "rotate-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "rotationCenters": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "rotationAmount": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
                 }
               }
             }

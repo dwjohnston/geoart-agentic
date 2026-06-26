@@ -3,6 +3,14 @@ name: compose-docs
 description: Author and maintain agent prompt fragments, skill templates, and CLAUDE.md files in the projectDocs composition system
 ---
 
+## File Scope
+
+- `projectDocs/` — fragment pool and templates (primary working area)
+- `.claude/skills/` — generated skill files (written by `bun scripts/generate-agent-files.ts`)
+- `CLAUDE.md` — generated root prompt file
+- `src/**/CLAUDE.md` — generated directory-scoped prompt files
+- `scripts/generate-agent-files.ts` — the generation script itself, if it needs updating
+
 
 # Agent Prompt Composition Experiments
 
@@ -144,6 +152,16 @@ define-node-agent  →  compute-node-agent (or render/control)  →  algorithm-a
 
 The `*-without-index` variants test whether an explicit task-handler menu in the root is necessary, or whether the orchestrator can reason about what to invoke without it.
 
+---
+
+## Prompt Testing — Observations
+
+### Language exception compliance (2026-06-14)
+
+The CLAUDE.md instructs agents to use British English with specific American English exceptions (`color`, `center`). An agent was caught writing `centre` instead of `center` — it defaulted to British English and did not honour the exception.
+
+**Useful signal for prompt evaluation:** check that the American English exceptions are respected in generated output. A simple grep for `colour`, `centre` in agent-written files is a reliable canary for whether the language instruction was followed.
+
 
 ## Committing Philosophy
 
@@ -152,4 +170,5 @@ The `*-without-index` variants test whether an explicit task-handler menu in the
 - Commit at stable checkpoints within a task — working state, tests passing.
 - Do not batch commits across tasks or phases.
 - Reference the task or phase name in the commit message.
+- Feature work and sign-off artefacts (handoffs, feedback, prompt improvement notes) must be separate commits.
 

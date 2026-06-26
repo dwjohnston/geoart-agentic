@@ -1,78 +1,96 @@
 import type { ResolvedValue } from '../../../schema/typeHelpers';
 import { implementComputeNode } from '../implementComputeNode';
 
+type ColorShiftMode = 'proximity' | 'proximity-with-direction';
 
-
-/**
- * Calculate the Euclidean distance between two 2D points
- */
 function distance(p1: { x: number; y: number }, p2: { x: number; y: number }): number {
   const dx = p1.x - p2.x;
   const dy = p1.y - p2.y;
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-/**
- * Calculate inverse-distance weight: 1 / (distance ^ falloff)
- * Special case: if distance is 0 or very close to 0, return a very large weight
- */
 function inverseDistanceWeight(dist: number, falloff: number): number {
   if (dist < 1e-10) {
-    return 1e10; // Very large weight for zero distance
+    return 1e10;
   }
   return 1 / Math.pow(dist, falloff);
 }
 
 /**
- * Blend a single color channel using inverse-distance weighted influence
- * Only considers target points that have a defined (non-null) value for this channel
+ * Signed [-1, 1] factor based on alignment of the two direction vectors.
+ * +1 when facing the same direction → blend toward target colour.
+ * -1 when facing opposite directions → blend away from target colour.
  */
+function directionalFactor(
+  inputPoint: ResolvedValue<'colorPointValue'>,
+  targetPoint: ResolvedValue<'colorPointValue'>
+): number {
+  const ix = inputPoint.dx ?? 0;
+  const iy = inputPoint.dy ?? 0;
+  const iMag = Math.sqrt(ix * ix + iy * iy);
+
+  const tx = targetPoint.dx ?? 0;
+  const ty = targetPoint.dy ?? 0;
+  const tMag = Math.sqrt(tx * tx + ty * ty);
+
+  if (iMag < 1e-10 || tMag < 1e-10) return 1;
+
+  return (ix / iMag) * (tx / tMag) + (iy / iMag) * (ty / tMag);
+}
+
 function blendChannel(
   inputValue: number | null,
-  inputPoint: ResolvedValue<"colorPointValue">,
-  targetPoints: ResolvedValue<"colorPointArrayValue">,
+  inputPoint: ResolvedValue<'colorPointValue'>,
+  targetPoints: ResolvedValue<'colorPointArrayValue'>,
   falloff: number,
   strength: number,
-  channel: 'r' | 'g' | 'b' | 'a'
+  channel: 'r' | 'g' | 'b' | 'a',
+  mode: ColorShiftMode
 ): number | null {
-  // A null input channel means 'ignore this channel' — leave it untouched.
   if (inputValue === null) {
     return null;
   }
 
-  // Filter targets that have a defined value for this channel
   const validTargets = targetPoints.filter((t) => t[channel] !== undefined && t[channel] !== null);
 
   if (validTargets.length === 0) {
-    // No valid targets for this channel, return input unchanged
     return inputValue;
   }
 
-  // Check for exact overlap (distance = 0 or very close)
   for (const target of validTargets) {
     const dist = distance(inputPoint, target);
     if (dist < 1e-10) {
-      // Snap to this target's color for this channel
       return target[channel] as number;
     }
   }
 
-  // Calculate inverse-distance weighted blend
-  let totalWeight = 0;
-  let weightedSum = 0;
+  let totalProximityWeight = 0;
+  let weightedShift = 0;
 
   for (const target of validTargets) {
     const dist = distance(inputPoint, target);
-    const weight = inverseDistanceWeight(dist, falloff);
-    totalWeight += weight;
-    weightedSum += weight * (target[channel] as number);
+    const proximityWeight = inverseDistanceWeight(dist, falloff);
+    const dirFactor = mode === 'proximity-with-direction'
+      ? directionalFactor(inputPoint, target)
+      : 1;
+    // Anti-aligned alpha: fade toward transparent — (target.a - input.a) would be zero
+    // when both are 1, so we need a different target value here.
+    const targetValue = (mode === 'proximity-with-direction' && dirFactor < 0 && channel === 'a')
+      ? 0
+      : (target[channel] as number);
+    const effectiveDirFactor = (mode === 'proximity-with-direction' && dirFactor < 0 && channel === 'a')
+      ? Math.abs(dirFactor)
+      : dirFactor;
+
+    totalProximityWeight += proximityWeight;
+    weightedShift += proximityWeight * effectiveDirFactor * (targetValue - inputValue);
   }
 
-  const blendedValue = totalWeight > 0 ? weightedSum / totalWeight : inputValue;
+  if (totalProximityWeight <= 0) return inputValue;
 
-  // Distance-aware influence: stronger blend closer to targets
-  const influence = totalWeight / (totalWeight + 1);
-  return inputValue + (blendedValue - inputValue) * influence * strength;
+  const shift = weightedShift / totalProximityWeight;
+  const influence = totalProximityWeight / (totalProximityWeight + 1);
+  return inputValue + shift * influence * strength;
 }
 
 const colorShiftNodeImplementation = implementComputeNode('colorShift', {
@@ -82,26 +100,24 @@ const colorShiftNodeImplementation = implementComputeNode('colorShift', {
     targetPoints: [],
     falloff: 1,
     strength: 1,
+    mode: 'proximity',
   },
   evaluate: (inputs) => {
-    const inputPoints = inputs.inputPoints
-    const targetPoints = inputs.targetPoints
+    const inputPoints = inputs.inputPoints;
+    const targetPoints = inputs.targetPoints;
     const falloff = inputs.falloff;
     const strength = inputs.strength;
+    const mode = (inputs.mode ?? 'proximity') as ColorShiftMode;
 
-    // Clamp strength to [0, 1]
     const clampedStrength = Math.max(0, Math.min(1, strength));
 
-    // Process each input point
     const points = inputPoints.map((inputPoint) => {
       return {
-
         ...inputPoint,
-        r: blendChannel(inputPoint.r, inputPoint, targetPoints, falloff, clampedStrength, 'r'),
-        g: blendChannel(inputPoint.g, inputPoint, targetPoints, falloff, clampedStrength, 'g'),
-        b: blendChannel(inputPoint.b, inputPoint, targetPoints, falloff, clampedStrength, 'b'),
-        a: blendChannel(inputPoint.a, inputPoint, targetPoints, falloff, clampedStrength, 'a'),
-
+        r: blendChannel(inputPoint.r, inputPoint, targetPoints, falloff, clampedStrength, 'r', mode),
+        g: blendChannel(inputPoint.g, inputPoint, targetPoints, falloff, clampedStrength, 'g', mode),
+        b: blendChannel(inputPoint.b, inputPoint, targetPoints, falloff, clampedStrength, 'b', mode),
+        a: blendChannel(inputPoint.a, inputPoint, targetPoints, falloff, clampedStrength, 'a', mode),
       };
     });
 
