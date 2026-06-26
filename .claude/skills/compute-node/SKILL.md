@@ -119,27 +119,27 @@ import { implementComputeNode } from '../implementComputeNode';
 export const waveNodeDef = implementComputeNode('wave', {
   isTimeDependant: true,      // set true only if the node reads ctx.tickCount
   defaults: {
-    time:      0,
-    frequency: 1,
-    amplitude: 1,
-    phase:     0,
-    waveType:  'sine',
+    time:      { v: 0 },
+    frequency: { v: 1 },
+    amplitude: { v: 1 },
+    phase:     { v: 0 },
+    waveType:  { v: 'sine' },
   },
   evaluate: (inputs) => {
     return {
       value: evaluateWave(
-        inputs.waveType,
-        inputs.frequency,
-        inputs.amplitude,
-        inputs.phase,
-        inputs.time,
+        inputs.waveType.v,
+        inputs.frequency.v,
+        inputs.amplitude.v,
+        inputs.phase.v,
+        inputs.time.v,
       ),
     };
   },
 });
 ```
 
-- `defaults` — fallback value for each input port when no param is supplied in the graph; plain scalar/object values, not wrapped in `{ v }`
+- `defaults` — fallback `{ v }` value for each input port when no param is supplied in the graph
 - `evaluate` — pure function; receives named inputs, returns a record keyed by output port name
 - The return value shape must exactly match the `x-outputs` names declared in the schema
 - Never access the DOM or canvas here
@@ -151,18 +151,18 @@ import { implementRenderNode } from '../implementRenderNode';
 
 export const circleNodeDef = implementRenderNode('circle', {
   defaults: {
-    intervalTicks: 0,
-    center:        { x: 0, y: 0 },
-    radius:        0.02,
-    color:         { r: 1, g: 1, b: 1, a: 1 },
+    intervalTicks: { v: 0 },
+    center:        { v: { x: 0, y: 0 } },
+    radius:        { v: 0.02 },
+    color:         { v: { r: 1, g: 1, b: 1, a: 1 } },
   },
   evaluate: (inputs, ctx) => {
-    const pixelRadius = Math.abs(inputs.radius) * (ctx.width / 2);
-    const { r, g, b, a } = inputs.color;
+    const pixelRadius = Math.abs(inputs.radius.v) * (ctx.width / 2);
+    const { r, g, b, a } = inputs.color.v;
 
     ctx.canvas.strokeStyle = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
     ctx.canvas.beginPath();
-    ctx.canvas.arc(inputs.center.x, inputs.center.y, pixelRadius, 0, Math.PI * 2);
+    ctx.canvas.arc(inputs.center.v.x, inputs.center.v.y, pixelRadius, 0, Math.PI * 2);
     ctx.canvas.stroke();
   },
 });
@@ -180,11 +180,11 @@ import { SliderControl } from '../ui/SliderControl';
 
 export const sliderNodeDef = implementControlNode('slider', {
   defaults: {
-    label: '',
-    min:   0,
-    max:   1,
-    step:  0.01,
-    value: 0,
+    label: { v: '' },
+    min:   { v: 0 },
+    max:   { v: 1 },
+    step:  { v: 0.01 },
+    value: { v: 0 },
   },
   renderControl(node, set) {
     return (

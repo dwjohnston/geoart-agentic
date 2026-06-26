@@ -11,4 +11,3 @@ description: "when to commit and at what granularity"
 - Commit at stable checkpoints within a task — working state, tests passing.
 - Do not batch commits across tasks or phases.
 - Reference the task or phase name in the commit message.
-- Feature work and sign-off artefacts (handoffs, feedback, prompt improvement notes) must be separate commits.

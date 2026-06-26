@@ -31,7 +31,6 @@
 ## Node Development
 
 - [Adding a New Node Type](node-development/adding_a_new_node_type.md) — step-by-step guide for control, compute, render, and module nodes
-- [Node Type Ideation](node-development/node_ideation.md) — ideation checklist for node tasks: test cases and reference algorithm sketch must be confirmed and included in the brief
 - [Compute Node Patterns](node-development/compute_node_patterns.md) — taxonomy of compute node categories and algorithm composition patterns
 - [Declaring an Algorithm](node-development/declaring_an_algorithm.md) — wiring nodes into a GeoArtGraph, registering it, and sensible defaults for coords, colours, timing, and port values
 - [Node Anatomy](node-development/node_anatomy.md) — schema definition and implement*Node runtime implementation for all node kinds
