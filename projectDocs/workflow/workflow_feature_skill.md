@@ -17,7 +17,7 @@ Do not guess.
 
 The only file system actions permitted in Phase 1:
 
-- Check whether `project/features/[feature name]/` already exists.
+- Check whether `projects/features/[feature name]/` already exists.
 - Write `FEATURE_BRIEF.md` once ideation is complete.
 
 ## What to do instead
@@ -29,7 +29,5 @@ Ask the user clarifying questions based on what they have told you. Typical ques
 - Scope boundaries — what is explicitly out of scope
 
 Flag potential problems you can reason about from the brief alone (e.g. naming collisions, missing skill coverage, sequencing concerns).
-
-If the task is adding or updating a node type, invoke `/node-ideate` before writing the brief. It will conduct the test case and algorithm sketch conversation and write those sections into the brief.
 
 Once questions are answered, write the brief and stop.
