@@ -1,5 +1,6 @@
 import type { ResolvedValue } from '../../../schema/typeHelpers';
 import { implementComputeNode } from '../implementComputeNode';
+import { applyColorShiftOperation, computeDriver } from '../colorShiftOperations';
 
 type ColorPoint = ResolvedValue<'colorPointValue'>;
 
@@ -38,6 +39,7 @@ const reflectNodeImplementation = implementComputeNode('reflect', {
   defaults: {
     inputPoints: [],
     reflectionPoints: [],
+    colorShiftOperation: 'none' as const,
   },
   evaluate: (inputs) => {
     const points: ColorPoint[] = [];
@@ -48,7 +50,19 @@ const reflectNodeImplementation = implementComputeNode('reflect', {
       if (dx === 0 && dy === 0) continue;
 
       for (const ip of inputs.inputPoints) {
-        points.push(reflectPoint(ip, rp));
+        const reflected = reflectPoint(ip, rp);
+        if (inputs.colorShiftOperation !== 'none') {
+          const driver = computeDriver(ip.x, ip.y, rp.x, rp.y, dx, dy);
+          const shifted = applyColorShiftOperation(
+            { r: reflected.r, g: reflected.g, b: reflected.b, a: reflected.a },
+            { r: rp.r, g: rp.g, b: rp.b, a: rp.a },
+            driver,
+            inputs.colorShiftOperation,
+          );
+          points.push({ ...reflected, ...shifted });
+        } else {
+          points.push(reflected);
+        }
       }
     }
 

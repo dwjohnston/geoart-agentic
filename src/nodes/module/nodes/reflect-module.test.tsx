@@ -80,6 +80,25 @@ describe('reflect-module', () => {
     expect(result.inputMarkerNode.params.reflectionPoints).toEqual({ v: [] });
   });
 
+  it('wires colorShiftOperation to the reflect compute node', () => {
+    const moduleId = 'reflectColorShiftTest';
+    const result = reflectModule({}, moduleId);
+    const marker = `${moduleId}:input-marker`;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const p = result.computeNodes[0].params as any;
+    expect(p.colorShiftOperation).toEqual({ ref: `${marker}.colorShiftOperation` });
+  });
+
+  it('defaults colorShiftOperation to none', () => {
+    const result = reflectModule({}, 'reflectDefaultOpTest');
+    expect(result.inputMarkerNode.params.colorShiftOperation).toEqual({ v: 'none' });
+  });
+
+  it('accepts a provided colorShiftOperation param', () => {
+    const result = reflectModule({ colorShiftOperation: { v: 'blend' } }, 'reflectBlendTest');
+    expect(result.inputMarkerNode.params.colorShiftOperation).toEqual({ v: 'blend' });
+  });
+
   it('render nodes are on the live layer and tagged', () => {
     const result = reflectModule({}, 'reflectTagTest');
 

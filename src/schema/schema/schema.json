@@ -1130,6 +1130,9 @@
                 },
                 "strength": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftModeEnumValueOrRef"
                 }
               }
             }
@@ -1172,6 +1175,9 @@
                 },
                 "reflectionPoints": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
                 }
               }
             }
@@ -1217,6 +1223,9 @@
                 },
                 "rotationAmount": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
                 }
               }
             }
@@ -1818,6 +1827,9 @@
                 },
                 "reflectionPoints": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
                 }
               }
             }
@@ -1864,6 +1876,61 @@
                 },
                 "rotationAmount": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "colorShiftOperation": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Color Shift Module Node",
+          "type": "object",
+          "description": "Module that applies inverse-distance weighted colour shifting to an array of points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "color-shift-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "targetPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "falloff": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "strength": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftModeEnumValueOrRef"
                 }
               }
             }
