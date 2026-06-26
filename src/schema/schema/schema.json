@@ -2140,6 +2140,52 @@
               }
             }
           }
+        },
+        {
+          "title": "Points on a Line V2 Module Node",
+          "type": "object",
+          "description": "Module that distributes points along a polyline or Catmull-Rom spline defined by colour control points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "points-on-a-line-v2-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "colorPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "numPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "curveMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/curveModeEnumValueOrRef"
+                }
+              }
+            }
+          }
         }
       ]
     }
