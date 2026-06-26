@@ -277,6 +277,11 @@ Understanding these four layers and how they relate is fundamental to the projec
 
 - **thickness* - (ie line widths) should always be interpreted as absolute pixel values. ie. a line*Thickness* of 2 will be two pixels thick. 
 
+### Angle
+
+- **angle** — angles are expressed as a normalised value in the range `0..1`, where `0` = 0° and `1` = 360° (a full rotation). This matches the normalised position convention and allows angles to be driven by the same LFO/oscillator nodes without unit conversion.
+    - ⚠️ Some older nodes (e.g. *lines through point*) use degrees `0..360`. Treat those as legacy — new node definitions must use the `0..1` convention.
+
 
 ---
 
