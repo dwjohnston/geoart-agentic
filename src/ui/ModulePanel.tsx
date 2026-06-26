@@ -6,14 +6,16 @@ type Props = {
   gap?: number;
   moduleName?: string;
   moduleId?: string;
+  "data-testid"?: string;
 };
 
-export function ModulePanel({ children, gap = 16, moduleName, moduleId }: Props) {
+export function ModulePanel({ children, gap = 16, moduleName, moduleId, "data-testid": testId }: Props) {
   const hasHeader = moduleName || moduleId;
   const [collapsed, setCollapsed] = useState(false);
 
   return (
     <div
+      data-testid={testId}
       style={{
         backgroundColor: '#3A3A3A',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',

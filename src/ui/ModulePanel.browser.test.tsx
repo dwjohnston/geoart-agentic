@@ -1,4 +1,6 @@
-import { render } from '@testing-library/react';
+import { render } from 'vitest-browser-react';
+import { page } from 'vitest/browser';
+
 import { describe, it, expect } from 'vitest';
 import { ModulePanel } from './ModulePanel';
 import { TestPanel } from '../ui-tooling/TestPanel';
@@ -7,8 +9,8 @@ import { DropdownControl } from '../nodes/control/ui/DropdownControl';
 
 describe('ModulePanel component', () => {
 
-  it('renders with knob controls and dropdown controls', () => {
-    const { container } = render(
+  it('renders with knob controls and dropdown controls', async () => {
+    await render(
       <TestPanel center>
         <ModulePanel moduleName="Controls Module" moduleId="test-module-001">
           <KnobControl
@@ -37,10 +39,10 @@ describe('ModulePanel component', () => {
       </TestPanel>
     );
 
-    const knobs = container.querySelectorAll('.knob-control');
+    const knobs = page.getByRole('slider');
     expect(knobs.length).toBe(2);
 
-    const dropdown = container.querySelector('select');
+    const dropdown = page.getByRole('combobox');
     expect(dropdown).toBeInTheDocument();
   });
 
