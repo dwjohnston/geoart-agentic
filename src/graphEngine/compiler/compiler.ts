@@ -325,10 +325,8 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
     moduleNodesByIdBeforeExpansion.set(node.id, node);
   }
 
-  // Expand modules until none remain
-  let remainingModules = Array.from(moduleNodesByIdBeforeExpansion.keys());
-  while (remainingModules.length > 0) {
-    const moduleId = remainingModules.shift()!;
+  // Helper function to recursively expand a module and its nested modules
+  const expandModule = (moduleId: string): void => {
     const moduleNode = moduleNodesByIdBeforeExpansion.get(moduleId) as {
       type: string;
       params?: Record<string, unknown>;
@@ -342,7 +340,22 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
     const rawParams = (moduleNode.params ?? {}) as Record<string, unknown>;
     const expansion = impl(rawParams as never, moduleId);
 
-    // Register all control nodes from expansion
+    // If the module expansion contains nested moduleNodes, expand them FIRST (depth-first)
+    // This ensures nested modules are expanded before the parent module's nodes reference them
+    if (expansion.moduleNodes && expansion.moduleNodes.length > 0) {
+      for (const nestedModuleNode of expansion.moduleNodes) {
+        // Namespace the nested module ID: {parentModuleId}:{nestedModuleId}
+        const namespacedModuleId = `${moduleId}:${nestedModuleNode.id}`;
+        moduleNodesByIdBeforeExpansion.set(namespacedModuleId, {
+          ...nestedModuleNode,
+          id: namespacedModuleId,
+        });
+        // Recursively expand nested modules first
+        expandModule(namespacedModuleId);
+      }
+    }
+
+    // Register all control nodes from expansion (defer buildParams until after all modules expanded)
     for (const controlNode of expansion.controlNodes) {
       const def = nodeRegistry.controlRegistry.get(controlNode.type);
       if (!def) {
@@ -353,11 +366,11 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       nodes.set(controlNode.id, {
         def,
         layer: 'control',
-        params: buildParams(controlParams),
+        params: {}, // Deferred
       });
     }
 
-    // Register all compute nodes from expansion
+    // Register all compute nodes from expansion (defer buildParams until after all modules expanded)
     for (const computeNode of expansion.computeNodes) {
       const def = nodeRegistry.computeRegistry.get(computeNode.type);
       if (!def) {
@@ -368,11 +381,11 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       nodes.set(computeNode.id, {
         def,
         layer: 'compute',
-        params: buildParams(computeParams),
+        params: {}, // Deferred
       });
     }
 
-    // Register all render nodes from expansion
+    // Register all render nodes from expansion (defer buildParams until after all modules expanded)
     for (const renderNode of expansion.renderNodes) {
       const def = nodeRegistry.renderRegistry.get(renderNode.type);
       if (!def) {
@@ -383,7 +396,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       nodes.set(renderNode.id, {
         def,
         layer: 'render',
-        params: buildParams(renderParams),
+        params: {}, // Deferred
         renderConfig: renderNode.renderConfig,
       });
     }
@@ -403,11 +416,20 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
     );
 
     // Input marker nodes need inputs (to accept external refs) and outputs (to expose to internal nodes)
+    // Runtime-object types (colorSampler, sampler) cannot be serialised as static params — they can
+    // only arrive via edges. Give them a null default so the evaluator doesn't throw when no edge
+    // is wired.
+    const RUNTIME_OBJECT_PORT_TYPES = new Set(['colorSampler', 'sampler']);
     const inputMarkerInputPorts: LegacyComputeNodePortImplementation[] = Object.entries(moduleInputDefs).map(
-      ([name, def]) => ({
-        name,
-        type: (def as { valueType: string }).valueType.replace('Value', '') as LegacyComputeNodePortImplementation['type'],
-      })
+      ([name, def]) => {
+        const portType = (def as { valueType: string }).valueType.replace('Value', '') as LegacyComputeNodePortImplementation['type'];
+        return {
+          name,
+          type: portType,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ...(RUNTIME_OBJECT_PORT_TYPES.has(portType) ? { default: { v: null } as any } : {}),
+        };
+      }
     );
 
     const inputMarkerDef: LegacyComputeNodeImplementation = {
@@ -420,7 +442,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
     nodes.set(inputMarkerNode.id, {
       def: inputMarkerDef,
       layer: 'compute',
-      params: buildParams(inputMarkerParams),
+      params: {}, // Deferred
       moduleInputMarkerRenderControl: inputMarkerNode.renderControl as (params: Record<string, unknown>, set: (key: string, value: unknown) => void) => React.ReactNode,
     });
 
@@ -449,13 +471,24 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
     nodes.set(markerNode.id, {
       def: markerDef,
       layer: 'compute',
-      params: buildParams(markerParams),
+      params: {}, // Deferred
       outputRefs: markerNode.outputRefs,
     });
 
-    // Remove this module from remaining modules
-    moduleNodesByIdBeforeExpansion.delete(moduleId);
-    remainingModules = Array.from(moduleNodesByIdBeforeExpansion.keys());
+  };
+
+  // Expand all root-level modules (which recursively expands nested modules)
+  const moduleNodesToExpand = Array.from(moduleNodesByIdBeforeExpansion.keys());
+  for (const moduleId of moduleNodesToExpand) {
+    expandModule(moduleId);
+  }
+
+  // ------------------------------------------------------------------
+  // Build params for all nodes now that all modules are expanded
+  // ------------------------------------------------------------------
+  for (const [nodeId, compiledNode] of nodes.entries()) {
+    const rawParams = rawParamsByNodeId.get(nodeId) ?? {};
+    compiledNode.params = buildParams(rawParams);
   }
 
   // ------------------------------------------------------------------

@@ -1071,6 +1071,16 @@
                   "title": "Cycle Length Mode",
                   "description": "Method for determining cycle length: arrayLength uses array size, linearOne accumulates euclidean distance between points",
                   "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeEnumValueOrRef"
+                },
+                "modulationAngle": {
+                  "title": "Modulation Angle",
+                  "description": "Angle of displacement (0 to 1, where 0.25 = 90 degrees perpendicular)",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "fixedOffset": {
+                  "title": "Fixed Offset",
+                  "description": "Fixed offset distance applied in the direction of dx,dy",
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               },
               "required": []
@@ -1629,6 +1639,55 @@
                 },
                 "intervalMode": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Curve Modulator Module Node",
+          "type": "object",
+          "description": "Module that modulates a curve using a wave oscillator and renders it with connect-the-dots and point visualization",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "curve-modulator-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "curve": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "cycleLengthMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeEnumValueOrRef"
+                },
+                "modulationAngle": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "fixedOffset": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
             }
