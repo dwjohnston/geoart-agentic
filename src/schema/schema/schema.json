@@ -14,7 +14,7 @@
     "version": {
       "title": "Version",
       "type": "string",
-      "description": "major.minor \u2014 increment minor for backward-compatible additions, major for breaking changes",
+      "description": "major.minor — increment minor for backward-compatible additions, major for breaking changes",
       "pattern": "^\\d+\\.\\d+$"
     },
     "title": {
@@ -34,7 +34,7 @@
     "speed": {
       "title": "Global Speed",
       "type": "number",
-      "description": "Global playback speed. Values >= 1 run that many ticks per frame. Values < 1 must be unit fractions (1/2, 1/3, \u2026) \u2014 one tick every n frames. Default 1.",
+      "description": "Global playback speed. Values >= 1 run that many ticks per frame. Values < 1 must be unit fractions (1/2, 1/3, …) — one tick every n frames. Default 1.",
       "minimum": 0.125
     },
     "module": {
@@ -57,7 +57,7 @@
     },
     "control": {
       "title": "Control Section",
-      "description": "User-facing input nodes \u2014 sliders, colour pickers, and dropdowns",
+      "description": "User-facing input nodes — sliders, colour pickers, and dropdowns",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -75,7 +75,7 @@
     },
     "compute": {
       "title": "Compute",
-      "description": "Pure math nodes \u2014 no canvas, no DOM, no side effects",
+      "description": "Pure math nodes — no canvas, no DOM, no side effects",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -93,7 +93,7 @@
     },
     "render": {
       "title": "Render",
-      "description": "Drawing nodes \u2014 canvas access lives here and nowhere else",
+      "description": "Drawing nodes — canvas access lives here and nowhere else",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -177,7 +177,7 @@
     },
     "controlNode": {
       "title": "Control Node",
-      "description": "User-facing input node \u2014 pure value source with no inputs",
+      "description": "User-facing input node — pure value source with no inputs",
       "oneOf": [
         {
           "title": "Slider Control Node",
@@ -362,7 +362,7 @@
         {
           "title": "LFO Control Node",
           "type": "object",
-          "description": "Bundles the four LFO parameters into one compact control \u2014 outputs baseValue, frequency, amplitude, and waveShape for wiring into a wave compute node",
+          "description": "Bundles the four LFO parameters into one compact control — outputs baseValue, frequency, amplitude, and waveShape for wiring into a wave compute node",
           "additionalProperties": false,
           "required": [
             "id",
@@ -634,7 +634,7 @@
     },
     "computeNode": {
       "title": "Compute Node",
-      "description": "Pure math node \u2014 no canvas, no DOM, no side effects",
+      "description": "Pure math node — no canvas, no DOM, no side effects",
       "oneOf": [
         {
           "title": "Tick Compute Node",
@@ -674,7 +674,7 @@
         {
           "title": "Wave Compute Node",
           "type": "object",
-          "description": "Oscillation generator \u2014 sine, square, saw, inverse-saw, or triangle wave",
+          "description": "Oscillation generator — sine, square, saw, inverse-saw, or triangle wave",
           "additionalProperties": false,
           "required": [
             "id",
@@ -741,7 +741,7 @@
         {
           "title": "Orbit Compute Node",
           "type": "object",
-          "description": "Ellipitical motion \u2014 outputs a single point (backwards-compat) and an array of evenly-spaced coloured points. A single point on an orbit centered at 0.5,0.5, with starting phase 0, and radius 0.5, will be 1,0.5 ",
+          "description": "Ellipitical motion — outputs a single point (backwards-compat) and an array of evenly-spaced coloured points. A single point on an orbit centered at 0.5,0.5, with starting phase 0, and radius 0.5, will be 1,0.5 ",
           "additionalProperties": false,
           "required": [
             "id",
@@ -809,7 +809,7 @@
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "colorSampler": {
-                  "description": "Optional color sampler \u2014 overrides point colours when provided",
+                  "description": "Optional color sampler — overrides point colours when provided",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
                 }
               }
@@ -983,7 +983,7 @@
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "colorSampler": {
-                  "description": "Optional color sampler \u2014 overrides point colours when provided",
+                  "description": "Optional color sampler — overrides point colours when provided",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
                 }
               }
@@ -993,7 +993,7 @@
         {
           "title": "Multiplier Compute Node",
           "type": "object",
-          "description": "Multiplies two numbers \u2014 outputs product = a * b",
+          "description": "Multiplies two numbers — outputs product = a * b",
           "additionalProperties": false,
           "required": [
             "id",
@@ -1035,7 +1035,7 @@
         {
           "title": "Add Compute Node",
           "type": "object",
-          "description": "Adds two numbers \u2014 outputs sum = a + b",
+          "description": "Adds two numbers — outputs sum = a + b",
           "additionalProperties": false,
           "required": [
             "id",
@@ -1375,7 +1375,7 @@
     },
     "renderNode": {
       "title": "Render Node",
-      "description": "Drawing node \u2014 canvas access lives here and nowhere else",
+      "description": "Drawing node — canvas access lives here and nowhere else",
       "oneOf": [
         {
           "title": "Timed Line Render Node",
@@ -1627,7 +1627,7 @@
         {
           "title": "Lines Through Point Render Node",
           "type": "object",
-          "description": "Draws lines through each point, rotated by the specified angle. Useful for drawing tangents and normals. Line direction is determined by the point's dx,dy gradient; 0\u00b0 follows the gradient, 90\u00b0 is perpendicular. Points with zero gradient (0,0) are skipped.",
+          "description": "Draws lines through each point, rotated by the specified angle. Useful for drawing tangents and normals. Line direction is determined by the point's dx,dy gradient; 0° follows the gradient, 90° is perpendicular. Points with zero gradient (0,0) are skipped.",
           "additionalProperties": false,
           "required": [
             "id",
@@ -1739,7 +1739,7 @@
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "colorSampler": {
-                  "description": "Optional color sampler \u2014 overrides point colours when provided",
+                  "description": "Optional color sampler — overrides point colours when provided",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorSamplerValueOrRef"
                 }
               }
@@ -1838,53 +1838,6 @@
           }
         },
         {
-          "title": "Linker Module Node",
-          "type": "object",
-          "description": "Module that renders animated lines between two sets of points",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string",
-              "description": "Module instance identifier (no dots or colons allowed)"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "linker-module"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "intervalTicks": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "pointsFrom": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "pointsTo": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "mode": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeEnumValueOrRef"
-                },
-                "intervalMode": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Curve Modulator Module Node",
           "type": "object",
           "description": "Module that modulates a curve using a wave oscillator and renders it with connect-the-dots and point visualization",
@@ -1943,6 +1896,105 @@
                 },
                 "samplerTemporalImpact": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Linker Module Node",
+          "type": "object",
+          "description": "Module that renders animated lines between two sets of points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "linker-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "intervalTicks": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "pointsFrom": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "pointsTo": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeEnumValueOrRef"
+                },
+                "intervalMode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValueOrRef"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Color Shift Module Node",
+          "type": "object",
+          "description": "Module that applies inverse-distance weighted colour shifting to an array of points",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "type",
+            "params"
+          ],
+          "x-outputs": [
+            {
+              "name": "points",
+              "valueType": "colorPointArrayValue"
+            }
+          ],
+          "properties": {
+            "id": {
+              "title": "ID",
+              "type": "string",
+              "description": "Module instance identifier (no dots or colons allowed)"
+            },
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "color-shift-module"
+              ]
+            },
+            "params": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "inputPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "targetPoints": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
+                },
+                "falloff": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "strength": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
+                },
+                "mode": {
+                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftModeEnumValueOrRef"
                 }
               }
             }
@@ -2038,58 +2090,6 @@
                 },
                 "colorShiftOperation": {
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Color Shift Module Node",
-          "type": "object",
-          "description": "Module that applies inverse-distance weighted colour shifting to an array of points",
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "type",
-            "params"
-          ],
-          "x-outputs": [
-            {
-              "name": "points",
-              "valueType": "colorPointArrayValue"
-            }
-          ],
-          "properties": {
-            "id": {
-              "title": "ID",
-              "type": "string",
-              "description": "Module instance identifier (no dots or colons allowed)"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "enum": [
-                "color-shift-module"
-              ]
-            },
-            "params": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "inputPoints": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "targetPoints": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
-                },
-                "falloff": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "strength": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
-                },
-                "mode": {
-                  "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftModeEnumValueOrRef"
                 }
               }
             }
