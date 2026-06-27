@@ -103,11 +103,20 @@ export function createGraphEngine(
 
     const snapshot = JSON.parse(JSON.stringify(loadedGraph)) as GeoArtGraph;
 
+    // The compiler's paramToValue flattens array elements: { v: [{ v: el }] } → value.v = [el].
+    // To round-trip correctly, re-wrap array elements when writing back to the graph.
+    function valueToParam(value: Value): unknown {
+      if (Array.isArray(value.v)) {
+        return { v: (value.v as unknown[]).map(el => ({ v: el })) };
+      }
+      return { v: value.v };
+    }
+
     for (const controlNode of snapshot.control.nodes) {
       const compiledNode = compiled.nodes.get(controlNode.id);
       if (!compiledNode || compiledNode.layer !== 'control') continue;
       for (const [key, value] of Object.entries(compiledNode.params)) {
-        (controlNode.params as Record<string, unknown>)[key] = { v: value.v };
+        (controlNode.params as Record<string, unknown>)[key] = valueToParam(value);
       }
     }
 
@@ -121,7 +130,7 @@ export function createGraphEngine(
           const orig = originalParams[key];
           const isRef = orig !== null && typeof orig === 'object' && 'ref' in (orig as object);
           if (!isRef) {
-            (moduleNode.params as Record<string, unknown>)[key] = { v: value.v };
+            (moduleNode.params as Record<string, unknown>)[key] = valueToParam(value);
           }
         }
       }
