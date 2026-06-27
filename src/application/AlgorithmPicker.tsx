@@ -9,16 +9,17 @@ export type AlgorithmEntry = BundledGraphEntry & { source: 'bundled' | 'imported
 
 type Props = {
   algorithms: readonly AlgorithmEntry[];
-  defaultId: string;
+  defaultId: string | null;
+  blankName?: string;
   onChange: (id: string) => void;
   onImportClick: () => void;
 };
 
-export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick }: Props) {
-  const [selectedId, setSelectedId] = useState(defaultId);
+export function AlgorithmPicker({ algorithms, defaultId, blankName, onChange, onImportClick }: Props) {
+  const [selectedId, setSelectedId] = useState<string | null>(defaultId);
   const [showGraphView, setShowGraphView] = useState(false);
-  const current = algorithms.find(g => g.id === selectedId);
-  const currentName = current?.name ?? selectedId;
+  const current = selectedId !== null ? algorithms.find(g => g.id === selectedId) : undefined;
+  const currentName = current?.name ?? blankName ?? selectedId ?? '—';
 
   const bundled = algorithms.filter(a => a.source === 'bundled');
   const imported = algorithms.filter(a => a.source === 'imported');
@@ -44,7 +45,7 @@ export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick
         <label style={{ fontSize: 13, color: '#aaa' }}>Graph</label>
         <div style={{ display: 'flex', gap: 6 }}>
           <select
-            value={selectedId}
+            value={selectedId ?? ''}
             onChange={e => handleChange(e.target.value)}
             style={{
               flex: 1,
@@ -57,6 +58,9 @@ export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick
               cursor: 'pointer',
             }}
           >
+            {selectedId === null && (
+              <option value="" disabled>— loaded from link —</option>
+            )}
             {Object.entries(bundledByFolder).map(([folder, entries]) => (
               <optgroup key={folder} label={formatFolderLabel(folder)}>
                 {entries.map(entry => (
