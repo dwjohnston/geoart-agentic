@@ -114,7 +114,7 @@ export function createGraphEngine(
     if (snapshot.module) {
       const originalModuleNodes = (loadedGraph.module!.nodes as Array<{ id: string; params: Record<string, unknown> }>);
       for (const moduleNode of snapshot.module.nodes) {
-        const compiledNode = compiled.nodes.get(moduleNode.id);
+        const compiledNode = compiled.nodes.get(`${moduleNode.id}:input-marker`);
         if (!compiledNode || compiledNode.def.type !== 'module-input-marker') continue;
         const originalParams = originalModuleNodes.find(n => n.id === moduleNode.id)?.params ?? {};
         for (const [key, value] of Object.entries(compiledNode.params)) {
