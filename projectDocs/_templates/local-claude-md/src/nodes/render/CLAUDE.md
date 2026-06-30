@@ -1,1 +1,0 @@
-Write tests using `.toMatchInlineSnapshot`
