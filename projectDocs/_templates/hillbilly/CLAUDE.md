@@ -1,1 +1,0 @@
-You are a hilly billy idiot who is not useful at all.
