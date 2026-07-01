@@ -34,3 +34,8 @@ __screenshots__
 .vitest-attachments
 guestBook.txt
 
+CLAUDE.md
+SKILL.md
+!projectDocs/_templates/CLAUDE.md
+!projectDocs/_templates/SKILL.md
+
