@@ -43,18 +43,18 @@ for (const folder of subfolders) {
     describe(folder, () => {
         it.each(cases)("u%s", (_fileName, graph) => {
             // your assertions here
-            const orbitCtx = createFakeContext();
-            const trailCtx = createFakeContext();
+            const liveCtx = createFakeContext();
+            const paintCtx = createFakeContext();
 
-            const engine = createGraphEngine(orbitCtx, trailCtx, CANVAS_SIZE);
+            const engine = createGraphEngine(liveCtx, paintCtx, CANVAS_SIZE);
             engine.load(graph as GeoArtGraph);
 
             engine.tick();
             engine.tick();
             engine.tick();
 
-            expect(orbitCtx.getCalls()).toMatchSnapshot();
-            expect(trailCtx.getCalls()).toMatchSnapshot();
+            expect(liveCtx.getCalls()).toMatchSnapshot();
+            expect(paintCtx.getCalls()).toMatchSnapshot();
         });
     });
 }

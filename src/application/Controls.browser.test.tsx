@@ -10,13 +10,13 @@ import earthVenus from '../algorithms/reference/general/earthVenus';
 const CANVAS_SIZE = 800;
 
 function setupGraphEngine(graph: GeoArtGraph) {
-  const orbitCanvas = document.createElement('canvas');
-  const trailCanvas = document.createElement('canvas');
+  const liveCanvas = document.createElement('canvas');
+  const paintCanvas = document.createElement('canvas');
 
-  const orbitCtx = orbitCanvas.getContext('2d')!;
-  const trailCtx = trailCanvas.getContext('2d')!;
+  const liveCtx = liveCanvas.getContext('2d')!;
+  const paintCtx = paintCanvas.getContext('2d')!;
 
-  const engine = createGraphEngine(orbitCtx, trailCtx, CANVAS_SIZE);
+  const engine = createGraphEngine(liveCtx, paintCtx, CANVAS_SIZE);
   return engine.load(graph);
 }
 

@@ -158,7 +158,7 @@ function evaluateNode(
 
   // Select the target canvas based on renderConfig.layer.
   const renderLayer = compiledNode.renderConfig?.layer ?? 'paint';
-  const targetCanvas = renderLayer === 'live' ? ctx.canvas.orbit : ctx.canvas.trail;
+  const targetCanvas = renderLayer === 'live' ? ctx.canvas.live : ctx.canvas.paint;
 
   const renderNodeState = compiled.states.get(nodeId)! as NodeStateWithExtra;
   renderDef.evaluate(rawInputs, {

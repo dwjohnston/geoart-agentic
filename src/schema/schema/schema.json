@@ -166,7 +166,7 @@
         },
         "layer": {
           "title": "Layer",
-          "description": "paint = accumulates on trail canvas; live = cleared-each-frame orbit canvas",
+          "description": "paint = accumulates on the paint canvas; live = cleared-each-frame live canvas",
           "type": "string",
           "enum": [
             "paint",
