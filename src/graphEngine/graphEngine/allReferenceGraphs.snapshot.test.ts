@@ -10,14 +10,21 @@ const CANVAS_SIZE = 800;
 
 /**
  * We look at all the reference graphs at <root>/algorithms/reference/*
- * 
+ *
  * And run snapshot tests on all of them.
+ *
+ * `performance/` is excluded: those graphs are deliberately built with huge
+ * point counts for benchmarking (see scripts/bench-performance-graphs.ts),
+ * so snapshotting their full draw-call trace here would bloat this file by
+ * tens of megabytes per graph. Their regression coverage comes from the
+ * bench baseline check instead.
  */
 const BASE_DIR = path.join(__dirname, "../..", "algorithms", "reference");
 
 const subfolders = fs
     .readdirSync(BASE_DIR, { withFileTypes: true })
     .filter((d) => d.isDirectory())
+    .filter((d) => d.name !== "performance")
     .map((d) => d.name);
 
 for (const folder of subfolders) {
