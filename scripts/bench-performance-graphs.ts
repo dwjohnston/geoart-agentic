@@ -9,9 +9,10 @@ import { registerPerformanceBenchmarks } from "./lib/loadPerformanceBenchmarks";
  * benchmark: optimize the engine/nodes, re-run, and compare against a
  * baseline `bun run bench` from before the change.
  *
- * Correctness for these same graphs is already covered by
- * allReferenceGraphs.snapshot.test.ts, which scans every folder under
- * algorithms/reference (including this one).
+ * Note: these graphs are deliberately excluded from
+ * allReferenceGraphs.snapshot.test.ts (their draw-call trace is too large to
+ * snapshot sanely) - their regression coverage comes from the bench
+ * baseline check below instead, not from a correctness snapshot.
  *
  * CI runs these same benchmarks against a committed baseline
  * (scripts/bench-baseline.json) via .github/workflows/scripts/bench-regression-check.ts
