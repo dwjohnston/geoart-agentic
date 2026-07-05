@@ -9,6 +9,7 @@ lerna-debug.log*
 CLAUDE.md
 SKILL.md
 .env
+.claude/
 
 node_modules
 dist
