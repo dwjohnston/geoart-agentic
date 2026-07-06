@@ -50,8 +50,8 @@ function makeCtx(tickCount: number): EvalContext {
   return {
     tickCount,
     canvas: {
-      orbit: makeCanvasMock(),
-      trail: makeCanvasMock(),
+      live: makeCanvasMock(),
+      paint: makeCanvasMock(),
       width: 800,
       height: 600,
     },

@@ -40,8 +40,8 @@ export type GraphEngine = {
 
 
 export function createGraphEngine(
-  orbitCtx: CanvasRenderingContext2D,
-  trailCtx: CanvasRenderingContext2D,
+  liveCtx: CanvasRenderingContext2D,
+  paintCtx: CanvasRenderingContext2D,
   canvasSize: number,
   registry?: {
     computeRegistry?: typeof computeRegistry;
@@ -59,10 +59,10 @@ export function createGraphEngine(
   function runTick(): void {
     if (!compiled) return;
     tickCount++;
-    orbitCtx.clearRect(0, 0, canvasSize, canvasSize);
+    liveCtx.clearRect(0, 0, canvasSize, canvasSize);
     const ctx: EvalContext = {
       tickCount,
-      canvas: { orbit: orbitCtx, trail: trailCtx, width: canvasSize, height: canvasSize },
+      canvas: { live: liveCtx, paint: paintCtx, width: canvasSize, height: canvasSize },
       getState<T>(): T { return undefined as unknown as T; },
       setState(): void { },
       enabledRenderNodes,
@@ -93,14 +93,14 @@ export function createGraphEngine(
     compiledNode.params[paramKey] = value;
     const state = compiled.states.get(nodeId);
     if (state) state.isDirty = true;
-    trailCtx.clearRect(0, 0, canvasSize, canvasSize);
+    paintCtx.clearRect(0, 0, canvasSize, canvasSize);
   }
 
   function load(graph: GeoArtGraph): GraphLoadPayload {
     tickCount = 0;
     frameCount = 0;
-    orbitCtx.clearRect(0, 0, canvasSize, canvasSize);
-    trailCtx.clearRect(0, 0, canvasSize, canvasSize);
+    liveCtx.clearRect(0, 0, canvasSize, canvasSize);
+    paintCtx.clearRect(0, 0, canvasSize, canvasSize);
     compiled = compile(graph, {
       computeRegistry: registry?.computeRegistry ?? computeRegistry,
       controlRegistry: registry?.controlRegistry ?? controlRegistry,
@@ -190,7 +190,7 @@ export function createGraphEngine(
     } else {
       enabledRenderNodes.add(nodeId);
     }
-    trailCtx.clearRect(0, 0, canvasSize, canvasSize);
+    paintCtx.clearRect(0, 0, canvasSize, canvasSize);
   }
 
   return {

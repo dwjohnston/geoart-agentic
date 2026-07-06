@@ -25,8 +25,8 @@ function toBundledEntries(): AlgorithmEntry[] {
 export function App() {
   const storage = useAlgorithmStorage();
 
-  const orbitCanvasRef = useRef<HTMLCanvasElement>(null);
-  const trailCanvasRef = useRef<HTMLCanvasElement>(null);
+  const liveCanvasRef = useRef<HTMLCanvasElement>(null);
+  const paintCanvasRef = useRef<HTMLCanvasElement>(null);
   const engineRef = useRef<GraphEngine | null>(null);
 
   const fpsCounterRef = useRef<FpsCounterHandle>(null);
@@ -64,10 +64,10 @@ export function App() {
   }
 
   useEffect(() => {
-    const orbitCtx = orbitCanvasRef.current!.getContext('2d')!;
-    const trailCtx = trailCanvasRef.current!.getContext('2d')!;
+    const liveCtx = liveCanvasRef.current!.getContext('2d')!;
+    const paintCtx = paintCanvasRef.current!.getContext('2d')!;
 
-    const engine = createGraphEngine(orbitCtx, trailCtx, CANVAS_SIZE);
+    const engine = createGraphEngine(liveCtx, paintCtx, CANVAS_SIZE);
     engineRef.current = engine;
 
 
@@ -116,7 +116,7 @@ export function App() {
       <SidePanel>
         <RenderToggles key={selectedGraphId} renderingNodes={payload.renderingNodes} onToggle={handleRenderNodeToggle} />
       </SidePanel>
-      <Canvas orbitCanvasRef={orbitCanvasRef} trailCanvasRef={trailCanvasRef} size={CANVAS_SIZE} fpsCounterRef={fpsCounterRef} />
+      <Canvas liveCanvasRef={liveCanvasRef} paintCanvasRef={paintCanvasRef} size={CANVAS_SIZE} fpsCounterRef={fpsCounterRef} />
       <SidePanel>
         <AlgorithmPicker
           algorithms={algorithms}

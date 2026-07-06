@@ -7,8 +7,8 @@ export type EvalContext = {
   /** Tick count since graph start. */
   tickCount: number;
   canvas: {
-    orbit: CanvasRenderingContext2D;
-    trail: CanvasRenderingContext2D;
+    live: CanvasRenderingContext2D;
+    paint: CanvasRenderingContext2D;
     width: number;
     height: number;
   };

@@ -147,9 +147,9 @@ describe("graph engine - unnecessary node evaluation", () => {
             },
         };
 
-        const orbitCtx = createFakeContext();
-        const trailCtx = createFakeContext();
-        const engine = createGraphEngine(orbitCtx, trailCtx, 800, customRegistry);
+        const liveCtx = createFakeContext();
+        const paintCtx = createFakeContext();
+        const engine = createGraphEngine(liveCtx, paintCtx, 800, customRegistry);
 
         engine.load(graph);
         engine.tick();
@@ -232,9 +232,9 @@ describe('graph engine — render node toggling', () => {
             },
         };
 
-        const orbitCtx = createFakeContext();
-        const trailCtx = createFakeContext();
-        const engine = createGraphEngine(orbitCtx, trailCtx, 800, customRegistry);
+        const liveCtx = createFakeContext();
+        const paintCtx = createFakeContext();
+        const engine = createGraphEngine(liveCtx, paintCtx, 800, customRegistry);
 
         engine.load(graph);
         engine.tick();
