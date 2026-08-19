@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { GRAPHS } from '../algorithms/index';
 import { GraphView } from './GraphView';
 import { Modal } from './Modal';
+import { ExportAlgorithmModal } from './ExportAlgorithmModal';
 
 type BundledGraphEntry = (typeof GRAPHS)[number];
 
@@ -17,6 +18,7 @@ type Props = {
 export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick }: Props) {
   const [selectedId, setSelectedId] = useState(defaultId);
   const [showGraphView, setShowGraphView] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
   const current = algorithms.find(g => g.id === selectedId);
   const currentName = current?.name ?? selectedId;
 
@@ -108,6 +110,22 @@ export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick
           >
             View graph
           </button>
+          <button
+            onClick={() => setShowExportModal(true)}
+            title="Export as React component"
+            style={{
+              background: '#1a1a26',
+              border: '1px solid #333',
+              borderRadius: 4,
+              color: '#aaa',
+              padding: '4px 10px',
+              cursor: 'pointer',
+              fontSize: 13,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Export
+          </button>
         </div>
       </div>
 
@@ -124,6 +142,13 @@ export function AlgorithmPicker({ algorithms, defaultId, onChange, onImportClick
         <Modal onClose={() => setShowGraphView(false)}>
           <GraphView graph={current.graph} />
         </Modal>
+      )}
+
+      {showExportModal && current && (
+        <ExportAlgorithmModal
+          algorithm={{ id: current.id, name: current.name, graph: current.graph }}
+          onClose={() => setShowExportModal(false)}
+        />
       )}
     </>
   );

@@ -10,6 +10,9 @@ export { tick } from '../evaluator/evaluator';
 export { createGraphEngine } from '../graphEngine/graphEngine';
 export type { GraphEngine, GraphLoadPayload } from '../graphEngine/graphEngine';
 
+export { AlgorithmCanvas } from './AlgorithmCanvas';
+export type { AlgorithmCanvasHandle, AlgorithmCanvasProps } from './AlgorithmCanvas';
+
 export { implementComputeNode, convertComputeNodeImplementationToLegacy } from '../../nodes/compute/implementComputeNode';
 export { implementRenderNode, convertRenderNodeImplementationToLegacy } from '../../nodes/render/implementRenderNode';
 export { implementControlNode, convertControlNodeImplementationToLegacy } from '../../nodes/control/implementControlNode';
