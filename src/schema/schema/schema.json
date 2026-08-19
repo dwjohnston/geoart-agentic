@@ -37,6 +37,20 @@
       "description": "Global playback speed. Values >= 1 run that many ticks per frame. Values < 1 must be unit fractions (1/2, 1/3, …) — one tick every n frames. Default 1.",
       "minimum": 0.125
     },
+    "previewSettings": {
+      "title": "Preview Settings",
+      "description": "Settings for generating a static preview image (e.g. for og:image). If absent, staticImageNumTicks defaults to 10.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "staticImageNumTicks": {
+          "title": "Static Image Tick Count",
+          "description": "Number of ticks to evaluate before rasterising the static preview image. Default 10.",
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
     "module": {
       "title": "Module Section",
       "description": "Reusable groups of nodes",

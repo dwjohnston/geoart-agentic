@@ -2,12 +2,26 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.worker.tsbuildinfo",
     "target": "es2023",
+    // DOM/DOM.Iterable, jsx, and the bun/vite-client ambient types are needed
+    // here even though src/server is worker/edge code, not the browser app.
+    // renderAlgorithmImage.ts imports createGraphEngine from src/graphEngine
+    // to run it headlessly, and TypeScript type-checks imported files using
+    // the *importing* project's compiler options, not the app's. That import
+    // transitively reaches DOM-typed code (e.g. CanvasRenderingContext2D) and
+    // .tsx node registries — so without these options this project fails to
+    // build even though none of its own files touch the DOM or JSX directly.
+    // Same situation, same fix, as tsconfig.node.json.
     "lib": [
-      "ES2023"
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
     ],
+    "jsx": "react-jsx",
     "module": "esnext",
     "types": [
-      "@cloudflare/workers-types"
+      "@cloudflare/workers-types",
+      "bun",
+      "vite/client"
     ],
     "skipLibCheck": true,
     "moduleResolution": "bundler",

@@ -1,4 +1,5 @@
 import { renderShell, type Env } from './renderShell';
+import { renderAlgorithmResponse } from './renderAlgorithmImage';
 
 export default {
   async fetch(request, env): Promise<Response> {
@@ -6,6 +7,10 @@ export default {
 
     if (url.pathname === '/' || url.pathname === '/index.html') {
       return renderShell(request, env);
+    }
+
+    if (url.pathname.startsWith('/render/')) {
+      return renderAlgorithmResponse(request);
     }
 
     return env.ASSETS.fetch(request);

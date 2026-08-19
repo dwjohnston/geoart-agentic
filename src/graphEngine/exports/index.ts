@@ -2,6 +2,7 @@
 // This is the only module permitted to import from all three node zones.
 
 import { compile } from "../compiler/compiler";
+import type { CompiledGraph } from '../compiler/compiler';
 export { compile } from '../compiler/compiler';
 export type { CompiledGraph } from '../compiler/compiler';
 
@@ -48,5 +49,21 @@ export function tryCompileGraph(graph: unknown): CompileResult {
     return { success: true };
   } catch (e) {
     return { success: false, error: e instanceof Error ? e.message : String(e) };
+  }
+}
+
+/**
+ * Validates and compiles a graph, returning the CompiledGraph for further use
+ * (e.g. running it). Returns `null` on any validation or compile failure — never throws.
+ */
+export function compileValidatedGraph(graph: unknown): CompiledGraph | null {
+  if (!validateGeoArtGraph(graph)) {
+    return null;
+  }
+
+  try {
+    return compile(graph as GeoArtGraph, { computeRegistry, renderRegistry, controlRegistry, moduleRegistry });
+  } catch {
+    return null;
   }
 }
