@@ -3,6 +3,7 @@ import type { InitInput } from '@resvg/resvg-wasm';
 import wasmAsset from '@resvg/resvg-wasm/index_bg.wasm';
 import { createGraphEngine, compileValidatedGraph } from '../graphEngine/exports';
 import { createHeadlessSvgCanvas } from './headlessSvgCanvas';
+import { decodeGraphFromUrl } from '../common-tooling/graphUrlEncoding';
 import type { GeoArtGraph } from '../schema/_generated/schema-types';
 
 const RENDER_PATH_PREFIX = '/render/';
@@ -10,19 +11,6 @@ const DEFAULT_STATIC_IMAGE_NUM_TICKS = 10;
 
 // Matches App.tsx's CANVAS_SIZE — the two must stay in sync until there's a shared constant.
 export const CANVAS_SIZE = 800;
-
-/**
- * Decodes a base64-encoded algorithm JSON string. Throws on any malformed input
- * (bad base64, invalid UTF-8, invalid JSON) — callers should treat a throw as "not found".
- */
-export function decodeAlgorithmBase64(raw: string): unknown {
-  // Query-string parsing turns unencoded `+` into a space; undo that before decoding.
-  const normalized = raw.replace(/ /g, '+');
-  const binary = atob(normalized);
-  const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
-  const json = new TextDecoder().decode(bytes);
-  return JSON.parse(json);
-}
 
 export function getStaticImageNumTicks(graph: GeoArtGraph): number {
   return graph.previewSettings?.staticImageNumTicks ?? DEFAULT_STATIC_IMAGE_NUM_TICKS;
@@ -100,7 +88,7 @@ export async function renderAlgorithmResponse(request: Request): Promise<Respons
 
   let decoded: unknown;
   try {
-    decoded = decodeAlgorithmBase64(encoded);
+    decoded = decodeGraphFromUrl(encoded);
   } catch {
     return new Response('Not found', { status: 404 });
   }

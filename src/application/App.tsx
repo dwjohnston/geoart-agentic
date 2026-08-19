@@ -17,6 +17,7 @@ import { ExportJsonModal } from './ExportJsonModal';
 import { Toast } from './Toast';
 import { useAlgorithmStorage } from './algorithmStorage/AlgorithmStorageContext';
 import { NeverShouldHappenError } from '../common-tooling/errors/NeverShouldHappenError';
+import { encodeGraphForUrl, decodeGraphFromUrl } from '../common-tooling/graphUrlEncoding';
 
 const CANVAS_SIZE = 800;
 
@@ -29,18 +30,10 @@ function decodeUrlGraph(): GeoArtGraph | null {
   const encoded = params.get('a');
   if (!encoded) return null;
   try {
-    const bytes = Uint8Array.from(atob(encoded), c => c.charCodeAt(0));
-    const json = new TextDecoder().decode(bytes);
-    return JSON.parse(json) as GeoArtGraph;
+    return decodeGraphFromUrl(encoded) as GeoArtGraph;
   } catch {
     return null;
   }
-}
-
-function encodeGraphToBase64(graph: GeoArtGraph): string {
-  const json = JSON.stringify(graph);
-  const bytes = new TextEncoder().encode(json);
-  return btoa(Array.from(bytes, b => String.fromCharCode(b)).join(''));
 }
 
 export function App() {
@@ -141,7 +134,7 @@ export function App() {
     if (!engine) return;
     const snapshot = engine.snapshotGraph();
     if (!snapshot) return;
-    const encoded = encodeGraphToBase64(snapshot);
+    const encoded = encodeGraphForUrl(snapshot);
     const newParams = new URLSearchParams();
     newParams.set('a', encoded);
     const newUrl = `${window.location.origin}${window.location.pathname}?${newParams.toString()}`;
