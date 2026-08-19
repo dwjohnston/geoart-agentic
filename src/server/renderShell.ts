@@ -23,9 +23,11 @@ export async function renderShell(request: Request, env: Env): Promise<Response>
   }
 
   const html = await assetResponse.text();
+  const algorithmParam = new URL(request.url).searchParams.get('a');
   const decorated = decorateHead(html, {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
+    imagePath: algorithmParam ? `render/${algorithmParam}` : undefined,
   });
 
   return new Response(decorated, {
@@ -35,13 +37,14 @@ export async function renderShell(request: Request, env: Env): Promise<Response>
 
 function decorateHead(
   html: string,
-  meta: { title: string; description: string },
+  meta: { title: string; description: string; imagePath?: string },
 ): string {
   const metaTags = [
     `<meta name="description" content="${escapeHtml(meta.description)}" />`,
     `<meta property="og:title" content="${escapeHtml(meta.title)}" />`,
     `<meta property="og:description" content="${escapeHtml(meta.description)}" />`,
     `<meta property="og:type" content="website" />`,
+    ...(meta.imagePath ? [`<meta property="og:image" content="${escapeHtml(meta.imagePath)}" />`] : []),
   ].join('\n    ');
 
   return html
