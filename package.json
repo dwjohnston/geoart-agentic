@@ -23,6 +23,7 @@
     "lint": "eslint .",
     "typecheck": "tsgo -p tsconfig.app.json --noEmit",
     "preview": "vite preview",
+    "deploy": "bun run build && wrangler deploy",
     "pretest": "npm run generate",
     "clean": "find src -type d -name '_generated' -exec rm -rf {} + ; find src -type f -name '*.generated*' -delete",
     "test:browser": "npx vitest --browser=chromium",
@@ -47,6 +48,8 @@
     "vitest-browser-react": "^2.2.0"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.53.0",
+    "@cloudflare/workers-types": "^5.20260819.1",
     "@eslint/js": "^9.39.4",
     "@happy-dom/global-registrator": "^20.8.9",
     "@napi-rs/canvas": "^1.0.0",
@@ -81,6 +84,7 @@
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.58.0",
     "vite": "^8.0.4",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.5",
+    "wrangler": "^4.124.0"
   }
 }

@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "geoart-app",
+  "compatibility_date": "2026-08-19",
+  "main": "./src/server/entry.ts",
+  "assets": {
+    "directory": "./dist/client",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    // Only the shell-rendering routes need to go through the Worker; every
+    // other request (JS/CSS bundles, favicon, etc.) is served directly by
+    // the assets layer without the extra hop.
+    "run_worker_first": ["/", "/index.html"],
+  },
+}
