@@ -2,13 +2,30 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "es2023",
+    // DOM/DOM.Iterable, jsx, and the vite/client ambient types are needed
+    // here even though this project is node/Bun-side scripts, not the
+    // browser app. scripts/lib/loadPerformanceBenchmarks.ts imports
+    // createGraphEngine from src/graphEngine to run it headlessly for
+    // benchmarks, and TypeScript type-checks imported files using the
+    // *importing* project's compiler options, not the app's. That import
+    // transitively reaches DOM-typed code (e.g. CanvasRenderingContext2D),
+    // .tsx node registries, and (via those) UI components with CSS
+    // side-effect imports (e.g. src/ui/Grid.tsx's `import './Grid.css'`,
+    // whose ambient module declaration only vite/client provides) - so
+    // without these options this project fails to build even though none
+    // of its own files touch the DOM, JSX, or CSS directly.
+    // 🙋‍♂️ This is a bit of a smell, so good to clean this up when we can.
     "lib": [
-      "ES2025"
+      "ES2025",
+      "DOM",
+      "DOM.Iterable"
     ],
+    "jsx": "react-jsx",
     "module": "esnext",
     "types": [
       "bun",
-      "node"
+      "node",
+      "vite/client"
     ],
     "skipLibCheck": true,
     /* Bundler mode */
