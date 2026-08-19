@@ -34,6 +34,7 @@ export type GraphEngine = {
   setSpeed: (value: number) => void;
   tick: () => void;
   toggleRenderNode: (nodeId: string) => void;
+  snapshotGraph: () => GeoArtGraph | null;
 };
 
 
@@ -51,6 +52,7 @@ export function createGraphEngine(
   },
 ): GraphEngine {
   let compiled: CompiledGraph | null = null;
+  let loadedGraph: GeoArtGraph | null = null;
   let tickCount = 0;
   let frameCount = 0;
   let speed = 1;
@@ -96,7 +98,49 @@ export function createGraphEngine(
     paintCtx.clearRect(0, 0, canvasSize, canvasSize);
   }
 
+  function snapshotGraph(): GeoArtGraph | null {
+    if (!compiled || !loadedGraph) return null;
+
+    const snapshot = JSON.parse(JSON.stringify(loadedGraph)) as GeoArtGraph;
+
+    // The compiler's paramToValue flattens array elements: { v: [{ v: el }] } → value.v = [el].
+    // To round-trip correctly, re-wrap array elements when writing back to the graph.
+    function valueToParam(value: Value): unknown {
+      if (Array.isArray(value.v)) {
+        return { v: (value.v as unknown[]).map(el => ({ v: el })) };
+      }
+      return { v: value.v };
+    }
+
+    for (const controlNode of snapshot.control.nodes) {
+      const compiledNode = compiled.nodes.get(controlNode.id);
+      if (!compiledNode || compiledNode.layer !== 'control') continue;
+      for (const [key, value] of Object.entries(compiledNode.params)) {
+        (controlNode.params as Record<string, unknown>)[key] = valueToParam(value);
+      }
+    }
+
+    if (snapshot.module) {
+      const originalModuleNodes = (loadedGraph.module!.nodes as Array<{ id: string; params: Record<string, unknown> }>);
+      for (const moduleNode of snapshot.module.nodes) {
+        const compiledNode = compiled.nodes.get(`${moduleNode.id}:input-marker`);
+        if (!compiledNode || compiledNode.def.type !== 'module-input-marker') continue;
+        const originalParams = originalModuleNodes.find(n => n.id === moduleNode.id)?.params ?? {};
+        for (const [key, value] of Object.entries(compiledNode.params)) {
+          const orig = originalParams[key];
+          const isRef = orig !== null && typeof orig === 'object' && 'ref' in (orig as object);
+          if (!isRef) {
+            (moduleNode.params as Record<string, unknown>)[key] = valueToParam(value);
+          }
+        }
+      }
+    }
+
+    return snapshot;
+  }
+
   function load(graph: GeoArtGraph): GraphLoadPayload {
+    loadedGraph = graph;
     tickCount = 0;
     frameCount = 0;
     liveCtx.clearRect(0, 0, canvasSize, canvasSize);
@@ -198,5 +242,6 @@ export function createGraphEngine(
     setSpeed: value => { speed = value; },
     tick,
     toggleRenderNode,
+    snapshotGraph,
   };
 }
