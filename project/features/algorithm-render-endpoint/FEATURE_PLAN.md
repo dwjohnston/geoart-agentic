@@ -26,16 +26,32 @@ directly, outside the task-file/skill framework. No `task_xx_*.md` files.
   CSS in the browser — there is no single flattened image today. The render endpoint must
   composite paint-then-live into one output canvas itself before encoding to PNG.
 
-## Known risk (flagged, not blocking)
+## Resolved risk: @napi-rs/canvas is not Workers-compatible
 
-`@napi-rs/canvas` is a native (N-API) module. Cloudflare Workers' production `workerd`
-runtime does not execute native binaries — this is a hard platform constraint, not a
-config flag. This matches the precedent set by `cloudflare-ssr-shell`, which explicitly
-punted real server-side data-fetching to "a future feature" for the same class of reason.
-Given the task explicitly says "see existing behaviour for doing this", this plan reuses
-`@napi-rs/canvas` as instructed and verifies it end-to-end via `bun test` and local
-`wrangler dev`. A real `wrangler deploy` may fail on this route — that is out of scope to
-solve here and should be raised with the user if it blocks an actual deploy.
+`@napi-rs/canvas` is a native (N-API) module. Confirmed empirically (not just in theory):
+`vite build` fails trying to inline the `.node` binary into the worker bundle
+("[UNLOADABLE_DEPENDENCY] ... stream did not contain valid UTF-8") — Cloudflare Workers'
+`workerd` runtime cannot execute native binaries at all, dev or prod. Raised to the user
+mid-implementation; decision was to research and build a Workers-compatible rasterizer
+rather than ship a route that can't deploy.
+
+Replaced with: a hand-written `CanvasRenderingContext2D`-shaped shim
+(`src/server/headlessSvgCanvas.ts`) that records the same handful of draw calls render
+nodes actually make (beginPath/moveTo/lineTo/closePath/ellipse/stroke/fill/
+createLinearGradient/clearRect) as SVG elements instead of pixels, then
+`@resvg/resvg-wasm` (a WASM SVG rasterizer) turns the accumulated SVG into a PNG. WASM
+bundles and runs inside `workerd`, unlike native addons — confirmed via a full `bun run
+build` (worker bundle now includes the `.wasm` asset, no native-binary error) and a real
+`wrangler dev` request to `/render/<b64>` returning `200 image/png`. Cross-checked the SVG
+output against the real `createGraphEngine` + `fakeContext` pipeline (existing test
+tooling) for the same graph — identical draw-call values, confirming the shim doesn't
+change rendering semantics, only the sink.
+
+This did require adding DOM/DOM.Iterable lib + jsx + bun/vite-client types to
+`tsconfig.worker.json`, since `createGraphEngine` transitively references DOM-typed code
+and this repo's tsconfig setup type-checks imported files under the *importing* project's
+compiler options (not the defining file's) — `tsconfig.node.json` already carries an
+identical, identically-reasoned workaround for the same underlying cause.
 
 ## Tasks
 
