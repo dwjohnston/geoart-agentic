@@ -25,7 +25,7 @@ So:
 - Have module nodes render in the graph view. 
 - Include graph description on the page. 
 - Include title. Geoart 3000. 
-
+- Add favicon, page title 
 
 ### Mobile 
 
