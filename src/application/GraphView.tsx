@@ -50,6 +50,7 @@ function collectConnections(graph: GeoArtGraph): Connection[] {
   const allNodes: AnyNode[] = [
     ...(graph.control.nodes as unknown as AnyNode[]),
     ...(graph.compute.nodes as unknown as AnyNode[]),
+    ...((graph.module?.nodes ?? []) as unknown as AnyNode[]),
     ...(graph.render.nodes as unknown as AnyNode[]),
   ];
   for (const node of allNodes) {
@@ -74,7 +75,7 @@ function collectConnections(graph: GeoArtGraph): Connection[] {
 type ColumnProps = {
   title: string;
   nodes: AnyNode[];
-  layerKind: 'control' | 'compute' | 'render';
+  layerKind: 'control' | 'compute' | 'module' | 'render';
   hoveredNodeId: string | null;
   highlightedNodeIds: Set<string>;
   refHighlightedNodeIds: Set<string>;
@@ -140,18 +141,23 @@ function Column({ title, nodes, layerKind, hoveredNodeId, highlightedNodeIds, re
   );
 }
 
-function assignComputeColumns(computeNodes: AnyNode[]): AnyNode[][] {
-  if (computeNodes.length === 0) return [];
-  const computeIds = new Set(computeNodes.map(n => n.id));
+/**
+ * Splits a set of same-layer nodes into dependency-ordered columns, levelling each node one
+ * past the deepest same-layer node it refs (refs to other layers don't affect levelling — those
+ * are resolved separately via barycenter sorting against the accumulated row order).
+ */
+function assignColumnsByDependency(layerNodes: AnyNode[]): AnyNode[][] {
+  if (layerNodes.length === 0) return [];
+  const layerIds = new Set(layerNodes.map(n => n.id));
 
   const deps = new Map<string, Set<string>>();
-  for (const node of computeNodes) {
+  for (const node of layerNodes) {
     const nodeDeps = new Set<string>();
     for (const paramValue of Object.values(node.params ?? {})) {
       if (paramValue && typeof paramValue === 'object' && 'ref' in paramValue) {
         const ref = (paramValue as { ref: string }).ref;
         const srcNodeId = ref.slice(0, ref.indexOf('.'));
-        if (computeIds.has(srcNodeId)) nodeDeps.add(srcNodeId);
+        if (layerIds.has(srcNodeId)) nodeDeps.add(srcNodeId);
       }
     }
     deps.set(node.id, nodeDeps);
@@ -165,11 +171,11 @@ function assignComputeColumns(computeNodes: AnyNode[]): AnyNode[][] {
     levels.set(id, level);
     return level;
   }
-  for (const node of computeNodes) getLevel(node.id);
+  for (const node of layerNodes) getLevel(node.id);
 
   const maxLevel = Math.max(...levels.values());
   const columns: AnyNode[][] = Array.from({ length: maxLevel + 1 }, () => []);
-  for (const node of computeNodes) columns[levels.get(node.id)!].push(node);
+  for (const node of layerNodes) columns[levels.get(node.id)!].push(node);
   return columns;
 }
 
@@ -198,9 +204,11 @@ function sortByBarycenter(nodes: AnyNode[], rowOf: Map<string, number>): AnyNode
 function computeLayout(graph: GeoArtGraph) {
   const controlNodes = graph.control.nodes as unknown as AnyNode[];
   const computeNodes = graph.compute.nodes as unknown as AnyNode[];
+  const moduleNodes = (graph.module?.nodes ?? []) as unknown as AnyNode[];
   const renderNodes = graph.render.nodes as unknown as AnyNode[];
 
-  const computeColumns = assignComputeColumns(computeNodes);
+  const computeColumns = assignColumnsByDependency(computeNodes);
+  const moduleColumns = assignColumnsByDependency(moduleNodes);
 
   const rowOf = new Map<string, number>();
   controlNodes.forEach((n, i) => rowOf.set(n.id, i));
@@ -211,9 +219,15 @@ function computeLayout(graph: GeoArtGraph) {
     return sorted;
   });
 
+  const sortedModuleColumns = moduleColumns.map(col => {
+    const sorted = sortByBarycenter(col, rowOf);
+    sorted.forEach((n, i) => rowOf.set(n.id, i));
+    return sorted;
+  });
+
   const sortedRenderNodes = sortByBarycenter(renderNodes, rowOf);
 
-  return { controlNodes, sortedComputeColumns, sortedRenderNodes };
+  return { controlNodes, sortedComputeColumns, sortedModuleColumns, sortedRenderNodes };
 }
 
 type GraphViewProps = {
@@ -227,7 +241,7 @@ export function GraphView({ graph }: GraphViewProps) {
   const [refHoveredNodeId, setRefHoveredNodeId] = useState<string | null>(null);
   const [outputHoveredPortRef, setOutputHoveredPortRef] = useState<string | null>(null);
 
-  const { controlNodes, sortedComputeColumns, sortedRenderNodes } = useMemo(
+  const { controlNodes, sortedComputeColumns, sortedModuleColumns, sortedRenderNodes } = useMemo(
     () => computeLayout(graph),
     [graph],
   );
@@ -305,7 +319,10 @@ export function GraphView({ graph }: GraphViewProps) {
       <div ref={containerRef} style={{ position: 'relative', display: 'inline-flex', gap: 32, alignItems: 'flex-start' }}>
         <Column title="Control" nodes={controlNodes} layerKind="control" {...columnProps} />
         {sortedComputeColumns.map((colNodes, i) => (
-          <Column key={i} title={i === 0 ? 'Compute' : ' '} nodes={colNodes} layerKind="compute" {...columnProps} />
+          <Column key={`compute-${i}`} title={i === 0 ? 'Compute' : ' '} nodes={colNodes} layerKind="compute" {...columnProps} />
+        ))}
+        {sortedModuleColumns.map((colNodes, i) => (
+          <Column key={`module-${i}`} title={i === 0 ? 'Module' : ' '} nodes={colNodes} layerKind="module" {...columnProps} />
         ))}
         <Column title="Render" nodes={sortedRenderNodes} layerKind="render" {...columnProps} />
 
