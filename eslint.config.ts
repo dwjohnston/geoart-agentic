@@ -120,4 +120,12 @@ export default defineConfig([
     },
   },
 
+  {
+    // The Workers module format requires a default-exported fetch handler.
+    files: ['src/server/entry.ts'],
+    rules: {
+      "import/no-default-export": "off",
+    },
+  },
+
 ])
