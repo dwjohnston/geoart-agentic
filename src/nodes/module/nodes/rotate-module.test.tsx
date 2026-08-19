@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect, mock } from 'bun:test';
+import { renderToStaticMarkup } from 'react-dom/server';
 import rotateModule from './rotate-module';
 
 describe('rotate-module', () => {
@@ -99,5 +100,20 @@ describe('rotate-module', () => {
 
     expect(result.renderNodes[0].renderConfig.layer).toBe('live');
     expect(result.renderNodes[0].renderConfig.tags).toContain('rotate');
+  });
+
+  it('shows its own render-node toggles when renderToggles has nodes', () => {
+    const moduleId = 'rotateTogglesTest';
+    const result = rotateModule({}, moduleId);
+
+    const markup = renderToStaticMarkup(
+      result.inputMarkerNode.renderControl({}, mock(), {
+        nodes: [{ nodeId: `${moduleId}:rotation-circles`, renderConfig: { layer: 'live' }, enabled: true }],
+        onToggle: mock(),
+      }) as React.ReactElement
+    );
+
+    expect(markup).toContain('type="checkbox"');
+    expect(markup).toContain('rotation-circles');
   });
 });

@@ -4,6 +4,7 @@ import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfa
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { KnobControl } from '../../../ui/KnobControl';
 import { ModulePanel } from '../../../ui/ModulePanel';
+import { ModuleRenderToggles } from '../../../ui/ModuleRenderToggles';
 import { DropdownControl } from '../../control/ui/DropdownControl';
 
 const TIMED_LINE_ARRAY_MODES = ['all-to-all', 'distribute', 'interleave'] as const;
@@ -48,7 +49,7 @@ const linkerModuleImplementation = implementModule({
         id: inputMarkerId,
         type: 'module-input-marker',
         params: createInputMarkerParams(params, defaultValues),
-        renderControl: (markerParams, set) => (
+        renderControl: (markerParams, set, renderToggles) => (
           <ModulePanel moduleName="Linker" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
             {renderIfNeeded(markerParams, 'intervalTicks', set, (initialValue, onChange) => (
               <KnobControl label="Interval ticks" min={0} max={60} initialValue={initialValue} onChange={onChange} />
@@ -59,6 +60,7 @@ const linkerModuleImplementation = implementModule({
             {renderIfNeeded(markerParams, 'intervalMode', set, (initialValue, onChange) => (
               <DropdownControl id={`${inputMarkerId}-interval-mode`} label="Interval mode" options={TIMED_LINE_ARRAY_INTERVAL_MODES} initialValue={initialValue} onChange={onChange} />
             ))}
+            {renderToggles.nodes.length > 0 && <ModuleRenderToggles {...renderToggles} />}
           </ModulePanel>
         ),
       },
