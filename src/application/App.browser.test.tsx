@@ -26,3 +26,14 @@ test('renders without crashing', async () => {
   const canvas = page.getByTestId('live-canvas');
   expect(canvas).toBeInTheDocument();
 });
+
+test('renders the page title', async () => {
+  await render(
+    <AlgorithmStorageProvider service={stubStorageService}>
+      <App />
+    </AlgorithmStorageProvider>,
+  );
+
+  const heading = page.getByRole('heading', { level: 1, name: 'Geoart 3000' });
+  expect(heading).toBeInTheDocument();
+});

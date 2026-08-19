@@ -112,27 +112,30 @@ export function App() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 24, padding: 24 }}>
-      <SidePanel>
-        <RenderToggles key={selectedGraphId} renderingNodes={payload.renderingNodes} onToggle={handleRenderNodeToggle} />
-      </SidePanel>
-      <Canvas liveCanvasRef={liveCanvasRef} paintCanvasRef={paintCanvasRef} size={CANVAS_SIZE} fpsCounterRef={fpsCounterRef} />
-      <SidePanel>
-        <AlgorithmPicker
-          algorithms={algorithms}
-          defaultId={selectedGraphId}
-          onChange={handleGraphChange}
-          onImportClick={() => setShowImportModal(true)}
-        />
-        <SpeedControl speed={speed} onChange={handleSpeedChange} />
-        <Controls key={selectedGraphId} renderControlNodes={payload.renderControlNodes} />
-      </SidePanel>
-      {showImportModal && (
-        <ImportAlgorithmModal
-          onClose={() => setShowImportModal(false)}
-          onImported={handleImported}
-        />
-      )}
+    <div>
+      <h1 style={{ margin: '24px 0 0', textAlign: 'center' }}>Geoart 3000</h1>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 24, padding: 24 }}>
+        <SidePanel>
+          <RenderToggles key={selectedGraphId} renderingNodes={payload.renderingNodes} onToggle={handleRenderNodeToggle} />
+        </SidePanel>
+        <Canvas liveCanvasRef={liveCanvasRef} paintCanvasRef={paintCanvasRef} size={CANVAS_SIZE} fpsCounterRef={fpsCounterRef} />
+        <SidePanel>
+          <AlgorithmPicker
+            algorithms={algorithms}
+            defaultId={selectedGraphId}
+            onChange={handleGraphChange}
+            onImportClick={() => setShowImportModal(true)}
+          />
+          <SpeedControl speed={speed} onChange={handleSpeedChange} />
+          <Controls key={selectedGraphId} renderControlNodes={payload.renderControlNodes} />
+        </SidePanel>
+        {showImportModal && (
+          <ImportAlgorithmModal
+            onClose={() => setShowImportModal(false)}
+            onImported={handleImported}
+          />
+        )}
+      </div>
     </div>
   );
 }
