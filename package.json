@@ -19,7 +19,7 @@
     "dev": "vite",
     "bench": "bun scripts/bench-performance-graphs.ts",
     "bench:ci": "bun .github/workflows/scripts/bench-regression-check.ts",
-    "build": "tsgo -b && vite build",
+    "build": "tsgo -b && bun generate && vite build",
     "lint": "eslint .",
     "typecheck": "tsgo -p tsconfig.app.json --noEmit",
     "preview": "vite preview",
