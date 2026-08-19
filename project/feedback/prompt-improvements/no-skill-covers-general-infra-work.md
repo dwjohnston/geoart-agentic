@@ -20,3 +20,9 @@ This required stopping mid-Phase-2 and asking the user how to proceed (they chos
   the index applies to this feature at all" as its own case, with a prescribed
   default (e.g. "implement directly and note it in FEATURE_PLAN.md") rather than
   leaving it to be inferred from the single-task wording.
+
+**Update (export-react-component, 2026-08-19):** hit the same gap again, headlessly
+this time (no user to ask). Followed the precedent set here — implemented directly,
+documented the reasoning in `FEATURE_PLAN.md` — since headless mode can't stop for
+confirmation. Two occurrences in one day is a decent signal this should be resolved
+in the skill/index rather than re-derived per session.
