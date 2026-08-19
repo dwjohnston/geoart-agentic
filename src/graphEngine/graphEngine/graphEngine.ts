@@ -149,11 +149,17 @@ export function createGraphEngine(
 
           // Handle module input marker nodes specially
           if (compiledNode.def.type === 'module-input-marker' && compiledNode.moduleInputMarkerRenderControl) {
-            // A module input marker's nodeId is always `{moduleId}:input-marker` —
-            // module ids may not contain colons, so the first segment is the module id.
-            const moduleId = nodeId.split(':')[0];
+            // A module input marker's nodeId is always `{moduleId}:input-marker`, where
+            // moduleId may itself contain colons for a nested module (e.g.
+            // `outer:inner`) — strip only the trailing `:input-marker` suffix, not
+            // the first segment, or nested modules would resolve to their ancestor's id.
+            const inputMarkerSuffix = ':input-marker';
+            const moduleId = nodeId.slice(0, nodeId.length - inputMarkerSuffix.length);
             const moduleRenderNodes = renderingNodes
-              .filter(n => n.nodeId.startsWith(`${moduleId}:`))
+              // Only direct render-node children of this exact module — a render node
+              // belonging to a nested module (`{moduleId}:{nestedId}:...`) is surfaced
+              // in that nested module's own panel instead, not duplicated here.
+              .filter(n => n.nodeId.startsWith(`${moduleId}:`) && !n.nodeId.slice(moduleId.length + 1).includes(':'))
               .map(n => ({ nodeId: n.nodeId, renderConfig: n.renderConfig, enabled: enabledRenderNodes.has(n.nodeId) }));
 
             const element = compiledNode.moduleInputMarkerRenderControl(
