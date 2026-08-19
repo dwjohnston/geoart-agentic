@@ -1,5 +1,8 @@
-import { createCanvas } from '@napi-rs/canvas';
+import { Resvg, initWasm } from '@resvg/resvg-wasm';
+import type { InitInput } from '@resvg/resvg-wasm';
+import wasmAsset from '@resvg/resvg-wasm/index_bg.wasm';
 import { createGraphEngine, compileValidatedGraph } from '../graphEngine/exports';
+import { createHeadlessSvgCanvas } from './headlessSvgCanvas';
 import type { GeoArtGraph } from '../schema/_generated/schema-types';
 
 const RENDER_PATH_PREFIX = '/render/';
@@ -25,20 +28,48 @@ export function getStaticImageNumTicks(graph: GeoArtGraph): number {
   return graph.previewSettings?.staticImageNumTicks ?? DEFAULT_STATIC_IMAGE_NUM_TICKS;
 }
 
+let wasmReady: Promise<void> | null = null;
+
+/** Initializes the resvg WASM module exactly once (cached across requests). */
+function ensureWasmInitialized(): Promise<void> {
+  if (!wasmReady) {
+    wasmReady = loadWasmInput()
+      .then(input => initWasm(input))
+      .catch((e: unknown) => {
+        wasmReady = null;
+        throw e;
+      });
+  }
+  return wasmReady;
+}
+
+async function loadWasmInput(): Promise<InitInput> {
+  if (typeof wasmAsset === 'string') {
+    // Bun (used to run this project's tests) resolves `.wasm` imports to a
+    // filesystem path rather than a WebAssembly.Module — read it directly.
+    const { readFileSync } = await import('node:fs');
+    return readFileSync(wasmAsset);
+  }
+  return wasmAsset;
+}
+
+function buildSvg(paintElements: string[], liveElements: string[]): string {
+  const body = [...paintElements, ...liveElements].join('\n');
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${CANVAS_SIZE}" height="${CANVAS_SIZE}" viewBox="0 0 ${CANVAS_SIZE} ${CANVAS_SIZE}">${body}</svg>`;
+}
+
 /**
  * Runs the graph headlessly for `numTicks` ticks and rasterises the composited
- * paint+live canvases (paint accumulates underneath, live draws on top — matching
- * how the two layers are stacked visually in the browser) to a PNG buffer.
+ * paint+live layers (paint accumulates underneath, live draws on top —
+ * matching how the two layers are stacked visually in the browser) to a PNG.
  */
-export function renderGraphToPng(graph: GeoArtGraph, numTicks: number): Buffer {
-  const liveCanvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE);
-  const paintCanvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE);
-  const liveCtx = liveCanvas.getContext('2d');
-  const paintCtx = paintCanvas.getContext('2d');
+export async function renderGraphToPng(graph: GeoArtGraph, numTicks: number): Promise<Uint8Array> {
+  const liveCanvas = createHeadlessSvgCanvas();
+  const paintCanvas = createHeadlessSvgCanvas();
 
   const engine = createGraphEngine(
-    liveCtx as unknown as CanvasRenderingContext2D,
-    paintCtx as unknown as CanvasRenderingContext2D,
+    liveCanvas as unknown as CanvasRenderingContext2D,
+    paintCanvas as unknown as CanvasRenderingContext2D,
     CANVAS_SIZE,
   );
   engine.load(graph);
@@ -46,14 +77,11 @@ export function renderGraphToPng(graph: GeoArtGraph, numTicks: number): Buffer {
     engine.tick();
   }
 
-  const outputCanvas = createCanvas(CANVAS_SIZE, CANVAS_SIZE);
-  const outputCtx = outputCanvas.getContext('2d');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  outputCtx.drawImage(paintCanvas as any, 0, 0);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  outputCtx.drawImage(liveCanvas as any, 0, 0);
+  const svg = buildSvg(paintCanvas.getSvgElements(), liveCanvas.getSvgElements());
 
-  return outputCanvas.toBuffer('image/png');
+  await ensureWasmInitialized();
+  const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: CANVAS_SIZE } });
+  return resvg.render().asPng();
 }
 
 /**
@@ -82,9 +110,9 @@ export async function renderAlgorithmResponse(request: Request): Promise<Respons
   }
 
   const graph = decoded as GeoArtGraph;
-  const png = renderGraphToPng(graph, getStaticImageNumTicks(graph));
+  const png = await renderGraphToPng(graph, getStaticImageNumTicks(graph));
 
-  return new Response(png, {
+  return new Response(new Blob([new Uint8Array(png)]), {
     headers: { 'content-type': 'image/png' },
   });
 }

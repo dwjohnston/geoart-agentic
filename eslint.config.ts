@@ -128,4 +128,13 @@ export default defineConfig([
     },
   },
 
+  {
+    // Ambient `.wasm` module declarations must use `export default` to match
+    // the shape of the actual JS import.
+    files: ['src/server/wasm-module.d.ts'],
+    rules: {
+      "import/no-default-export": "off",
+    },
+  },
+
 ])

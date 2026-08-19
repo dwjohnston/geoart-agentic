@@ -41,9 +41,9 @@ describe('getStaticImageNumTicks', () => {
 });
 
 describe('renderGraphToPng', () => {
-  test('produces a PNG buffer', () => {
-    const png = renderGraphToPng(testGraph, 5);
-    expect(png.subarray(0, PNG_MAGIC.length)).toEqual(PNG_MAGIC);
+  test('produces a PNG buffer', async () => {
+    const png = await renderGraphToPng(testGraph, 5);
+    expect(Buffer.from(png.subarray(0, PNG_MAGIC.length))).toEqual(PNG_MAGIC);
   });
 });
 
