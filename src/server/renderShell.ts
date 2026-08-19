@@ -43,28 +43,20 @@ function decorateHead(
   meta: { title: string; description: string; imagePath?: string },
 ): string {
   const metaTags = [
-    `<meta name="description" content="${escapeHtml(meta.description)}" />`,
-    `<meta property="og:title" content="${escapeHtml(meta.title)}" />`,
-    `<meta property="og:description" content="${escapeHtml(meta.description)}" />`,
+    `<meta name="description" content="${Bun.escapeHTML(meta.description)}" />`,
+    `<meta property="og:title" content="${Bun.escapeHTML(meta.title)}" />`,
+    `<meta property="og:description" content="${Bun.escapeHTML(meta.description)}" />`,
     `<meta property="og:type" content="website" />`,
     ...(meta.imagePath
       ? [
-          `<meta property="og:image" content="${escapeHtml(meta.imagePath)}" />`,
-          `<meta property="og:image:width" content="${CANVAS_SIZE}" />`,
-          `<meta property="og:image:height" content="${CANVAS_SIZE}" />`,
-        ]
+        `<meta property="og:image" content="${Bun.escapeHTML(meta.imagePath)}" />`,
+        `<meta property="og:image:width" content="${CANVAS_SIZE}" />`,
+        `<meta property="og:image:height" content="${CANVAS_SIZE}" />`,
+      ]
       : []),
   ].join('\n    ');
 
   return html
-    .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(meta.title)}</title>`)
+    .replace(/<title>.*?<\/title>/, `<title>${Bun.escapeHTML(meta.title)}</title>`)
     .replace('</head>', `    ${metaTags}\n  </head>`);
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
 }
