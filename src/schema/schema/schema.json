@@ -1761,27 +1761,35 @@
               "additionalProperties": false,
               "properties": {
                 "time": {
+                  "description": "Current time value driving the orbit's motion",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "speed": {
+                  "description": "Angular velocity of the orbit, in revolutions per 600 time units",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "radius": {
+                  "description": "Base radius of the orbit",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "numPoints": {
+                  "description": "Number of points evenly spaced around the orbit's circumference",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "centerPoints": {
+                  "description": "Array of centre points. One orbit is generated per centre; all output points are flattened into the points output.",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "phase": {
+                  "description": "Starting angle offset (0 to 1, where 1 = full 360-degree rotation)",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "eccentricity": {
+                  "description": "Flattens the circular orbit into an ellipse by scaling the y-radius (0 = circle, approaching 1 = flattened line)",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "tilt": {
+                  "description": "Rotates the orbit's ellipse plane about its centre (0 to 1, where 1 = full 360-degree rotation)",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "colorSampler": {
@@ -1830,18 +1838,23 @@
               "additionalProperties": false,
               "properties": {
                 "frequency": {
+                  "description": "Oscillation frequency of the wave",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "amplitude": {
+                  "description": "Peak amplitude of the wave",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "phase": {
+                  "description": "Phase offset of the wave (0 to 1, where 1 = a full cycle)",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "waveShape": {
+                  "description": "Oscillator waveform: sine, square, saw, reverse-saw, or triangle",
                   "$ref": "refable-value-kinds.schema.json#/definitions/waveTypeEnumValueOrRef"
                 },
                 "samplerTemporalImpact": {
+                  "description": "Temporal impact factor for the wave sampler (0-1) - controls intensity of time component in phaseShift calculation",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
@@ -1877,6 +1890,7 @@
               "additionalProperties": false,
               "properties": {
                 "points": {
+                  "description": "Array of coloured points to render as circles and crosshairs",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 }
               }
@@ -1917,30 +1931,39 @@
               "additionalProperties": false,
               "properties": {
                 "curve": {
+                  "description": "Array of coloured points with tangents to be modulated",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "cycleLengthMode": {
+                  "description": "Method for determining cycle length: arrayLength uses array size, linearOne accumulates euclidean distance between points",
                   "$ref": "refable-value-kinds.schema.json#/definitions/cycleLengthModeEnumValueOrRef"
                 },
                 "modulationAngle": {
+                  "description": "Angle of displacement (0 to 1, where 0.25 = 90 degrees perpendicular)",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "fixedOffset": {
+                  "description": "Fixed offset distance applied in the direction of dx,dy",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "frequency": {
+                  "description": "Oscillation frequency of the modulating wave",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "amplitude": {
+                  "description": "Peak amplitude of the modulating wave",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "phase": {
+                  "description": "Phase offset of the modulating wave (0 to 1, where 1 = a full cycle)",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "waveShape": {
+                  "description": "Oscillator waveform: sine, square, saw, reverse-saw, or triangle",
                   "$ref": "refable-value-kinds.schema.json#/definitions/waveTypeEnumValueOrRef"
                 },
                 "samplerTemporalImpact": {
+                  "description": "Temporal impact factor for the wave sampler (0-1) - controls intensity of time component in phaseShift calculation",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 }
               }
@@ -1976,18 +1999,23 @@
               "additionalProperties": false,
               "properties": {
                 "intervalTicks": {
+                  "description": "Tick-count parameter for the interval pattern (reserved; not currently consumed by the render step)",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "pointsFrom": {
+                  "description": "Array of coloured points forming the 'from' side of each link",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "pointsTo": {
+                  "description": "Array of coloured points forming the 'to' side of each link",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "mode": {
+                  "description": "How points in pointsFrom are paired with points in pointsTo: all-to-all connects every point to every other, distribute maps each pointsFrom point to a proportionally-spaced pointsTo point, interleave pairs by index modulo pointsTo's length",
                   "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayModeEnumValueOrRef"
                 },
                 "intervalMode": {
+                  "description": "Which subset of links is drawn each render tick: all draws every link, cycle shows one link at a time advancing and wrapping, back-and-forth ping-pongs a single link, inside-out reveals link pairs expanding from the centre, inside-out-and-forth reverses direction once it reaches the ends",
                   "$ref": "refable-value-kinds.schema.json#/definitions/timedLineArrayIntervalModeEnumValueOrRef"
                 }
               }
@@ -2028,18 +2056,23 @@
               "additionalProperties": false,
               "properties": {
                 "inputPoints": {
+                  "description": "Array of coloured points to shift",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "targetPoints": {
+                  "description": "Array of coloured points that pull nearby input points towards their colour",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "falloff": {
+                  "description": "Exponent controlling how quickly a target point's colour influence decays with distance — higher values drop off faster",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "strength": {
+                  "description": "Overall blend intensity towards target colours, clamped 0 to 1 (0 = no shift, 1 = full computed shift)",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "mode": {
+                  "description": "proximity blends purely by inverse-distance weighting toward nearby target colours; proximity-with-direction additionally scales the blend by how closely the input point's tangent aligns with the target's",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftModeEnumValueOrRef"
                 }
               }
@@ -2080,12 +2113,15 @@
               "additionalProperties": false,
               "properties": {
                 "inputPoints": {
+                  "description": "Array of coloured points to reflect",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "reflectionPoints": {
+                  "description": "Array of points defining the reflection axes — each point's dx,dy gives the mirror line direction through it",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "colorShiftOperation": {
+                  "description": "Colour operation applied to reflected points: none, blend, hue-shift, lighten, or saturate",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
                 }
               }
@@ -2126,15 +2162,19 @@
               "additionalProperties": false,
               "properties": {
                 "inputPoints": {
+                  "description": "Array of coloured points to rotate",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "rotationCenters": {
+                  "description": "Array of points about which the input points are rotated",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "rotationAmount": {
+                  "description": "Rotation amount (0 to 1, where 1 = a full 360-degree rotation)",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "colorShiftOperation": {
+                  "description": "Colour operation applied to rotated points: none, blend, hue-shift, lighten, or saturate",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorShiftOperationEnumValueOrRef"
                 }
               }
@@ -2175,12 +2215,15 @@
               "additionalProperties": false,
               "properties": {
                 "colorPoints": {
+                  "description": "Array of coloured control points defining the line or curve",
                   "$ref": "refable-value-kinds.schema.json#/definitions/colorPointArrayValueOrRef"
                 },
                 "numPoints": {
+                  "description": "Number of points evenly redistributed by arc length along the resulting line/curve",
                   "$ref": "refable-value-kinds.schema.json#/definitions/numberValueOrRef"
                 },
                 "curveMode": {
+                  "description": "Interpolation method between colour points: straight connects points with linear segments, catmull-rom fits a smooth spline through them",
                   "$ref": "refable-value-kinds.schema.json#/definitions/curveModeEnumValueOrRef"
                 }
               }
