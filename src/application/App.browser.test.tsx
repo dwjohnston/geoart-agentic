@@ -28,6 +28,10 @@ test('renders without crashing', async () => {
 });
 
 test('renders the page title', async () => {
+  // Explicit desktop viewport: the page title heading is part of the
+  // desktop layout only (mobile is a render-only view, see useIsMobile).
+  await page.viewport(1280, 800);
+
   await render(
     <AlgorithmStorageProvider service={stubStorageService}>
       <App />
