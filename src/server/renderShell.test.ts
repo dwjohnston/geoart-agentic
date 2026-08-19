@@ -19,9 +19,18 @@ describe('renderShell', () => {
     expect(html).not.toContain('og:image');
   });
 
-  test('adds og:image pointing at render/<raw value> when ?a= is present', async () => {
+  test('adds og:image as an absolute URL when ?a= is present', async () => {
     const response = await renderShell(new Request('https://example.com/?a=YWJj'), fakeEnv());
     const html = await response.text();
-    expect(html).toContain('<meta property="og:image" content="render/YWJj" />');
+    expect(html).toContain(
+      '<meta property="og:image" content="https://example.com/render/YWJj" />',
+    );
+  });
+
+  test('adds og:image:width/height matching the render canvas size', async () => {
+    const response = await renderShell(new Request('https://example.com/?a=YWJj'), fakeEnv());
+    const html = await response.text();
+    expect(html).toContain('<meta property="og:image:width" content="800" />');
+    expect(html).toContain('<meta property="og:image:height" content="800" />');
   });
 });

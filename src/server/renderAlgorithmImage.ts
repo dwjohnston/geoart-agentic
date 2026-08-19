@@ -9,7 +9,7 @@ const RENDER_PATH_PREFIX = '/render/';
 const DEFAULT_STATIC_IMAGE_NUM_TICKS = 10;
 
 // Matches App.tsx's CANVAS_SIZE — the two must stay in sync until there's a shared constant.
-const CANVAS_SIZE = 800;
+export const CANVAS_SIZE = 800;
 
 /**
  * Decodes a base64-encoded algorithm JSON string. Throws on any malformed input
@@ -53,15 +53,16 @@ async function loadWasmInput(): Promise<InitInput> {
   return wasmAsset;
 }
 
-function buildSvg(paintElements: string[], liveElements: string[]): string {
-  const body = [...paintElements, ...liveElements].join('\n');
+function buildSvg(paintElements: string[]): string {
+  const background = `<rect x="0" y="0" width="${CANVAS_SIZE}" height="${CANVAS_SIZE}" fill="#000000" />`;
+  const body = [background, ...paintElements].join('\n');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${CANVAS_SIZE}" height="${CANVAS_SIZE}" viewBox="0 0 ${CANVAS_SIZE} ${CANVAS_SIZE}">${body}</svg>`;
 }
 
 /**
- * Runs the graph headlessly for `numTicks` ticks and rasterises the composited
- * paint+live layers (paint accumulates underneath, live draws on top —
- * matching how the two layers are stacked visually in the browser) to a PNG.
+ * Runs the graph headlessly for `numTicks` ticks and rasterises the paint
+ * layer (the live layer is transient per-frame overlay, not meaningful in a
+ * static preview image) over a black background to a PNG.
  */
 export async function renderGraphToPng(graph: GeoArtGraph, numTicks: number): Promise<Uint8Array> {
   const liveCanvas = createHeadlessSvgCanvas();
@@ -77,7 +78,7 @@ export async function renderGraphToPng(graph: GeoArtGraph, numTicks: number): Pr
     engine.tick();
   }
 
-  const svg = buildSvg(paintCanvas.getSvgElements(), liveCanvas.getSvgElements());
+  const svg = buildSvg(paintCanvas.getSvgElements());
 
   await ensureWasmInitialized();
   const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: CANVAS_SIZE } });

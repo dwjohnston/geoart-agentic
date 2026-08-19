@@ -1,3 +1,5 @@
+import { CANVAS_SIZE } from './renderAlgorithmImage';
+
 export interface Env {
   ASSETS: Fetcher;
 }
@@ -23,11 +25,12 @@ export async function renderShell(request: Request, env: Env): Promise<Response>
   }
 
   const html = await assetResponse.text();
-  const algorithmParam = new URL(request.url).searchParams.get('a');
+  const requestUrl = new URL(request.url);
+  const algorithmParam = requestUrl.searchParams.get('a');
   const decorated = decorateHead(html, {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
-    imagePath: algorithmParam ? `render/${algorithmParam}` : undefined,
+    imagePath: algorithmParam ? new URL(`/render/${algorithmParam}`, requestUrl).toString() : undefined,
   });
 
   return new Response(decorated, {
@@ -44,7 +47,13 @@ function decorateHead(
     `<meta property="og:title" content="${escapeHtml(meta.title)}" />`,
     `<meta property="og:description" content="${escapeHtml(meta.description)}" />`,
     `<meta property="og:type" content="website" />`,
-    ...(meta.imagePath ? [`<meta property="og:image" content="${escapeHtml(meta.imagePath)}" />`] : []),
+    ...(meta.imagePath
+      ? [
+          `<meta property="og:image" content="${escapeHtml(meta.imagePath)}" />`,
+          `<meta property="og:image:width" content="${CANVAS_SIZE}" />`,
+          `<meta property="og:image:height" content="${CANVAS_SIZE}" />`,
+        ]
+      : []),
   ].join('\n    ');
 
   return html
