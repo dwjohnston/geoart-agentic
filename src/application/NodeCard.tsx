@@ -3,7 +3,7 @@ import type { InputDescriptor, NodeRepresentationProps, PortSchemaMeta, RenderRe
 type NodeCardProps = {
   nodeId: string;
   nodeKind: string;
-  layerKind: 'control' | 'compute' | 'render';
+  layerKind: 'control' | 'compute' | 'module' | 'render';
   inputs: Record<string, InputDescriptor>;
   inputPorts: PortSchemaMeta[];
   outputPorts: PortSchemaMeta[];
@@ -21,12 +21,14 @@ type NodeCardProps = {
 const LAYER_COLOURS: Record<string, string> = {
   control: '#2a3a1a',
   compute: '#1a2a3a',
+  module: '#2a1a3a',
   render: '#3a1a2a',
 };
 
 const LAYER_TITLE_COLOURS: Record<string, string> = {
   control: '#8bc34a',
   compute: '#4fc3f7',
+  module: '#ce93d8',
   render: '#f48fb1',
 };
 
