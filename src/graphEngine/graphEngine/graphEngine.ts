@@ -149,6 +149,13 @@ export function createGraphEngine(
 
           // Handle module input marker nodes specially
           if (compiledNode.def.type === 'module-input-marker' && compiledNode.moduleInputMarkerRenderControl) {
+            // A module input marker's nodeId is always `{moduleId}:input-marker` —
+            // module ids may not contain colons, so the first segment is the module id.
+            const moduleId = nodeId.split(':')[0];
+            const moduleRenderNodes = renderingNodes
+              .filter(n => n.nodeId.startsWith(`${moduleId}:`))
+              .map(n => ({ nodeId: n.nodeId, renderConfig: n.renderConfig, enabled: enabledRenderNodes.has(n.nodeId) }));
+
             const element = compiledNode.moduleInputMarkerRenderControl(
               flattenParams(compiledNode.params), (paramKey, value) => {
                 const portDef = ((compiledNode.def) as LegacyComputeNodeImplementation).outputs?.find((p) => p.name === paramKey);
@@ -158,7 +165,8 @@ export function createGraphEngine(
                 }
                 const valueObj = rawValueToValue(portDef.type, value);
                 return mutateControl(nodeId, paramKey, valueObj)
-              });
+              },
+              { nodes: moduleRenderNodes, onToggle: toggleRenderNode });
             return React.createElement(React.Fragment, { key: nodeId }, element);
           }
 
