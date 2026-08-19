@@ -2,7 +2,7 @@ export interface Env {
   ASSETS: Fetcher;
 }
 
-const DEFAULT_TITLE = 'Geometric Art Engine';
+const DEFAULT_TITLE = 'Geoart 3000';
 const DEFAULT_DESCRIPTION =
   'A generative art engine — graphs of connected nodes evaluated each frame to produce animations.';
 
