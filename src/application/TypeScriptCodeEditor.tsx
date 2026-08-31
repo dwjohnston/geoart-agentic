@@ -29,6 +29,9 @@ export function TypeScriptCodeEditor({ value, onChange, height = 400 }: Props) {
   useEffect(() => {
     ensureMonacoConfigured();
 
+
+
+
     if (!containerRef.current) return;
 
     // The model is a long-lived singleton (see getOrCreateUserModel) so it
@@ -49,7 +52,20 @@ export function TypeScriptCodeEditor({ value, onChange, height = 400 }: Props) {
       fontSize: 13,
       scrollBeyondLastLine: false,
     });
+
+    setTimeout(() => {
+      editor.layout();
+    }, 1000)
     editorRef.current = editor;
+
+    // Mounting behind `lazy()`/`<Suspense>` means this container appears in
+    // the DOM the same tick the editor is created, before the browser has
+    // settled the surrounding flex layout. Monaco can measure a stale width
+    // at creation time, leaving the text layer out of sync with the gutter/
+    // cursor until something triggers a resize. `automaticLayout` only
+    // re-measures on a *subsequent* size change, so force one layout pass
+    // once the browser has actually painted the final size.
+    requestAnimationFrame(() => editor.layout());
 
     const subscription = model.onDidChangeContent(() => {
       const next = model.getValue();
@@ -81,5 +97,26 @@ export function TypeScriptCodeEditor({ value, onChange, height = 400 }: Props) {
     model.setValue(value);
   }, [value]);
 
-  return <div ref={containerRef} style={{ height, border: '1px solid #333', borderRadius: 4, overflow: 'hidden' }} />;
+  return (
+    <div>
+      {/* Debug aid: forces a layout re-measure without waiting for a resize event. */}
+      <button type="button" onClick={() => editorRef.current?.layout()}>
+        Relayout editor
+      </button>
+      {/*
+       * `#root` sets `text-align: center` for the app shell. Monaco never
+       * resets text-align on its own DOM, so it inherits into every
+       * `.view-line` — those are deliberately `width: 100%` (needed for
+       * trailing-whitespace selection/decorations past EOL), so centered
+       * text drifts right of the cursor, which is positioned by independent
+       * pixel math and unaffected by text-align. Cut the cascade here
+       * instead of fighting `.view-line`'s width.
+       * https://github.com/Microsoft/monaco-editor/issues/1038
+       */}
+      <div
+        ref={containerRef}
+        style={{ height, border: '1px solid #333', borderRadius: 4, overflow: 'hidden', textAlign: 'initial' }}
+      />
+    </div>
+  );
 }
