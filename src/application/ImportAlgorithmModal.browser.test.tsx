@@ -74,7 +74,11 @@ test('Unhappy path: invalid JSON displays error message', async () => {
   const importButton = page.getByRole("button", { name: "Import" });
   await importButton.click();
 
-  const error = page.getByRole("alert");
+  // Monaco (mounted by other tests in this file, once the TypeScript tab is
+  // opened) leaves empty aria-alert live-region elements in the document
+  // that persist across tests, so the query must be filtered by text rather
+  // than matching any role="alert" element.
+  const error = page.getByRole("alert").filter({ hasText: /JSON parse error/i });
   expect(error).toBeInTheDocument();
   expect(error).toHaveTextContent(/JSON parse error/i);
   expect(mockSaveAlgorithm).not.toHaveBeenCalled();
@@ -112,11 +116,56 @@ test('Unhappy path: valid JSON that does not match schema displays error message
   const importButton = page.getByRole("button", { name: "Import" });
   await importButton.click();
 
-  const alert = page.getByRole("alert");
+  const alert = page.getByRole("alert").filter({ hasText: /does not match schema/i });
   expect(alert).toBeInTheDocument();
   expect(alert).toHaveTextContent(/does not match schema/i);
   expect(mockOnImported).not.toHaveBeenCalled();
   expect(mockOnClose).not.toHaveBeenCalled();
+});
+
+test('TypeScript tab: imports the default starter script and saves to storage', async () => {
+  const mockSaveAlgorithm = vi.fn().mockResolvedValue({
+    id: 'test-id-123',
+    name: 'Minimal Three Node',
+    graph: minimalGraph,
+  } as StoredAlgorithmEntry);
+  const mockOnImported = vi.fn();
+  const mockOnClose = vi.fn();
+
+  const storage: IAlgorithmStorageService = {
+    saveAlgorithm: mockSaveAlgorithm,
+    listSavedAlgorithms: async () => [],
+    getSavedAlgorithm: async () => minimalGraph,
+  };
+
+  await render(
+    <AlgorithmStorageProvider service={storage}>
+      <ImportAlgorithmModal onClose={mockOnClose} onImported={mockOnImported} />
+    </AlgorithmStorageProvider>,
+  );
+
+  const tsTabButton = page.getByRole('button', { name: 'TypeScript' });
+  await tsTabButton.click();
+
+  const importButton = page.getByRole('button', { name: 'Import' });
+  await importButton.click();
+
+  // The TypeScript compiler is dynamically imported on submit (see
+  // ImportAlgorithmModal's lazy `import('./compileTypeScriptToGraph')`), so
+  // this can take noticeably longer than the default waitFor timeout,
+  // especially on a cold Vite dev-transform/optimizeDeps cache.
+  await vi.waitFor(
+    () => {
+      expect(mockSaveAlgorithm).toHaveBeenCalled();
+    },
+    { timeout: 10000 }
+  );
+
+  const savedGraph = mockSaveAlgorithm.mock.calls[0][0] as GeoArtGraph;
+  expect(savedGraph.control.nodes).toHaveLength(1);
+  expect(savedGraph.control.nodes[0].id).toBe('speed');
+  expect(mockOnImported).toHaveBeenCalled();
+  expect(mockOnClose).toHaveBeenCalled();
 });
 
 test('Unhappy path: valid JSON that passes schema but fails compilation', async () => {
@@ -163,7 +212,7 @@ test('Unhappy path: valid JSON that passes schema but fails compilation', async 
   const importButton = page.getByRole("button", { name: "Import" });
   await importButton.click();
 
-  const alert = page.getByRole("alert");
+  const alert = page.getByRole("alert").filter({ hasText: /unknown source node/i });
   expect(alert).toBeInTheDocument();
   expect(alert).toHaveTextContent(/unknown source node/i);
   expect(mockOnImported).not.toHaveBeenCalled();
