@@ -53,9 +53,6 @@ export function TypeScriptCodeEditor({ value, onChange, height = 400 }: Props) {
       scrollBeyondLastLine: false,
     });
 
-    setTimeout(() => {
-      editor.layout();
-    }, 1000)
     editorRef.current = editor;
 
     // Mounting behind `lazy()`/`<Suspense>` means this container appears in
@@ -99,10 +96,7 @@ export function TypeScriptCodeEditor({ value, onChange, height = 400 }: Props) {
 
   return (
     <div>
-      {/* Debug aid: forces a layout re-measure without waiting for a resize event. */}
-      <button type="button" onClick={() => editorRef.current?.layout()}>
-        Relayout editor
-      </button>
+
       {/*
        * `#root` sets `text-align: center` for the app shell. Monaco never
        * resets text-align on its own DOM, so it inherits into every
