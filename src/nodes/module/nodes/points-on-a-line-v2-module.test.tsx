@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect, mock } from 'bun:test';
+import { renderToStaticMarkup } from 'react-dom/server';
 import pointsOnALineV2Module from './points-on-a-line-v2-module';
 
 describe('points-on-a-line-v2-module', () => {
@@ -90,5 +91,20 @@ describe('points-on-a-line-v2-module', () => {
   it('accepts a provided curveMode param', () => {
     const result = pointsOnALineV2Module({ curveMode: { v: 'catmull-rom' } }, 'poalCurveModeTest');
     expect(result.inputMarkerNode.params.curveMode).toEqual({ v: 'catmull-rom' });
+  });
+
+  it('shows its own render-node toggles when renderToggles has nodes', () => {
+    const moduleId = 'poalTogglesTest';
+    const result = pointsOnALineV2Module({}, moduleId);
+
+    const markup = renderToStaticMarkup(
+      result.inputMarkerNode.renderControl({}, mock(), {
+        nodes: [{ nodeId: `${moduleId}:circles`, renderConfig: { layer: 'live' }, enabled: true }],
+        onToggle: mock(),
+      }) as React.ReactElement
+    );
+
+    expect(markup).toContain('type="checkbox"');
+    expect(markup).toContain('circles');
   });
 });

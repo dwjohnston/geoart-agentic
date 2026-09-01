@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect, mock } from 'bun:test';
+import { renderToStaticMarkup } from 'react-dom/server';
 import linkerModule from './linker-module';
 
 describe('linker-module', () => {
@@ -46,5 +47,20 @@ describe('linker-module', () => {
     expect(result.inputMarkerNode.params.intervalTicks).toEqual({ v: 6 });
     expect(result.inputMarkerNode.params.mode).toEqual({ v: 'all-to-all' });
     expect(result.inputMarkerNode.params.intervalMode).toEqual({ v: 'all' });
+  });
+
+  it('shows its own render-node toggles when renderToggles has nodes', () => {
+    const moduleId = 'linkerTogglesTest';
+    const result = linkerModule({}, moduleId);
+
+    const markup = renderToStaticMarkup(
+      result.inputMarkerNode.renderControl({}, mock(), {
+        nodes: [{ nodeId: `${moduleId}:timed-line-array`, renderConfig: { layer: 'paint' }, enabled: true }],
+        onToggle: mock(),
+      }) as React.ReactElement
+    );
+
+    expect(markup).toContain('type="checkbox"');
+    expect(markup).toContain('timed-line-array');
   });
 });

@@ -4,6 +4,7 @@ import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfa
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { KnobControl } from '../../../ui/KnobControl';
 import { ModulePanel } from '../../../ui/ModulePanel';
+import { ModuleRenderToggles } from '../../../ui/ModuleRenderToggles';
 import { DropdownControl } from '../../control/ui/DropdownControl';
 
 const COLOR_SHIFT_MODES = ['proximity', 'proximity-with-direction'] as const;
@@ -60,7 +61,7 @@ const colorShiftModuleImplementation = implementModule({
         id: inputMarkerId,
         type: 'module-input-marker',
         params: createInputMarkerParams(params, defaultValues),
-        renderControl: (markerParams, set) => (
+        renderControl: (markerParams, set, renderToggles) => (
           <ModulePanel moduleName="Colour Shift" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
             {renderIfNeeded(markerParams, 'mode', set, (initialValue, onChange) => (
               <DropdownControl id={`${inputMarkerId}-mode`} label="Mode" options={COLOR_SHIFT_MODES} initialValue={initialValue} onChange={onChange} />
@@ -71,6 +72,7 @@ const colorShiftModuleImplementation = implementModule({
             {renderIfNeeded(markerParams, 'strength', set, (initialValue, onChange) => (
               <KnobControl label="Strength" min={0} max={1} initialValue={initialValue} onChange={onChange} />
             ))}
+            {renderToggles.nodes.length > 0 && <ModuleRenderToggles {...renderToggles} />}
           </ModulePanel>
         ),
       },
