@@ -18,7 +18,7 @@ const env = cleanEnv(process.env, {
   GITHUB_REPOSITORY: str(),
   GH_TOKEN: str(),
   PR_NUMBER: str(),
-  GITHUB_SHA: str(),
+  PR_HEAD_SHA: str(),
 });
 
 const PREVIEW_BOT_LOGIN = "cloudflare-workers-and-pages[bot]";
@@ -43,7 +43,7 @@ const PREVIEW_ROW = /^\|\s*([^|]*?)\s*\|[^|]*\|\s*([0-9a-f]{8})\s*\|\s*<a href='
  * SHA (the bot edits one comment per PR in place) and returns its preview URL.
  */
 async function waitForPreviewUrl(): Promise<string> {
-  const shortSha = env.GITHUB_SHA.slice(0, 8);
+  const shortSha = env.PR_HEAD_SHA.slice(0, 8);
   const deadline = Date.now() + DEPLOY_TIMEOUT_MS;
   while (Date.now() < deadline) {
     const comments = await ghApi<Comment[]>(
