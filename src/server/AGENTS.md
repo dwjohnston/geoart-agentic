@@ -1,6 +1,12 @@
+# Server
+
+This code runs in Cloudflare Workers, not Bun. Do not use Bun-specific APIs
+(e.g. `Bun.escapeHTML`, `Bun.file`, `Bun.serve`) — only standard web APIs and
+the Workers runtime are available.
+
 # HTML Escaping: Context Rules
 
-`escapeHtml()` / `Bun.escapeHTML()` only escape `& < > " '`. This is sufficient
+`escapeHtml()` only escapes `& < > " '`. This is sufficient
 for **some** HTML contexts and completely insufficient for others. Do not use
 a plain HTML-character escaper as a general-purpose "make this safe" function.
 
@@ -86,5 +92,4 @@ it's in?"* It does not answer: *"is this value safe given what the slot
 means?"* Text nodes and quoted attributes are purely syntactic slots —
 escaping suffices. URLs, scripts, and CSS carry a second layer of
 interpretation on top of HTML syntax — escaping alone is not sufficient
-for these, regardless of which escaper (hand-rolled or `Bun.escapeHTML`)
-is used.
+for these, regardless of which escaper is used.

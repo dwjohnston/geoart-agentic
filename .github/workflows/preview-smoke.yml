@@ -1,21 +1,20 @@
-name: Benchmark
+name: Preview Smoke Test
+
+# Waits for Cloudflare's git-integration deploy of the PR commit, then hits
+# the preview URL. Catches Workers that deploy fine but 500 at runtime.
 
 on:
   pull_request:
     branches: [main]
-    types: [opened, synchronize, reopened, labeled, unlabeled]
 
 jobs:
-  check:
+  smoke:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: write
+      pull-requests: read
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -27,10 +26,10 @@ jobs:
       - name: Generate
         run: bun generate
 
-      - name: Run benchmark regression check
+      - name: Smoke-test Cloudflare preview
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: bun run bench:ci
+        run: bun .github/workflows/scripts/preview-smoke.ts
