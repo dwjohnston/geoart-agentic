@@ -1,5 +1,5 @@
 import { renderShell, type Env } from './renderShell';
-import { renderAlgorithmResponse } from './renderAlgorithmImage';
+import { renderAlgorithmResponse } from './renderAlgorithmMedia';
 
 export default {
   async fetch(request, env): Promise<Response> {

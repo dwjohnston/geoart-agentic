@@ -1,4 +1,4 @@
-import { CANVAS_SIZE } from './renderAlgorithmImage';
+import { CANVAS_SIZE } from './renderAlgorithmMedia';
 
 export interface Env {
   ASSETS: Fetcher;
