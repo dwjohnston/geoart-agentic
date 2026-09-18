@@ -14,6 +14,7 @@ import { SpeedControl } from './SpeedControl';
 import { RenderToggles } from './RenderToggles';
 import { ImportAlgorithmModal } from './ImportAlgorithmModal';
 import { ExportJsonModal } from './ExportJsonModal';
+import { ExportMediaModal } from './export/ExportMediaModal';
 import { Toast } from './Toast';
 import { useAlgorithmStorage } from './algorithmStorage/AlgorithmStorageContext';
 import { NeverShouldHappenError } from '../common-tooling/errors/NeverShouldHappenError';
@@ -50,6 +51,7 @@ export function App() {
   const [algorithms, setAlgorithms] = useState<AlgorithmEntry[]>(toBundledEntries);
   const [showImportModal, setShowImportModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
+  const [showExportMediaModal, setShowExportMediaModal] = useState(false);
   const [exportGraph, setExportGraph] = useState<GeoArtGraph | null>(null);
   const [showLinkCopiedToast, setShowLinkCopiedToast] = useState(false);
   const [payload, setPayload] = useState<GraphLoadPayload>({ renderControlNodes: () => null, renderingNodes: [] });
@@ -160,6 +162,15 @@ export function App() {
     setShowExportModal(true);
   }
 
+  function handleExportMedia() {
+    const engine = engineRef.current;
+    if (!engine) return;
+    const snapshot = engine.snapshotGraph();
+    if (!snapshot) return;
+    setExportGraph(snapshot);
+    setShowExportMediaModal(true);
+  }
+
   const graphKey = selectedGraphId ?? 'url-graph';
   const header = <h1 style={{ margin: '24px 0 0', textAlign: 'center' }}>Geoart 3000</h1>;
 
@@ -223,6 +234,21 @@ export function App() {
             >
               Export JSON
             </button>
+            <button
+              onClick={handleExportMedia}
+              style={{
+                flex: 1,
+                background: '#1a1a26',
+                color: '#eee',
+                border: '1px solid #333',
+                borderRadius: 4,
+                padding: '6px 12px',
+                cursor: 'pointer',
+                fontSize: 13,
+              }}
+            >
+              Export media
+            </button>
           </div>
           <SpeedControl speed={speed} onChange={handleSpeedChange} />
           <Controls key={graphKey} renderControlNodes={payload.renderControlNodes} />
@@ -237,6 +263,13 @@ export function App() {
           <ExportJsonModal
             graph={exportGraph}
             onClose={() => { setShowExportModal(false); setExportGraph(null); }}
+          />
+        )}
+        {showExportMediaModal && exportGraph && (
+          <ExportMediaModal
+            graph={exportGraph}
+            renderSize={CANVAS_SIZE}
+            onClose={() => { setShowExportMediaModal(false); setExportGraph(null); }}
           />
         )}
         {showLinkCopiedToast && (
