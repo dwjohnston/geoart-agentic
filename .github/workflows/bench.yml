@@ -32,5 +32,5 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GH_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: bun run bench:ci

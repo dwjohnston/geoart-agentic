@@ -24,7 +24,7 @@ const env = cleanEnv(process.env, {
   GITHUB_REPOSITORY: str({ default: "" }),
   GH_TOKEN: str({ default: "" }),
   PR_NUMBER: str({ default: "" }),
-  GITHUB_SHA: str({ default: "" }),
+  PR_HEAD_SHA: str({ default: "" }),
 });
 
 const REGRESSION_THRESHOLD = 0.15;
@@ -102,8 +102,12 @@ function statusEmoji(status: Status): string {
   }
 }
 
+// Hidden marker so later runs can find and update the existing comment
+// instead of posting a new one per push.
+const REPORT_MARKER = "<!-- bench-report -->";
+
 function buildReport(rows: ComparisonRow[], anyRegressed: boolean, overridden: boolean): string {
-  const lines = ["### Benchmark report", ""];
+  const lines = [REPORT_MARKER, "### Benchmark report", ""];
   lines.push("| Benchmark | Status | p75 (ms) | Baseline p75 (ms) | Δ |");
   lines.push("|---|---|---|---|---|");
   for (const row of rows) {
@@ -134,14 +138,32 @@ function postComment(body: string): void {
     return;
   }
 
+  const ghEnv = { ...process.env, GH_TOKEN: env.GH_TOKEN };
   try {
-    execSync(
-      `gh pr comment "${env.PR_NUMBER}" --repo "${env.GITHUB_REPOSITORY}" --body-file "${REPORT_PATH}"`,
-      { env: { ...process.env, GH_TOKEN: env.GH_TOKEN }, stdio: "inherit" },
-    );
+    const existingId = findExistingReportCommentId(ghEnv);
+    if (existingId !== undefined) {
+      execSync(
+        `gh api --method PATCH "repos/${env.GITHUB_REPOSITORY}/issues/comments/${existingId}" --raw-field body=@"${REPORT_PATH}"`,
+        { env: ghEnv, stdio: "inherit" },
+      );
+    } else {
+      execSync(
+        `gh pr comment "${env.PR_NUMBER}" --repo "${env.GITHUB_REPOSITORY}" --body-file "${REPORT_PATH}"`,
+        { env: ghEnv, stdio: "inherit" },
+      );
+    }
   } catch (err) {
     console.error("Failed to post GitHub comment:", err);
   }
+}
+
+function findExistingReportCommentId(ghEnv: NodeJS.ProcessEnv): number | undefined {
+  const out = execSync(
+    `gh api "repos/${env.GITHUB_REPOSITORY}/issues/${env.PR_NUMBER}/comments?per_page=100"`,
+    { env: ghEnv, encoding: "utf-8" },
+  );
+  const comments = JSON.parse(out) as { id: number; body: string }[];
+  return comments.find((c) => c.body.includes(REPORT_MARKER))?.id;
 }
 
 function commitUpdatedBaseline(baseline: Baseline): void {
@@ -200,7 +222,7 @@ async function main() {
     if (status === "NEW") anyNew = true;
 
     if (status === "NEW" || status === "IMPROVED") {
-      updatedBaseline[name] = { p75: p75Ms, avg: avgMs, recordedAt, sha: env.GITHUB_SHA };
+      updatedBaseline[name] = { p75: p75Ms, avg: avgMs, recordedAt, sha: env.PR_HEAD_SHA };
     }
   }
 
@@ -208,7 +230,7 @@ async function main() {
   if (overridden) {
     for (const row of rows) {
       if (row.status === "REGRESSED") {
-        updatedBaseline[row.name] = { p75: row.currentP75, avg: row.currentAvg, recordedAt, sha: env.GITHUB_SHA };
+        updatedBaseline[row.name] = { p75: row.currentP75, avg: row.currentAvg, recordedAt, sha: env.PR_HEAD_SHA };
       }
     }
   }
