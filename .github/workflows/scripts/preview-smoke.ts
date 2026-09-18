@@ -21,44 +21,28 @@ const env = cleanEnv(process.env, {
   GITHUB_SHA: str(),
 });
 
-const CHECK_RUN_NAME = "Workers Builds: geoart-agentic";
 const PREVIEW_BOT_LOGIN = "cloudflare-workers-and-pages[bot]";
-const DEPLOY_TIMEOUT_MS = 15 * 60 * 1000;
-const POLL_INTERVAL_MS = 20 * 1000;
+const DEPLOY_TIMEOUT_MS = 5 * 60 * 1000;
+const POLL_INTERVAL_MS = 5 * 1000;
 const REQUEST_ATTEMPTS = 5;
 
 async function ghApi<T>(path: string): Promise<T> {
   return $`gh api ${path}`.env({ ...process.env, GH_TOKEN: env.GH_TOKEN }).json() as Promise<T>;
 }
 
-type CheckRun = { name: string; status: string; conclusion: string | null; details_url: string };
 type Comment = { user: { login: string }; body: string };
 
-async function waitForCloudflareDeploy(): Promise<void> {
-  const deadline = Date.now() + DEPLOY_TIMEOUT_MS;
-  while (Date.now() < deadline) {
-    const { check_runs } = await ghApi<{ check_runs: CheckRun[] }>(
-      `repos/${env.GITHUB_REPOSITORY}/commits/${env.GITHUB_SHA}/check-runs?per_page=100`,
-    );
-    const run = check_runs.find((r) => r.name === CHECK_RUN_NAME);
-    if (run?.status === "completed") {
-      if (run.conclusion !== "success") {
-        throw new Error(`${CHECK_RUN_NAME} finished with "${run.conclusion}": ${run.details_url}`);
-      }
-      console.log(`${CHECK_RUN_NAME} succeeded`);
-      return;
-    }
-    console.log(`Waiting for ${CHECK_RUN_NAME} (${run?.status ?? "not yet reported"})…`);
-    await Bun.sleep(POLL_INTERVAL_MS);
-  }
-  throw new Error(`Timed out waiting for ${CHECK_RUN_NAME}`);
-}
+// One row of the bot comment's table:
+// | <status> | <worker name> | <short sha> | <a href='…'>Commit Preview URL</a>… | <updated> |
+// The check run Cloudflare also creates is invisible to GITHUB_TOKEN (Actions
+// only sees its own check runs), so the comment is the only signal available.
+const PREVIEW_ROW = /^\|\s*([^|]*?)\s*\|[^|]*\|\s*([0-9a-f]{8})\s*\|\s*<a href='([^']+)'>Commit Preview URL<\/a>/m;
 
 /**
- * The bot edits one comment per PR; its "Latest Commit" column must match
- * this SHA before the Commit Preview URL can be trusted.
+ * Waits for the Cloudflare bot comment to report a finished deploy of this
+ * SHA (the bot edits one comment per PR in place) and returns its preview URL.
  */
-async function findPreviewUrl(): Promise<string> {
+async function waitForPreviewUrl(): Promise<string> {
   const shortSha = env.GITHUB_SHA.slice(0, 8);
   const deadline = Date.now() + DEPLOY_TIMEOUT_MS;
   while (Date.now() < deadline) {
@@ -66,14 +50,23 @@ async function findPreviewUrl(): Promise<string> {
       `repos/${env.GITHUB_REPOSITORY}/issues/${env.PR_NUMBER}/comments?per_page=100`,
     );
     const body = comments.find((c) => c.user.login === PREVIEW_BOT_LOGIN)?.body;
-    const match = body?.match(/\|\s*([0-9a-f]{8})\s*\|\s*<a href='([^']+)'>Commit Preview URL<\/a>/);
-    if (match && match[1] === shortSha) {
-      return match[2];
+    const match = body?.match(PREVIEW_ROW);
+    if (match && match[2] === shortSha) {
+      const [, status, , url] = match;
+      if (status.includes("✅")) {
+        console.log(`Cloudflare deploy of ${shortSha} succeeded`);
+        return url;
+      }
+      if (status.includes("❌")) {
+        throw new Error(`Cloudflare deploy of ${shortSha} failed: ${status}`);
+      }
+      console.log(`Cloudflare deploy of ${shortSha} in progress: ${status}`);
+    } else {
+      console.log(`Waiting for Cloudflare preview comment for ${shortSha}…`);
     }
-    console.log(`Preview comment not yet updated for ${shortSha}…`);
     await Bun.sleep(POLL_INTERVAL_MS);
   }
-  throw new Error(`No Commit Preview URL found for ${shortSha} in PR #${env.PR_NUMBER}`);
+  throw new Error(`Timed out waiting for Cloudflare preview of ${shortSha} on PR #${env.PR_NUMBER}`);
 }
 
 type Expectation = { status: number; contentType?: string; bodyIncludes?: string };
@@ -99,8 +92,7 @@ async function expectRoute(base: string, path: string, expected: Expectation): P
   throw new Error(`FAIL ${path}: expected ${expected.status} ${expected.contentType ?? ""}, ${lastError}`);
 }
 
-await waitForCloudflareDeploy();
-const base = await findPreviewUrl();
+const base = await waitForPreviewUrl();
 console.log(`Smoke-testing ${base}`);
 
 await expectRoute(base, "/", { status: 200, contentType: "text/html", bodyIncludes: "<html" });
