@@ -4,6 +4,7 @@ import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfa
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { KnobControl } from '../../../ui/KnobControl';
 import { ModulePanel } from '../../../ui/ModulePanel';
+import { ModuleRenderToggles } from '../../../ui/ModuleRenderToggles';
 import { DropdownControl } from '../../control/ui/DropdownControl';
 
 const CYCLE_LENGTH_MODES = ['arrayLength', 'linearOne', 'linearTotal'] as const;
@@ -99,7 +100,7 @@ const curveModulatorModuleImplementation = implementModule({
         id: inputMarkerId,
         type: 'module-input-marker',
         params: createInputMarkerParams(params, defaultValues),
-        renderControl: (markerParams, set) => (
+        renderControl: (markerParams, set, renderToggles) => (
           <ModulePanel moduleName="Curve Modulator" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
             {renderIfNeeded(markerParams, 'cycleLengthMode', set, (v, onChange) => (
               <DropdownControl id={`${inputMarkerId}-cycle-length-mode`} label="Cycle length mode" options={CYCLE_LENGTH_MODES} initialValue={v} onChange={onChange} />
@@ -110,6 +111,7 @@ const curveModulatorModuleImplementation = implementModule({
             {renderIfNeeded(markerParams, 'fixedOffset', set, (v, onChange) => (
               <KnobControl label="Fixed offset" min={0} max={1} initialValue={v} onChange={onChange} />
             ))}
+            {renderToggles.nodes.length > 0 && <ModuleRenderToggles {...renderToggles} />}
           </ModulePanel>
         ),
       },

@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect, mock } from 'bun:test';
+import { renderToStaticMarkup } from 'react-dom/server';
 import pointRenderModule from './point-render-module';
 
 describe('point-render-module', () => {
@@ -42,7 +43,24 @@ describe('point-render-module', () => {
     expect(Object.keys(result.outputMarkerNode.outputRefs)).toHaveLength(0);
   });
 
+  it('renders nothing when there are no render toggles to show', () => {
+    const result = pointRenderModule({}, 'togglelessPointRender');
+    const element = result.inputMarkerNode.renderControl({}, mock(), { nodes: [], onToggle: mock() });
+    expect(element).toBeNull();
+  });
 
+  it('shows a control panel of render-node toggles when renderToggles has nodes', () => {
+    const moduleId = 'pointRenderTogglesTest';
+    const result = pointRenderModule({}, moduleId);
 
+    const markup = renderToStaticMarkup(
+      result.inputMarkerNode.renderControl({}, mock(), {
+        nodes: [{ nodeId: `${moduleId}:circles`, renderConfig: { layer: 'live' }, enabled: true }],
+        onToggle: mock(),
+      }) as React.ReactElement
+    );
 
+    expect(markup).toContain('type="checkbox"');
+    expect(markup).toContain('circles');
+  });
 });

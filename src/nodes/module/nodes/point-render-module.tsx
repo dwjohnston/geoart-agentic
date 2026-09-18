@@ -8,6 +8,8 @@ import { implementModule } from '../implementModule';
 import { createInternalId, createInputMarkerParams } from '../moduleUtils';
 import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfaces/ModuleImplementation';
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
+import { ModulePanel } from '../../../ui/ModulePanel';
+import { ModuleRenderToggles } from '../../../ui/ModuleRenderToggles';
 
 const pointRenderModuleImplementation = implementModule({
   _kind: "point-render-module",
@@ -78,8 +80,12 @@ const pointRenderModuleImplementation = implementModule({
         id: inputMarkerNodeId,
         type: "module-input-marker",
         params: createInputMarkerParams(params, defaultValues),
-        renderControl: () => (
-          null
+        renderControl: (_params, _set, renderToggles) => (
+          renderToggles.nodes.length > 0 ? (
+            <ModulePanel moduleName="Point Render" moduleId={moduleId} data-testid={`${inputMarkerNodeId}-controls`}>
+              <ModuleRenderToggles {...renderToggles} />
+            </ModulePanel>
+          ) : null
         ),
       },
       defaultValues,

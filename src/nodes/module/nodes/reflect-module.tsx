@@ -3,6 +3,7 @@ import { createInternalId, createInputMarkerParams, renderIfNeeded } from '../mo
 import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfaces/ModuleImplementation';
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { ModulePanel } from '../../../ui/ModulePanel';
+import { ModuleRenderToggles } from '../../../ui/ModuleRenderToggles';
 import { DropdownControl } from '../../control/ui/DropdownControl';
 
 const COLOR_SHIFT_OPERATIONS = ['none', 'blend', 'hue-shift', 'lighten', 'saturate'] as const;
@@ -70,7 +71,7 @@ const reflectModuleImplementation = implementModule({
         id: inputMarkerId,
         type: 'module-input-marker',
         params: createInputMarkerParams(params, defaultValues),
-        renderControl: (markerParams, set) => (
+        renderControl: (markerParams, set, renderToggles) => (
           <ModulePanel moduleName="Reflect" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
             {renderIfNeeded(markerParams, 'colorShiftOperation', set, (initialValue, onChange) => (
               <DropdownControl
@@ -81,6 +82,7 @@ const reflectModuleImplementation = implementModule({
                 onChange={onChange}
               />
             ))}
+            {renderToggles.nodes.length > 0 && <ModuleRenderToggles {...renderToggles} />}
           </ModulePanel>
         ),
       },

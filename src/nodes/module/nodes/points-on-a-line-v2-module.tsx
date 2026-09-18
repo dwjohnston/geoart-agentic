@@ -3,6 +3,7 @@ import { createInternalId, createInputMarkerParams, renderIfNeeded } from '../mo
 import type { ModuleExpansionResult } from '../../../graphEngine/externalInterfaces/ModuleImplementation';
 import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { ModulePanel } from '../../../ui/ModulePanel';
+import { ModuleRenderToggles } from '../../../ui/ModuleRenderToggles';
 import { DropdownControl } from '../../control/ui/DropdownControl';
 import { KnobControl } from '../../../ui/KnobControl';
 
@@ -56,7 +57,7 @@ const pointsOnALineV2ModuleImplementation = implementModule({
         id: inputMarkerId,
         type: 'module-input-marker',
         params: createInputMarkerParams(params, defaultValues),
-        renderControl: (markerParams, set) => (
+        renderControl: (markerParams, set, renderToggles) => (
           <ModulePanel moduleName="Points on a Line V2" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
             {renderIfNeeded(markerParams, 'curveMode', set, (initialValue, onChange) => (
               <DropdownControl
@@ -77,6 +78,7 @@ const pointsOnALineV2ModuleImplementation = implementModule({
                 onChange={onChange}
               />
             ))}
+            {renderToggles.nodes.length > 0 && <ModuleRenderToggles {...renderToggles} />}
           </ModulePanel>
         ),
       },

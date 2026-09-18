@@ -6,8 +6,21 @@
  */
 
 import type { nodeInputs } from '../../schema/_generated/node-inputs-2';
-import type { GeoArtGraph, ModuleNode } from '../../schema/_generated/schema-types';
+import type { GeoArtGraph, ModuleNode, RenderLayerConfig } from '../../schema/_generated/schema-types';
 import type { ModuleNodeKinds, NodeInputsDeclared, NodeInputsResolved, NodeOutputAsRefs, ResolvedValue, ValueTypeNamesSuffixed } from '../../schema/typeHelpers';
+
+/**
+ * The render nodes owned by a single module instance (namespaced `{moduleId}:...`),
+ * their current visibility, and a callback to flip that visibility.
+ *
+ * Passed into a module's `renderControl` so it can surface its own render-node
+ * toggles inline in its control panel, alongside (not instead of) the global
+ * `RenderToggles` panel.
+ */
+export type ModuleRenderToggleInfo = {
+  nodes: Array<{ nodeId: string; renderConfig: RenderLayerConfig; enabled: boolean }>;
+  onToggle: (nodeId: string) => void;
+};
 
 
 
@@ -42,7 +55,7 @@ export interface ModuleExpansionResult<K extends ModuleNodeKinds> {
     id: string;
     type: "module-input-marker",
     params: NodeInputsDeclared<K>,
-    renderControl: (params: StaticModuleNodeParams<K>, set: ModuleControlSetter<K>) => React.ReactNode;
+    renderControl: (params: StaticModuleNodeParams<K>, set: ModuleControlSetter<K>, renderToggles: ModuleRenderToggleInfo) => React.ReactNode;
   },
 
   defaultValues: NodeInputsResolved<K>

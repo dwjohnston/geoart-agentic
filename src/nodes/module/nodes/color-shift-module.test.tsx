@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect, mock } from 'bun:test';
+import { renderToStaticMarkup } from 'react-dom/server';
 import colorShiftModule from './color-shift-module';
 
 describe('color-shift-module', () => {
@@ -64,5 +65,20 @@ describe('color-shift-module', () => {
     expect(result.inputMarkerNode.params.strength).toEqual({ v: 1 });
     expect(result.inputMarkerNode.params.targetPoints).toEqual({ v: [] });
     expect(result.inputMarkerNode.params.mode).toEqual({ v: 'proximity' });
+  });
+
+  it('shows its own render-node toggles when renderToggles has nodes', () => {
+    const moduleId = 'colorShiftTogglesTest';
+    const result = colorShiftModule({}, moduleId);
+
+    const markup = renderToStaticMarkup(
+      result.inputMarkerNode.renderControl({}, mock(), {
+        nodes: [{ nodeId: `${moduleId}:target-circles`, renderConfig: { layer: 'live' }, enabled: true }],
+        onToggle: mock(),
+      }) as React.ReactElement
+    );
+
+    expect(markup).toContain('type="checkbox"');
+    expect(markup).toContain('target-circles');
   });
 });

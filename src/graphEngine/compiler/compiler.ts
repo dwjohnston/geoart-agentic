@@ -8,6 +8,7 @@ import type { Value } from '../../schema/types';
 import type { LegacyComputeNodeImplementation, LegacyComputeNodePortImplementation } from '../../graphEngine/externalInterfaces/ComputeNodeImplementation';
 import type { LegacyRenderNodeImplementation } from '../../graphEngine/externalInterfaces/RenderNodeImplementation';
 import type { LegacyControlNodeImplementation } from '../../graphEngine/externalInterfaces/ControlNodeImplementation';
+import type { ModuleRenderToggleInfo } from '../../graphEngine/externalInterfaces/ModuleImplementation';
 
 import type { LegacyNodeRegistry } from '../externalInterfaces/AllNodeImplementations';
 import { nodeOutputMeta } from '../../schema/_generated/node-outputs-2';
@@ -49,7 +50,7 @@ type CompiledNode = {
   /** For marker nodes: maps output port names to internal node refs. */
   outputRefs?: Record<string, { ref: string }>;
   /** For module input marker nodes: the render function for controls. */
-  moduleInputMarkerRenderControl?: (params: Record<string, unknown>, set: (key: string, value: unknown) => void) => React.ReactNode;
+  moduleInputMarkerRenderControl?: (params: Record<string, unknown>, set: (key: string, value: unknown) => void, renderToggles: ModuleRenderToggleInfo) => React.ReactNode;
 };
 
 /** Per-node mutable evaluation state, reset/updated on each tick. */
@@ -443,7 +444,7 @@ export function compile(graph: GeoArtGraph, nodeRegistry: LegacyNodeRegistry): C
       def: inputMarkerDef,
       layer: 'compute',
       params: {}, // Deferred
-      moduleInputMarkerRenderControl: inputMarkerNode.renderControl as (params: Record<string, unknown>, set: (key: string, value: unknown) => void) => React.ReactNode,
+      moduleInputMarkerRenderControl: inputMarkerNode.renderControl as (params: Record<string, unknown>, set: (key: string, value: unknown) => void, renderToggles: ModuleRenderToggleInfo) => React.ReactNode,
     });
 
     // Register output marker node (treated as compute layer for ref resolution)

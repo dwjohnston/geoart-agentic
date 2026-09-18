@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect, mock } from 'bun:test';
+import { renderToStaticMarkup } from 'react-dom/server';
 import curveModulatorModule from './curve-modulator-module';
 
 describe('curve-modulator-module', () => {
@@ -129,5 +130,20 @@ describe('curve-modulator-module', () => {
     expect(params?.points).toEqual({
       ref: 'myModulator:curve-modulator.points',
     });
+  });
+
+  it('shows its own render-node toggles when renderToggles has nodes (its direct connect-dots node, not the nested point-render-module\'s)', () => {
+    const moduleId = 'curveModTogglesTest';
+    const result = curveModulatorModule({}, moduleId);
+
+    const markup = renderToStaticMarkup(
+      result.inputMarkerNode.renderControl({}, mock(), {
+        nodes: [{ nodeId: `${moduleId}:connect-dots`, renderConfig: { layer: 'live' }, enabled: true }],
+        onToggle: mock(),
+      }) as React.ReactElement
+    );
+
+    expect(markup).toContain('type="checkbox"');
+    expect(markup).toContain('connect-dots');
   });
 });

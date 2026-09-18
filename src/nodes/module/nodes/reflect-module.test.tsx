@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect, mock } from 'bun:test';
+import { renderToStaticMarkup } from 'react-dom/server';
 import reflectModule from './reflect-module';
 
 describe('reflect-module', () => {
@@ -107,5 +108,20 @@ describe('reflect-module', () => {
 
     expect(result.renderNodes[1].renderConfig.layer).toBe('live');
     expect(result.renderNodes[1].renderConfig.tags).toContain('reflect');
+  });
+
+  it('shows its own render-node toggles when renderToggles has nodes', () => {
+    const moduleId = 'reflectTogglesTest';
+    const result = reflectModule({}, moduleId);
+
+    const markup = renderToStaticMarkup(
+      result.inputMarkerNode.renderControl({}, mock(), {
+        nodes: [{ nodeId: `${moduleId}:reflection-circles`, renderConfig: { layer: 'live' }, enabled: true }],
+        onToggle: mock(),
+      }) as React.ReactElement
+    );
+
+    expect(markup).toContain('type="checkbox"');
+    expect(markup).toContain('reflection-circles');
   });
 });

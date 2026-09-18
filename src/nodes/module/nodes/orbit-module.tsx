@@ -12,6 +12,7 @@ import type { NodeInputsDeclared } from '../../../schema/typeHelpers';
 import { fColorPoint } from '../../../constants';
 import { KnobControl } from '../../../ui/KnobControl';
 import { ModulePanel } from '../../../ui/ModulePanel';
+import { ModuleRenderToggles } from '../../../ui/ModuleRenderToggles';
 
 export { createInputMarkerParams, renderIfNeeded } from '../moduleUtils';
 export type { RenderControlFn } from '../moduleUtils';
@@ -141,7 +142,7 @@ const orbitModuleImplementation = implementModule({
         id: inputMarkerId,
         type: "module-input-marker",
         params: createInputMarkerParams(params, defaultValues),
-        renderControl: (params, set) => (
+        renderControl: (params, set, renderToggles) => (
           <ModulePanel moduleName="Orbit" moduleId={moduleId} data-testid={`${inputMarkerId}-controls`}>
             {renderIfNeeded(params, 'speed', set, (initialValue, onChange) => (
               <KnobControl label="Speed" min={-1} max={1} initialValue={initialValue} onChange={onChange} />
@@ -166,6 +167,8 @@ const orbitModuleImplementation = implementModule({
             {renderIfNeeded(params, 'tilt', set, (initialValue, onChange) => (
               <KnobControl label="Tilt" min={0} max={1} initialValue={initialValue} onChange={onChange} />
             ))}
+
+            {renderToggles.nodes.length > 0 && <ModuleRenderToggles {...renderToggles} />}
           </ModulePanel>
         ),
       },
