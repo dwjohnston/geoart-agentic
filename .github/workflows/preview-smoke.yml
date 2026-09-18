@@ -1,0 +1,36 @@
+name: Preview Smoke Test
+
+# Waits for Cloudflare's git-integration deploy of the PR commit, then hits
+# the preview URL. Catches Workers that deploy fine but 500 at runtime.
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: read
+      pull-requests: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Generate
+        run: bun generate
+
+      - name: Smoke-test Cloudflare preview
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+        run: bun .github/workflows/scripts/preview-smoke.ts
