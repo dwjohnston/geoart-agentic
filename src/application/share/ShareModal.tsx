@@ -26,7 +26,8 @@ type Status =
   | { kind: 'done'; filename: string }
   | { kind: 'error'; message: string };
 
-const PREVIEW_SIZE = 320;
+const MODAL_MAX_WIDTH = 800;
+const PREVIEW_SIZE = 500;
 /** Wait for the slider to settle before re-rendering the preview. */
 const PREVIEW_DEBOUNCE_MS = 150;
 
@@ -76,13 +77,13 @@ export function ShareModal({ graph, renderSize, onClose, download = downloadBlob
   }
 
   return (
-    <Modal title="Share" onClose={onClose}>
-      <div style={{ display: 'flex', gap: 24, color: '#ccc', fontSize: 13 }}>
+    <Modal title="Share" onClose={onClose} maxWidth={MODAL_MAX_WIDTH}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, color: '#ccc', fontSize: 13 }}>
         <div
           style={{
             width: PREVIEW_SIZE,
-            height: PREVIEW_SIZE,
-            flex: 'none',
+            maxWidth: '100%',
+            aspectRatio: '1 / 1',
             background: '#0a0a0f',
             border: '1px solid #333',
             borderRadius: 4,
@@ -93,12 +94,12 @@ export function ShareModal({ graph, renderSize, onClose, download = downloadBlob
           }}
         >
           {preview ? (
-            <img src={preview} alt="Share preview" width={PREVIEW_SIZE} height={PREVIEW_SIZE} style={{ display: 'block' }} />
+            <img src={preview} alt="Share preview" width={PREVIEW_SIZE} height={PREVIEW_SIZE} style={{ display: 'block', maxWidth: '100%', height: 'auto' }} />
           ) : (
             'Rendering preview…'
           )}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%', minWidth: 0 }}>
           <div style={{ color: '#999' }}>Link previews show the image after the chosen number of ticks.</div>
           <SliderField
             label="Ticks before image"
