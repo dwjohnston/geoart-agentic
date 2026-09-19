@@ -28,8 +28,6 @@ test('renders without crashing', async () => {
 });
 
 test('renders the page title', async () => {
-  // Explicit desktop viewport: the page title heading is part of the
-  // desktop layout only (mobile is a render-only view, see useIsMobile).
   await page.viewport(1280, 800);
 
   await render(
@@ -57,7 +55,7 @@ test('desktop viewport renders controls and side panels alongside the canvas', a
   expect(page.getByTestId('mobile-view').elements()).toHaveLength(0);
 });
 
-test('mobile viewport renders only the canvas, no controls or side panels', async () => {
+test('mobile viewport renders the header and canvas only, no controls or side panels', async () => {
   await page.viewport(390, 844);
 
   await render(
@@ -67,6 +65,7 @@ test('mobile viewport renders only the canvas, no controls or side panels', asyn
   );
 
   await expect.element(page.getByTestId('mobile-view')).toBeInTheDocument();
+  await expect.element(page.getByRole('heading', { level: 1, name: 'Geoart 3000' })).toBeInTheDocument();
   await expect.element(page.getByTestId('live-canvas')).toBeInTheDocument();
   expect(page.getByTestId('desktop-view').elements()).toHaveLength(0);
   expect(page.getByTestId('controls-container').elements()).toHaveLength(0);

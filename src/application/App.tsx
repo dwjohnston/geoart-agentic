@@ -161,20 +161,24 @@ export function App() {
   }
 
   const graphKey = selectedGraphId ?? 'url-graph';
+  const header = <h1 style={{ margin: '24px 0 0', textAlign: 'center' }}>Geoart 3000</h1>;
 
   if (isMobile) {
     // First-pass mobile support: render-only view. No controls, no algorithm
-    // picker/builder — just the canvas, sized to fit the viewport.
+    // picker/builder — just the header and the canvas, sized to fit the viewport.
     return (
-      <div data-testid="mobile-view" style={{ display: 'flex', justifyContent: 'center', padding: 12 }}>
-        <Canvas liveCanvasRef={liveCanvasRef} paintCanvasRef={paintCanvasRef} size={CANVAS_SIZE} fpsCounterRef={fpsCounterRef} />
+      <div>
+        {header}
+        <div data-testid="mobile-view" style={{ display: 'flex', justifyContent: 'center', padding: 12 }}>
+          <Canvas liveCanvasRef={liveCanvasRef} paintCanvasRef={paintCanvasRef} size={CANVAS_SIZE} fpsCounterRef={fpsCounterRef} />
+        </div>
       </div>
     );
   }
 
   return (
     <div>
-      <h1 style={{ margin: '24px 0 0', textAlign: 'center' }}>Geoart 3000</h1>
+      {header}
       <div data-testid="desktop-view" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 24, padding: 24 }}>
         <SidePanel>
           <RenderToggles key={graphKey} renderingNodes={payload.renderingNodes} onToggle={handleRenderNodeToggle} />
