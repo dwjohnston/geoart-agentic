@@ -1,6 +1,8 @@
 import { lazy, Suspense, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { Modal } from './Modal';
+import { SchemaDocsPanel } from './SchemaDocsPanel';
+import { useIsMobile } from './useIsMobile';
 import { tryCompileGraph } from '../graphEngine/exports';
 import { useAlgorithmStorage } from './algorithmStorage/AlgorithmStorageContext';
 import type { GeoArtGraph } from '../schema/_generated/schema-types';
@@ -34,9 +36,12 @@ const TS_STARTER = `new AlgorithmBuilder()
   .construct();
 `;
 
+const EDITOR_HEIGHT = 400;
+
 export function ImportAlgorithmModal({ onClose, onImported }: Props) {
   const storage = useAlgorithmStorage();
-  const [tab, setTab] = useState<Tab>('json');
+  const isMobile = useIsMobile();
+  const [tab, setTab] = useState<Tab>('typescript');
   const [jsonText, setJsonText] = useState('');
   const [tsText, setTsText] = useState(TS_STARTER);
   const [errors, setErrors] = useState<string[]>([]);
@@ -101,53 +106,80 @@ export function ImportAlgorithmModal({ onClose, onImported }: Props) {
     <Modal title="Import Algorithm" onClose={onClose}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div style={{ display: 'flex', gap: 8 }}>
-          <button onClick={() => setTab('json')} style={tabButtonStyle(tab === 'json')}>
-            JSON
-          </button>
           <button onClick={() => setTab('typescript')} style={tabButtonStyle(tab === 'typescript')}>
             TypeScript
           </button>
+          <button onClick={() => setTab('json')} style={tabButtonStyle(tab === 'json')}>
+            JSON
+          </button>
         </div>
 
-        {tab === 'json' ? (
-          <>
-            <label style={{ fontSize: 13, color: '#aaa' }}>
-              Paste a JSON algorithm definition below:
-            </label>
-            <textarea
-              value={jsonText}
-              onChange={e => setJsonText(e.target.value)}
-              rows={12}
-              spellCheck={false}
-              style={{
-                background: '#111',
-                color: '#eee',
-                border: '1px solid #333',
-                borderRadius: 4,
-                padding: 8,
-                fontSize: 13,
-                fontFamily: 'monospace',
-                resize: 'vertical',
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <label style={{ fontSize: 13, color: '#aaa' }}>
-              Write an algorithm using <code>AlgorithmBuilder</code> (available as a global — no import needed).
-              End the script with an expression, e.g. <code>builder.construct()</code>:
-            </label>
-            <Suspense
-              fallback={
-                <div style={{ height: 400, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', fontSize: 13, border: '1px solid #333', borderRadius: 4 }}>
-                  Loading editor…
-                </div>
-              }
-            >
-              <TypeScriptCodeEditor value={tsText} onChange={setTsText} height={400} />
-            </Suspense>
-          </>
-        )}
+        {/*
+         * Desktop: editor on the left, schema-generated reference docs on
+         * the right. Mobile only gets the editor — the docs panel needs
+         * horizontal room to be legible alongside code.
+         */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 3fr) minmax(0, 2fr)',
+            gap: 12,
+            alignItems: 'start',
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
+            {tab === 'json' ? (
+              <>
+                <label htmlFor="import-json-textarea" style={{ fontSize: 13, color: '#aaa' }}>
+                  Paste a JSON algorithm definition below:
+                </label>
+                <textarea
+                  id="import-json-textarea"
+                  value={jsonText}
+                  onChange={e => setJsonText(e.target.value)}
+                  spellCheck={false}
+                  style={{
+                    background: '#111',
+                    color: '#eee',
+                    border: '1px solid #333',
+                    borderRadius: 4,
+                    padding: 8,
+                    fontSize: 13,
+                    fontFamily: 'monospace',
+                    resize: 'vertical',
+                    height: EDITOR_HEIGHT,
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <label style={{ fontSize: 13, color: '#aaa' }}>
+                  Write an algorithm with the global <code>AlgorithmBuilder</code> (no import needed), ending with{' '}
+                  <code>.construct()</code>:
+                </label>
+                <Suspense
+                  fallback={
+                    <div style={{ height: EDITOR_HEIGHT, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', fontSize: 13, border: '1px solid #333', borderRadius: 4 }}>
+                      Loading editor…
+                    </div>
+                  }
+                >
+                  <TypeScriptCodeEditor value={tsText} onChange={setTsText} height={EDITOR_HEIGHT} />
+                </Suspense>
+              </>
+            )}
+          </div>
+
+          {!isMobile && (
+            // Aligns the top of the docs panel with the top of the editor
+            // (the editor column has a one-line label above it).
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
+              <span style={{ fontSize: 13, color: '#aaa' }}>Reference (generated from the schema):</span>
+              <SchemaDocsPanel format={tab} height={EDITOR_HEIGHT} />
+            </div>
+          )}
+        </div>
 
         {errors.length > 0 && (
           <div

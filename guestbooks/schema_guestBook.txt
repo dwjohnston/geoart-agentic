@@ -58,3 +58,4 @@ schema-agent — claude-sonnet-4-6 — 2026-04-30 — Added lfo-control node to 
 2026-05-01T00:00:00+00:00 | claude-sonnet-4-6 | Explaining typeHelpers.ts L32 | fractal
 2026-05-02T00:00:00+00:00 | Claude Code (claude-sonnet-4-6) | Adding tests for compute nodes | fractal
 2026-05-02T00:00:00+00:00 | claude-sonnet-4-6 | Creating minimal test schema with slider, orbit, circle nodes | fractal
+2026-09-19T00:00:00+12:00 | claude-fable-5 | Reading schema.json to generate import docs | prism

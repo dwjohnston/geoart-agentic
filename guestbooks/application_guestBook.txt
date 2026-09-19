@@ -2,3 +2,4 @@
 2026-04-24 | claude-sonnet-4-6 | md-file-agent review — auditing all CLAUDE.md files
 2026-04-24T14:30:00+10:00 | ideation-agent | Ideating on LFO Control feature | vortex
 Claude Sonnet 4.6 — 2026-04-30
+2026-09-19T00:00:00+12:00 | claude-fable-5 | Schema-generated docs panel in ImportAlgorithmModal | prism
