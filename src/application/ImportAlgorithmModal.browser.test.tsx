@@ -7,6 +7,18 @@ import type { GeoArtGraph } from '../schema/_generated/schema-types';
 import minimalGraph from '../algorithms/reference/minimal/minimalThreeNodeReferenceGraph';
 import { page } from 'vitest/browser'
 
+/**
+ * The modal opens on the TypeScript tab; switch to JSON and return its
+ * textarea. Queried by accessible name because the docs panel's search box
+ * is also a textbox.
+ */
+async function openJsonTab() {
+  await page.getByRole('button', { name: 'JSON' }).click();
+  const textarea = page.getByRole('textbox', { name: /paste a json algorithm definition/i });
+  await expect.element(textarea).toBeInTheDocument();
+  return textarea;
+}
+
 
 test('Happy path: imports valid graph and saves to storage', async () => {
   const mockSaveAlgorithm = vi.fn().mockResolvedValue({
@@ -29,8 +41,7 @@ test('Happy path: imports valid graph and saves to storage', async () => {
     </AlgorithmStorageProvider>,
   );
 
-  await (expect.element(page.getByRole("textbox")).toBeInTheDocument())
-  const textarea = page.getByRole("textbox");
+  const textarea = await openJsonTab();
 
   await textarea.fill(JSON.stringify(minimalGraph));
 
@@ -66,8 +77,7 @@ test('Unhappy path: invalid JSON displays error message', async () => {
     </AlgorithmStorageProvider>,
   );
 
-  await (expect.element(page.getByRole("textbox")).toBeInTheDocument())
-  const textarea = page.getByRole("textbox");
+  const textarea = await openJsonTab();
 
   await textarea.fill("invalid json");
 
@@ -108,8 +118,7 @@ test('Unhappy path: valid JSON that does not match schema displays error message
     </AlgorithmStorageProvider>,
   );
 
-  await (expect.element(page.getByRole("textbox")).toBeInTheDocument())
-  const textarea = page.getByRole("textbox");
+  const textarea = await openJsonTab();
 
   await textarea.fill(JSON.stringify(notAGraph));
 
@@ -123,7 +132,7 @@ test('Unhappy path: valid JSON that does not match schema displays error message
   expect(mockOnClose).not.toHaveBeenCalled();
 });
 
-test('TypeScript tab: imports the default starter script and saves to storage', async () => {
+test('TypeScript tab (default): imports the starter script and saves to storage', async () => {
   const mockSaveAlgorithm = vi.fn().mockResolvedValue({
     id: 'test-id-123',
     name: 'Minimal Three Node',
@@ -144,9 +153,7 @@ test('TypeScript tab: imports the default starter script and saves to storage', 
     </AlgorithmStorageProvider>,
   );
 
-  const tsTabButton = page.getByRole('button', { name: 'TypeScript' });
-  await tsTabButton.click();
-
+  // No tab click — TypeScript is the default editor.
   const importButton = page.getByRole('button', { name: 'Import' });
   await importButton.click();
 
@@ -204,8 +211,7 @@ test('Unhappy path: valid JSON that passes schema but fails compilation', async 
     </AlgorithmStorageProvider>,
   );
 
-  await (expect.element(page.getByRole("textbox")).toBeInTheDocument())
-  const textarea = page.getByRole("textbox");
+  const textarea = await openJsonTab();
 
   await textarea.fill(JSON.stringify(invalidGraph));
 
@@ -217,4 +223,43 @@ test('Unhappy path: valid JSON that passes schema but fails compilation', async 
   expect(alert).toHaveTextContent(/unknown source node/i);
   expect(mockOnImported).not.toHaveBeenCalled();
   expect(mockOnClose).not.toHaveBeenCalled();
+});
+
+test('Docs panel: schema-generated reference is shown, filterable, and follows the active tab syntax', async () => {
+  const storage: IAlgorithmStorageService = {
+    saveAlgorithm: async () => ({ id: '', name: '', graph: minimalGraph }),
+    listSavedAlgorithms: async () => [],
+    getSavedAlgorithm: async () => minimalGraph,
+  };
+
+  // The docs panel is desktop-only (see useIsMobile) — the default test
+  // viewport is below the mobile breakpoint.
+  await page.viewport(1280, 800);
+
+  await render(
+    <AlgorithmStorageProvider service={storage}>
+      <ImportAlgorithmModal onClose={() => {}} onImported={() => {}} />
+    </AlgorithmStorageProvider>,
+  );
+
+  const docs = page.getByRole('complementary', { name: 'Schema documentation' });
+  await expect.element(docs).toBeInTheDocument();
+  // Default (TypeScript) tab: examples are builder calls.
+  await expect.element(docs).toHaveTextContent(/new AlgorithmBuilder/);
+
+  const search = page.getByRole('searchbox', { name: 'Search documentation' });
+  await search.fill('slider');
+  await expect.element(docs).toHaveTextContent(/Slider Control Node/);
+  await expect.element(docs).toHaveTextContent(/\.addControlNode\(/);
+  await expect.element(docs).not.toHaveTextContent(/Circle Render Node/);
+
+  // JSON tab: same entry, JSON syntax.
+  await page.getByRole('button', { name: 'JSON' }).click();
+  await expect.element(docs).toHaveTextContent(/"type": "slider"/);
+  await expect.element(docs).not.toHaveTextContent(/\.addControlNode\(/);
+
+  // Mobile: only the editor is shown.
+  await page.viewport(390, 844);
+  await expect.element(docs).not.toBeInTheDocument();
+  await expect.element(page.getByRole('textbox', { name: /paste a json algorithm definition/i })).toBeInTheDocument();
 });
