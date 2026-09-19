@@ -12,4 +12,14 @@
     // directly by the assets layer without the extra hop.
     "run_worker_first": ["/", "/index.html", "/render/*"],
   },
+  // Durable cache for finished /render/* images (see src/server/renderCache.ts).
+  // Create the bucket once per account: `wrangler r2 bucket create geoart-renders`.
+  // Keys are content hashes, so the bucket only ever grows — an expiry rule is
+  // a follow-up.
+  "r2_buckets": [
+    {
+      "binding": "RENDERS",
+      "bucket_name": "geoart-renders",
+    },
+  ],
 }

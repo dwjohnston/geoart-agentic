@@ -9,8 +9,10 @@
  * Worker: native canvas libraries (e.g. @napi-rs/canvas, used by
  * ../common-tooling/test-tooling/replayContext.ts for test snapshots) are
  * N-API binaries that cannot be bundled into a Worker. SVG + a WASM
- * rasterizer (see renderAlgorithmImage.ts) can.
+ * rasterizer (see renderAlgorithmMedia.ts) can.
  */
+
+import { RenderBudgetExceededError } from './renderBudget';
 
 type PathSegment =
   | { kind: 'move'; x: number; y: number }
@@ -73,12 +75,30 @@ export type HeadlessSvgCanvas = {
   getSvgElements(): string[];
 };
 
-export function createHeadlessSvgCanvas(): HeadlessSvgCanvas {
+export type HeadlessSvgCanvasOptions = {
+  /**
+   * Cap on the number of SVG elements the canvas will hold. Exceeding it
+   * throws a RenderBudgetExceededError from the offending draw call, so a
+   * runaway graph is stopped mid-tick rather than after it has built a
+   * multi-megabyte SVG. Unlimited when omitted.
+   */
+  maxElements?: number;
+};
+
+export function createHeadlessSvgCanvas(options: HeadlessSvgCanvasOptions = {}): HeadlessSvgCanvas {
   let path: PathSegment[] = [];
   let strokeStyle: StyleValue = 'rgb(0, 0, 0)';
   let fillStyle: StyleValue = 'rgb(0, 0, 0)';
   let lineWidth = 1;
   const elements: string[] = [];
+  const maxElements = options.maxElements ?? Infinity;
+
+  function pushElement(element: string): void {
+    if (elements.length >= maxElements) {
+      throw new RenderBudgetExceededError(`Canvas layer exceeded ${maxElements} elements`);
+    }
+    elements.push(element);
+  }
 
   function styleAttrs(style: StyleValue, kind: 'stroke' | 'fill'): string {
     if (!isLinearGradient(style)) {
@@ -92,7 +112,7 @@ export function createHeadlessSvgCanvas(): HeadlessSvgCanvas {
         return `<stop offset="${s.offset}" stop-color="${rgb}" stop-opacity="${opacity}" />`;
       })
       .join('');
-    elements.push(
+    pushElement(
       `<linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${style.x1}" y1="${style.y1}" x2="${style.x2}" y2="${style.y2}">${stops}</linearGradient>`,
     );
     return `${kind}="url(#${id})"`;
@@ -108,7 +128,7 @@ export function createHeadlessSvgCanvas(): HeadlessSvgCanvas {
       const e = path[0];
       const attrs = styleAttrs(style, kind);
       const deg = (e.rotationRad * 180) / Math.PI;
-      elements.push(
+      pushElement(
         `<ellipse cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}" transform="rotate(${deg} ${e.cx} ${e.cy})" ${attrs} ${otherAttr}${widthAttr} />`,
       );
       return;
@@ -116,7 +136,7 @@ export function createHeadlessSvgCanvas(): HeadlessSvgCanvas {
 
     const d = segmentsToPathD(path);
     const attrs = styleAttrs(style, kind);
-    elements.push(`<path d="${d}" ${attrs} ${otherAttr}${widthAttr} />`);
+    pushElement(`<path d="${d}" ${attrs} ${otherAttr}${widthAttr} />`);
   }
 
   return {

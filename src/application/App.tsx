@@ -14,10 +14,10 @@ import { SpeedControl } from './SpeedControl';
 import { RenderToggles } from './RenderToggles';
 import { ImportAlgorithmModal } from './ImportAlgorithmModal';
 import { ExportJsonModal } from './ExportJsonModal';
-import { Toast } from './Toast';
+import { ShareModal } from './share/ShareModal';
 import { useAlgorithmStorage } from './algorithmStorage/AlgorithmStorageContext';
 import { NeverShouldHappenError } from '../common-tooling/errors/NeverShouldHappenError';
-import { encodeGraphForUrl, decodeGraphFromUrl } from '../common-tooling/graphUrlEncoding';
+import { decodeGraphFromUrl } from '../common-tooling/graphUrlEncoding';
 import { useIsMobile } from './useIsMobile';
 
 const CANVAS_SIZE = 800;
@@ -50,8 +50,8 @@ export function App() {
   const [algorithms, setAlgorithms] = useState<AlgorithmEntry[]>(toBundledEntries);
   const [showImportModal, setShowImportModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const [exportGraph, setExportGraph] = useState<GeoArtGraph | null>(null);
-  const [showLinkCopiedToast, setShowLinkCopiedToast] = useState(false);
   const [payload, setPayload] = useState<GraphLoadPayload>({ renderControlNodes: () => null, renderingNodes: [] });
 
   // Graph loaded from ?a= URL param — stable, set once on init
@@ -133,22 +133,13 @@ export function App() {
     handleGraphChange(entry.id);
   }
 
-  async function handleShare() {
+  function handleShare() {
     const engine = engineRef.current;
     if (!engine) return;
     const snapshot = engine.snapshotGraph();
     if (!snapshot) return;
-    const encoded = encodeGraphForUrl(snapshot);
-    const newParams = new URLSearchParams();
-    newParams.set('a', encoded);
-    const newUrl = `${window.location.origin}${window.location.pathname}?${newParams.toString()}`;
-    window.history.replaceState(null, '', newUrl);
-    try {
-      await navigator.clipboard.writeText(newUrl);
-    } catch {
-      // clipboard access may be unavailable in some contexts
-    }
-    setShowLinkCopiedToast(true);
+    setExportGraph(snapshot);
+    setShowShareModal(true);
   }
 
   function handleExportJson() {
@@ -239,8 +230,12 @@ export function App() {
             onClose={() => { setShowExportModal(false); setExportGraph(null); }}
           />
         )}
-        {showLinkCopiedToast && (
-          <Toast message="Link copied!" onDismiss={() => setShowLinkCopiedToast(false)} />
+        {showShareModal && exportGraph && (
+          <ShareModal
+            graph={exportGraph}
+            renderSize={CANVAS_SIZE}
+            onClose={() => { setShowShareModal(false); setExportGraph(null); }}
+          />
         )}
       </div>
     </div>

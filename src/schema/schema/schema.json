@@ -39,7 +39,7 @@
     },
     "previewSettings": {
       "title": "Preview Settings",
-      "description": "Settings for generating a static preview image (e.g. for og:image). If absent, staticImageNumTicks defaults to 10.",
+      "description": "Settings for generating preview media: a static image (e.g. for og:image) and an animation (GIF/video export). Every property is optional — see src/schema/previewSettings.ts for defaults.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -48,6 +48,24 @@
           "description": "Number of ticks to evaluate before rasterising the static preview image. Default 10.",
           "type": "number",
           "minimum": 0
+        },
+        "animationNumFrames": {
+          "title": "Animation Frame Count",
+          "description": "Number of frames captured for GIF/video export. Default 40.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "animationTicksPerFrame": {
+          "title": "Animation Ticks Per Frame",
+          "description": "Engine ticks evaluated between captured frames. Default 1.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "animationFrameDelayMs": {
+          "title": "Animation Frame Delay",
+          "description": "Milliseconds each captured frame is shown for. Default 40 (25 fps).",
+          "type": "number",
+          "minimum": 10
         }
       }
     },

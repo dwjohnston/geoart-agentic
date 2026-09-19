@@ -5,9 +5,11 @@ type Props = {
   title?: string;
   onClose: () => void;
   children: ReactNode;
+  /** Caps the dialog width; defaults to 90% of the viewport. */
+  maxWidth?: number;
 };
 
-export function Modal({ title, onClose, children }: Props) {
+export function Modal({ title, onClose, children, maxWidth }: Props) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -37,7 +39,7 @@ export function Modal({ title, onClose, children }: Props) {
           padding: 24,
           width: '90%',
           maxHeight: '90vh',
-          maxWidth: '90vw',
+          maxWidth: maxWidth === undefined ? '90vw' : `min(${maxWidth}px, 90vw)`,
           border: '1px solid #333',
           boxShadow: '0 4px 24px rgba(0,0,0,0.5)',
           overflow: 'auto',

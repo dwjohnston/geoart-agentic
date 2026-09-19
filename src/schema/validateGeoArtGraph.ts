@@ -2,7 +2,7 @@
 // compiled at runtime via `new Ajv().compile(...)` (which uses `new
 // Function(...)` internally) — dynamic code generation like that is
 // disallowed inside the Cloudflare Workers runtime, which this validator
-// also has to run in (see src/server/renderAlgorithmImage.ts).
+// also has to run in (see src/server/renderAlgorithmMedia.ts).
 import { validate as validateFn } from "./_generated/graphSchemaValidator.generated";
 
 /**

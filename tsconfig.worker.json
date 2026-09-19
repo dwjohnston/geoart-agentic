@@ -35,6 +35,9 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src/server"
+    "src/server",
+    // Ambient declaration for gifenc (no bundled types); reached via
+    // src/common-tooling/gifEncoding.ts from the GIF render route.
+    "src/common-tooling/gifenc.d.ts"
   ]
 }
