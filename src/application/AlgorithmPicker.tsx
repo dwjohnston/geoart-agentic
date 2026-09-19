@@ -124,6 +124,10 @@ export function AlgorithmPicker({ algorithms, defaultId, blankName, onChange, on
         )}
       </h2>
 
+      {current?.graph.description && (
+        <p style={{ margin: 0, fontSize: 13, color: '#aaa' }}>{current.graph.description}</p>
+      )}
+
       {showGraphView && current && (
         <Modal onClose={() => setShowGraphView(false)}>
           <GraphView graph={current.graph} />
