@@ -6,7 +6,7 @@ import type { GeoArtGraph } from '../schema/_generated/schema-types';
  * changes what a given graph renders to. It is part of every cache key, so
  * bumping it orphans every stored render rather than serving stale pixels.
  */
-export const RENDER_VERSION = 1;
+export const RENDER_VERSION = 2;
 
 export type RenderCacheFormat = 'png' | 'gif';
 

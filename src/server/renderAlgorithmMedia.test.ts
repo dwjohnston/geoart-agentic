@@ -30,6 +30,24 @@ describe('renderGraphToPng', () => {
     expect(Buffer.from(png.subarray(0, PNG_MAGIC.length))).toEqual(PNG_MAGIC);
   });
 
+  test('leaves the live layer out — a live-only graph renders the same as the empty background', async () => {
+    const liveOnly = {
+      ...testGraph,
+      render: { nodes: testGraph.render.nodes.filter(n => n.renderConfig?.layer === 'live') },
+    };
+    const paintOnly = {
+      ...testGraph,
+      render: { nodes: testGraph.render.nodes.filter(n => n.renderConfig?.layer === 'paint') },
+    };
+    const [live, paint, background] = await Promise.all([
+      renderGraphToPng(liveOnly, 5),
+      renderGraphToPng(paintOnly, 5),
+      renderGraphToPng(liveOnly, 0),
+    ]);
+    expect(Buffer.from(live)).toEqual(Buffer.from(background));
+    expect(Buffer.from(paint)).not.toEqual(Buffer.from(background));
+  });
+
   test('throws RenderBudgetExceededError when the graph is over the node limit', async () => {
     await expect(renderGraphToPng(testGraph, 5, { ...RENDER_LIMITS, maxNodes: 1 })).rejects.toBeInstanceOf(
       RenderBudgetExceededError,

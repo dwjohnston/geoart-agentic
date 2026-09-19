@@ -69,6 +69,8 @@ type HeadlessEngine = {
   live: HeadlessSvgCanvas;
   paint: HeadlessSvgCanvas;
   tick(): void;
+  /** The accumulated artwork only — no live-layer guides. */
+  paintElements(): string[];
   /** Paint layer first, then the live layer on top — the same stacking as the app's two canvases. */
   compositeElements(): string[];
 };
@@ -99,13 +101,15 @@ function createHeadlessEngine(graph: GeoArtGraph, limits: RenderLimits): Headles
     live,
     paint,
     tick: () => engine.tick(),
+    paintElements: () => [...paint.getSvgElements()],
     compositeElements: () => [...paint.getSvgElements(), ...live.getSvgElements()],
   };
 }
 
 /**
- * Runs the graph headlessly for `numTicks` ticks and rasterises the
- * composited paint + live layers over a black background to a PNG.
+ * Runs the graph headlessly for `numTicks` ticks and rasterises the paint
+ * layer over a black background to a PNG. The live layer (per-frame
+ * guides) is left out so the shared image is the artwork alone.
  */
 export async function renderGraphToPng(
   graph: GeoArtGraph,
@@ -118,7 +122,7 @@ export async function renderGraphToPng(
     engine.tick();
   }
 
-  const elements = engine.compositeElements();
+  const elements = engine.paintElements();
   createTotalElementBudget(limits).consume(elements.length);
 
   await ensureWasmInitialized();

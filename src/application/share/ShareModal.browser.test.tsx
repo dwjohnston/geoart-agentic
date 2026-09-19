@@ -4,14 +4,17 @@ import { page } from 'vitest/browser';
 import { ShareModal } from './ShareModal';
 import { decodeGraphFromUrl } from '../../common-tooling/graphUrlEncoding';
 import minimalGraph from '../../algorithms/reference/minimal/minimalThreeNodeReferenceGraph';
+import colorShiftOrbitGraph from '../../algorithms/reference/canonical/colorShiftOrbitReferenceGraph';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 
 const graph: GeoArtGraph = { ...minimalGraph, previewSettings: { staticImageNumTicks: 2 } };
+/** Draws on the paint layer, so its preview changes with the tick count. */
+const paintingGraph: GeoArtGraph = { ...colorShiftOrbitGraph, previewSettings: { staticImageNumTicks: 2 } };
 
 const shareOrigin = { origin: 'https://example.test', pathname: '/' };
 
-function renderModal(download: (blob: Blob, filename: string) => void = () => {}) {
-  return render(<ShareModal graph={graph} renderSize={100} onClose={() => {}} download={download} shareOrigin={shareOrigin} />);
+function renderModal(download: (blob: Blob, filename: string) => void = () => {}, g: GeoArtGraph = graph) {
+  return render(<ShareModal graph={g} renderSize={100} onClose={() => {}} download={download} shareOrigin={shareOrigin} />);
 }
 
 async function linkValue(): Promise<string> {
@@ -37,7 +40,7 @@ test('shows the link with the graph\'s tick setting baked in', async () => {
 });
 
 test('renders a preview image and re-renders it when the tick count changes', async () => {
-  await renderModal();
+  await renderModal(undefined, paintingGraph);
 
   const before = await previewSrc();
   expect(before.startsWith('data:image/png')).toBe(true);

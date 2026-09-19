@@ -8,9 +8,10 @@ export type OffscreenRenderer = {
   /** Advances the graph by one engine tick. */
   tick(): void;
   /**
-   * Redraws the composite canvas — background, then paint layer, then live
-   * layer, scaled to `outputSize` — and returns it. The same canvas is
-   * reused between calls.
+   * Redraws the composite canvas — background, then the paint layer scaled
+   * to `outputSize` — and returns it. The live layer (per-frame guides) is
+   * left out, matching the server's PNG. The same canvas is reused between
+   * calls.
    */
   composite(): HTMLCanvasElement;
 };
@@ -19,7 +20,7 @@ export type OffscreenRenderer = {
  * Runs a graph in a fresh engine on off-screen canvases, independent of the
  * animation the user is watching. The graph is rendered at `renderSize`
  * (the app's canvas size, so node geometry and line widths match what the
- * user sees) and composited down to `outputSize`.
+ * user sees) and the paint layer is composited down to `outputSize`.
  *
  * Speed is left at 1 — one engine tick per `tick()` — so the frame shown is
  * governed entirely by the caller (previewSettings), the same as the
@@ -38,7 +39,6 @@ export function createOffscreenRenderer(graph: GeoArtGraph, renderSize: number, 
     compositeCtx.fillStyle = EXPORT_BACKGROUND;
     compositeCtx.fillRect(0, 0, outputSize, outputSize);
     compositeCtx.drawImage(paint, 0, 0, outputSize, outputSize);
-    compositeCtx.drawImage(live, 0, 0, outputSize, outputSize);
     return composite;
   }
 
