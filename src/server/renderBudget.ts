@@ -1,3 +1,4 @@
+import { PREVIEW_SETTINGS_LIMITS } from '../schema/previewSettings';
 import type { ResolvedPreviewSettings } from '../schema/previewSettings';
 
 /**
@@ -29,9 +30,7 @@ export type RenderLimits = {
 
 export const RENDER_LIMITS: RenderLimits = {
   maxNodes: 500,
-  maxStaticTicks: 600,
-  maxAnimationFrames: 100,
-  maxTicksPerFrame: 10,
+  ...PREVIEW_SETTINGS_LIMITS,
   maxElementsPerLayer: 20_000,
   maxTotalElements: 250_000,
 };

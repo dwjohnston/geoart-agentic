@@ -19,6 +19,17 @@ export const DEFAULT_PREVIEW_SETTINGS: ResolvedPreviewSettings = {
   animationFrameDelayMs: 40,
 };
 
+/**
+ * Upper bounds the server will render (see src/server/renderBudget.ts, which
+ * clamps to these). The Share modal's controls stop here too, so a shared
+ * link never asks for more than the server will produce.
+ */
+export const PREVIEW_SETTINGS_LIMITS = {
+  maxStaticTicks: 600,
+  maxAnimationFrames: 100,
+  maxTicksPerFrame: 10,
+} as const;
+
 export function resolvePreviewSettings(graph: Pick<GeoArtGraph, 'previewSettings'>): ResolvedPreviewSettings {
   return { ...DEFAULT_PREVIEW_SETTINGS, ...stripUndefined(graph.previewSettings ?? {}) };
 }
