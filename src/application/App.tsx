@@ -18,6 +18,7 @@ import { Toast } from './Toast';
 import { useAlgorithmStorage } from './algorithmStorage/AlgorithmStorageContext';
 import { NeverShouldHappenError } from '../common-tooling/errors/NeverShouldHappenError';
 import { encodeGraphForUrl, decodeGraphFromUrl } from '../common-tooling/graphUrlEncoding';
+import { useIsMobile } from './useIsMobile';
 
 const CANVAS_SIZE = 800;
 
@@ -38,6 +39,7 @@ function decodeUrlGraph(): GeoArtGraph | null {
 
 export function App() {
   const storage = useAlgorithmStorage();
+  const isMobile = useIsMobile();
 
   const liveCanvasRef = useRef<HTMLCanvasElement>(null);
   const paintCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -105,8 +107,10 @@ export function App() {
     rafId = requestAnimationFrame(frame);
 
     return () => cancelAnimationFrame(rafId);
+    // isMobile is included so the engine re-attaches to the canvas element
+    // when the layout swaps between the mobile and desktop trees.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGraphId]);
+  }, [selectedGraphId, isMobile]);
 
   function handleGraphChange(id: string) {
     window.history.replaceState(null, '', `?algorithm=${encodeURIComponent(id)}`);
@@ -157,11 +161,25 @@ export function App() {
   }
 
   const graphKey = selectedGraphId ?? 'url-graph';
+  const header = <h1 style={{ margin: '24px 0 0', textAlign: 'center' }}>Geoart 3000</h1>;
+
+  if (isMobile) {
+    // First-pass mobile support: render-only view. No controls, no algorithm
+    // picker/builder — just the header and the canvas, sized to fit the viewport.
+    return (
+      <div>
+        {header}
+        <div data-testid="mobile-view" style={{ display: 'flex', justifyContent: 'center', padding: 12 }}>
+          <Canvas liveCanvasRef={liveCanvasRef} paintCanvasRef={paintCanvasRef} size={CANVAS_SIZE} fpsCounterRef={fpsCounterRef} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
-      <h1 style={{ margin: '24px 0 0', textAlign: 'center' }}>Geoart 3000</h1>
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 24, padding: 24 }}>
+      {header}
+      <div data-testid="desktop-view" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 24, padding: 24 }}>
         <SidePanel>
           <RenderToggles key={graphKey} renderingNodes={payload.renderingNodes} onToggle={handleRenderNodeToggle} />
         </SidePanel>
