@@ -20,6 +20,9 @@ export default defineConfig({
 				test: {
 					name: "browser",
 					include: ["**/*.browser.test.tsx"],
+					// Worktrees under .claude/ carry their own node_modules; picking up
+					// their tests loads a second React copy and breaks every render.
+					exclude: ["**/node_modules/**", "**/.claude/**"],
 					browser: {
 						enabled: true,
 						instances: [{ browser: "chromium" }],

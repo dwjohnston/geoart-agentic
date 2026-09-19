@@ -55,6 +55,24 @@ test('Video button downloads a video blob', async () => {
   expect(filename).toMatch(/^minimal-three-node\.(webm|mp4)$/);
 });
 
+test('sliders start from previewSettings and the number box overrides the export', async () => {
+  const download = vi.fn();
+  await render(<ExportMediaModal graph={graph} renderSize={100} onClose={() => {}} download={download} />);
+
+  const frames = page.getByRole('spinbutton', { name: 'Animation frames value' });
+  await expect.element(frames).toHaveValue(2);
+  await expect.element(page.getByRole('slider', { name: 'Animation frames' })).toHaveValue('2');
+
+  await frames.fill('3');
+  await expect.element(page.getByRole('slider', { name: 'Animation frames' })).toHaveValue('3');
+
+  await page.getByRole('button', { name: 'GIF' }).click();
+  await waitForDownload(download);
+  await expect.element(page.getByRole('status')).toHaveTextContent('Saved minimal-three-node.gif');
+  // Progress reported the overridden frame count.
+  await expect.element(page.getByText('3 frames')).toBeInTheDocument();
+});
+
 test('shows an error status when an export fails', async () => {
   const download = vi.fn(() => {
     throw new Error('disk full');
