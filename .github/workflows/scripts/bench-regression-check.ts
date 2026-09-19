@@ -12,12 +12,17 @@ import { registerPerformanceBenchmarks } from "../../../scripts/lib/loadPerforma
  * baseline in scripts/bench-baseline.json.
  *
  * - Regression beyond REGRESSION_THRESHOLD: fails, unless the PR carries the
- *   OVERRIDE_LABEL, in which case the freshly-measured numbers are accepted
- *   as the new baseline and committed back to the PR branch.
- * - Improvement beyond IMPROVEMENT_THRESHOLD: never fails, and always
- *   ratchets the baseline forward - nothing is blocked by getting faster.
- * - Within NOISE_BAND: no action, to avoid baseline drift from run-to-run
+ *   UPDATE_LABEL, in which case the freshly-measured numbers are accepted
+ *   as the new baseline.
+ * - Improvement beyond IMPROVEMENT_THRESHOLD: never fails - nothing is
+ *   blocked by getting faster - but the baseline is only ratcheted forward
+ *   when the PR carries the UPDATE_LABEL.
+ * - Within the noise band: no action, to avoid baseline drift from run-to-run
  *   jitter.
+ *
+ * The baseline is never committed automatically: any write back to the PR
+ * branch (regression, improvement, or a newly-added benchmark) requires the
+ * UPDATE_LABEL to be present on the PR.
  */
 
 const env = cleanEnv(process.env, {
@@ -29,7 +34,7 @@ const env = cleanEnv(process.env, {
 
 const REGRESSION_THRESHOLD = 0.15;
 const IMPROVEMENT_THRESHOLD = 0.1;
-const OVERRIDE_LABEL = "perf-override";
+const UPDATE_LABEL = "update-benchmark";
 
 const BASELINE_PATH = resolve(import.meta.dir, "../../../scripts/bench-baseline.json");
 const REPORT_PATH = resolve(import.meta.dir, "bench-report.md");
@@ -69,7 +74,7 @@ function classify(current: number, baseline: number | undefined): { status: Stat
   return { status: "OK", deltaPct };
 }
 
-function hasOverrideLabel(): boolean {
+function hasUpdateLabel(): boolean {
   if (!env.PR_NUMBER || !env.GH_TOKEN || !env.GITHUB_REPOSITORY) return false;
   try {
     const out = execSync(
@@ -77,7 +82,7 @@ function hasOverrideLabel(): boolean {
       { env: { ...process.env, GH_TOKEN: env.GH_TOKEN }, encoding: "utf-8" },
     );
     const { labels } = JSON.parse(out) as { labels: { name: string }[] };
-    return labels.some((l) => l.name === OVERRIDE_LABEL);
+    return labels.some((l) => l.name === UPDATE_LABEL);
   } catch {
     return false;
   }
@@ -106,7 +111,13 @@ function statusEmoji(status: Status): string {
 // instead of posting a new one per push.
 const REPORT_MARKER = "<!-- bench-report -->";
 
-function buildReport(rows: ComparisonRow[], anyRegressed: boolean, overridden: boolean): string {
+interface ReportSummary {
+  anyRegressed: boolean;
+  anyChanged: boolean;
+  labelled: boolean;
+}
+
+function buildReport(rows: ComparisonRow[], { anyRegressed, anyChanged, labelled }: ReportSummary): string {
   const lines = [REPORT_MARKER, "### Benchmark report", ""];
   lines.push("| Benchmark | Status | p75 (ms) | Baseline p75 (ms) | Δ |");
   lines.push("|---|---|---|---|---|");
@@ -116,15 +127,20 @@ function buildReport(rows: ComparisonRow[], anyRegressed: boolean, overridden: b
     );
   }
   lines.push("");
-  if (overridden) {
-    lines.push(`Regression accepted via the \`${OVERRIDE_LABEL}\` label — baseline updated from this CI run.`);
+  if (anyChanged && labelled) {
+    lines.push(`Baseline updated from this CI run via the \`${UPDATE_LABEL}\` label.`);
   } else if (anyRegressed) {
     lines.push(
       `One or more benchmarks regressed by more than ${REGRESSION_THRESHOLD * 100}%. ` +
-        `Add the \`${OVERRIDE_LABEL}\` label to this PR to accept these numbers as the new baseline.`,
+        `Add the \`${UPDATE_LABEL}\` label to this PR to accept these numbers as the new baseline.`,
+    );
+  } else if (anyChanged) {
+    lines.push(
+      "No regressions. Some benchmarks improved or are new — " +
+        `add the \`${UPDATE_LABEL}\` label to this PR to record these numbers as the new baseline.`,
     );
   } else {
-    lines.push("No significant regressions.");
+    lines.push("No significant changes.");
   }
   return lines.join("\n");
 }
@@ -190,13 +206,7 @@ async function main() {
   const { benchmarks } = await run({ print: () => undefined });
 
   const baseline = loadBaseline();
-  const updatedBaseline: Baseline = { ...baseline };
   const rows: ComparisonRow[] = [];
-  let anyRegressed = false;
-  let anyImproved = false;
-  let anyNew = false;
-
-  const recordedAt = new Date().toISOString();
 
   for (const trial of benchmarks) {
     const name = trial.alias;
@@ -216,32 +226,29 @@ async function main() {
       baselineP75: baseline[name]?.p75,
       deltaPct,
     });
-
-    if (status === "REGRESSED") anyRegressed = true;
-    if (status === "IMPROVED") anyImproved = true;
-    if (status === "NEW") anyNew = true;
-
-    if (status === "NEW" || status === "IMPROVED") {
-      updatedBaseline[name] = { p75: p75Ms, avg: avgMs, recordedAt, sha: env.PR_HEAD_SHA };
-    }
   }
 
-  const overridden = anyRegressed && hasOverrideLabel();
-  if (overridden) {
+  const anyRegressed = rows.some((row) => row.status === "REGRESSED");
+  const anyChanged = rows.some((row) => row.status !== "OK");
+  const labelled = anyChanged && hasUpdateLabel();
+
+  // The baseline is only ever written with the label present - whether the
+  // change is a regression being accepted, an improvement being ratcheted
+  // forward, or a new benchmark being recorded for the first time.
+  if (labelled) {
+    const recordedAt = new Date().toISOString();
+    const updatedBaseline: Baseline = { ...baseline };
     for (const row of rows) {
-      if (row.status === "REGRESSED") {
+      if (row.status !== "OK") {
         updatedBaseline[row.name] = { p75: row.currentP75, avg: row.currentAvg, recordedAt, sha: env.PR_HEAD_SHA };
       }
     }
-  }
-
-  if (anyImproved || anyNew || overridden) {
     commitUpdatedBaseline(updatedBaseline);
   }
 
-  postComment(buildReport(rows, anyRegressed, overridden));
+  postComment(buildReport(rows, { anyRegressed, anyChanged, labelled }));
 
-  if (anyRegressed && !overridden) {
+  if (anyRegressed && !labelled) {
     process.exit(1);
   }
 }
