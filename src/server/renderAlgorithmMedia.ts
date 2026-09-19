@@ -18,6 +18,7 @@ import {
   createTotalElementBudget,
 } from './renderBudget';
 import type { RenderLimits } from './renderBudget';
+import { cacheApiRequestFor, computeRenderCacheKey, r2KeyFor } from './renderCache';
 
 const RENDER_PATH_PREFIX = '/render/';
 
@@ -187,12 +188,75 @@ const CONTENT_TYPES: Record<RenderFormat, string> = {
 };
 
 /**
+ * Renders are a pure function of their cache key, so once produced they never
+ * change — the key itself changes (via RENDER_VERSION) when the output would.
+ */
+const IMMUTABLE_CACHE_CONTROL = 'public, max-age=31536000, immutable';
+
+export type RenderRouteDeps = {
+  /** `env.RENDERS` — durable, global source of truth for finished renders. */
+  renders?: R2Bucket;
+  /**
+   * `caches.default` — fast, per-data-centre, best-effort. Note that the
+   * Cache API is a no-op on `*.workers.dev`: `put` succeeds silently and
+   * `match` always misses. It only functions on a custom domain, so every
+   * path here must work with it missing — R2 still serves hits there.
+   */
+  cache?: Cache;
+  /** `ctx.waitUntil` — lets the cache writes outlive the response. */
+  waitUntil?: (promise: Promise<unknown>) => void;
+  /** Overridable so tests can assert that a cache hit skips rendering. */
+  renderers?: {
+    png: typeof renderGraphToPng;
+    gif: typeof renderGraphToGif;
+  };
+};
+
+function defaultCache(): Cache | undefined {
+  // `caches` is a Workers global; absent under Bun (tests). Typed structurally
+  // because the DOM lib's `CacheStorage` (pulled in by tsconfig.worker.json)
+  // has no `default` member.
+  const storage = (globalThis as { caches?: { default?: Cache } }).caches;
+  return storage?.default;
+}
+
+function mediaResponse(body: BodyInit, format: RenderFormat): Response {
+  return new Response(body, {
+    headers: {
+      'content-type': CONTENT_TYPES[format],
+      'cache-control': IMMUTABLE_CACHE_CONTROL,
+    },
+  });
+}
+
+/**
+ * Swallows a failing background cache write: the response has already been
+ * sent, and a broken cache must never turn into a failed request or an
+ * unhandled rejection in `waitUntil`.
+ */
+function logCacheFailure(stage: string): (e: unknown) => void {
+  return e => console.warn(`render cache: ${stage} failed`, e);
+}
+
+/**
  * Handles `/render/<encoded-algorithm>[.png|.gif]` requests: decode, validate,
  * construct, and render the algorithm. 404s on any decode/validation/
  * construction failure rather than surfacing an error; 413s when the graph
  * is over the render budget (see renderBudget.ts).
+ *
+ * Successful renders are cached in two layers, checked in order:
+ *   1. Cache API (`deps.cache`) — fast, per-data-centre, best-effort.
+ *   2. R2 (`deps.renders`) — durable, global. A hit here also repopulates
+ *      the Cache API in the background.
+ * A miss in both renders within the budget, responds, then writes to both
+ * layers via `waitUntil` so the caller never waits on storage.
+ *
+ * The cache key is computed only after decoding, validation, default
+ * resolution and clamping, so equivalent requests share one entry and
+ * invalid or oversized graphs never reach the caches. Errors (404 / 413 /
+ * 5xx) are never stored.
  */
-export async function renderAlgorithmResponse(request: Request): Promise<Response> {
+export async function renderAlgorithmResponse(request: Request, deps: RenderRouteDeps = {}): Promise<Response> {
   const parsed = parseRenderPath(new URL(request.url).pathname);
   if (!parsed) {
     return new Response('Not found', { status: 404 });
@@ -210,13 +274,46 @@ export async function renderAlgorithmResponse(request: Request): Promise<Respons
   }
 
   const graph = decoded as GeoArtGraph;
-  const settings = resolvePreviewSettings(graph);
+  const settings = clampPreviewSettings(resolvePreviewSettings(graph), RENDER_LIMITS);
+  const { format } = parsed;
 
+  const cache = deps.cache ?? defaultCache();
+  const renders = deps.renders;
+  const waitUntil = deps.waitUntil ?? (promise => void promise.catch(() => {}));
+  const cacheKey = await computeRenderCacheKey({ graph, settings, format });
+  const cacheRequest = cacheApiRequestFor(request.url, cacheKey, format);
+  const r2Key = r2KeyFor(cacheKey, format);
+
+  if (cache) {
+    try {
+      const hit = await cache.match(cacheRequest);
+      if (hit) return hit;
+    } catch (e) {
+      logCacheFailure('Cache API match')(e);
+    }
+  }
+
+  if (renders) {
+    try {
+      const object = await renders.get(r2Key);
+      if (object) {
+        const response = mediaResponse(object.body, format);
+        if (cache) {
+          waitUntil(cache.put(cacheRequest, response.clone()).catch(logCacheFailure('Cache API put')));
+        }
+        return response;
+      }
+    } catch (e) {
+      logCacheFailure('R2 get')(e);
+    }
+  }
+
+  const renderers = deps.renderers ?? { png: renderGraphToPng, gif: renderGraphToGif };
   let bytes: Uint8Array;
   try {
-    bytes = parsed.format === 'gif'
-      ? await renderGraphToGif(graph, settings)
-      : await renderGraphToPng(graph, settings.staticImageNumTicks);
+    bytes = format === 'gif'
+      ? await renderers.gif(graph, settings)
+      : await renderers.png(graph, settings.staticImageNumTicks);
   } catch (e) {
     if (e instanceof RenderBudgetExceededError) {
       return new Response(`Algorithm is too expensive to render: ${e.message}`, { status: 413 });
@@ -224,7 +321,17 @@ export async function renderAlgorithmResponse(request: Request): Promise<Respons
     throw e;
   }
 
-  return new Response(new Blob([new Uint8Array(bytes)]), {
-    headers: { 'content-type': CONTENT_TYPES[parsed.format] },
-  });
+  // Copy out of any WASM-backed buffer before handing the bytes to three consumers.
+  const blob = new Blob([new Uint8Array(bytes)]);
+  if (renders) {
+    waitUntil(
+      renders
+        .put(r2Key, blob, { httpMetadata: { contentType: CONTENT_TYPES[format] } })
+        .catch(logCacheFailure('R2 put')),
+    );
+  }
+  if (cache) {
+    waitUntil(cache.put(cacheRequest, mediaResponse(blob, format)).catch(logCacheFailure('Cache API put')));
+  }
+  return mediaResponse(blob, format);
 }

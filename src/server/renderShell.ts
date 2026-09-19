@@ -1,8 +1,5 @@
 import { CANVAS_SIZE } from './renderAlgorithmMedia';
-
-export interface Env {
-  ASSETS: Fetcher;
-}
+import type { Env } from './env';
 
 const DEFAULT_TITLE = 'Geoart 3000';
 const DEFAULT_DESCRIPTION =

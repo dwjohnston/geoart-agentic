@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'bun:test';
-import { renderShell, type Env } from './renderShell';
+import { renderShell } from './renderShell';
+import type { Env } from './env';
 
 const FAKE_INDEX_HTML = '<!doctype html><html><head><title>x</title></head><body></body></html>';
 
@@ -9,6 +10,7 @@ function fakeEnv(): Env {
       fetch: async () =>
         new Response(FAKE_INDEX_HTML, { status: 200, headers: { 'content-type': 'text/html' } }),
     } as unknown as Fetcher,
+    RENDERS: {} as R2Bucket,
   };
 }
 
