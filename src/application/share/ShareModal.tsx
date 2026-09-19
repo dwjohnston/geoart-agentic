@@ -1,18 +1,17 @@
-import { useId, useState } from 'react';
-import type { CSSProperties, ReactNode } from 'react';
+import { useEffect, useId, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { Modal } from '../Modal';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 import { PREVIEW_SETTINGS_LIMITS, resolvePreviewSettings } from '../../schema/previewSettings';
-import type { ResolvedPreviewSettings } from '../../schema/previewSettings';
-import { exportGif, exportPng, exportVideo } from '../export/exportMedia';
-import type { ExportFormat, ExportOptions, ExportProgress, ExportResult } from '../export/exportMedia';
+import { exportPng } from '../export/exportMedia';
+import { createOffscreenRenderer } from '../export/offscreenRenderer';
 import { downloadBlob, exportFilename } from '../export/downloadBlob';
-import { gifShareUrl, staticImageShareUrl } from './shareLinks';
+import { staticImageShareUrl } from './shareLinks';
 import type { ShareOrigin } from './shareLinks';
 
 type Props = {
   graph: GeoArtGraph;
-  /** The app's canvas size; downloads render the graph at this size. */
+  /** The app's canvas size; the preview and download render the graph at this size. */
   renderSize: number;
   onClose: () => void;
   /** Overridable for tests; defaults to a real browser download. */
@@ -23,83 +22,50 @@ type Props = {
 
 type Status =
   | { kind: 'idle' }
-  | { kind: 'working'; format: ExportFormat; progress: ExportProgress | null }
+  | { kind: 'working' }
   | { kind: 'done'; filename: string }
   | { kind: 'error'; message: string };
 
-const EXPORTERS: Record<ExportFormat, (options: ExportOptions) => Promise<ExportResult>> = {
-  png: exportPng,
-  gif: exportGif,
-  video: exportVideo,
-};
-
-const FORMAT_LABELS: Record<ExportFormat, string> = {
-  png: 'PNG',
-  gif: 'GIF',
-  video: 'video',
-};
-
-type SettingKey = keyof ResolvedPreviewSettings;
-type SettingField = { key: SettingKey; label: string; min: number; max: number };
-
-/** Maxima match what the server will render, so a link never asks for more than it gets. */
-const STATIC_FIELDS: SettingField[] = [
-  { key: 'staticImageNumTicks', label: 'Ticks before image', min: 1, max: PREVIEW_SETTINGS_LIMITS.maxStaticTicks },
-];
-
-const GIF_FIELDS: SettingField[] = [
-  { key: 'animationNumFrames', label: 'Frames', min: 1, max: PREVIEW_SETTINGS_LIMITS.maxAnimationFrames },
-  { key: 'animationTicksPerFrame', label: 'Ticks per frame', min: 1, max: PREVIEW_SETTINGS_LIMITS.maxTicksPerFrame },
-  { key: 'animationFrameDelayMs', label: 'Frame delay (ms)', min: 10, max: 500 },
-];
-
-type Side = 'static' | 'gif';
+const PREVIEW_SIZE = 320;
+/** Wait for the slider to settle before re-rendering the preview. */
+const PREVIEW_DEBOUNCE_MS = 150;
 
 function currentShareOrigin(): ShareOrigin {
   return { origin: window.location.origin, pathname: window.location.pathname };
 }
 
 /**
- * One modal, two sides: a link to the app (whose `og:image` is the static
- * image after N ticks) and a direct link to the server-rendered GIF. The
- * controls on each side are baked into that side's link, so the server
- * renders what was chosen here. Downloads use the client-side renderer.
+ * Share link to the app with the graph in `?a=`. The server's `og:image` for
+ * that page is the graph rendered after `staticImageNumTicks`, so the tick
+ * control is baked into the link and the preview shows the same frame.
  */
 export function ShareModal({ graph, renderSize, onClose, download = downloadBlob, shareOrigin }: Props) {
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
-  const [copied, setCopied] = useState<Side | null>(null);
-  const [settings, setSettings] = useState<ResolvedPreviewSettings>(() => resolvePreviewSettings(graph));
+  const [copied, setCopied] = useState(false);
+  const [numTicks, setNumTicks] = useState(() => resolvePreviewSettings(graph).staticImageNumTicks);
+  const preview = usePreviewImage(graph, renderSize, numTicks);
   const origin = shareOrigin ?? currentShareOrigin();
-  const staticUrl = staticImageShareUrl(graph, settings, origin);
-  const gifUrl = gifShareUrl(graph, settings, origin);
-  const animationSeconds = (settings.animationNumFrames * settings.animationFrameDelayMs) / 1000;
+  const url = staticImageShareUrl(graph, { staticImageNumTicks: numTicks }, origin);
   const working = status.kind === 'working';
 
-  function setSetting(key: SettingKey, value: number) {
-    setSettings(prev => ({ ...prev, [key]: value }));
-  }
-
-  async function copy(side: Side, url: string) {
+  async function copy() {
     try {
       await navigator.clipboard.writeText(url);
-      setCopied(side);
-      setTimeout(() => setCopied(current => (current === side ? null : current)), 2000);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch {
       // clipboard access may be unavailable in some contexts; the link is still selectable
     }
   }
 
-  async function run(format: ExportFormat) {
-    setStatus({ kind: 'working', format, progress: null });
+  async function downloadPng() {
+    setStatus({ kind: 'working' });
     try {
-      // Animated downloads are half size, matching the server's GIF and keeping files small.
-      const outputSize = format === 'png' ? renderSize : renderSize / 2;
-      const result = await EXPORTERS[format]({
+      const result = await exportPng({
         graph,
-        settings,
+        settings: { ...resolvePreviewSettings(graph), staticImageNumTicks: numTicks },
         renderSize,
-        outputSize,
-        onProgress: progress => setStatus({ kind: 'working', format, progress }),
+        outputSize: renderSize,
       });
       const filename = exportFilename(graph.title, result.extension);
       download(result.blob, filename);
@@ -109,94 +75,92 @@ export function ShareModal({ graph, renderSize, onClose, download = downloadBlob
     }
   }
 
-  function fields(list: SettingField[]) {
-    return list.map(field => (
-      <SliderField
-        key={field.key}
-        label={field.label}
-        min={field.min}
-        max={field.max}
-        value={settings[field.key]}
-        disabled={working}
-        onChange={value => setSetting(field.key, value)}
-      />
-    ));
-  }
-
   return (
     <Modal title="Share" onClose={onClose}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, color: '#ccc', fontSize: 13 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-          <Pane title="Share as static image" description="Link to this page; previews show the image after the chosen number of ticks.">
-            {fields(STATIC_FIELDS)}
-            <LinkRow label="Static image link" url={staticUrl} copied={copied === 'static'} onCopy={() => copy('static', staticUrl)} />
-            <div style={{ display: 'flex', gap: 8 }}>
-              <button onClick={() => run('png')} disabled={working} style={buttonStyle(working)}>
-                Download PNG
-              </button>
-            </div>
-          </Pane>
-          <Pane title="Share as GIF" description="Direct link to a looping GIF, for sites like Reddit that preview GIFs.">
-            {fields(GIF_FIELDS)}
-            <div>
-              {settings.animationNumFrames} frames × {settings.animationFrameDelayMs} ms ({animationSeconds.toFixed(1)} s)
-            </div>
-            <LinkRow label="GIF link" url={gifUrl} copied={copied === 'gif'} onCopy={() => copy('gif', gifUrl)} />
-            <div style={{ display: 'flex', gap: 8 }}>
-              <button onClick={() => run('gif')} disabled={working} style={buttonStyle(working)}>
-                Download GIF
-              </button>
-              <button onClick={() => run('video')} disabled={working} style={buttonStyle(working)}>
-                Download video
-              </button>
-            </div>
-          </Pane>
+      <div style={{ display: 'flex', gap: 24, color: '#ccc', fontSize: 13 }}>
+        <div
+          style={{
+            width: PREVIEW_SIZE,
+            height: PREVIEW_SIZE,
+            flex: 'none',
+            background: '#0a0a0f',
+            border: '1px solid #333',
+            borderRadius: 4,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#666',
+          }}
+        >
+          {preview ? (
+            <img src={preview} alt="Share preview" width={PREVIEW_SIZE} height={PREVIEW_SIZE} style={{ display: 'block' }} />
+          ) : (
+            'Rendering preview…'
+          )}
         </div>
-        <div role="status" style={{ minHeight: 18 }}>
-          {statusText(status)}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flex: 1, minWidth: 0 }}>
+          <div style={{ color: '#999' }}>Link previews show the image after the chosen number of ticks.</div>
+          <SliderField
+            label="Ticks before image"
+            min={1}
+            max={PREVIEW_SETTINGS_LIMITS.maxStaticTicks}
+            value={numTicks}
+            disabled={working}
+            onChange={setNumTicks}
+          />
+          <div style={{ display: 'flex', gap: 8 }}>
+            <input
+              readOnly
+              aria-label="Share link"
+              value={url}
+              onFocus={e => e.target.select()}
+              style={{
+                flex: 1,
+                minWidth: 0,
+                background: '#111',
+                color: '#aef',
+                border: '1px solid #333',
+                borderRadius: 4,
+                padding: '6px 8px',
+                fontFamily: 'monospace',
+                fontSize: 12,
+              }}
+            />
+            <button onClick={copy} style={{ ...buttonStyle(false), flex: 'none', color: copied ? '#5af' : '#eee' }}>
+              {copied ? 'Copied!' : 'Copy link'}
+            </button>
+          </div>
+          <button onClick={downloadPng} disabled={working} style={{ ...buttonStyle(working), alignSelf: 'flex-start' }}>
+            Download PNG
+          </button>
+          <div role="status" style={{ minHeight: 18 }}>
+            {statusText(status)}
+          </div>
         </div>
       </div>
     </Modal>
   );
 }
 
-function Pane({ title, description, children }: { title: string; description: string; children: ReactNode }) {
-  return (
-    <section style={{ display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
-      <h3 style={{ margin: 0, fontSize: 15, color: '#eee' }}>{title}</h3>
-      <div style={{ color: '#999' }}>{description}</div>
-      {children}
-    </section>
-  );
-}
+/**
+ * Data URL of the graph after `numTicks`, re-rendered (debounced) when the
+ * inputs change. `null` while a render is pending — the last image is
+ * remembered with the tick count it was rendered for, so it is only shown
+ * while that count is still current.
+ */
+function usePreviewImage(graph: GeoArtGraph, renderSize: number, numTicks: number): string | null {
+  const [preview, setPreview] = useState<{ numTicks: number; src: string } | null>(null);
 
-type LinkRowProps = { label: string; url: string; copied: boolean; onCopy: () => void };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const renderer = createOffscreenRenderer(graph, renderSize, PREVIEW_SIZE);
+      for (let i = 0; i < numTicks; i++) renderer.tick();
+      setPreview({ numTicks, src: renderer.composite().toDataURL('image/png') });
+    }, PREVIEW_DEBOUNCE_MS);
+    return () => clearTimeout(timer);
+  }, [graph, renderSize, numTicks]);
 
-function LinkRow({ label, url, copied, onCopy }: LinkRowProps) {
-  return (
-    <div style={{ display: 'flex', gap: 8 }}>
-      <input
-        readOnly
-        aria-label={label}
-        value={url}
-        onFocus={e => e.target.select()}
-        style={{
-          flex: 1,
-          minWidth: 0,
-          background: '#111',
-          color: '#aef',
-          border: '1px solid #333',
-          borderRadius: 4,
-          padding: '6px 8px',
-          fontFamily: 'monospace',
-          fontSize: 12,
-        }}
-      />
-      <button onClick={onCopy} style={{ ...buttonStyle(false), flex: 'none', color: copied ? '#5af' : '#eee' }}>
-        {copied ? 'Copied!' : 'Copy link'}
-      </button>
-    </div>
-  );
+  return preview?.numTicks === numTicks ? preview.src : null;
 }
 
 type SliderFieldProps = {
@@ -248,9 +212,7 @@ function statusText(status: Status): string {
     case 'idle':
       return '';
     case 'working':
-      return status.progress
-        ? `Rendering ${FORMAT_LABELS[status.format]}… frame ${status.progress.frame} / ${status.progress.totalFrames}`
-        : `Rendering ${FORMAT_LABELS[status.format]}…`;
+      return 'Rendering PNG…';
     case 'done':
       return `Saved ${status.filename}`;
     case 'error':
@@ -260,7 +222,6 @@ function statusText(status: Status): string {
 
 function buttonStyle(disabled: boolean): CSSProperties {
   return {
-    flex: 1,
     background: '#2a2a3a',
     color: '#eee',
     border: '1px solid #444',

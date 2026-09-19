@@ -6,11 +6,7 @@ import { decodeGraphFromUrl } from '../../common-tooling/graphUrlEncoding';
 import minimalGraph from '../../algorithms/reference/minimal/minimalThreeNodeReferenceGraph';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
 
-// Two short frames keep the GIF/video downloads fast.
-const graph: GeoArtGraph = {
-  ...minimalGraph,
-  previewSettings: { staticImageNumTicks: 2, animationNumFrames: 2, animationFrameDelayMs: 20 },
-};
+const graph: GeoArtGraph = { ...minimalGraph, previewSettings: { staticImageNumTicks: 2 } };
 
 const shareOrigin = { origin: 'https://example.test', pathname: '/' };
 
@@ -18,76 +14,61 @@ function renderModal(download: (blob: Blob, filename: string) => void = () => {}
   return render(<ShareModal graph={graph} renderSize={100} onClose={() => {}} download={download} shareOrigin={shareOrigin} />);
 }
 
-async function waitForDownload(download: ReturnType<typeof vi.fn>): Promise<[Blob, string]> {
-  await vi.waitFor(() => expect(download).toHaveBeenCalledTimes(1), { timeout: 10_000 });
-  return download.mock.calls[0] as [Blob, string];
+async function linkValue(): Promise<string> {
+  return ((await page.getByLabelText('Share link').element()) as HTMLInputElement).value;
 }
 
-function decodeStaticLink(url: string): GeoArtGraph {
+function decodeLink(url: string): GeoArtGraph {
   return decodeGraphFromUrl(new URL(url).searchParams.get('a')!) as GeoArtGraph;
 }
 
-function decodeGifLink(url: string): GeoArtGraph {
-  const { pathname } = new URL(url);
-  return decodeGraphFromUrl(pathname.slice('/render/'.length, -'.gif'.length)) as GeoArtGraph;
+async function previewSrc(): Promise<string> {
+  const img = page.getByRole('img', { name: 'Share preview' });
+  await expect.element(img).toBeInTheDocument();
+  return ((await img.element()) as HTMLImageElement).src;
 }
 
-test('shows both sides with a link each', async () => {
+test('shows the link with the graph\'s tick setting baked in', async () => {
   await renderModal();
 
-  await expect.element(page.getByRole('heading', { name: 'Share as static image' })).toBeInTheDocument();
-  await expect.element(page.getByRole('heading', { name: 'Share as GIF' })).toBeInTheDocument();
-
-  const staticLink = (await page.getByLabelText('Static image link').element()) as HTMLInputElement;
-  expect(staticLink.value.startsWith('https://example.test/?a=')).toBe(true);
-  expect(decodeStaticLink(staticLink.value).previewSettings?.staticImageNumTicks).toBe(2);
-
-  const gifLink = (await page.getByLabelText('GIF link').element()) as HTMLInputElement;
-  expect(gifLink.value.startsWith('https://example.test/render/')).toBe(true);
-  expect(gifLink.value.endsWith('.gif')).toBe(true);
-  expect(decodeGifLink(gifLink.value).previewSettings?.animationNumFrames).toBe(2);
+  const url = await linkValue();
+  expect(url.startsWith('https://example.test/?a=')).toBe(true);
+  expect(decodeLink(url).previewSettings?.staticImageNumTicks).toBe(2);
 });
 
-test('static-image controls update only the static link', async () => {
+test('renders a preview image and re-renders it when the tick count changes', async () => {
   await renderModal();
-  const gifBefore = ((await page.getByLabelText('GIF link').element()) as HTMLInputElement).value;
+
+  const before = await previewSrc();
+  expect(before.startsWith('data:image/png')).toBe(true);
+
+  await page.getByRole('spinbutton', { name: 'Ticks before image value' }).fill('40');
+
+  await vi.waitFor(async () => expect(await previewSrc()).not.toBe(before));
+});
+
+test('tick controls update the link and clamp to the server maximum', async () => {
+  await renderModal();
 
   const ticks = page.getByRole('spinbutton', { name: 'Ticks before image value' });
   await expect.element(ticks).toHaveValue(2);
   await ticks.fill('7');
 
   await expect.element(page.getByRole('slider', { name: 'Ticks before image' })).toHaveValue('7');
-  await vi.waitFor(async () => {
-    const link = (await page.getByLabelText('Static image link').element()) as HTMLInputElement;
-    expect(decodeStaticLink(link.value).previewSettings?.staticImageNumTicks).toBe(7);
-  });
-  expect(((await page.getByLabelText('GIF link').element()) as HTMLInputElement).value).toBe(gifBefore);
-});
+  await vi.waitFor(async () => expect(decodeLink(await linkValue()).previewSettings?.staticImageNumTicks).toBe(7));
 
-test('GIF controls update the GIF link and are clamped to the server maximum', async () => {
-  await renderModal();
-
-  const frames = page.getByRole('spinbutton', { name: 'Frames value' });
-  await frames.fill('3');
-  await expect.element(page.getByRole('slider', { name: 'Frames' })).toHaveValue('3');
-  await vi.waitFor(async () => {
-    const link = (await page.getByLabelText('GIF link').element()) as HTMLInputElement;
-    expect(decodeGifLink(link.value).previewSettings?.animationNumFrames).toBe(3);
-  });
-
-  await frames.fill('9999');
-  await expect.element(frames).toHaveValue(100);
+  await ticks.fill('9999');
+  await expect.element(ticks).toHaveValue(600);
 });
 
 test('copy button writes the link to the clipboard', async () => {
   const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined);
   await renderModal();
 
-  await page.getByRole('button', { name: 'Copy link' }).nth(1).click();
+  await page.getByRole('button', { name: 'Copy link' }).click();
 
   await expect.element(page.getByRole('button', { name: 'Copied!' })).toBeInTheDocument();
-  expect(writeText).toHaveBeenCalledTimes(1);
-  expect(String(writeText.mock.calls[0][0]).endsWith('.gif')).toBe(true);
+  expect(writeText).toHaveBeenCalledWith(await linkValue());
   writeText.mockRestore();
 });
 
@@ -97,37 +78,11 @@ test('Download PNG saves a PNG named after the graph title', async () => {
 
   await page.getByRole('button', { name: 'Download PNG' }).click();
 
-  const [blob, filename] = await waitForDownload(download);
+  await vi.waitFor(() => expect(download).toHaveBeenCalledTimes(1), { timeout: 10_000 });
+  const [blob, filename] = download.mock.calls[0] as [Blob, string];
   expect(blob.type).toBe('image/png');
   expect(filename).toBe('minimal-three-node.png');
   await expect.element(page.getByRole('status')).toHaveTextContent('Saved minimal-three-node.png');
-});
-
-test('Download GIF saves a half-size GIF89a file', async () => {
-  const download = vi.fn();
-  await renderModal(download);
-
-  await page.getByRole('button', { name: 'Download GIF' }).click();
-
-  const [blob, filename] = await waitForDownload(download);
-  expect(blob.type).toBe('image/gif');
-  expect(filename).toBe('minimal-three-node.gif');
-  const bytes = new Uint8Array(await blob.arrayBuffer());
-  expect(new TextDecoder().decode(bytes.subarray(0, 6))).toBe('GIF89a');
-  // Logical screen width (little-endian) is half of renderSize.
-  expect(bytes[6] | (bytes[7] << 8)).toBe(50);
-});
-
-test('Download video saves a video blob', async () => {
-  const download = vi.fn();
-  await renderModal(download);
-
-  await page.getByRole('button', { name: 'Download video' }).click();
-
-  const [blob, filename] = await waitForDownload(download);
-  expect(blob.type).toMatch(/^video\//);
-  expect(blob.size).toBeGreaterThan(0);
-  expect(filename).toMatch(/^minimal-three-node\.(webm|mp4)$/);
 });
 
 test('shows an error status when a download fails', async () => {

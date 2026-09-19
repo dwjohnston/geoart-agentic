@@ -1,6 +1,5 @@
 import { createGraphEngine } from '../../graphEngine/exports';
 import type { GeoArtGraph } from '../../schema/_generated/schema-types';
-import type { RgbaFrame } from '../../common-tooling/gifEncoding';
 
 /** Matches the visible canvas backdrop in Canvas.tsx. */
 export const EXPORT_BACKGROUND = '#0a0a0f';
@@ -14,8 +13,6 @@ export type OffscreenRenderer = {
    * reused between calls.
    */
   composite(): HTMLCanvasElement;
-  /** `composite()` and read back the pixels. */
-  readFrame(): RgbaFrame;
 };
 
 /**
@@ -24,7 +21,7 @@ export type OffscreenRenderer = {
  * (the app's canvas size, so node geometry and line widths match what the
  * user sees) and composited down to `outputSize`.
  *
- * Speed is left at 1 — one engine tick per `tick()` — so frame pacing is
+ * Speed is left at 1 — one engine tick per `tick()` — so the frame shown is
  * governed entirely by the caller (previewSettings), the same as the
  * server-side render.
  */
@@ -48,11 +45,6 @@ export function createOffscreenRenderer(graph: GeoArtGraph, renderSize: number, 
   return {
     tick: () => engine.tick(),
     composite: draw,
-    readFrame() {
-      draw();
-      const imageData = compositeCtx.getImageData(0, 0, outputSize, outputSize);
-      return { pixels: imageData.data, width: outputSize, height: outputSize };
-    },
   };
 }
 

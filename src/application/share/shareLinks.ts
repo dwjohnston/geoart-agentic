@@ -7,37 +7,17 @@ export type ShareOrigin = { origin: string; pathname: string };
 /**
  * Link to the app itself with the graph in `?a=`. The server's `og:image`
  * for this page is `/render/<a>`, rendered after `staticImageNumTicks`, so
- * only the static-image setting is baked into the link — the animation
- * controls leave it unchanged.
+ * that setting is baked into the link; the graph's other preview settings
+ * are left as they were.
  */
 export function staticImageShareUrl(
   graph: GeoArtGraph,
-  settings: ResolvedPreviewSettings,
+  settings: Pick<ResolvedPreviewSettings, 'staticImageNumTicks'>,
   { origin, pathname }: ShareOrigin,
 ): string {
-  const encoded = encodeGraphForUrl(withPreviewSettings(graph, { staticImageNumTicks: settings.staticImageNumTicks }));
-  return `${origin}${pathname}?a=${encoded}`;
-}
-
-/**
- * Direct link to the server-rendered looping GIF, for sites (Reddit etc.)
- * that preview GIF URLs inline. Only the animation settings are baked in.
- */
-export function gifShareUrl(
-  graph: GeoArtGraph,
-  settings: ResolvedPreviewSettings,
-  { origin }: Pick<ShareOrigin, 'origin'>,
-): string {
-  const encoded = encodeGraphForUrl(
-    withPreviewSettings(graph, {
-      animationNumFrames: settings.animationNumFrames,
-      animationTicksPerFrame: settings.animationTicksPerFrame,
-      animationFrameDelayMs: settings.animationFrameDelayMs,
-    }),
-  );
-  return `${origin}/render/${encoded}.gif`;
-}
-
-function withPreviewSettings(graph: GeoArtGraph, overrides: Partial<ResolvedPreviewSettings>): GeoArtGraph {
-  return { ...graph, previewSettings: { ...graph.previewSettings, ...overrides } };
+  const withSettings: GeoArtGraph = {
+    ...graph,
+    previewSettings: { ...graph.previewSettings, staticImageNumTicks: settings.staticImageNumTicks },
+  };
+  return `${origin}${pathname}?a=${encodeGraphForUrl(withSettings)}`;
 }
